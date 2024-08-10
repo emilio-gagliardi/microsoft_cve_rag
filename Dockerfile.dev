@@ -1,0 +1,43 @@
+FROM python:3.11-slim
+
+# Create a non-root user
+RUN useradd -m appuser
+
+WORKDIR /app
+
+# Copy only the requirements file first
+COPY requirements.txt /app/
+
+# Create and activate virtual environment, then install packages
+RUN python -m venv /home/appuser/venv && \
+    /home/appuser/venv/bin/pip install --upgrade pip && \
+    /home/appuser/venv/bin/pip install --no-cache-dir -r requirements.txt && \
+    /home/appuser/venv/bin/pip install pip-tools
+
+# Download spaCy language model
+# RUN /home/appuser/venv/bin/python -m spacy download en_core_web_lg
+
+COPY . /app
+
+# Copy the rest of your application
+EXPOSE 8100
+
+RUN mkdir -p data notebooks
+# Set the entrypoint
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Change ownership of the app directory
+RUN chown -R appuser:appuser /app /home/appuser/venv
+
+# Switch to non-root user
+USER appuser
+
+# Set environment variable for Python to run in unbuffered mode
+ENV PYTHONUNBUFFERED 1
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+# Keep the container running
+CMD ["tail", "-f", "/dev/null"]
+

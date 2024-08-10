@@ -1,0 +1,21 @@
+# Ignore Python bytecode
+*.pyc
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.swp
+*.log
+*.bak
+.env*
+*.env
+venv/
+env/
+# Ignore all VSCode workspace and settings files
+.vscode/
+*.code-workspace
+
+# Ignore codiumate settings
+.codiumai.toml
+
+/mongo_playground/
+.aider*

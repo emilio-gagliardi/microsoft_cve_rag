@@ -1,0 +1,47 @@
+Project startup
+# Create and activate a new environment
+conda create -n myenv python=3.9
+conda activate myenv
+
+https://anaconda.org/main/pymongo
+conda install main::pymongo
+conda install conda-forge::neo4j-python-driver
+conda install qdrant-client
+conda install main::pydantic-core
+conda install main::cython==0.29.37
+conda install main::uvicorn
+conda install main::sqlalchemy
+
+pip install protobuf==4.25.4
+# grpcio-tools 1.62.2 has requirement protobuf<5.0dev,>=4.21.6
+# opentelemetry-proto 1.16.0 has requirement protobuf<5.0,>=3.19
+
+# Install JupyterLab and Jupyter Notebook
+conda install -c conda-forge jupyterlab
+conda install -c conda-forge notebook
+
+# Install IPython widgets
+conda install -c conda-forge ipywidgets
+
+# Install Jupyter Notebook extensions
+conda install -c conda-forge jupyter_contrib_nbextensions
+conda install -c conda-forge jupyter_nbextensions_configurator
+
+# Install and enable the nbextensions
+jupyter contrib nbextension install --sys-prefix
+jupyter nbextensions_configurator enable --sys-prefix
+
+# Enable IPython widgets extension
+jupyter nbextension enable --py widgetsnbextension --sys-prefix
+jupyter nbextension install --py widgetsnbextension --sys-prefix
+
+install requirements.txt
+
+Build Dockerfile and docker-compose.yml
+
+
+Going to production
+remove Jupyter resources from environment
+conda remove --name myenv jupyter jupyterlab notebook ipywidgets jupyter_contrib_nbextensions jupyter_nbextensions_configurator
+
+update to test git connection

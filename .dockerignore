@@ -1,0 +1,35 @@
+# Python
+*.pyc
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Environment files
+.env*
+venv/
+env/
+
+# IDE files
+.vscode/
+*.code-workspace
+.idea/
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# Git
+.git
+.gitignore
+
+# Other
+*.swp
+*.bak
+.codiumai.toml
+
+/mongo_playground/
