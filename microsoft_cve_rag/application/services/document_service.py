@@ -39,7 +39,7 @@ class DocumentService:
             str: ID of the created document.
         """
         result = self.collection.insert_one(document.model_dump())
-        return result.inserted_id
+        return str(result.inserted_id)
 
     def get_document(self, document_id: str) -> dict:
         """
