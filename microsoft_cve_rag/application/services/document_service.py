@@ -3,6 +3,7 @@
 # Outputs: Processed documents
 # Dependencies: None
 
+from typing import List, Dict
 from application.core.models import Document
 from pymongo import MongoClient
 from application.app_utils import get_documents_db_credentials
@@ -18,24 +19,70 @@ class DocumentService:
         self.db = self.client[db_name]
         self.collection = self.db[collection_name]
 
-    def create_document(self, document: Document):
+    def create_document(self, document: Document) -> str:
+        """
+        Create a single document in the collection.
+
+        Args:
+            document (Document): Document to be created.
+
+        Returns:
+            str: ID of the created document.
+        """
         result = self.collection.insert_one(document.model_dump())
         return result.inserted_id
 
-    def get_document(self, document_id: str):
+    def get_document(self, document_id: str) -> dict:
+        """
+        Retrieve a single document from the collection by its ID.
+
+        Args:
+            document_id (str): ID of the document to be retrieved.
+
+        Returns:
+            dict: Retrieved document.
+        """
         return self.collection.find_one({"_id": document_id})
 
-    def update_document(self, document_id: str, document: Document):
+    def update_document(self, document_id: str, document: Document) -> int:
+        """
+        Update a single document in the collection by its ID.
+
+        Args:
+            document_id (str): ID of the document to be updated.
+            document (Document): Updated document data.
+
+        Returns:
+            int: Number of documents updated.
+        """
         result = self.collection.update_one(
             {"_id": document_id}, {"$set": document.model_dump()}
         )
         return result.modified_count
 
-    def delete_document(self, document_id: str):
+    def delete_document(self, document_id: str) -> int:
+        """
+        Delete a single document from the collection by its ID.
+
+        Args:
+            document_id (str): ID of the document to be deleted.
+
+        Returns:
+            int: Number of documents deleted.
+        """
         result = self.collection.delete_one({"_id": document_id})
         return result.deleted_count
 
-    def query_documents(self, query: dict):
+    def query_documents(self, query: dict) -> List[dict]:
+        """
+        Query documents in the collection based on a filter.
+
+        Args:
+            query (dict): Filter to match documents.
+
+        Returns:
+            List[dict]: List of matched documents.
+        """
         return list(self.collection.find(query))
 
 
