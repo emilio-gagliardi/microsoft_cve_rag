@@ -24,7 +24,9 @@ class DocumentService:
         """
         credentials = get_documents_db_credentials()
         self.uri = credentials.uri
-        self.client = MongoClient(credentials.uri)
+        self.client = MongoClient(
+            credentials.uri
+        )
         self.db = self.client[db_name]
         self.collection = self.db[collection_name]
 
