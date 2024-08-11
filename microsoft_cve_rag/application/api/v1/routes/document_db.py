@@ -24,26 +24,30 @@ def shutdown_event():
     document_db_service.close()
 
 
+def create_document_record(document, embedding):
+    return Document(
+        embedding=embedding,
+        metadata=document.metadata,
+        excluded_embed_metadata_keys=document.excluded_embed_metadata_keys,
+        excluded_llm_metadata_keys=document.excluded_llm_metadata_keys,
+        relationships=document.relationships,
+        text=document.text,
+        start_char_idx=document.start_char_idx,
+        end_char_idx=document.end_char_idx,
+        text_template=document.text_template,
+        metadata_template=document.metadata_template,
+        metadata_separator=document.metadata_separator,
+        class_name=document.class_name,
+        created_at=document.created_at,
+        updated_at=document.updated_at,
+    )
+
+
 @router.post("/documents/", response_model=DocumentRecordResponse)
 def create_document(document: DocumentRecordCreate):
     try:
         embedding = embedding_service.generate_embedding(document.text)
-        document_record = Document(
-            embedding=embedding,
-            metadata=document.metadata,
-            excluded_embed_metadata_keys=document.excluded_embed_metadata_keys,
-            excluded_llm_metadata_keys=document.excluded_llm_metadata_keys,
-            relationships=document.relationships,
-            text=document.text,
-            start_char_idx=document.start_char_idx,
-            end_char_idx=document.end_char_idx,
-            text_template=document.text_template,
-            metadata_template=document.metadata_template,
-            metadata_separator=document.metadata_separator,
-            class_name=document.class_name,
-            created_at=document.created_at,
-            updated_at=document.updated_at,
-        )
+        document_record = create_document_record(document, embedding)
         document_id = document_db_service.create_document(document_record)
         return DocumentRecordResponse(
             id_=document_id,
@@ -75,23 +79,7 @@ def get_document(document_id: str):
 def update_document(document_id: str, document: DocumentRecordUpdate):
     try:
         embedding = embedding_service.generate_embedding(document.text)
-        document_record = Document(
-            id_=document.id_,
-            embedding=embedding,
-            metadata=document.metadata,
-            excluded_embed_metadata_keys=document.excluded_embed_metadata_keys,
-            excluded_llm_metadata_keys=document.excluded_llm_metadata_keys,
-            relationships=document.relationships,
-            text=document.text,
-            start_char_idx=document.start_char_idx,
-            end_char_idx=document.end_char_idx,
-            text_template=document.text_template,
-            metadata_template=document.metadata_template,
-            metadata_separator=document.metadata_separator,
-            class_name=document.class_name,
-            created_at=document.created_at,
-            updated_at=document.updated_at,
-        )
+        document_record = create_document_record(document, embedding)
         updated_document = document_db_service.update_document(
             document_id, document_record
         )
@@ -145,22 +133,7 @@ def create_documents_bulk(documents: BulkDocumentRecordCreate):
         responses = []
         for document in documents.records:
             embedding = embedding_service.generate_embedding(document.text)
-            document_record = Document(
-                embedding=embedding,
-                metadata=document.metadata,
-                excluded_embed_metadata_keys=document.excluded_embed_metadata_keys,
-                excluded_llm_metadata_keys=document.excluded_llm_metadata_keys,
-                relationships=document.relationships,
-                text=document.text,
-                start_char_idx=document.start_char_idx,
-                end_char_idx=document.end_char_idx,
-                text_template=document.text_template,
-                metadata_template=document.metadata_template,
-                metadata_separator=document.metadata_separator,
-                class_name=document.class_name,
-                created_at=document.created_at,
-                updated_at=document.updated_at,
-            )
+            document_record = create_document_record(document, embedding)
             document_id = document_db_service.create_document(document_record)
             responses.append(
                 DocumentRecordResponse(
@@ -181,23 +154,7 @@ def update_documents_bulk(documents: BulkDocumentRecordUpdate):
         responses = []
         for document in documents.records:
             embedding = embedding_service.generate_embedding(document.text)
-            document_record = Document(
-                id_=document.id_,
-                embedding=embedding,
-                metadata=document.metadata,
-                excluded_embed_metadata_keys=document.excluded_embed_metadata_keys,
-                excluded_llm_metadata_keys=document.excluded_llm_metadata_keys,
-                relationships=document.relationships,
-                text=document.text,
-                start_char_idx=document.start_char_idx,
-                end_char_idx=document.end_char_idx,
-                text_template=document.text_template,
-                metadata_template=document.metadata_template,
-                metadata_separator=document.metadata_separator,
-                class_name=document.class_name,
-                created_at=document.created_at,
-                updated_at=document.updated_at,
-            )
+            document_record = create_document_record(document, embedding)
             updated_document = document_db_service.update_document(
                 str(document.id_), document_record
             )
