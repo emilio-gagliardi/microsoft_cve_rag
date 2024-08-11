@@ -3,16 +3,25 @@
 # Outputs: Processed documents
 # Dependencies: None
 
-from typing import List, Dict
 from application.core.models import Document
 from pymongo import MongoClient
 from application.app_utils import get_documents_db_credentials
 from application.core.schemas.document_schemas import DocumentRecordBase
 from datetime import datetime
+from typing import List, Dict
 
 
 class DocumentService:
-    def __init__(self, db_name="report_docstore", collection_name="docstore"):
+    def __init__(
+        self, db_name: str = "report_docstore", collection_name: str = "docstore"
+    ):
+        """
+        Initialize the DocumentService with database and collection names.
+
+        Args:
+            db_name (str): Name of the database.
+            collection_name (str): Name of the collection.
+        """
         credentials = get_documents_db_credentials()
         self.uri = credentials.uri
         self.client = MongoClient(credentials.uri)
@@ -85,7 +94,6 @@ class DocumentService:
         """
         return list(self.collection.find(query))
 
-
     def create_documents(self, documents: List[Document]) -> List[str]:
         """
         Create multiple documents in the collection.
@@ -149,3 +157,49 @@ class DocumentService:
         """
         result = list(self.collection.aggregate(pipeline))
         return result
+
+
+if __name__ == "__main__":
+    service = DocumentService()
+
+    # Create a document
+    document_data = {
+        "metadata": {
+            "title": "Sample Document",
+            "description": "This is a sample document.",
+            "products": ["Product A", "Product B"],
+            "severity_type": "High",
+            "published": {"date": datetime.now()},
+        },
+        "text": "This is the text content of the document.",
+        "embedding": [0.1, 0.2, 0.3] * 171,  # Assuming 512-length embedding
+    }
+    document = DocumentRecordBase(**document_data)
+    created_id = service.create_document(document)
+    print(f"Created document ID: {created_id}")
+
+    # Get the created document
+    fetched_document = service.get_document(created_id)
+    print(f"Fetched document: {fetched_document}")
+
+    # Update the document
+    document_data["text"] = "This is an updated sample document."
+    updated_document = DocumentRecordBase(**document_data)
+    update_count = service.update_document(created_id, updated_document)
+    print(f"Number of documents updated: {update_count}")
+
+    # Fetch the updated document
+    updated_fetched_document = service.get_document(created_id)
+    print(f"Updated fetched document: {updated_fetched_document}")
+
+    # Query documents
+    query_result = service.query_documents({"metadata.title": "Sample Document"})
+    print(f"Query result: {query_result}")
+
+    # Delete the document
+    delete_count = service.delete_document(created_id)
+    print(f"Number of documents deleted: {delete_count}")
+
+    # Verify deletion
+    deleted_fetched_document = service.get_document(created_id)
+    print(f"Document after deletion (should be None): {deleted_fetched_document}")
