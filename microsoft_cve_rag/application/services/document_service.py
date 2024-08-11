@@ -86,47 +86,66 @@ class DocumentService:
         return list(self.collection.find(query))
 
 
-if __name__ == "__main__":
-    service = DocumentService()
+    def create_documents(self, documents: List[Document]) -> List[str]:
+        """
+        Create multiple documents in the collection.
 
-    # Create a document
-    document_data = {
-        "metadata": {
-            "title": "Sample Document",
-            "description": "This is a sample document.",
-            "products": ["Product A", "Product B"],
-            "severity_type": "High",
-            "published": {"date": datetime.now()},
-        },
-        "text": "This is the text content of the document.",
-        "embedding": [0.1, 0.2, 0.3] * 171,  # Assuming 512-length embedding
-    }
-    document = DocumentRecordBase(**document_data)
-    created_id = service.create_document(document)
-    print(f"Created document ID: {created_id}")
+        Args:
+            documents (List[Document]): List of documents to be created.
 
-    # Get the created document
-    fetched_document = service.get_document(created_id)
-    print(f"Fetched document: {fetched_document}")
+        Returns:
+            List[str]: List of IDs of the created documents.
+        """
+        result = self.collection.insert_many([doc.model_dump() for doc in documents])
+        return result.inserted_ids
 
-    # Update the document
-    document_data["text"] = "This is an updated sample document."
-    updated_document = DocumentRecordBase(**document_data)
-    update_count = service.update_document(created_id, updated_document)
-    print(f"Number of documents updated: {update_count}")
+    def update_documents(self, filter: dict, update: dict) -> int:
+        """
+        Update multiple documents in the collection based on a filter.
 
-    # Fetch the updated document
-    updated_fetched_document = service.get_document(created_id)
-    print(f"Updated fetched document: {updated_fetched_document}")
+        Args:
+            filter (dict): Filter to match documents to be updated.
+            update (dict): Update operations to be applied to the matched documents.
 
-    # Query documents
-    query_result = service.query_documents({"metadata.title": "Sample Document"})
-    print(f"Query result: {query_result}")
+        Returns:
+            int: Number of documents updated.
+        """
+        result = self.collection.update_many(filter, {"$set": update})
+        return result.modified_count
 
-    # Delete the document
-    delete_count = service.delete_document(created_id)
-    print(f"Number of documents deleted: {delete_count}")
+    def delete_documents(self, filter: dict) -> int:
+        """
+        Delete multiple documents in the collection based on a filter.
 
-    # Verify deletion
-    deleted_fetched_document = service.get_document(created_id)
-    print(f"Document after deletion (should be None): {deleted_fetched_document}")
+        Args:
+            filter (dict): Filter to match documents to be deleted.
+
+        Returns:
+            int: Number of documents deleted.
+        """
+        result = self.collection.delete_many(filter)
+        return result.deleted_count
+
+    def aggregate_documents(self, pipeline: List[dict]) -> List[dict]:
+        """
+        Execute an aggregation pipeline on the documents collection.
+
+        Args:
+            pipeline (List[dict]): List of aggregation stages.
+                Example:
+                    pipeline = [
+                        {"$match": {"metadata.severity_type": "High"}},
+                        {"$group": {"_id": "$metadata.products", "count": {"$sum": 1}}},
+                        {"$sort": {"count": -1}}
+                    ]
+
+        Returns:
+            List[dict]: Result of the aggregation pipeline.
+                Example:
+                    [
+                        {"_id": "Product A", "count": 10},
+                        {"_id": "Product B", "count": 5}
+                    ]
+        """
+        result = list(self.collection.aggregate(pipeline))
+        return result
