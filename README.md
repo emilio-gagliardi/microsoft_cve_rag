@@ -91,7 +91,23 @@ To run the tests, use the following command:
 pytest
 ```
 
-## Contributing
+## Aider -- Sonnet
+
+The `aider --sonnet` command is a powerful tool that helps in generating and managing code changes efficiently. It uses a structured format to ensure that all changes are well-documented and easy to track.
+
+### Usage
+
+To use the `aider --sonnet` command, follow these steps:
+
+1. Open your terminal.
+2. Navigate to the root directory of your project.
+3. Run the following command:
+
+    ```sh
+    aider --sonnet
+    ```
+
+This command will guide you through the process of making and documenting code changes.
 
 Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
