@@ -1,5 +1,12 @@
+# import os
+# import sys
+
+# original_dir = os.getcwd()
+# print(sys.path)
+# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../..")))
+# print(sys.path)
 from fastapi import APIRouter, HTTPException
-from core.schemas.document_schemas import (
+from application.core.schemas.document_schemas import (
     DocumentRecordCreate,
     DocumentRecordUpdate,
     DocumentRecordResponse,
@@ -8,11 +15,13 @@ from core.schemas.document_schemas import (
     BulkDocumentRecordCreate,
     BulkDocumentRecordUpdate,
     BulkDocumentRecordDelete,
+    DocumentMetadata,
 )
 from application.core.models import Document
 from application.services.document_service import DocumentService
 from application.services.embedding_service import EmbeddingService
 from typing import List, Dict
+import requests
 
 router = APIRouter()
 document_db_service = DocumentService()
@@ -514,3 +523,130 @@ def aggregate_documents(pipeline: List[Dict]):
         return results
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+if __name__ == "__main__":
+
+    BASE_URL = "http://localhost:8000"
+
+    def test_create_document():
+        url = f"{BASE_URL}/documents/"
+        data = DocumentRecordCreate(
+            text="Sample document text",
+            metadata=DocumentMetadata(
+                title="Sample Document",
+                description="This is a sample document.",
+                collection="test_data",
+            ),
+        )
+        data.compute_hash()  # Compute the hash before sending the request
+        response = requests.post(url, json=data.model_dump())
+        print("Create Document Response:", response.json())
+        return response.json()["id_"]
+
+    def test_get_document(document_id):
+        url = f"{BASE_URL}/documents/{document_id}"
+        response = requests.get(url)
+        print("Get Document Response:", response.json())
+
+    def test_update_document(document_id):
+        url = f"{BASE_URL}/documents/{document_id}"
+        data = {
+            "text": "Updated document text",
+            "metadata": {
+                "title": "Updated Document",
+                "description": "This is an updated document.",
+            },
+        }
+        response = requests.put(url, json=data)
+        print("Update Document Response:", response.json())
+
+    def test_delete_document(document_id):
+        url = f"{BASE_URL}/documents/{document_id}"
+        response = requests.delete(url)
+        print("Delete Document Response:", response.json())
+
+    def test_query_documents():
+        url = f"{BASE_URL}/documents/query/"
+        data = {
+            "query": {"metadata.title": "Sample Document"},
+            "page": 1,
+            "page_size": 10,
+        }
+        response = requests.post(url, json=data)
+        print("Query Documents Response:", response.json())
+
+    def test_create_documents_bulk():
+        url = f"{BASE_URL}/documents/bulk/"
+        data = {
+            "records": [
+                {
+                    "text": "Sample document text 1",
+                    "metadata": {
+                        "title": "Sample Document 1",
+                        "description": "This is a sample document 1.",
+                    },
+                },
+                {
+                    "text": "Sample document text 2",
+                    "metadata": {
+                        "title": "Sample Document 2",
+                        "description": "This is a sample document 2.",
+                    },
+                },
+            ]
+        }
+        response = requests.post(url, json=data)
+        print("Create Documents Bulk Response:", response.json())
+
+    def test_update_documents_bulk():
+        url = f"{BASE_URL}/documents/bulk/"
+        data = {
+            "records": [
+                {
+                    "id_": "document_id_1",
+                    "text": "Updated document text 1",
+                    "metadata": {
+                        "title": "Updated Document 1",
+                        "description": "This is an updated document 1.",
+                    },
+                },
+                {
+                    "id_": "document_id_2",
+                    "text": "Updated document text 2",
+                    "metadata": {
+                        "title": "Updated Document 2",
+                        "description": "This is an updated document 2.",
+                    },
+                },
+            ]
+        }
+        response = requests.put(url, json=data)
+        print("Update Documents Bulk Response:", response.json())
+
+    def test_delete_documents_bulk():
+        url = f"{BASE_URL}/documents/bulk/"
+        data = {"ids": ["document_id_1", "document_id_2"]}
+        response = requests.delete(url, json=data)
+        print("Delete Documents Bulk Response:", response.json())
+
+    def test_aggregate_documents():
+        url = f"{BASE_URL}/documents/aggregate/"
+        data = [
+            {"$match": {"metadata.severity_type": "High"}},
+            {"$group": {"_id": "$metadata.products", "count": {"$sum": 1}}},
+            {"$sort": {"count": -1}},
+        ]
+        response = requests.post(url, json=data)
+        print("Aggregate Documents Response:", response.json())
+
+    # Run tests
+    document_id = test_create_document()
+    test_get_document(document_id)
+    test_update_document(document_id)
+    test_delete_document(document_id)
+    test_query_documents()
+    test_create_documents_bulk()
+    test_update_documents_bulk()
+    test_delete_documents_bulk()
+    test_aggregate_documents()

@@ -1,8 +1,16 @@
-from pydantic import BaseModel, Field, validator
+# import os
+# import sys
+
+# original_dir = os.getcwd()
+# print(sys.path)
+# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+# print(sys.path)
+
+from pydantic import BaseModel, Field, field_validator
 from uuid import UUID, uuid4
 from typing import Optional, List, Dict
-from datetime import datetime
-from application.config import DEFAULT_EMBEDDING_CONFIG
+from datetime import datetime, timezone
+from application.config import PROJECT_CONFIG
 
 
 class Published(BaseModel):
@@ -22,6 +30,12 @@ class BaseMetadata(BaseModel):
     products: Optional[List[str]] = None
     severity_type: Optional[str] = None
     summary: Optional[str] = None
+    collection: Optional[str] = None
+    source: Optional[str] = None
+    hash: Optional[str] = None
+    conversationId: Optional[str] = None
+    subject: Optional[str] = None
+    receivedDateTime: Optional[str] = None
 
 
 class DocumentMetadata(BaseMetadata):
@@ -33,7 +47,7 @@ class DocumentMetadata(BaseMetadata):
     added_to_graph_store: Optional[bool] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class Document(BaseModel):
@@ -53,7 +67,7 @@ class Document(BaseModel):
     class_name: Optional[str] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class GraphNodeMetadata(BaseMetadata):
@@ -62,7 +76,7 @@ class GraphNodeMetadata(BaseMetadata):
     tags: Optional[str] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class GraphNode(BaseModel):
@@ -72,17 +86,21 @@ class GraphNode(BaseModel):
     relationships: Optional[Dict[str, str]] = None
     text: Optional[str] = None
     class_name: Optional[str] = None
-    created_at: Optional[datetime] = Field(default_factory=datetime.now(datetime.UTC))
-    updated_at: Optional[datetime] = Field(default_factory=datetime.now(datetime.UTC))
+    created_at: Optional[datetime] = Field(
+        default_factory=lambda: datetime.now(timezone.utc)
+    )
+    updated_at: Optional[datetime] = Field(
+        default_factory=lambda: datetime.now(timezone.utc)
+    )
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
-    @validator("embedding")
+    @field_validator("embedding")
     def check_embedding_length(cls, v):
-        if v and len(v) != DEFAULT_EMBEDDING_CONFIG.embedding_length:
+        if v and len(v) != PROJECT_CONFIG.DEFAULT_EMBEDDING_CONFIG.embedding_length:
             raise ValueError(
-                f"Embedding model {DEFAULT_EMBEDDING_CONFIG.model_name} must have a length of {DEFAULT_EMBEDDING_CONFIG.embedding_length}"
+                f"Embedding model {PROJECT_CONFIG.DEFAULT_EMBEDDING_CONFIG.model_name} must have a length of {PROJECT_CONFIG.DEFAULT_EMBEDDING_CONFIG.embedding_length}"
             )
         return v
 
@@ -93,7 +111,7 @@ class VectorMetadata(BaseMetadata):
     tags: Optional[str] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class Vector(BaseModel):
@@ -107,16 +125,20 @@ class Vector(BaseModel):
     metadata_template: Optional[str] = None
     metadata_separator: Optional[str] = None
     class_name: Optional[str] = None
-    created_at: Optional[datetime] = Field(default_factory=datetime.now(datetime.UTC))
-    updated_at: Optional[datetime] = Field(default_factory=datetime.now(datetime.UTC))
+    created_at: Optional[datetime] = Field(
+        default_factory=lambda: datetime.now(timezone.utc)
+    )
+    updated_at: Optional[datetime] = Field(
+        default_factory=lambda: datetime.now(timezone.utc)
+    )
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
-    @validator("embedding")
+    @field_validator("embedding")
     def check_embedding_length(cls, v):
-        if v and len(v) != DEFAULT_EMBEDDING_CONFIG.embedding_length:
+        if v and len(v) != PROJECT_CONFIG.DEFAULT_EMBEDDING_CONFIG.embedding_length:
             raise ValueError(
-                f"Embedding model {DEFAULT_EMBEDDING_CONFIG.model_name} must have a length of {DEFAULT_EMBEDDING_CONFIG.embedding_length}"
+                f"Embedding model {PROJECT_CONFIG.DEFAULT_EMBEDDING_CONFIG.model_name} must have a length of {PROJECT_CONFIG.DEFAULT_EMBEDDING_CONFIG.embedding_length}"
             )
         return v
