@@ -3,8 +3,21 @@
 # Outputs: Processed documents
 # Dependencies: None
 
+# import os
+# import sys
+
+# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+# print(sys.path)
+
+from bson import ObjectId
 from application.core.models import Document
 from pymongo import MongoClient
+from pymongo.errors import (
+    PyMongoError,
+    ConnectionFailure,
+    OperationFailure,
+    ConfigurationError,
+)
 from application.app_utils import get_documents_db_credentials
 from application.core.schemas.document_schemas import DocumentRecordBase
 from datetime import datetime
@@ -24,9 +37,7 @@ class DocumentService:
         """
         credentials = get_documents_db_credentials()
         self.uri = credentials.uri
-        self.client = MongoClient(
-            credentials.uri
-        )
+        self.client = MongoClient(credentials.uri)
         self.db = self.client[db_name]
         self.collection = self.db[collection_name]
 
@@ -40,8 +51,30 @@ class DocumentService:
         Returns:
             str: ID of the created document.
         """
-        result = self.collection.insert_one(document.model_dump())
-        return str(result.inserted_id)
+        document_dict = document.model_dump()
+        if "id_" in document_dict:
+            document_dict["id_"] = str(document_dict["id_"])
+        if "metadata" in document_dict and "id" in document_dict["metadata"]:
+            document_dict["metadata"]["id"] = str(document_dict["metadata"]["id"])
+
+        try:
+            result = self.collection.insert_one(document_dict)
+            return str(result.inserted_id)
+        except ConnectionFailure as e:
+            print(f"Connection to MongoDB failed: {e}")
+            raise
+        except OperationFailure as e:
+            print(f"Operation failed: {e}")
+            raise
+        except ConfigurationError as e:
+            print(f"Configuration error: {e}")
+            raise
+        except PyMongoError as e:
+            print(f"General MongoDB error: {e}")
+            raise
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            raise
 
     def get_document(self, document_id: str) -> dict:
         """
@@ -53,7 +86,32 @@ class DocumentService:
         Returns:
             dict: Retrieved document.
         """
-        return self.collection.find_one({"_id": document_id})
+        query = {}
+        if ObjectId.is_valid(document_id):
+            query["_id"] = ObjectId(document_id)
+        else:
+            query["id_"] = document_id
+
+        try:
+            document = self.collection.find_one(query)
+            if document is None:
+                print(f"Document with ID {document_id} not found.")
+            return document
+        except ConnectionFailure as e:
+            print(f"Connection to MongoDB failed: {e}")
+            raise
+        except OperationFailure as e:
+            print(f"Operation failed: {e}")
+            raise
+        except ConfigurationError as e:
+            print(f"Configuration error: {e}")
+            raise
+        except PyMongoError as e:
+            print(f"General MongoDB error: {e}")
+            raise
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            raise
 
     def update_document(self, document_id: str, document: Document) -> int:
         """
@@ -66,10 +124,36 @@ class DocumentService:
         Returns:
             int: Number of documents updated.
         """
-        result = self.collection.update_one(
-            {"_id": document_id}, {"$set": document.model_dump()}
-        )
-        return result.modified_count
+        query = {}
+        if ObjectId.is_valid(document_id):
+            query["_id"] = ObjectId(document_id)
+        else:
+            query["id_"] = document_id
+
+        document_dict = document.model_dump()
+        if "id_" in document_dict:
+            document_dict["id_"] = str(document_dict["id_"])
+        if "metadata" in document_dict and "id" in document_dict["metadata"]:
+            document_dict["metadata"]["id"] = str(document_dict["metadata"]["id"])
+
+        try:
+            result = self.collection.update_one(query, {"$set": document_dict})
+            return result.modified_count
+        except ConnectionFailure as e:
+            print(f"Connection to MongoDB failed: {e}")
+            raise
+        except OperationFailure as e:
+            print(f"Operation failed: {e}")
+            raise
+        except ConfigurationError as e:
+            print(f"Configuration error: {e}")
+            raise
+        except PyMongoError as e:
+            print(f"General MongoDB error: {e}")
+            raise
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            raise
 
     def delete_document(self, document_id: str) -> int:
         """
@@ -81,20 +165,66 @@ class DocumentService:
         Returns:
             int: Number of documents deleted.
         """
-        result = self.collection.delete_one({"_id": document_id})
-        return result.deleted_count
+        query = {}
+        if ObjectId.is_valid(document_id):
+            query["_id"] = ObjectId(document_id)
+        else:
+            query["id_"] = document_id
+
+        try:
+            result = self.collection.delete_one(query)
+            return result.deleted_count
+        except ConnectionFailure as e:
+            print(f"Connection to MongoDB failed: {e}")
+            return []
+        except OperationFailure as e:
+            print(f"Operation failed: {e}")
+            return []
+        except ConfigurationError as e:
+            print(f"Configuration error: {e}")
+            return []
+        except PyMongoError as e:
+            print(f"General MongoDB error: {e}")
+            return []
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            return []
 
     def query_documents(self, query: dict) -> List[dict]:
         """
         Query documents in the collection based on a filter.
 
         Args:
-            query (dict): Filter to match documents.
+            query (dict): Filter to match documents. Example:
+                {
+                    "metadata.title": "Sample Document",
+                    "metadata.severity_type": "High"
+                }
 
         Returns:
             List[dict]: List of matched documents.
         """
-        return list(self.collection.find(query))
+        if not isinstance(query, dict):
+            raise ValueError("Query must be a dictionary")
+
+        try:
+            results = list(self.collection.find(query))
+            return results
+        except ConnectionFailure as e:
+            print(f"Connection to MongoDB failed: {e}")
+            return []
+        except OperationFailure as e:
+            print(f"Operation failed: {e}")
+            return []
+        except ConfigurationError as e:
+            print(f"Configuration error: {e}")
+            return []
+        except PyMongoError as e:
+            print(f"General MongoDB error: {e}")
+            return []
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            return []
 
     def create_documents(self, documents: List[Document]) -> List[str]:
         """
@@ -106,8 +236,26 @@ class DocumentService:
         Returns:
             List[str]: List of IDs of the created documents.
         """
-        result = self.collection.insert_many([doc.model_dump() for doc in documents])
-        return result.inserted_ids
+        try:
+            result = self.collection.insert_many(
+                [doc.model_dump() for doc in documents]
+            )
+            return result.inserted_ids
+        except ConnectionFailure as e:
+            print(f"Connection to MongoDB failed: {e}")
+            return []
+        except OperationFailure as e:
+            print(f"Operation failed: {e}")
+            return []
+        except ConfigurationError as e:
+            print(f"Configuration error: {e}")
+            return []
+        except PyMongoError as e:
+            print(f"General MongoDB error: {e}")
+            return []
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            return []
 
     def update_documents(self, filter: dict, update: dict) -> int:
         """
@@ -120,8 +268,24 @@ class DocumentService:
         Returns:
             int: Number of documents updated.
         """
-        result = self.collection.update_many(filter, {"$set": update})
-        return result.modified_count
+        try:
+            result = self.collection.update_many(filter, {"$set": update})
+            return result.modified_count
+        except ConnectionFailure as e:
+            print(f"Connection to MongoDB failed: {e}")
+            return []
+        except OperationFailure as e:
+            print(f"Operation failed: {e}")
+            return []
+        except ConfigurationError as e:
+            print(f"Configuration error: {e}")
+            return []
+        except PyMongoError as e:
+            print(f"General MongoDB error: {e}")
+            return []
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            return []
 
     def delete_documents(self, filter: dict) -> int:
         """
@@ -133,8 +297,24 @@ class DocumentService:
         Returns:
             int: Number of documents deleted.
         """
-        result = self.collection.delete_many(filter)
-        return result.deleted_count
+        try:
+            result = self.collection.delete_many(filter)
+            return result.deleted_count
+        except ConnectionFailure as e:
+            print(f"Connection to MongoDB failed: {e}")
+            return []
+        except OperationFailure as e:
+            print(f"Operation failed: {e}")
+            return []
+        except ConfigurationError as e:
+            print(f"Configuration error: {e}")
+            return []
+        except PyMongoError as e:
+            print(f"General MongoDB error: {e}")
+            return []
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            return []
 
     def aggregate_documents(self, pipeline: List[dict]) -> List[dict]:
         """
@@ -157,8 +337,43 @@ class DocumentService:
                         {"_id": "Product B", "count": 5}
                     ]
         """
-        result = list(self.collection.aggregate(pipeline))
-        return result
+        if not isinstance(pipeline, list):
+            raise ValueError("Pipeline must be a list")
+
+        if not all(isinstance(item, dict) for item in pipeline):
+            raise ValueError("All items in the pipeline must be dictionaries")
+
+        try:
+            result = list(self.collection.aggregate(pipeline))
+            return result
+        except ConnectionFailure as e:
+            print(f"Connection to MongoDB failed: {e}")
+            return []
+        except OperationFailure as e:
+            print(f"Operation failed: {e}")
+            return []
+        except ConfigurationError as e:
+            print(f"Configuration error: {e}")
+            return []
+        except PyMongoError as e:
+            print(f"General MongoDB error: {e}")
+            return []
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            return []
+
+    def _describe(self):
+        """
+        Print all instance properties of the DocumentService.
+        """
+        properties = {
+            "uri": self.uri,
+            "client": self.client,
+            "db": self.db,
+            "collection": self.collection,
+        }
+        for key, value in properties.items():
+            print(f"{key}: {value}")
 
 
 if __name__ == "__main__":
@@ -167,21 +382,24 @@ if __name__ == "__main__":
     # Create a document
     document_data = {
         "metadata": {
-            "title": "Sample Document",
-            "description": "This is a sample document.",
-            "products": ["Product A", "Product B"],
+            "title": "Sample Microsoft CVE document",
+            "description": "This is a sample description to mimick a typical microsoft article.",
+            "products": ["Windows 10 99H9", "Windows 10 98H8"],
             "severity_type": "High",
-            "published": {"date": datetime.now()},
+            "published": datetime.now(),
+            "collection": "test_data",
         },
         "text": "This is the text content of the document.",
-        "embedding": [0.1, 0.2, 0.3] * 171,  # Assuming 512-length embedding
+        "embedding": [0.1] * 1024,  # Assuming 1024-length embedding
     }
     document = DocumentRecordBase(**document_data)
     created_id = service.create_document(document)
     print(f"Created document ID: {created_id}")
-
-    # Get the created document
     fetched_document = service.get_document(created_id)
+    print(f"Fetched document: {fetched_document}")
+    # Get the created document
+    fetch_id = "3fb82ead-5114-45a7-b2de-11bf31a9c0d5"
+    fetched_document = service.get_document(fetch_id)
     print(f"Fetched document: {fetched_document}")
 
     # Update the document
@@ -195,7 +413,9 @@ if __name__ == "__main__":
     print(f"Updated fetched document: {updated_fetched_document}")
 
     # Query documents
-    query_result = service.query_documents({"metadata.title": "Sample Document"})
+    query_result = service.query_documents(
+        {"metadata.title": "Sample Microsoft CVE document"}
+    )
     print(f"Query result: {query_result}")
 
     # Delete the document

@@ -14,37 +14,51 @@ from datetime import datetime, timezone
 from application.config import PROJECT_CONFIG
 
 
-class Published(BaseModel):
-    """
-    Model for published information.
-    """
-
-    date: Optional[datetime] = None
-
-
 class BaseMetadata(BaseModel):
     """
     Base metadata model for documents. Includes common metadata fields.
     """
 
-    revision: Optional[str] = None
-    id: Optional[UUID] = None
-    post_id: Optional[str] = None
-    published: Optional[Published] = None
-    title: Optional[str] = None
-    description: Optional[str] = None
-    build_numbers: Optional[List[List[int]]] = None
-    impact_type: Optional[str] = None
-    product_build_ids: Optional[List[UUID]] = None
-    products: Optional[List[str]] = None
-    severity_type: Optional[str] = None
-    summary: Optional[str] = None
-    collection: Optional[str] = None
-    source: Optional[str] = None
-    hash: Optional[str] = None
-    conversationId: Optional[str] = None
-    subject: Optional[str] = None
-    receivedDateTime: Optional[str] = None
+    revision: Optional[str] = Field("", description="The version of msrc post types.")
+    id: Optional[UUID] = Field(None, description="UUID generated at ingestion")
+    post_id: Optional[str] = Field(
+        "", description="Specific CVE identification ID. eg. CVE-2023-36435"
+    )
+    published: Optional[datetime] = Field(
+        None,
+        description="Publication date of the version. Multiple versions have multiple dates.",
+    )
+    title: Optional[str] = Field("", description="Title of the document")
+    description: Optional[str] = Field("", description="Description of the document")
+    build_numbers: Optional[List[List[int]]] = Field(
+        default_factory=list, description="All CVEs are associated to specific OS build numbers."
+    )
+    impact_type: Optional[str] = Field(
+        "", description="Impact type of the security vulnerability"
+    )
+    product_build_ids: Optional[List[UUID]] = Field(
+        default_factory=list,
+        description="Identifier that associates products, kb articles, update packages",
+    )
+    products: Optional[List[str]] = Field(
+        default_factory=list, description="The name of the product(s) affected by the CVE"
+    )
+    severity_type: Optional[str] = Field("", description="Severity type of the CVE")
+    summary: Optional[str] = Field("", description="Summary of the document")
+    collection: Optional[str] = Field(
+        "", description="document collection. Currently there are 10."
+    )
+    source: Optional[str] = Field("", description="The URL of the ingested document")
+    hash: Optional[str] = Field("", description="Hash of the document")
+    conversationId: Optional[str] = Field(
+        "", description="Conversation identifier for patch management emails"
+    )
+    subject: Optional[str] = Field(
+        "", description="Subject of the patch management email"
+    )
+    receivedDateTime: Optional[str] = Field(
+        "", description="The datetime when email was received by google groups."
+    )
 
 
 class DocumentMetadata(BaseMetadata):
@@ -52,20 +66,30 @@ class DocumentMetadata(BaseMetadata):
     Metadata model for documents. Includes additional fields specific to documents.
     """
 
-    cve_fixes: Optional[str] = None
-    cve_mentions: Optional[str] = None
-    tags: Optional[str] = None
-    added_to_vector_store: Optional[bool] = None
-    added_to_summary_index: Optional[bool] = None
-    added_to_graph_store: Optional[bool] = None
+    cve_fixes: Optional[str] = Field(
+        "", description="CVE fixes mentioned in the document"
+    )
+    cve_mentions: Optional[str] = Field(
+        "", description="CVE mentions in the document"
+    )
+    tags: Optional[str] = Field("", description="Tags associated with the document")
+    added_to_vector_store: Optional[bool] = Field(
+        False, description="Indicates if the document is added to the vector store"
+    )
+    added_to_summary_index: Optional[bool] = Field(
+        False, description="Indicates if the document is added to the summary index"
+    )
+    added_to_graph_store: Optional[bool] = Field(
+        False, description="Indicates if the document is added to the graph store"
+    )
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "revision": "1.0",
                 "id": "123e4567-e89b-12d3-a456-426614174000",
                 "post_id": "post123",
-                "published": {"date": "2023-10-01T00:00:00Z"},
+                "published": "2023-09-21T00:00:00.000+00:00",
                 "title": "Sample Document",
                 "description": "This is a sample document.",
                 "build_numbers": [[10, 0, 19041], [10, 0, 19042]],
@@ -85,7 +109,7 @@ class DocumentMetadata(BaseMetadata):
                 "tags": "security, update",
                 "added_to_vector_store": True,
                 "added_to_summary_index": False,
-                "added_to_graph_store": True
+                "added_to_graph_store": True,
             }
         }
 
@@ -103,23 +127,26 @@ class DocumentRecordBase(BaseModel):
         None, description="Metadata associated with the record"
     )
     excluded_embed_metadata_keys: Optional[List[str]] = Field(
-        None, description="Metadata keys to exclude from embedding"
+        default_factory=list,
+        description="Metadata keys to exclude from embedding. LlamaIndex specific.",
     )
     excluded_llm_metadata_keys: Optional[List[str]] = Field(
-        None, description="Metadata keys to exclude from LLM"
+        default_factory=list, description="Metadata keys to exclude from LLM. LlamaIndex specific."
     )
     relationships: Optional[Dict[str, str]] = Field(
-        None, description="Relationships of the record"
+        default_factory=dict, description="Relationships of the record. LlamaIndex specific."
     )
-    text: Optional[str] = Field(None, description="Text associated with the record")
+    text: Optional[str] = Field("", description="Text associated with the record")
     start_char_idx: Optional[int] = Field(None, description="Start character index")
     end_char_idx: Optional[int] = Field(None, description="End character index")
-    text_template: Optional[str] = Field(None, description="Template for text")
-    metadata_template: Optional[str] = Field(None, description="Template for metadata")
+    text_template: Optional[str] = Field("", description="Template for text")
+    metadata_template: Optional[str] = Field("", description="Template for metadata")
     metadata_separator: Optional[str] = Field(
-        None, description="Separator for metadata"
+        "", description="Separator for metadata"
     )
-    class_name: Optional[str] = Field(None, description="Class name of the record")
+    class_name: Optional[str] = Field(
+        "", description="Class name used in processing ie., a LlamaIndex Document in this case.",
+    )
     created_at: Optional[datetime] = Field(
         default_factory=lambda: datetime.now(timezone.utc),
         description="Timestamp when the record was created",
@@ -131,14 +158,14 @@ class DocumentRecordBase(BaseModel):
 
     @field_validator("embedding")
     def check_embedding_length(cls, v):
-        if v and len(v) != PROJECT_CONFIG.DEFAULT_EMBEDDING_CONFIG.embedding_length:
+        if v and len(v) != PROJECT_CONFIG["DEFAULT_EMBEDDING_CONFIG"].embedding_length:
             raise ValueError(
-                f"Embedding model {PROJECT_CONFIG.DEFAULT_EMBEDDING_CONFIG.model_name} must have a length of {PROJECT_CONFIG.DEFAULT_EMBEDDING_CONFIG.embedding_length}"
+                f"Embedding model {PROJECT_CONFIG['DEFAULT_EMBEDDING_CONFIG'].model_name} must have a length of {PROJECT_CONFIG['DEFAULT_EMBEDDING_CONFIG'].embedding_length}"
             )
         return v
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "id_": "123e4567-e89b-12d3-a456-426614174000",
                 "embedding": [0.1, 0.2, 0.3, 0.4, 0.5],
@@ -146,7 +173,7 @@ class DocumentRecordBase(BaseModel):
                     "revision": "1.0",
                     "id": "123e4567-e89b-12d3-a456-426614174000",
                     "post_id": "post123",
-                    "published": {"date": "2023-10-01T00:00:00Z"},
+                    "published": "2023-09-21T00:00:00.000+00:00",
                     "title": "Sample Document",
                     "description": "This is a sample document.",
                     "build_numbers": [[10, 0, 19041], [10, 0, 19042]],
@@ -166,11 +193,13 @@ class DocumentRecordBase(BaseModel):
                     "tags": "security, update",
                     "added_to_vector_store": True,
                     "added_to_summary_index": False,
-                    "added_to_graph_store": True
+                    "added_to_graph_store": True,
                 },
                 "excluded_embed_metadata_keys": ["hash", "conversationId"],
                 "excluded_llm_metadata_keys": ["hash", "conversationId"],
-                "relationships": {"related_doc": "123e4567-e89b-12d3-a456-426614174002"},
+                "relationships": {
+                    "related_doc": "123e4567-e89b-12d3-a456-426614174002"
+                },
                 "text": "Sample document text",
                 "start_char_idx": 0,
                 "end_char_idx": 100,
@@ -179,7 +208,7 @@ class DocumentRecordBase(BaseModel):
                 "metadata_separator": "|",
                 "class_name": "Document",
                 "created_at": "2023-10-01T00:00:00Z",
-                "updated_at": "2023-10-01T00:00:00Z"
+                "updated_at": "2023-10-01T00:00:00Z",
             }
         }
 
@@ -205,14 +234,14 @@ class DocumentRecordCreate(DocumentRecordBase):
         self.metadata.hash = sha256(hash_input.encode("utf-8")).hexdigest()
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "text": "Sample document text",
                 "metadata": {
                     "revision": "1.0",
                     "id": "123e4567-e89b-12d3-a456-426614174000",
                     "post_id": "post123",
-                    "published": {"date": "2023-10-01T00:00:00Z"},
+                    "published": "2023-09-21T00:00:00.000+00:00",
                     "title": "Sample Document",
                     "description": "This is a sample document.",
                     "build_numbers": [[10, 0, 19041], [10, 0, 19042]],
@@ -232,8 +261,8 @@ class DocumentRecordCreate(DocumentRecordBase):
                     "tags": "security, update",
                     "added_to_vector_store": True,
                     "added_to_summary_index": False,
-                    "added_to_graph_store": True
-                }
+                    "added_to_graph_store": True,
+                },
             }
         }
 
@@ -259,9 +288,11 @@ class DocumentRecordQuery(BaseModel):
     Model for querying document records. Includes query parameters and pagination details.
     """
 
-    query: Dict[str, str] = Field(..., description="Query parameters")
-    page: Optional[int] = Field(1, description="Page number for pagination")
-    page_size: Optional[int] = Field(10, description="Number of records per page")
+    query: Dict[str, str] = Field(default_factory=dict, description="Query parameters")
+    page: Optional[int] = Field(1, description="Page number for pagination. Default 0")
+    page_size: Optional[int] = Field(
+        10, description="Number of records per page. Default 10."
+    )
 
 
 class DocumentRecordResponse(BaseModel):
@@ -270,7 +301,7 @@ class DocumentRecordResponse(BaseModel):
     """
 
     id_: Optional[UUID] = Field(None, description="Unique identifier of the record")
-    message: str = Field(..., description="Response message")
+    message: str = Field(..., description="Response message from database")
     created_at: Optional[datetime] = Field(
         None, description="Timestamp when the record was created"
     )
