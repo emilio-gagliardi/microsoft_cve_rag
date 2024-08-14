@@ -5,6 +5,10 @@
 # print(sys.path)
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../..")))
 # print(sys.path)
+from bson import ObjectId
+import json
+from json import JSONEncoder
+from datetime import datetime
 from fastapi import APIRouter, HTTPException
 from application.core.schemas.document_schemas import (
     DocumentRecordCreate,
@@ -16,27 +20,23 @@ from application.core.schemas.document_schemas import (
     BulkDocumentRecordUpdate,
     BulkDocumentRecordDelete,
     DocumentMetadata,
+    DocumentRecordBase,
+    AggregationPipeline,
 )
 from application.core.models import Document
 from application.services.document_service import DocumentService
 from application.services.embedding_service import EmbeddingService
-from typing import List, Dict
+from typing import List, Dict, Any
 import requests
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
 
 router = APIRouter()
 document_db_service = DocumentService()
 embedding_service = EmbeddingService()
 
 
-@router.on_event("shutdown")
-def shutdown_event():
-    """
-    Close the document database service on shutdown.
-    """
-    document_db_service.close()
-
-
-def create_document_record(document, embedding):
+def create_document_record(document, embedding=[]):
     """
     Create a Document record with the given document data and embedding.
 
@@ -48,6 +48,7 @@ def create_document_record(document, embedding):
         Document: The created Document object.
     """
     return Document(
+        id_=document.id_,
         embedding=embedding,
         metadata=document.metadata,
         excluded_embed_metadata_keys=document.excluded_embed_metadata_keys,
@@ -60,9 +61,40 @@ def create_document_record(document, embedding):
         metadata_template=document.metadata_template,
         metadata_separator=document.metadata_separator,
         class_name=document.class_name,
-        created_at=document.created_at,
-        updated_at=document.updated_at,
     )
+
+
+class MongoJSONEncoder(JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        if isinstance(o, datetime):
+            return o.isoformat()
+        return JSONEncoder.default(self, o)
+
+
+class MongoJSONResponse(JSONResponse):
+    def render(self, content) -> bytes:
+        return json.dumps(
+            content,
+            ensure_ascii=False,
+            allow_nan=False,
+            indent=None,
+            separators=(",", ":"),
+            cls=MongoJSONEncoder,
+        ).encode("utf-8")
+
+
+def mongo_json_encoder(obj):
+    return MongoJSONEncoder().default(obj)
+
+
+@router.on_event("shutdown")
+def shutdown_event():
+    """
+    Close the document database service on shutdown.
+    """
+    document_db_service.close()
 
 
 @router.post("/documents/", response_model=DocumentRecordResponse)
@@ -79,8 +111,10 @@ def create_document(document: DocumentRecordCreate):
     Example:
         Request:
         {
+            "id_":"123e4567-e89b-12d3-a456-426614174000",
             "text": "Sample document text",
             "metadata": {
+                "id": "123e4567-e89b-12d3-a456-426614174000",
                 "title": "Sample Document",
                 "description": "This is a sample document."
             }
@@ -90,20 +124,49 @@ def create_document(document: DocumentRecordCreate):
         {
             "id_": "document_id",
             "message": "Document created successfully",
-            "created_at": "2023-10-01T00:00:00Z",
-            "updated_at": "2023-10-01T00:00:00Z"
+            "document: <document>
         }
     """
     try:
+        # Check for missing data
+        if (
+            not document.text
+            or not document.metadata
+            or not document.id_
+            or document.id_ == ""
+        ):
+            raise HTTPException(
+                status_code=400,
+                detail="Missing required fields: ['text', 'metadata', 'id_']",
+            )
+        # Validate data types
+        if (
+            not isinstance(document.text, str)
+            or not isinstance(document.metadata, DocumentMetadata)
+            or not isinstance(document.id_, str)
+        ):
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid data types. 'text' must be a string. 'metadata' must be a DocumentMetadata. id_ must be a string.",
+            )
+
+        # Ensure metadata.id is not empty
+        if not document.metadata.id:
+            raise HTTPException(
+                status_code=400,
+                detail="metadata.id is required and cannot be empty",
+            )
+
         embedding = embedding_service.generate_embedding(document.text)
         document_record = create_document_record(document, embedding)
         document_id = document_db_service.create_document(document_record)
-        return DocumentRecordResponse(
+        response = DocumentRecordResponse(
             id_=document_id,
             message="Document created successfully",
-            created_at=document.created_at,
-            updated_at=document.updated_at,
         )
+        return response
+    except HTTPException as e:
+        raise e
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -127,21 +190,28 @@ def get_document(document_id: str):
         {
             "id_": "document_id",
             "message": "Document retrieved successfully",
-            "created_at": "2023-10-01T00:00:00Z",
-            "updated_at": "2023-10-01T00:00:00Z"
+            "document": DocumentRecordBase
         }
     """
+    # Check for bad or missing data
+    if not isinstance(document_id, str) or not document_id.strip():
+        raise HTTPException(
+            status_code=400,
+            detail="Missing required fields: ['document_id']",
+        )
     try:
         document = document_db_service.get_document(document_id)
+        # print(f"Document fetched: {document}")
         if document is None:
             raise HTTPException(status_code=404, detail="Document not found")
-        return DocumentRecordResponse(
-            id_=document["id"],
+        response = DocumentRecordResponse(
+            id_=document["id_"],
             message="Document retrieved successfully",
-            created_at=document["created_at"],
-            updated_at=document["updated_at"],
         )
+        response.document = DocumentRecordBase(**document)
+        return response
     except Exception as e:
+        print(f"Error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -160,10 +230,12 @@ def update_document(document_id: str, document: DocumentRecordUpdate):
     Example:
         Request:
         {
+            "id_": "123e4567-e89b-12d3-a456-426614174000",
             "text": "Updated document text",
             "metadata": {
-                "title": "Updated Document",
-                "description": "This is an updated document."
+                "id": "123e4567-e89b-12d3-a456-426614174000",
+                "title": "Updated Document Title",
+                "description": "This is an updated description."
             }
         }
 
@@ -171,11 +243,15 @@ def update_document(document_id: str, document: DocumentRecordUpdate):
         {
             "id_": "document_id",
             "message": "Document updated successfully",
-            "created_at": "2023-10-01T00:00:00Z",
-            "updated_at": "2023-10-01T00:00:00Z"
         }
     """
+    if not isinstance(document_id, str) or not document_id.strip():
+        raise HTTPException(
+            status_code=400,
+            detail="Missing required fields: ['document_id']",
+        )
     try:
+
         embedding = embedding_service.generate_embedding(document.text)
         document_record = create_document_record(document, embedding)
         updated_document = document_db_service.update_document(
@@ -183,11 +259,10 @@ def update_document(document_id: str, document: DocumentRecordUpdate):
         )
         if updated_document is None:
             raise HTTPException(status_code=404, detail="Document not found")
+        updated_document = document_db_service.get_document(document_id)
         return DocumentRecordResponse(
-            id_=updated_document["id"],
+            id_=updated_document["id_"],
             message="Document updated successfully",
-            created_at=updated_document["created_at"],
-            updated_at=updated_document["updated_at"],
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -202,7 +277,7 @@ def delete_document(document_id: str):
         document_id (str): The ID of the document to delete.
 
     Returns:
-        DocumentRecordResponse: The response containing the deleted document data and status message.
+        DocumentRecordResponse: The response containing the deleted document ID and status message.
 
     Example:
         Request:
@@ -212,19 +287,23 @@ def delete_document(document_id: str):
         {
             "id_": "document_id",
             "message": "Document deleted successfully",
-            "created_at": "2023-10-01T00:00:00Z",
-            "updated_at": "2023-10-01T00:00:00Z"
         }
     """
+    if not isinstance(document_id, str) or not document_id.strip():
+        raise HTTPException(
+            status_code=400,
+            detail="Missing required fields: ['document_id']",
+        )
     try:
-        deleted_document = document_db_service.delete_document(document_id)
-        if deleted_document is None:
-            raise HTTPException(status_code=404, detail="Document not found")
+        deleted_count = document_db_service.delete_document(document_id)
+        if deleted_count == 0:
+            return DocumentRecordResponse(
+                id_=document_id,
+                message="Document not found or already deleted",
+            )
         return DocumentRecordResponse(
-            id_=deleted_document["id"],
+            id_=document_id,
             message="Document deleted successfully",
-            created_at=deleted_document["created_at"],
-            updated_at=deleted_document["updated_at"],
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -266,12 +345,18 @@ def query_documents(query: DocumentRecordQuery):
             "page_size": 10
         }
     """
+    # print(f"The inputs are: {query}")
     try:
+        # query_documents() returns a list of dicts
         results = document_db_service.query_documents(
             query.query, query.page, query.page_size
         )
+        # convert dicts into DocumentRecordBase instances
+        documents = [DocumentRecordBase(**doc) for doc in results["results"]]
+        # if documents:
+        #     print(f"found docs:\n{documents}")
         return DocumentRecordQueryResponse(
-            results=results["results"],
+            results=documents,
             total_count=results["total_count"],
             page=query.page,
             page_size=query.page_size,
@@ -334,12 +419,12 @@ def create_documents_bulk(documents: BulkDocumentRecordCreate):
             embedding = embedding_service.generate_embedding(document.text)
             document_record = create_document_record(document, embedding)
             document_id = document_db_service.create_document(document_record)
+            created_document = document_db_service.get_document(document_id)
             responses.append(
                 DocumentRecordResponse(
                     id_=document_id,
                     message="Document created successfully",
-                    created_at=document.created_at,
-                    updated_at=document.updated_at,
+                    document=DocumentRecordBase(**created_document),
                 )
             )
         return responses
@@ -385,15 +470,11 @@ def update_documents_bulk(documents: BulkDocumentRecordUpdate):
         [
             {
                 "id_": "document_id_1",
-                "message": "Document updated successfully",
-                "created_at": "2023-10-01T00:00:00Z",
-                "updated_at": "2023-10-01T00:00:00Z"
+                "message": "Document updated successfully"
             },
             {
                 "id_": "document_id_2",
-                "message": "Document updated successfully",
-                "created_at": "2023-10-01T00:00:00Z",
-                "updated_at": "2023-10-01T00:00:00Z"
+                "message": "Document updated successfully"
             }
         ]
     """
@@ -407,12 +488,12 @@ def update_documents_bulk(documents: BulkDocumentRecordUpdate):
             )
             if updated_document is None:
                 raise HTTPException(status_code=404, detail="Document not found")
+            updated_document = document_db_service.get_document(document.id_)
             responses.append(
                 DocumentRecordResponse(
-                    id_=updated_document["id"],
+                    id_=updated_document["id_"],
                     message="Document updated successfully",
-                    created_at=updated_document["created_at"],
-                    updated_at=updated_document["updated_at"],
+                    document=DocumentRecordBase(**updated_document),
                 )
             )
         return responses
@@ -441,15 +522,11 @@ def delete_documents_bulk(documents: BulkDocumentRecordDelete):
         [
             {
                 "id_": "document_id_1",
-                "message": "Document deleted successfully",
-                "created_at": "2023-10-01T00:00:00Z",
-                "updated_at": "2023-10-01T00:00:00Z"
+                "message": "Document deleted successfully"
             },
             {
                 "id_": "document_id_2",
-                "message": "Document deleted successfully",
-                "created_at": "2023-10-01T00:00:00Z",
-                "updated_at": "2023-10-01T00:00:00Z"
+                "message": "Document deleted successfully"
             }
         ]
     """
@@ -459,12 +536,12 @@ def delete_documents_bulk(documents: BulkDocumentRecordDelete):
             deleted_document = document_db_service.delete_document(document_id)
             if deleted_document is None:
                 raise HTTPException(status_code=404, detail="Document not found")
+            deleted_document = document_db_service.get_document(document_id)
             responses.append(
                 DocumentRecordResponse(
-                    id_=deleted_document["id"],
+                    id_=deleted_document["id_"],
                     message="Document deleted successfully",
-                    created_at=deleted_document["created_at"],
-                    updated_at=deleted_document["updated_at"],
+                    document=DocumentRecordBase(**deleted_document),
                 )
             )
         return responses
@@ -472,57 +549,35 @@ def delete_documents_bulk(documents: BulkDocumentRecordDelete):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.post("/documents/aggregate/", response_model=List[Dict])
-def aggregate_documents(pipeline: List[Dict]):
+@router.post("/documents/aggregate/", response_model=List[Dict[str, Any]])
+async def aggregate_documents(pipeline: AggregationPipeline):
     """
     Execute an aggregation pipeline on the documents collection.
 
     Args:
-        pipeline (List[Dict]): The aggregation pipeline stages.
+        pipeline (AggregationPipeline): The aggregation pipeline stages.
 
     Returns:
-        List[Dict]: The result of the aggregation pipeline.
-        List[Dict]: The result of the aggregation pipeline.
+        List[Dict[str, Any]]: The result of the aggregation pipeline.
 
+    Note:
+        For date fields (like 'metadata.published'), use ISO 8601 formatted strings (e.g., "2024-07-01T00:00:00Z").
+        These will be automatically converted to ISODate objects in MongoDB.
 
-    Example:
-        Request:
-    Example:
-        Request:
-        [
-        Request:
-        [
-        [
-            {"$match": {"metadata.severity_type": "High"}},
-            {"$group": {"_id": "$metadata.products", "count": {"$sum": 1}}},
-            {"$match": {"metadata.severity_type": "High"}},
-            {"$group": {"_id": "$metadata.products", "count": {"$sum": 1}}},
-            {"$sort": {"count": -1}}
-            {"$group": {"_id": "$metadata.products", "count": {"$sum": 1}}},
-            {"$sort": {"count": -1}}
-            {"$sort": {"count": -1}}
-        ]
-
-        ]
-
-
-        Response:
-        [
-        Response:
-        [
-            {"_id": "Product A", "count": 10},
-        [
-            {"_id": "Product A", "count": 10},
-            {"_id": "Product A", "count": 10},
-            {"_id": "Product B", "count": 5}
-            {"_id": "Product B", "count": 5}
-        ]
+    Raises:
+        HTTPException: If there's an error during aggregation.
     """
+    print(f"type: {type(pipeline)} value: {pipeline}")
     try:
-        results = document_db_service.aggregate_documents(pipeline)
-        return results
+        results = document_db_service.aggregate_documents(pipeline.pipeline)
+        if results:
+            print(f"found: {len(results)} mongo documents")
+        return MongoJSONResponse(content=results)
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
 
 
 if __name__ == "__main__":

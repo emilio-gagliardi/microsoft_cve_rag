@@ -3,12 +3,24 @@
 # Outputs: FastAPI application instance
 # Dependencies: Routes from api/routes
 import os
+import sys
+import requests
+from bson import ObjectId
+from json import JSONEncoder
+from datetime import datetime
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+print(sys.path)
+from application import config
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
 from fastapi import FastAPI
-from application.api.v1.routes import (
-    vector_db as v1_vector_router,
-    graph_db as v1_graph_router,
-    chat as v1_chat_router,
-    etl as v1_etl_router,
+from application.api.v1.routes.document_db import (
+    # vector_db as v1_vector_router,
+    # graph_db as v1_graph_router,
+    # chat as v1_chat_router,
+    # etl as v1_etl_router,
+    router as v1_document_router,
 )
 
 # from application.api.v2.routes import (
@@ -17,7 +29,8 @@ from application.api.v1.routes import (
 #     chat as v2_chat_router,
 #     etl as v2_etl_router,
 # )
-from app_utils import (
+PROJECT_CONFIG = config.PROJECT_CONFIG
+from application.app_utils import (
     get_openai_api_key,
     get_vector_db_credentials,
     get_graph_db_credentials,
@@ -25,22 +38,25 @@ from app_utils import (
     get_sql_db_credentials,
     setup_logger,
 )
-from application.config import DEFAULT_EMBEDDING_CONFIG
+
 
 # Set variables
+
 os.environ["OPENAI_MODEL_NAME"] = "gpt-4o-mini"
 os.environ["OPENAI_API_KEY"] = get_openai_api_key()
-embedding_config = DEFAULT_EMBEDDING_CONFIG
+embedding_config = PROJECT_CONFIG["DEFAULT_EMBEDDING_CONFIG"]
 
 logger = setup_logger()
+
 
 app = FastAPI()
 
 # Include routers
-app.include_router(v1_chat_router, prefix="/api/v1", tags=["Chat v1"])
-app.include_router(v1_etl_router, prefix="/api/v1", tags=["ETL v1"])
-app.include_router(v1_graph_router, prefix="/api/v1", tags=["Graph Service v1"])
-app.include_router(v1_vector_router, prefix="/api/v1", tags=["Vector Service v1"])
+# app.include_router(v1_chat_router, prefix="/api/v1", tags=["Chat v1"])
+# app.include_router(v1_etl_router, prefix="/api/v1", tags=["ETL v1"])
+# app.include_router(v1_graph_router, prefix="/api/v1", tags=["Graph Service v1"])
+# app.include_router(v1_vector_router, prefix="/api/v1", tags=["Vector Service v1"])
+app.include_router(v1_document_router, prefix="/api/v1", tags=["Document Service v1"])
 # app.include_router(v2_chat_router, prefix="/api/v2", tags=["Chat v2"])
 
 
@@ -63,3 +79,39 @@ def print_credentials():
 async def root():
     print_credentials()
     return {"message": "Welcome to the AI-powered Knowledge Graph API"}
+
+
+@app.get("/system_test")
+async def system_test():
+    base_url = "http://localhost:7501"  # Adjust if your server is running on a different address
+    test_results = {}
+
+    # Test document route
+    document_data = {
+        "text": "Sample document text",
+        "metadata": {
+            "title": "Sample Document",
+            "description": "This is a sample document.",
+        },
+    }
+    response = requests.post(
+        f"{base_url}/api/v1/document/documents/", json=document_data
+    )
+    test_results["document"] = {
+        "status_code": response.status_code,
+        "response_type": str(type(response.json())),
+        "response": response.json(),
+    }
+
+    # Add similar tests for other routes (vector, graph, sql, rag)
+    # ...
+
+    return test_results
+
+
+@app.get("/custom_encoder")
+def get_encodable_data():
+    data = {"id": ObjectId(), "date": datetime.now()}
+    return JSONResponse(
+        content=jsonable_encoder(data, custom_encoder=MongoJSONEncoder().default)
+    )

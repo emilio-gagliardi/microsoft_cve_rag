@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv, find_dotenv
 import logging
-from core.schemas.environment_schemas import (
+from application.core.schemas.environment_schemas import (
     VectorDBCredentialsSchema,
     GraphDBCredentialsSchema,
     DocumentsDBCredentialsSchema,
@@ -48,7 +48,9 @@ def load_env():
             f"Environment '{environment}' is not recognized. Please set up the environment before using the app."
         )
 
-    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    project_root = os.path.dirname(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    )
 
     dotenv_path = os.path.join(project_root, dotenv_file)
 
@@ -61,6 +63,12 @@ def load_env():
     else:
         logging.warning(f"No {dotenv_file} file found or failed to load")
         env_loaded = False
+
+
+def get_app_config():
+    from application import config
+
+    return config.PROJECT_CONFIG
 
 
 def get_openai_api_key():

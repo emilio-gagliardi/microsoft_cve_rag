@@ -19,9 +19,25 @@ from pymongo.errors import (
     ConfigurationError,
 )
 from application.app_utils import get_documents_db_credentials
-from application.core.schemas.document_schemas import DocumentRecordBase
+
 from datetime import datetime
-from typing import List, Dict
+from typing import List, Dict, Any
+
+
+def preprocess_pipeline(pipeline):
+    def process_value(value):
+        if isinstance(value, str):
+            try:
+                return datetime.fromisoformat(value.rstrip("Z"))
+            except ValueError:
+                return value
+        elif isinstance(value, dict):
+            return {k: process_value(v) for k, v in value.items()}
+        elif isinstance(value, list):
+            return [process_value(v) for v in value]
+        return value
+
+    return [process_value(stage) for stage in pipeline]
 
 
 class DocumentService:
@@ -130,14 +146,27 @@ class DocumentService:
         else:
             query["id_"] = document_id
 
-        document_dict = document.model_dump()
-        if "id_" in document_dict:
-            document_dict["id_"] = str(document_dict["id_"])
-        if "metadata" in document_dict and "id" in document_dict["metadata"]:
-            document_dict["metadata"]["id"] = str(document_dict["metadata"]["id"])
+        # print(f"Document Service received:\n{document}")
+        update_dict = {}
+        document_dict = document.model_dump(exclude_unset=True)
+        for key, value in document_dict.items():
+            if key == "metadata" and isinstance(value, dict):
+                for meta_key, meta_value in value.items():
+                    if meta_value is not None:
+                        update_dict[f"metadata.{meta_key}"] = meta_value
+            elif value is not None:
+                update_dict[key] = value
+
+        # Convert ObjectId to string
+        if "id_" in update_dict:
+            update_dict["id_"] = str(update_dict["id_"])
+        if "metadata.id" in update_dict:
+            update_dict["metadata.id"] = str(update_dict["metadata.id"])
+
+        # print(f"Passing to pymongo dict: {update_dict}")
 
         try:
-            result = self.collection.update_one(query, {"$set": document_dict})
+            result = self.collection.update_one(query, {"$set": update_dict})
             return result.modified_count
         except ConnectionFailure as e:
             print(f"Connection to MongoDB failed: {e}")
@@ -170,61 +199,64 @@ class DocumentService:
             query["_id"] = ObjectId(document_id)
         else:
             query["id_"] = document_id
-
+        print(f"deleting document: {document_id}")
         try:
             result = self.collection.delete_one(query)
             return result.deleted_count
         except ConnectionFailure as e:
             print(f"Connection to MongoDB failed: {e}")
-            return []
+            raise
         except OperationFailure as e:
             print(f"Operation failed: {e}")
-            return []
+            raise
         except ConfigurationError as e:
             print(f"Configuration error: {e}")
-            return []
+            raise
         except PyMongoError as e:
             print(f"General MongoDB error: {e}")
-            return []
+            raise
         except Exception as e:
-            print(f"Unexpected error: {e}")
-            return []
+            print(f"Error deleting document: {e}")
+            raise
 
-    def query_documents(self, query: dict) -> List[dict]:
+    def query_documents(
+        self, query: dict, page: int = 1, page_size: int = 10
+    ) -> Dict[str, Any]:
         """
-        Query documents in the collection based on a filter.
+        Query documents in the collection based on a filter with pagination.
 
         Args:
-            query (dict): Filter to match documents. Example:
-                {
-                    "metadata.title": "Sample Document",
-                    "metadata.severity_type": "High"
-                }
+            query (dict): Filter to match documents.
+            page (int): Page number for pagination. Default is 1.
+            page_size (int): Number of documents per page. Default is 10.
 
         Returns:
-            List[dict]: List of matched documents.
+            Dict[str, Any]: Dictionary containing results and total count.
         """
         if not isinstance(query, dict):
             raise ValueError("Query must be a dictionary")
 
         try:
-            results = list(self.collection.find(query))
-            return results
+            total_count = self.collection.count_documents(query)
+            skip = (page - 1) * page_size
+            cursor = self.collection.find(query).skip(skip).limit(page_size)
+            results = list(cursor)
+            return {"results": results, "total_count": total_count}
         except ConnectionFailure as e:
             print(f"Connection to MongoDB failed: {e}")
-            return []
+            raise
         except OperationFailure as e:
             print(f"Operation failed: {e}")
-            return []
+            raise
         except ConfigurationError as e:
             print(f"Configuration error: {e}")
-            return []
+            raise
         except PyMongoError as e:
             print(f"General MongoDB error: {e}")
-            return []
+            raise
         except Exception as e:
             print(f"Unexpected error: {e}")
-            return []
+            raise
 
     def create_documents(self, documents: List[Document]) -> List[str]:
         """
@@ -243,19 +275,19 @@ class DocumentService:
             return result.inserted_ids
         except ConnectionFailure as e:
             print(f"Connection to MongoDB failed: {e}")
-            return []
+            raise
         except OperationFailure as e:
             print(f"Operation failed: {e}")
-            return []
+            raise
         except ConfigurationError as e:
             print(f"Configuration error: {e}")
-            return []
+            raise
         except PyMongoError as e:
             print(f"General MongoDB error: {e}")
-            return []
+            raise
         except Exception as e:
             print(f"Unexpected error: {e}")
-            return []
+            raise
 
     def update_documents(self, filter: dict, update: dict) -> int:
         """
@@ -273,19 +305,19 @@ class DocumentService:
             return result.modified_count
         except ConnectionFailure as e:
             print(f"Connection to MongoDB failed: {e}")
-            return []
+            raise
         except OperationFailure as e:
             print(f"Operation failed: {e}")
-            return []
+            raise
         except ConfigurationError as e:
             print(f"Configuration error: {e}")
-            return []
+            raise
         except PyMongoError as e:
             print(f"General MongoDB error: {e}")
-            return []
+            raise
         except Exception as e:
             print(f"Unexpected error: {e}")
-            return []
+            raise
 
     def delete_documents(self, filter: dict) -> int:
         """
@@ -302,19 +334,19 @@ class DocumentService:
             return result.deleted_count
         except ConnectionFailure as e:
             print(f"Connection to MongoDB failed: {e}")
-            return []
+            raise
         except OperationFailure as e:
             print(f"Operation failed: {e}")
-            return []
+            raise
         except ConfigurationError as e:
             print(f"Configuration error: {e}")
-            return []
+            raise
         except PyMongoError as e:
             print(f"General MongoDB error: {e}")
-            return []
+            raise
         except Exception as e:
             print(f"Unexpected error: {e}")
-            return []
+            raise
 
     def aggregate_documents(self, pipeline: List[dict]) -> List[dict]:
         """
@@ -342,25 +374,28 @@ class DocumentService:
 
         if not all(isinstance(item, dict) for item in pipeline):
             raise ValueError("All items in the pipeline must be dictionaries")
-
+        # print("Begin preprocessing...")
+        processed_pipeline = preprocess_pipeline(pipeline)
         try:
-            result = list(self.collection.aggregate(pipeline))
+            result = list(self.collection.aggregate(processed_pipeline))
+            # if result:
+            #     print(f"len: {len(result)} item: {result[0]}")
             return result
         except ConnectionFailure as e:
             print(f"Connection to MongoDB failed: {e}")
-            return []
+            raise
         except OperationFailure as e:
             print(f"Operation failed: {e}")
-            return []
+            raise
         except ConfigurationError as e:
             print(f"Configuration error: {e}")
-            return []
+            raise
         except PyMongoError as e:
             print(f"General MongoDB error: {e}")
-            return []
+            raise
         except Exception as e:
             print(f"Unexpected error: {e}")
-            return []
+            raise
 
     def _describe(self):
         """

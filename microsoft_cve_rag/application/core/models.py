@@ -7,26 +7,22 @@
 # print(sys.path)
 
 from pydantic import BaseModel, Field, field_validator
-from uuid import UUID, uuid4
 from typing import Optional, List, Dict
 from datetime import datetime, timezone
 from application.config import PROJECT_CONFIG
-
-
-class Published(BaseModel):
-    date: Optional[datetime] = None
+from bson import ObjectId
 
 
 class BaseMetadata(BaseModel):
     revision: Optional[str] = None
-    id: Optional[UUID] = None
+    id: Optional[str] = None
     post_id: Optional[str] = None
-    published: Optional[Published] = None
+    published: Optional[datetime] = None
     title: Optional[str] = None
     description: Optional[str] = None
     build_numbers: Optional[List[List[int]]] = None
     impact_type: Optional[str] = None
-    product_build_ids: Optional[List[UUID]] = None
+    product_build_ids: Optional[List[str]] = None
     products: Optional[List[str]] = None
     severity_type: Optional[str] = None
     summary: Optional[str] = None
@@ -39,6 +35,7 @@ class BaseMetadata(BaseModel):
 
 
 class DocumentMetadata(BaseMetadata):
+    id: str
     cve_fixes: Optional[str] = None
     cve_mentions: Optional[str] = None
     tags: Optional[str] = None
@@ -51,10 +48,10 @@ class DocumentMetadata(BaseMetadata):
 
 
 class Document(BaseModel):
-    _id: Optional[Dict[str, str]] = None
-    id_: UUID = Field(default_factory=uuid4)
+    _id: Optional[ObjectId] = None
+    id_: str
     embedding: Optional[List[float]] = None
-    metadata: Optional[DocumentMetadata] = None
+    metadata: DocumentMetadata
     excluded_embed_metadata_keys: Optional[List[str]] = None
     excluded_llm_metadata_keys: Optional[List[str]] = None
     relationships: Optional[Dict[str, str]] = None
@@ -80,7 +77,7 @@ class GraphNodeMetadata(BaseMetadata):
 
 
 class GraphNode(BaseModel):
-    id_: UUID = Field(default_factory=uuid4)
+    id_: str
     embedding: Optional[List[float]] = None
     metadata: Optional[GraphNodeMetadata] = None
     relationships: Optional[Dict[str, str]] = None
@@ -98,9 +95,9 @@ class GraphNode(BaseModel):
 
     @field_validator("embedding")
     def check_embedding_length(cls, v):
-        if v and len(v) != PROJECT_CONFIG.DEFAULT_EMBEDDING_CONFIG.embedding_length:
+        if v and len(v) != PROJECT_CONFIG["DEFAULT_EMBEDDING_CONFIG"].embedding_length:
             raise ValueError(
-                f"Embedding model {PROJECT_CONFIG.DEFAULT_EMBEDDING_CONFIG.model_name} must have a length of {PROJECT_CONFIG.DEFAULT_EMBEDDING_CONFIG.embedding_length}"
+                f"Embedding model {PROJECT_CONFIG['DEFAULT_EMBEDDING_CONFIG'].model_name} must have a length of {PROJECT_CONFIG['DEFAULT_EMBEDDING_CONFIG'].embedding_length}"
             )
         return v
 
@@ -115,7 +112,7 @@ class VectorMetadata(BaseMetadata):
 
 
 class Vector(BaseModel):
-    id_: UUID = Field(default_factory=uuid4)
+    id_: str
     embedding: Optional[List[float]] = None
     metadata: Optional[VectorMetadata] = None
     relationships: Optional[Dict[str, str]] = None
@@ -137,8 +134,8 @@ class Vector(BaseModel):
 
     @field_validator("embedding")
     def check_embedding_length(cls, v):
-        if v and len(v) != PROJECT_CONFIG.DEFAULT_EMBEDDING_CONFIG.embedding_length:
+        if v and len(v) != PROJECT_CONFIG["DEFAULT_EMBEDDING_CONFIG"].embedding_length:
             raise ValueError(
-                f"Embedding model {PROJECT_CONFIG.DEFAULT_EMBEDDING_CONFIG.model_name} must have a length of {PROJECT_CONFIG.DEFAULT_EMBEDDING_CONFIG.embedding_length}"
+                f"Embedding model {PROJECT_CONFIG['DEFAULT_EMBEDDING_CONFIG'].model_name} must have a length of {PROJECT_CONFIG['DEFAULT_EMBEDDING_CONFIG'].embedding_length}"
             )
         return v
