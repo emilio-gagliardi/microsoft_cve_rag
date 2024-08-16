@@ -16,6 +16,13 @@ pip install protobuf==4.25.4
 # grpcio-tools 1.62.2 has requirement protobuf<5.0dev,>=4.21.6
 # opentelemetry-proto 1.16.0 has requirement protobuf<5.0,>=3.19
 
+# FastEmbed is a lightweight, fast, Python library built for embedding generation. Used # by Qdrant and others. 
+# Models - https://qdrant.github.io/fastembed/examples/Supported_Models/
+# snowflake/snowflake-arctic-embed-l (1024)
+# BAAI/bge-large-en-v1.5 (1024)
+# nomic-ai/nomic-embed-text-v1.5 (768)
+pip install fastembed-gpu
+
 # Install JupyterLab and Jupyter Notebook
 conda install -c conda-forge jupyterlab
 conda install -c conda-forge notebook

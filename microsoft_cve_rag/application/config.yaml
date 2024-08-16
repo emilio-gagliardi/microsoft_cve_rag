@@ -1,0 +1,25 @@
+PROJECT_PATH: "C:\\Users\\emili\\PycharmProjects\\microsoft_cve_rag"
+EMBEDDING_CONFIG:
+  use_vectordb_embedding: true
+  embedding_provider: "fastembed"
+  vector_db_embedding_model_name: "snowflake/snowflake-arctic-embed-l"
+  vector_db_embedding_length: 1024
+  fastembed_model_name: "snowflake/snowflake-arctic-embed-l"
+  fastembed_embedding_length: 1024
+  fastembed_context_window: 512
+  ollama_embedding_model_name: "nomic-embed-text"
+  ollama_embedding_length: 768
+  ollama_embedding_context_window: 8192
+VECTORDB_CONFIG:
+  tier1_collection: "msrc_rag_vector_db_dev"
+  tier2_collection: "msrc_rag_vector_db_staging"
+  tier3_collection: "msrc_rag_vector_db_prod"
+  distance_metric: "Distance.COSINE"
+GRAPHDB_CONFIG:
+  tier1_collection: "msrc_rag_graph_db_dev"
+  tier2_collection: "msrc_rag_graph_db_staging"
+  tier3_collection: "msrc_rag_graph_db_prod"
+CHAT_CONFIG:
+  chat_model_name: ""
+  chat_model_context_window: ""
+
