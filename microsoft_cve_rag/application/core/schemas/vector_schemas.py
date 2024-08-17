@@ -1,18 +1,92 @@
 from pydantic import BaseModel, Field, ValidationError, field_validator
 from typing import Optional, List, Dict
 from datetime import datetime, timezone
-from uuid import UUID, uuid4
-from application.config import DEFAULT_EMBEDDING_CONFIG
+from application.app_utils import get_app_config
+from application.core.schemas.document_schemas import DocumentRecordBase
+
+settings = get_app_config()
 
 
-class VectorMetadata(BaseModel):
+class BaseMetadata(BaseModel):
     """
-    Metadata model for vectors. Includes CVE fixes, mentions, and tags.
+    Base metadata model for documents. Includes common metadata fields.
     """
 
-    cve_fixes: Optional[str] = None
-    cve_mentions: Optional[str] = None
-    tags: Optional[str] = None
+    revision: Optional[str] = Field(None, description="The version of msrc post types.")
+    id: str = Field(..., description="UUID string")
+    post_id: Optional[str] = Field(
+        None, description="Specific CVE identification ID. eg. CVE-2023-36435"
+    )
+    published: Optional[datetime] = Field(
+        None,
+        description="Publication date of the version. Multiple versions have multiple dates.",
+    )
+
+    @field_validator("published")
+    def parse_published(cls, value):
+        if isinstance(value, str):
+            return datetime.fromisoformat(value)
+        return value
+
+    title: Optional[str] = Field(None, description="Title of the document")
+    description: Optional[str] = Field(None, description="Description of the document")
+    build_numbers: Optional[List[List[int]]] = Field(
+        None,
+        description="All CVEs are associated to specific OS build numbers.",
+    )
+    impact_type: Optional[str] = Field(
+        None, description="Impact type of the security vulnerability"
+    )
+    product_build_ids: Optional[List[str]] = Field(
+        None,
+        description="Identifier that associates products, kb articles, update packages",
+    )
+    products: Optional[List[str]] = Field(
+        None,
+        description="The name of the product(s) affected by the CVE",
+    )
+    severity_type: Optional[str] = Field(None, description="Severity type of the CVE")
+    summary: Optional[str] = Field(None, description="Summary of the document")
+    collection: Optional[str] = Field(
+        None, description="document collection. Currently there are 10."
+    )
+    source: Optional[str] = Field(None, description="The URL of the ingested document")
+    hash: Optional[str] = Field(None, description="Hash of the document")
+
+
+class VectorMetadata(BaseMetadata):
+    """
+    Metadata model for vectors. Includes additional fields specific to vectors.
+    """
+
+    conversationId: Optional[str] = Field(
+        None, description="Conversation identifier for patch management emails"
+    )
+    subject: Optional[str] = Field(
+        None, description="Subject of the patch management email"
+    )
+    receivedDateTime: Optional[datetime] = Field(
+        None, description="The datetime when email was received by google groups."
+    )
+    cve_fixes: Optional[str] = Field(
+        None, description="CVE fixes mentioned in the document"
+    )
+    cve_mentions: Optional[str] = Field(
+        None, description="CVE mentions in the document"
+    )
+    tags: Optional[str] = Field(None, description="Tags associated with the document")
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "conversationId": "123e4567-e89b-12d3-a456-426614174000",
+                "subject": "Sample Subject",
+                "receivedDateTime": "2024-07-15T00:00:00+00:00",
+                "cve_fixes": "CVE-2023-1234",
+                "cve_mentions": "CVE-2023-5678",
+                "tags": "security, update",
+            }
+        }
 
 
 class VectorRecordBase(BaseModel):
@@ -20,44 +94,35 @@ class VectorRecordBase(BaseModel):
     Base model for vector records. This model includes common fields that are shared across different vector record operations.
     """
 
-    id_: Optional[UUID] = Field(
-        default_factory=uuid4, description="Unique identifier of the record"
+    id_: Optional[str] = Field(
+        None, description="Document db identifier. Syntax is historical."
     )
+    id: Optional[str] = Field(None, description="Vector db identifier")
     embedding: Optional[List[float]] = Field(None, description="Embedding vector")
     metadata: Optional[VectorMetadata] = Field(
         None, description="Metadata associated with the record"
     )
     relationships: Optional[Dict[str, str]] = Field(
-        None, description="Relationships of the record"
+        None, description="Relationships of the record. LlamaIndex attribute."
     )
     excluded_embed_metadata_keys: Optional[List[str]] = Field(
-        None, description="Metadata keys to exclude from embedding"
+        None,
+        description="Metadata keys to exclude from embedding. LlamaIndex attribute.",
     )
     excluded_llm_metadata_keys: Optional[List[str]] = Field(
-        None, description="Metadata keys to exclude from LLM"
+        None, description="Metadata keys to exclude from LLM. LlamaIndex attribute."
     )
     text: Optional[str] = Field(None, description="Text associated with the record")
-    metadata_template: Optional[str] = Field(None, description="Template for metadata")
+    metadata_template: Optional[str] = Field(
+        None, description="Template for metadata. LlamaIndex attribute."
+    )
     metadata_separator: Optional[str] = Field(
-        None, description="Separator for metadata"
+        None, description="Separator for metadata. LlamaIndex attribute."
     )
     class_name: Optional[str] = Field(None, description="Class name of the record")
-    created_at: Optional[datetime] = Field(
-        default_factory=datetime.now(datetime.UTC),
-        description="Timestamp when the record was created",
+    document: Optional[DocumentRecordBase] = Field(
+        None, description="The source document"
     )
-    updated_at: Optional[datetime] = Field(
-        default_factory=datetime.now(datetime.UTC),
-        description="Timestamp when the record was last updated",
-    )
-
-    @field_validator("embedding")
-    def check_embedding_length(cls, v):
-        if v and len(v) != DEFAULT_EMBEDDING_CONFIG.embedding_length:
-            raise ValueError(
-                f"Embedding model {DEFAULT_EMBEDDING_CONFIG.model_name} must have a length of {DEFAULT_EMBEDDING_CONFIG.embedding_length}"
-            )
-        return v
 
 
 class VectorRecordCreate(VectorRecordBase):
@@ -65,7 +130,30 @@ class VectorRecordCreate(VectorRecordBase):
     Model for creating a new vector record. Inherits from VectorRecordBase and includes all necessary fields for creating a new record.
     """
 
-    pass
+    id_: str = Field(..., description="Unique identifier of the record")
+    metadata: VectorMetadata = Field(
+        ..., description="Metadata associated with the record"
+    )
+    text: str
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "id_": "123e4567-e89b-12d3-a456-426614174000",
+                "text": "Sample vector text",
+                "metadata": {
+                    "conversationId": "123e4567-e89b-12d3-a456-426614174000",
+                    "subject": "Sample Subject",
+                    "receivedDateTime": "2024-07-15T00:00:00+00:00",
+                    "cve_fixes": "CVE-2023-1234",
+                    "cve_mentions": "CVE-2023-5678",
+                    "tags": "security, update",
+                    "added_to_vector_store": False,
+                    "added_to_summary_index": False,
+                    "added_to_graph_store": False,
+                },
+            }
+        }
 
 
 class VectorRecordUpdate(VectorRecordBase):
@@ -73,7 +161,10 @@ class VectorRecordUpdate(VectorRecordBase):
     Model for updating an existing vector record. Inherits from VectorRecordBase and includes all necessary fields for updating a record.
     """
 
-    id_: UUID
+    id_: str
+    metadata: VectorMetadata = Field(
+        ..., description="Metadata associated with the record"
+    )
 
 
 class VectorRecordDelete(BaseModel):
@@ -81,7 +172,7 @@ class VectorRecordDelete(BaseModel):
     Model for deleting a vector record. Includes the unique identifier of the record to be deleted.
     """
 
-    id_: UUID
+    id_: str
 
 
 class VectorRecordQuery(BaseModel):
@@ -99,14 +190,9 @@ class VectorRecordResponse(BaseModel):
     Response model for vector record operations. Includes the unique identifier, message, and timestamps of the record.
     """
 
-    id_: Optional[UUID] = Field(None, description="Unique identifier of the record")
-    message: str = Field(..., description="Response message")
-    created_at: Optional[datetime] = Field(
-        None, description="Timestamp when the record was created"
-    )
-    updated_at: Optional[datetime] = Field(
-        None, description="Timestamp when the record was last updated"
-    )
+    id_: Optional[str] = Field(None, description="Unique identifier of the record")
+    message: str = Field(..., description="Response message from database")
+    document: Optional[VectorRecordBase] = Field(None, description="The vector data")
 
 
 class VectorRecordQueryResponse(BaseModel):
@@ -137,7 +223,7 @@ class BulkVectorRecordDelete(BaseModel):
     Model for deleting multiple vector records in bulk. Includes a list of unique identifiers of the records to be deleted.
     """
 
-    ids: List[UUID]
+    ids: List[str]
 
 
 class ErrorResponse(BaseModel):

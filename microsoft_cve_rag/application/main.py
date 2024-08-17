@@ -5,79 +5,88 @@
 import os
 import sys
 import requests
-from bson import ObjectId
-from json import JSONEncoder
-from datetime import datetime
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-print(sys.path)
-from application import config
-from fastapi.encoders import jsonable_encoder
-from fastapi.responses import JSONResponse
+# from datetime import datetime
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
+
+# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from application.services.vector_db_service import VectorDBService
+from application.api.v1.routes.vector_db import (
+    router as v1_vector_router,
+)
 from application.api.v1.routes.document_db import (
-    # vector_db as v1_vector_router,
-    # graph_db as v1_graph_router,
-    # chat as v1_chat_router,
-    # etl as v1_etl_router,
     router as v1_document_router,
 )
 
-# from application.api.v2.routes import (
-#     vector_db as v2_vector_router,
-#     graph_db as v2_graph_router,
-#     chat as v2_chat_router,
-#     etl as v2_etl_router,
+# from application.api.v1.routes.graph_db import (
+#     router as v1_graph_router,
 # )
-PROJECT_CONFIG = config.PROJECT_CONFIG
+# from application.api.v1.routes.etl_routes import (
+#     router as v1_etl_router,
+# )
+# from application.api.v1.routes.chat_routes import (
+#     router as v1_chat_router,
+# )
+
+
 from application.app_utils import (
     get_openai_api_key,
-    get_vector_db_credentials,
-    get_graph_db_credentials,
-    get_documents_db_credentials,
-    get_sql_db_credentials,
     setup_logger,
+    get_app_config,
 )
 
 
 # Set variables
-
+settings = get_app_config()
 os.environ["OPENAI_MODEL_NAME"] = "gpt-4o-mini"
 os.environ["OPENAI_API_KEY"] = get_openai_api_key()
-embedding_config = PROJECT_CONFIG["DEFAULT_EMBEDDING_CONFIG"]
 
-logger = setup_logger()
+logger = setup_logger(__name__)
+
+logger.info("Loaded app configuration")
 
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Initialize a temporary VectorDBService instance for setup
+    print("begin lifespan tasks")
+    collection = "tier1_collection"
+    embedding_config = settings["EMBEDDING_CONFIG"]
+    vectordb_config = settings["VECTORDB_CONFIG"]
+
+    temp_vector_db_service = VectorDBService(
+        collection=collection,
+        embedding_config=embedding_config,
+        vectordb_config=vectordb_config,
+    )
+
+    # Ensure the collection exists
+    await temp_vector_db_service.ensure_collection_exists_async()
+
+    # Clean up the temporary instance
+    del temp_vector_db_service
+
+    yield
+
+
+logger.info("Building FastAPI application")
+app = FastAPI(lifespan=lifespan)
+
 
 # Include routers
 # app.include_router(v1_chat_router, prefix="/api/v1", tags=["Chat v1"])
 # app.include_router(v1_etl_router, prefix="/api/v1", tags=["ETL v1"])
 # app.include_router(v1_graph_router, prefix="/api/v1", tags=["Graph Service v1"])
-# app.include_router(v1_vector_router, prefix="/api/v1", tags=["Vector Service v1"])
-app.include_router(v1_document_router, prefix="/api/v1", tags=["Document Service v1"])
+app.include_router(v1_vector_router, prefix="/api/v1", tags=["Vector Service v1"])
+# app.include_router(v1_document_router, prefix="/api/v1", tags=["Document Service v1"])
 # app.include_router(v2_chat_router, prefix="/api/v2", tags=["Chat v2"])
-
-
-# Test function to print credentials
-def print_credentials():
-    vector_credentials = get_vector_db_credentials()
-    logger.info(f"The vector db credentials:\n{vector_credentials}")
-
-    graph_credentials = get_graph_db_credentials()
-    logger.info(f"The graph db credentials:\n{graph_credentials}")
-
-    documents_credentials = get_documents_db_credentials()
-    logger.info(f"The documents db credentials:\n{documents_credentials}")
-
-    sql_credentials = get_sql_db_credentials()
-    logger.info(f"The sql db credentials:\n{sql_credentials}")
 
 
 @app.get("/")
 async def root():
-    print_credentials()
+
     return {"message": "Welcome to the AI-powered Knowledge Graph API"}
 
 
@@ -109,9 +118,9 @@ async def system_test():
     return test_results
 
 
-@app.get("/custom_encoder")
-def get_encodable_data():
-    data = {"id": ObjectId(), "date": datetime.now()}
-    return JSONResponse(
-        content=jsonable_encoder(data, custom_encoder=MongoJSONEncoder().default)
-    )
+# @app.get("/custom_encoder")
+# def get_encodable_data():
+#     data = {"id": ObjectId(), "date": datetime.now()}
+#     return JSONResponse(
+#         content=jsonable_encoder(data, custom_encoder=MongoJSONEncoder().default)
+#     )

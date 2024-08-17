@@ -1,6 +1,8 @@
 import os
-from dotenv import load_dotenv, find_dotenv
+from dotenv import load_dotenv
 import logging
+import colorlog
+import yaml
 from application.core.schemas.environment_schemas import (
     VectorDBCredentialsSchema,
     GraphDBCredentialsSchema,
@@ -10,19 +12,59 @@ from application.core.schemas.environment_schemas import (
 from pydantic import ValidationError
 
 
+def load_app_config():
+    with open("application\\config.yaml", "r") as file:
+        return yaml.safe_load(file)
+
+
 # Configure the logger
-def setup_logger():
-    logging.basicConfig(
-        level=logging.INFO,  # Set the logging level
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        handlers=[
-            logging.FileHandler("app.log"),
-            logging.StreamHandler(),
-        ],
+def setup_logger(name=None):
+    # Create a logger object with the specified name or use the module name
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.INFO)  # Set the logging level
+
+    # Check and clear handlers from the root logger to avoid duplication
+    root_logger = logging.getLogger()
+    if root_logger.hasHandlers():
+        root_logger.handlers.clear()
+
+    # Remove existing handlers from the logger
+    if logger.hasHandlers():
+        print(f"removing: {logger.handlers}")
+        logger.handlers.clear()
+
+    # Create handlers
+    stream_handler = logging.StreamHandler()
+    file_handler = logging.FileHandler("app.log")
+
+    # Set the logging format with colors for the stream handler
+    colored_formatter = colorlog.ColoredFormatter(
+        "%(log_color)s%(asctime)s|%(levelname)s|/%(name)s/ - %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+        log_colors={
+            "DEBUG": "cyan",
+            "INFO": "green",
+            "WARNING": "yellow",
+            "ERROR": "red",
+            "CRITICAL": "red,bg_white",
+        },
+        style="%",
+        reset=True,
     )
 
-    # Create a logger object
-    logger = logging.getLogger(__name__)
+    # Set a simple formatter for the file handler
+    file_formatter = logging.Formatter(
+        "%(asctime)s|%(levelname)s|%(name)s| - %(message)s", datefmt="%Y-%m-%d %H:%M:%S"
+    )
+
+    # Apply formatters to handlers
+    stream_handler.setFormatter(colored_formatter)
+    file_handler.setFormatter(file_formatter)
+
+    # Add handlers to the logger
+    logger.addHandler(stream_handler)
+    logger.addHandler(file_handler)
+
     return logger
 
 
@@ -40,7 +82,10 @@ def load_env():
     # Map environment to the correct .env file
     env_file_map = {
         "local": ".env.local",
+        "dev": ".env.dev",
         "docker": ".env.docker",
+        "staging": ".env.staging",
+        "prod": ".env.production",
     }
     dotenv_file = env_file_map.get(environment)
     if dotenv_file is None:
@@ -66,9 +111,8 @@ def load_env():
 
 
 def get_app_config():
-    from application import config
 
-    return config.PROJECT_CONFIG
+    return load_app_config()
 
 
 def get_openai_api_key():
