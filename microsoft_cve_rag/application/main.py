@@ -10,8 +10,8 @@ import requests
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
-# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# print(sys.path)
 from application.services.vector_db_service import VectorDBService
 from application.api.v1.routes.vector_db import (
     router as v1_vector_router,
@@ -57,7 +57,7 @@ async def lifespan(app: FastAPI):
     vectordb_config = settings["VECTORDB_CONFIG"]
 
     temp_vector_db_service = VectorDBService(
-        collection=collection,
+        collection=vectordb_config[collection],
         embedding_config=embedding_config,
         vectordb_config=vectordb_config,
     )

@@ -1,4 +1,5 @@
 import os
+import sys
 from dotenv import load_dotenv
 import logging
 import colorlog
@@ -13,7 +14,15 @@ from pydantic import ValidationError
 
 
 def load_app_config():
-    with open("application\\config.yaml", "r") as file:
+    # Get the last entry in sys.path
+    base_dir = sys.path[-1]
+    # Construct the full path to the config file
+    config_path = os.path.join(base_dir, "application", "config.yaml")
+
+    # Print the constructed path for debugging purposes
+    # print(f"Loading config from: {config_path}")
+
+    with open(config_path, "r") as file:
         return yaml.safe_load(file)
 
 

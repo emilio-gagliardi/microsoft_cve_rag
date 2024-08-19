@@ -14,7 +14,7 @@ VECTORDB_CONFIG:
   tier1_collection: "msrc_rag_vector_db_dev"
   tier2_collection: "msrc_rag_vector_db_staging"
   tier3_collection: "msrc_rag_vector_db_prod"
-  distance_metric: "Distance.COSINE"
+  distance_metric: "cosine"
 GRAPHDB_CONFIG:
   tier1_collection: "msrc_rag_graph_db_dev"
   tier2_collection: "msrc_rag_graph_db_staging"
