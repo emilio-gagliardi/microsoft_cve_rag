@@ -19,6 +19,63 @@ GRAPHDB_CONFIG:
   tier1_collection: "msrc_rag_graph_db_dev"
   tier2_collection: "msrc_rag_graph_db_staging"
   tier3_collection: "msrc_rag_graph_db_prod"
+  distance_metric: "cosine"
+  constraints:
+    - name: "unique_product"
+      cypher: |
+        CREATE CONSTRAINT unique_product IF NOT EXISTS
+        FOR (p:Product)
+        REQUIRE (p.product_name, p.product_architecture, p.product_version) IS UNIQUE
+    - name: "unique_product_build_id"
+      cypher: |
+        CREATE CONSTRAINT unique_product_build_id IF NOT EXISTS
+        FOR (pb:ProductBuild)
+        REQUIRE pb.node_id IS UNIQUE
+    - name: "unique_kb_article_combination"
+      cypher: |
+        CREATE CONSTRAINT unique_kb_article_combination IF NOT EXISTS
+        FOR (ka:KBArticle)
+        REQUIRE (ka.node_id, ka.product_build_id) IS UNIQUE
+    - name: "unique_update_id"
+      cypher: |
+        CREATE CONSTRAINT unique_update_id IF NOT EXISTS
+        FOR (up:UpdatePackage)
+        REQUIRE up.node_id IS UNIQUE
+    - name: "unique_msrc_id"
+      cypher: |
+        CREATE CONSTRAINT unique_msrc_id IF NOT EXISTS
+        FOR (msrc:MSRCPost)
+        REQUIRE msrc.node_id IS UNIQUE
+    - name: "unique_symptom_id"
+      cypher: |
+        CREATE CONSTRAINT unique_symptom_id IF NOT EXISTS
+        FOR (sm:Symptom)
+        REQUIRE sm.node_id IS UNIQUE
+    - name: "unique_cause_id"
+      cypher: |
+        CREATE CONSTRAINT unique_cause_id IF NOT EXISTS
+        FOR (cs:Cause)
+        REQUIRE cs.node_id IS UNIQUE
+    - name: "unique_fix_id"
+      cypher: |
+        CREATE CONSTRAINT unique_fix_id IF NOT EXISTS
+        FOR (fx:Fix)
+        REQUIRE fx.node_id IS UNIQUE
+    - name: "unique_tool_id"
+      cypher: |
+        CREATE CONSTRAINT unique_tool_id IF NOT EXISTS
+        FOR (tl:Tool)
+        REQUIRE tl.node_id IS UNIQUE
+    - name: "unique_faq_id"
+      cypher: |
+        CREATE CONSTRAINT unique_faq_id IF NOT EXISTS
+        FOR (faq:FAQ)
+        REQUIRE faq.node_id IS UNIQUE
+    - name: "unique_patch_id"
+      cypher: |
+        CREATE CONSTRAINT unique_patch_id IF NOT EXISTS
+        FOR (pm:PatchManagementPost)
+        REQUIRE pm.node_id IS UNIQUE
 CHAT_CONFIG:
   chat_model_name: ""
   chat_model_context_window: ""

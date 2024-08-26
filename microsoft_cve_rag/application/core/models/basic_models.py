@@ -6,10 +6,9 @@
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 # print(sys.path)
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field
 from typing import Optional, List, Dict
 from datetime import datetime, timezone
-from application.config import PROJECT_CONFIG
 from bson import ObjectId
 
 
@@ -93,14 +92,6 @@ class GraphNode(BaseModel):
     class Config:
         from_attributes = True
 
-    @field_validator("embedding")
-    def check_embedding_length(cls, v):
-        if v and len(v) != PROJECT_CONFIG["DEFAULT_EMBEDDING_CONFIG"].embedding_length:
-            raise ValueError(
-                f"Embedding model {PROJECT_CONFIG['DEFAULT_EMBEDDING_CONFIG'].model_name} must have a length of {PROJECT_CONFIG['DEFAULT_EMBEDDING_CONFIG'].embedding_length}"
-            )
-        return v
-
 
 class VectorMetadata(BaseMetadata):
     cve_fixes: Optional[str] = None
@@ -113,6 +104,7 @@ class VectorMetadata(BaseMetadata):
 
 class Vector(BaseModel):
     id_: str
+    id: str
     embedding: Optional[List[float]] = None
     metadata: Optional[VectorMetadata] = None
     relationships: Optional[Dict[str, str]] = None
@@ -122,20 +114,6 @@ class Vector(BaseModel):
     metadata_template: Optional[str] = None
     metadata_separator: Optional[str] = None
     class_name: Optional[str] = None
-    created_at: Optional[datetime] = Field(
-        default_factory=lambda: datetime.now(timezone.utc)
-    )
-    updated_at: Optional[datetime] = Field(
-        default_factory=lambda: datetime.now(timezone.utc)
-    )
 
     class Config:
         from_attributes = True
-
-    @field_validator("embedding")
-    def check_embedding_length(cls, v):
-        if v and len(v) != PROJECT_CONFIG["DEFAULT_EMBEDDING_CONFIG"].embedding_length:
-            raise ValueError(
-                f"Embedding model {PROJECT_CONFIG['DEFAULT_EMBEDDING_CONFIG'].model_name} must have a length of {PROJECT_CONFIG['DEFAULT_EMBEDDING_CONFIG'].embedding_length}"
-            )
-        return v
