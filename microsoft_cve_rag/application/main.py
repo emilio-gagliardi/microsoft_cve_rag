@@ -12,22 +12,22 @@ from fastapi import FastAPI
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # print(sys.path)
-from application.services.document_service import DocumentService
+# from application.services.document_service import DocumentService
 from application.services.vector_db_service import VectorDBService
 from application.services.graph_db_service import (
     ensure_graph_db_constraints_exist,
-    GraphDatabase,
-    ProductService,
-    ProductBuildService,
-    KBArticleService,
-    MSRCPostService,
-    UpdatePackageService,
-    SymptomService,
-    FixService,
-    ToolService,
-    CauseService,
-    PatchManagementPostService,
-    inflate_nodes,
+    # GraphDatabase,
+    # ProductService,
+    # ProductBuildService,
+    # KBArticleService,
+    # MSRCPostService,
+    # UpdatePackageService,
+    # SymptomService,
+    # FixService,
+    # ToolService,
+    # CauseService,
+    # PatchManagementPostService,
+    # inflate_nodes,
 )
 
 # from application.api.v1.routes.vector_db import (
@@ -41,32 +41,32 @@ from application.services.graph_db_service import (
 #     router as v1_graph_router,
 # )
 
-# from application.api.v1.routes.etl_routes import (
-#     router as v1_etl_router,
-# )
+from application.api.v1.routes.etl_routes import (
+    router as v1_etl_router,
+)
+
 # from application.api.v1.routes.chat_routes import (
 #     router as v1_chat_router,
 # )
 
 
 from application.app_utils import (
-    get_openai_api_key,
+    # get_openai_api_key,
     setup_logger,
     get_app_config,
     get_graph_db_credentials,
     get_vector_db_credentials,
-    get_documents_db_credentials,
+    # get_documents_db_credentials,
 )
-
 
 # Set variables
 settings = get_app_config()
-os.environ["OPENAI_MODEL_NAME"] = "gpt-4o-mini"
-os.environ["OPENAI_API_KEY"] = get_openai_api_key()
+
 graph_db_credentials = get_graph_db_credentials()
 vector_db_credentials = get_vector_db_credentials()
-document_db_credentials = get_documents_db_credentials()
-
+# document_db_credentials = get_documents_db_credentials()
+# os.environ["OPENAI_MODEL_NAME"] = "gpt-4o-mini"
+# os.environ["OPENAI_API_KEY"] = get_openai_api_key()
 logger = setup_logger(__name__)
 
 logger.info("Loaded app configuration")
@@ -115,7 +115,7 @@ app = FastAPI(lifespan=lifespan)
 
 # Include routers
 # app.include_router(v1_chat_router, prefix="/api/v1", tags=["Chat v1"])
-# app.include_router(v1_etl_router, prefix="/api/v1", tags=["ETL v1"])
+app.include_router(v1_etl_router, prefix="/api/v1", tags=["ETL v1"])
 # app.include_router(v1_graph_router, prefix="/api/v1", tags=["Graph Service v1"])
 # app.include_router(v1_vector_router, prefix="/api/v1", tags=["Vector Service v1"])
 # app.include_router(v1_document_router, prefix="/api/v1", tags=["Document Service v1"])
@@ -126,14 +126,6 @@ app = FastAPI(lifespan=lifespan)
 async def root():
     print("Executing root route.")
     return {"message": "Welcome to the AI-powered Knowledge Graph API"}
-
-
-@app.get("/ingest_documents")
-async def ingest_documents_pipeline():
-    print("begin ingesting documents")
-    # some business logic
-    print("end ingesting documents")
-    return {"message": "Document ingestion complete"}
 
 
 @app.get("/system_test")

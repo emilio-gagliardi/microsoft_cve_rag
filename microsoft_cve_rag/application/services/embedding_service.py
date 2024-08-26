@@ -296,3 +296,36 @@ class EmbeddingService:
             texts = [texts]
 
         return await self.provider.embed_async(texts)
+
+    @classmethod
+    def from_provider_name(
+        cls,
+        provider_name: str,
+        sync_client: QdrantClient = None,
+        async_client: AsyncQdrantClient = None,
+    ) -> "EmbeddingService":
+        """
+        Factory method to create an EmbeddingService instance based on the provider name.
+
+        Args:
+            provider_name (str): The name of the embedding provider (e.g., 'qdrant_default', 'fastembed', 'ollama').
+            sync_client (QdrantClient, optional): Synchronous Qdrant client, required for QdrantDefaultProvider.
+            async_client (AsyncQdrantClient, optional): Asynchronous Qdrant client, required for QdrantDefaultProvider.
+
+        Returns:
+            EmbeddingService: An instance of EmbeddingService configured with the specified provider.
+        """
+        if provider_name == "qdrant_default":
+            if not sync_client or not async_client:
+                raise ValueError(
+                    "Qdrant clients must be provided for QdrantDefaultProvider."
+                )
+            provider = QdrantDefaultProvider(sync_client, async_client)
+        elif provider_name == "fastembed":
+            provider = FastEmbedProvider()
+        elif provider_name == "ollama":
+            provider = OllamaProvider()
+        else:
+            raise ValueError(f"Unsupported embedding provider: {provider_name}")
+
+        return cls(provider)
