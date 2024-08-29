@@ -5,6 +5,7 @@ from application.app_utils import get_app_config
 from application.core.schemas.document_schemas import DocumentRecordBase
 
 settings = get_app_config()
+vector_db_settings = settings["VECTORDB_CONFIG"]
 
 
 class BaseMetadata(BaseModel):

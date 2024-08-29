@@ -79,7 +79,8 @@ class Product(AsyncStructuredNode):
     node_label = StringProperty()
     build_numbers = StringProperty()
     product_build_ids = ArrayProperty(StringProperty())
-
+    cve_id = ArrayProperty(StringProperty())
+    kb_id = ArrayProperty(StringProperty())
     # Relationships
     symptoms_affect = AsyncRelationshipFrom(
         "Symptom", "AFFECTS_PRODUCT", model=AsyncMetadataRel

@@ -10,8 +10,8 @@
 # print(sys.path)
 
 from bson import ObjectId
-from application.core.models import Document
-from pymongo import MongoClient
+from application.core.models.basic_models import Document
+from pymongo import MongoClient, ASCENDING, DESCENDING
 from pymongo.errors import (
     PyMongoError,
     ConnectionFailure,
@@ -21,10 +21,11 @@ from pymongo.errors import (
 from application.app_utils import get_documents_db_credentials
 
 from datetime import datetime
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Tuple, Optional
 
 
 def preprocess_pipeline(pipeline):
+    # pipeline refers to a mongo aggregatation pipeline
     def process_value(value):
         if isinstance(value, str):
             try:
@@ -220,7 +221,13 @@ class DocumentService:
             raise
 
     def query_documents(
-        self, query: dict, page: int = 1, page_size: int = 10
+        self,
+        query: dict,
+        page: int = 1,
+        page_size: int = 50,
+        max_records: int = None,
+        sort: Optional[List[Tuple[str, int]]] = None,
+        projection: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         """
         Query documents in the collection based on a filter with pagination.
@@ -229,19 +236,43 @@ class DocumentService:
             query (dict): Filter to match documents.
             page (int): Page number for pagination. Default is 1.
             page_size (int): Number of documents per page. Default is 10.
+            sort (Optional[List[Tuple[str, int]]]): Sort order for the results. Default is None.
+            projection (Optional[Dict[str, Any]]): Projection dictionary to specify included/excluded fields.
 
         Returns:
-            Dict[str, Any]: Dictionary containing results and total count.
+            Dict[str, Any]: Dictionary containing 'results', 'total_count', 'limit'.
         """
         if not isinstance(query, dict):
             raise ValueError("Query must be a dictionary")
-
+        # print(
+        #     f"DocumentService received: page: {page} page_size: {page_size} max_records: {max_records}"
+        # )
         try:
+            # total_count is the number of records in the collection defined by the query, not the total number of documents in the collection.
             total_count = self.collection.count_documents(query)
+            # Calculate the effective limit considering pagination and max_records
             skip = (page - 1) * page_size
-            cursor = self.collection.find(query).skip(skip).limit(page_size)
+            effective_limit = page_size
+            # Determine the limit to apply to the query
+            if max_records is not None:
+                effective_limit = min(page_size, max_records - skip)
+                if effective_limit <= 0:
+                    return {"results": [], "total_count": total_count}
+
+            cursor = (
+                self.collection.find(query, projection=projection)
+                .skip(skip)
+                .limit(effective_limit)
+            )
+            if sort:
+                cursor = cursor.sort(sort)
             results = list(cursor)
-            return {"results": results, "total_count": total_count}
+            return {
+                "results": results,
+                "total_count": total_count,
+                "limit": max_records,
+            }
+
         except ConnectionFailure as e:
             print(f"Connection to MongoDB failed: {e}")
             raise

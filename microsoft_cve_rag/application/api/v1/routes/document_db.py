@@ -23,17 +23,38 @@ from application.core.schemas.document_schemas import (
     DocumentRecordBase,
     AggregationPipeline,
 )
-from application.core.models import Document
+from application.core.models.basic_models import Document
 from application.services.document_service import DocumentService
-from application.services.embedding_service import EmbeddingService
+from application.services.embedding_service import (
+    EmbeddingService,
+    QdrantDefaultProvider,
+    FastEmbedProvider,
+    OllamaProvider,
+)
+from application.app_utils import get_app_config
 from typing import List, Dict, Any
 import requests
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 
-router = APIRouter()
+settings = get_app_config()
+
 document_db_service = DocumentService()
-embedding_service = EmbeddingService()
+
+
+def create_embedding_service() -> EmbeddingService:
+    provider_type = settings["EMBEDDING_CONFIG"].get(
+        "embedding_provider", "qdrant_default"
+    )
+    if provider_type == "qdrant_default":
+        provider = QdrantDefaultProvider(self.sync_client, self.async_client)
+    elif provider_type == "fastembed":
+        provider = FastEmbedProvider(self.embedding_config["fastembed_model_name"])
+    elif provider_type == "ollama":
+        provider = OllamaProvider(self.embedding_config["ollama_model_name"])
+    else:
+        raise ValueError(f"Unsupported embedding provider: {provider_type}")
+    return EmbeddingService(provider)
 
 
 def create_document_record(document, embedding=[]):
@@ -87,6 +108,9 @@ class MongoJSONResponse(JSONResponse):
 
 def mongo_json_encoder(obj):
     return MongoJSONEncoder().default(obj)
+
+
+router = APIRouter()
 
 
 @router.on_event("shutdown")
@@ -156,7 +180,7 @@ def create_document(document: DocumentRecordCreate):
                 status_code=400,
                 detail="metadata.id is required and cannot be empty",
             )
-
+        embedding_service = create_embedding_service()
         embedding = embedding_service.generate_embedding(document.text)
         document_record = create_document_record(document, embedding)
         document_id = document_db_service.create_document(document_record)

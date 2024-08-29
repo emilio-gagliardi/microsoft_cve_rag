@@ -113,15 +113,9 @@ class VectorDBService:
         provider_type = self.embedding_config.get(
             "embedding_provider", "qdrant_default"
         )
-        if provider_type == "qdrant_default":
-            provider = QdrantDefaultProvider(self.sync_client, self.async_client)
-        elif provider_type == "fastembed":
-            provider = FastEmbedProvider()
-        elif provider_type == "ollama":
-            provider = OllamaProvider()
-        else:
-            raise ValueError(f"Unsupported embedding provider: {provider_type}")
-        return EmbeddingService(provider)
+        return EmbeddingService.from_provider_name(
+            provider_type, sync_client=self.sync_client, async_client=self.async_client
+        )
 
     async def create_vector(self, vector: VectorRecordCreate) -> str:
         """

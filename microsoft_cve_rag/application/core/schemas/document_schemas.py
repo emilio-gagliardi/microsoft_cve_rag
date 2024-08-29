@@ -11,7 +11,9 @@ from typing import Optional, List, Dict, Any
 
 # from hashlib import sha256
 from datetime import datetime
-from application.config import PROJECT_CONFIG
+from application.app_utils import get_app_config
+
+settings = get_app_config()
 
 
 class BaseMetadata(BaseModel):
@@ -145,14 +147,6 @@ class DocumentRecordBase(BaseModel):
         "Document",
         description="Class name used in RAG processing ie., a LlamaIndex Document in this case.",
     )
-
-    @field_validator("embedding")
-    def check_embedding_length(cls, v):
-        if v and len(v) != PROJECT_CONFIG["DEFAULT_EMBEDDING_CONFIG"].embedding_length:
-            raise ValueError(
-                f"Embedding model {PROJECT_CONFIG['DEFAULT_EMBEDDING_CONFIG'].model_name} must have a length of {PROJECT_CONFIG['DEFAULT_EMBEDDING_CONFIG'].embedding_length}"
-            )
-        return v
 
     class Config:
         json_schema_extra = {

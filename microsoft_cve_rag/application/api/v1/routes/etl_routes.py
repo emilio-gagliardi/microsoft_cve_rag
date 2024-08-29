@@ -4,12 +4,17 @@
 # Dependencies: ETL components
 
 from fastapi import APIRouter, HTTPException, BackgroundTasks
-from application.core.schemas.etl_schemas import ETLJobConfig, ETLJobStatus
+from application.core.schemas.etl_schemas import (
+    ETLJobConfig,
+    ETLJobStatus,
+    FullETLRequest,
+)
 from microsoft_cve_rag.application.etl.pipelines import (
     incremental_ingestion_pipeline,
     full_ingestion_pipeline,
 )
 from uuid import uuid4
+from datetime import datetime
 
 router = APIRouter()
 
@@ -30,9 +35,27 @@ async def start_etl_job(config: ETLJobConfig, background_tasks: BackgroundTasks)
 
 
 @router.post("/etl/full_etl")
-def start_full_etl_pipeline():
+def start_full_etl_pipeline(request: FullETLRequest):
+    """
+    Initiates a full ETL pipeline process.
 
-    response = full_ingestion_pipeline()
+    This route will go to the document store, extract documents across all relevant collections, transform documents into objects suitable for insertion into vector and graph databases, generate embeddings in the case of the vector db, and load the objects into their respective repositories.
+
+    For convenience, the caller can pass a start_date alone (which assumes today as the end_date) or both start_date and end_date to precisely set the date range of the ingestion.
+
+    Inputs:
+    - start_date (datetime): The start date for the ETL process.
+    - end_date (datetime, optional): The end date for the ETL process. Defaults to today if not provided.
+
+    Outputs:
+    - dict: A response dictionary containing the status and message of the ETL process.
+    """
+    start_date = request.start_date
+    end_date = request.end_date or datetime.now()
+    print(
+        f"request data: {type(start_date)} - {type(end_date)}\n{start_date} - {end_date}"
+    )
+    response = full_ingestion_pipeline(start_date, end_date)
     if response["code"] == 200:
         print(f"status: {response['status']} message: {response['message']}")
     else:
