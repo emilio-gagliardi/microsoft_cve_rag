@@ -8,6 +8,8 @@ from pymongo import ASCENDING, DESCENDING
 from bson import ObjectId
 import uuid
 from datetime import datetime
+import hashlib
+import json
 
 
 def extract_from_mongo(
@@ -44,21 +46,25 @@ def extract_from_mongo(
 
 
 # get products
-def extract_products():
+def extract_products(max_records=10):
     db_name = "report_docstore"
     collection_name = "microsoft_products"
     query = {
         "product_version": {"$in": ["21H2", "22H2", "23H2", "24H2", ""]},
         "product_architecture": {"$in": ["32-bit_systems", "x64-based_systems", ""]},
     }
-    max_records = None
+    max_records = max_records
     sort = [
         ("product_name", ASCENDING),
         ("product_architecture", ASCENDING),
         ("product_version", ASCENDING),
     ]
+    projection = {
+        "_id": 0,
+        "hash": 0,
+    }
     product_docs = extract_from_mongo(
-        db_name, collection_name, query, max_records, sort
+        db_name, collection_name, query, max_records, sort, projection
     )["results"]
     print(f"Total Products: {len(product_docs)}")
     return product_docs
@@ -73,6 +79,15 @@ def extract_product_builds(start_date, end_date, max_records=10):
         "published": {"$gte": start_date, "$lt": end_date},
         "product_version": {"$in": ["21H2", "22H2", "23H2", "24H2", ""]},
         "product_architecture": {"$in": ["32-bit_systems", "x64-based_systems", ""]},
+        "product_name": {
+            "$in": [
+                "windows_10",
+                "windows_11",
+                "microsoft_edge_(chromium-based)_extended_stable",
+                "microsoft_edge",
+                "microsoft_edge_(chromium-based)",
+            ]
+        },
     }
     max_records = max_records
     sort = [
@@ -81,11 +96,59 @@ def extract_product_builds(start_date, end_date, max_records=10):
         ("product_version", ASCENDING),
         ("cve_id", ASCENDING),
     ]
+    projection = {
+        "_id": 0,
+        "hash": 0,
+        "summary": 0,
+        "article_url": 0,
+        "cve_url": 0,
+    }
     product_build_docs = extract_from_mongo(
-        db_name, collection_name, query, max_records, sort
+        db_name, collection_name, query, max_records, sort, projection
     )["results"]
     print(f"Total Product Builds: {len(product_build_docs)}")
     return product_build_docs
+
+
+def generate_kb_id(document):
+    # Convert the document to a JSON string
+    document_json = json.dumps(document, sort_keys=True, default=str)
+
+    # Create a SHA-256 hash of the JSON string
+    hash_object = hashlib.sha256(document_json.encode("utf-8"))
+    full_hash = hash_object.hexdigest()
+
+    # Truncate the hash to the length of a UUID (36 characters including hyphens)
+    truncated_hash = full_hash[:36]
+
+    # Insert hyphens to match the UUID format
+    unique_id = f"{truncated_hash[:8]}-{truncated_hash[8:12]}-{truncated_hash[12:16]}-{truncated_hash[16:20]}-{truncated_hash[20:]}"
+
+    return unique_id
+
+
+def process_kb_article(article):
+    article["build_number"] = tuple(map(int, article["kb_id"].split(".")))
+    article["id"] = generate_kb_id(article)
+    return article
+
+
+def convert_build_number(article):
+    article["build_number"] = list(article["build_number"])
+    return article
+
+
+def process_kb_articles(articles):
+    # Step 1: Create tuples from the original data and generate new ID hash
+    articles = list(map(process_kb_article, articles))
+
+    # Step 2: Sort the list by the new tupled build_number
+    articles.sort(key=lambda x: x["build_number"])
+
+    # Step 3: Convert the tuple back to a list of ints
+    articles = list(map(convert_build_number, articles))
+
+    return articles
 
 
 def extract_kb_articles(start_date, end_date, max_records=10):
@@ -116,9 +179,10 @@ def extract_kb_articles(start_date, end_date, max_records=10):
     # print(f"delete count: {delete_count}")
     db_name = "report_docstore"
     collection_name = "microsoft_kb_articles"
+    # equals null is for windows kb articles
     query = {
         "published": {"$gte": start_date, "$lt": end_date},
-        "cve_id": None,
+        "cve_id": {"$eq": None},
     }
     projection = {"_id": 0, "cve_id": 0}
     max_records = max_records
@@ -359,18 +423,13 @@ def extract_kb_articles(start_date, end_date, max_records=10):
         pipeline_security_channel
     )
 
-    for article in kb_article_docs_edge_stable:
-        article["build_number"] = tuple(map(int, article["kb_id"].split(".")))
-    kb_article_docs_edge_stable.sort(key=lambda x: x["build_number"])
-    for article in kb_article_docs_edge_stable:
-        article["build_number"] = list(article["build_number"])
-
-    for article in kb_article_docs_edge_security:
-        article["build_number"] = tuple(map(int, article["kb_id"].split(".")))
-        article["id"] = str(uuid.uuid4())
-    kb_article_docs_edge_security.sort(key=lambda x: x["build_number"])
-    for article in kb_article_docs_edge_security:
-        article["build_number"] = list(article["build_number"])
+    # documents_with_ids = map(lambda doc: {**doc, 'id': generate_unique_id(doc)}, documents)
+    if kb_article_docs_edge_stable:
+        kb_article_docs_edge_stable = process_kb_articles(kb_article_docs_edge_stable)
+    if kb_article_docs_edge_security:
+        kb_article_docs_edge_security = process_kb_articles(
+            kb_article_docs_edge_security
+        )
 
     kb_article_docs_edge_combined = (
         kb_article_docs_edge_stable + kb_article_docs_edge_security
@@ -441,6 +500,11 @@ def extract_update_packages(start_date, end_date, max_records=10):
         },
         {
             "$project": {
+                "downloadable_packages.install_resources_html": 0,
+            }
+        },
+        {
+            "$project": {
                 "_id": 0,
                 "product_build_id": 1,
                 "published": 1,
@@ -464,7 +528,7 @@ def extract_update_packages(start_date, end_date, max_records=10):
     return update_packages_docs
 
 
-def extract_msrc_posts(start_date, end_date, max_records=10):
+def extract_msrc_posts(start_date, end_date, max_records=None):
     # get msrc posts
     #
     db_name = "report_docstore"
@@ -472,6 +536,7 @@ def extract_msrc_posts(start_date, end_date, max_records=10):
     query = {
         "metadata.collection": "msrc_security_update",
         "metadata.published": {"$gte": start_date, "$lt": end_date},
+        "metadata.product_build_ids": {"$exists": True},
     }
     max_records = max_records
     projection = {
@@ -488,10 +553,14 @@ def extract_msrc_posts(start_date, end_date, max_records=10):
         "metadata_template": 0,
         "metadata_seperator": 0,
         "class_name": 0,
+        "hash": 0,
     }
     msrc_docs = extract_from_mongo(
         db_name, collection_name, query, max_records, None, projection
     )["results"]
+    for msrc in msrc_docs:
+        msrc.setdefault("kb_ids", [])
+
     print(f"Total MSRC Posts: {len(msrc_docs)}")
     return msrc_docs
 
@@ -535,6 +604,7 @@ def extract_patch_posts(start_date, end_date, max_records=10):
         "metadata_template": 0,
         "metadata_seperator": 0,
         "class_name": 0,
+        "hash": 0,
     }
     patch_docs_unsorted = extract_from_mongo(
         db_name, collection_name, query, max_records, None, projection
@@ -545,4 +615,6 @@ def extract_patch_posts(start_date, end_date, max_records=10):
     patch_docs_sorted = sorted(
         patch_docs_unsorted, key=lambda x: x["metadata"]["receivedDateTime"]
     )
+    print(f"Total Patch Posts: {len(patch_docs_sorted)}")
+
     return patch_docs_sorted
