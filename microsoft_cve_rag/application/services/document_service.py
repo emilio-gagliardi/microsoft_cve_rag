@@ -224,7 +224,7 @@ class DocumentService:
         self,
         query: dict,
         page: int = 1,
-        page_size: int = 50,
+        page_size: int = 999,
         max_records: int = None,
         sort: Optional[List[Tuple[str, int]]] = None,
         projection: Optional[Dict[str, Any]] = None,
@@ -458,36 +458,36 @@ if __name__ == "__main__":
         "text": "This is the text content of the document.",
         "embedding": [0.1] * 1024,  # Assuming 1024-length embedding
     }
-    document = DocumentRecordBase(**document_data)
-    created_id = service.create_document(document)
-    print(f"Created document ID: {created_id}")
-    fetched_document = service.get_document(created_id)
-    print(f"Fetched document: {fetched_document}")
+    # document = DocumentRecordBase(**document_data)
+    # created_id = service.create_document(document)
+    # print(f"Created document ID: {created_id}")
+    # fetched_document = service.get_document(created_id)
+    # print(f"Fetched document: {fetched_document}")
     # Get the created document
-    fetch_id = "3fb82ead-5114-45a7-b2de-11bf31a9c0d5"
-    fetched_document = service.get_document(fetch_id)
-    print(f"Fetched document: {fetched_document}")
+    # fetch_id = "3fb82ead-5114-45a7-b2de-11bf31a9c0d5"
+    # fetched_document = service.get_document(fetch_id)
+    # print(f"Fetched document: {fetched_document}")
 
     # Update the document
-    document_data["text"] = "This is an updated sample document."
-    updated_document = DocumentRecordBase(**document_data)
-    update_count = service.update_document(created_id, updated_document)
-    print(f"Number of documents updated: {update_count}")
+    # document_data["text"] = "This is an updated sample document."
+    # updated_document = DocumentRecordBase(**document_data)
+    # update_count = service.update_document(created_id, updated_document)
+    # print(f"Number of documents updated: {update_count}")
 
     # Fetch the updated document
-    updated_fetched_document = service.get_document(created_id)
-    print(f"Updated fetched document: {updated_fetched_document}")
+    # updated_fetched_document = service.get_document(created_id)
+    # print(f"Updated fetched document: {updated_fetched_document}")
 
     # Query documents
-    query_result = service.query_documents(
-        {"metadata.title": "Sample Microsoft CVE document"}
-    )
-    print(f"Query result: {query_result}")
+    # query_result = service.query_documents(
+    #     {"metadata.title": "Sample Microsoft CVE document"}
+    # )
+    # print(f"Query result: {query_result}")
 
     # Delete the document
-    delete_count = service.delete_document(created_id)
-    print(f"Number of documents deleted: {delete_count}")
+    # delete_count = service.delete_document(created_id)
+    # print(f"Number of documents deleted: {delete_count}")
 
     # Verify deletion
-    deleted_fetched_document = service.get_document(created_id)
-    print(f"Document after deletion (should be None): {deleted_fetched_document}")
+    # deleted_fetched_document = service.get_document(created_id)
+    # print(f"Document after deletion (should be None): {deleted_fetched_document}")

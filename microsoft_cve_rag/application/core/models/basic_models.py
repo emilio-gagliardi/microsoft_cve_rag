@@ -61,6 +61,9 @@ class Document(BaseModel):
     metadata_template: Optional[str] = None
     metadata_separator: Optional[str] = None
     class_name: Optional[str] = None
+    product_mentions: Optional[List[str]] = None
+    build_numbers: Optional[List[List[int]]] = None
+    kb_mentions: Optional[List[str]] = None
 
     class Config:
         from_attributes = True

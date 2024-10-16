@@ -26,11 +26,11 @@ GRAPHDB_CONFIG:
         CREATE CONSTRAINT unique_product IF NOT EXISTS
         FOR (p:Product)
         REQUIRE (p.product_name, p.product_architecture, p.product_version) IS UNIQUE
-    - name: "unique_product_build_id"
+    - name: "unique_product_build_combination"
       cypher: |
-        CREATE CONSTRAINT unique_product_build_id IF NOT EXISTS
+        CREATE CONSTRAINT unique_product_build_combination IF NOT EXISTS
         FOR (pb:ProductBuild)
-        REQUIRE pb.node_id IS UNIQUE
+        REQUIRE (pb.product_name, pb.product_version, pb.product_architecture, pb.cve_id, pb.product_build_id) IS UNIQUE
     - name: "unique_kb_article_combination"
       cypher: |
         CREATE CONSTRAINT unique_kb_article_combination IF NOT EXISTS
@@ -76,6 +76,40 @@ GRAPHDB_CONFIG:
         CREATE CONSTRAINT unique_patch_id IF NOT EXISTS
         FOR (pm:PatchManagementPost)
         REQUIRE pm.node_id IS UNIQUE
+  indexes:
+    - name: "product_node_property_published"
+      cypher: |
+        CREATE INDEX product_node_property_published FOR (p:Product) ON (p.published)
+    - name: "productbuild_node_property_published"
+      cypher: |
+        CREATE INDEX productbuild_node_property_published FOR (pb:ProductBuild) ON (pb.published)
+    - name: "kb_node_property_published"
+      cypher: |
+        CREATE INDEX kb_node_property_published FOR (ka:KBArticle) ON (ka.published)
+    - name: "updatepackage_node_property_published"
+      cypher: |
+        CREATE INDEX updatepackage_node_property_published FOR (up:UpdatePackage) ON (up.published)
+    - name: "msrc_node_property_published"
+      cypher: |
+        CREATE INDEX msrc_node_property_published FOR (msrc:MSRCPost) ON (msrc.published)
+    - name: "patch_node_property_published"
+      cypher: |
+        CREATE INDEX patch_node_property_published FOR (pp:PatchManagementPost) ON (pp.published)
+    - name: "symptom_node_property_published"
+      cypher: |
+        CREATE INDEX symptom_node_property_published FOR (sm:Symptom) ON (sm.published)
+    - name: "cause_node_property_published"
+      cypher: |
+        CREATE INDEX cause_node_property_published FOR (cs:Cause) ON (cs.published)
+    - name: "fix_node_property_published"
+      cypher: |
+        CREATE INDEX fix_node_property_published FOR (fx:Fix) ON (fx.published)
+    - name: "tool_node_property_published"
+      cypher: |
+        CREATE INDEX tool_node_property_published FOR (tl:Tool) ON (tl.published)
+    - name: "faq_node_property_published"
+      cypher: |
+        CREATE INDEX faq_node_property_published FOR (faq:FAQ) ON (faq.published)
 CHAT_CONFIG:
   chat_model_name: ""
   chat_model_context_window: ""

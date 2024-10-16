@@ -5,6 +5,7 @@ from neomodel import (
     BooleanProperty,
     DateTimeProperty,
     DateTimeFormatProperty,
+    DateTimeNeo4jFormatProperty,
     JSONProperty,
     FloatProperty,
     IntegerProperty,
@@ -42,6 +43,7 @@ class AsyncZeroToManyRel(AsyncStructuredRel):
     )
     tags = ArrayProperty(StringProperty())
     relationship_type = StringProperty()
+    relationship_id = StringProperty()
 
 
 class AsyncOneToOneRel(AsyncStructuredRel):
@@ -52,11 +54,12 @@ class AsyncOneToOneRel(AsyncStructuredRel):
         default=lambda: datetime.now(), format="%Y-%m-%d %H:%M:%S"
     )
     relationship_type = StringProperty()
+    relationship_id = StringProperty()
 
 
 class AsyncSymptomCauseFixRel(AsyncZeroToManyRel):
     severity = StringProperty(
-        choices={"low": "low", "medium": "medium", "high": "high"}
+        choices={"low": "low", "medium": "medium", "high": "high", "important":"important"}
     )
     confidence = IntegerProperty(default=50)  # 0-100%
     description = StringProperty()
@@ -64,33 +67,34 @@ class AsyncSymptomCauseFixRel(AsyncZeroToManyRel):
 
 
 class AsyncAffectsProductRel(AsyncZeroToManyRel):
-    impact_level = StringProperty(
-        choices={
-            "low": "low",
-            "medium": "medium",
-            "high": "high",
-            "critical": "critical",
-        }
-    )
-    severity = StringProperty(
-        choices={"low": "low", "medium": "medium", "high": "high"}
-    )
+    __type__ = "AFFECTS_PRODUCT"
+    impact_rating = StringProperty()
+    severity = StringProperty()
     affected_versions = ArrayProperty(StringProperty())
     patched_in_version = StringProperty()
 
 
 class AsyncHasUpdatePackageRel(AsyncZeroToManyRel):
+    __type__ = "HAS_UPDATE_PACKAGE"
     release_date = DateTimeFormatProperty(format="%Y-%m-%d")
     has_cumulative = BooleanProperty(default=False)
     has_dynamic = BooleanProperty(default=False)
 
 
 class AsyncPreviousVersionRel(AsyncOneToOneRel):
+    __type__ = "PREVIOUS_VERSION"
     version_difference = StringProperty()
     changes_summary = StringProperty()
+    previous_version_id = StringProperty()
+
+
+class AsyncPreviousMessageRel(AsyncOneToOneRel):
+    __type__ = "PREVIOUS_MESSAGE"
+    previous_id = StringProperty(default=None)
 
 
 class AsyncReferencesRel(AsyncZeroToManyRel):
+    __type__ = "REFERENCES"
     relevance_score = IntegerProperty()  # 0-100
     context = StringProperty()
     cited_section = StringProperty()
@@ -128,9 +132,7 @@ class Product(AsyncStructuredNode):
     product_build_ids = ArrayProperty(StringProperty())
     cve_ids = ArrayProperty(StringProperty(), default=[])
     kb_ids = ArrayProperty(StringProperty(), default=[])
-    published = DateTimeFormatProperty(
-        format="%Y-%m-%d %H:%M:%S",
-    )
+    published = DateTimeProperty()
     created_on = DateTimeFormatProperty(
         default=lambda: datetime.now(),
         format="%Y-%m-%d %H:%M:%S",
@@ -174,6 +176,7 @@ class ProductBuild(AsyncStructuredNode):
         "x86": "32-bit systems",
         "x64": "64-bit systems",
         "NA": "No Architecture",
+        "na": "No Architecture",
     }
     product_versions = {
         "21H2": "Windows 10, Windows 11",
@@ -181,6 +184,7 @@ class ProductBuild(AsyncStructuredNode):
         "23H2": "Windows 11",
         "24H2": "Windows 11",
         "NV": "No Version",
+        "nv": "No Version",
     }
     impact_type_choices = {
         "tampering": "Tampering",
@@ -192,6 +196,7 @@ class ProductBuild(AsyncStructuredNode):
         "remote_code_execution": "Remote Code Execution",
         "security_feature_bypass": "Security Feature Bypass",
         "NIT": "No impact type",
+        "nit": "No impact type",
     }
 
     severity_type_choices = {
@@ -200,6 +205,7 @@ class ProductBuild(AsyncStructuredNode):
         "moderate": "Moderate",
         "low": "Low",
         "NST": "No Severity Type",
+        "nst": "No Severity Type",
     }
 
     attack_complexity_choices = {"low": "Low", "high": "High"}
@@ -226,9 +232,7 @@ class ProductBuild(AsyncStructuredNode):
     node_id = StringProperty(default=lambda: str(uuid.uuid4()), unique_index=True)
     product_build_id = StringProperty(required=True)
 
-    published = DateTimeFormatProperty(
-        format="%Y-%m-%d %H:%M:%S",
-    )
+    published = DateTimeProperty()
     node_label = StringProperty()
     impact_type = StringProperty(choices=impact_type_choices)
     severity_type = StringProperty(choices=severity_type_choices)
@@ -307,9 +311,7 @@ class MSRCPost(AsyncStructuredNode):
     text = StringProperty()
     embedding = ArrayProperty(FloatProperty())
     metadata = JSONProperty()
-    published = DateTimeFormatProperty(
-        format="%Y-%m-%d %H:%M:%S",
-    )
+    published = DateTimeProperty()
     node_label = StringProperty()
     revision = StringProperty()
     title = StringProperty()
@@ -383,8 +385,8 @@ class Symptom(AsyncStructuredNode):
         "low": "Low",
         "NST": "No Severity Type",
     }
-    node_id = StringProperty(required=True, unique_index=True)
-    symptom_id = AliasProperty(to="node_id")
+    node_id = StringProperty(default=uuid.uuid4, unique_index=True)
+    symptom_label = StringProperty(unique_index=True)
     description = StringProperty(required=True)
     node_label = StringProperty()
     source_id = StringProperty(default="")
@@ -425,6 +427,7 @@ class Cause(AsyncStructuredNode):
     cause_id = AliasProperty(to="node_id")
     description = StringProperty(required=True)
     node_label = StringProperty()
+    cause_label = StringProperty()
     source_id = StringProperty(default="")
     source_type = StringProperty(default="")
     reliability = StringProperty(default="")
@@ -460,6 +463,7 @@ class Fix(AsyncStructuredNode):
     fix_id = AliasProperty(to="node_id")
     description = StringProperty(required=True)
     node_label = StringProperty()
+    fix_label = StringProperty()
     source_id = StringProperty(default=None)
     source_type = StringProperty(default=None)
     reliability = StringProperty(default="")
@@ -515,10 +519,10 @@ class FAQ(AsyncStructuredNode):
 class Tool(AsyncStructuredNode):
     node_id = StringProperty(unique_index=True, default=uuid.uuid4)
     tool_id = AliasProperty(to="node_id")
-    name = StringProperty(required=True)
+    tool_label = StringProperty(required=True)
     node_label = StringProperty()
     description = StringProperty(required=True)
-    download_url = StringProperty(default="")
+    source_url = StringProperty(default="")
     source_id = StringProperty(default="")
     source_type = StringProperty(default="")
     reliability = StringProperty(default="")
@@ -554,9 +558,7 @@ class KBArticle(AsyncStructuredNode):
     kb_article_id = AliasProperty(to="node_id")
     kb_id = StringProperty()  # 5040442 same in mongo
     build_number = ArrayProperty(IntegerProperty())
-    published = DateTimeFormatProperty(
-        format="%Y-%m-%d %H:%M:%S",
-    )
+    published = DateTimeProperty()
     node_label = StringProperty()
     product_build_id = StringProperty(required=True)
     article_url = StringProperty()
@@ -609,11 +611,9 @@ class UpdatePackage(AsyncStructuredNode):
     package_type = StringProperty(choices=package_type_choices)
     package_url = StringProperty()
     build_number = ArrayProperty(IntegerProperty())
-    product_build_id = StringProperty(required=True)
+    product_build_ids = ArrayProperty(StringProperty(), required=True)
     downloadable_packages = ArrayProperty(StringProperty(), default=[])
-    published = DateTimeFormatProperty(
-        format="%Y-%m-%d %H:%M:%S",
-    )
+    published = DateTimeProperty()
     created_on = DateTimeFormatProperty(
         default=lambda: datetime.now(),
         format="%Y-%m-%d %H:%M:%S",
@@ -660,9 +660,7 @@ class PatchManagementPost(AsyncStructuredNode):
     node_id = StringProperty(required=True, unique_index=True)
     patch_id = AliasProperty(to="node_id")
     receivedDateTime = StringProperty()
-    published = DateTimeFormatProperty(
-        format="%Y-%m-%d %H:%M:%S",
-    )
+    published = DateTimeProperty()
     thread_id = StringProperty()
     subject = StringProperty()
     post_type = StringProperty()
@@ -671,12 +669,15 @@ class PatchManagementPost(AsyncStructuredNode):
     kb_ids = ArrayProperty(StringProperty(), default=[])
     metadata = JSONProperty()
     keywords = ArrayProperty(StringProperty(), default=[])
+    product_mentions = ArrayProperty(StringProperty(), default=[])
+    build_numbers = ArrayProperty(StringProperty(), default=[])
     noun_chunks = ArrayProperty(StringProperty(), default=[])
     reliability = StringProperty(default="")
     readability = FloatProperty(default=0.0)
     severity_type = StringProperty(choices=severity_type_choices)
     embedding = ArrayProperty(FloatProperty(), default=[])
     text = StringProperty()
+    summary = StringProperty()
     node_label = StringProperty()
     previous_id = StringProperty(default="")
     next_id = StringProperty(default="")
@@ -693,19 +694,51 @@ class PatchManagementPost(AsyncStructuredNode):
         "Cause", "HAS_CAUSE", model=AsyncSymptomCauseFixRel
     )
     has_fixes = AsyncRelationshipTo("Fix", "HAS_FIX", model=AsyncSymptomCauseFixRel)
-    references_kb_articles = AsyncRelationshipTo(
+    references_kbs = AsyncRelationshipTo(
         "KBArticle", "REFERENCES", model=AsyncReferencesRel
     )
     has_tools = AsyncRelationshipTo("Tool", "HAS_TOOL", model=AsyncZeroToManyRel)
     previous_message_has = AsyncRelationshipTo(
         "PatchManagementPost", "PREVIOUS_MESSAGE", model=AsyncPreviousVersionRel
     )
-    references_msrc_posts = AsyncRelationshipTo(
+    references_msrcs = AsyncRelationshipTo(
         "MSRCPost", "REFERENCES", model=AsyncReferencesRel
     )
     affects_products = AsyncRelationshipTo(
         "Product", "AFFECTS_PRODUCT", model=AsyncAffectsProductRel
     )
+
+    def set_build_numbers(self, build_numbers_list):
+        """Serialize and set the build numbers as a JSON string."""
+        if not build_numbers_list:
+            self.build_numbers = []
+        else:
+            self.build_numbers = [json.dumps(sublist) for sublist in build_numbers_list]
+
+    def get_build_numbers(self):
+        """Deserialize and return the build numbers as a list of lists."""
+        return (
+            [json.loads(sublist) for sublist in self.build_numbers]
+            if self.build_numbers
+            else []
+        )
+
+
+class Technology(AsyncStructuredNode):
+    node_id = StringProperty(required=True, unique_index=True)
+    name = StringProperty(required=True)
+    version = StringProperty()
+    architecture = StringProperty()
+    build_number = StringProperty()
+    description = StringProperty()
+    original_id = StringProperty(required=True, unique_index=True)
+    source_id = StringProperty()
+    tags = ArrayProperty(StringProperty(), default=[])
+    created_on = DateTimeFormatProperty(
+        default=lambda: datetime.now(),
+        format="%Y-%m-%d %H:%M:%S",
+    )
+    related_to = AsyncRelationshipTo("Product", "RELATED_TO")
 
 
 # Mapping of labels to their corresponding classes
@@ -721,6 +754,7 @@ LABEL_TO_CLASS_MAPPING = {
     "KBArticle": KBArticle,
     "UpdatePackage": UpdatePackage,
     "PatchManagementPost": PatchManagementPost,
+    "Technology": Technology,
 }
 
 RELATIONSHIP_MAPPING = {
@@ -749,12 +783,10 @@ RELATIONSHIP_MAPPING = {
     "Cause": {},
     "Fix": {
         "references_kb_articles": ("KBArticle", "REFERENCES", AsyncReferencesRel),
-        "references_tools": ("Tool", "REFERENCES", AsyncZeroToManyRel),
     },
     "FAQ": {},
     "Tool": {},
     "KBArticle": {
-        "builds_reference": ("ProductBuild", "REFERENCES", AsyncZeroToManyRel),
         "affects_product": ("Product", "AFFECTS_PRODUCT", AsyncAffectsProductRel),
         "has_symptoms": ("Symptom", "HAS_SYMPTOM", AsyncSymptomCauseFixRel),
         "has_causes": ("Cause", "HAS_CAUSE", AsyncSymptomCauseFixRel),
@@ -771,14 +803,14 @@ RELATIONSHIP_MAPPING = {
         "previous_message_has": (
             "PatchManagementPost",
             "PREVIOUS_MESSAGE",
-            AsyncPreviousVersionRel,
+            AsyncPreviousMessageRel,
         ),
         "has_symptoms": ("Symptom", "HAS_SYMPTOM", AsyncSymptomCauseFixRel),
         "has_causes": ("Cause", "HAS_CAUSE", AsyncSymptomCauseFixRel),
         "has_fixes": ("Fix", "HAS_FIX", AsyncSymptomCauseFixRel),
-        "references_kb_articles": ("KBArticle", "REFERENCES", AsyncReferencesRel),
+        "references_kbs": ("KBArticle", "REFERENCES", AsyncReferencesRel),
         "has_tools": ("Tool", "HAS_TOOL", AsyncZeroToManyRel),
-        "references_msrc_posts": ("MSRCPost", "REFERENCES", AsyncReferencesRel),
+        "references_msrcs": ("MSRCPost", "REFERENCES", AsyncReferencesRel),
         "affects_products": ("Product", "AFFECTS_PRODUCT", AsyncAffectsProductRel),
     },
     "Product": {
@@ -793,4 +825,5 @@ RELATIONSHIP_MAPPING = {
             AsyncHasUpdatePackageRel,
         ),
     },
+    "Technology": {"related_to_product": ("Product", "RELATED_TO")},
 }

@@ -9,9 +9,11 @@ from application.core.schemas.etl_schemas import (
     ETLJobStatus,
     FullETLRequest,
 )
-from microsoft_cve_rag.application.etl.pipelines import (
+from application.etl.pipelines import (
     incremental_ingestion_pipeline,
     full_ingestion_pipeline,
+    patch_feature_engineering_pipeline,
+    migrate_neo4j_v1_pipeline,
 )
 from uuid import uuid4
 from datetime import datetime
@@ -35,7 +37,7 @@ async def start_etl_job(config: ETLJobConfig, background_tasks: BackgroundTasks)
 
 
 @router.post("/etl/full_etl")
-def start_full_etl_pipeline(request: FullETLRequest):
+async def start_full_etl_pipeline(request: FullETLRequest):
     """
     Initiates a full ETL pipeline process.
 
@@ -55,7 +57,65 @@ def start_full_etl_pipeline(request: FullETLRequest):
     print(
         f"request data: {type(start_date)} - {type(end_date)}\n{start_date} - {end_date}"
     )
-    response = full_ingestion_pipeline(start_date, end_date)
+    response = await full_ingestion_pipeline(start_date, end_date)
+    if response["code"] == 200:
+        print(f"status: {response['status']} message: {response['message']}")
+    else:
+        print("full etl failed.")
+
+    return response
+
+
+@router.post("/etl/patch_etl")
+async def start_patch_feature_pipeline(request: FullETLRequest):
+    """
+    Initiates a full ETL pipeline process.
+
+    This route will go to the document store, extract documents across all relevant collections, transform documents into objects suitable for insertion into vector and graph databases, generate embeddings in the case of the vector db, and load the objects into their respective repositories.
+
+    For convenience, the caller can pass a start_date alone (which assumes today as the end_date) or both start_date and end_date to precisely set the date range of the ingestion.
+
+    Inputs:
+    - start_date (datetime): The start date for the ETL process.
+    - end_date (datetime, optional): The end date for the ETL process. Defaults to today if not provided.
+
+    Outputs:
+    - dict: A response dictionary containing the status and message of the ETL process.
+    """
+    start_date = request.start_date
+    end_date = request.end_date or datetime.now()
+    print(
+        f"request data: {type(start_date)} - {type(end_date)}\n{start_date} - {end_date}"
+    )
+    response = await patch_feature_engineering_pipeline(start_date, end_date)
+    if response["code"] == 200:
+        print(f"status: {response['status']} message: {response['message']}")
+    else:
+        print("full etl failed.")
+
+    return response
+
+
+@router.post("/etl/neo4j_migrate")
+async def start_migrate_neo4j_v1_pipeline(request: FullETLRequest):
+    """
+    Initiates a migration of the neo4j v1 database to the neo4j v2 database.
+
+    For convenience, the caller can pass a start_date alone (which assumes today as the end_date) or both start_date and end_date to precisely set the date range of the ingestion.
+
+    Inputs:
+    - start_date (datetime): The start date for the ETL process.
+    - end_date (datetime, optional): The end date for the ETL process. Defaults to today if not provided.
+
+    Outputs:
+    - dict: A response dictionary containing the status and message of the ETL process.
+    """
+    start_date = request.start_date
+    end_date = request.end_date or datetime.now()
+    print(
+        f"request data: {type(start_date)} - {type(end_date)}\n{start_date} - {end_date}"
+    )
+    response = await migrate_neo4j_v1_pipeline(start_date, end_date)
     if response["code"] == 200:
         print(f"status: {response['status']} message: {response['message']}")
     else:

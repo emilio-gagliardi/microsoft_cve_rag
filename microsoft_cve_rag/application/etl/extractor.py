@@ -128,7 +128,10 @@ def generate_kb_id(document):
 
 
 def process_kb_article(article):
-    article["build_number"] = tuple(map(int, article["kb_id"].split(".")))
+    if article["kb_id"] is None:
+        article["build_number"] = ()
+    else:
+        article["build_number"] = tuple(map(int, article["kb_id"].split(".")))
     article["id"] = generate_kb_id(article)
     return article
 
@@ -515,6 +518,25 @@ def extract_update_packages(start_date, end_date, max_records=10):
                 "downloadable_packages": 1,
             }
         },
+        {
+            "$group": {
+                "_id": "$package_url",
+                "product_build_ids": {"$push": "$product_build_id"},
+                "first_doc": {"$first": "$$ROOT"},
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "product_build_ids": 1,
+                "published": "$first_doc.published",
+                "build_number": "$first_doc.build_number",
+                "package_type": "$first_doc.package_type",
+                "package_url": "$first_doc.package_url",
+                "id": "$first_doc.id",
+                "downloadable_packages": "$first_doc.downloadable_packages",
+            }
+        },
     ]
     document_service = DocumentService(db_name, collection_name)
     update_packages_docs = document_service.aggregate_documents(pipeline)
@@ -524,8 +546,24 @@ def extract_update_packages(start_date, end_date, max_records=10):
     update_packages_docs.sort(key=lambda x: x["build_number"])
     for article in update_packages_docs:
         article["build_number"] = list(article["build_number"])
+    # for item in update_packages_docs:
+    #     print(item)
     print(f"Total Update Packages: {len(update_packages_docs)}")
     return update_packages_docs
+
+
+def aggregatate_kb_ids():
+    # There are two mongo aggregations that need to be executed before pulling MSRCPosts
+    # Aggregate kb_ids for each MSRCPost
+    # kb_ids are inserted as a top-level property of the mongo atlas document
+    pass
+
+
+def aggregatate_product_build_ids():
+    # There are two mongo aggregations that need to be executed before pulling MSRCPosts
+    # aggregatate_product_build_ids for each MSRCPost
+    # product_build_ids are located in the metadata property of the mongo atlas document. These are added in the kedro pipelines, but can be run again to ensure completeness.
+    pass
 
 
 def extract_msrc_posts(start_date, end_date, max_records=None):
@@ -536,7 +574,7 @@ def extract_msrc_posts(start_date, end_date, max_records=None):
     query = {
         "metadata.collection": "msrc_security_update",
         "metadata.published": {"$gte": start_date, "$lt": end_date},
-        "metadata.product_build_ids": {"$exists": True},
+        "metadata.product_build_ids": {"$exists": True, "$not": {"$size": 0}},
     }
     max_records = max_records
     projection = {
@@ -595,6 +633,7 @@ def extract_patch_posts(start_date, end_date, max_records=10):
         "metadata.added_to_vector_store": 0,
         "metadata.added_to_summary_index": 0,
         "metadata.added_to_graph_store": 0,
+        "metadata.build_numbers": 0,
         "excluded_embed_metadata_keys": 0,
         "excluded_llm_metadata_keys": 0,
         "relationships": 0,
