@@ -1172,16 +1172,15 @@ async def build_relationships(
 
                     for target_node in target_nodes:
                         if await should_be_related(node, target_node, rel_info):
-                            print("should be related")
                             relationship = getattr(node, rel_name)
 
                             # Check if the relationship already exists
                             if not tracker.relationship_exists(
                                 node, rel_type, target_node
                             ):
-                                print(
-                                    f"Creating new relationship: {node.node_label} -{rel_type}-> {target_node.node_label}"
-                                )
+                                # print(
+                                #     f"Creating new relationship: {node.node_label} -{rel_type}-> {target_node.node_label}"
+                                # )
 
                                 # Disconnect all relationships if it is a one-to-one relationship
                                 if issubclass(
@@ -1203,7 +1202,7 @@ async def build_relationships(
 
                                 # Set properties for custom relationship classes
                                 if rel_class == graph_db_models.AsyncSymptomCauseFixRel:
-                                    print("BR 3: rel_class = AsyncSymptomCauseFixRel")
+                                    # print("BR 3: rel_class = AsyncSymptomCauseFixRel")
                                     await set_symptom_cause_fix_properties(
                                         relationship_instance, node, target_node
                                     )
@@ -1246,8 +1245,6 @@ async def build_relationships(
                                 print(
                                     f"Relationship already exists: {node.node_id} -{rel_type}-> {target_node.node_id}"
                                 )
-                        else:
-                            print("BR 8: should_be_related is False")
         else:
             print(f"BR 9: shouldn't be here: node_type_str: {node_type_str}")
 
@@ -1809,7 +1806,7 @@ class RelationshipTracker:
         self, node_types: List[str], node_ids: List[str]
     ):
         print("Start fetch_existing")
-        print(f"node_types: {node_types} num ids: {len(node_ids)}")
+        # print(f"node_types: {node_types} num ids: {len(node_ids)}")
         query = """
         UNWIND $node_types AS node_type
         MATCH (n)
@@ -1827,9 +1824,9 @@ class RelationshipTracker:
             source_node_id = source["node_id"]
             target_node_id = target["node_id"]
 
-            print(
-                f"Relationship: {source_label}({source_node_id}) -[{rel_type}]-> {target_label}({target_node_id})"
-            )
+            # print(
+            #     f"Relationship: {source_label}({source_node_id}) -[{rel_type}]-> {target_label}({target_node_id})"
+            # )
         # time.sleep(10)
         for source, rel_type, target, target_labels, node_type in results:
             source_node = self._convert_to_neomodel_node(source, node_type)
@@ -1912,9 +1909,9 @@ class RelationshipTracker:
             )
         else:
             print(f"Node({source.node_label}) -> Node({target.node_label})")
-            print(
-                f"_create_relationship_key: {(source.node_id, rel_type, target.node_id)}"
-            )
+            # print(
+            #     f"_create_relationship_key: {(source.node_id, rel_type, target.node_id)}"
+            # )
             return (source.node_id, rel_type, target.node_id)
 
     def relationship_exists(self, source: Any, rel_type: str, target: Any) -> bool:

@@ -197,6 +197,8 @@ def extract_kb_articles(start_date, end_date, max_records=10):
     )["results"]
 
     if kb_article_docs_windows:
+        # extract windows 10 and windows 11 docs from docstore to match with docs from microsoft_kb_articles.
+        # This is to extract the text and title from the docstore docs and pass them to the microsoft_kb_articles docs.
         # get the unique 'kb_id's for windows-based KB articles
         unique_kb_ids_windows = set(
             kb_article["kb_id"] for kb_article in kb_article_docs_windows
@@ -550,20 +552,6 @@ def extract_update_packages(start_date, end_date, max_records=10):
     #     print(item)
     print(f"Total Update Packages: {len(update_packages_docs)}")
     return update_packages_docs
-
-
-def aggregatate_kb_ids():
-    # There are two mongo aggregations that need to be executed before pulling MSRCPosts
-    # Aggregate kb_ids for each MSRCPost
-    # kb_ids are inserted as a top-level property of the mongo atlas document
-    pass
-
-
-def aggregatate_product_build_ids():
-    # There are two mongo aggregations that need to be executed before pulling MSRCPosts
-    # aggregatate_product_build_ids for each MSRCPost
-    # product_build_ids are located in the metadata property of the mongo atlas document. These are added in the kedro pipelines, but can be run again to ensure completeness.
-    pass
 
 
 def extract_msrc_posts(start_date, end_date, max_records=None):

@@ -1,0 +1,56 @@
+- $match:
+    metadata.collection: "msrc_security_update"
+    metadata.published:
+      $gte: "{{ start_date }}"
+      $lte: "{{ end_date }}"
+
+- $lookup:
+    from: "microsoft_product_builds"
+    localField: "metadata.post_id"
+    foreignField: "cve_id"
+    as: "product_builds"
+
+- $unwind: "$product_builds"
+
+- $group:
+    _id: "$_id"
+    build_numbers:
+      $addToSet: "$product_builds.build_number"
+    doc:
+      $first: "$$ROOT"
+
+- $addFields:
+    build_numbers:
+      $map:
+        input: "$build_numbers"
+        as: "build_number"
+        in:
+          $reduce:
+            input: "$$build_number"
+            initialValue: ""
+            in:
+              $concat:
+                - "$$value"
+                - $cond:
+                    - $eq: [ "$$value", "" ]
+                    - ""
+                    - "."
+                - $toString: "$$this"
+
+- $addFields:
+    build_numbers:
+      $reverseArray:
+        $sortArray:
+          input: "$build_numbers"
+          sortBy: -1
+
+- $addFields:
+    metadata.build_numbers:
+      $setUnion: [ "$doc.metadata.build_numbers", "$build_numbers" ]
+
+- $replaceRoot:
+    newRoot:
+      $mergeObjects:
+        - "$doc"
+        - metadata:
+            build_numbers: "$metadata.build_numbers"

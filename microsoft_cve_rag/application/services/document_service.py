@@ -18,26 +18,47 @@ from pymongo.errors import (
     OperationFailure,
     ConfigurationError,
 )
-from application.app_utils import get_documents_db_credentials
-
+from application.app_utils import get_documents_db_credentials, setup_logger
+import json
 from datetime import datetime
 from typing import List, Dict, Any, Tuple, Optional
 
+logger = setup_logger(__name__)
 
 def preprocess_pipeline(pipeline):
-    # pipeline refers to a mongo aggregatation pipeline
+    """
+    Preprocesses a MongoDB aggregation pipeline by converting ISO format date strings ending with 'Z' into datetime objects.
+
+    This function recursively processes each value in the pipeline to ensure that date strings are properly converted to datetime objects.
+    Other types (e.g., dictionaries, lists) are recursively processed as well to ensure all nested date strings are handled.
+    
+    The preprocess_pipeline function is designed to convert ISO format date strings (like "2024-08-01T00:00:00Z") into Python datetime objects. If your MongoDB aggregation pipeline contains such date strings, you might need to preprocess them depending on how your MongoDB Python driver (like pymongo) expects the data.
+
+    Args:
+        pipeline (list): A list representing a MongoDB aggregation pipeline.
+
+    Returns:
+        list: The preprocessed aggregation pipeline with datetime objects replacing ISO date strings.
+    """
+    # Helper function to process each value in the pipeline
     def process_value(value):
         if isinstance(value, str):
             try:
+                # Convert ISO format date strings ending with 'Z' into datetime objects
                 return datetime.fromisoformat(value.rstrip("Z"))
             except ValueError:
+                # If the string cannot be converted, return it as is
                 return value
         elif isinstance(value, dict):
+            # Recursively process dictionary values
             return {k: process_value(v) for k, v in value.items()}
         elif isinstance(value, list):
+            # Recursively process list elements
             return [process_value(v) for v in value]
+        # Return the value as is if it is not a string, dictionary, or list
         return value
 
+    # Apply the helper function to each stage in the pipeline
     return [process_value(stage) for stage in pipeline]
 
 
@@ -406,11 +427,11 @@ class DocumentService:
         if not all(isinstance(item, dict) for item in pipeline):
             raise ValueError("All items in the pipeline must be dictionaries")
         # print("Begin preprocessing...")
+        
         processed_pipeline = preprocess_pipeline(pipeline)
+    
         try:
             result = list(self.collection.aggregate(processed_pipeline))
-            # if result:
-            #     print(f"len: {len(result)} item: {result[0]}")
             return result
         except ConnectionFailure as e:
             print(f"Connection to MongoDB failed: {e}")

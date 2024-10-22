@@ -1,0 +1,50 @@
+- $match:
+    metadata.collection: "msrc_security_update"
+    metadata.published:
+      $gte: "{{ start_date }}"
+      $lte: "{{ end_date }}"
+
+- $unwind: "$metadata.product_build_ids"
+
+- $group:
+    _id: "$_id"
+    product_build_ids:
+      $addToSet: "$metadata.product_build_ids"
+    doc:
+      $first: "$$ROOT"
+
+- $lookup:
+    from: "microsoft_product_builds"
+    localField: "product_build_ids"
+    foreignField: "product_build_id"
+    as: "product_builds"
+
+- $unwind: "$product_builds"
+
+- $group:
+    _id: "$_id"
+    kb_ids:
+      $addToSet: "$product_builds.kb_id"
+    doc:
+      $first: "$doc"
+
+- $lookup:
+    from: "microsoft_kb_articles"
+    localField: "kb_ids"
+    foreignField: "kb_id"
+    as: "kb_articles"
+
+- $addFields:
+    kb_ids: "$kb_ids"
+
+- $replaceRoot:
+    newRoot:
+      $mergeObjects:
+        - "$doc"
+        - kb_ids: "$kb_ids"
+
+- $merge:
+    into: "docstore"
+    on: "_id"
+    whenMatched: "merge"
+    whenNotMatched: "discard"

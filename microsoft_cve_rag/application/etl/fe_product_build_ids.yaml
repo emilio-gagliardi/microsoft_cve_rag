@@ -1,0 +1,42 @@
+- $match:
+    metadata.collection:
+      $nin: 
+{% for item in exclude_collections %}
+        - "{{ item }}"
+{% endfor %}
+    metadata.published:
+      $gt: "{{ start_date }}"
+      $lt: "{{ end_date }}"
+
+- $lookup:
+    from: "microsoft_product_builds"
+    let:
+      post_id: "$metadata.post_id"
+    pipeline:
+      - $match:
+          $expr:
+            $eq: ["$cve_id", "$$post_id"]
+      - $sort:
+          product_build_id: 1
+      - $group:
+          _id: null
+          product_build_ids:
+            $push: "$product_build_id"
+    as: "matched_builds"
+
+- $unwind:
+    path: "$matched_builds"
+    preserveNullAndEmptyArrays: true
+
+- $addFields:
+    metadata.product_build_ids:
+      $ifNull: ["$matched_builds.product_build_ids", []]
+
+- $project:
+    matched_builds: 0
+
+- $merge:
+    into: "docstore"
+    on: "_id"
+    whenMatched: "merge"
+    whenNotMatched: "discard"

@@ -1,0 +1,47 @@
+- $match:
+    cve_id: null
+    published:
+      $gt: "{{ start_date }}"
+      $lt: "{{ end_date }}"
+
+- $lookup:
+    from: "microsoft_product_builds"
+    localField: "product_build_id"
+    foreignField: "product_build_id"
+    as: "related_builds"
+
+- $unwind: "$related_builds"
+
+- $group:
+    _id: "$_id"
+    originalDoc:
+      $first: "$$ROOT"
+    cve_ids:
+      $addToSet: "$related_builds.cve_id"
+
+- $project:
+    _id: 1
+    id: "$originalDoc.id"
+    build_number: "$originalDoc.build_number"
+    kb_id: "$originalDoc.kb_id"
+    published: "$originalDoc.published"
+    product_build_id: "$originalDoc.product_build_id"
+    article_url: "$originalDoc.article_url"
+    cve_id: "$originalDoc.cve_id"
+    cve_ids:
+      $sortArray:
+        input:
+          $filter:
+            input: "$cve_ids"
+            as: "cve"
+            cond:
+              $and:
+                - $ne: ["$$cve", null]
+                - $ne: ["$$cve", ""]
+        sortBy: 1
+
+- $merge:
+    into: "microsoft_kb_articles"
+    on: "_id"
+    whenMatched: "merge"
+    whenNotMatched: "discard"
