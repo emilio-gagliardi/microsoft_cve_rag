@@ -2,9 +2,11 @@
 # Inputs: Raw data
 # Outputs: Transformed data
 # Dependencies: None
+import os
+import logging
 from typing import Union, List, Dict, Any
 import pandas as pd
-from fuzzywuzzy import fuzz
+from fuzzywuzzy import fuzz,process
 import re
 import hashlib
 import spacy
@@ -21,10 +23,21 @@ from application.core.models.basic_models import (
     GraphNodeMetadata,
 )
 from application.services.embedding_service import EmbeddingService
-
-
+from application.etl.NVDDataExtractor import ScrapingParams, NVDDataExtractor
+from application.app_utils import setup_logger
+from llama_index.core.schema import Document as LlamaDocument
+import asyncio
+import marvin
+from marvin.ai.text import generate_llm_response
+marvin.settings.openai.chat.completions.model = 'gpt-4o-mini'
 embedding_service = EmbeddingService.from_provider_name("fastembed")
 
+# Get the logging level from the environment variable, default to INFO
+log_level = os.getenv("LOG_LEVEL", "INFO").upper()
+# Convert the string to a logging level
+log_level = getattr(logging, log_level, logging.INFO)
+
+logger = setup_logger(__name__, level=log_level)
 
 def normalize_mongo_kb_id(kb_id_input):
     """
@@ -144,7 +157,8 @@ def transform_product_builds(product_builds: List[Dict[str, Any]]) -> pd.DataFra
         df["kb_id"] = df["kb_id"].apply(
             lambda x: x[0] if isinstance(x, list) and len(x) == 1 else x
         )
-        df["kb_ids"] = df["kb_ids"].apply(lambda x: sorted(x, reverse=True))
+        # unclear why I added the next line. Neither the mongo doc nor the neo4j node have a `kb_ids` field.
+        # df["kb_ids"] = df["kb_ids"].apply(lambda x: sorted(x, reverse=True))
 
         mapping_architectures = {
             "32-bit_systems": "x86",
@@ -197,6 +211,98 @@ def transform_product_builds(product_builds: List[Dict[str, Any]]) -> pd.DataFra
 
     return None
 
+async def async_generate_summary(text: str) -> str:
+    marvin_summary_prompt = """
+        Generate a highly technical summary of the following Microsoft KB Article text. This summary is intended for advanced system administrators and IT professionals specializing in modern device management with Intune MDM, Entra ID, Windows 365, and Azure.
+
+        **Structure your response as follows:**
+        1. Provide a brief, sentence-based overview that includes:
+        - The primary purpose of this KB article (e.g., security update, quality improvement).
+        - The specific operating systems and versions affected.
+        - Any critical security issues, vulnerabilities, or bugs addressed.
+        - Any prerequisites or special installation requirements.
+        - Avoid adding general advice on patch management in the overview.
+        - 5 sentences maximum.
+        - No heading.
+        Example of a good overview:'KB5040427 is a critical security update released on July 9, 2024, targeting Windows 10 Enterprise LTSC 2021, IoT Enterprise LTSC 2021, and Windows 10 version 22H2 (builds 19044.4651 and 19045.4651). The update addresses significant security vulnerabilities in RADIUS protocol (MD5 collisions) and implements enhanced BitLocker Secure Boot validation profiles. This combined SSU/LCU package requires specific prerequisites based on deployment method: KB5014032 for offline imaging or KB5005260 for WSUS deployment. The update includes SSU KB5039336 (builds 19044.4585 and 19045.4585) for improved update servicing capabilities.'
+
+        2. Follow the overview with a section titled **Technical Breakdown**: Summarize only the specific technical content described in the KB article, with actionable details for administrators. Use subheadings that align with the content of the KB article and format commands, error codes, and configurations clearly. Do not add headings for commentary or guidelines in this prompt.
+        
+        **Vulnerabilities and Exploits**:
+        Clearly state vulnerabilities and mention whether they are high impact or low impact. For example, 'This update addresses high-impact vulnerabilities including issues with Windows Installer and Remote Authentication Dial-In User Service (RADIUS) related to MD5 collision exploits. Full details are available in the July 2024 Security Updates.'
+
+        **Guidelines for Formatting Commands, Error Codes, and Technical Content**:
+        - **Commands and Scripts**: For each command, use labeled code blocks. Include only commands that are directly relevant to the KB article, avoiding placeholders. Use the following format:
+        - **Powershell commands**:
+            ```
+            [Powershell]
+            ```powershell
+            # Example PowerShell command
+            Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Installer" -Name "DisableLUAInRepair" -Value 1
+            ```
+        - **Registry Keys**:
+            ```
+            [Registry Key]
+            ```registry
+            `HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer\DisableLUAInRepair` = `1`
+            ```
+        - **Intune Commands**: Ensure the command syntax is accurate and specific to Intune where applicable.
+            ```
+            [Intune Terminal]
+            ```shell
+            az intune policy set --policyName "DOCacheHost" --value "<Your MCCC Endpoint>"
+            ```
+
+        - **Error Codes**: Format error codes in a labeled code block, specifying `[Error Code]` and using backticks for clarity. For example:
+            ```
+            [Error Code]
+            `0x80070520`
+            ```
+
+        - **Workarounds and Known Issues**:
+        - Clearly detail any known issues and their workarounds. Specify whether the fix should be applied via **Autopatch, MDM, Group Policy, registry modification, or Intune command**. Be aware that microsoft has announced the deprecation of WSUS, and a preference for Autopatch or Intune is recommended where possible, but do not hallucenate workarounds or fixes outside of the KB Article content.
+        - Use bullet lists. For example:
+            'MCC/DHCP Option 235 Discovery Issue
+            - Impact: Enterprise environments only
+            - Resolution: Install KB5040525
+            BitLocker Recovery Prompt
+            - Trigger: Device Encryption enabled
+            - Resolution: Install KB5041580
+            Profile Picture Error (0x80070520)
+            - Impact: Limited
+            - Status: Requires support intervention'
+        - Use precise instructions, including paths, commands, and exact settings, to avoid ambiguity. Example:
+            ```
+            If devices experience issues with Microsoft Connected Cache discovery via DHCP Option 235, set the following in Group Policy:
+            [Registry Key]
+            `HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\DOCacheHost` = `<MCC Endpoint>`
+            ```
+
+        3. **Installation Process and Prerequisites**:
+        - Provide step-by-step installation prerequisites directly from the KB article.
+        - Specify preferred update channels (e.g., Autopatch, Windows Update, WSUS) and clarify scenarios where standalone installation is necessary.
+        - If uninstallation instructions are given, use labeled code blocks as with `[Powershell]` commands, ensuring that command syntax is exact.
+
+        **Additional Guidelines**:
+        - Assume the reader has a strong background in patching and Microsoft device management.
+        - Clearly highlight any security risks, elevated-risk exploits, or known issues in the patch.
+        - Maintain honesty and precision by adhering to the content and guidance in the KB article, while promoting modern practices where possible.
+        Note. Avoid mentioning general, out-of-date advice (e.g., "Use Autopatch or Intune") unless explicitly mentioned in the KB article. Focus solely on the details directly relevant to the article's content.
+        - Don't include file information in the summary. The audience can easily find that information elsewhere.
+        KB Article text:
+        {kb_article_text}
+        """
+    model_kwargs = {"max_tokens": 850, "temperature": 0.9}
+    response = await generate_llm_response(
+        marvin_summary_prompt.format(kb_article_text=text),
+        model_kwargs=model_kwargs,
+        )
+    return response.response.choices[0].message.content
+
+# Wrapper to handle async calls in apply
+async def generate_summaries(texts: pd.Series) -> List[str]:
+    tasks = [async_generate_summary(text) for text in texts]
+    return await asyncio.gather(*tasks)
 
 def transform_kb_articles(
     kb_articles_windows: List[Dict[str, Any]], kb_articles_edge: List[Dict[str, Any]]
@@ -213,36 +319,55 @@ def transform_kb_articles(
         "text",
         "title",
         "embedding",
+        "product_build_ids",
     ]
 
     def flatten_kb_id(kb_id):
         if isinstance(kb_id, list):
             return ", ".join(kb_id)
         return kb_id
+    
 
     if kb_articles_windows:
         df_windows = pd.DataFrame(
             kb_articles_windows, columns=list(kb_articles_windows[0].keys())
         )
-
+        # Filter out duplicates before other operations
+        df_windows = df_windows.drop_duplicates(
+            subset=["kb_id"],
+            keep='first'
+        )
+        
+        
         df_windows["kb_id"] = df_windows["kb_id"].apply(normalize_mongo_kb_id)
         df_windows["kb_id"] = df_windows["kb_id"].apply(
             lambda x: x[0] if isinstance(x, list) and len(x) == 1 else x
         )
-        df_windows["kb_ids"] = df_windows["kb_ids"].apply(lambda x: sorted(x, reverse=True))
+        # df_windows["kb_ids"] = df_windows["kb_ids"].apply(lambda x: sorted(x, reverse=True))
 
         # df_strings = df_windows[df_windows["kb_id"].apply(lambda x: isinstance(x, str))]
 
         # df_windows["embedding"] = df_windows.apply(
         #     lambda row: embedding_service.generate_embeddings(row["text"]), axis=1
         # )
+        
         df_windows = validate_and_adjust_columns(df_windows, master_columns)
         df_windows["node_label"] = "KBArticle"
         df_windows["published"] = pd.to_datetime(df_windows["published"])
+        df_windows["excluded_embed_metadata_keys"] = [[] for _ in range(len(df_windows))]
+        df_windows["excluded_embed_metadata_keys"] = df_windows["excluded_embed_metadata_keys"].apply(lambda x: list(set(x if isinstance(x, list) else []) | {"node_id", "cve_ids", "build_number", "node_label", "product_build_id", 'product_build_ids'}))
+        
+        try:
+            loop = asyncio.get_event_loop()
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+        summaries = loop.run_until_complete(generate_summaries(df_windows['text']))
+        df_windows['summary'] = summaries
         df_windows.sort_values(by="kb_id", ascending=True, inplace=True)
         # print(f"Columns: {df_windows.columns}")
         # for _, row in df_windows.iterrows():
-        #     print(row)
+        #     print(f"{row['kb_id']}-{row['product_build_ids']}: {row['summary']}\n")
         print(f"Total Windows-based KBs transformed: {df_windows.shape[0]}")
 
     else:
@@ -258,16 +383,22 @@ def transform_kb_articles(
         df_edge["kb_id"] = df_edge["kb_id"].apply(
             lambda x: x[0] if isinstance(x, list) and len(x) == 1 else ""
         )
-        df_edge["kb_ids"] = df_edge["kb_ids"].apply(lambda x: sorted(x, reverse=True))
+        # df_edge["kb_ids"] = df_edge["kb_ids"].apply(lambda x: sorted(x, reverse=True))
         # df_edge["embedding"] = df_edge.apply(
         #     lambda row: embedding_service.generate_embeddings(row["text"]), axis=1
         # )
         # df_lists = df_edge[df_edge["kb_id"].apply(lambda x: isinstance(x, list))]
         # print("Rows with lists in 'kb_id':")
         # print(df_lists.sample(n=df_lists.shape[0]))
+        df_edge = df_edge.drop_duplicates(
+            subset=["kb_id"],
+            keep='first'
+        )
         df_edge = validate_and_adjust_columns(df_edge, master_columns)
         df_edge["node_label"] = "KBArticle"
         df_edge["published"] = pd.to_datetime(df_edge["published"])
+        df_edge["excluded_embed_metadata_keys"] = [[] for _ in range(len(df_edge))]
+        df_edge["excluded_embed_metadata_keys"] = df_edge["excluded_embed_metadata_keys"].apply(lambda x: list(set(x if isinstance(x, list) else []) | {"node_id", "cve_ids", "build_number", "node_label", "product_build_id", 'product_build_ids'}))
         df_edge.sort_values(by="kb_id", ascending=True, inplace=True)
         # print(f"Columns: {df_edge.columns}")
         print(f"Total Edge-based KBs transformed: {df_edge.shape[0]}")
@@ -282,10 +413,26 @@ def transform_kb_articles(
             columns={"id": "node_id"}
         )
 
+        # Convert build_number to tuple for comparison (if it's a list)
+        kb_articles_combined_df['build_number_tuple'] = kb_articles_combined_df['build_number'].apply(
+            lambda x: tuple(x) if isinstance(x, list) else x
+        )
+        
+        # Drop duplicates keeping first occurrence
+        kb_articles_combined_df = kb_articles_combined_df.drop_duplicates(
+            subset=['build_number_tuple', 'kb_id', 'published', 'product_build_id'],
+            keep='first'
+        )
+        
+        # Remove the temporary tuple column
+        kb_articles_combined_df = kb_articles_combined_df.drop(columns=['build_number_tuple'])
+        
+        # Log the deduplication results
+        logger.info(f"Removed {len(kb_articles_combined_df) - kb_articles_combined_df.shape[0]} duplicate KB articles")
+
         return kb_articles_combined_df
     else:
         return None
-
 
 def process_downloadable_packages(
     packages: Union[str, List[Dict[str, Any]], None]
@@ -323,6 +470,8 @@ def transform_update_packages(update_packages: List[Dict[str, Any]]) -> pd.DataF
         # )
         df["node_label"] = "UpdatePackage"
         df["published"] = pd.to_datetime(df["published"])
+        df["excluded_embed_metadata_keys"] = [[] for _ in range(len(df))]
+        df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(lambda x: list(set(x if isinstance(x, list) else []) | {"product_build_ids","node_label","downloadable_packages", "source"}))
         df = df.rename(columns={"id": "node_id"})
         # print(df["downloadable_packages"])
         print(f"Total Update Packages transformed: {df.shape[0]}")
@@ -349,6 +498,84 @@ def convert_to_list(value):
     else:
         return []
 
+def remove_generic_text(text, threshold=80, max_match_length=500):
+    # logger.info(f"Initial character count: {len(text)}")
+    initial_char_count = len(text)
+    problematic_pattern = r"This metric describes the conditions beyond the attacker's control that must exist in order to exploit the vulnerability. Such conditions may require the collection of more information about the target or computational exceptions. The assessment of this metric excludes any requirements for user interaction in order to exploit the vulnerability. If a specific configuration is required for an attack to succeed, the Base metrics should be scored assuming the vulnerable component is in that configuration."
+    icon_pattern = r"[^\w\s]+\s+Subscribe\s+RSS\s+PowerShell\s+[^\w\s]+\s+API"
+    generic_text_patterns = [
+        r"This metric reflects the context by which vulnerability exploitation is possible. The Base Score increases the more remote \(logically, and physically\) an attacker can be in order to exploit the vulnerable component.",
+        problematic_pattern,
+        r"This metric describes the level of privileges an attacker must possess before successfully exploiting the vulnerability.",
+        r"This metric captures the requirement for a user, other than the attacker, to participate in the successful compromise the vulnerable component. This metric determines whether the vulnerability can be exploited solely at the will of the attacker, or whether a separate user \(or user-initiated process\) must participate in some manner.",
+        r"Does a successful attack impact a component other than the vulnerable component\? If so, the Base Score increases and the Confidentiality, Integrity and Authentication metrics should be scored relative to the impacted component.",
+        r"This metric measures the impact to the confidentiality of the information resources managed by a software component due to a successfully exploited vulnerability. Confidentiality refers to limiting information access and disclosure to only authorized users, as well as preventing access by, or disclosure to, unauthorized ones.",
+        r"This metric measures the impact to integrity of a successfully exploited vulnerability. Integrity refers to the trustworthiness and veracity of information.",
+        r"This metric measures the impact to the availability of the impacted component resulting from a successfully exploited vulnerability. It refers to the loss of availability of the impacted component itself, such as a networked service \(e.g., web, database, email\). Since availability refers to the accessibility of information resources, attacks that consume network bandwidth, processor cycles, or disk space all impact the availability of an impacted component.",
+        r"This metric measures the likelihood of the vulnerability being attacked, and is typically based on the current state of exploit techniques, public availability of exploit code, or active, 'in-the-wild' exploitation.",
+        r"The Remediation Level of a vulnerability is an important factor for prioritization. The typical vulnerability is unpatched when initially published. Workarounds or hotfixes may offer interim remediation until an official patch or upgrade is issued. Each of these respective stages adjusts the temporal score downwards, reflecting the decreasing urgency as remediation becomes final.",
+        r"This metric measures the degree of confidence in the existence of the vulnerability and the credibility of the known technical details. Sometimes only the existence of vulnerabilities are publicized, but without specific details. For example, an impact may be recognized as undesirable, but the root cause may not be known. The vulnerability may later be corroborated by research which suggests where the vulnerability may lie, though the research may not be certain. Finally, a vulnerability may be confirmed through acknowledgement by the author or vendor of the affected technology. The urgency of a vulnerability is higher when a vulnerability is known to exist with certainty. This metric also suggests the level of technical knowledge available to would-be attackers.",
+        r"New\s+On this page\s+\ue70d",
+        icon_pattern,
+    ]
+    patterns_found = 0
+    missing_patterns = []
+    modified_text = text
+    # Attempt to remove exact matches with regex
+    for pattern in generic_text_patterns:
+        if re.search(pattern, modified_text):
+            modified_text = re.sub(pattern, '', modified_text)
+            patterns_found += 1
+            # print(f"Pattern found and removed with regex: {pattern[:30]}... | modified_text len: {len(modified_text)}")
+        else:
+            missing_patterns.append(pattern)
+            # print(f"Pattern not found with regex: {pattern[:30]}...")
+    
+    # Attempt fuzzy matching for missing patterns
+    if missing_patterns:
+        for pattern in missing_patterns:
+            if pattern == problematic_pattern:
+                # Try matching smaller segments of the problematic pattern
+                segments = problematic_pattern.split('. ')
+                for segment in segments:
+                    best_match, score = process.extractOne(segment, [modified_text], scorer=fuzz.partial_ratio)
+                    
+                    # Only replace if the score is high, the match length is reasonable, and it’s not too broad
+                    if (score >= threshold and len(best_match) < max_match_length 
+                            and len(best_match) < len(modified_text) * 0.5):
+                        modified_text = modified_text.replace(best_match, '')
+                        patterns_found += 1
+                        # print(f"Pattern segment removed using fuzzy matching: {segment[:30]}... (Score: {score}) | modified_text len: {len(modified_text)}")
+                    else:
+                        # print(f"Pattern segment skipped in fuzzy matching due to length or low score: {segment[:30]}... (Score: {score})")
+                        pass
+            
+            elif pattern == icon_pattern:  # Fuzzy matching for the icon pattern
+                if re.search(icon_pattern, modified_text):
+                    modified_text = re.sub(icon_pattern, '', modified_text)
+                    patterns_found += 1
+                    # print(f"Icon pattern found and removed with regex | modified_text len: {len(modified_text)}")
+                else:
+                    # Fallback to fuzzy matching if regex fails
+                    # print("Icon pattern not matched by regex; attempting fuzzy matching for each segment.")
+                    segments = ["Subscribe", "RSS", "PowerShell", "API"]
+                    for segment in segments:
+                        best_match, score = process.extractOne(segment, [modified_text], scorer=fuzz.partial_ratio)
+                        
+                        # Only replace if the match score is high and the length is reasonable
+                        if score >= threshold and len(best_match) < max_match_length:
+                            modified_text = modified_text.replace(best_match, '')
+                            patterns_found += 1
+                            # print(f"Icon pattern segment removed using fuzzy matching: {segment} (Score: {score}) | modified_text len: {len(modified_text)}")
+                        else:
+                            # print(f"Icon pattern segment skipped in fuzzy matching due to length or low score: {segment} (Score: {score})")
+                            pass
+                        
+    final_char_count = len(modified_text)
+    # logger.info(f"Final character count: {final_char_count}")
+    # Return the modified text and a summary of patterns found
+    return modified_text.strip(), patterns_found, len(generic_text_patterns) - patterns_found
+
 
 def transform_msrc_posts(msrc_posts: List[Dict[str, Any]]) -> pd.DataFrame:
     # clean up document dict from mongo to align with data models
@@ -366,12 +593,17 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]]) -> pd.DataFrame:
         "published",
         "product_build_ids",
     ]
-    mapping_impacts = {
-        "information_disclosure": "disclosure",
-        "elevation_of_privilege": "privilege_elevation",
-        "nit": "NIT",
+    mapping_cve_category = {
+        "Tampering": "tampering",
+        "Spoofing": "spoofing",
+        "Availability": "availability",
+        "Elevation of Privilege": "privilege_elevation",
+        "Denial of Service": "dos",
+        "Information Disclosure": "disclosure",
+        "Remote Code Execution": "rce",
+        "Security Feature Bypass": "feature_bypass",
     }
-    mapping_severity = {"nit": "NIT"}
+    
     if msrc_posts:
         df = pd.DataFrame(msrc_posts, columns=list(msrc_posts[0].keys()))
 
@@ -380,13 +612,11 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]]) -> pd.DataFrame:
         # df["embedding"] = df.apply(
         #     lambda row: embedding_service.generate_embeddings(row["text"]), axis=1
         # )
-        df["impact_type"] = df["impact_type"].str.lower().str.replace(" ", "_")
-        df["impact_type"] = df["impact_type"].apply(lambda x: mapping_impacts.get(x, x))
-        df["impact_type"] = df["impact_type"].fillna("NIT")
+        df = df.rename(columns={"impact_type": "cve_category"})
+        # df["cve_category"] = df["cve_category"].str.lower().str.replace(" ", "_")
+        df["cve_category"] = df["cve_category"].apply(lambda x: mapping_cve_category.get(x, x))
+        df["cve_category"] = df["cve_category"].fillna("NC")
         df["severity_type"] = df["severity_type"].str.lower()
-        df["severity_type"] = df["severity_type"].apply(
-            lambda x: mapping_severity.get(x, x)
-        )
         df["severity_type"] = df["severity_type"].fillna("NST")
         df["metadata"] = df["metadata"].apply(make_json_safe_metadata)
         df["kb_ids"] = df["kb_ids"].apply(normalize_mongo_kb_id)
@@ -394,21 +624,79 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]]) -> pd.DataFrame:
         df["product_build_ids"] = df["product_build_ids"].apply(convert_to_list)
         df["node_label"] = "MSRCPost"
         df["published"] = pd.to_datetime(df["published"])
+        
+        df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(lambda x: list(set(x if isinstance(x, list) else []) | {"source", "description", "product_build_ids", "kb_ids", "build_numbers", "node_label", 'patterns_found', 'patterns_missing'}))
+        df[['text', 'patterns_found', 'patterns_missing']] = df['text'].apply(lambda x: pd.Series(remove_generic_text(x)))
+        
         df = df.rename(columns={"id_": "node_id"})
         df.sort_values(by="post_id", ascending=True, inplace=True)
-        # ids_check = []
-        # for _, row in df.iterrows():
-        #     print(f"{row['post_id']} - {row['product_build_ids']}")
-        #         ids_check.append(row["node_id"])
-        # quoted_list = ", ".join(f'"{item}"' for item in ids_check)
-        # print(quoted_list)
-        print(f"Total MSRC Posts transformed: {df.shape[0]}")
-        # print(f"Columns: {df.columns}")
-        return df
+        
+        num_cves = len(df)
+        scraping_params = ScrapingParams.from_target_time(
+            num_cves=num_cves,
+            target_time_per_cve=4.0  # (seconds)
+        )
+        estimated_minutes = scraping_params.estimate_total_time(num_cves) / 60
+        print(f"Estimated processing time: {estimated_minutes:.1f} minutes")
+        
+        nvd_extractor = NVDDataExtractor(
+            properties_to_extract=[
+                'base_score',
+                'vector_element',
+                'impact_score',
+                'exploitability_score',
+                'attack_vector',
+                'attack_complexity',
+                'privileges_required',
+                'user_interaction',
+                'scope',
+                'confidentiality',
+                'integrity',
+                'availability',
+                'nvd_published_date',
+                'nvd_description',
+                'vector_element',
+                'cwe_id',
+                'cwe_name',
+                'cwe_source',
+                'cwe_url'
+            ],
+            max_records=None,
+            scraping_params=scraping_params,
+            headless=True,  # Set to False for debugging
+            window_size=(1240, 1080),
+            show_progress=True
+        )
+        
+        try:
+            enriched_df = nvd_extractor.augment_dataframe(
+                df=df, 
+                url_column='post_id',
+                batch_size=100  # Adjust based on your needs
+            )
+            logger.debug(f"enriched_df.columns:\n{enriched_df.columns}")
+            if not enriched_df.empty:
+                sample_size = min(3, len(enriched_df))
+                logger.debug(f"enriched_df.sample(n={sample_size}):\n{enriched_df.sample(n=sample_size)}")
+            else:
+                logger.debug("enriched_df is empty - no samples to display")
+
+        except Exception as e:
+            print(f"Error during NVD data extraction: {str(e)}")
+            raise
+            
+        finally:
+            nvd_extractor.cleanup()
+        
+        if not enriched_df.empty:
+            print(f"Total MSRC Posts transformed: {enriched_df.shape[0]}")
+            return enriched_df
+        else:
+            logger.error("NVD extraction failed - no enriched data to return")
+            return None
     else:
         print("No MSRC Posts to transform.")
-
-    return None
+        return None
 
 
 nlp = spacy.load("en_core_web_lg")
@@ -613,12 +901,13 @@ def transform_patch_posts(patch_posts: List[Dict[str, Any]]) -> pd.DataFrame:
         lambda x: remove_metadata_fields(x, metadata_fields_to_move)
     )
     df["metadata"] = df["metadata"].apply(make_json_safe_metadata)
-
+    df["excluded_embed_metadata_keys"] = [[] for _ in range(len(df))]
+    df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(lambda x: list(set(x if isinstance(x, list) else []) | {"previous_id", "cve_ids", "kb_ids","next_id", "node_label","subject"}))
     # Remove duplicate columns
     df = df.loc[:, ~df.columns.duplicated()]
     df['published'] = pd.to_datetime(df['published'])
-    print(f"Total Patch posts transformed: {df.shape[0]}")
-    # print(f"Columns: {df.columns}")
+    logger.info(f"Total Patch posts transformed: {df.shape[0]}")
+    logger.debug(f"Patch df columns: {df.columns}")
     # print(df.head())
 
     return df
@@ -804,3 +1093,343 @@ def transform_extracted_entities(
         if field not in df.columns:
             df[field] = None  # Set default value if field is missing
     return df
+
+# =============================================================================
+# Convert dataframe of KB Articles to Llama Documents
+# =============================================================================
+def convert_df_to_llamadoc_kb_articles(df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id"}) -> list[LlamaDocument]:
+    llama_documents = []
+
+    for _, row in df.iterrows():
+        # Handle datetime conversion for 'published' field
+        if 'published' in row and isinstance(row['published'], pd.Timestamp):
+            row['published'] = row['published'].isoformat()
+
+        # Extract metadata dynamically, excluding specified keys
+        metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
+
+        # Set default values for specific fields
+        defaults = {
+            "source": "KBArticle",
+            "kb_id": "",
+            "title": "",
+            "product_build_id": "",
+            "product_build_ids": [],
+            "cve_ids": [],
+            "build_number": [],
+            "article_url": "",
+            "excluded_embed_metadata_keys": ["node_id", "cve_ids", "build_number", "node_label", "product_build_id", "product_build_ids"],
+        }
+
+        # Update metadata with defaults
+        for key, default_value in defaults.items():
+            if key not in metadata or not metadata[key]:
+                metadata[key] = default_value
+
+        # Create the LlamaDocument
+        doc = LlamaDocument(
+            text=row["text"],
+            doc_id=row["node_id"],
+            metadata=metadata,
+            excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
+        )
+        llama_documents.append(doc)
+
+    return llama_documents
+
+# =============================================================================
+# Convert dataframe of Update Packages to Llama Documents
+# =============================================================================
+def convert_df_to_llamadoc_update_packages(df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "downloadable_packages"}) -> list[LlamaDocument]:
+    llama_documents = []
+
+    for _, row in df.iterrows():
+        # Construct text content
+        text_content = (
+            f"Update Package published on: {row.get('published', '').strftime('%B %d, %Y')}\n"
+            f"Build Number: {row.get('build_number', '')}\n"
+            f"Package Type: {row.get('package_type', '')}\n"
+            f"Package URL: {row.get('package_url', '')}"
+        )
+
+        # Handle datetime conversion for published date
+        if 'published' in row and isinstance(row['published'], pd.Timestamp):
+            row['published'] = row['published'].isoformat()
+
+        # Process downloadable packages
+        downloadable_packages = row.get('downloadable_packages', [])
+        if isinstance(downloadable_packages, list):
+            downloadable_packages = [
+                {k: v.isoformat() if isinstance(v, datetime) else v 
+                 for k, v in pkg.items()}
+                if isinstance(pkg, dict) else pkg
+                for pkg in downloadable_packages
+            ]
+
+        # Extract metadata dynamically, excluding specified keys
+        metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
+
+        # Set default values for specific fields
+        defaults = {
+            "source": "UpdatePackage",
+            "build_number": "",
+            "product_build_ids": [],
+            "package_type": "",
+            "package_url": "",
+            "downloadable_packages": downloadable_packages,
+            "excluded_embed_metadata_keys": ["product_build_ids", "node_label"],
+        }
+
+        # Update metadata with defaults
+        for key, default_value in defaults.items():
+            if key not in metadata or not metadata[key]:
+                metadata[key] = default_value
+
+        # Create the LlamaDocument
+        doc = LlamaDocument(
+            text=text_content,
+            doc_id=row["node_id"],
+            metadata=metadata,
+            excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
+        )
+        llama_documents.append(doc)
+
+    return llama_documents
+
+# =============================================================================
+# Convert dataframe of Symptoms to Llama Documents
+# =============================================================================
+def convert_df_to_llamadoc_symptoms(df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "description"}) -> list[LlamaDocument]:
+    llama_documents = []
+
+    for _, row in df.iterrows():
+        # Extract metadata dynamically, excluding specified keys
+        metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
+
+        # Set default values for specific fields
+        defaults = {
+            "source": "Symptom",
+            "symptom_label": "",
+            "severity_type": "NST",
+            "reliability": "MEDIUM",
+            "tags": [],
+            "excluded_embed_metadata_keys": ["source", "symptom_label"],
+        }
+
+        # Update metadata with defaults
+        for key, default_value in defaults.items():
+            if key not in metadata or not metadata[key]:
+                metadata[key] = default_value
+
+        # Create the LlamaDocument
+        doc = LlamaDocument(
+            text=row["description"],
+            doc_id=row["node_id"],
+            metadata=metadata,
+            excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
+        )
+        llama_documents.append(doc)
+
+    return llama_documents
+
+# =============================================================================
+# Convert dataframe of Causes to Llama Documents
+# =============================================================================
+def convert_df_to_llamadoc_causes(df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "description"}) -> list[LlamaDocument]:
+    llama_documents = []
+
+    for _, row in df.iterrows():
+        # Extract metadata dynamically, excluding specified keys
+        metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
+
+        # Set default values for specific fields
+        defaults = {
+            "source": "Cause",
+            "cause_label": "",
+            "severity_type": "NST",
+            "reliability": "MEDIUM",
+            "tags": [],
+            "excluded_embed_metadata_keys": ["source", "cause_label"],
+        }
+
+        # Update metadata with defaults
+        for key, default_value in defaults.items():
+            if key not in metadata or not metadata[key]:
+                metadata[key] = default_value
+
+        # Create the LlamaDocument
+        doc = LlamaDocument(
+            text=row["description"],
+            doc_id=row["node_id"],
+            metadata=metadata,
+            excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
+        )
+        llama_documents.append(doc)
+
+    return llama_documents
+
+# =============================================================================
+# Convert dataframe of Fixes to Llama Documents
+# =============================================================================
+def convert_df_to_llamadoc_fixes(df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "description"}) -> list[LlamaDocument]:
+    llama_documents = []
+
+    for _, row in df.iterrows():
+        # Extract metadata dynamically, excluding specified keys
+        metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
+
+        # Set default values for specific fields
+        defaults = {
+            "source": "Fix",
+            "fix_label": "",
+            "severity_type": "NST",
+            "reliability": "MEDIUM",
+            "tags": [],
+            "excluded_embed_metadata_keys": ["source", "fix_label"],
+        }
+
+        # Update metadata with defaults
+        for key, default_value in defaults.items():
+            if key not in metadata or not metadata[key]:
+                metadata[key] = default_value
+
+        # Create the LlamaDocument
+        doc = LlamaDocument(
+            text=row["description"],
+            doc_id=row["node_id"],
+            metadata=metadata,
+            excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
+        )
+        llama_documents.append(doc)
+
+    return llama_documents
+
+# =============================================================================
+# Convert dataframe of Tools to Llama Documents
+# =============================================================================
+def convert_df_to_llamadoc_tools(df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "description"}) -> list[LlamaDocument]:
+    llama_documents = []
+
+    for _, row in df.iterrows():
+        # Extract metadata dynamically, excluding specified keys
+        metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
+
+        # Set default values for specific fields
+        defaults = {
+            "source": "Tool",
+            "tool_label": "",
+            "severity_type": "NST",
+            "reliability": "MEDIUM",
+            "tags": [],
+            "tool_url": "",
+            "excluded_embed_metadata_keys": ["source", "tool_label"],
+        }
+
+        # Update metadata with defaults
+        for key, default_value in defaults.items():
+            if key not in metadata or not metadata[key]:
+                metadata[key] = default_value
+
+        # Create the LlamaDocument
+        doc = LlamaDocument(
+            text=row["description"],
+            doc_id=row["node_id"],
+            metadata=metadata,
+            excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
+        )
+        llama_documents.append(doc)
+
+    return llama_documents
+
+# =============================================================================
+# Convert dataframe of MSRC Posts to Llama Documents
+# =============================================================================
+def convert_df_to_llamadoc_msrc_posts(df: pd.DataFrame, symptom_nodes: list, cause_nodes: list, fix_nodes: list, tool_nodes: list, exclusion_keys: set[str] = {"text", "node_id"}) -> list[LlamaDocument]:
+    llama_documents = []
+
+    for _, row in df.iterrows():
+        # Handle datetime conversion for 'published' and 'nvd_published_date' fields
+        if 'published' in row and isinstance(row['published'], pd.Timestamp):
+            row['published'] = row['published'].isoformat()
+        if 'nvd_published_date' in row and isinstance(row['nvd_published_date'], pd.Timestamp):
+            row['nvd_published_date'] = row['nvd_published_date'].isoformat()
+
+        # Extract metadata dynamically, excluding specified keys
+        metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
+
+        # Add extracted nodes and default values
+        metadata.update({
+            "extracted_symptoms": [node.node_id for node in symptom_nodes if node.source_id == row["node_id"]],
+            "extracted_causes": [node.node_id for node in cause_nodes if node.source_id == row["node_id"]],
+            "extracted_fixes": [node.node_id for node in fix_nodes if node.source_id == row["node_id"]],
+            "extracted_tools": [node.node_id for node in tool_nodes if node.source_id == row["node_id"]],
+            "excluded_embed_metadata_keys": row.get("excluded_embed_metadata_keys", [
+                "source", "description", "product_build_ids", "kb_ids", "build_numbers"
+            ]),
+        })
+
+        # Create the LlamaDocument
+        doc = LlamaDocument(
+            text=row["text"],
+            doc_id=row["node_id"],
+            metadata=metadata,
+            excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
+        )
+        llama_documents.append(doc)
+
+    return llama_documents
+
+# =============================================================================
+# Convert dataframe of Patch Management Posts to Llama Documents
+# =============================================================================
+def convert_df_to_llamadoc_patch_posts(df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id"}) -> list[LlamaDocument]:
+    llama_documents = []
+
+    for _, row in df.iterrows():
+        # Convert datetime columns to ISO 8601 strings
+        if 'published' in row and isinstance(row['published'], pd.Timestamp):
+            row['published'] = row['published'].isoformat()
+        if 'receivedDateTime' in row and isinstance(row['receivedDateTime'], pd.Timestamp):
+            row['receivedDateTime'] = row['receivedDateTime'].isoformat()
+
+        # Extract metadata dynamically, excluding specified keys
+        metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
+
+        # Set default values for specific fields
+        defaults = {
+            "source": "PatchManagementPost",
+            "reliability": "MEDIUM",
+            "readability": "MEDIUM",
+            "conversation_link": [],
+            "kb_ids": [],
+            "cve_ids": [],
+            "build_numbers": [],
+            "product_mentions": [],
+            "excluded_embed_metadata_keys": [
+                "previous_id", "cve_ids", "kb_ids", "next_id", "node_label", "subject"
+            ],
+        }
+
+        # Update metadata with defaults
+        for key, default_value in defaults.items():
+            if key not in metadata or not metadata[key]:
+                metadata[key] = default_value
+
+        # Add extracted nodes
+        metadata.update({
+            "extracted_symptoms": [node.node_id for node in symptom_nodes if node.source_id == row["node_id"]],
+            "extracted_causes": [node.node_id for node in cause_nodes if node.source_id == row["node_id"]],
+            "extracted_fixes": [node.node_id for node in fix_nodes if node.source_id == row["node_id"]],
+            "extracted_tools": [node.node_id for node in tool_nodes if node.source_id == row["node_id"]],
+        })
+
+        # Create the LlamaDocument
+        doc = LlamaDocument(
+            text=row["text"],
+            doc_id=row["node_id"],
+            metadata=metadata,
+            excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
+        )
+        llama_documents.append(doc)
+
+    return llama_documents

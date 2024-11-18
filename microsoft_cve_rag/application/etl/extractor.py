@@ -50,6 +50,7 @@ def extract_products(max_records=10):
     db_name = "report_docstore"
     collection_name = "microsoft_products"
     query = {
+        "product_name": {"$nin": ["edge_ext"]},
         "product_version": {"$in": ["21H2", "22H2", "23H2", "24H2", ""]},
         "product_architecture": {"$in": ["32-bit_systems", "x64-based_systems", ""]},
     }
@@ -212,8 +213,6 @@ def extract_kb_articles(start_date, end_date, max_records=10):
         }
         projection = {
             "_id": 0,
-            "excluded_embed_metadata_keys": 0,
-            "excluded_llm_metadata_keys": 0,
             "start_char_idx": 0,
             "end_char_idx": 0,
             "text_template": 0,
@@ -570,8 +569,6 @@ def extract_msrc_posts(start_date, end_date, max_records=None):
         "metadata.added_to_vector_store": 0,
         "metadata.added_to_summary_index": 0,
         "metadata.added_to_graph_store": 0,
-        "excluded_embed_metadata_keys": 0,
-        "excluded_llm_metadata_keys": 0,
         "relationships": 0,
         "start_char_idx": 0,
         "end_char_idx": 0,
@@ -622,8 +619,6 @@ def extract_patch_posts(start_date, end_date, max_records=10):
         "metadata.added_to_summary_index": 0,
         "metadata.added_to_graph_store": 0,
         "metadata.build_numbers": 0,
-        "excluded_embed_metadata_keys": 0,
-        "excluded_llm_metadata_keys": 0,
         "relationships": 0,
         "start_char_idx": 0,
         "end_char_idx": 0,

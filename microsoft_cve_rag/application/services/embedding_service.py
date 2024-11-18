@@ -17,11 +17,13 @@ import asyncio
 from qdrant_client import QdrantClient
 from qdrant_client.async_qdrant_client import AsyncQdrantClient
 from qdrant_client.qdrant_fastembed import TextEmbedding
-from application.app_utils import get_app_config
+from application.app_utils import get_app_config, setup_logger
+from llama_index.core.embeddings import BaseEmbedding
+from pydantic import Field
 
 settings = get_app_config()
 embedding_config = settings["EMBEDDING_CONFIG"]
-
+logger = setup_logger(__name__)
 
 class EmbeddingProvider(ABC):
     """
@@ -255,7 +257,8 @@ class EmbeddingService:
             provider (EmbeddingProvider): The embedding provider to use.
         """
         self.provider = provider
-        print(f"EmbeddingService received provider: {self.provider}")
+        logger.info(f"EmbeddingService initialized with provider: {provider.__class__.__name__}")
+        logger.info(f"Using model: {provider.model_name} (dim={provider.embedding_length})")
 
     @property
     def model_name(self) -> str:
@@ -315,6 +318,7 @@ class EmbeddingService:
         Returns:
             EmbeddingService: An instance of EmbeddingService configured with the specified provider.
         """
+        logger.info(f"Creating EmbeddingService with provider: {provider_name}")
         if provider_name == "qdrant_default":
             if not sync_client or not async_client:
                 raise ValueError(
@@ -327,5 +331,48 @@ class EmbeddingService:
             provider = OllamaProvider()
         else:
             raise ValueError(f"Unsupported embedding provider: {provider_name}")
-
+        logger.info(f"Created provider {provider.__class__.__name__} with model {provider.model_name}")
         return cls(provider)
+
+class LlamaIndexEmbeddingAdapter(BaseEmbedding):
+    """Adapter class to make our EmbeddingService compatible with LlamaIndex's embedding interface.
+    
+    This adapter wraps our custom EmbeddingService to implement LlamaIndex's BaseEmbedding interface,
+    allowing it to be used within LlamaIndex's ecosystem.
+    
+    Args:
+        embedding_service (EmbeddingService): Our custom embedding service to adapt
+    """
+    
+    embedding_service: EmbeddingService = Field(description="The underlying embedding service to adapt")
+    
+    def __init__(self, embedding_service: EmbeddingService, **kwargs):
+        super().__init__(embedding_service=embedding_service, **kwargs)
+        logger.info(f"LlamaIndex adapter initialized with {embedding_service.model_name} (dim={embedding_service.embedding_length})")
+        
+    def _get_text_embedding(self, text: str) -> List[float]:
+        """Get embedding for a single text."""
+        # logger.info(f"Generating embedding using {self.embedding_service.model_name}")
+        return self.embedding_service.generate_embeddings(text)[0]  # Return first embedding
+        
+    async def _aget_text_embedding(self, text: str) -> List[float]:
+        """Get embedding for a single text asynchronously."""
+        # logger.info(f"Generating async embedding:")
+        # logger.info(f"- Text length: {len(text)}")
+        # logger.info(f"- First line: {text.split(chr(10))[0]}")
+        # logger.info(f"- Contains metadata: {'metadata' in text.lower()}")
+        embeddings = await self.embedding_service.generate_embeddings_async(text)
+        return embeddings[0]  # Return first embedding
+        
+    def _get_query_embedding(self, query: str) -> List[float]:
+        """Get embedding for a query string."""
+        logger.info(f"Generating sync query embedding using {self.embedding_service.model_name}")
+        # Use same method as text embedding
+        return self.embedding_service.generate_embeddings(query)[0]
+        
+    async def _aget_query_embedding(self, query: str) -> List[float]:
+        """Get embedding for a query string asynchronously."""
+        logger.info(f"Generating async query embedding using {self.embedding_service.model_name}")
+        # Use same method as text embedding
+        embeddings = await self.embedding_service.generate_embeddings_async(query)
+        return embeddings[0]

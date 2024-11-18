@@ -6,44 +6,35 @@
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 # print(sys.path)
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from typing import Optional, List, Dict
 from datetime import datetime, timezone
 from bson import ObjectId
-
+import pandas as pd
 
 class BaseMetadata(BaseModel):
-    revision: Optional[str] = None
-    id: Optional[str] = None
-    post_id: Optional[str] = None
-    published: Optional[datetime] = None
-    title: Optional[str] = None
-    description: Optional[str] = None
-    build_numbers: Optional[List[List[int]]] = None
-    impact_type: Optional[str] = None
-    product_build_ids: Optional[List[str]] = None
-    products: Optional[List[str]] = None
-    severity_type: Optional[str] = None
-    summary: Optional[str] = None
-    collection: Optional[str] = None
-    source: Optional[str] = None
-    hash: Optional[str] = None
-    conversationId: Optional[str] = None
-    subject: Optional[str] = None
-    receivedDateTime: Optional[str] = None
-
+    id: str  # This is required for all documents
+    # Only include fields that are truly common across ALL document types
+    model_config = {
+        "extra": "allow",  # Allow additional fields at runtime
+        "from_attributes": True
+    }
 
 class DocumentMetadata(BaseMetadata):
-    id: str
-    cve_fixes: Optional[str] = None
-    cve_mentions: Optional[str] = None
-    tags: Optional[str] = None
+
     added_to_vector_store: Optional[bool] = None
     added_to_summary_index: Optional[bool] = None
     added_to_graph_store: Optional[bool] = None
-
-    class Config:
-        from_attributes = True
+    model_config = {
+        "extra": "allow",  # Allow additional fields at runtime
+        "arbitrary_types_allowed": True,
+        "from_attributes": True
+    }
+    @field_validator('*')
+    def convert_nan_to_none(cls, v):
+        if pd.api.types.is_float(v) and pd.isna(v):
+            return None
+        return v
 
 
 class Document(BaseModel):
@@ -51,22 +42,13 @@ class Document(BaseModel):
     id_: str
     embedding: Optional[List[float]] = None
     metadata: DocumentMetadata
-    excluded_embed_metadata_keys: Optional[List[str]] = None
-    excluded_llm_metadata_keys: Optional[List[str]] = None
-    relationships: Optional[Dict[str, str]] = None
     text: Optional[str] = None
-    start_char_idx: Optional[int] = None
-    end_char_idx: Optional[int] = None
-    text_template: Optional[str] = None
-    metadata_template: Optional[str] = None
-    metadata_separator: Optional[str] = None
-    class_name: Optional[str] = None
-    product_mentions: Optional[List[str]] = None
-    build_numbers: Optional[List[List[int]]] = None
-    kb_mentions: Optional[List[str]] = None
-
-    class Config:
-        from_attributes = True
+    
+    model_config = {
+        "extra": "allow",  # Allow extra fields
+        "arbitrary_types_allowed": True,  # Allow arbitrary types in metadata
+        "from_attributes": True  # Replaces class Config
+    }
 
 
 class GraphNodeMetadata(BaseMetadata):

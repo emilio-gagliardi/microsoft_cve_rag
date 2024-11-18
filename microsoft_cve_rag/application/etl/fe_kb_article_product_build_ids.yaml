@@ -1,0 +1,29 @@
+- $match:
+    published:
+      $gt: "{{ start_date }}"
+      $lt: "{{ end_date }}"
+
+- $group:
+    _id: "$kb_id"
+    product_build_ids:
+      $addToSet: "$product_build_id"
+
+- $lookup:
+    from: "microsoft_kb_articles"
+    localField: "_id"
+    foreignField: "kb_id"
+    as: "docs"
+
+- $unwind: "$docs"
+
+- $addFields:
+    "docs.product_build_ids": "$product_build_ids"
+
+- $replaceRoot:
+    newRoot: "$docs"
+
+- $merge:
+    into: "microsoft_kb_articles"
+    "on": "_id"
+    whenMatched: "merge"
+    whenNotMatched: "discard"

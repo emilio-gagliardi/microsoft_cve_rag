@@ -2,21 +2,41 @@
 # Functions to process documents and extract entities and relationships.
 # insert current working directory into sys.path
 import os
-
+from pathlib import Path
 # import sys
 
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 # print(sys.path)
 import math
-from llama_index.core import Settings
-from llama_index.core.schema import Document
+from llama_index.core import (
+    Settings,
+    StorageContext,
+    VectorStoreIndex,
+    load_index_from_storage,
+    )
+from llama_index.core.schema import Document as LlamaDocument
 from llama_index.core.llms import ChatMessage
 # from llama_index.llms.openai import OpenAI
 from llama_index.core.indices.property_graph import SchemaLLMPathExtractor
 from llama_index.core.prompts.base import PromptTemplate
+from llama_index.vector_stores.qdrant import QdrantVectorStore
+from llama_index.core.node_parser import SentenceWindowNodeParser
+from llama_index.core.storage.docstore import SimpleDocumentStore
+from llama_index.core.storage.index_store import SimpleIndexStore
 from application.etl.kg_extraction_prompts import get_prompt_template
 from application.services.document_chunker import DocumentChunker
-from typing import Dict, List, Literal, Tuple
+from application.services.embedding_service import (
+    EmbeddingService,
+    LlamaIndexEmbeddingAdapter,
+    )
+from application.services.vector_db_service import VectorDBService
+from qdrant_client.http.models import (
+    Filter,
+    FieldCondition,
+    MatchValue,
+    FilterSelector,
+)
+from typing import Dict, List, Literal, Tuple, Optional
 import pandas as pd
 import uuid
 import json
@@ -39,7 +59,12 @@ from openai import OpenAI
 import logging
 import warnings
 
-logger = setup_logger()
+# Get the logging level from the environment variable, default to INFO
+log_level = os.getenv("LOG_LEVEL", "INFO").upper()
+# Convert the string to a logging level
+log_level = getattr(logging, log_level, logging.INFO)
+logger = setup_logger(__name__, level=log_level)
+
 logging.getLogger('fuzzywuzzy.fuzz').setLevel(logging.ERROR)
 logging.getLogger('fuzzywuzzy.process').setLevel(logging.ERROR)
 warnings.filterwarnings("ignore", category=UserWarning, module="fuzzywuzzy")
@@ -505,6 +530,8 @@ async def extract_entities_relationships(
     Returns:
         Dict[str, List[Dict]]: Dictionary containing lists of extracted entities.
     """
+    if not isinstance(documents_df, pd.DataFrame) or documents_df.empty:
+        return {}
     token_counter = {"input_tokens": 0, "output_tokens": 0, "total_cost": 0.0}
     extracted_data = {
         "symptoms": [],
@@ -683,94 +710,554 @@ async def extract_entities_relationships(
 
     return extracted_data
 
+class CustomDocumentTracker:
+    """Tracks documents and their metadata separately from LlamaIndex."""
+    
+    def __init__(self, persist_path: str):
+        self.persist_path = Path(persist_path)
+        self.documents = self._load_documents()
+        
+    def _load_documents(self) -> dict:
+        """Load existing document tracking data."""
+        if self.persist_path.exists():
+            with open(self.persist_path, 'r') as f:
+                return json.load(f)
+        return {}
+        
+    def add_document(self, doc_id: str, metadata: dict):
+        """Add or update document tracking information."""
+        self.documents[doc_id] = {
+            "metadata": metadata,
+            "added_at": datetime.datetime.now().isoformat(),
+            "last_updated": datetime.datetime.now().isoformat()
+        }
+        self._save_documents()
+        
+    def remove_document(self, doc_id: str):
+        """Remove document from tracking."""
+        if doc_id in self.documents:
+            del self.documents[doc_id]
+            self._save_documents()
+            
+    def get_document(self, doc_id: str) -> Optional[dict]:
+        """Get document tracking information."""
+        return self.documents.get(doc_id)
+        
+    def _save_documents(self):
+        """Persist document tracking information."""
+        with open(self.persist_path, 'w') as f:
+            json.dump(self.documents, f, indent=2)
 
+class LlamaIndexVectorService:
+    """A service that integrates LlamaIndex with Qdrant vector storage for document indexing and retrieval.
+    
+    This service provides a bridge between LlamaIndex's document processing capabilities and Qdrant's 
+    vector storage functionality. It handles document chunking, embedding generation, and vector storage
+    while maintaining compatibility with LlamaIndex's querying interface.
 
-# async def extract_entities_relationships_kg(
-#     documents_df: pd.DataFrame,
-#     document_type: str,
-#     max_text_length=1950,
-#     max_prompt_length=3050,
-# ) -> Dict[str, List[Dict]]:
-#     """
-#     Extract entities and relationships from documents using LlamaIndex's SchemaLLMPathExtractor,
-#     ensuring the final prompt fits within the given max_length.
+    Key Components:
+    - Vector Store: Uses Qdrant for persistent storage of document vectors
+    - Embedding Model: Adapts custom embedding service for LlamaIndex compatibility
+    - Node Parser: Implements sentence window parsing for context-aware chunking
+    - Storage Context: Manages the connection between LlamaIndex and vector storage
+    
+    The service currently handles:
+    - Document chunking with contextual windows
+    - Vector embedding generation
+    - Vector storage in Qdrant
+    
+    Note: Current implementation may need enhancement for proper index persistence.
+    The VectorStoreIndex is created during upsert but not explicitly persisted,
+    which means the index structure might need to be rebuilt on application restart.
 
-#     Args:
-#         documents_df (pd.DataFrame): DataFrame containing documents with 'content' and 'doc_id'.
-#         document_type (str): Type of document (e.g., MSRCPost, PatchManagementPost).
-#         max_text_length (int): Maximum length allowed for document text.
-#         max_prompt_length (int): Maximum length allowed for the entire prompt.
+    Args:
+        vector_db_service (VectorDBService): Service managing Qdrant vector storage operations
+        window_size (int, optional): Size of the context window for sentence parsing. Defaults to 3.
+        window_metadata_key (str, optional): Metadata key for window information. Defaults to "window".
 
-#     Returns:
-#         Dict[str, List[Dict]]: Dictionary containing lists of extracted entities and relationships.
-#     """
-#     extracted_data = {
-#         "symptoms": [],
-#         "causes": [],
-#         "fixes": [],
-#         "tools": [],
-#         "technologies": [],
-#         "relationships": [],
-#     }
+    Example:
+        ```python
+        vector_db_service = VectorDBService(...)
+        llama_service = LlamaIndexVectorService(vector_db_service)
+        
+        # Upsert documents
+        await llama_service.upsert_documents(documents)
+        ```
+    
+    Todo:
+        * Implement index persistence to disk
+        * Add index loading from disk on initialization
+        * Add methods for index updates and maintenance
+        * Implement query interface using loaded index
+    """
+    def __init__(self, vector_db_service: VectorDBService, persist_dir: str, 
+                 window_size: int = 3, window_metadata_key: str = "window"):
+        self.vector_db_service = vector_db_service
+        self.persist_dir = persist_dir
+        
+        # Configure global settings
+        llama_embedding_model = LlamaIndexEmbeddingAdapter(vector_db_service.embedding_service)
+        Settings.embed_model = llama_embedding_model
+        
+        # Enhanced node parser
+        self.node_parser = SentenceWindowNodeParser.from_defaults(
+            window_size=window_size,
+            window_metadata_key=window_metadata_key,
+            original_text_metadata_key="original_text"
+        )
+        Settings.node_parser = self.node_parser
+        
+        # Initialize later
+        self.vector_store = None
+        self.storage_context = None
+        self.index = None
+        self.doc_tracker = None
 
-#     for index, row in documents_df.iterrows():
-#         # Create metadata string
-#         if document_type in metadata_keys:
-#             metadata_dict = json.loads(row["metadata"])
-#             metadata_str = create_metadata_string_for_user_prompt(
-#                 metadata_dict, metadata_keys[document_type]
-#             )
-#         else:
-#             metadata_str = ""
+            
+    @classmethod
+    async def initialize(cls, vector_db_service: VectorDBService, persist_dir: str, **kwargs) -> "LlamaIndexVectorService":
+        # add docstring to explain the design pattern and why it's needed and how it works
+        logger.info("running initialize")
+        instance = cls(vector_db_service, persist_dir, **kwargs)
+        await instance._initialize_components()
+        return instance
 
-#             # Step 2: Extract knowledge using the SchemaLLMPathExtractor
-#             # try:
-#         truncated_text = truncate_text(row["text"], 2850)
-#         # Construct context that includes metadata and the document text
-#         context = f"\n{metadata_str}\n\n{truncated_text}"
-#         document = Document(text=context)
-#         # Use the kg_extractor to extract entities and relationships
-#         kg_extractor_result = await kg_extractor.acall([document], include_content=True)
-#         # except Exception as e:
-#         #     print(f"Error extracting entities for document {row['node_id']}: {e}")
-#         #     continue
-#         for doc in kg_extractor_result:
-#             # Assuming kg_extractor_result is a list of Document objects
-#             nodes = doc.metadata.get("nodes", [])
-#             relations = doc.metadata.get("relations", [])
+    async def _initialize_components(self):
+        """Initialize all service components."""
+        try:
+            # Ensure collection exists
+            await self.vector_db_service.ensure_collection_exists_async()
+            
+            # Initialize vector store with both clients
+            self.vector_store = QdrantVectorStore(
+                collection_name=self.vector_db_service.collection,
+                client=self.vector_db_service.sync_client,
+                aclient=self.vector_db_service.async_client,
+            )
+            logger.info("initialized vector store")
+            # Initialize storage and tracking
+            self.storage_context = StorageContext.from_defaults(
+                vector_store=self.vector_store,
+                persist_dir=self.persist_dir
+            )
+            logger.info("initialized storage context")
+            self.doc_tracker = CustomDocumentTracker(
+                Path(self.persist_dir) / "doc_tracker.json"
+            )
+            logger.info("initialized doc tracker")
+            # Try loading existing index
+            try:
+                logger.info(f"Loading existing index from {self.persist_dir}")
+                # self.index = load_index_from_storage(
+                #     storage_context=self.storage_context,
+                #     index_id=self.vector_db_service.collection
+                # )
+                self.index = VectorStoreIndex.from_vector_store(
+                    vector_store=self.vector_store,
+                    storage_context=self.storage_context,
+                    show_progress=True
+                )
+                index_id = self.vector_db_service.collection
+                self.index.set_index_id(index_id)
+                logger.info("loaded existing index")
+            except Exception as e:
+                logger.warning(f"Creating new index: {e}")
+                self.index = VectorStoreIndex(
+                    nodes=[],
+                    storage_context=self.storage_context,
+                    show_progress=True
+                )
+                self.index.set_index_id(self.vector_db_service.collection)
+                logger.info("created new index")
+        except Exception as e:
+            logger.error(f"Error initializing components: {e}")
+            raise
 
-#             # Process nodes (entities)
-#             for node in nodes:
-#                 if node.label == "SYMPTOM":
-#                     extracted_data["symptoms"].append(
-#                         {"name": node.name, "properties": node.properties}
-#                     )
-#                 elif node.label == "CAUSE":
-#                     extracted_data["causes"].append(
-#                         {"name": node.name, "properties": node.properties}
-#                     )
-#                 elif node.label == "FIX":
-#                     extracted_data["fixes"].append(
-#                         {"name": node.name, "properties": node.properties}
-#                     )
-#                 elif node.label == "TOOL":
-#                     extracted_data["tools"].append(
-#                         {"name": node.name, "properties": node.properties}
-#                     )
-#                 elif node.label == "TECHNOLOGY":
-#                     extracted_data["technologies"].append(
-#                         {"name": node.name, "properties": node.properties}
-#                     )
+    def _initialize_fresh_context(self):
+        """Initialize fresh storage context with empty stores and minimal index structure."""
+        try:
+            # Step 1: Create vector store (we already have self.vector_store from QdrantVectorStore)
+            if not self.vector_store:
+                raise ValueError("Vector store must be initialized before creating fresh context")
+                
+            # Step 2: Initialize storage context with empty stores
+            self.storage_context = StorageContext.from_defaults(
+                vector_store=self.vector_store,
+                persist_dir=self.persist_dir,
+                docstore=SimpleDocumentStore(),
+                index_store=SimpleIndexStore()
+            )
+            
+            # Step 3: Create empty index first, then set its ID
+            self.index = VectorStoreIndex(
+                nodes=[],
+                storage_context=self.storage_context,
+                show_progress=False
+            )
+            
+            # Step 4: Explicitly set the index ID
+            index_id = self.vector_db_service.collection
+            self.index.set_index_id(index_id)
+            
+            # Step 5: Verify index_id was set correctly
+            if self.index.index_id != index_id:
+                raise ValueError(f"Failed to set correct index_id. Expected {index_id}, got {self.index.index_id}")
+            
+            # Step 6: Persist the storage context
+            self.storage_context.persist(persist_dir=self.persist_dir)
+            
+            logger.info(f"Created and persisted initialized storage context with index_id '{index_id}' at {self.persist_dir}")
+            
+        except Exception as e:
+            logger.error(f"Error initializing fresh context: {e}")
+            raise
 
-#             # Process relations
-#             for relation in relations:
-#                 extracted_data["relationships"].append(
-#                     {
-#                         "label": relation.label,
-#                         "source": relation.source_id,
-#                         "target": relation.target_id,
-#                         "properties": relation.properties,
-#                     }
-#                 )
+    async def _ensure_collection(self):
+        """Ensure Qdrant collection exists."""
+        try:
+            await self.vector_db_service.async_client.get_collection(
+                collection_name=self.vector_db_service.collection
+            )
+            logger.info(f"Collection '{self.vector_db_service.collection}' exists")
+        except Exception:
+            logger.info(f"Creating collection '{self.vector_db_service.collection}'")
+            await self.vector_db_service.async_client.create_collection(
+                collection_name=self.vector_db_service.collection,
+                vectors_config=self.vector_db_service.vector_config
+            )
 
-#     return extracted_data
+    # def _load_index(self) -> Optional[VectorStoreIndex]:
+    #     """Load existing index from disk if available."""
+    #     try:
+    #         return load_index_from_storage(
+    #             storage_context=self.storage_context,
+    #             persist_dir=self.persist_dir
+    #         )
+    #     except Exception as e:
+    #         logger.warning(f"No existing index found: {e}")
+    #         return None
+
+    async def upsert_documents(self, documents: List[LlamaDocument]) -> None:
+        try:
+            logger.info("running upsert_documents")
+            
+            doc_ids_to_process = {doc.doc_id for doc in documents}
+            
+            existing_ids = {
+                doc_id for doc_id in doc_ids_to_process 
+                if self.doc_tracker.get_document(doc_id)
+            }
+            
+            # Delete existing documents
+            for doc_id in existing_ids:
+                await self.delete_document(doc_id)
+            
+            # Process nodes asynchronously
+            nodes = []
+            for doc in documents:
+                doc_nodes = self.node_parser.get_nodes_from_documents([doc])
+                logger.info(f"Document {doc.doc_id} generated {len(doc_nodes)} nodes")
+                # Log sample node info
+                if doc_nodes:
+                    sample_node = doc_nodes[0]
+                    logger.info(f"Sample node: id={sample_node.node_id}, ref_doc_id={sample_node.ref_doc_id}")
+                nodes.extend(doc_nodes)
+            
+            # Add nodes to index
+            await self.index._async_add_nodes_to_index(
+                index_struct=self.index.index_struct,
+                nodes=nodes,
+                show_progress=True
+            )
+            # logger.info(f"Index struct after upsert: {self.index.index_struct}")
+            logger.info(f"Storage context docstore size: {len(self.storage_context.docstore.docs)}")
+            logger.info(f"Vector store size: {await self._get_collection_point_count()}")
+            # Update tracking and persist
+            for doc in documents:
+                self.doc_tracker.add_document(doc.doc_id, doc.metadata)
+            
+            # await asyncio.to_thread(
+            #     self.storage_context.persist,
+            #     persist_dir=self.persist_dir
+            # )
+            
+            # Verify
+            # if not await self._verify_upsert(doc_ids_to_process, len(nodes)):
+            #     raise Exception("Upsert verification failed")
+            unique_counts = await self._count_unique_points()
+            logger.info(f"Uniqueness analysis:\n{unique_counts}")
+            logger.info("Document upsert complete and verified")
+            
+        except Exception as e:
+            logger.error(f"Error in upsert_documents: {e}")
+            raise
+    
+    async def delete_document(self, doc_id: str):
+        """Delete a specific document from both Qdrant and tracking."""
+        try:
+            # Delete from Qdrant
+            await self.vector_db_service.async_client.delete(
+                collection_name=self.vector_db_service.collection,
+                points_selector=FilterSelector(
+                    filter=Filter(
+                        must=[FieldCondition(key="doc_id", match=MatchValue(value=doc_id))]
+                    )
+                ),
+                wait=True
+            )
+            
+            # Remove from document tracker
+            self.doc_tracker.remove_document(doc_id)
+            
+            logger.info(f"Successfully deleted document {doc_id}")
+        except Exception as e:
+            logger.error(f"Error deleting document {doc_id}: {e}")
+            raise
+    
+    # async def delete_all_documents(self):
+    #     """Delete all documents from both Qdrant and LlamaIndex storage."""
+    #     try:
+    #         # Add wait=True and ensure the collection is fully deleted
+    #         while True:
+    #             try:
+    #                 await self.vector_db_service.async_client.get_collection(
+    #                     collection_name=self.vector_db_service.collection
+    #                 )
+    #                 await asyncio.sleep(0.5)  # Wait before checking again
+    #             except Exception:
+    #                 break  # Collection is gone
+                
+    #         # Recreate with wait=True to ensure it's ready
+    #         await self.vector_db_service.async_client.recreate_collection(
+    #             collection_name=self.vector_db_service.collection,
+    #             vectors_config=self.vector_db_service.vector_config,
+    #             wait=True
+    #         )
+            
+    #         # Verify collection is empty
+    #         collection_info = await self.vector_db_service.async_client.get_collection(
+    #             collection_name=self.vector_db_service.collection
+    #         )
+    #         if collection_info.points_count != 0:
+    #             raise Exception(f"Collection not empty after recreation. Found {collection_info.points_count} points")
+            
+    #         # Reset LlamaIndex storage
+    #         self.storage_context = StorageContext.from_defaults(
+    #             vector_store=self.vector_store,
+    #             persist_dir=self.persist_dir,
+    #             docstore=SimpleDocumentStore(),
+    #             index_store=SimpleIndexStore(),
+    #         )
+            
+    #         # Create fresh index
+    #         self.index = None
+            
+    #         # Persist empty state
+    #         if self.storage_context:
+    #             self.storage_context.persist(persist_dir=self.persist_dir)
+                
+    #         logger.info("Successfully deleted all documents and reset index")
+    #         return True
+    #     except Exception as e:
+    #         logger.error(f"Error deleting documents: {e}")
+    #         raise
+
+    async def _get_collection_point_count(self) -> int:
+        """Get the current number of points in the collection."""
+        collection_stats = await self.vector_db_service.async_client.get_collection(
+            collection_name=self.vector_db_service.collection
+        )
+        return collection_stats.points_count
+    
+    async def _count_unique_points(self) -> dict:
+        """Count unique points based on different criteria."""
+        try:
+            # Get all points with their payloads
+            scroll_result = await self.vector_db_service.async_client.scroll(
+                collection_name=self.vector_db_service.collection,
+                limit=1000,  
+                with_payload=True,
+                with_vectors=True
+            )
+            
+            points = scroll_result[0]  # First element contains points
+            
+            # Initialize collections
+            unique_texts = set()
+            unique_doc_ids = set()
+            unique_vectors = set()
+            vector_groups = {}  # Dictionary to group points by their vectors
+            
+            for point in points:
+                if point.payload and '_node_content' in point.payload:
+                    try:
+                        node_content = json.loads(point.payload['_node_content'])
+                        if 'text' in node_content:
+                            text = node_content['text']
+                            unique_texts.add(text)
+                            
+                            # Group by vector and track unique vectors
+                            if hasattr(point, 'vector') and point.vector is not None:
+                                vector_tuple = tuple(point.vector)
+                                unique_vectors.add(vector_tuple)
+                                
+                                if vector_tuple not in vector_groups:
+                                    vector_groups[vector_tuple] = []
+                                vector_groups[vector_tuple].append({
+                                    'text': text,
+                                    'doc_id': point.payload.get('doc_id', 'unknown'),
+                                    'metadata': {
+                                        k: v for k, v in point.payload.items() 
+                                        if k not in ['_node_content', 'doc_id']
+                                    }
+                                })
+                    except json.JSONDecodeError:
+                        logger.warning(f"Could not parse _node_content JSON for point")
+                
+                if point.payload and 'doc_id' in point.payload:
+                    unique_doc_ids.add(point.payload['doc_id'])
+            
+            # Find duplicate vectors
+            duplicate_vectors = {
+                vector: points for vector, points in vector_groups.items() 
+                if len(points) > 1
+            }
+            
+            # Generate detailed report
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            report_path = Path(self.persist_dir) / f"duplicate_analysis_{timestamp}.txt"
+            
+            with open(report_path, 'w', encoding='utf-8') as f:
+                f.write(f"Duplicate Vector Analysis Report - {timestamp}\n")
+                f.write("=" * 80 + "\n\n")
+                f.write(f"Summary:\n")
+                f.write(f"Total points: {len(points)}\n")
+                f.write(f"Unique texts: {len(unique_texts)}\n")
+                f.write(f"Unique document IDs: {len(unique_doc_ids)}\n")
+                f.write(f"Unique vectors: {len(unique_vectors)}\n")
+                f.write(f"Vectors with duplicates: {len(duplicate_vectors)}\n\n")
+                
+                # Sort vectors by number of duplicates (descending)
+                sorted_vectors = sorted(
+                    duplicate_vectors.items(), 
+                    key=lambda x: len(x[1]), 
+                    reverse=True
+                )
+                
+                for vector, points in sorted_vectors:
+                    vector_preview = [f"{x:.4f}" for x in vector[:5]]
+                    f.write(f"\nDUPLICATE VECTOR: [{', '.join(vector_preview)}...]\n")
+                    f.write(f"This exact vector appears {len(points)} times in Qdrant\n")
+                    f.write(f"Full Vector: {vector}\n")
+                    f.write("-" * 80 + "\n")
+                    
+                    # Group by text to see distribution
+                    text_counts = {}
+                    for point in points:
+                        text = point['text']
+                        if text not in text_counts:
+                            text_counts[text] = {
+                                'count': 0,
+                                'doc_ids': set(),
+                                'metadata': []
+                            }
+                        text_counts[text]['count'] += 1
+                        text_counts[text]['doc_ids'].add(point['doc_id'])
+                        text_counts[text]['metadata'].append(point['metadata'])
+                    
+                    f.write(f"Distribution of Points with this vector:\n\n")
+                    for text, info in text_counts.items():
+                        f.write(f"Text chunk: {text[:100]}...\n")
+                        f.write(f"- Stored {info['count']} times in Qdrant\n")
+                        f.write(f"- Associated with {len(info['doc_ids'])} document(s): {list(info['doc_ids'])}\n")
+                        f.write(f"- First few metadata entries:\n")
+                        for metadata in info['metadata'][:2]:
+                            f.write(f"  {json.dumps(metadata, indent=2)[:200]}...\n")
+                        f.write("\n")
+                    f.write("=" * 80 + "\n")
+            
+            logger.info(f"Detailed duplicate analysis written to: {report_path}")
+            
+            # Create duplicate distribution
+            duplicate_distribution = {}
+            for points in vector_groups.values():
+                count = len(points)
+                duplicate_distribution[count] = duplicate_distribution.get(count, 0) + 1
+            
+            return {
+                "total_points": len(points),
+                "unique_texts": len(unique_texts),
+                "unique_doc_ids": len(unique_doc_ids),
+                "unique_vectors": len(unique_vectors),
+                "vectors_with_duplicates": len(duplicate_vectors),
+                "max_duplicates": max(len(points) for points in vector_groups.values()),
+                "duplicate_distribution": {
+                    f"{count}_duplicates": freq 
+                    for count, freq in sorted(duplicate_distribution.items())
+                }
+            }
+            
+        except Exception as e:
+            logger.error(f"Error counting unique points: {e}")
+            logger.exception("Full traceback:")
+            raise
+
+    async def _verify_upsert(
+        self,
+        processed_ids: set,
+        nodes_created: int
+    ) -> bool:
+        """
+        Verify that the upsert operation was successful by checking document presence
+        and logging statistics.
+        
+        Args:
+            processed_ids: Set of document IDs that were processed
+            nodes_created: Number of nodes created in the index
+        
+        Returns:
+            bool: True if all documents are found in Qdrant, False otherwise
+        """
+        # if the processed_ids is empty, return True
+        if not processed_ids:
+            raise ValueError("No documents ids to process, nothing to verify")
+        try:
+            # Verify each document exists in Qdrant
+            for doc_id in processed_ids:
+                scroll_result = await self.vector_db_service.async_client.scroll(
+                    collection_name=self.vector_db_service.collection,
+                    scroll_filter=Filter(
+                        must=[
+                            FieldCondition(
+                                key="doc_id",
+                                match=MatchValue(value=doc_id)
+                            )
+                        ]
+                    ),
+                    limit=1
+                )
+                
+                # scroll_result is a tuple of (points, offset)
+                points = scroll_result[0]
+                
+                if not points:  # Check if points list is empty
+                    logger.error(f"Document {doc_id} not found in Qdrant after upsert")
+                    return False
+            
+            # Log statistics
+            logger.info(f"""Upsert verification successful:
+            - All documents found in Qdrant
+            - Documents processed: {len(processed_ids)}
+            - Nodes created: {nodes_created}
+            - Embeddings generated: {len(scroll_result[0])}
+            - Nodes per document (avg): {nodes_created / len(processed_ids):.1f}
+            - Embeddings per document (avg): {len(scroll_result[0]) / len(processed_ids):.1f}""")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error during upsert verification: {e}")
+            return False
+
+    async def aclose(self):
+        """Close connections using existing service"""
+        await self.vector_db_service.aclose()

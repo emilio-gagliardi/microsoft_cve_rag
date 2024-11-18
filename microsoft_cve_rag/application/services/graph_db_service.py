@@ -4,7 +4,7 @@
 # Dependencies: None (external graph database library)
 
 # services/graph_db_service.py
-# import os
+import os
 # import sys
 
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
@@ -24,7 +24,11 @@ import uuid
 import logging
 import math
 import numpy as np
-from application.app_utils import get_app_config, get_graph_db_credentials
+from application.app_utils import (
+    get_app_config,
+    get_graph_db_credentials,
+    setup_logger
+)
 from application.core.models import graph_db_models
 
 # import asyncio  # required for testing
@@ -42,7 +46,12 @@ from tqdm import tqdm
 settings = get_app_config()
 graph_db_settings = settings["GRAPHDB_CONFIG"]
 credentials = get_graph_db_credentials()
-logger = logging.getLogger(__name__)
+# Get the logging level from the environment variable, default to INFO
+log_level = os.getenv("LOG_LEVEL", "INFO").upper()
+# Convert the string to a logging level
+log_level = getattr(logging, log_level, logging.INFO)
+
+logger = setup_logger(__name__, level=log_level)
 
 username = credentials.username
 password = credentials.password
@@ -354,6 +363,16 @@ class BaseService(Generic[T]):
                                 item["kb_ids"] = [item["kb_ids"]]
                             elif not isinstance(item["kb_ids"], list):
                                 item["kb_ids"] = [str(item["kb_ids"])]
+                        if "product_build_ids" in item:
+                            if item["product_build_ids"] is None or (
+                                isinstance(item["product_build_ids"], float)
+                                and math.isnan(item["product_build_ids"])
+                            ):
+                                item["product_build_ids"] = []
+                            elif isinstance(item["product_build_ids"], str):
+                                item["product_build_ids"] = [item["product_build_ids"]]
+                            elif not isinstance(item["product_build_ids"], list):
+                                item["product_build_ids"] = [str(item["product_build_ids"])]
                         if "product_mentions" in item:
                             if item["product_mentions"] is None or (
                                 isinstance(item["product_mentions"], float)
@@ -994,16 +1013,20 @@ async def check_previous_message(
 async def check_references(
     source_node: Any, target_node: Any, rel_info: graph_db_models.AsyncReferencesRel
 ) -> bool:
-    if isinstance(source_node, graph_db_models.Fix):
-        if isinstance(target_node, graph_db_models.KBArticle):
-            return target_node.kb_id[0] in source_node.kb_ids
+    # if isinstance(source_node, graph_db_models.Fix):
+    #     if isinstance(target_node, graph_db_models.KBArticle):
+    #         return target_node.kb_id[0] in source_node.kb_ids
 
-    elif isinstance(source_node, graph_db_models.KBArticle):
+    if isinstance(source_node, graph_db_models.KBArticle):
         if isinstance(target_node, graph_db_models.ProductBuild):
             print(f"This is the From direction. No relationship to create.")
             # return target_node.product_build_id in source_node.product_build_id
             return False
-
+    
+    elif isinstance(source_node, graph_db_models.MSRCPost):
+        if isinstance(target_node, graph_db_models.KBArticle):
+            return target_node.kb_id in source_node.kb_ids
+    
     elif isinstance(source_node, graph_db_models.PatchManagementPost):
         if isinstance(target_node, graph_db_models.KBArticle):
             """
@@ -1242,9 +1265,10 @@ async def build_relationships(
                                         relationship_instance, node, target_node
                                     )
                             else:
-                                print(
-                                    f"Relationship already exists: {node.node_id} -{rel_type}-> {target_node.node_id}"
-                                )
+                                # print(
+                                #     f"Relationship already exists: {node.node_id} -{rel_type}-> {target_node.node_id}"
+                                # )
+                                pass
         else:
             print(f"BR 9: shouldn't be here: node_type_str: {node_type_str}")
 
@@ -1805,7 +1829,7 @@ class RelationshipTracker:
     async def fetch_existing_relationships(
         self, node_types: List[str], node_ids: List[str]
     ):
-        print("Start fetch_existing")
+        # print("Start fetch_existing")
         # print(f"node_types: {node_types} num ids: {len(node_ids)}")
         query = """
         UNWIND $node_types AS node_type
@@ -1908,7 +1932,7 @@ class RelationshipTracker:
                 "Warning: Attempting to create a Product -> Product relationship, which is unexpected."
             )
         else:
-            print(f"Node({source.node_label}) -> Node({target.node_label})")
+            # print(f"Node({source.node_label}) -> Node({target.node_label})")
             # print(
             #     f"_create_relationship_key: {(source.node_id, rel_type, target.node_id)}"
             # )
@@ -1929,7 +1953,7 @@ class RelationshipTracker:
     def add_relationship(self, source: Any, rel_type: str, target: Any):
         node_type = type(source).__name__
         key = self._create_relationship_key(source, rel_type, target)
-        print(f"add_relationship: {node_type}:{key}")
+        # print(f"add_relationship: {node_type}:{key}")
         if node_type not in self.batch_relationships:
             self.batch_relationships[node_type] = set()
         self.batch_relationships[node_type].add(key)
@@ -1997,9 +2021,9 @@ async def build_migration_relationships(
         # Check if the relationship already exists
         existing_rel = await relationship.is_connected(target_node)
         if existing_rel:
-            print(
-                f"Relationship already exists: {source_id} -[{rel_type}]-> {target_id}"
-            )
+            # print(
+            #     f"Relationship already exists: {source_id} -[{rel_type}]-> {target_id}"
+            # )
             continue
 
         # Disconnect existing relationships if it's a one-to-one relationship

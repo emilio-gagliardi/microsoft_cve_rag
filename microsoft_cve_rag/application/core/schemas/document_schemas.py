@@ -61,7 +61,60 @@ class BaseMetadata(BaseModel):
     )
     source: Optional[str] = Field(None, description="The URL of the ingested document")
     hash: Optional[str] = Field(None, description="Hash of the document")
-
+    # Add NVD base fields
+    nvd_published_date: Optional[datetime] = Field(None, description="NVD publication date")
+    nvd_description: Optional[str] = Field(None, description="NVD description")
+    
+    # Add CWE fields
+    cwe_id: Optional[str] = Field(None, description="Common Weakness Enumeration ID")
+    cwe_name: Optional[str] = Field(None, description="Name of the CWE")
+    cwe_source: Optional[str] = Field(None, description="Source of the CWE")
+    cwe_url: Optional[str] = Field(None, description="URL to CWE details")
+    
+    # Add NIST CVSS fields
+    nist_vector: Optional[str] = Field(None, description="NIST CVSS vector string")
+    nist_base_score_num: Optional[float] = Field(None, description="NIST base score number")
+    nist_base_score_rating: Optional[str] = Field(None, description="NIST base score rating")
+    nist_impact_score: Optional[float] = Field(None, description="NIST impact score")
+    nist_exploitability_score: Optional[float] = Field(None, description="NIST exploitability score")
+    nist_attack_vector: Optional[str] = Field(None, description="NIST attack vector")
+    nist_attack_complexity: Optional[str] = Field(None, description="NIST attack complexity")
+    nist_privileges_required: Optional[str] = Field(None, description="NIST privileges required")
+    nist_user_interaction: Optional[str] = Field(None, description="NIST user interaction")
+    nist_scope: Optional[str] = Field(None, description="NIST scope")
+    nist_confidentiality: Optional[str] = Field(None, description="NIST confidentiality impact")
+    nist_integrity: Optional[str] = Field(None, description="NIST integrity impact")
+    nist_availability: Optional[str] = Field(None, description="NIST availability impact")
+    
+    # Add CNA CVSS fields
+    cna_vector: Optional[str] = Field(None, description="CNA CVSS vector string")
+    cna_base_score_num: Optional[float] = Field(None, description="CNA base score number")
+    cna_base_score_rating: Optional[str] = Field(None, description="CNA base score rating")
+    cna_impact_score: Optional[float] = Field(None, description="CNA impact score")
+    cna_exploitability_score: Optional[float] = Field(None, description="CNA exploitability score")
+    cna_attack_vector: Optional[str] = Field(None, description="CNA attack vector")
+    cna_attack_complexity: Optional[str] = Field(None, description="CNA attack complexity")
+    cna_privileges_required: Optional[str] = Field(None, description="CNA privileges required")
+    cna_user_interaction: Optional[str] = Field(None, description="CNA user interaction")
+    cna_scope: Optional[str] = Field(None, description="CNA scope")
+    cna_confidentiality: Optional[str] = Field(None, description="CNA confidentiality impact")
+    cna_integrity: Optional[str] = Field(None, description="CNA integrity impact")
+    cna_availability: Optional[str] = Field(None, description="CNA availability impact")
+    
+    # Add ADP CVSS fields
+    adp_vector: Optional[str] = Field(None, description="ADP CVSS vector string")
+    adp_base_score_num: Optional[float] = Field(None, description="ADP base score number")
+    adp_base_score_rating: Optional[str] = Field(None, description="ADP base score rating")
+    adp_impact_score: Optional[float] = Field(None, description="ADP impact score")
+    adp_exploitability_score: Optional[float] = Field(None, description="ADP exploitability score")
+    adp_attack_vector: Optional[str] = Field(None, description="ADP attack vector")
+    adp_attack_complexity: Optional[str] = Field(None, description="ADP attack complexity")
+    adp_privileges_required: Optional[str] = Field(None, description="ADP privileges required")
+    adp_user_interaction: Optional[str] = Field(None, description="ADP user interaction")
+    adp_scope: Optional[str] = Field(None, description="ADP scope")
+    adp_confidentiality: Optional[str] = Field(None, description="ADP confidentiality impact")
+    adp_integrity: Optional[str] = Field(None, description="ADP integrity impact")
+    adp_availability: Optional[str] = Field(None, description="ADP availability impact")
 
 class DocumentMetadata(BaseMetadata):
     """

@@ -2,7 +2,7 @@
 # Inputs: Text data or embeddings
 # Outputs: Search results, insertion status
 # Dependencies: EmbeddingService
-from typing import Optional, Union, Any, List
+import json
 import uuid
 from qdrant_client import QdrantClient
 from qdrant_client.http.models import (
@@ -24,7 +24,7 @@ from application.services.embedding_service import (
     OllamaProvider,
 )
 from application.app_utils import get_app_config, get_vector_db_credentials
-from typing import Optional, List, Union
+from typing import Optional, List, Union, Dict, Any
 from fastapi import HTTPException
 
 import logging
@@ -40,7 +40,56 @@ vector_db_settings = settings.get("VECTORDB_CONFIG")
 
 class VectorDBService:
     """
-    Distance Metrics: ['Cosine','Dot','Euclid','Manhattan']
+    A service class that manages vector database operations using Qdrant as the backend.
+    
+    This service handles the creation, retrieval, update, and deletion of vector embeddings
+    in a Qdrant database. It serves as a bridge between the application and the vector store,
+    integrating with LlamaIndex by providing compatible vector storage and retrieval capabilities.
+
+    Key Features:
+    - Manages Qdrant collections for vector storage
+    - Handles vector embeddings generation through configurable embedding providers
+    - Supports both synchronous and asynchronous operations
+    - Provides CRUD operations for vector records
+    
+    Initialization Process:
+    1. Establishes connections to Qdrant (both sync and async clients)
+    2. Creates an embedding service based on the specified provider
+    3. Initializes or connects to the specified collection
+    4. Configures distance metrics for similarity search
+
+    Integration with LlamaIndex:
+    - Compatible with LlamaIndex's VectorStore interface
+    - Stores document embeddings that can be used by LlamaIndex for retrieval
+    - Supports metadata storage alongside vectors for rich document retrieval
+
+    Args:
+        embedding_config (dict): Configuration for the embedding service including:
+            - embedding_provider: The provider to use (e.g., "qdrant_default", "fast_embed", "ollama")
+            - model_name: The specific model to use for embeddings
+        vectordb_config (dict): Configuration for the vector database including:
+            - tier1_collection: Default collection name
+            - distance_metric: Similarity metric to use
+        collection (str, optional): The name of the collection to use. Defaults to tier1_collection from config.
+        distance_metric (str, optional): The distance metric to use for similarity search.
+            Options: ['cosine', 'dot', 'euclid', 'manhattan']. Defaults to 'cosine'.
+
+    Example:
+        ```python
+        embedding_config = {
+            "embedding_provider": "fast_embed",
+            "model_name": "BAAI/bge-small-en-v1.5"
+        }
+        vectordb_config = {
+            "tier1_collection": "my_collection",
+            "distance_metric": "cosine"
+        }
+        
+        vector_service = VectorDBService(
+            embedding_config=embedding_config,
+            vectordb_config=vectordb_config
+        )
+        ```
     """
 
     def __init__(
@@ -102,7 +151,10 @@ class VectorDBService:
             await self.async_client.create_collection(
                 collection_name=self.collection,
                 vectors_config=VectorParams(
-                    size=self.embedding_length, distance=Distance.COSINE
+                    size=self.embedding_length,
+                    distance=Distance.COSINE,
+                    # "text": VectorParams(size=300, distance=Distance.COSINE),
+                    # "thread_id": VectorParams(size=50, distance=Distance.EUCLID),
                 ),
             )
             print(f"Collection '{self.collection}' created successfully.")
@@ -311,6 +363,154 @@ class VectorDBService:
                 status_code=500,
                 detail="An unexpected error occurred while deleting the point",
             )
+
+    async def bulk_delete_vectors(
+        self,
+        vector_ids: List[str],
+        collection_name: str = None,
+        wait: bool = True,
+        ordering: Optional[WriteOrdering] = None,
+        **kwargs: Any,
+    ) -> int:
+        """
+        Delete multiple vectors by their IDs.
+        
+        Args:
+            vector_ids: List of vector IDs to delete
+            collection_name: Optional collection name override
+            wait: Whether to wait for operation completion
+            ordering: Optional write ordering configuration
+            
+        Returns:
+            int: Number of vectors successfully deleted
+        """
+        try:
+            result = await self.async_client.delete(
+                collection_name=collection_name if collection_name else self.collection,
+                points_selector=vector_ids,
+                wait=wait,
+                ordering=ordering,
+                **kwargs
+            )
+            
+            return {
+                "operation_id": result.operation_id,
+                "status": result.status
+            }
+
+        except Exception as e:
+            logger.error(f"Error in bulk_delete_vectors: {e}")
+            raise HTTPException(
+                status_code=500,
+                detail=f"Failed to delete vectors: {str(e)}"
+            )
+
+    async def bulk_delete_points(
+        self,
+        point_ids: List[str],
+        collection_name: str = None,
+        wait: bool = True,
+        ordering: Optional[WriteOrdering] = None,
+        **kwargs: Any,
+    ) -> int:
+        """
+        Delete multiple points by their IDs.
+        
+        Args:
+            point_ids: List of point IDs to delete
+            collection_name: Optional collection name override
+            wait: Whether to wait for operation completion
+            ordering: Optional write ordering configuration
+            
+        Returns:
+            int: Number of points successfully deleted
+        """
+        try:
+            result = await self.async_client.delete(
+                collection_name=collection_name if collection_name else self.collection,
+                points_selector=point_ids,
+                wait=wait,
+                ordering=ordering,
+                **kwargs
+            )
+            
+            return {
+                "operation_id": result.operation_id,
+                "status": result.status
+            }
+
+        except Exception as e:
+            logger.error(f"Error in bulk_delete_points: {e}")
+            raise HTTPException(
+                status_code=500,
+                detail=f"Failed to delete points: {str(e)}"
+            )
+
+    async def delete_all_points(self) -> dict:
+        """
+        Delete all points from the collection while preserving the collection structure.
+        
+        Returns:
+            dict: Operation status including operation_id and status
+        """
+        try:
+            # Get all point IDs from the collection
+            scroll_result = await self.async_client.scroll(
+                collection_name=self.collection,
+                limit=10000,
+                with_payload=False,
+                with_vectors=False
+            )
+            
+            points = scroll_result[0]  # First element contains the points
+            if not points:
+                return {
+                    "operation_id": "no_points",
+                    "status": "success",
+                    "message": "No points to delete"
+                }
+            
+            # Extract point IDs
+            point_ids = [point.id for point in points]
+            
+            # Delete all points
+            result = await self.async_client.delete(
+                collection_name=self.collection,
+                points_selector=point_ids,
+                wait=True
+            )
+            
+            return {
+                "operation_id": result.operation_id,
+                "status": result.status,
+                "message": f"Successfully deleted {len(point_ids)} points"
+            }
+
+        except Exception as e:
+            logger.error(f"Error deleting all points: {e}")
+            raise HTTPException(
+                status_code=500,
+                detail=f"Failed to delete all points: {str(e)}"
+            )
+
+    async def get_points_with_vector(self, vector: List[float], collection_name: str) -> List[Dict]:
+        """Get all points that match a specific vector."""
+        results = await self.async_client.search(
+            collection_name=collection_name,
+            query_vector=vector,
+            limit=100,
+            score_threshold=0.9999,
+            with_payload=True,
+            with_vectors=True
+        )
+        
+        with open('vector_matches.txt', 'w', encoding='utf-8') as f:
+            f.write(f"Points matching vector {vector[:5]}...\n\n")
+            for point in results:
+                f.write(json.dumps(point.payload, indent=2))
+                f.write("\n" + "="*80 + "\n")
+        
+        return results
 
     async def aclose(self):
         """Asynchronously close the Qdrant client connections."""

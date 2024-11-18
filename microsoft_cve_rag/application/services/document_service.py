@@ -8,7 +8,7 @@
 
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 # print(sys.path)
-
+import os
 from bson import ObjectId
 from application.core.models.basic_models import Document
 from pymongo import MongoClient, ASCENDING, DESCENDING
@@ -20,10 +20,16 @@ from pymongo.errors import (
 )
 from application.app_utils import get_documents_db_credentials, setup_logger
 import json
+import logging
 from datetime import datetime
 from typing import List, Dict, Any, Tuple, Optional
 
-logger = setup_logger(__name__)
+# Get the logging level from the environment variable, default to INFO
+log_level = os.getenv("LOG_LEVEL", "INFO").upper()
+# Convert the string to a logging level
+log_level = getattr(logging, log_level, logging.INFO)
+
+logger = setup_logger(__name__, level=log_level)
 
 def preprocess_pipeline(pipeline):
     """
@@ -151,16 +157,15 @@ class DocumentService:
             print(f"Unexpected error: {e}")
             raise
 
-    def update_document(self, document_id: str, document: Document) -> int:
+    def update_document(self, document_id: str, document: Document, exclude_unset: bool = True) -> int:
         """
         Update a single document in the collection by its ID.
-
+        
         Args:
-            document_id (str): ID of the document to be updated.
-            document (Document): Updated document data.
-
-        Returns:
-            int: Number of documents updated.
+            document_id (str): The ID of the document to update
+            document (Document): The document containing the updates
+            exclude_unset (bool): If True, only include fields that were explicitly set.
+                                If False, include all fields including None values.
         """
         query = {}
         if ObjectId.is_valid(document_id):
@@ -168,42 +173,21 @@ class DocumentService:
         else:
             query["id_"] = document_id
 
-        # print(f"Document Service received:\n{document}")
-        update_dict = {}
-        document_dict = document.model_dump(exclude_unset=True)
-        for key, value in document_dict.items():
-            if key == "metadata" and isinstance(value, dict):
-                for meta_key, meta_value in value.items():
-                    if meta_value is not None:
-                        update_dict[f"metadata.{meta_key}"] = meta_value
-            elif value is not None:
-                update_dict[key] = value
-
-        # Convert ObjectId to string
-        if "id_" in update_dict:
-            update_dict["id_"] = str(update_dict["id_"])
-        if "metadata.id" in update_dict:
-            update_dict["metadata.id"] = str(update_dict["metadata.id"])
-
-        # print(f"Passing to pymongo dict: {update_dict}")
+        # Convert document to dict - let caller decide what fields to include
+        update_dict = document.model_dump(exclude_unset=exclude_unset)
+        
+        # Flatten metadata fields for MongoDB dot notation
+        metadata = update_dict.pop('metadata', {})
+        for meta_key, meta_value in metadata.items():
+            update_dict[f"metadata.{meta_key}"] = meta_value
 
         try:
+            print(f"$set: {update_dict}")
             result = self.collection.update_one(query, {"$set": update_dict})
+
             return result.modified_count
-        except ConnectionFailure as e:
-            print(f"Connection to MongoDB failed: {e}")
-            raise
-        except OperationFailure as e:
-            print(f"Operation failed: {e}")
-            raise
-        except ConfigurationError as e:
-            print(f"Configuration error: {e}")
-            raise
-        except PyMongoError as e:
-            print(f"General MongoDB error: {e}")
-            raise
         except Exception as e:
-            print(f"Unexpected error: {e}")
+            logger.error(f"Error updating document: {e}")
             raise
 
     def delete_document(self, document_id: str) -> int:
@@ -448,7 +432,24 @@ class DocumentService:
         except Exception as e:
             print(f"Unexpected error: {e}")
             raise
-
+    
+    def test_update(self, document_id: str):
+        """Test function to verify document updates"""
+        # Check document before update
+        before = self.collection.find_one({"id_": document_id})
+        logger.info(f"Document before update: {before}")
+        
+        # Perform a simple test update
+        test_update = {"$set": {"test_field": "test_value"}}
+        result = self.collection.update_one({"id_": document_id}, test_update)
+        logger.info(f"Test update result - matched: {result.matched_count}, modified: {result.modified_count}")
+        
+        # Check document after update
+        after = self.collection.find_one({"id_": document_id})
+        logger.info(f"Document after update: {after}")
+        
+        return before, after
+    
     def _describe(self):
         """
         Print all instance properties of the DocumentService.

@@ -27,7 +27,7 @@ def load_app_config():
 
 
 # Configure the logger
-def setup_logger(name=None):
+def setup_logger(name=None, level=logging.INFO):
     """
     Create and configure a logger object with the specified name.
     This logger can be imported and used anywhere in the application.
@@ -44,7 +44,7 @@ def setup_logger(name=None):
 
     # Check if the logger has already been configured
     if not logger.hasHandlers():
-        logger.setLevel(logging.INFO)  # Set the logging level
+        logger.setLevel(level)  # Set the logging level
 
         # Create handlers
         stream_handler = logging.StreamHandler()
@@ -81,7 +81,6 @@ def setup_logger(name=None):
         print(f"Logger '{logger_name}' initialized with handlers.")  # Debug statement
 
     return logger
-
 
 env_loaded = False
 

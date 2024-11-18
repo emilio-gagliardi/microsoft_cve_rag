@@ -59,7 +59,7 @@ class AsyncOneToOneRel(AsyncStructuredRel):
 
 class AsyncSymptomCauseFixRel(AsyncZeroToManyRel):
     severity = StringProperty(
-        choices={"low": "low", "medium": "medium", "high": "high", "important":"important"}
+        choices={"low": "low", "medium": "medium", "high": "high", "important":"important", "nst":"nst", "NST":"NST"}
     )
     confidence = IntegerProperty(default=50)  # 0-100%
     description = StringProperty()
@@ -108,6 +108,7 @@ class Product(AsyncStructuredNode):
         "windows_10": "Windows 10",
         "windows_11": "Windows 11",
         "edge": "Microsoft Edge (Chromium-based)",
+        "edge_ext": "Microsoft Edge (Chromium-based) Extended Edition",
     }
     archi_choices = {
         "x86": "32-bit system",
@@ -270,16 +271,19 @@ class ProductBuild(AsyncStructuredNode):
 
 
 class MSRCPost(AsyncStructuredNode):
-    impact_type_choices = {
+    cve_category_choices = {
         "tampering": "Tampering",
         "spoofing": "Spoofing",
         "availability": "Availability",
         "privilege_elevation": "Elevation of Privilege",
         "denial_of_service": "Denial of Service",
+        "dos": "Denial of Service",
         "disclosure": "Information Disclosure",
         "remote_code_execution": "Remote Code Execution",
-        "security_feature_bypass": "Security Feature Bypass",
-        "NIT": "No impact type",
+        "rce": "Remote Code Execution",
+        "feature_bypass": "Security Feature Bypass",
+        "NC": "No Category",
+        "none": "None",
     }
 
     severity_type_choices = {
@@ -288,15 +292,24 @@ class MSRCPost(AsyncStructuredNode):
         "moderate": "Moderate",
         "low": "Low",
         "NST": "No Severity Type",
+        "none": "None",
+        "None": "None"
     }
 
-    attack_complexity_choices = {"low": "Low", "high": "High"}
+    attack_complexity_choices = {
+        "low": "Low",
+        "high": "High",
+        "none": "None",
+        "None": "None",
+    }
 
     attack_vector_choices = {
         "network": "Network",
         "adjacent_network": "Adjacent Network",
         "local": "Local",
         "physical": "Physical",
+        "none": "None",
+        "None": "None",
     }
 
     remediation_level_choices = {
@@ -306,6 +319,52 @@ class MSRCPost(AsyncStructuredNode):
         "unavailable": "Unavailable",
         "in_the_wild": "In the wild actively being exploited",
     }
+    base_score_rating_choices = {
+        "none": "None",
+        "None": "None",
+        "critical": "Critical",
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+    }
+    cvss_attack_complexity_choices = {
+        "low": "Low",
+        "high": "High",
+        "none": "None",
+        "None": "None",
+    }
+    cvss_attack_vector_choices = {
+        "network": "Network",
+        "adjacent": "Adjacent Network",
+        "local": "Local",
+        "physical": "Physical",
+        "none": "None",
+        "None": "None",
+    }
+    cvss_impact_choices = {
+        "none": "None",
+        "None": "None",
+        "low": "Low",
+        "high": "High",
+    }
+    cvss_scope_choices = {
+        "unchanged": "Unchanged",
+        "changed": "Changed",
+        "none": "None",
+        "None": "None",
+    }
+    cvss_user_interaction_choices = {
+        "none": "None",
+        "None": "None",
+        "required": "Required",
+    }
+    cvss_privileges_required_choices = {
+        "none": "None",
+        "None": "None",
+        "low": "Low",
+        "high": "High",
+    }
+    
     node_id = StringProperty(required=True, unique_index=True)
     msrc_id = AliasProperty(to="node_id")
     text = StringProperty()
@@ -317,7 +376,7 @@ class MSRCPost(AsyncStructuredNode):
     title = StringProperty()
     description = StringProperty(default="")
     source = StringProperty()
-    impact_type = StringProperty(choices=impact_type_choices)
+    cve_category = StringProperty(choices=cve_category_choices)
     severity_type = StringProperty(choices=severity_type_choices)
     post_type = StringProperty()
     attack_complexity = StringProperty(choices=attack_complexity_choices)
@@ -338,6 +397,59 @@ class MSRCPost(AsyncStructuredNode):
         default=lambda: datetime.now(),
         format="%Y-%m-%d %H:%M:%S",
     )
+    nvd_published_date = DateTimeProperty()
+    nvd_description = StringProperty()
+    # NIST CVSS Properties
+    nist_attack_complexity = StringProperty(choices=cvss_attack_complexity_choices)
+    nist_attack_vector = StringProperty(choices=cvss_attack_vector_choices)
+    nist_availability = StringProperty(choices=cvss_impact_choices)
+    nist_base_score_num = FloatProperty()
+    nist_base_score_rating = StringProperty(choices=base_score_rating_choices)
+    nist_confidentiality = StringProperty(choices=cvss_impact_choices)
+    nist_exploitability_score = FloatProperty()
+    nist_impact_score = FloatProperty()
+    nist_integrity = StringProperty(choices=cvss_impact_choices)
+    nist_privileges_required = StringProperty(choices=cvss_privileges_required_choices)
+    nist_scope = StringProperty(choices=cvss_scope_choices)
+    nist_user_interaction = StringProperty(choices=cvss_user_interaction_choices)
+    nist_vector = StringProperty()
+
+    # CNA CVSS Properties
+    cna_attack_complexity = StringProperty(choices=cvss_attack_complexity_choices)
+    cna_attack_vector = StringProperty(choices=cvss_attack_vector_choices)
+    cna_availability = StringProperty(choices=cvss_impact_choices)
+    cna_base_score_num = FloatProperty()
+    cna_base_score_rating = StringProperty(choices=base_score_rating_choices)
+    cna_confidentiality = StringProperty(choices=cvss_impact_choices)
+    cna_exploitability_score = FloatProperty()
+    cna_impact_score = FloatProperty()
+    cna_integrity = StringProperty(choices=cvss_impact_choices)
+    cna_privileges_required = StringProperty(choices=cvss_privileges_required_choices)
+    cna_scope = StringProperty(choices=cvss_scope_choices)
+    cna_user_interaction = StringProperty(choices=cvss_user_interaction_choices)
+    cna_vector = StringProperty()
+
+    # ADP CVSS Properties
+    adp_attack_complexity = StringProperty(choices=cvss_attack_complexity_choices)
+    adp_attack_vector = StringProperty(choices=cvss_attack_vector_choices)
+    adp_availability = StringProperty(choices=cvss_impact_choices)
+    adp_base_score_num = FloatProperty()
+    adp_base_score_rating = StringProperty(choices=base_score_rating_choices)
+    adp_confidentiality = StringProperty(choices=cvss_impact_choices)
+    adp_exploitability_score = FloatProperty()
+    adp_impact_score = FloatProperty()
+    adp_integrity = StringProperty(choices=cvss_impact_choices)
+    adp_privileges_required = StringProperty(choices=cvss_privileges_required_choices)
+    adp_scope = StringProperty(choices=cvss_scope_choices)
+    adp_user_interaction = StringProperty(choices=cvss_user_interaction_choices)
+    adp_vector = StringProperty()
+
+    # CWE Properties
+    cwe_id = StringProperty()
+    cwe_name = StringProperty()
+    cwe_source = StringProperty()
+    cwe_url = StringProperty()
+    
     # Relationships
     has_symptoms = AsyncRelationshipTo(
         "Symptom", "HAS_SYMPTOM", model=AsyncSymptomCauseFixRel
@@ -561,6 +673,7 @@ class KBArticle(AsyncStructuredNode):
     published = DateTimeProperty()
     node_label = StringProperty()
     product_build_id = StringProperty(required=True)
+    product_build_ids = ArrayProperty(StringProperty())
     article_url = StringProperty()
     cve_ids = ArrayProperty(StringProperty(), default=[])
     title = StringProperty()

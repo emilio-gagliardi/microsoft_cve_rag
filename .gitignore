@@ -22,3 +22,7 @@ env/
 
 neomodel-async-docs.txt
 neomodel-basics-docs.txt
+
+notebooks/
+data/
+package docs/

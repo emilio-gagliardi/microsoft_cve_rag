@@ -52,3 +52,21 @@ remove Jupyter resources from environment
 conda remove --name myenv jupyter jupyterlab notebook ipywidgets jupyter_contrib_nbextensions jupyter_nbextensions_configurator
 
 update to test git connection
+
+LlamaIndex
+https://llamahub.ai/llama_index/quickstart
+
+# When storing:
+LlamaIndex Vector Index
+├── Takes document
+├── Chunks it into nodes
+├── Sends embeddings to Qdrant (vector store)
+├── Stores original text in docstore
+└── Maintains mapping between them
+
+# When retrieving:
+LlamaIndex Vector Index
+├── Takes query
+├── Gets similar vectors from Qdrant
+├── Maps vectors back to original content
+└── Synthesizes final response
