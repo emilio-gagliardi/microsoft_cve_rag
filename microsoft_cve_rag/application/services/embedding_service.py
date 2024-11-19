@@ -16,14 +16,14 @@ import httpx
 import asyncio
 from qdrant_client import QdrantClient
 from qdrant_client.async_qdrant_client import AsyncQdrantClient
-from qdrant_client.qdrant_fastembed import TextEmbedding
-from application.app_utils import get_app_config, setup_logger
+
+from application.app_utils import get_app_config
 from llama_index.core.embeddings import BaseEmbedding
 from pydantic import Field
-
+import logging
 settings = get_app_config()
 embedding_config = settings["EMBEDDING_CONFIG"]
-logger = setup_logger(__name__)
+logging.getLogger(__name__)
 
 class EmbeddingProvider(ABC):
     """
@@ -113,6 +113,7 @@ class FastEmbedProvider(EmbeddingProvider):
         Args:
             model_name (str, optional): Name of the FastEmbed model. Defaults to None.
         """
+        from qdrant_client.qdrant_fastembed import TextEmbedding
         self._model_name = model_name or embedding_config.get("fastembed_model_name")
         self.model = TextEmbedding(self._model_name)
         self._embedding_length = embedding_config.get("fastembed_embedding_length")
@@ -257,8 +258,8 @@ class EmbeddingService:
             provider (EmbeddingProvider): The embedding provider to use.
         """
         self.provider = provider
-        logger.info(f"EmbeddingService initialized with provider: {provider.__class__.__name__}")
-        logger.info(f"Using model: {provider.model_name} (dim={provider.embedding_length})")
+        logging.info(f"EmbeddingService initialized with provider: {provider.__class__.__name__}")
+        logging.info(f"Using model: {provider.model_name} (dim={provider.embedding_length})")
 
     @property
     def model_name(self) -> str:
@@ -318,7 +319,7 @@ class EmbeddingService:
         Returns:
             EmbeddingService: An instance of EmbeddingService configured with the specified provider.
         """
-        logger.info(f"Creating EmbeddingService with provider: {provider_name}")
+        logging.info(f"Creating EmbeddingService with provider: {provider_name}")
         if provider_name == "qdrant_default":
             if not sync_client or not async_client:
                 raise ValueError(
@@ -331,7 +332,7 @@ class EmbeddingService:
             provider = OllamaProvider()
         else:
             raise ValueError(f"Unsupported embedding provider: {provider_name}")
-        logger.info(f"Created provider {provider.__class__.__name__} with model {provider.model_name}")
+        logging.info(f"Created provider {provider.__class__.__name__} with model {provider.model_name}")
         return cls(provider)
 
 class LlamaIndexEmbeddingAdapter(BaseEmbedding):
@@ -348,31 +349,31 @@ class LlamaIndexEmbeddingAdapter(BaseEmbedding):
     
     def __init__(self, embedding_service: EmbeddingService, **kwargs):
         super().__init__(embedding_service=embedding_service, **kwargs)
-        logger.info(f"LlamaIndex adapter initialized with {embedding_service.model_name} (dim={embedding_service.embedding_length})")
+        logging.info(f"LlamaIndex adapter initialized with {embedding_service.model_name} (dim={embedding_service.embedding_length})")
         
     def _get_text_embedding(self, text: str) -> List[float]:
         """Get embedding for a single text."""
-        # logger.info(f"Generating embedding using {self.embedding_service.model_name}")
+        # logging.info(f"Generating embedding using {self.embedding_service.model_name}")
         return self.embedding_service.generate_embeddings(text)[0]  # Return first embedding
         
     async def _aget_text_embedding(self, text: str) -> List[float]:
         """Get embedding for a single text asynchronously."""
-        # logger.info(f"Generating async embedding:")
-        # logger.info(f"- Text length: {len(text)}")
-        # logger.info(f"- First line: {text.split(chr(10))[0]}")
-        # logger.info(f"- Contains metadata: {'metadata' in text.lower()}")
+        # logging.info(f"Generating async embedding:")
+        # logging.info(f"- Text length: {len(text)}")
+        # logging.info(f"- First line: {text.split(chr(10))[0]}")
+        # logging.info(f"- Contains metadata: {'metadata' in text.lower()}")
         embeddings = await self.embedding_service.generate_embeddings_async(text)
         return embeddings[0]  # Return first embedding
         
     def _get_query_embedding(self, query: str) -> List[float]:
         """Get embedding for a query string."""
-        logger.info(f"Generating sync query embedding using {self.embedding_service.model_name}")
+        logging.info(f"Generating sync query embedding using {self.embedding_service.model_name}")
         # Use same method as text embedding
         return self.embedding_service.generate_embeddings(query)[0]
         
     async def _aget_query_embedding(self, query: str) -> List[float]:
         """Get embedding for a query string asynchronously."""
-        logger.info(f"Generating async query embedding using {self.embedding_service.model_name}")
+        logging.info(f"Generating async query embedding using {self.embedding_service.model_name}")
         # Use same method as text embedding
         embeddings = await self.embedding_service.generate_embeddings_async(query)
         return embeddings[0]

@@ -10,7 +10,7 @@ from application.core.schemas.vector_schemas import (
 )
 from application.services.vector_db_service import VectorDBService
 from application.services.llama_index_service import LlamaIndexVectorService
-from application.app_utils import get_app_config, setup_logger
+from application.app_utils import get_app_config
 from llama_index.core import StorageContext
 from llama_index.core.storage.docstore import SimpleDocumentStore
 from llama_index.core.storage.index_store import SimpleIndexStore
@@ -25,12 +25,7 @@ import asyncio
 from typing import Optional, List, Dict, Union
 import logging
 
-# Get the logging level from the environment variable, default to INFO
-log_level = os.getenv("LOG_LEVEL", "INFO").upper()
-# Convert the string to a logging level
-log_level = getattr(logging, log_level, logging.INFO)
-logger = setup_logger(__name__, level=log_level)
-
+logging.getLogger(__name__)
 
 router = APIRouter()
 
@@ -317,7 +312,7 @@ async def delete_all_points(
         )
             
     except Exception as e:
-        logger.error(f"Error deleting all points: {e}")
+        logging.error(f"Error deleting all points: {e}")
         raise HTTPException(
             status_code=500,
             detail=f"Failed to delete all points: {str(e)}"
@@ -337,7 +332,7 @@ async def get_uniqueness_analysis(
         unique_counts = await llama_service._count_unique_points()
         return unique_counts
     except Exception as e:
-        logger.error(f"Error analyzing point uniqueness: {e}")
+        logging.error(f"Error analyzing point uniqueness: {e}")
         raise HTTPException(
             status_code=500,
             detail=f"Failed to analyze point uniqueness: {str(e)}"

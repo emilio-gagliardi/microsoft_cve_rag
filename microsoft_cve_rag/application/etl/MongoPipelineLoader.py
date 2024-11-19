@@ -8,7 +8,7 @@ import json
 import logging
 from application.app_utils import setup_logger
 
-logger = setup_logger(__name__)
+logging.getLogger(__name__)
 
 class CustomLoader(yaml.SafeLoader):
     pass
@@ -71,8 +71,8 @@ class MongoPipelineLoader:
         :raises ValueError: If unexpected or missing arguments are detected
         """
         try:
-            logger.info(f"Loading pipeline from: {yaml_path}")
-            logger.debug(f"Arguments passed to the template: {arguments}")
+            logging.info(f"Loading pipeline from: {yaml_path}")
+            logging.debug(f"Arguments passed to the template: {arguments}")
             # Load the Jinja template
             template = self.template_env.get_template(yaml_path)
             
@@ -102,15 +102,15 @@ class MongoPipelineLoader:
 
             # Parse the rendered YAML into a list of dictionaries
             pipeline = yaml.load(rendered_yaml, Loader=CustomLoader)
-            # logger.info(f"Successfully loaded and rendered: {yaml_path}")
-            # logger.info(f"Rendered pipeline: {pipeline}\n")
+            # logging.info(f"Successfully loaded and rendered: {yaml_path}")
+            # logging.info(f"Rendered pipeline: {pipeline}\n")
             return pipeline
 
         except FileNotFoundError as e:
-            logger.error(f"Pipeline file not found: {yaml_path}")
+            logging.error(f"Pipeline file not found: {yaml_path}")
             raise e
         except (yaml.YAMLError, jinja2.TemplateError, ValueError) as e:
-            logger.error(f"Error loading or rendering Pipeline file: {yaml_path}: {e}")
+            logging.error(f"Error loading or rendering Pipeline file: {yaml_path}: {e}")
             raise e
 
     def get_base_directory(self):
@@ -135,4 +135,4 @@ if __name__ == "__main__":
     #     resolved_pipeline = loader.get_pipeline(yaml_file, arguments)
     #     print(my_pipeline)
     # except Exception as e:
-    #     logger.error(f"Failed to load pipeline: {e}")
+    #     logging.error(f"Failed to load pipeline: {e}")

@@ -16,15 +16,8 @@ import math
 from typing import List, Dict, Optional, Any, Tuple
 import json
 from application.app_utils import setup_logger
-# Get the logging level from the environment variable, default to INFO
-log_level = os.getenv("LOG_LEVEL", "INFO").upper()
-# Convert the string to a logging level
-log_level = getattr(logging, log_level, logging.INFO)
 
-logger = setup_logger(__name__, level=log_level)
-# Set up logging
-# logging.basicConfig(level=logging.INFO)
-# logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.getLogger(__name__)
 
 
 @dataclass
@@ -142,7 +135,7 @@ class NVDDataExtractor:
         if properties_to_extract:
             invalid_props = set(properties_to_extract) - self.valid_properties
             if invalid_props:
-                logger.warning(f"Ignoring invalid properties: {invalid_props}")
+                logging.warning(f"Ignoring invalid properties: {invalid_props}")
             self.properties_to_extract = [p for p in properties_to_extract if p in self.valid_properties]
         else:
             self.properties_to_extract = list(self.valid_properties)
@@ -176,9 +169,9 @@ class NVDDataExtractor:
             try:
                 self.driver.quit()
                 self.driver = None
-                logger.debug("Selenium WebDriver cleaned up.")
+                logging.debug("Selenium WebDriver cleaned up.")
             except Exception as e:
-                logger.error(f"Error during driver cleanup: {str(e)}")
+                logging.error(f"Error during driver cleanup: {str(e)}")
 
     def _extract_base_score(self, score_text: str) -> Tuple[Optional[float], Optional[str]]:
         """Extract numeric score and rating from score text (e.g. '7.5 HIGH')"""
@@ -191,7 +184,7 @@ class NVDDataExtractor:
             rating = parts[1].lower() if len(parts) > 1 else 'none'
             return score, rating
         except (ValueError, IndexError) as e:
-            logger.warning(f"Error parsing base score '{score_text}': {str(e)}")
+            logging.warning(f"Error parsing base score '{score_text}': {str(e)}")
             return None, 'none'
 
     def _set_column_types(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -237,7 +230,7 @@ class NVDDataExtractor:
                 # NVD uses MM/DD/YYYY format
                 return datetime.strptime(str(date_str), '%m/%d/%Y')
             except ValueError as e:
-                logger.warning(f"Could not parse NVD date: {date_str} - {str(e)}")
+                logging.warning(f"Could not parse NVD date: {date_str} - {str(e)}")
                 return None
         # Apply source prefixes to relevant columns
         prefixed_types = {}
@@ -262,7 +255,7 @@ class NVDDataExtractor:
                     else:
                         df[column] = df[column].astype(dtype)
                 except Exception as e:
-                    logger.warning(f"Failed to convert column {column} to {dtype}: {str(e)}")
+                    logging.warning(f"Failed to convert column {column} to {dtype}: {str(e)}")
 
         return df
 
@@ -279,7 +272,7 @@ class NVDDataExtractor:
         """
         if property_name not in self.ELEMENT_MAPPINGS:
             print(f"property name: {property_name}")
-            logger.warning(f"No mapping found for property: {property_name}")
+            logging.warning(f"No mapping found for property: {property_name}")
             return 'none'
 
         try:
@@ -289,10 +282,10 @@ class NVDDataExtractor:
             )
             return element.text.lower().strip()
         except NoSuchElementException:
-            logger.debug(f"Element not found for property: {property_name}")
+            logging.debug(f"Element not found for property: {property_name}")
             return 'none'
         except Exception as e:
-            logger.warning(f"Error extracting {property_name}: {str(e)}")
+            logging.warning(f"Error extracting {property_name}: {str(e)}")
             return 'none'
 
     def extract_vector_metrics(self) -> Dict[str, Optional[str]]:
@@ -301,7 +294,7 @@ class NVDDataExtractor:
         
         for source, selectors in self.VECTOR_SOURCES.items():
             prefix = selectors['prefix']
-            logger.debug(f"\nProcessing {source} metrics...")
+            logging.debug(f"\nProcessing {source} metrics...")
             
             # Initialize all fields for this source as None
             data[f"{prefix}vector"] = None
@@ -320,7 +313,7 @@ class NVDDataExtractor:
                 # Get vector string directly from the element
                 vector_text = vector_element.get_attribute('textContent').strip()
                 data[f"{prefix}vector"] = vector_text
-                logger.debug(f"Found vector: {vector_text}")
+                logging.debug(f"Found vector: {vector_text}")
 
                 # Hover to show tooltip
                 ActionChains(self.driver).move_to_element(vector_element).perform()
@@ -329,7 +322,7 @@ class NVDDataExtractor:
                 # Find tooltip by ID (it will be dynamic)
                 tooltip_id = vector_element.get_attribute('aria-describedby')
                 if not tooltip_id:
-                    logger.debug(f"No tooltip ID found for {source}")
+                    logging.debug(f"No tooltip ID found for {source}")
                     continue
 
                 tooltip = self.driver.find_element(By.ID, tooltip_id)
@@ -351,22 +344,22 @@ class NVDDataExtractor:
                         else:
                             data[f"{prefix}{metric}"] = value.lower()
                             
-                        logger.debug(f"Found {metric}: {value.lower()}")
+                        logging.debug(f"Found {metric}: {value.lower()}")
                     except NoSuchElementException:
-                        logger.warning(f"No element found for {metric}")
+                        logging.warning(f"No element found for {metric}")
                         continue
                     except Exception as e:
-                        logger.error(f"Error extracting {metric}: {str(e)}")
+                        logging.error(f"Error extracting {metric}: {str(e)}")
                         continue
 
             except NoSuchElementException:
-                logger.debug(f"No vector element found for {source}")
+                logging.debug(f"No vector element found for {source}")
                 continue
             except Exception as e:
-                logger.error(f"Error processing {source} metrics: {str(e)}")
+                logging.error(f"Error processing {source} metrics: {str(e)}")
                 continue
 
-        logger.debug(f"\nExtracted data: {json.dumps(data, indent=2)}")
+        logging.debug(f"\nExtracted data: {json.dumps(data, indent=2)}")
         return data
 
     def extract_cwe_data(self) -> List[Dict[str, str]]:
@@ -422,13 +415,13 @@ class NVDDataExtractor:
                     cwe_data.append(cwe_entry)
                     
                 except Exception as e:
-                    logger.warning(f"Error processing CWE row: {str(e)}")
+                    logging.warning(f"Error processing CWE row: {str(e)}")
                     continue
                     
         except NoSuchElementException:
-            logger.debug("No CWE table found")
+            logging.debug("No CWE table found")
         except Exception as e:
-            logger.error(f"Error extracting CWE data: {str(e)}")
+            logging.error(f"Error extracting CWE data: {str(e)}")
         
         return cwe_data
     
@@ -462,7 +455,7 @@ class NVDDataExtractor:
                     if value is not None:
                         data[prop] = value
                 except Exception as e:
-                    logger.warning(f"Failed to extract {prop}: {str(e)}")
+                    logging.warning(f"Failed to extract {prop}: {str(e)}")
                     data[prop] = None
 
             # Extract CWE data if requested
@@ -484,7 +477,7 @@ class NVDDataExtractor:
                     })
 
         except Exception as e:
-            logger.error(f"Error processing URL {url}: {str(e)}")
+            logging.error(f"Error processing URL {url}: {str(e)}")
             for prop in self.properties_to_extract:
                 if prop not in data:
                     data[prop] = None
@@ -547,7 +540,7 @@ class NVDDataExtractor:
                         if key in df_copy.columns:
                             df_copy.at[idx, key] = value
                         else:
-                            logger.debug(f"Skipping column {key} - not in initialized columns")
+                            logging.debug(f"Skipping column {key} - not in initialized columns")
                     
                     if progress_bar:
                         progress_bar.update(1)
@@ -644,9 +637,9 @@ class NVDDataExtractor:
         """
         try:
             html_content = tooltip_element.get_attribute('innerHTML')
-            logger.debug(f"Tooltip HTML content:\n{html_content}")
+            logging.debug(f"Tooltip HTML content:\n{html_content}")
         except Exception as e:
-            logger.error(f"Failed to get tooltip content: {str(e)}")
+            logging.error(f"Failed to get tooltip content: {str(e)}")
 
 
 

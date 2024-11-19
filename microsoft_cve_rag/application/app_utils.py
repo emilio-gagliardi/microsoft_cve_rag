@@ -40,45 +40,45 @@ def setup_logger(name=None, level=logging.INFO):
     logger = logging.getLogger(logger_name)
 
     # Make sure the logger doesn't propagate to the root logger
-    logger.propagate = False
+    # logger.propagate = False
 
-    # Check if the logger has already been configured
-    if not logger.hasHandlers():
-        logger.setLevel(level)  # Set the logging level
+    # # Check if the logger has already been configured
+    # if not logger.hasHandlers():
+    #     logger.setLevel(level)  # Set the logging level
 
-        # Create handlers
-        stream_handler = logging.StreamHandler()
-        file_handler = logging.FileHandler("app.log")
+    #     # Create handlers
+    #     stream_handler = logging.StreamHandler()
+    #     file_handler = logging.FileHandler("app.log")
 
-        # Set the logging format with colors for the stream handler
-        colored_formatter = colorlog.ColoredFormatter(
-            "%(log_color)s%(asctime)s|%(levelname)s|/%(name)s/ - %(reset)s%(message)s",
-            datefmt="%Y-%m-%d %H:%M:%S",
-            log_colors={
-                "DEBUG": "cyan",
-                "INFO": "blue",
-                "WARNING": "yellow",
-                "ERROR": "red",
-                "CRITICAL": "red,bg_white",
-            },
-            style="%",
-            reset=True,
-        )
+    #     # Set the logging format with colors for the stream handler
+    #     colored_formatter = colorlog.ColoredFormatter(
+    #         "%(log_color)s%(asctime)s|%(levelname)s|/%(name)s/ - %(reset)s%(message)s",
+    #         datefmt="%Y-%m-%d %H:%M:%S",
+    #         log_colors={
+    #             "DEBUG": "cyan",
+    #             "INFO": "blue",
+    #             "WARNING": "yellow",
+    #             "ERROR": "red",
+    #             "CRITICAL": "red,bg_white",
+    #         },
+    #         style="%",
+    #         reset=True,
+    #     )
 
-        # Set a simple formatter for the file handler
-        file_formatter = logging.Formatter(
-            "%(asctime)s|%(levelname)s|%(name)s| - %(message)s", datefmt="%Y-%m-%d %H:%M:%S"
-        )
+    #     # Set a simple formatter for the file handler
+    #     file_formatter = logging.Formatter(
+    #         "%(asctime)s|%(levelname)s|%(name)s| - %(message)s", datefmt="%Y-%m-%d %H:%M:%S"
+    #     )
 
-        # Apply formatters to handlers
-        stream_handler.setFormatter(colored_formatter)
-        file_handler.setFormatter(file_formatter)
+    #     # Apply formatters to handlers
+    #     stream_handler.setFormatter(colored_formatter)
+    #     file_handler.setFormatter(file_formatter)
 
-        # Add handlers to the logger
-        logger.addHandler(stream_handler)
-        logger.addHandler(file_handler)
+    #     # Add handlers to the logger
+    #     logger.addHandler(stream_handler)
+    #     logger.addHandler(file_handler)
 
-        print(f"Logger '{logger_name}' initialized with handlers.")  # Debug statement
+    #     print(f"Logger '{logger_name}' initialized with handlers.")  # Debug statement
 
     return logger
 

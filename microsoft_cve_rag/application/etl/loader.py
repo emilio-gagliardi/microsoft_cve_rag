@@ -14,7 +14,6 @@ from application.app_utils import (
     get_app_config,
     get_vector_db_credentials,
     get_graph_db_credentials,
-    setup_logger,
 )
 from application.services.vector_db_service import VectorDBService
 from application.services.graph_db_service import (
@@ -34,11 +33,7 @@ from application.services.graph_db_service import (
 )
 import json
 
-# Get the logging level from the environment variable, default to INFO
-log_level = os.getenv("LOG_LEVEL", "INFO").upper()
-# Convert the string to a logging level
-log_level = getattr(logging, log_level, logging.INFO)
-logger = setup_logger(__name__, level=log_level)
+logging.getLogger(__name__)
 
 vector_db_credentials = get_vector_db_credentials()
 settings = get_app_config()

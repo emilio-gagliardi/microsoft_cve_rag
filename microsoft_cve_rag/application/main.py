@@ -5,14 +5,17 @@
 import os
 import sys
 import requests
-
-# from datetime import datetime
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
-
+import logging
+from colorama import Fore, Style, init as colorama_init
+from qdrant_client.http.models import (
+    Distance,
+    VectorParams,
+)
+from qdrant_client.async_qdrant_client import AsyncQdrantClient
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-# print(sys.path)
-# from application.services.document_service import DocumentService
+
 from application.services.vector_db_service import VectorDBService
 from application.services.graph_db_service import (
     ensure_graph_db_constraints_exist,
@@ -30,9 +33,9 @@ from application.services.graph_db_service import (
     # inflate_nodes,
 )
 
-# from application.api.v1.routes.vector_db import (
-#     router as v1_vector_router,
-# )
+from application.api.v1.routes.vector_db import (
+    router as v1_vector_router,
+)
 # from application.api.v1.routes.document_db import (
 #     router as v1_document_router,
 # )
@@ -49,10 +52,8 @@ from application.api.v1.routes.etl_routes import (
 #     router as v1_chat_router,
 # )
 
-
 from application.app_utils import (
     # get_openai_api_key,
-    setup_logger,
     get_app_config,
     get_graph_db_credentials,
     get_vector_db_credentials,
@@ -64,52 +65,131 @@ settings = get_app_config()
 
 graph_db_credentials = get_graph_db_credentials()
 vector_db_credentials = get_vector_db_credentials()
-# document_db_credentials = get_documents_db_credentials()
-# os.environ["OPENAI_MODEL_NAME"] = "gpt-4o-mini"
-# os.environ["OPENAI_API_KEY"] = get_openai_api_key()
-logger = setup_logger(__name__)
+# Initialize colorama
+colorama_init(strip=False, convert=True, autoreset=True)
+class ColoredFormatter(logging.Formatter):
+    """Custom formatter with colors"""
+    
+    COLORS = {
+        'DEBUG': Fore.GREEN,
+        'INFO': Fore.CYAN,
+        'WARNING': Fore.YELLOW,
+        'ERROR': Fore.RED,
+        'CRITICAL': Fore.RED + Style.BRIGHT,
+        'MODULE': Fore.LIGHTBLACK_EX,
+    }
 
-logger.info("Loaded app configuration")
+    def format(self, record):
+        # Check if the message is from uvicorn/FastAPI
+        if not record.name.startswith(('uvicorn', 'fastapi')):
+            module_name = f"{self.COLORS['MODULE']}{record.name}{Style.RESET_ALL}"
+            record.name = module_name
+            # Add color to levelname for our application logs
+            levelname_color = self.COLORS.get(record.levelname, Fore.WHITE)
+            record.levelname = f"{levelname_color}{record.levelname}{Style.RESET_ALL}"
+            
+            # Format the message
+            formatted = super().format(record)
+            
+            # Color the metadata
+            parts = formatted.split(" - ", 1)
+            if len(parts) == 2:
+                metadata, message = parts
+                return f"{Fore.WHITE}{metadata}{Style.RESET_ALL} - {message}"
+            
+        return super().format(record)
 
+def setup_logging(level=logging.INFO):
+    # Remove existing handlers
+    root_logger = logging.getLogger()
+    if root_logger.hasHandlers():
+        root_logger.handlers.clear()
+
+    # Set the logging level
+    root_logger.setLevel(level)
+
+    # Create handlers
+    stream_handler = logging.StreamHandler()
+    file_handler = logging.FileHandler("app.log")
+
+    # Set formatters
+    colored_formatter = ColoredFormatter(
+        "%(asctime)s|%(levelname)s|%(name)s| - %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+    file_formatter = logging.Formatter(  # Plain formatter for file
+        "%(asctime)s|%(levelname)s|%(name)s| - %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+
+    # Apply formatters
+    stream_handler.setFormatter(colored_formatter)
+    file_handler.setFormatter(file_formatter)  # No colors in file
+
+    # Add handlers to the root logger
+    root_logger.addHandler(stream_handler)
+    root_logger.addHandler(file_handler)
+
+log_level = os.getenv("LOG_LEVEL", "INFO").upper()
+setup_logging(log_level)
+logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Initialize a temporary VectorDBService instance for setup
-    print("begin lifespan tasks")
-    collection = "tier1_collection"
+    logger.info("Begin lifespan tasks")
+    
+    # Load configurations
     embedding_config = settings["EMBEDDING_CONFIG"]
     vectordb_config = settings["VECTORDB_CONFIG"]
     graphdb_config = settings["GRAPHDB_CONFIG"]
+    collection_name = vectordb_config["tier1_collection"]
 
     # GRAPH DB validation
-    # Validation implemented with neo4j package
-    # ensure that graph db constraints exist
+    logger.info("Validating Graph DB setup...")
+    graph_db_credentials = get_graph_db_credentials()
     graph_db_uri = f"{graph_db_credentials.protocol}://{graph_db_credentials.host}:{graph_db_credentials.port}"
     graph_db_auth = (graph_db_credentials.username, graph_db_credentials.password)
     db_status = ensure_graph_db_constraints_exist(
         graph_db_uri, graph_db_auth, graphdb_config
     )
     if db_status["status"] != "success":
-        print(f"Database setup failed: {db_status['message']}")
-        print(f"Constraints status: {db_status['constraints_status']}")
+        logger.error(f"Database setup failed: {db_status['message']}")
+        logger.error(f"Constraints status: {db_status['constraints_status']}")
+        raise RuntimeError("Graph DB setup failed")
+    logger.info("Graph DB validation completed successfully")
 
     # VECTOR DB validation
-    temp_vector_db_service = VectorDBService(
-        collection=vectordb_config[collection],
-        embedding_config=embedding_config,
-        vectordb_config=vectordb_config,
+    logger.info("Validating Vector DB setup...")
+    vectordb_credentials = get_vector_db_credentials()
+    async_client = AsyncQdrantClient(
+        host=vectordb_credentials.host,
+        port=vectordb_credentials.port,
     )
 
-    # Ensure the collection exists
-    await temp_vector_db_service.ensure_collection_exists_async()
+    try:
+        # Ensure the collection exists
+        if not await async_client.collection_exists(collection_name):
+            embedding_length = embedding_config.get("embedding_length", 1024)
+            await async_client.create_collection(
+                collection_name=collection_name,
+                vectors_config=VectorParams(
+                    size=embedding_length,
+                    distance=Distance.COSINE,
+                ),
+            )
+            logger.info(f"Collection '{collection_name}' created successfully")
+        else:
+            logger.info(f"Collection '{collection_name}' already exists")
+    finally:
+        # Ensure client is closed even if an error occurs
+        await async_client.close()
+        logger.info("Vector DB validation completed")
 
-    # Clean up the temporary instance
-    del temp_vector_db_service
-    print("end lifespan tasks")
+    logger.info("All lifespan tasks completed successfully")
     yield
 
 
-logger.info("Building FastAPI application")
+logging.info("Building FastAPI application")
 app = FastAPI(lifespan=lifespan)
 
 
@@ -117,7 +197,7 @@ app = FastAPI(lifespan=lifespan)
 # app.include_router(v1_chat_router, prefix="/api/v1", tags=["Chat v1"])
 app.include_router(v1_etl_router, prefix="/api/v1", tags=["ETL v1"])
 # app.include_router(v1_graph_router, prefix="/api/v1", tags=["Graph Service v1"])
-# app.include_router(v1_vector_router, prefix="/api/v1", tags=["Vector Service v1"])
+app.include_router(v1_vector_router, prefix="/api/v1", tags=["Vector Service v1"])
 # app.include_router(v1_document_router, prefix="/api/v1", tags=["Document Service v1"])
 # app.include_router(v2_chat_router, prefix="/api/v2", tags=["Chat v2"])
 

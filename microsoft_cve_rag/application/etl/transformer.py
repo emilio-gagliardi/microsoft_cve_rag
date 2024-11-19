@@ -22,22 +22,16 @@ from application.core.models.basic_models import (
     VectorMetadata,
     GraphNodeMetadata,
 )
-from application.services.embedding_service import EmbeddingService
+# from application.services.embedding_service import EmbeddingService
 from application.etl.NVDDataExtractor import ScrapingParams, NVDDataExtractor
-from application.app_utils import setup_logger
 from llama_index.core.schema import Document as LlamaDocument
 import asyncio
 import marvin
 from marvin.ai.text import generate_llm_response
 marvin.settings.openai.chat.completions.model = 'gpt-4o-mini'
-embedding_service = EmbeddingService.from_provider_name("fastembed")
+# embedding_service = EmbeddingService.from_provider_name("fastembed")
+logging.getLogger(__name__)
 
-# Get the logging level from the environment variable, default to INFO
-log_level = os.getenv("LOG_LEVEL", "INFO").upper()
-# Convert the string to a logging level
-log_level = getattr(logging, log_level, logging.INFO)
-
-logger = setup_logger(__name__, level=log_level)
 
 def normalize_mongo_kb_id(kb_id_input):
     """
@@ -428,7 +422,7 @@ def transform_kb_articles(
         kb_articles_combined_df = kb_articles_combined_df.drop(columns=['build_number_tuple'])
         
         # Log the deduplication results
-        logger.info(f"Removed {len(kb_articles_combined_df) - kb_articles_combined_df.shape[0]} duplicate KB articles")
+        logging.info(f"Removed {len(kb_articles_combined_df) - kb_articles_combined_df.shape[0]} duplicate KB articles")
 
         return kb_articles_combined_df
     else:
@@ -499,7 +493,7 @@ def convert_to_list(value):
         return []
 
 def remove_generic_text(text, threshold=80, max_match_length=500):
-    # logger.info(f"Initial character count: {len(text)}")
+    # logging.info(f"Initial character count: {len(text)}")
     initial_char_count = len(text)
     problematic_pattern = r"This metric describes the conditions beyond the attacker's control that must exist in order to exploit the vulnerability. Such conditions may require the collection of more information about the target or computational exceptions. The assessment of this metric excludes any requirements for user interaction in order to exploit the vulnerability. If a specific configuration is required for an attack to succeed, the Base metrics should be scored assuming the vulnerable component is in that configuration."
     icon_pattern = r"[^\w\s]+\s+Subscribe\s+RSS\s+PowerShell\s+[^\w\s]+\s+API"
@@ -572,7 +566,7 @@ def remove_generic_text(text, threshold=80, max_match_length=500):
                             pass
                         
     final_char_count = len(modified_text)
-    # logger.info(f"Final character count: {final_char_count}")
+    # logging.info(f"Final character count: {final_char_count}")
     # Return the modified text and a summary of patterns found
     return modified_text.strip(), patterns_found, len(generic_text_patterns) - patterns_found
 
@@ -674,12 +668,12 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]]) -> pd.DataFrame:
                 url_column='post_id',
                 batch_size=100  # Adjust based on your needs
             )
-            logger.debug(f"enriched_df.columns:\n{enriched_df.columns}")
+            logging.debug(f"enriched_df.columns:\n{enriched_df.columns}")
             if not enriched_df.empty:
                 sample_size = min(3, len(enriched_df))
-                logger.debug(f"enriched_df.sample(n={sample_size}):\n{enriched_df.sample(n=sample_size)}")
+                logging.debug(f"enriched_df.sample(n={sample_size}):\n{enriched_df.sample(n=sample_size)}")
             else:
-                logger.debug("enriched_df is empty - no samples to display")
+                logging.debug("enriched_df is empty - no samples to display")
 
         except Exception as e:
             print(f"Error during NVD data extraction: {str(e)}")
@@ -692,7 +686,7 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]]) -> pd.DataFrame:
             print(f"Total MSRC Posts transformed: {enriched_df.shape[0]}")
             return enriched_df
         else:
-            logger.error("NVD extraction failed - no enriched data to return")
+            logging.error("NVD extraction failed - no enriched data to return")
             return None
     else:
         print("No MSRC Posts to transform.")
@@ -906,8 +900,8 @@ def transform_patch_posts(patch_posts: List[Dict[str, Any]]) -> pd.DataFrame:
     # Remove duplicate columns
     df = df.loc[:, ~df.columns.duplicated()]
     df['published'] = pd.to_datetime(df['published'])
-    logger.info(f"Total Patch posts transformed: {df.shape[0]}")
-    logger.debug(f"Patch df columns: {df.columns}")
+    logging.info(f"Total Patch posts transformed: {df.shape[0]}")
+    logging.debug(f"Patch df columns: {df.columns}")
     # print(df.head())
 
     return df

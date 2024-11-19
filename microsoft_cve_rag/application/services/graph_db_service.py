@@ -27,7 +27,6 @@ import numpy as np
 from application.app_utils import (
     get_app_config,
     get_graph_db_credentials,
-    setup_logger
 )
 from application.core.models import graph_db_models
 
@@ -46,12 +45,7 @@ from tqdm import tqdm
 settings = get_app_config()
 graph_db_settings = settings["GRAPHDB_CONFIG"]
 credentials = get_graph_db_credentials()
-# Get the logging level from the environment variable, default to INFO
-log_level = os.getenv("LOG_LEVEL", "INFO").upper()
-# Convert the string to a logging level
-log_level = getattr(logging, log_level, logging.INFO)
-
-logger = setup_logger(__name__, level=log_level)
+logging.getLogger(__name__)
 
 username = credentials.username
 password = credentials.password
@@ -119,20 +113,20 @@ class BaseService(Generic[T]):
                 build_numbers = properties["build_numbers"]
                 node.set_build_numbers(build_numbers)
             await node.save()
-            logger.debug(f"Created {self.model.__name__}\n{node}")
+            logging.debug(f"Created {self.model.__name__}\n{node}")
             return node, "Node created successfully", 201
         except UniqueProperty as e:
-            logger.warning(
+            logging.warning(
                 f"Duplicate {self.model.__name__} node. Skipping create...\n{str(e)}"
             )
             return None, f"Duplicate entry: {str(e)}", 409
         except DeflateError as e:
-            logger.error(
+            logging.error(
                 f"Choice constraint violation in {self.model.__name__}node: {node}\n{str(e)}"
             )
             return None, f"Choice constraint violation: {str(e)}", 422
         except Exception as e:
-            logger.error(f"Error creating {self.model.__name__} node: {node}\n{str(e)}")
+            logging.error(f"Error creating {self.model.__name__} node: {node}\n{str(e)}")
             return None, f"Error creating node: {str(e)}", 500
 
     async def get(self, node_id: str) -> Optional[T]:
@@ -451,19 +445,19 @@ class BaseService(Generic[T]):
                         else:
                             errors.append((str(e), 409, item))
                     except Exception as e:
-                        # logger.error(f"Error creating/retrieving node: {str(e)}")
+                        # logging.error(f"Error creating/retrieving node: {str(e)}")
                         errors.append((str(e), 500, item))
 
         if errors:
             for error in errors:
-                logger.warning(f"bulk_create: {error[1]} - {error[0]}\n{error[2]}")
+                logging.warning(f"bulk_create: {error[1]} - {error[0]}\n{error[2]}")
                 # pass
         if results:
-            logger.info(
+            logging.info(
                 f"Successfully created/retrieved {len(results)} nodes of type: {type(results[0]).__name__}"
             )
         else:
-            logger.warning("No nodes were created or retrieved.")
+            logging.warning("No nodes were created or retrieved.")
 
         return results
 
@@ -489,7 +483,7 @@ class BaseService(Generic[T]):
             results = await self.db_manager.cypher(query, params)
             return [target_model.inflate(record[0]) for record in results]
         except Exception as e:
-            logger.error(f"Error finding related nodes: {str(e)}")
+            logging.error(f"Error finding related nodes: {str(e)}")
             return []
 
 

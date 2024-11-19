@@ -18,18 +18,13 @@ from pymongo.errors import (
     OperationFailure,
     ConfigurationError,
 )
-from application.app_utils import get_documents_db_credentials, setup_logger
+from application.app_utils import get_documents_db_credentials
 import json
 import logging
 from datetime import datetime
 from typing import List, Dict, Any, Tuple, Optional
 
-# Get the logging level from the environment variable, default to INFO
-log_level = os.getenv("LOG_LEVEL", "INFO").upper()
-# Convert the string to a logging level
-log_level = getattr(logging, log_level, logging.INFO)
-
-logger = setup_logger(__name__, level=log_level)
+logging.getLogger(__name__)
 
 def preprocess_pipeline(pipeline):
     """
@@ -187,7 +182,7 @@ class DocumentService:
 
             return result.modified_count
         except Exception as e:
-            logger.error(f"Error updating document: {e}")
+            logging.error(f"Error updating document: {e}")
             raise
 
     def delete_document(self, document_id: str) -> int:
@@ -437,16 +432,16 @@ class DocumentService:
         """Test function to verify document updates"""
         # Check document before update
         before = self.collection.find_one({"id_": document_id})
-        logger.info(f"Document before update: {before}")
+        logging.info(f"Document before update: {before}")
         
         # Perform a simple test update
         test_update = {"$set": {"test_field": "test_value"}}
         result = self.collection.update_one({"id_": document_id}, test_update)
-        logger.info(f"Test update result - matched: {result.matched_count}, modified: {result.modified_count}")
+        logging.info(f"Test update result - matched: {result.matched_count}, modified: {result.modified_count}")
         
         # Check document after update
         after = self.collection.find_one({"id_": document_id})
-        logger.info(f"Document after update: {after}")
+        logging.info(f"Document after update: {after}")
         
         return before, after
     

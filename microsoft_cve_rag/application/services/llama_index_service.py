@@ -53,17 +53,12 @@ from application.app_utils import (
     get_app_config,
     get_graph_db_credentials,
     get_openai_api_key,
-    setup_logger,
 )
 from openai import OpenAI
 import logging
 import warnings
 
-# Get the logging level from the environment variable, default to INFO
-log_level = os.getenv("LOG_LEVEL", "INFO").upper()
-# Convert the string to a logging level
-log_level = getattr(logging, log_level, logging.INFO)
-logger = setup_logger(__name__, level=log_level)
+logging.getLogger(__name__)
 
 logging.getLogger('fuzzywuzzy.fuzz').setLevel(logging.ERROR)
 logging.getLogger('fuzzywuzzy.process').setLevel(logging.ERROR)
@@ -817,7 +812,7 @@ class LlamaIndexVectorService:
     @classmethod
     async def initialize(cls, vector_db_service: VectorDBService, persist_dir: str, **kwargs) -> "LlamaIndexVectorService":
         # add docstring to explain the design pattern and why it's needed and how it works
-        logger.info("running initialize")
+        logging.info("running initialize")
         instance = cls(vector_db_service, persist_dir, **kwargs)
         await instance._initialize_components()
         return instance
@@ -834,20 +829,20 @@ class LlamaIndexVectorService:
                 client=self.vector_db_service.sync_client,
                 aclient=self.vector_db_service.async_client,
             )
-            logger.info("initialized vector store")
+            logging.info("initialized vector store")
             # Initialize storage and tracking
             self.storage_context = StorageContext.from_defaults(
                 vector_store=self.vector_store,
                 persist_dir=self.persist_dir
             )
-            logger.info("initialized storage context")
+            logging.info("initialized storage context")
             self.doc_tracker = CustomDocumentTracker(
                 Path(self.persist_dir) / "doc_tracker.json"
             )
-            logger.info("initialized doc tracker")
+            logging.info("initialized doc tracker")
             # Try loading existing index
             try:
-                logger.info(f"Loading existing index from {self.persist_dir}")
+                logging.info(f"Loading existing index from {self.persist_dir}")
                 # self.index = load_index_from_storage(
                 #     storage_context=self.storage_context,
                 #     index_id=self.vector_db_service.collection
@@ -859,18 +854,18 @@ class LlamaIndexVectorService:
                 )
                 index_id = self.vector_db_service.collection
                 self.index.set_index_id(index_id)
-                logger.info("loaded existing index")
+                logging.info("loaded existing index")
             except Exception as e:
-                logger.warning(f"Creating new index: {e}")
+                logging.warning(f"Creating new index: {e}")
                 self.index = VectorStoreIndex(
                     nodes=[],
                     storage_context=self.storage_context,
                     show_progress=True
                 )
                 self.index.set_index_id(self.vector_db_service.collection)
-                logger.info("created new index")
+                logging.info("created new index")
         except Exception as e:
-            logger.error(f"Error initializing components: {e}")
+            logging.error(f"Error initializing components: {e}")
             raise
 
     def _initialize_fresh_context(self):
@@ -906,10 +901,10 @@ class LlamaIndexVectorService:
             # Step 6: Persist the storage context
             self.storage_context.persist(persist_dir=self.persist_dir)
             
-            logger.info(f"Created and persisted initialized storage context with index_id '{index_id}' at {self.persist_dir}")
+            logging.info(f"Created and persisted initialized storage context with index_id '{index_id}' at {self.persist_dir}")
             
         except Exception as e:
-            logger.error(f"Error initializing fresh context: {e}")
+            logging.error(f"Error initializing fresh context: {e}")
             raise
 
     async def _ensure_collection(self):
@@ -918,9 +913,9 @@ class LlamaIndexVectorService:
             await self.vector_db_service.async_client.get_collection(
                 collection_name=self.vector_db_service.collection
             )
-            logger.info(f"Collection '{self.vector_db_service.collection}' exists")
+            logging.info(f"Collection '{self.vector_db_service.collection}' exists")
         except Exception:
-            logger.info(f"Creating collection '{self.vector_db_service.collection}'")
+            logging.info(f"Creating collection '{self.vector_db_service.collection}'")
             await self.vector_db_service.async_client.create_collection(
                 collection_name=self.vector_db_service.collection,
                 vectors_config=self.vector_db_service.vector_config
@@ -934,12 +929,12 @@ class LlamaIndexVectorService:
     #             persist_dir=self.persist_dir
     #         )
     #     except Exception as e:
-    #         logger.warning(f"No existing index found: {e}")
+    #         logging.warning(f"No existing index found: {e}")
     #         return None
 
     async def upsert_documents(self, documents: List[LlamaDocument]) -> None:
         try:
-            logger.info("running upsert_documents")
+            logging.info("running upsert_documents")
             
             doc_ids_to_process = {doc.doc_id for doc in documents}
             
@@ -956,11 +951,11 @@ class LlamaIndexVectorService:
             nodes = []
             for doc in documents:
                 doc_nodes = self.node_parser.get_nodes_from_documents([doc])
-                logger.info(f"Document {doc.doc_id} generated {len(doc_nodes)} nodes")
+                logging.info(f"Document {doc.doc_id} generated {len(doc_nodes)} nodes")
                 # Log sample node info
                 if doc_nodes:
                     sample_node = doc_nodes[0]
-                    logger.info(f"Sample node: id={sample_node.node_id}, ref_doc_id={sample_node.ref_doc_id}")
+                    logging.info(f"Sample node: id={sample_node.node_id}, ref_doc_id={sample_node.ref_doc_id}")
                 nodes.extend(doc_nodes)
             
             # Add nodes to index
@@ -969,9 +964,9 @@ class LlamaIndexVectorService:
                 nodes=nodes,
                 show_progress=True
             )
-            # logger.info(f"Index struct after upsert: {self.index.index_struct}")
-            logger.info(f"Storage context docstore size: {len(self.storage_context.docstore.docs)}")
-            logger.info(f"Vector store size: {await self._get_collection_point_count()}")
+            # logging.info(f"Index struct after upsert: {self.index.index_struct}")
+            logging.info(f"Storage context docstore size: {len(self.storage_context.docstore.docs)}")
+            logging.info(f"Vector store size: {await self._get_collection_point_count()}")
             # Update tracking and persist
             for doc in documents:
                 self.doc_tracker.add_document(doc.doc_id, doc.metadata)
@@ -985,11 +980,11 @@ class LlamaIndexVectorService:
             # if not await self._verify_upsert(doc_ids_to_process, len(nodes)):
             #     raise Exception("Upsert verification failed")
             unique_counts = await self._count_unique_points()
-            logger.info(f"Uniqueness analysis:\n{unique_counts}")
-            logger.info("Document upsert complete and verified")
+            logging.info(f"Uniqueness analysis:\n{unique_counts}")
+            logging.info("Document upsert complete and verified")
             
         except Exception as e:
-            logger.error(f"Error in upsert_documents: {e}")
+            logging.error(f"Error in upsert_documents: {e}")
             raise
     
     async def delete_document(self, doc_id: str):
@@ -1009,9 +1004,9 @@ class LlamaIndexVectorService:
             # Remove from document tracker
             self.doc_tracker.remove_document(doc_id)
             
-            logger.info(f"Successfully deleted document {doc_id}")
+            logging.info(f"Successfully deleted document {doc_id}")
         except Exception as e:
-            logger.error(f"Error deleting document {doc_id}: {e}")
+            logging.error(f"Error deleting document {doc_id}: {e}")
             raise
     
     # async def delete_all_documents(self):
@@ -1056,10 +1051,10 @@ class LlamaIndexVectorService:
     #         if self.storage_context:
     #             self.storage_context.persist(persist_dir=self.persist_dir)
                 
-    #         logger.info("Successfully deleted all documents and reset index")
+    #         logging.info("Successfully deleted all documents and reset index")
     #         return True
     #     except Exception as e:
-    #         logger.error(f"Error deleting documents: {e}")
+    #         logging.error(f"Error deleting documents: {e}")
     #         raise
 
     async def _get_collection_point_count(self) -> int:
@@ -1112,7 +1107,7 @@ class LlamaIndexVectorService:
                                     }
                                 })
                     except json.JSONDecodeError:
-                        logger.warning(f"Could not parse _node_content JSON for point")
+                        logging.warning(f"Could not parse _node_content JSON for point")
                 
                 if point.payload and 'doc_id' in point.payload:
                     unique_doc_ids.add(point.payload['doc_id'])
@@ -1176,7 +1171,7 @@ class LlamaIndexVectorService:
                         f.write("\n")
                     f.write("=" * 80 + "\n")
             
-            logger.info(f"Detailed duplicate analysis written to: {report_path}")
+            logging.info(f"Detailed duplicate analysis written to: {report_path}")
             
             # Create duplicate distribution
             duplicate_distribution = {}
@@ -1198,8 +1193,8 @@ class LlamaIndexVectorService:
             }
             
         except Exception as e:
-            logger.error(f"Error counting unique points: {e}")
-            logger.exception("Full traceback:")
+            logging.error(f"Error counting unique points: {e}")
+            logging.exception("Full traceback:")
             raise
 
     async def _verify_upsert(
@@ -1241,11 +1236,11 @@ class LlamaIndexVectorService:
                 points = scroll_result[0]
                 
                 if not points:  # Check if points list is empty
-                    logger.error(f"Document {doc_id} not found in Qdrant after upsert")
+                    logging.error(f"Document {doc_id} not found in Qdrant after upsert")
                     return False
             
             # Log statistics
-            logger.info(f"""Upsert verification successful:
+            logging.info(f"""Upsert verification successful:
             - All documents found in Qdrant
             - Documents processed: {len(processed_ids)}
             - Nodes created: {nodes_created}
@@ -1255,7 +1250,7 @@ class LlamaIndexVectorService:
             return True
             
         except Exception as e:
-            logger.error(f"Error during upsert verification: {e}")
+            logging.error(f"Error during upsert verification: {e}")
             return False
 
     async def aclose(self):

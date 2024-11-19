@@ -13,30 +13,28 @@ from qdrant_client.http.models import (
     WriteOrdering,
 )
 from qdrant_client.async_qdrant_client import AsyncQdrantClient
-from application.services.embedding_service import EmbeddingService
+# from application.services.embedding_service import EmbeddingService
 from application.core.schemas.vector_schemas import (
     VectorRecordCreate,
     VectorRecordUpdate,
 )
-from application.services.embedding_service import (
-    QdrantDefaultProvider,
-    FastEmbedProvider,
-    OllamaProvider,
-)
+# from application.services.embedding_service import (
+#     QdrantDefaultProvider,
+#     FastEmbedProvider,
+#     OllamaProvider,
+# )
 from application.app_utils import get_app_config, get_vector_db_credentials
 from typing import Optional, List, Union, Dict, Any
 from fastapi import HTTPException
 
 import logging
 
-logger = logging.getLogger(__name__)
-
 # TODO: add vector_persist_file_path to .env
 # QdrantClient(path="path/to/db") # Persists changes to disk
 
 settings = get_app_config()
 vector_db_settings = settings.get("VECTORDB_CONFIG")
-
+logging.getLogger(__name__)
 
 class VectorDBService:
     """
@@ -114,12 +112,11 @@ class VectorDBService:
         self.async_client = AsyncQdrantClient(
             host=self.credentials.host, port=self.credentials.port
         )
-        self.embedding_service = self._create_embedding_service()
+        self._embedding_service = None
         self._collection = collection or self.vectordb_config["tier1_collection"]
         self._distance_metric = distance_mapping.get(
             distance_metric or self.vectordb_config["distance_metric"], Distance.COSINE
         )
-        self._embedding_length = self.embedding_service.embedding_length
 
     @property
     def collection(self) -> str:
@@ -130,8 +127,19 @@ class VectorDBService:
         return self._distance_metric
 
     @property
-    def embedding_length(self) -> str:
-        return self._embedding_length
+    def embedding_length(self) -> int:
+        """
+        Get embedding length, prioritizing initialized service over config
+        """
+        if self._embedding_service is not None:
+            return self._embedding_service.embedding_length
+        return self._get_embedding_length()
+    
+    @property
+    def embedding_service(self):
+        if self._embedding_service is None:
+            self._embedding_service = self._create_embedding_service()
+        return self._embedding_service
 
     def ensure_collection_exists(self):
         if not self.sync_client.collection_exists(self.collection):
@@ -152,7 +160,7 @@ class VectorDBService:
                 collection_name=self.collection,
                 vectors_config=VectorParams(
                     size=self.embedding_length,
-                    distance=Distance.COSINE,
+                    distance=self._distance_metric,
                     # "text": VectorParams(size=300, distance=Distance.COSINE),
                     # "thread_id": VectorParams(size=50, distance=Distance.EUCLID),
                 ),
@@ -161,13 +169,29 @@ class VectorDBService:
         else:
             print(f"Collection '{self.collection}' already exists.")
 
-    def _create_embedding_service(self) -> EmbeddingService:
-        provider_type = self.embedding_config.get(
-            "embedding_provider", "qdrant_default"
+    def _get_embedding_length(self) -> int:
+        """Get embedding length based on selected provider"""
+        provider = self.embedding_config.get("embedding_provider", "fastembed")
+        provider_length_key = f"{provider}_embedding_length"
+        
+        # Get provider-specific length or fall back to vector_db_embedding_length
+        return self.embedding_config.get(
+            provider_length_key,
+            self.embedding_config.get("vector_db_embedding_length", 1024)
         )
-        return EmbeddingService.from_provider_name(
-            provider_type, sync_client=self.sync_client, async_client=self.async_client
-        )
+        
+    def _create_embedding_service(self):
+        """Create embedding service based on config"""
+        provider = self.embedding_config.get("embedding_provider", "fastembed")
+        
+        if provider == "fastembed":
+            from application.services.embedding_service import FastEmbedService
+            return FastEmbedService(self.embedding_config)
+        elif provider == "ollama":
+            from application.services.embedding_service import OllamaEmbedService
+            return OllamaEmbedService(self.embedding_config)
+        else:
+            raise ValueError(f"Unsupported embedding provider: {provider}")
 
     async def create_vector(self, vector: VectorRecordCreate) -> str:
         """
@@ -399,7 +423,7 @@ class VectorDBService:
             }
 
         except Exception as e:
-            logger.error(f"Error in bulk_delete_vectors: {e}")
+            logging.error(f"Error in bulk_delete_vectors: {e}")
             raise HTTPException(
                 status_code=500,
                 detail=f"Failed to delete vectors: {str(e)}"
@@ -440,7 +464,7 @@ class VectorDBService:
             }
 
         except Exception as e:
-            logger.error(f"Error in bulk_delete_points: {e}")
+            logging.error(f"Error in bulk_delete_points: {e}")
             raise HTTPException(
                 status_code=500,
                 detail=f"Failed to delete points: {str(e)}"
@@ -487,7 +511,7 @@ class VectorDBService:
             }
 
         except Exception as e:
-            logger.error(f"Error deleting all points: {e}")
+            logging.error(f"Error deleting all points: {e}")
             raise HTTPException(
                 status_code=500,
                 detail=f"Failed to delete all points: {str(e)}"
