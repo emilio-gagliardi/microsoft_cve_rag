@@ -6,7 +6,7 @@ import os
 import logging
 from typing import Union, List, Dict, Any
 import pandas as pd
-from fuzzywuzzy import fuzz,process
+from fuzzywuzzy import fuzz, process
 import re
 import hashlib
 import spacy
@@ -22,13 +22,15 @@ from application.core.models.basic_models import (
     VectorMetadata,
     GraphNodeMetadata,
 )
+
 # from application.services.embedding_service import EmbeddingService
 from application.etl.NVDDataExtractor import ScrapingParams, NVDDataExtractor
 from llama_index.core.schema import Document as LlamaDocument
 import asyncio
 import marvin
 from marvin.ai.text import generate_llm_response
-marvin.settings.openai.chat.completions.model = 'gpt-4o-mini'
+
+marvin.settings.openai.chat.completions.model = "gpt-4o-mini"
 # embedding_service = EmbeddingService.from_provider_name("fastembed")
 logging.getLogger(__name__)
 
@@ -205,6 +207,7 @@ def transform_product_builds(product_builds: List[Dict[str, Any]]) -> pd.DataFra
 
     return None
 
+
 async def async_generate_summary(text: str) -> str:
     marvin_summary_prompt = """
         Generate a highly technical summary of the following Microsoft KB Article text. This summary is intended for advanced system administrators and IT professionals specializing in modern device management with Intune MDM, Entra ID, Windows 365, and Azure.
@@ -290,13 +293,15 @@ async def async_generate_summary(text: str) -> str:
     response = await generate_llm_response(
         marvin_summary_prompt.format(kb_article_text=text),
         model_kwargs=model_kwargs,
-        )
+    )
     return response.response.choices[0].message.content
+
 
 # Wrapper to handle async calls in apply
 async def generate_summaries(texts: pd.Series) -> List[str]:
     tasks = [async_generate_summary(text) for text in texts]
     return await asyncio.gather(*tasks)
+
 
 def transform_kb_articles(
     kb_articles_windows: List[Dict[str, Any]], kb_articles_edge: List[Dict[str, Any]]
@@ -320,19 +325,14 @@ def transform_kb_articles(
         if isinstance(kb_id, list):
             return ", ".join(kb_id)
         return kb_id
-    
 
     if kb_articles_windows:
         df_windows = pd.DataFrame(
             kb_articles_windows, columns=list(kb_articles_windows[0].keys())
         )
         # Filter out duplicates before other operations
-        df_windows = df_windows.drop_duplicates(
-            subset=["kb_id"],
-            keep='first'
-        )
-        
-        
+        df_windows = df_windows.drop_duplicates(subset=["kb_id"], keep="first")
+
         df_windows["kb_id"] = df_windows["kb_id"].apply(normalize_mongo_kb_id)
         df_windows["kb_id"] = df_windows["kb_id"].apply(
             lambda x: x[0] if isinstance(x, list) and len(x) == 1 else x
@@ -344,20 +344,36 @@ def transform_kb_articles(
         # df_windows["embedding"] = df_windows.apply(
         #     lambda row: embedding_service.generate_embeddings(row["text"]), axis=1
         # )
-        
+
         df_windows = validate_and_adjust_columns(df_windows, master_columns)
         df_windows["node_label"] = "KBArticle"
         df_windows["published"] = pd.to_datetime(df_windows["published"])
-        df_windows["excluded_embed_metadata_keys"] = [[] for _ in range(len(df_windows))]
-        df_windows["excluded_embed_metadata_keys"] = df_windows["excluded_embed_metadata_keys"].apply(lambda x: list(set(x if isinstance(x, list) else []) | {"node_id", "cve_ids", "build_number", "node_label", "product_build_id", 'product_build_ids'}))
-        
+        df_windows["excluded_embed_metadata_keys"] = [
+            [] for _ in range(len(df_windows))
+        ]
+        df_windows["excluded_embed_metadata_keys"] = df_windows[
+            "excluded_embed_metadata_keys"
+        ].apply(
+            lambda x: list(
+                set(x if isinstance(x, list) else [])
+                | {
+                    "node_id",
+                    "cve_ids",
+                    "build_number",
+                    "node_label",
+                    "product_build_id",
+                    "product_build_ids",
+                }
+            )
+        )
+
         try:
             loop = asyncio.get_event_loop()
         except RuntimeError:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
-        summaries = loop.run_until_complete(generate_summaries(df_windows['text']))
-        df_windows['summary'] = summaries
+        summaries = loop.run_until_complete(generate_summaries(df_windows["text"]))
+        df_windows["summary"] = summaries
         df_windows.sort_values(by="kb_id", ascending=True, inplace=True)
         # print(f"Columns: {df_windows.columns}")
         # for _, row in df_windows.iterrows():
@@ -384,15 +400,26 @@ def transform_kb_articles(
         # df_lists = df_edge[df_edge["kb_id"].apply(lambda x: isinstance(x, list))]
         # print("Rows with lists in 'kb_id':")
         # print(df_lists.sample(n=df_lists.shape[0]))
-        df_edge = df_edge.drop_duplicates(
-            subset=["kb_id"],
-            keep='first'
-        )
+        df_edge = df_edge.drop_duplicates(subset=["kb_id"], keep="first")
         df_edge = validate_and_adjust_columns(df_edge, master_columns)
         df_edge["node_label"] = "KBArticle"
         df_edge["published"] = pd.to_datetime(df_edge["published"])
         df_edge["excluded_embed_metadata_keys"] = [[] for _ in range(len(df_edge))]
-        df_edge["excluded_embed_metadata_keys"] = df_edge["excluded_embed_metadata_keys"].apply(lambda x: list(set(x if isinstance(x, list) else []) | {"node_id", "cve_ids", "build_number", "node_label", "product_build_id", 'product_build_ids'}))
+        df_edge["excluded_embed_metadata_keys"] = df_edge[
+            "excluded_embed_metadata_keys"
+        ].apply(
+            lambda x: list(
+                set(x if isinstance(x, list) else [])
+                | {
+                    "node_id",
+                    "cve_ids",
+                    "build_number",
+                    "node_label",
+                    "product_build_id",
+                    "product_build_ids",
+                }
+            )
+        )
         df_edge.sort_values(by="kb_id", ascending=True, inplace=True)
         # print(f"Columns: {df_edge.columns}")
         print(f"Total Edge-based KBs transformed: {df_edge.shape[0]}")
@@ -408,25 +435,30 @@ def transform_kb_articles(
         )
 
         # Convert build_number to tuple for comparison (if it's a list)
-        kb_articles_combined_df['build_number_tuple'] = kb_articles_combined_df['build_number'].apply(
-            lambda x: tuple(x) if isinstance(x, list) else x
-        )
-        
+        kb_articles_combined_df["build_number_tuple"] = kb_articles_combined_df[
+            "build_number"
+        ].apply(lambda x: tuple(x) if isinstance(x, list) else x)
+
         # Drop duplicates keeping first occurrence
         kb_articles_combined_df = kb_articles_combined_df.drop_duplicates(
-            subset=['build_number_tuple', 'kb_id', 'published', 'product_build_id'],
-            keep='first'
+            subset=["build_number_tuple", "kb_id", "published", "product_build_id"],
+            keep="first",
         )
-        
+
         # Remove the temporary tuple column
-        kb_articles_combined_df = kb_articles_combined_df.drop(columns=['build_number_tuple'])
-        
+        kb_articles_combined_df = kb_articles_combined_df.drop(
+            columns=["build_number_tuple"]
+        )
+
         # Log the deduplication results
-        logging.info(f"Removed {len(kb_articles_combined_df) - kb_articles_combined_df.shape[0]} duplicate KB articles")
+        logging.info(
+            f"Removed {len(kb_articles_combined_df) - kb_articles_combined_df.shape[0]} duplicate KB articles"
+        )
 
         return kb_articles_combined_df
     else:
         return None
+
 
 def process_downloadable_packages(
     packages: Union[str, List[Dict[str, Any]], None]
@@ -465,7 +497,12 @@ def transform_update_packages(update_packages: List[Dict[str, Any]]) -> pd.DataF
         df["node_label"] = "UpdatePackage"
         df["published"] = pd.to_datetime(df["published"])
         df["excluded_embed_metadata_keys"] = [[] for _ in range(len(df))]
-        df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(lambda x: list(set(x if isinstance(x, list) else []) | {"product_build_ids","node_label","downloadable_packages", "source"}))
+        df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(
+            lambda x: list(
+                set(x if isinstance(x, list) else [])
+                | {"product_build_ids", "node_label", "downloadable_packages", "source"}
+            )
+        )
         df = df.rename(columns={"id": "node_id"})
         # print(df["downloadable_packages"])
         print(f"Total Update Packages transformed: {df.shape[0]}")
@@ -491,6 +528,7 @@ def convert_to_list(value):
         return value
     else:
         return []
+
 
 def remove_generic_text(text, threshold=80, max_match_length=500):
     # logging.info(f"Initial character count: {len(text)}")
@@ -518,35 +556,40 @@ def remove_generic_text(text, threshold=80, max_match_length=500):
     # Attempt to remove exact matches with regex
     for pattern in generic_text_patterns:
         if re.search(pattern, modified_text):
-            modified_text = re.sub(pattern, '', modified_text)
+            modified_text = re.sub(pattern, "", modified_text)
             patterns_found += 1
             # print(f"Pattern found and removed with regex: {pattern[:30]}... | modified_text len: {len(modified_text)}")
         else:
             missing_patterns.append(pattern)
             # print(f"Pattern not found with regex: {pattern[:30]}...")
-    
+
     # Attempt fuzzy matching for missing patterns
     if missing_patterns:
         for pattern in missing_patterns:
             if pattern == problematic_pattern:
                 # Try matching smaller segments of the problematic pattern
-                segments = problematic_pattern.split('. ')
+                segments = problematic_pattern.split(". ")
                 for segment in segments:
-                    best_match, score = process.extractOne(segment, [modified_text], scorer=fuzz.partial_ratio)
-                    
+                    best_match, score = process.extractOne(
+                        segment, [modified_text], scorer=fuzz.partial_ratio
+                    )
+
                     # Only replace if the score is high, the match length is reasonable, and it’s not too broad
-                    if (score >= threshold and len(best_match) < max_match_length 
-                            and len(best_match) < len(modified_text) * 0.5):
-                        modified_text = modified_text.replace(best_match, '')
+                    if (
+                        score >= threshold
+                        and len(best_match) < max_match_length
+                        and len(best_match) < len(modified_text) * 0.5
+                    ):
+                        modified_text = modified_text.replace(best_match, "")
                         patterns_found += 1
                         # print(f"Pattern segment removed using fuzzy matching: {segment[:30]}... (Score: {score}) | modified_text len: {len(modified_text)}")
                     else:
                         # print(f"Pattern segment skipped in fuzzy matching due to length or low score: {segment[:30]}... (Score: {score})")
                         pass
-            
+
             elif pattern == icon_pattern:  # Fuzzy matching for the icon pattern
                 if re.search(icon_pattern, modified_text):
-                    modified_text = re.sub(icon_pattern, '', modified_text)
+                    modified_text = re.sub(icon_pattern, "", modified_text)
                     patterns_found += 1
                     # print(f"Icon pattern found and removed with regex | modified_text len: {len(modified_text)}")
                 else:
@@ -554,21 +597,26 @@ def remove_generic_text(text, threshold=80, max_match_length=500):
                     # print("Icon pattern not matched by regex; attempting fuzzy matching for each segment.")
                     segments = ["Subscribe", "RSS", "PowerShell", "API"]
                     for segment in segments:
-                        best_match, score = process.extractOne(segment, [modified_text], scorer=fuzz.partial_ratio)
-                        
+                        best_match, score = process.extractOne(
+                            segment, [modified_text], scorer=fuzz.partial_ratio
+                        )
                         # Only replace if the match score is high and the length is reasonable
                         if score >= threshold and len(best_match) < max_match_length:
-                            modified_text = modified_text.replace(best_match, '')
+                            modified_text = modified_text.replace(best_match, "")
                             patterns_found += 1
                             # print(f"Icon pattern segment removed using fuzzy matching: {segment} (Score: {score}) | modified_text len: {len(modified_text)}")
                         else:
                             # print(f"Icon pattern segment skipped in fuzzy matching due to length or low score: {segment} (Score: {score})")
                             pass
-                        
+
     final_char_count = len(modified_text)
-    # logging.info(f"Final character count: {final_char_count}")
+    logging.debug(f"Final character count: {final_char_count}")
     # Return the modified text and a summary of patterns found
-    return modified_text.strip(), patterns_found, len(generic_text_patterns) - patterns_found
+    return (
+        modified_text.strip(),
+        patterns_found,
+        len(generic_text_patterns) - patterns_found,
+    )
 
 
 def transform_msrc_posts(msrc_posts: List[Dict[str, Any]]) -> pd.DataFrame:
@@ -586,6 +634,7 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]]) -> pd.DataFrame:
         "build_numbers",
         "published",
         "product_build_ids",
+        "collection",
     ]
     mapping_cve_category = {
         "Tampering": "tampering",
@@ -597,7 +646,7 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]]) -> pd.DataFrame:
         "Remote Code Execution": "rce",
         "Security Feature Bypass": "feature_bypass",
     }
-    
+
     if msrc_posts:
         df = pd.DataFrame(msrc_posts, columns=list(msrc_posts[0].keys()))
 
@@ -607,8 +656,10 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]]) -> pd.DataFrame:
         #     lambda row: embedding_service.generate_embeddings(row["text"]), axis=1
         # )
         df = df.rename(columns={"impact_type": "cve_category"})
-        # df["cve_category"] = df["cve_category"].str.lower().str.replace(" ", "_")
-        df["cve_category"] = df["cve_category"].apply(lambda x: mapping_cve_category.get(x, x))
+
+        df["cve_category"] = df["cve_category"].apply(
+            lambda x: mapping_cve_category.get(x, x)
+        )
         df["cve_category"] = df["cve_category"].fillna("NC")
         df["severity_type"] = df["severity_type"].str.lower()
         df["severity_type"] = df["severity_type"].fillna("NST")
@@ -618,70 +669,87 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]]) -> pd.DataFrame:
         df["product_build_ids"] = df["product_build_ids"].apply(convert_to_list)
         df["node_label"] = "MSRCPost"
         df["published"] = pd.to_datetime(df["published"])
-        
-        df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(lambda x: list(set(x if isinstance(x, list) else []) | {"source", "description", "product_build_ids", "kb_ids", "build_numbers", "node_label", 'patterns_found', 'patterns_missing'}))
-        df[['text', 'patterns_found', 'patterns_missing']] = df['text'].apply(lambda x: pd.Series(remove_generic_text(x)))
-        
+
+        df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(
+            lambda x: list(
+                set(x if isinstance(x, list) else [])
+                | {
+                    "source",
+                    "description",
+                    "product_build_ids",
+                    "kb_ids",
+                    "build_numbers",
+                    "node_label",
+                    "patterns_found",
+                    "patterns_missing",
+                }
+            )
+        )
+        df[["text", "patterns_found", "patterns_missing"]] = df["text"].apply(
+            lambda x: pd.Series(remove_generic_text(x))
+        )
+        df = df.drop(["patterns_found", "patterns_missing"], axis=1)
         df = df.rename(columns={"id_": "node_id"})
         df.sort_values(by="post_id", ascending=True, inplace=True)
-        
+
         num_cves = len(df)
         scraping_params = ScrapingParams.from_target_time(
-            num_cves=num_cves,
-            target_time_per_cve=4.0  # (seconds)
+            num_cves=num_cves, target_time_per_cve=4.0  # (seconds)
         )
         estimated_minutes = scraping_params.estimate_total_time(num_cves) / 60
         print(f"Estimated processing time: {estimated_minutes:.1f} minutes")
-        
+
         nvd_extractor = NVDDataExtractor(
             properties_to_extract=[
-                'base_score',
-                'vector_element',
-                'impact_score',
-                'exploitability_score',
-                'attack_vector',
-                'attack_complexity',
-                'privileges_required',
-                'user_interaction',
-                'scope',
-                'confidentiality',
-                'integrity',
-                'availability',
-                'nvd_published_date',
-                'nvd_description',
-                'vector_element',
-                'cwe_id',
-                'cwe_name',
-                'cwe_source',
-                'cwe_url'
+                "base_score",
+                "vector_element",
+                "impact_score",
+                "exploitability_score",
+                "attack_vector",
+                "attack_complexity",
+                "privileges_required",
+                "user_interaction",
+                "scope",
+                "confidentiality",
+                "integrity",
+                "availability",
+                "nvd_published_date",
+                "nvd_description",
+                "vector_element",
+                "cwe_id",
+                "cwe_name",
+                "cwe_source",
+                "cwe_url",
             ],
             max_records=None,
             scraping_params=scraping_params,
             headless=True,  # Set to False for debugging
             window_size=(1240, 1080),
-            show_progress=True
+            show_progress=True,
         )
-        
+
         try:
             enriched_df = nvd_extractor.augment_dataframe(
-                df=df, 
-                url_column='post_id',
-                batch_size=100  # Adjust based on your needs
+                df=df,
+                url_column="post_id",
+                batch_size=100,  # Adjust based on your needs
             )
             logging.debug(f"enriched_df.columns:\n{enriched_df.columns}")
             if not enriched_df.empty:
                 sample_size = min(3, len(enriched_df))
-                logging.debug(f"enriched_df.sample(n={sample_size}):\n{enriched_df.sample(n=sample_size)}")
+                logging.debug(
+                    f"enriched_df.sample(n={sample_size}):\n{enriched_df.sample(n=sample_size)}"
+                )
             else:
                 logging.debug("enriched_df is empty - no samples to display")
 
         except Exception as e:
             print(f"Error during NVD data extraction: {str(e)}")
             raise
-            
+
         finally:
             nvd_extractor.cleanup()
-        
+
         if not enriched_df.empty:
             print(f"Total MSRC Posts transformed: {enriched_df.shape[0]}")
             return enriched_df
@@ -702,7 +770,7 @@ def normalize_subject(subject):
         r"\[patchmanagement\]",
         r"\[External\]",
         r"\[EXTERNAL\]",
-        r"🟣"   # Specifically remove this emoji
+        r"🟣",  # Specifically remove this emoji
     ]
 
     # Remove the specified patterns including the space immediately after
@@ -858,6 +926,7 @@ def transform_patch_posts(patch_posts: List[Dict[str, Any]]) -> pd.DataFrame:
         "post_type",
         "evaluated_keywords",
         "tags",
+        "collection",
     ]
 
     if not patch_posts:
@@ -878,8 +947,7 @@ def transform_patch_posts(patch_posts: List[Dict[str, Any]]) -> pd.DataFrame:
             "evaluated_noun_chunks": "noun_chunks",
             "evaluated_keywords": "keywords",
             "cve_mentions": "cve_ids",
-            "kb_mentions": "kb_ids"
-
+            "kb_mentions": "kb_ids",
         }
     )
     df["kb_ids"] = df["kb_ids"].apply(lambda x: sorted(x, reverse=True))
@@ -896,10 +964,15 @@ def transform_patch_posts(patch_posts: List[Dict[str, Any]]) -> pd.DataFrame:
     )
     df["metadata"] = df["metadata"].apply(make_json_safe_metadata)
     df["excluded_embed_metadata_keys"] = [[] for _ in range(len(df))]
-    df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(lambda x: list(set(x if isinstance(x, list) else []) | {"previous_id", "cve_ids", "kb_ids","next_id", "node_label","subject"}))
+    df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(
+        lambda x: list(
+            set(x if isinstance(x, list) else [])
+            | {"previous_id", "cve_ids", "kb_ids", "next_id", "node_label", "subject"}
+        )
+    )
     # Remove duplicate columns
     df = df.loc[:, ~df.columns.duplicated()]
-    df['published'] = pd.to_datetime(df['published'])
+    df["published"] = pd.to_datetime(df["published"])
     logging.info(f"Total Patch posts transformed: {df.shape[0]}")
     logging.debug(f"Patch df columns: {df.columns}")
     # print(df.head())
@@ -915,8 +988,8 @@ def transform_symptoms(symptoms: List[Dict[str, Any]]) -> pd.DataFrame:
             col in df.columns for col in ["severity_type", "node_label", "reliability"]
         ):
             df = df.assign(
-                severity_type='NST',
-                node_label='Symptom',
+                severity_type="NST",
+                node_label="Symptom",
                 reliability="HIGH",
             )
         df["labels"] = df["labels"].apply(lambda x: x[0] if isinstance(x, list) else x)
@@ -938,8 +1011,8 @@ def transform_causes(causes: List[Dict[str, Any]]) -> pd.DataFrame:
             col in df.columns for col in ["severity_type", "node_label", "reliability"]
         ):
             df = df.assign(
-                severity_type='NST',
-                node_label='Cause',
+                severity_type="NST",
+                node_label="Cause",
                 reliability="MEDIUM",
             )
         df["labels"] = df["labels"].apply(lambda x: x[0] if isinstance(x, list) else x)
@@ -961,8 +1034,8 @@ def transform_fixes(fixes: List[Dict[str, Any]]) -> pd.DataFrame:
             col in df.columns for col in ["severity_type", "node_label", "reliability"]
         ):
             df = df.assign(
-                severity_type='NST',
-                node_label='Fix',
+                severity_type="NST",
+                node_label="Fix",
                 reliability="MEDIUM",
             )
         df["labels"] = df["labels"].apply(lambda x: x[0] if isinstance(x, list) else x)
@@ -982,7 +1055,7 @@ def transform_tools(tools: List[Dict[str, Any]]) -> pd.DataFrame:
         df = pd.DataFrame(tools, columns=list(tools[0].keys()))
         if not all(col in df.columns for col in ["node_label", "reliability"]):
             df = df.assign(
-                node_label='Tool',
+                node_label="Tool",
                 reliability="MEDIUM",
             )
         df["labels"] = df["labels"].apply(lambda x: x[0] if isinstance(x, list) else x)
@@ -1002,7 +1075,7 @@ def transform_technologies(technologies: List[Dict[str, Any]]) -> pd.DataFrame:
         df = pd.DataFrame(technologies, columns=list(technologies[0].keys()))
         if not all(col in df.columns for col in ["node_label"]):
             df = df.assign(
-                node_label='Fix',
+                node_label="Fix",
             )
         df["labels"] = df["labels"].apply(lambda x: x[0] if isinstance(x, list) else x)
 
@@ -1014,39 +1087,51 @@ def transform_technologies(technologies: List[Dict[str, Any]]) -> pd.DataFrame:
 
     return None
 
-def combine_dicts_to_dataframe(dict1: Dict[str, List[Dict]], dict2: Dict[str, List[Dict]]) -> pd.DataFrame:
+
+def combine_dicts_to_dataframe(
+    dict1: Dict[str, List[Dict]], dict2: Dict[str, List[Dict]]
+) -> pd.DataFrame:
     combined_data = []
-    
+
     # Iterate through all keys (assuming both dicts have the same keys)
     for key in dict1.keys():
         # Extend the combined_data list with items from both dictionaries
         combined_data.extend(dict1[key])
         combined_data.extend(dict2[key])
-    
+
     # Create a DataFrame from the combined list of dictionaries
     df = pd.DataFrame(combined_data)
-    
+
     # Add a column to identify the original category (key)
-    df['category'] = df.apply(lambda row: next(key for key, items in dict1.items() if row.to_dict() in items + dict2[key]), axis=1)
-    
+    df["category"] = df.apply(
+        lambda row: next(
+            key for key, items in dict1.items() if row.to_dict() in items + dict2[key]
+        ),
+        axis=1,
+    )
+
     return df
 
-def combine_and_split_dicts(dict1: Dict[str, List[Dict]], dict2: Dict[str, List[Dict]]) -> Dict[str, pd.DataFrame]:
+
+def combine_and_split_dicts(
+    dict1: Dict[str, List[Dict]], dict2: Dict[str, List[Dict]]
+) -> Dict[str, pd.DataFrame]:
     category_dataframes = {}
-    
+
     # Iterate through all keys (assuming both dicts have the same keys)
     for key in dict1.keys():
         # Combine items from both dictionaries for this category
         combined_items = dict1[key] + dict2[key]
-        
+
         # Create a DataFrame for this category
         df = pd.DataFrame(combined_items)
         # for _, row in df.iterrows():
         #     print(f"{row['source_type']} - {row['description']}")
         # Add to our dictionary of DataFrames
         category_dataframes[key] = df
-    
+
     return category_dataframes
+
 
 def transform_extracted_entities(
     entities_list: List[Dict], entity_type: str
@@ -1054,50 +1139,52 @@ def transform_extracted_entities(
     df = pd.DataFrame(entities_list)
     # Ensure all required fields are present
     required_fields = {
-        'Symptom': [
-            'node_id',
-            'symptom_label',
-            'description',
-            'source_id',
-            'source_type',
-            'tags',
+        "Symptom": [
+            "node_id",
+            "symptom_label",
+            "description",
+            "source_id",
+            "source_type",
+            "tags",
         ],
-        'Cause': ['node_id','description','source_id','source_type','tags'],
-        'Fix': ['node_id','description','source_id','source_type','tags'],
-        'Tool': [
-            'node_id',
-            'name',
-            'description',
-            'source_id',
-            'source_type',
-            'tags',
-            'source_url',
+        "Cause": ["node_id", "description", "source_id", "source_type", "tags"],
+        "Fix": ["node_id", "description", "source_id", "source_type", "tags"],
+        "Tool": [
+            "node_id",
+            "name",
+            "description",
+            "source_id",
+            "source_type",
+            "tags",
+            "source_url",
         ],
-        'Technology': [
-            'node_id',
-            'name',
-            'description',
-            'source_id',
-            'source_type',
-            'tags',
-        ]
-
+        "Technology": [
+            "node_id",
+            "name",
+            "description",
+            "source_id",
+            "source_type",
+            "tags",
+        ],
     }
     for field in required_fields.get(entity_type, []):
         if field not in df.columns:
             df[field] = None  # Set default value if field is missing
     return df
 
+
 # =============================================================================
 # Convert dataframe of KB Articles to Llama Documents
 # =============================================================================
-def convert_df_to_llamadoc_kb_articles(df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id"}) -> list[LlamaDocument]:
+def convert_df_to_llamadoc_kb_articles(
+    df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id"}
+) -> list[LlamaDocument]:
     llama_documents = []
 
     for _, row in df.iterrows():
         # Handle datetime conversion for 'published' field
-        if 'published' in row and isinstance(row['published'], pd.Timestamp):
-            row['published'] = row['published'].isoformat()
+        if "published" in row and isinstance(row["published"], pd.Timestamp):
+            row["published"] = row["published"].isoformat()
 
         # Extract metadata dynamically, excluding specified keys
         metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
@@ -1112,7 +1199,14 @@ def convert_df_to_llamadoc_kb_articles(df: pd.DataFrame, exclusion_keys: set[str
             "cve_ids": [],
             "build_number": [],
             "article_url": "",
-            "excluded_embed_metadata_keys": ["node_id", "cve_ids", "build_number", "node_label", "product_build_id", "product_build_ids"],
+            "excluded_embed_metadata_keys": [
+                "node_id",
+                "cve_ids",
+                "build_number",
+                "node_label",
+                "product_build_id",
+                "product_build_ids",
+            ],
         }
 
         # Update metadata with defaults
@@ -1131,10 +1225,14 @@ def convert_df_to_llamadoc_kb_articles(df: pd.DataFrame, exclusion_keys: set[str
 
     return llama_documents
 
+
 # =============================================================================
 # Convert dataframe of Update Packages to Llama Documents
 # =============================================================================
-def convert_df_to_llamadoc_update_packages(df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "downloadable_packages"}) -> list[LlamaDocument]:
+def convert_df_to_llamadoc_update_packages(
+    df: pd.DataFrame,
+    exclusion_keys: set[str] = {"text", "node_id", "downloadable_packages"},
+) -> list[LlamaDocument]:
     llama_documents = []
 
     for _, row in df.iterrows():
@@ -1147,16 +1245,21 @@ def convert_df_to_llamadoc_update_packages(df: pd.DataFrame, exclusion_keys: set
         )
 
         # Handle datetime conversion for published date
-        if 'published' in row and isinstance(row['published'], pd.Timestamp):
-            row['published'] = row['published'].isoformat()
+        if "published" in row and isinstance(row["published"], pd.Timestamp):
+            row["published"] = row["published"].isoformat()
 
         # Process downloadable packages
-        downloadable_packages = row.get('downloadable_packages', [])
+        downloadable_packages = row.get("downloadable_packages", [])
         if isinstance(downloadable_packages, list):
             downloadable_packages = [
-                {k: v.isoformat() if isinstance(v, datetime) else v 
-                 for k, v in pkg.items()}
-                if isinstance(pkg, dict) else pkg
+                (
+                    {
+                        k: v.isoformat() if isinstance(v, datetime) else v
+                        for k, v in pkg.items()
+                    }
+                    if isinstance(pkg, dict)
+                    else pkg
+                )
                 for pkg in downloadable_packages
             ]
 
@@ -1190,10 +1293,13 @@ def convert_df_to_llamadoc_update_packages(df: pd.DataFrame, exclusion_keys: set
 
     return llama_documents
 
+
 # =============================================================================
 # Convert dataframe of Symptoms to Llama Documents
 # =============================================================================
-def convert_df_to_llamadoc_symptoms(df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "description"}) -> list[LlamaDocument]:
+def convert_df_to_llamadoc_symptoms(
+    df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "description"}
+) -> list[LlamaDocument]:
     llama_documents = []
 
     for _, row in df.iterrows():
@@ -1226,10 +1332,13 @@ def convert_df_to_llamadoc_symptoms(df: pd.DataFrame, exclusion_keys: set[str] =
 
     return llama_documents
 
+
 # =============================================================================
 # Convert dataframe of Causes to Llama Documents
 # =============================================================================
-def convert_df_to_llamadoc_causes(df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "description"}) -> list[LlamaDocument]:
+def convert_df_to_llamadoc_causes(
+    df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "description"}
+) -> list[LlamaDocument]:
     llama_documents = []
 
     for _, row in df.iterrows():
@@ -1262,10 +1371,13 @@ def convert_df_to_llamadoc_causes(df: pd.DataFrame, exclusion_keys: set[str] = {
 
     return llama_documents
 
+
 # =============================================================================
 # Convert dataframe of Fixes to Llama Documents
 # =============================================================================
-def convert_df_to_llamadoc_fixes(df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "description"}) -> list[LlamaDocument]:
+def convert_df_to_llamadoc_fixes(
+    df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "description"}
+) -> list[LlamaDocument]:
     llama_documents = []
 
     for _, row in df.iterrows():
@@ -1298,10 +1410,13 @@ def convert_df_to_llamadoc_fixes(df: pd.DataFrame, exclusion_keys: set[str] = {"
 
     return llama_documents
 
+
 # =============================================================================
 # Convert dataframe of Tools to Llama Documents
 # =============================================================================
-def convert_df_to_llamadoc_tools(df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "description"}) -> list[LlamaDocument]:
+def convert_df_to_llamadoc_tools(
+    df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "description"}
+) -> list[LlamaDocument]:
     llama_documents = []
 
     for _, row in df.iterrows():
@@ -1335,32 +1450,67 @@ def convert_df_to_llamadoc_tools(df: pd.DataFrame, exclusion_keys: set[str] = {"
 
     return llama_documents
 
+
 # =============================================================================
 # Convert dataframe of MSRC Posts to Llama Documents
 # =============================================================================
-def convert_df_to_llamadoc_msrc_posts(df: pd.DataFrame, symptom_nodes: list, cause_nodes: list, fix_nodes: list, tool_nodes: list, exclusion_keys: set[str] = {"text", "node_id"}) -> list[LlamaDocument]:
+def convert_df_to_llamadoc_msrc_posts(
+    df: pd.DataFrame,
+    symptom_nodes: list,
+    cause_nodes: list,
+    fix_nodes: list,
+    tool_nodes: list,
+    exclusion_keys: set[str] = {"text", "node_id"},
+) -> list[LlamaDocument]:
     llama_documents = []
 
     for _, row in df.iterrows():
         # Handle datetime conversion for 'published' and 'nvd_published_date' fields
-        if 'published' in row and isinstance(row['published'], pd.Timestamp):
-            row['published'] = row['published'].isoformat()
-        if 'nvd_published_date' in row and isinstance(row['nvd_published_date'], pd.Timestamp):
-            row['nvd_published_date'] = row['nvd_published_date'].isoformat()
+        if "published" in row and isinstance(row["published"], pd.Timestamp):
+            row["published"] = row["published"].isoformat()
+        if "nvd_published_date" in row and isinstance(
+            row["nvd_published_date"], pd.Timestamp
+        ):
+            row["nvd_published_date"] = row["nvd_published_date"].isoformat()
 
         # Extract metadata dynamically, excluding specified keys
         metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
 
         # Add extracted nodes and default values
-        metadata.update({
-            "extracted_symptoms": [node.node_id for node in symptom_nodes if node.source_id == row["node_id"]],
-            "extracted_causes": [node.node_id for node in cause_nodes if node.source_id == row["node_id"]],
-            "extracted_fixes": [node.node_id for node in fix_nodes if node.source_id == row["node_id"]],
-            "extracted_tools": [node.node_id for node in tool_nodes if node.source_id == row["node_id"]],
-            "excluded_embed_metadata_keys": row.get("excluded_embed_metadata_keys", [
-                "source", "description", "product_build_ids", "kb_ids", "build_numbers"
-            ]),
-        })
+        metadata.update(
+            {
+                "extracted_symptoms": [
+                    node.node_id
+                    for node in symptom_nodes
+                    if node.source_id == row["node_id"]
+                ],
+                "extracted_causes": [
+                    node.node_id
+                    for node in cause_nodes
+                    if node.source_id == row["node_id"]
+                ],
+                "extracted_fixes": [
+                    node.node_id
+                    for node in fix_nodes
+                    if node.source_id == row["node_id"]
+                ],
+                "extracted_tools": [
+                    node.node_id
+                    for node in tool_nodes
+                    if node.source_id == row["node_id"]
+                ],
+                "excluded_embed_metadata_keys": row.get(
+                    "excluded_embed_metadata_keys",
+                    [
+                        "source",
+                        "description",
+                        "product_build_ids",
+                        "kb_ids",
+                        "build_numbers",
+                    ],
+                ),
+            }
+        )
 
         # Create the LlamaDocument
         doc = LlamaDocument(
@@ -1373,18 +1523,23 @@ def convert_df_to_llamadoc_msrc_posts(df: pd.DataFrame, symptom_nodes: list, cau
 
     return llama_documents
 
+
 # =============================================================================
 # Convert dataframe of Patch Management Posts to Llama Documents
 # =============================================================================
-def convert_df_to_llamadoc_patch_posts(df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id"}) -> list[LlamaDocument]:
+def convert_df_to_llamadoc_patch_posts(
+    df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id"}
+) -> list[LlamaDocument]:
     llama_documents = []
 
     for _, row in df.iterrows():
         # Convert datetime columns to ISO 8601 strings
-        if 'published' in row and isinstance(row['published'], pd.Timestamp):
-            row['published'] = row['published'].isoformat()
-        if 'receivedDateTime' in row and isinstance(row['receivedDateTime'], pd.Timestamp):
-            row['receivedDateTime'] = row['receivedDateTime'].isoformat()
+        if "published" in row and isinstance(row["published"], pd.Timestamp):
+            row["published"] = row["published"].isoformat()
+        if "receivedDateTime" in row and isinstance(
+            row["receivedDateTime"], pd.Timestamp
+        ):
+            row["receivedDateTime"] = row["receivedDateTime"].isoformat()
 
         # Extract metadata dynamically, excluding specified keys
         metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
@@ -1400,7 +1555,12 @@ def convert_df_to_llamadoc_patch_posts(df: pd.DataFrame, exclusion_keys: set[str
             "build_numbers": [],
             "product_mentions": [],
             "excluded_embed_metadata_keys": [
-                "previous_id", "cve_ids", "kb_ids", "next_id", "node_label", "subject"
+                "previous_id",
+                "cve_ids",
+                "kb_ids",
+                "next_id",
+                "node_label",
+                "subject",
             ],
         }
 
@@ -1410,12 +1570,30 @@ def convert_df_to_llamadoc_patch_posts(df: pd.DataFrame, exclusion_keys: set[str
                 metadata[key] = default_value
 
         # Add extracted nodes
-        metadata.update({
-            "extracted_symptoms": [node.node_id for node in symptom_nodes if node.source_id == row["node_id"]],
-            "extracted_causes": [node.node_id for node in cause_nodes if node.source_id == row["node_id"]],
-            "extracted_fixes": [node.node_id for node in fix_nodes if node.source_id == row["node_id"]],
-            "extracted_tools": [node.node_id for node in tool_nodes if node.source_id == row["node_id"]],
-        })
+        metadata.update(
+            {
+                "extracted_symptoms": [
+                    node.node_id
+                    for node in symptom_nodes
+                    if node.source_id == row["node_id"]
+                ],
+                "extracted_causes": [
+                    node.node_id
+                    for node in cause_nodes
+                    if node.source_id == row["node_id"]
+                ],
+                "extracted_fixes": [
+                    node.node_id
+                    for node in fix_nodes
+                    if node.source_id == row["node_id"]
+                ],
+                "extracted_tools": [
+                    node.node_id
+                    for node in tool_nodes
+                    if node.source_id == row["node_id"]
+                ],
+            }
+        )
 
         # Create the LlamaDocument
         doc = LlamaDocument(

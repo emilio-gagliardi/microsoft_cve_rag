@@ -46,12 +46,14 @@ settings = get_app_config()
 
 logging.getLogger(__name__)
 
+
 def validate_pipeline(pipeline):
     for stage in pipeline:
         for key, value in stage.items():
             if not isinstance(key, str):
                 raise ValueError(f"Invalid key type in pipeline stage: {type(key)}")
     return pipeline
+
 
 async def incremental_ingestion_pipeline(
     db_name: str, collection_name: str, query: Dict[str, Any]
@@ -79,67 +81,66 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     }
     logging.info("Begin mongo feature engineering =====================================\n")
     start_time = time.time()
-    
+
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     etl_dir = os.path.join(base_dir, "etl")
-    # pipeline_loader = MongoPipelineLoader(base_directory=etl_dir)
-    # # print(f"Base directory: {pipeline_loader.get_base_directory()}")
-    # # create a dictionary of pipeline configurations
-    # pipelines_arguments_config = {
-    #     "fe_product_build_ids.yaml": {
-    #         "start_date": start_date.isoformat(),
-    #         "end_date": end_date.isoformat() if end_date else datetime.now(timezone.utc).isoformat(),
-    #         "exclude_collections": ['archive_stable_channel_notes', 'beta_channel_notes', 'mobile_stable_channel_notes', 'windows_update'],
-    #     },
-    #     "fe_msrc_kb_ids.yaml": {
-    #         "start_date": start_date.isoformat(),
-    #         "end_date": end_date.isoformat() if end_date else datetime.now().isoformat()
-    #     },
-    #     "fe_kb_article_cve_ids.yaml": {
-    #         "start_date": start_date.isoformat(),
-    #         "end_date": end_date.isoformat() if end_date else datetime.now().isoformat()
-    #     },
-    #     "fe_kb_article_product_build_ids.yaml": {
-    #         "start_date": start_date.isoformat(),
-    #         "end_date": end_date.isoformat() if end_date else datetime.now().isoformat()
-    #     }
-    # }
+    pipeline_loader = MongoPipelineLoader(base_directory=etl_dir)
+    # print(f"Base directory: {pipeline_loader.get_base_directory()}")
+    # create a dictionary of pipeline configurations
+    pipelines_arguments_config = {
+        "fe_product_build_ids.yaml": {
+            "start_date": start_date.isoformat(),
+            "end_date": end_date.isoformat() if end_date else datetime.now(timezone.utc).isoformat(),
+            "exclude_collections": ['archive_stable_channel_notes', 'beta_channel_notes', 'mobile_stable_channel_notes', 'windows_update'],
+        },
+        "fe_msrc_kb_ids.yaml": {
+            "start_date": start_date.isoformat(),
+            "end_date": end_date.isoformat() if end_date else datetime.now().isoformat()
+        },
+        "fe_kb_article_cve_ids.yaml": {
+            "start_date": start_date.isoformat(),
+            "end_date": end_date.isoformat() if end_date else datetime.now().isoformat()
+        },
+        "fe_kb_article_product_build_ids.yaml": {
+            "start_date": start_date.isoformat(),
+            "end_date": end_date.isoformat() if end_date else datetime.now().isoformat()
+        }
+    }
 
-    # mongo_db_config = {
-    #     "fe_product_build_ids.yaml": {
-    #         "mongo_collection": "docstore",
-    #         "mongo_db": "report_docstore"
-    #     },
-    #     "fe_msrc_kb_ids.yaml": {
-    #         "mongo_collection": "docstore",
-    #         "mongo_db": "report_docstore"
-    #     },
-    #     "fe_kb_article_cve_ids.yaml": {
-    #         "mongo_collection": "microsoft_kb_articles",
-    #         "mongo_db": "report_docstore"
-    #     },
-    #     "fe_kb_article_product_build_ids.yaml": {
-    #         "mongo_collection": "microsoft_kb_articles",
-    #         "mongo_db": "report_docstore"
-    #     },
-    # }
-    
+    mongo_db_config = {
+        "fe_product_build_ids.yaml": {
+            "mongo_collection": "docstore",
+            "mongo_db": "report_docstore"
+        },
+        "fe_msrc_kb_ids.yaml": {
+            "mongo_collection": "docstore",
+            "mongo_db": "report_docstore"
+        },
+        "fe_kb_article_cve_ids.yaml": {
+            "mongo_collection": "microsoft_kb_articles",
+            "mongo_db": "report_docstore"
+        },
+        "fe_kb_article_product_build_ids.yaml": {
+            "mongo_collection": "microsoft_kb_articles",
+            "mongo_db": "report_docstore"
+        },
+    }
+
     # for yaml_file, arguments in pipelines_arguments_config.items():
     #     try:
     #         # Load and render the pipeline using MongoPipelineLoader
     #         resolved_pipeline = pipeline_loader.get_pipeline(yaml_file, arguments)
-            
+
     #         validated_pipeline = validate_pipeline(resolved_pipeline)
-             
+
     #         # Get mongo db and collection details
     #         db_details = mongo_db_config.get(yaml_file, {})
     #         mongo_collection = db_details.get("mongo_collection")
     #         mongo_db = db_details.get("mongo_db")
-            
-            
+
     #         document_service = DocumentService(mongo_db, mongo_collection)
     #         docs = document_service.aggregate_documents(validated_pipeline)
-            
+
     #         if docs:
     #             logging.info(f"Aggregation pipeline returned: {len(docs)}\n")
     #             for doc in docs:
@@ -148,65 +149,79 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     #         logging.error(f"Pipeline validation failed for {yaml_file}: {e}")
     #     except Exception as e:
     #         logging.error(f"Failed to load pipeline {yaml_file}: {e}")
-        
+
     # response = await patch_feature_engineering_pipeline(start_date, end_date)
-    
+
     end_time = time.time()
     elapsed_time = end_time - start_time
     minutes, seconds = divmod(elapsed_time, 60)
     logging.info(f"Time taken for feature engineering: {int(minutes)} min : {int(seconds)} sec")
     logging.info("End mongo feature engineering =======================================\n")
-    
+
     logging.info("Begin data extraction ===============================================\n")
     start_time = time.time()
 
-    # product_docs = await asyncio.to_thread(extractor.extract_products, None)
-    # product_build_docs = await asyncio.to_thread(
-    #     extractor.extract_product_builds, start_date, end_date, None
-    # )
-    # product_build_docs_by_build = sorted(product_build_docs, key=sort_by_build_number)
-    # kb_article_docs_windows, kb_article_docs_edge = await asyncio.to_thread(
-    #     extractor.extract_kb_articles, start_date, end_date, 2
-    # )
-    # update_package_docs = extractor.extract_update_packages(start_date, end_date, None)
+    product_docs = await asyncio.to_thread(extractor.extract_products, None)
+    product_build_docs = await asyncio.to_thread(
+        extractor.extract_product_builds, start_date, end_date, 10
+    )
+    product_build_docs_by_build = sorted(product_build_docs, key=sort_by_build_number)
+    kb_article_docs_windows, kb_article_docs_edge = await asyncio.to_thread(
+        extractor.extract_kb_articles, start_date, end_date, 4
+    )
+    update_package_docs = extractor.extract_update_packages(start_date, end_date, None)
     msrc_docs = extractor.extract_msrc_posts(start_date, end_date, 2)
     patch_docs = extractor.extract_patch_posts(start_date, end_date, 2)
-    for doc in msrc_docs:
-        print(f"{doc['metadata']['post_id']}")
-    for doc in patch_docs:
-        print(f"{doc['metadata']['id']}")
+
+    # output the count of each document type
+    logging.info(f"Product Docs: {len(product_docs)}")
+    logging.info(f"Product Build Docs: {len(product_build_docs)}")
+    logging.info(f"KB Article Docs Windows: {len(kb_article_docs_windows)}")
+    logging.info(f"KB Article Docs Edge: {len(kb_article_docs_edge)}")
+    logging.info(f"Update Package Docs: {len(update_package_docs)}")
+    logging.info(f"MSRC Docs: {len(msrc_docs)}")
+    logging.info(f"Patch Docs: {len(patch_docs)}")
+
     end_time = time.time()
     elapsed_time = end_time - start_time
     minutes, seconds = divmod(elapsed_time, 60)
     logging.info(f"Time taken to extract all data: {int(minutes)} min : {int(seconds)} sec")
     logging.info("Done with data extraction ===============================================\n")
-    
+
     logging.info("Begin data transformation ==========================================")
     start_time = time.time()
 
-    # products_df = await asyncio.to_thread(transformer.transform_products, product_docs)
-    # product_builds_df = await asyncio.to_thread(
-    #     transformer.transform_product_builds, product_build_docs_by_build
-    # )
-    # kb_articles_combined_df = await asyncio.to_thread(
-    #     transformer.transform_kb_articles, kb_article_docs_windows, kb_article_docs_edge
-    # )
-
-    # update_packages_df = await asyncio.to_thread(
-    #     transformer.transform_update_packages, update_package_docs
-    # )
-    msrc_posts_df = await asyncio.to_thread(transformer.transform_msrc_posts, msrc_docs)
-    print(f"after transform msrc_posts_df cols:\n{msrc_posts_df.columns}")
-    patch_posts_df = await asyncio.to_thread(
-        transformer.transform_patch_posts, patch_docs
+    products_df = await asyncio.to_thread(
+        transformer.transform_products,
+        product_docs
+        )
+    product_builds_df = await asyncio.to_thread(
+        transformer.transform_product_builds,
+        product_build_docs_by_build
     )
-    print(f"after transform patch_posts_df cols:\n{patch_posts_df.columns}")
+    kb_articles_combined_df = await asyncio.to_thread(
+        transformer.transform_kb_articles,
+        kb_article_docs_windows,
+        kb_article_docs_edge
+    )
+    update_packages_df = await asyncio.to_thread(
+        transformer.transform_update_packages,
+        update_package_docs
+    )
+    msrc_posts_df = await asyncio.to_thread(
+        transformer.transform_msrc_posts,
+        msrc_docs
+        )
+    patch_posts_df = await asyncio.to_thread(
+        transformer.transform_patch_posts,
+        patch_docs
+    )
+
     end_time = time.time()
     elapsed_time = end_time - start_time
     minutes, seconds = divmod(elapsed_time, 60)
     logging.info(f"Time taken to transform all data: {int(minutes)} min : {int(seconds)} sec")
     logging.info("Done with data transformation ==========================================\n")
-    # return response
 
     logging.info("Begin Graph extraction ------------------------------\n")
     start_time = time.time()
@@ -214,109 +229,110 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     # EXTRACT SYMPTOMS, CAUSES, FIXES, AND TOOLS
     # FROM MSRCPosts and PatchManagementPosts.
     # Custom entity extraction
-    # if isinstance(msrc_posts_df, pd.DataFrame) and not msrc_posts_df.empty:
-    #     print(f"{msrc_posts_df.shape} : {msrc_posts_df.columns}")
-    
-    # msrc_llm_extracted_data = await extract_entities_relationships(msrc_posts_df, "MSRCPost"
-    # )
-    # msrc_total = 0
-    # for key, value in msrc_llm_extracted_data.items():
-    #     if not isinstance(value, list):
-    #         print(f"Invalid value for {key}: {value}")
-    #     else:
-    #         count = len(value)
-    #         msrc_total += count
-    # print(f"{msrc_total} non-empty msrc items returned by extract_entities_relationships")
-    
-    # patch_llm_extracted_data = await extract_entities_relationships(
-    #     patch_posts_df, "PatchManagementPost"
-    # )
-    # patch_total = 0
-    # for key, value in patch_llm_extracted_data.items():
-    #     if not isinstance(value, list):
-    #         print(f"Invalid value for {key}: {value}")
-    #     else:
-    #         count = len(value)
-    #         patch_total += count
-    # print(f"{patch_total} non-empty patch items returned by extract_entities_relationships")
-    # combined_df = transformer.combine_and_split_dicts(msrc_llm_extracted_data, patch_llm_extracted_data)
-    # all_symptoms_df = combined_df['symptoms']
-    # print(f"{all_symptoms_df.shape} : {all_symptoms_df.sample(n=min(all_symptoms_df.shape[0], 6))}")
-    # all_causes_df = combined_df['causes']
-    # print(f"{all_causes_df.shape} : {all_causes_df.sample(n=min(all_causes_df.shape[0], 6))}")
-    # all_fixes_df = combined_df['fixes']
-    # print(f"{all_fixes_df.shape} : {all_fixes_df.sample(n=min(all_fixes_df.shape[0], 6))}")
-    # all_tools_df = combined_df['tools']
-    # print(f"{all_tools_df.shape} : {all_tools_df.sample(n=min(all_tools_df.shape[0], 6))}")
-    
+    if isinstance(msrc_posts_df, pd.DataFrame) and not msrc_posts_df.empty:
+        print(f"{msrc_posts_df.shape} : {msrc_posts_df.columns}")
+
+    msrc_llm_extracted_data = await extract_entities_relationships(
+        msrc_posts_df,
+        "MSRCPost"
+    )
+    msrc_total = 0
+    for key, value in msrc_llm_extracted_data.items():
+        if not isinstance(value, list):
+            print(f"Invalid value for {key}: {value}")
+        else:
+            count = len(value)
+            msrc_total += count
+    print(f"{msrc_total} non-empty msrc items returned by extract_entities_relationships")
+
+    patch_llm_extracted_data = await extract_entities_relationships(
+        patch_posts_df, "PatchManagementPost"
+    )
+    patch_total = 0
+    for key, value in patch_llm_extracted_data.items():
+        if not isinstance(value, list):
+            print(f"Invalid value for {key}: {value}")
+        else:
+            count = len(value)
+            patch_total += count
+    print(f"{patch_total} non-empty patch items returned by extract_entities_relationships")
+    combined_df = transformer.combine_and_split_dicts(msrc_llm_extracted_data, patch_llm_extracted_data)
+    all_symptoms_df = combined_df['symptoms']
+    print(f"{all_symptoms_df.shape} : {all_symptoms_df.sample(n=min(all_symptoms_df.shape[0], 6))}")
+    all_causes_df = combined_df['causes']
+    print(f"{all_causes_df.shape} : {all_causes_df.sample(n=min(all_causes_df.shape[0], 6))}")
+    all_fixes_df = combined_df['fixes']
+    print(f"{all_fixes_df.shape} : {all_fixes_df.sample(n=min(all_fixes_df.shape[0], 6))}")
+    all_tools_df = combined_df['tools']
+    print(f"{all_tools_df.shape} : {all_tools_df.sample(n=min(all_tools_df.shape[0], 6))}")
+
     logging.info("Done with Graph extraction -----------------------------\n")
     end_time = time.time()
     elapsed_time = end_time - start_time
     minutes, seconds = divmod(elapsed_time, 60)
     logging.info(
-        f"Time taken to extract entities: {int(minutes)} min : {int(seconds)} sec"
-    )
-    
+        f"Time taken to extract entities: {int(minutes)} min : {int(seconds)} sec")
+
     logging.info("Begin data loading ==========================================\n")
     start_time = time.time()
     logging.info("Begin graph database loading ------------------------------\n")
-    
-    # product_load_response = await loader.load_products_graph_db(products_df)
-    # product_nodes = product_load_response["nodes"]
+
+    product_load_response = await loader.load_products_graph_db(products_df)
+    product_nodes = product_load_response["nodes"]
     # # product_node_ids = product_load_response["insert_ids"]
     # # print(product_node_ids)
 
-    # product_build_load_response = await loader.load_product_builds_graph_db(
-    #     product_builds_df
-    # )
-    # product_build_nodes = product_build_load_response["nodes"]
+    product_build_load_response = await loader.load_product_builds_graph_db(
+        product_builds_df
+    )
+    product_build_nodes = product_build_load_response["nodes"]
     # # product_build_node_ids = product_build_load_response["insert_ids"]
 
-    # kb_article_load_response = await loader.load_kbs_graph_db(kb_articles_combined_df)
-    # kb_nodes = kb_article_load_response["nodes"]
+    kb_article_load_response = await loader.load_kbs_graph_db(kb_articles_combined_df)
+    kb_nodes = kb_article_load_response["nodes"]
     # # kb_node_ids = kb_article_load_response["insert_ids"]
-    
-    # update_packages_load_response = await loader.load_update_packages_graph_db(
-    #     update_packages_df
-    # )
-    # update_package_nodes = update_packages_load_response["nodes"]
+
+    update_packages_load_response = await loader.load_update_packages_graph_db(
+        update_packages_df
+    )
+    update_package_nodes = update_packages_load_response["nodes"]
     # # update_package_node_ids = update_packages_load_response["insert_ids"]
 
-    # msrc_posts_load_response = await loader.load_msrc_posts_graph_db(msrc_posts_df)
-    # msrc_post_nodes = msrc_posts_load_response["nodes"]
+    msrc_posts_load_response = await loader.load_msrc_posts_graph_db(msrc_posts_df)
+    msrc_post_nodes = msrc_posts_load_response["nodes"]
     # # msrc_post_node_ids = msrc_posts_load_response["insert_ids"]
-    
-    # patch_posts_load_response = await loader.load_patch_posts_graph_db(patch_posts_df)
-    # patch_post_nodes = patch_posts_load_response["nodes"]
+
+    patch_posts_load_response = await loader.load_patch_posts_graph_db(patch_posts_df)
+    patch_post_nodes = patch_posts_load_response["nodes"]
     # # patch_post_node_ids = patch_posts_load_response["insert_ids"]
-    # symptom_load_response = await loader.load_symptoms_graph_db(all_symptoms_df)
-    # symptom_nodes = symptom_load_response["nodes"]
-    # cause_load_response = await loader.load_causes_graph_db(all_causes_df)
-    # cause_nodes = cause_load_response["nodes"]
-    # fix_load_response = await loader.load_fixes_graph_db(all_fixes_df)
-    # fix_nodes = fix_load_response["nodes"]
-    # tool_load_response = await loader.load_tools_graph_db(all_tools_df)
-    # tool_nodes = tool_load_response["nodes"]
+    symptom_load_response = await loader.load_symptoms_graph_db(all_symptoms_df)
+    symptom_nodes = symptom_load_response["nodes"]
+    cause_load_response = await loader.load_causes_graph_db(all_causes_df)
+    cause_nodes = cause_load_response["nodes"]
+    fix_load_response = await loader.load_fixes_graph_db(all_fixes_df)
+    fix_nodes = fix_load_response["nodes"]
+    tool_load_response = await loader.load_tools_graph_db(all_tools_df)
+    tool_nodes = tool_load_response["nodes"]
     # technology_load_response = await loader.load_technologies_graph_db(
     #     all_technologies_df
     # )
     # technology_nodes = technology_load_response["nodes"]
 
-    # nodes_dict = {
-    #     "Product": product_nodes,
-    #     "ProductBuild": product_build_nodes,
-    #     "UpdatePackage": update_package_nodes,
-        # "KBArticle": kb_nodes,
-        # "MSRCPost": msrc_post_nodes,
-    #     "PatchManagementPost": patch_post_nodes,
-    #     "Symptom": symptom_nodes,
-    #     "Cause": cause_nodes,
-    #     "Fix": fix_nodes,
-    #     "Tool": tool_nodes,
-    # }
+    nodes_dict = {
+        "Product": product_nodes,
+        "ProductBuild": product_build_nodes,
+        "UpdatePackage": update_package_nodes,
+        "KBArticle": kb_nodes,
+        "MSRCPost": msrc_post_nodes,
+        "PatchManagementPost": patch_post_nodes,
+        "Symptom": symptom_nodes,
+        "Cause": cause_nodes,
+        "Fix": fix_nodes,
+        "Tool": tool_nodes,
+    }
 
-    # await build_relationships(nodes_dict)
-    
+    await build_relationships(nodes_dict)
+
     logging.info("Done with graph database loading ------------------------------\n")
     end_time = time.time()
     elapsed_time = end_time - start_time
@@ -324,6 +340,7 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     logging.info(
         f"Time taken to upsert graph entities: {int(minutes)} min : {int(seconds)} sec"
     )
+    print()
     logging.info("Begin vector database loading ------------------------------\n")
     start_time = time.time()
     try:
@@ -338,33 +355,33 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
                 persist_dir=settings["VECTORDB_CONFIG"]['persist_dir']
             )
             logging.info("initialized llama vector service")
-            
+
             llama_documents = []
 
             # new caller functions start
-            # if isinstance(kb_articles_combined_df, pd.DataFrame) and not kb_articles_combined_df.empty:
-            #     llama_documents += convert_df_to_llamadoc_kb_articles(kb_articles_combined_df)
+            if isinstance(kb_articles_combined_df, pd.DataFrame) and not kb_articles_combined_df.empty:
+                llama_documents += transformer.convert_df_to_llamadoc_kb_articles(kb_articles_combined_df)
 
-            # if isinstance(update_packages_df, pd.DataFrame) and not update_packages_df.empty:
-            #     llama_documents += convert_df_to_llamadoc_update_packages(update_packages_df)
+            if isinstance(update_packages_df, pd.DataFrame) and not update_packages_df.empty:
+                llama_documents += transformer.convert_df_to_llamadoc_update_packages(update_packages_df)
 
-            # if isinstance(all_symptoms_df, pd.DataFrame) and not all_symptoms_df.empty:
-            #     llama_documents += convert_df_to_llamadoc_symptoms(all_symptoms_df)
+            if isinstance(all_symptoms_df, pd.DataFrame) and not all_symptoms_df.empty:
+                llama_documents += transformer.convert_df_to_llamadoc_symptoms(all_symptoms_df)
 
-            # if isinstance(all_causes_df, pd.DataFrame) and not all_causes_df.empty:
-            #     llama_documents += convert_df_to_llamadoc_causes(all_causes_df)
+            if isinstance(all_causes_df, pd.DataFrame) and not all_causes_df.empty:
+                llama_documents += transformer.convert_df_to_llamadoc_causes(all_causes_df)
 
-            # if isinstance(all_fixes_df, pd.DataFrame) and not all_fixes_df.empty:
-            #     llama_documents += convert_df_to_llamadoc_fixes(all_fixes_df)
+            if isinstance(all_fixes_df, pd.DataFrame) and not all_fixes_df.empty:
+                llama_documents += transformer.convert_df_to_llamadoc_fixes(all_fixes_df)
 
-            # if isinstance(all_tools_df, pd.DataFrame) and not all_tools_df.empty:
-            #     llama_documents += convert_df_to_llamadoc_tools(all_tools_df)
+            if isinstance(all_tools_df, pd.DataFrame) and not all_tools_df.empty:
+                llama_documents += transformer.convert_df_to_llamadoc_tools(all_tools_df)
 
-            # if isinstance(msrc_posts_df, pd.DataFrame) and not msrc_posts_df.empty:
-            #     llama_documents += convert_df_to_llamadoc_msrc_posts(msrc_posts_df, symptom_nodes, cause_nodes, fix_nodes, tool_nodes)
+            if isinstance(msrc_posts_df, pd.DataFrame) and not msrc_posts_df.empty:
+                llama_documents += transformer.convert_df_to_llamadoc_msrc_posts(msrc_posts_df, symptom_nodes, cause_nodes, fix_nodes, tool_nodes)
 
-            # if isinstance(patch_posts_df, pd.DataFrame) and not patch_posts_df.empty:
-            #     llama_documents += convert_df_to_llamadoc_patch_posts(patch_posts_df, symptom_nodes, cause_nodes, fix_nodes, tool_nodes)
+            if isinstance(patch_posts_df, pd.DataFrame) and not patch_posts_df.empty:
+                llama_documents += transformer.convert_df_to_llamadoc_patch_posts(patch_posts_df, symptom_nodes, cause_nodes, fix_nodes, tool_nodes)
 
             # new caller functions end
             if llama_documents:
@@ -388,20 +405,55 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
         logging.info(f"Error in full ingestion pipeline: {e}")
         raise
 
-
     logging.info("Done with vector database loading ------------------------------\n")
-    
+
     end_time = time.time()
     elapsed_time = end_time - start_time
     minutes, seconds = divmod(elapsed_time, 60)
     logging.info(f"Time taken to upsert vector data: {int(minutes)} min : {int(seconds)} sec")
     logging.info("Begin document updating ------------------------------\n")
     start_time = time.time()
-    
-    msrc_exclude_columns = ['node_id', 'metadata','excluded_embed_metadata_keys','excluded_llm_metadata_keys','text','node_label','patterns_found','patterns_missing','revision', 'published','title','description']
-    patch_exclude_columns = ['node_id', 'metadata','excluded_embed_metadata_keys','excluded_llm_metadata_keys','noun_chunks', 'keywords','text','node_label',]
-    
-    print(f"before document upsert - msrc_df.columns:\n{msrc_posts_df.columns}")
+
+    msrc_exclude_columns = [
+        'node_id',
+        'metadata',
+        'excluded_embed_metadata_keys',
+        'excluded_llm_metadata_keys',
+        'text',
+        'node_label',
+        'patterns_found',
+        'patterns_missing',
+        'revision',
+        'published',
+        'title',
+        'description',
+        ]
+    patch_exclude_columns = [
+        'node_id',
+        'metadata',
+        'excluded_embed_metadata_keys',
+        'excluded_llm_metadata_keys',
+        'noun_chunks',
+        'keywords',
+        'text',
+        'node_label',
+        ]
+    kb_exclude_columns = [
+        'node_id',
+        'excluded_embed_metadata_keys',
+        'text',
+        'node_label',
+        'title',
+        'product_build_id',
+        'product_build_ids',
+        'build_number',
+        'kb_id',
+        'cve_ids',
+        'published',
+        'article_url'
+        ]
+
+    # print(f"before document upsert - msrc_df.columns:\n{msrc_posts_df.columns}")
     # Update MSRC Posts
     if isinstance(msrc_posts_df, pd.DataFrame) and not msrc_posts_df.empty:
         docstore_service = DocumentService(db_name="report_docstore", collection_name="docstore")
@@ -409,81 +461,115 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
             logging.info(f"\nProcessing document {row['node_id']} ================")
             logging.info(f"Original row data:\n{row.to_dict()}")
             logging.info(f"Columns being excluded: {msrc_exclude_columns}")
-            
-            metadata = DocumentMetadata(
-                id=row['node_id'],
-                **{col: row[col] for col in row.index 
-                if col not in msrc_exclude_columns}  # Remove hasattr check
-            )
-            logging.info(f"Created DocumentMetadata:\n{metadata.model_dump(exclude_none=False)}")
-            
-            doc = Document(
-                id_=row['node_id'],
-                metadata=metadata,
-                text=row['text']
-            )
-            logging.info(f"Created Document instance:\n{doc.model_dump(exclude_none=False)}")
-            
-            update_result = docstore_service.update_document(row['node_id'], doc, False)
-            logging.info(f"Update result for document {row['node_id']}: {update_result}")
-            logging.info("=" * 50)
-        logging.info(f"Updated {len(msrc_posts_df)} MSRC posts")
-    print()
-    print(f"before document upsert - patch_posts_df.columns:\n{patch_posts_df.columns}")
-    # Update Patch Management Posts
-    if isinstance(patch_posts_df, pd.DataFrame) and not patch_posts_df.empty:
-        docstore_service = DocumentService(db_name="report_docstore", collection_name="docstore")
-        
-        for _, row in patch_posts_df.iterrows():
-            logging.info(f"\nProcessing document {row['node_id']} ================")
-            logging.info(f"Original row data:\n{row.to_dict()}")
-            logging.info(f"Columns being excluded: {patch_exclude_columns}")
-            
-            # Convert row data, handling receivedDateTime specially
+
+            # Convert row data into metadata dictionary first
             metadata_dict = {
-                col: (row[col].isoformat() if col == 'receivedDateTime' else row[col])
+                col: (row[col].isoformat() if isinstance(row[col], pd.Timestamp) else row[col])
                 for col in row.index 
-                if col not in patch_exclude_columns
+                if col not in msrc_exclude_columns
             }
-            
+
             metadata = DocumentMetadata(
                 id=row['node_id'],
                 **metadata_dict
             )
             logging.info(f"Created DocumentMetadata:\n{metadata.model_dump(exclude_none=False)}")
-            
+
             doc = Document(
                 id_=row['node_id'],
                 metadata=metadata,
                 text=row['text']
             )
             logging.info(f"Created Document instance:\n{doc.model_dump(exclude_none=False)}")
-            
+
+            # update_result = docstore_service.update_document(row['node_id'], doc, False)
+            # logging.info(f"Update result for document {row['node_id']}: {update_result}")
+            # logging.info("=" * 50)
+        logging.info(f"Updated {len(msrc_posts_df)} MSRC posts")
+    print()
+    # print(f"before document upsert - patch_posts_df.columns:\n{patch_posts_df.columns}")
+    # Update Patch Management Posts
+    if isinstance(patch_posts_df, pd.DataFrame) and not patch_posts_df.empty:
+        docstore_service = DocumentService(db_name="report_docstore", collection_name="docstore")
+
+        for _, row in patch_posts_df.iterrows():
+            logging.info(f"\nProcessing document {row['node_id']} ================")
+            logging.info(f"Original row data:\n{row.to_dict()}")
+            logging.info(f"Columns being excluded: {patch_exclude_columns}")
+
+            # Convert row data into metadata dictionary first
+            metadata_dict = {
+                col: (row[col].isoformat() if isinstance(row[col], pd.Timestamp) else row[col])
+                for col in row.index 
+                if col not in patch_exclude_columns
+            }
+
+            metadata = DocumentMetadata(
+                id=row['node_id'],
+                **metadata_dict
+            )
+            logging.info(f"Created DocumentMetadata:\n{metadata.model_dump(exclude_none=False)}")
+
+            doc = Document(
+                id_=row['node_id'],
+                metadata=metadata,
+                text=row['text']
+            )
+            logging.info(f"Created Document instance:\n{doc.model_dump(exclude_none=False)}")
+
             update_result = docstore_service.update_document(row['node_id'], doc, False)
             logging.info(f"Update result for document {row['node_id']}: {update_result}")
             logging.info("=" * 50)
         logging.info(f"Updated {len(patch_posts_df)} Patch Management posts")
 
+    print()
+    # print(f"before document upsert - kb_df.columns:\n{kb_articles_combined_df.columns}")
     # Update KB Articles
-    # if isinstance(kb_articles_combined_df, pd.DataFrame) and not kb_articles_combined_df.empty:
-    #     kb_service = DocumentService(db_name="report_docstore", collection_name="microsoft_kb_articles")
-    #     for _, row in kb_articles_combined_df.iterrows():
-    #         doc = Document(
-    #             id_=row['node_id'],
-    #             text=row['text'],
-    #             title=row['title']
-    #         )
-    #         kb_service.update_document(row['node_id'], doc)
-    #     logging.info(f"Updated {len(kb_articles_combined_df)} KB Articles")
-        
+    if isinstance(kb_articles_combined_df, pd.DataFrame) and not kb_articles_combined_df.empty:
+        kb_service = DocumentService(db_name="report_docstore", collection_name="microsoft_kb_articles")
+        for _, row in kb_articles_combined_df.iterrows():
+            logging.info(f"\nProcessing document {row['node_id']} ================")
+
+            # Convert row data into update dictionary, excluding specified columns
+            update_data = {
+                col: (row[col].isoformat() if isinstance(row[col], pd.Timestamp) else None if pd.isna(row[col]) else row[col])
+                for col in row.index 
+                if col not in kb_exclude_columns
+            }
+            # Add text and title fields to update_data explicitly
+            if 'text' in row.index:
+                update_data['text'] = row['text']
+            if 'title' in row.index:
+                update_data['title'] = row['title']
+            # Create filter to match documents
+            filter_query = {
+                "id": row['node_id'],
+                "product_build_id": row['product_build_id']
+            }
+
+            # matched_documents_count = kb_service.collection.count_documents(filter_query)
+            # logging.info(f"Matched documents count for filter {filter_query}: {matched_documents_count}")
+            # Update all matching documents
+            update_result = kb_service.update_documents(filter_query, update_data)
+            logging.info(f"Update result for document {row['node_id']}: {update_result} documents updated")
+            logging.info("=" * 50)
+            updated_document = kb_service.collection.find_one(filter_query)
+            logging.info(f"Updated document for node_id {row['node_id']}:\n{updated_document}")
+            if update_result == 0:
+                print(f"filter_query:\n{filter_query}")
+                print(f"update_data:\n{update_data}")
+                logging.warning(f"No documents were updated for node_id {row['node_id']}. Check filter and update_data.")
+
+        logging.info(f"Updated {len(kb_articles_combined_df)} KB Articles")
+
     logging.info("End document updating ------------------------------\n")
     end_time = time.time()
     elapsed_time = end_time - start_time
     minutes, seconds = divmod(elapsed_time, 60)
     logging.info(f"Time taken to upsert mongo data: {int(minutes)} min : {int(seconds)} sec")
-    
+
     logging.info("Full Ingestion complete =====================================\n")
-    
+
     response = {
         "message": "full ingestion pipeline complete.",
         "status": "Complete",
@@ -493,6 +579,7 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
 # END FULL INGESTION PIPELINE ===============================================
 
 # BEGIN PATCH FEATURE ENGINEERING HERLPERS ==================================
+
 
 def prepare_products(df):
     df["product_name"] = df["product_name"].str.replace("_", " ")

@@ -123,7 +123,7 @@ PROMPT_TEMPLATES = {
                 "If the value is 'Critical', then there is likely no fix. A Fix is a technical action, configuration change, or patch available to address the Cause or mitigate the Symptom. "
                 "Focus on the specific technical response to the issue affecting the CVE, referencing affected systems or products without repeating the post's full text. "
                 "Generate a complete and thorough description of at least 3 sentences. The description should stand alone as a precise explanation of the steps necessary to implement the fix, it must include the products, build numbers,KB Article ids (eg., KB5040442), and update package links provided in the context."
-                "For each Fix, generate a six-word CamelCase label and provide a concise description, e.g., 'ApplyKbPatchToResolveRebootIssue'. "
+                "For each Fix, generate a six-word CamelCase label. Do not include build numbers or verbalizations in the label, e.g., 'ApplyKbPatchToResolveRebootIssue. Also provide a concise description'. "
                 "**Avoid including words such as 'Fix', 'vulnerability', 'exploit', or 'security'** in the label. The `source_id` and `source_type` fields have been filled in for you. "
                 "Finally, generate up to 3 tags or keywords that describe the Fix and add them as a list to the output. "
                 "Ensure the update package urls are explicitly mentioned in the `description` field. "

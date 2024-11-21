@@ -134,7 +134,7 @@ class VectorDBService:
         if self._embedding_service is not None:
             return self._embedding_service.embedding_length
         return self._get_embedding_length()
-    
+
     @property
     def embedding_service(self):
         if self._embedding_service is None:
@@ -173,23 +173,30 @@ class VectorDBService:
         """Get embedding length based on selected provider"""
         provider = self.embedding_config.get("embedding_provider", "fastembed")
         provider_length_key = f"{provider}_embedding_length"
-        
+
         # Get provider-specific length or fall back to vector_db_embedding_length
         return self.embedding_config.get(
             provider_length_key,
             self.embedding_config.get("vector_db_embedding_length", 1024)
         )
-        
+
     def _create_embedding_service(self):
         """Create embedding service based on config"""
         provider = self.embedding_config.get("embedding_provider", "fastembed")
-        
+
         if provider == "fastembed":
-            from application.services.embedding_service import FastEmbedService
-            return FastEmbedService(self.embedding_config)
+            from application.services.embedding_service import EmbeddingService
+            from application.services.embedding_service import FastEmbedProvider
+            provider_instance = FastEmbedProvider(self.embedding_config.get("fastembed_model_name"))
+            return EmbeddingService(provider_instance)
         elif provider == "ollama":
-            from application.services.embedding_service import OllamaEmbedService
-            return OllamaEmbedService(self.embedding_config)
+            from application.services.embedding_service import EmbeddingService
+            from application.services.embedding_service import OllamaProvider
+            provider_instance = OllamaProvider(
+                model_name=self.embedding_config.get("ollama_model_name"),
+                base_url=self.embedding_config.get("ollama_base_url", "http://localhost:11434")
+            )
+            return EmbeddingService(provider_instance)
         else:
             raise ValueError(f"Unsupported embedding provider: {provider}")
 
