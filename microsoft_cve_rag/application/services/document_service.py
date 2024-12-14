@@ -32,7 +32,7 @@ def preprocess_pipeline(pipeline):
 
     This function recursively processes each value in the pipeline to ensure that date strings are properly converted to datetime objects.
     Other types (e.g., dictionaries, lists) are recursively processed as well to ensure all nested date strings are handled.
-    
+
     The preprocess_pipeline function is designed to convert ISO format date strings (like "2024-08-01T00:00:00Z") into Python datetime objects. If your MongoDB aggregation pipeline contains such date strings, you might need to preprocess them depending on how your MongoDB Python driver (like pymongo) expects the data.
 
     Args:
@@ -155,7 +155,7 @@ class DocumentService:
     def update_document(self, document_id: str, document: Document, exclude_unset: bool = True) -> int:
         """
         Update a single document in the collection by its ID.
-        
+
         Args:
             document_id (str): The ID of the document to update
             document (Document): The document containing the updates
@@ -170,14 +170,14 @@ class DocumentService:
 
         # Convert document to dict - let caller decide what fields to include
         update_dict = document.model_dump(exclude_unset=exclude_unset)
-        
+
         # Flatten metadata fields for MongoDB dot notation
         metadata = update_dict.pop('metadata', {})
         for meta_key, meta_value in metadata.items():
             update_dict[f"metadata.{meta_key}"] = meta_value
 
         try:
-            print(f"$set: {update_dict}")
+            logging.debug(f"$set: {update_dict}")
             result = self.collection.update_one(query, {"$set": update_dict})
 
             return result.modified_count
@@ -406,9 +406,9 @@ class DocumentService:
         if not all(isinstance(item, dict) for item in pipeline):
             raise ValueError("All items in the pipeline must be dictionaries")
         # print("Begin preprocessing...")
-        
+
         processed_pipeline = preprocess_pipeline(pipeline)
-    
+
         try:
             result = list(self.collection.aggregate(processed_pipeline))
             return result
@@ -427,24 +427,24 @@ class DocumentService:
         except Exception as e:
             print(f"Unexpected error: {e}")
             raise
-    
+
     def test_update(self, document_id: str):
         """Test function to verify document updates"""
         # Check document before update
         before = self.collection.find_one({"id_": document_id})
         logging.info(f"Document before update: {before}")
-        
+
         # Perform a simple test update
         test_update = {"$set": {"test_field": "test_value"}}
         result = self.collection.update_one({"id_": document_id}, test_update)
         logging.info(f"Test update result - matched: {result.matched_count}, modified: {result.modified_count}")
-        
+
         # Check document after update
         after = self.collection.find_one({"id_": document_id})
         logging.info(f"Document after update: {after}")
-        
+
         return before, after
-    
+
     def _describe(self):
         """
         Print all instance properties of the DocumentService.

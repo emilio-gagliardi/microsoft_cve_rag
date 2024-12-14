@@ -104,9 +104,9 @@ class NVDDataExtractor:
         'integrity': ".//p/strong[contains(text(), 'Integrity')]/following-sibling::span",
         'availability': ".//p/strong[contains(text(), 'Availability')]/following-sibling::span"
     }
-    
+
     def __init__(
-        self, 
+        self,
         properties_to_extract: Optional[List[str]] = None,
         max_records: Optional[int] = None,
         headless: bool = True,
@@ -147,7 +147,7 @@ class NVDDataExtractor:
         self.driver = None
         self._last_request_time = 0
         self.setup_driver()
-    
+
     def setup_driver(self) -> None:
         chrome_options = webdriver.ChromeOptions()
         if self.headless:
@@ -160,7 +160,7 @@ class NVDDataExtractor:
         chrome_options.add_argument('--log-level=3')
         chrome_options.add_argument('--silent')
         chrome_options.add_experimental_option('excludeSwitches', ['enable-logging', 'enable-automation'])
-        
+
         self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.implicitly_wait(self.params.implicit_wait)
 
@@ -178,7 +178,7 @@ class NVDDataExtractor:
         try:
             if not score_text or score_text.lower() == 'none':
                 return None, None
-            
+
             parts = score_text.strip().split(' ', 1)
             score = float(parts[0]) if parts[0] else None
             rating = parts[1].lower() if len(parts) > 1 else 'none'
@@ -191,10 +191,10 @@ class NVDDataExtractor:
         """
         Sets appropriate data types for all columns in the DataFrame.
         Ensures datetime fields are Python datetime objects for Neomodel compatibility.
-        
+
         Args:
             df: Input DataFrame with raw column types
-            
+
         Returns:
             pd.DataFrame: DataFrame with correct column types
         """
@@ -203,10 +203,10 @@ class NVDDataExtractor:
             'base_score_num': 'float64',
             'impact_score': 'float64',
             'exploitability_score': 'float64',
-            
+
             # Date columns handled separately
             'nvd_published_date': 'datetime',
-            
+
             # String columns (categorical might be more appropriate for some)
             'base_score_rating': 'category',
             'attack_vector': 'category',
@@ -239,10 +239,10 @@ class NVDDataExtractor:
             for col, dtype in type_mappings.items():
                 if col in ['base_score_num', 'base_score_rating'] + list(self.METRIC_PATTERNS.keys()):
                     prefixed_types[f"{prefix}{col}"] = dtype
-        
+
         # Merge original and prefixed type mappings
         type_mappings.update(prefixed_types)
-        
+
         # Convert types and handle errors
         for column, dtype in type_mappings.items():
             if column in df.columns:
@@ -277,7 +277,7 @@ class NVDDataExtractor:
 
         try:
             element = self.driver.find_element(
-                By.XPATH, 
+                By.XPATH,
                 self.ELEMENT_MAPPINGS[property_name]
             )
             return element.text.lower().strip()
@@ -291,25 +291,25 @@ class NVDDataExtractor:
     def extract_vector_metrics(self) -> Dict[str, Optional[str]]:
         """Extract all metrics from tooltip for each source"""
         data = {}
-        
+
         for source, selectors in self.VECTOR_SOURCES.items():
             prefix = selectors['prefix']
             logging.debug(f"\nProcessing {source} metrics...")
-            
+
             # Initialize all fields for this source as None
             data[f"{prefix}vector"] = None
             data[f"{prefix}base_score_num"] = None
             data[f"{prefix}base_score_rating"] = None
             for metric in self.METRIC_PATTERNS.keys():
                 data[f"{prefix}{metric}"] = None
-                
+
             try:
                 # Find vector element
                 vector_element = self.driver.find_element(
                     By.XPATH,
                     selectors['vector_element']
                 )
-                
+
                 # Get vector string directly from the element
                 vector_text = vector_element.get_attribute('textContent').strip()
                 data[f"{prefix}vector"] = vector_text
@@ -326,13 +326,13 @@ class NVDDataExtractor:
                     continue
 
                 tooltip = self.driver.find_element(By.ID, tooltip_id)
-                
+
                 # Extract all metrics from tooltip
                 for metric, xpath in self.METRIC_PATTERNS.items():
                     try:
                         element = tooltip.find_element(By.XPATH, xpath)
                         value = element.text.strip()
-                        
+
                         # Special handling for base score
                         if metric == 'base_score':
                             try:
@@ -343,7 +343,7 @@ class NVDDataExtractor:
                             data[f"{prefix}base_score_rating"] = value.lower()
                         else:
                             data[f"{prefix}{metric}"] = value.lower()
-                            
+
                         logging.debug(f"Found {metric}: {value.lower()}")
                     except NoSuchElementException:
                         logging.warning(f"No element found for {metric}")
@@ -370,40 +370,40 @@ class NVDDataExtractor:
         try:
             # Find the CWE table
             table = self.driver.find_element(
-                By.XPATH, 
+                By.XPATH,
                 "//table[@data-testid='vuln-CWEs-table']"
             )
-            
+
             # Find all rows except header
             rows = table.find_elements(
-                By.XPATH, 
+                By.XPATH,
                 ".//tbody/tr"
             )
-            
+
             for row in rows:
                 try:
                     # Get all cells in the row
                     cells = row.find_elements(By.TAG_NAME, "td")
                     if len(cells) < 3:
                         continue
-                        
+
                     id_cell = cells[0]
                     name_cell = cells[1]
                     source_cell = cells[2]
-                    
+
                     cwe_name = name_cell.text.strip()
-                    
+
                     # Skip "Insufficient Information" entries
                     if cwe_name.lower() == "insufficient information":
                         continue
-                    
+
                     cwe_entry = {
                         'cwe_id': None,
                         'cwe_url': None,
                         'cwe_name': cwe_name,
                         'cwe_source': source_cell.text.strip()
                     }
-                    
+
                     # Look for anchor tag in ID cell
                     anchor = id_cell.find_elements(By.TAG_NAME, "a")
                     if anchor:
@@ -411,20 +411,20 @@ class NVDDataExtractor:
                         cwe_entry['cwe_url'] = anchor[0].get_attribute('href')
                     else:
                         cwe_entry['cwe_id'] = id_cell.text.strip()
-                    
+
                     cwe_data.append(cwe_entry)
-                    
+
                 except Exception as e:
                     logging.warning(f"Error processing CWE row: {str(e)}")
                     continue
-                    
+
         except NoSuchElementException:
             logging.debug("No CWE table found")
         except Exception as e:
             logging.error(f"Error extracting CWE data: {str(e)}")
-        
+
         return cwe_data
-    
+
     def extract_data_from_url(self, url: str) -> Dict[str, Optional[str]]:
         """Extract data from the given URL based on the properties specified during initialization."""
         data = {}
@@ -441,7 +441,7 @@ class NVDDataExtractor:
             time.sleep(self.params.page_load_wait)
 
             # Extract vector metrics if requested (always include base_score)
-            metric_properties = [p for p in self.properties_to_extract 
+            metric_properties = [p for p in self.properties_to_extract
                             if p in self.METRIC_PATTERNS or p in ['base_score', 'vector_element']]
             if metric_properties:
                 vector_data = self.extract_vector_metrics()
@@ -485,18 +485,18 @@ class NVDDataExtractor:
         return data
 
     def augment_dataframe(
-        self, 
-        df: pd.DataFrame, 
+        self,
+        df: pd.DataFrame,
         url_column: str = 'post_id',
         batch_size: int = 100
     ) -> pd.DataFrame:
         """Augments the given DataFrame with additional columns based on the extracted data."""
         df_copy = df.copy()
         total_rows = min(len(df_copy), self.max_records) if self.max_records else len(df_copy)
-        
+
         # Initialize all possible columns
         columns_to_add = set()
-        
+
         # Add source-prefixed columns for each source
         for source in self.VECTOR_SOURCES.keys():
             prefix = self.VECTOR_SOURCES[source]['prefix']
@@ -505,26 +505,26 @@ class NVDDataExtractor:
             columns_to_add.add(f"{prefix}base_score_rating")
             for metric in self.METRIC_PATTERNS.keys():
                 columns_to_add.add(f"{prefix}{metric}")
-        
+
         # Add base columns
         columns_to_add.update(['nvd_published_date', 'nvd_description'])
-        
+
         # Add CWE columns
         columns_to_add.update(['cwe_id', 'cwe_name', 'cwe_source', 'cwe_url'])
-        
+
         # Initialize new columns with None
         for col in columns_to_add:
             if col not in df_copy.columns:
                 df_copy[col] = None
-        
+
         # Process rows
         progress_bar = tqdm(total=total_rows, desc="Processing CVEs") if self.show_progress else None
-        
+
         try:
             for start_idx in range(0, total_rows, batch_size):
                 end_idx = min(start_idx + batch_size, total_rows)
                 batch = df_copy.iloc[start_idx:end_idx]
-                
+
                 for idx, row in batch.iterrows():
                     post_id = row[url_column]
                     if pd.isna(post_id):
@@ -534,26 +534,26 @@ class NVDDataExtractor:
 
                     url = f"https://nvd.nist.gov/vuln/detail/{post_id}"
                     extracted_data = self.extract_data_from_url(url)
-                    
+
                     # Update DataFrame with extracted data
                     for key, value in extracted_data.items():
                         if key in df_copy.columns:
                             df_copy.at[idx, key] = value
                         else:
                             logging.debug(f"Skipping column {key} - not in initialized columns")
-                    
+
                     if progress_bar:
                         progress_bar.update(1)
-                
+
                 if self.max_records and end_idx >= self.max_records:
                     break
-                
+
         finally:
             if progress_bar:
                 progress_bar.close()
-        
+
         return self._set_column_types(df_copy)
-    
+
     def get_output_columns(self) -> List[str]:
         """
         Returns a list of all column names that will be added by this extractor
@@ -561,30 +561,30 @@ class NVDDataExtractor:
 
         Returns:
             List[str]: List of column names that will be added to the DataFrame
-            
+
         Implementation Notes:
             - columns = extractor.get_output_columns()
             - print("Columns that will be added:", columns)
         """
         columns = []
-        
+
         # Add base properties that are always included
         base_properties = ['nvd_published_date', 'description']
         columns.extend(base_properties)
-        
+
         # Add vector metrics with source prefixes
         for source in self.VECTOR_SOURCES.keys():  # nist, cna, adp
             prefix = self.VECTOR_SOURCES[source]['prefix']  # nist_, cna_, adp_
-            
+
             # Add base score and vector for each source
             columns.append(f"{prefix}base_score")
             columns.append(f"{prefix}vector")
-            
+
             # Add all requested vector metrics with source prefix
             for prop in self.properties_to_extract:
                 if prop in self.METRIC_PATTERNS:
                     columns.append(f"{prefix}{prop}")
-        
+
         return sorted(list(set(columns)))
 
     @staticmethod
@@ -595,17 +595,17 @@ class NVDDataExtractor:
 
         Returns:
             List[str]: Complete list of all possible column names
-        
+
         Example:
             columns = NVDDataExtractor.get_all_possible_columns()
             print("All possible columns:", columns)
         """
         columns = []
-        
+
         # Base properties that are always included
         base_properties = ['nvd_published_date', 'description']
         columns.extend(base_properties)
-        
+
         # All possible vector metrics
         all_metrics = [
             'base_score',
@@ -628,7 +628,7 @@ class NVDDataExtractor:
         for prefix in source_prefixes:
             for metric in all_metrics:
                 columns.append(f"{prefix}{metric}")
-        
+
         return sorted(columns)
 
     def debug_tooltip_content(self, tooltip_element) -> None:
@@ -652,7 +652,7 @@ def main() -> None:
         raise FileNotFoundError(f"Input CSV file not found: {input_csv_path}")
 
     df = pd.read_csv(input_csv_path)
-    
+
     # Initialize extractor with all properties you want to extract
     extractor = NVDDataExtractor(
         properties_to_extract=[
@@ -676,7 +676,7 @@ def main() -> None:
     NVDDataExtractor.get_all_possible_columns()
     # Process the DataFrame with batch size of 100 (you can adjust this)
     enriched_df = extractor.augment_dataframe(
-        df=df, 
+        df=df,
         url_column='CVE ID',
         batch_size=100
     )

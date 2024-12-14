@@ -4,6 +4,8 @@
 # Dependencies: None
 import os
 import logging
+import numpy as np
+import warnings
 from typing import Union, List, Dict, Any
 import pandas as pd
 from fuzzywuzzy import fuzz, process
@@ -25,7 +27,8 @@ from application.core.models.basic_models import (
 
 # from application.services.embedding_service import EmbeddingService
 from application.etl.NVDDataExtractor import ScrapingParams, NVDDataExtractor
-from llama_index.core.schema import Document as LlamaDocument
+
+from llama_index.core import Document as LlamaDocument
 import asyncio
 import marvin
 from marvin.ai.text import generate_llm_response
@@ -224,7 +227,7 @@ async def async_generate_summary(text: str) -> str:
         Example of a good overview:'KB5040427 is a critical security update released on July 9, 2024, targeting Windows 10 Enterprise LTSC 2021, IoT Enterprise LTSC 2021, and Windows 10 version 22H2 (builds 19044.4651 and 19045.4651). The update addresses significant security vulnerabilities in RADIUS protocol (MD5 collisions) and implements enhanced BitLocker Secure Boot validation profiles. This combined SSU/LCU package requires specific prerequisites based on deployment method: KB5014032 for offline imaging or KB5005260 for WSUS deployment. The update includes SSU KB5039336 (builds 19044.4585 and 19045.4585) for improved update servicing capabilities.'
 
         2. Follow the overview with a section titled **Technical Breakdown**: Summarize only the specific technical content described in the KB article, with actionable details for administrators. Use subheadings that align with the content of the KB article and format commands, error codes, and configurations clearly. Do not add headings for commentary or guidelines in this prompt.
-        
+
         **Vulnerabilities and Exploits**:
         Clearly state vulnerabilities and mention whether they are high impact or low impact. For example, 'This update addresses high-impact vulnerabilities including issues with Windows Installer and Remote Authentication Dial-In User Service (RADIUS) related to MD5 collision exploits. Full details are available in the July 2024 Security Updates.'
 
@@ -306,26 +309,38 @@ async def generate_summaries(texts: pd.Series) -> List[str]:
 def transform_kb_articles(
     kb_articles_windows: List[Dict[str, Any]], kb_articles_edge: List[Dict[str, Any]]
 ) -> pd.DataFrame:
-    # clean up document dict from mongo to align with data models
+    """Transform KB articles data into a pandas DataFrame."""
     master_columns = [
         "id",
-        "build_number",
         "kb_id",
+        "title",
+        "text",
         "published",
         "product_build_id",
-        "article_url",
-        "cve_ids",
-        "text",
-        "title",
-        "embedding",
         "product_build_ids",
+        "build_number",
+        "cve_ids",
+        "excluded_embed_metadata_keys",
+        "node_label",
+        "article_url",
+        "summary",
     ]
+    dtypes = {
+            'node_id': 'str',
+            'kb_id': 'str',
+            'title': 'str',
+            'text': 'str',
+            'published': 'datetime64[ns]',
+            'product_build_id': 'str',
+            'product_build_ids': 'object',
+            'build_number': 'object',
+            'cve_ids': 'object',
+            'excluded_embed_metadata_keys': 'object',
+            'node_label': 'str',
+            'article_url': 'str'
+        }
 
-    def flatten_kb_id(kb_id):
-        if isinstance(kb_id, list):
-            return ", ".join(kb_id)
-        return kb_id
-
+    # Process Windows KB articles
     if kb_articles_windows:
         df_windows = pd.DataFrame(
             kb_articles_windows, columns=list(kb_articles_windows[0].keys())
@@ -372,18 +387,23 @@ def transform_kb_articles(
         except RuntimeError:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
-        summaries = loop.run_until_complete(generate_summaries(df_windows["text"]))
-        df_windows["summary"] = summaries
+        logging.info(f"Generating summaries for {df_windows.shape[0]} Windows-based KBs")
+        df_windows_has_summary = df_windows[df_windows["summary"].notna()].copy()
+        df_windows_no_summary = df_windows[df_windows["summary"].isna()].copy()
+        logging.info(f"Windows-based KBs with no summaries: {df_windows_no_summary.shape[0]}")
+        df_windows_no_summary["summary"] = ""
+        summaries = loop.run_until_complete(generate_summaries(df_windows_no_summary["text"]))
+        df_windows_no_summary["summary"] = summaries
+        df_windows = pd.concat([df_windows_has_summary, df_windows_no_summary])
         df_windows.sort_values(by="kb_id", ascending=True, inplace=True)
-        # print(f"Columns: {df_windows.columns}")
-        # for _, row in df_windows.iterrows():
-        #     print(f"{row['kb_id']}-{row['product_build_ids']}: {row['summary']}\n")
+
         print(f"Total Windows-based KBs transformed: {df_windows.shape[0]}")
 
     else:
         df_windows = pd.DataFrame(columns=master_columns)
-        print("No Windows-based KB articles to transform.")
+        print("No Windows KB articles to transform.")
 
+    # Process Edge KB articles
     if kb_articles_edge:
         df_edge = pd.DataFrame(
             kb_articles_edge, columns=list(kb_articles_edge[0].keys())
@@ -393,13 +413,7 @@ def transform_kb_articles(
         df_edge["kb_id"] = df_edge["kb_id"].apply(
             lambda x: x[0] if isinstance(x, list) and len(x) == 1 else ""
         )
-        # df_edge["kb_ids"] = df_edge["kb_ids"].apply(lambda x: sorted(x, reverse=True))
-        # df_edge["embedding"] = df_edge.apply(
-        #     lambda row: embedding_service.generate_embeddings(row["text"]), axis=1
-        # )
-        # df_lists = df_edge[df_edge["kb_id"].apply(lambda x: isinstance(x, list))]
-        # print("Rows with lists in 'kb_id':")
-        # print(df_lists.sample(n=df_lists.shape[0]))
+
         df_edge = df_edge.drop_duplicates(subset=["kb_id"], keep="first")
         df_edge = validate_and_adjust_columns(df_edge, master_columns)
         df_edge["node_label"] = "KBArticle"
@@ -420,16 +434,37 @@ def transform_kb_articles(
                 }
             )
         )
+        df_edge["summary"] = ""
         df_edge.sort_values(by="kb_id", ascending=True, inplace=True)
-        # print(f"Columns: {df_edge.columns}")
         print(f"Total Edge-based KBs transformed: {df_edge.shape[0]}")
 
     else:
         df_edge = pd.DataFrame(columns=master_columns)
         print("No Edge-based KB articles to transform.")
 
-    if not df_windows.empty or not df_edge.empty:
-        kb_articles_combined_df = pd.concat([df_windows, df_edge], axis=0)
+    # Combine Windows and Edge KB articles
+    dfs_to_concat = []
+    for df in [df_windows, df_edge]:
+        if not df.empty:
+            logging.info("Applying dtypes to non-empty DataFrame")
+            # Apply dtypes to non-empty DataFrames
+            for col, dtype in dtypes.items():
+                if col in df.columns:
+                    try:
+                        df[col] = df[col].astype(dtype)
+                    except (ValueError, TypeError):
+                        print(f"Warning: Could not convert column {col} to {dtype}")
+            dfs_to_concat.append(df)
+
+    # Only concatenate if we have DataFrames to combine
+    if dfs_to_concat:
+        kb_articles_combined_df = pd.concat(
+            dfs_to_concat,
+            axis=0,
+            ignore_index=True,
+            copy=True
+        )
+
         kb_articles_combined_df = kb_articles_combined_df.rename(
             columns={"id": "node_id"}
         )
@@ -450,14 +485,11 @@ def transform_kb_articles(
             columns=["build_number_tuple"]
         )
 
-        # Log the deduplication results
-        logging.info(
-            f"Removed {len(kb_articles_combined_df) - kb_articles_combined_df.shape[0]} duplicate KB articles"
-        )
-
+        print(f"Total KB articles transformed: {kb_articles_combined_df.shape[0]}")
         return kb_articles_combined_df
     else:
-        return None
+        print("No KB articles to transform.")
+        return pd.DataFrame(columns=master_columns)
 
 
 def process_downloadable_packages(
@@ -500,7 +532,12 @@ def transform_update_packages(update_packages: List[Dict[str, Any]]) -> pd.DataF
         df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(
             lambda x: list(
                 set(x if isinstance(x, list) else [])
-                | {"product_build_ids", "node_label", "downloadable_packages", "source"}
+                | {
+                    "product_build_ids",
+                    "node_label",
+                    "downloadable_packages",
+                    "source",
+                }
             )
         )
         df = df.rename(columns={"id": "node_id"})
@@ -510,6 +547,8 @@ def transform_update_packages(update_packages: List[Dict[str, Any]]) -> pd.DataF
         return df
     else:
         print("No Update Packages to transform.")
+        return pd.DataFrame(columns=["node_id", "package_type", "node_label", "published",
+                                   "excluded_embed_metadata_keys", "downloadable_packages"])
 
     return None
 
@@ -531,7 +570,7 @@ def convert_to_list(value):
 
 
 def remove_generic_text(text, threshold=80, max_match_length=500):
-    # logging.info(f"Initial character count: {len(text)}")
+
     initial_char_count = len(text)
     problematic_pattern = r"This metric describes the conditions beyond the attacker's control that must exist in order to exploit the vulnerability. Such conditions may require the collection of more information about the target or computational exceptions. The assessment of this metric excludes any requirements for user interaction in order to exploit the vulnerability. If a specific configuration is required for an attack to succeed, the Base metrics should be scored assuming the vulnerable component is in that configuration."
     icon_pattern = r"[^\w\s]+\s+Subscribe\s+RSS\s+PowerShell\s+[^\w\s]+\s+API"
@@ -619,146 +658,301 @@ def remove_generic_text(text, threshold=80, max_match_length=500):
     )
 
 
-def transform_msrc_posts(msrc_posts: List[Dict[str, Any]]) -> pd.DataFrame:
-    # clean up document dict from mongo to align with data models
-    metadata_fields_to_move = [
-        "revision",
-        "title",
-        "description",
-        "source",
-        "impact_type",
-        "severity_type",
-        "post_type",
-        "post_id",
-        "summary",
-        "build_numbers",
-        "published",
-        "product_build_ids",
-        "collection",
-    ]
-    mapping_cve_category = {
-        "Tampering": "tampering",
-        "Spoofing": "spoofing",
-        "Availability": "availability",
-        "Elevation of Privilege": "privilege_elevation",
-        "Denial of Service": "dos",
-        "Information Disclosure": "disclosure",
-        "Remote Code Execution": "rce",
-        "Security Feature Bypass": "feature_bypass",
+def extract_cve_category_from_description(description: str) -> str:
+    """
+    Extract CVE category from NVD description text with enhanced pattern matching.
+    Returns the most severe/specific category if multiple are found.
+    """
+    if not description:
+        return "NC"
+
+    description = description.lower()
+
+    # Define keywords with variations for each category
+    category_patterns = {
+        "rce": [
+            "remote code execution",
+            "remote execution",
+            "arbitrary code execution",
+            "code execution",
+            "command execution"
+        ],
+        "privilege_elevation": [
+            "elevation of privilege",
+            "privilege elevation",
+            "escalation of privilege",
+            "privilege escalation"
+        ],
+        "dos": [
+            "denial of service",
+            "denial-of-service",
+            "service denial",
+            "resource exhaustion"
+        ],
+        "disclosure": [
+            "information disclosure",
+            "information leak",
+            "data disclosure",
+            "memory leak",
+            "sensitive information"
+        ],
+        "tampering": [
+            "tampering",
+            "data manipulation",
+            "unauthorized modification"
+        ],
+        "spoofing": [
+            "spoofing",
+            "impersonation",
+            "authentication bypass"
+        ],
+        "feature_bypass": [
+            "security feature bypass",
+            "security bypass",
+            "protection bypass"
+        ],
+        "availability": [
+            "availability",
+            "system crash",
+            "system hang"
+        ]
     }
 
-    if msrc_posts:
-        df = pd.DataFrame(msrc_posts, columns=list(msrc_posts[0].keys()))
+    # Priority order for categories (most severe/specific first)
+    priority_order = [
+        "rce",
+        "privilege_elevation",
+        "disclosure",
+        "dos",
+        "tampering",
+        "spoofing",
+        "feature_bypass",
+        "availability"
+    ]
 
-        for field in metadata_fields_to_move:
-            df[field] = df["metadata"].apply(lambda x: x.get(field, None))
-        # df["embedding"] = df.apply(
-        #     lambda row: embedding_service.generate_embeddings(row["text"]), axis=1
-        # )
-        df = df.rename(columns={"impact_type": "cve_category"})
+    # Find all matching categories
+    found_categories = set()
+    for category, patterns in category_patterns.items():
+        if any(pattern in description for pattern in patterns):
+            found_categories.add(category)
 
-        df["cve_category"] = df["cve_category"].apply(
-            lambda x: mapping_cve_category.get(x, x)
+    # Return highest priority category if multiple found
+    for category in priority_order:
+        if category in found_categories:
+            return category
+
+    return "NC"
+
+# Begin MSRC transformer =====================================
+
+
+def _prepare_base_dataframe(msrc_posts: List[Dict[str, Any]], metadata_fields_to_move: List[str]) -> pd.DataFrame:
+    """Prepare the initial dataframe from MSRC posts."""
+    df = pd.DataFrame(msrc_posts, columns=list(msrc_posts[0].keys()))
+    for field in metadata_fields_to_move:
+        df[field] = df["metadata"].apply(lambda x: x.get(field, None))
+    return df
+
+
+def _process_new_records(df: pd.DataFrame, mapping_cve_category: Dict[str, str]) -> pd.DataFrame:
+    """Process records that haven't been enriched with NVD data yet."""
+    # Rename impact_type to cve_category only for new records
+    df = df.rename(columns={"impact_type": "cve_category"})
+
+    # Handle the mapping with None/NaN protection
+    df["cve_category"] = df["cve_category"].apply(
+        lambda x: mapping_cve_category.get(x, x) if pd.notna(x) else "NC"
+    )
+    return df
+
+
+def _apply_common_transformations(df: pd.DataFrame) -> pd.DataFrame:
+    """Apply transformations common to both new and pre-processed records."""
+    df["cve_category"] = df["cve_category"].fillna("NC")
+    df["severity_type"] = df["severity_type"].str.lower()
+    df["severity_type"] = df["severity_type"].fillna("NST")
+    df["metadata"] = df["metadata"].apply(make_json_safe_metadata)
+    df["kb_ids"] = df["kb_ids"].apply(normalize_mongo_kb_id)
+    df["kb_ids"] = df["kb_ids"].apply(lambda x: sorted(x, reverse=True))
+    df["product_build_ids"] = df["product_build_ids"].apply(convert_to_list)
+    df["node_label"] = "MSRCPost"
+    df["published"] = pd.to_datetime(df["published"])
+
+    df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(
+        lambda x: list(
+            set(x if isinstance(x, list) else [])
+            | {
+                "source",
+                "description",
+                "product_build_ids",
+                "kb_ids",
+                "build_numbers",
+                "node_label",
+                "patterns_found",
+                "patterns_missing",
+            }
         )
-        df["cve_category"] = df["cve_category"].fillna("NC")
-        df["severity_type"] = df["severity_type"].str.lower()
-        df["severity_type"] = df["severity_type"].fillna("NST")
-        df["metadata"] = df["metadata"].apply(make_json_safe_metadata)
-        df["kb_ids"] = df["kb_ids"].apply(normalize_mongo_kb_id)
-        df["kb_ids"] = df["kb_ids"].apply(lambda x: sorted(x, reverse=True))
-        df["product_build_ids"] = df["product_build_ids"].apply(convert_to_list)
-        df["node_label"] = "MSRCPost"
-        df["published"] = pd.to_datetime(df["published"])
+    )
+    df[["text", "patterns_found", "patterns_missing"]] = df["text"].apply(
+        lambda x: pd.Series(remove_generic_text(x))
+    )
+    df = df.drop(["patterns_found", "patterns_missing"], axis=1)
+    df = df.rename(columns={"id_": "node_id"})
+    return df
 
-        df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(
-            lambda x: list(
-                set(x if isinstance(x, list) else [])
-                | {
-                    "source",
-                    "description",
-                    "product_build_ids",
-                    "kb_ids",
-                    "build_numbers",
-                    "node_label",
-                    "patterns_found",
-                    "patterns_missing",
+
+def transform_msrc_posts(msrc_posts: List[Dict[str, Any]], process_all: bool = False) -> pd.DataFrame:
+    """Transform MSRC posts, handling both new and pre-processed records efficiently.
+
+    Args:
+        msrc_posts: List of MSRC post dictionaries
+        process_all: If True, process all records. If False, only process new records.
+    """
+    logging.info(f"process New or All: {'All' if process_all else 'New'}")
+    metadata_fields_to_move = [
+        "revision", "title", "description", "source", "impact_type",
+        "severity_type", "post_type", "post_id", "summary", "build_numbers",
+        "published", "product_build_ids", "collection", "cve_category",
+    ]
+
+    if not msrc_posts:
+        print("No MSRC Posts to transform.")
+        return None
+
+    # Create initial dataframe
+    df = _prepare_base_dataframe(msrc_posts, metadata_fields_to_move)
+
+    # Partition records based on whether they've been processed before
+    is_processed = df["metadata"].apply(
+        lambda x: x.get("etl_processing_status", {}).get("document_processed", False)
+    )
+    preprocessed_records = df[is_processed].copy()
+    new_records = df[~is_processed].copy()
+
+    logging.info(f"Found {len(preprocessed_records)} pre-processed records and {len(new_records)} new records")
+
+    # Determine which records to process based on process_all flag
+    if process_all:
+        records_to_process = df
+        logging.info("Processing all records as requested")
+    else:
+        records_to_process = new_records
+        if not preprocessed_records.empty:
+            logging.info(f"Skipping {len(preprocessed_records)} pre-processed records")
+
+    # Process records if there are any to process
+    if not records_to_process.empty:
+        # Initialize processing status
+        current_time = datetime.utcnow().isoformat()
+        records_to_process["metadata"] = records_to_process["metadata"].apply(
+            lambda x: {
+                **x,
+                "etl_processing_status": {
+                    "document_processed": True,
+                    "entities_extracted": False,
+                    "graph_prepared": False,
+                    "vector_prepared": False,
+                    "last_processed_at": current_time,
+                    "processing_version": "1.0"
                 }
-            )
+            }
         )
-        df[["text", "patterns_found", "patterns_missing"]] = df["text"].apply(
-            lambda x: pd.Series(remove_generic_text(x))
-        )
-        df = df.drop(["patterns_found", "patterns_missing"], axis=1)
-        df = df.rename(columns={"id_": "node_id"})
-        df.sort_values(by="post_id", ascending=True, inplace=True)
 
-        num_cves = len(df)
+        # Set up NVD extraction
+        num_cves = len(records_to_process)
         scraping_params = ScrapingParams.from_target_time(
-            num_cves=num_cves, target_time_per_cve=4.0  # (seconds)
+            num_cves=num_cves, target_time_per_cve=4.0
         )
         estimated_minutes = scraping_params.estimate_total_time(num_cves) / 60
-        print(f"Estimated processing time: {estimated_minutes:.1f} minutes")
+        print(f"Estimated processing time for {num_cves} records: {estimated_minutes:.1f} minutes")
 
         nvd_extractor = NVDDataExtractor(
             properties_to_extract=[
-                "base_score",
-                "vector_element",
-                "impact_score",
-                "exploitability_score",
-                "attack_vector",
-                "attack_complexity",
-                "privileges_required",
-                "user_interaction",
-                "scope",
-                "confidentiality",
-                "integrity",
-                "availability",
-                "nvd_published_date",
-                "nvd_description",
-                "vector_element",
-                "cwe_id",
-                "cwe_name",
-                "cwe_source",
-                "cwe_url",
+                "base_score", "vector_element", "impact_score", "exploitability_score",
+                "attack_vector", "attack_complexity", "privileges_required",
+                "user_interaction", "scope", "confidentiality", "integrity",
+                "availability", "nvd_published_date", "nvd_description",
+                "vector_element", "cwe_id", "cwe_name", "cwe_source", "cwe_url",
             ],
             max_records=None,
             scraping_params=scraping_params,
-            headless=True,  # Set to False for debugging
+            headless=True,
             window_size=(1240, 1080),
             show_progress=True,
         )
 
         try:
-            enriched_df = nvd_extractor.augment_dataframe(
-                df=df,
+            enriched_records = nvd_extractor.augment_dataframe(
+                df=records_to_process,
                 url_column="post_id",
-                batch_size=100,  # Adjust based on your needs
+                batch_size=100,
             )
-            logging.debug(f"enriched_df.columns:\n{enriched_df.columns}")
-            if not enriched_df.empty:
-                sample_size = min(3, len(enriched_df))
-                logging.debug(
-                    f"enriched_df.sample(n={sample_size}):\n{enriched_df.sample(n=sample_size)}"
+
+            if not enriched_records.empty:
+                # Update CVE categories where needed
+                mask = (enriched_records['cve_category'].isin(['NC', '']))
+                enriched_records.loc[mask, 'cve_category'] = \
+                    enriched_records.loc[mask, 'nvd_description'].apply(extract_cve_category_from_description)
+
+                # Log statistics about category updates
+                updated_count = mask.sum()
+                if updated_count > 0 and os.getenv('LOG_LEVEL', '').upper() == 'DEBUG':
+                    category_stats = enriched_records.loc[mask, 'cve_category'].value_counts()
+                    logging.debug(f"Updated {updated_count} CVE categories from NVD descriptions")
+                    logging.debug("Category distribution for updated records:")
+                    logging.debug(f"\n{category_stats}")
+
+                # Update processing status after successful NVD extraction
+                current_time = datetime.utcnow().isoformat()
+                enriched_records["metadata"] = enriched_records["metadata"].apply(
+                    lambda x: {
+                        **x,
+                        "etl_processing_status": {
+                            **x.get("etl_processing_status", {}),
+                            "entities_extracted": True,
+                            "last_processed_at": current_time
+                        }
+                    }
                 )
-            else:
-                logging.debug("enriched_df is empty - no samples to display")
 
         except Exception as e:
-            print(f"Error during NVD data extraction: {str(e)}")
+            logging.error(f"Error during NVD data extraction: {str(e)}")
             raise
-
         finally:
             nvd_extractor.cleanup()
-
-        if not enriched_df.empty:
-            print(f"Total MSRC Posts transformed: {enriched_df.shape[0]}")
-            return enriched_df
-        else:
-            logging.error("NVD extraction failed - no enriched data to return")
-            return None
     else:
-        print("No MSRC Posts to transform.")
+        enriched_records = pd.DataFrame()
+
+    # Return logic based on process_all flag
+    if not process_all:
+        # Return only newly processed records
+        if not enriched_records.empty:
+            result_df = _apply_common_transformations(enriched_records)
+            result_df.sort_values(by="post_id", ascending=True, inplace=True)
+            print(f"Total new MSRC Posts transformed: {result_df.shape[0]}")
+            return result_df
         return None
+    else:
+        # Combine and return all records
+        if not preprocessed_records.empty and not enriched_records.empty:
+            combined_df = pd.concat([preprocessed_records, enriched_records], axis=0, ignore_index=True)
+        elif not preprocessed_records.empty:
+            combined_df = preprocessed_records
+        elif not enriched_records.empty:
+            combined_df = enriched_records
+        else:
+            logging.error("No records to process")
+            return None
+
+        # Apply common transformations and sort
+        result_df = _apply_common_transformations(combined_df)
+        result_df.sort_values(by="post_id", ascending=True, inplace=True)
+        print(f"Total MSRC Posts transformed: {result_df.shape[0]}")
+        return result_df
+
+# End MSRC transformer ========================================
+
+# Start Patch Transformer =====================================
 
 
 nlp = spacy.load("en_core_web_lg")
@@ -915,7 +1109,13 @@ def remove_metadata_fields(
     return metadata
 
 
-def transform_patch_posts(patch_posts: List[Dict[str, Any]]) -> pd.DataFrame:
+def transform_patch_posts(patch_posts: List[Dict[str, Any]], process_all: bool = False) -> pd.DataFrame:
+    """Transform patch posts, handling both new and pre-processed records efficiently.
+
+    Args:
+        patch_posts: List of patch post dictionaries
+        process_all: If True, process all records. If False, only process new records.
+    """
     metadata_fields_to_move = [
         "receivedDateTime",
         "published",
@@ -954,30 +1154,117 @@ def transform_patch_posts(patch_posts: List[Dict[str, Any]]) -> pd.DataFrame:
     # Add node_label
     df["node_label"] = "PatchManagementPost"
 
-    # Process emails
-    df = process_emails(df)
-
-    # Make metadata JSON safe
-    metadata_fields_to_move.append("build_numbers")
-    df["metadata"] = df["metadata"].apply(
-        lambda x: remove_metadata_fields(x, metadata_fields_to_move)
+    # Partition records based on whether they've been processed before
+    is_processed = df["metadata"].apply(
+        lambda x: x.get("etl_processing_status", {}).get("document_processed", False)
     )
-    df["metadata"] = df["metadata"].apply(make_json_safe_metadata)
-    df["excluded_embed_metadata_keys"] = [[] for _ in range(len(df))]
-    df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(
-        lambda x: list(
-            set(x if isinstance(x, list) else [])
-            | {"previous_id", "cve_ids", "kb_ids", "next_id", "node_label", "subject"}
+    preprocessed_records = df[is_processed].copy()
+    new_records = df[~is_processed].copy()
+
+    logging.info(f"Found {len(preprocessed_records)} pre-processed records and {len(new_records)} new records")
+
+    # Determine which records to process based on process_all flag
+    if process_all:
+        records_to_process = df
+        logging.info("Processing all records as requested")
+    else:
+        records_to_process = new_records
+        if not preprocessed_records.empty:
+            logging.info(f"Skipping {len(preprocessed_records)} pre-processed records")
+
+    if not records_to_process.empty:
+        # Process emails
+        records_to_process = process_emails(records_to_process)
+
+        # Update processing status in metadata
+        current_time = datetime.utcnow().isoformat()
+        records_to_process["metadata"] = records_to_process["metadata"].apply(
+            lambda x: {
+                **x,
+                "etl_processing_status": {
+                    "document_processed": True,
+                    "entities_extracted": False,
+                    "graph_prepared": False,
+                    "vector_prepared": False,
+                    "last_processed_at": current_time,
+                    "processing_version": "1.0"  # Useful for future schema migrations
+                }
+            }
         )
-    )
-    # Remove duplicate columns
-    df = df.loc[:, ~df.columns.duplicated()]
-    df["published"] = pd.to_datetime(df["published"])
-    logging.info(f"Total Patch posts transformed: {df.shape[0]}")
-    logging.debug(f"Patch df columns: {df.columns}")
-    # print(df.head())
+    else:
+        records_to_process = pd.DataFrame()
 
-    return df
+    # Return logic based on process_all flag
+    if not process_all:
+        # Return only newly processed records
+        if not records_to_process.empty:
+            # Make metadata JSON safe
+            metadata_fields_to_move.append("build_numbers")
+            records_to_process["metadata"] = records_to_process["metadata"].apply(
+                lambda x: remove_metadata_fields(x, metadata_fields_to_move)
+            )
+            records_to_process["metadata"] = records_to_process["metadata"].apply(make_json_safe_metadata)
+            records_to_process["excluded_embed_metadata_keys"] = [[] for _ in range(len(records_to_process))]
+            records_to_process["excluded_embed_metadata_keys"] = records_to_process["excluded_embed_metadata_keys"].apply(
+                lambda x: list(
+                    set(x if isinstance(x, list) else [])
+                    | {
+                        "previous_id",
+                        "cve_ids",
+                        "kb_ids",
+                        "next_id",
+                        "node_label",
+                        "subject",
+                        "etl_processing_status"  # Exclude processing status from embeddings
+                    }
+                )
+            )
+            # Remove duplicate columns
+            records_to_process = records_to_process.loc[:, ~records_to_process.columns.duplicated()]
+            records_to_process["published"] = pd.to_datetime(records_to_process["published"])
+            print(f"Total new patch posts transformed: {records_to_process.shape[0]}")
+            return records_to_process
+        return None
+    else:
+        # Combine and return all records
+        if not preprocessed_records.empty and not records_to_process.empty:
+            combined_df = pd.concat([preprocessed_records, records_to_process], axis=0, ignore_index=True)
+        elif not preprocessed_records.empty:
+            combined_df = preprocessed_records
+        elif not records_to_process.empty:
+            combined_df = records_to_process
+        else:
+            logging.error("No records to process")
+            return None
+
+        # Make metadata JSON safe
+        metadata_fields_to_move.append("build_numbers")
+        combined_df["metadata"] = combined_df["metadata"].apply(
+            lambda x: remove_metadata_fields(x, metadata_fields_to_move)
+        )
+        combined_df["metadata"] = combined_df["metadata"].apply(make_json_safe_metadata)
+        combined_df["excluded_embed_metadata_keys"] = [[] for _ in range(len(combined_df))]
+        combined_df["excluded_embed_metadata_keys"] = combined_df["excluded_embed_metadata_keys"].apply(
+            lambda x: list(
+                set(x if isinstance(x, list) else [])
+                | {
+                    "previous_id",
+                    "cve_ids",
+                    "kb_ids",
+                    "next_id",
+                    "node_label",
+                    "subject",
+                    "etl_processing_status"  # Exclude processing status from embeddings
+                }
+            )
+        )
+        # Remove duplicate columns
+        combined_df = combined_df.loc[:, ~combined_df.columns.duplicated()]
+        combined_df["published"] = pd.to_datetime(combined_df["published"])
+        print(f"Total patch posts transformed: {combined_df.shape[0]}")
+        return combined_df
+
+# End Patch Transformer ========================================
 
 
 def transform_symptoms(symptoms: List[Dict[str, Any]]) -> pd.DataFrame:
@@ -1172,57 +1459,257 @@ def transform_extracted_entities(
             df[field] = None  # Set default value if field is missing
     return df
 
+def make_text_json_safe(text: str) -> str:
+    """
+    Make text safe for JSON serialization by properly escaping special characters.
+
+    Args:
+        text: Input text that may contain special characters
+
+    Returns:
+        JSON-safe string with properly escaped characters
+    """
+    if not isinstance(text, str):
+        return text
+
+    # Replace backslashes first to avoid double escaping
+    text = text.replace('\\', '\\\\')
+    # Replace quotes and other special characters
+    text = text.replace('"', '\\"')
+    text = text.replace('\n', '\\n')
+    text = text.replace('\r', '\\r')
+    text = text.replace('\t', '\\t')
+    text = text.replace('\b', '\\b')
+    text = text.replace('\f', '\\f')
+    return text
+
+
+def _create_metadata_from_row(row: pd.Series, preserve_metadata: bool = False) -> dict:
+    """
+    Helper function to create metadata from a DataFrame row, handling NaN values and datetime objects.
+
+    Args:
+        row: DataFrame row to process
+        preserve_metadata: If True, preserves existing metadata structure from source,
+                         otherwise places all fields (except doc_id) in metadata
+    """
+    result = {}
+    logging.debug(f"Creating metadata from row with keys: {row.index.tolist()}")
+
+    def process_value(value):
+        """Helper to process individual values."""
+        if isinstance(value, (pd.Timestamp, datetime)):
+            # Handle datetime objects
+            return value.isoformat()
+        elif isinstance(value, (pd.Series, np.ndarray)):
+            # Handle Series or arrays
+            return value.tolist()
+        elif isinstance(value, list):
+            # Handle lists and nested lists
+            return [
+                process_value(sub_value) if isinstance(sub_value, list) else sub_value
+                for sub_value in value
+            ]
+        elif pd.api.types.is_scalar(value):
+            # Handle scalar NaN, NAType, and primitive types
+            if pd.isna(value) or isinstance(value, pd._libs.missing.NAType):
+                return None
+            return value
+        elif isinstance(value, str):
+            # Handle strings
+            return make_text_json_safe(value)
+        else:
+            # Convert unknown types to string
+            return make_text_json_safe(str(value))
+
+    # Process each field in the row
+    for key, value in row.items():
+        try:
+            processed_value = process_value(value)
+            if key == 'node_id':
+                # Special handling for 'node_id'
+                result['doc_id'] = processed_value
+                logging.debug(f"Set doc_id from node_id: {processed_value}")
+            elif key == 'metadata' and preserve_metadata:
+                # Special handling for 'metadata' if preserving structure
+                if isinstance(processed_value, dict):
+                    result['metadata'] = processed_value
+                    logging.debug(f"Preserved metadata structure: {list(processed_value.keys())}")
+                elif isinstance(processed_value, str) and processed_value.lower() != 'null':
+                    try:
+                        result['metadata'] = json.loads(processed_value)
+                        logging.debug(f"Parsed metadata from string: {list(result['metadata'].keys())}")
+                    except json.JSONDecodeError:
+                        result['metadata'] = {}
+                        logging.warning("Failed to parse metadata string, using empty dict")
+                else:
+                    result['metadata'] = {}
+                    logging.warning("Invalid metadata value, using empty dict")
+            elif key != 'doc_id':  # Skip 'doc_id' as it's handled via 'node_id'
+                if preserve_metadata:
+                    # Keep at root level if preserve_metadata is True
+                    result[key] = processed_value
+                    logging.debug(f"Preserved at root: {key}")
+                else:
+                    # Place in metadata if not preserving structure
+                    if 'metadata' not in result:
+                        result['metadata'] = {}
+                    result['metadata'][key] = processed_value
+                    logging.debug(f"Added to metadata: {key}")
+        except Exception as e:
+            logging.error(f"Error processing key {key} with value {value} ({type(value)}): {str(e)}")
+            if key == 'node_id':
+                result['doc_id'] = None
+            elif key == 'metadata' and preserve_metadata:
+                result['metadata'] = {}
+            elif key != 'doc_id':
+                if preserve_metadata:
+                    result[key] = None
+                else:
+                    if 'metadata' not in result:
+                        result['metadata'] = {}
+                    result['metadata'][key] = None
+
+    # Ensure 'metadata' key exists
+    if 'metadata' not in result:
+        result['metadata'] = {}
+        logging.warning("No metadata created, using empty dict")
+
+    logging.debug(f"Final metadata structure - Root keys: {list(result.keys())}")
+    logging.debug(f"Final metadata structure - Metadata keys: {list(result['metadata'].keys())}")
+
+    return result
+
 
 # =============================================================================
 # Convert dataframe of KB Articles to Llama Documents
 # =============================================================================
+
+def _handle_na_text(text_value: Any) -> str:
+    """Handle potential NA values in text fields.
+
+    Args:
+        text_value: Any value that might be NA
+
+    Returns:
+        str: Empty string if NA, otherwise string representation of value
+    """
+    if pd.isnull(text_value):
+        return ""
+    elif not isinstance(text_value, str):
+        return str(text_value)
+    return text_value
+
+
+def clean_na_values_series(series: pd.Series) -> pd.Series:
+    """
+    Replace various forms of missing/null values in a pandas Series with Python `None`.
+    Recursively handles nested data structures (lists, dicts, etc.).
+
+    Handles all pandas NA types including:
+    - pandas.NA
+    - numpy.nan
+    - pandas.NaT
+    - None
+    - String representations of NA values
+
+    Args:
+        series: Input pandas Series
+
+    Returns:
+        pandas Series with all NA values replaced with None
+    """
+    def clean_value(x):
+        if pd.api.types.is_scalar(x):
+            if pd.isnull(x):
+                return None
+            if isinstance(x, str) and x.lower() in {"nan", "nat", "none", "null"}:
+                return None
+            return x
+        if isinstance(x, (list, tuple)):
+            return type(x)(clean_value(item) for item in x)
+        if isinstance(x, dict):
+            return {k: clean_value(v) for k, v in x.items()}
+        if hasattr(x, '__iter__') and not isinstance(x, str):
+            return type(x)([clean_value(item) for item in x])
+        return x
+
+    return pd.Series(
+        [clean_value(x) for x in series],
+        index=series.index,
+        name=series.name
+    )
+
+
 def convert_df_to_llamadoc_kb_articles(
-    df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id"}
+    df: pd.DataFrame
 ) -> list[LlamaDocument]:
+    """Convert a DataFrame of KB Articles to a list of LlamaDocuments."""
     llama_documents = []
-
+    logging.info(
+        f"Starting conversion of KB Articles to LlamaDocuments "
+        f"with row count: {len(df)}"
+    )
     for _, row in df.iterrows():
-        # Handle datetime conversion for 'published' field
-        if "published" in row and isinstance(row["published"], pd.Timestamp):
-            row["published"] = row["published"].isoformat()
+        try:
+            logging.debug(
+                f"Processing row:\n"
+                f"{row.to_dict()}"
+            )
+            row = clean_na_values_series(row)
+            # Extract metadata dynamically, excluding specified keys
+            metadata = _create_metadata_from_row(row)
 
-        # Extract metadata dynamically, excluding specified keys
-        metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
+            # Set default values for specific fields
+            defaults = {
+                "node_label": row.get("node_label", "KBArticle"),
+                "kb_id": row.get("kb_id", ""),
+                "product_build_id": row.get("product_build_id", ""),
+                "product_build_ids": row.get("product_build_ids", []),
+                "cve_ids": row.get("cve_ids", []),
+                "build_number": row.get("build_number", []),
+                "article_url": row.get("article_url", ""),
+                "reliability": row.get("reliability", ""),
+                "readability": row.get("readability", ""),
+                "excluded_embed_metadata_keys": [
+                    "node_id",
+                    "cve_ids",
+                    "build_number",
+                    "node_label",
+                    "product_build_id",
+                    "product_build_ids",
+                ],
+                "excluded_llm_metadata_keys": [],
+            }
 
-        # Set default values for specific fields
-        defaults = {
-            "source": "KBArticle",
-            "kb_id": "",
-            "title": "",
-            "product_build_id": "",
-            "product_build_ids": [],
-            "cve_ids": [],
-            "build_number": [],
-            "article_url": "",
-            "excluded_embed_metadata_keys": [
-                "node_id",
-                "cve_ids",
-                "build_number",
-                "node_label",
-                "product_build_id",
-                "product_build_ids",
-            ],
-        }
+            # Update metadata with defaults
+            for key, default_value in defaults.items():
+                if key not in metadata or metadata[key] is None:
+                    metadata[key] = default_value
 
-        # Update metadata with defaults
-        for key, default_value in defaults.items():
-            if key not in metadata or not metadata[key]:
-                metadata[key] = default_value
+            # Create the LlamaDocument
+            doc = LlamaDocument(
+                text=_handle_na_text(row["text"]),
+                doc_id=row["node_id"],
+                extra_info=metadata,
+                excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
+                excluded_llm_metadata_keys=metadata["excluded_llm_metadata_keys"],
+            )
+            llama_documents.append(doc)
 
-        # Create the LlamaDocument
-        doc = LlamaDocument(
-            text=row["text"],
-            doc_id=row["node_id"],
-            metadata=metadata,
-            excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
-        )
-        llama_documents.append(doc)
+            logging.info("Created LlamaDocument", extra={"doc_id": doc.doc_id})
+            logging.debug(
+                f"Document metadata:\n"
+                f"{metadata}"
+            )
 
+        except Exception as e:
+            logging.error(f"Error processing row row_data {row.to_dict()} \nerror {str(e)}")
+
+    logging.info(
+        f"Completed conversion of DataFrame to LlamaDocuments "
+        f"with total documents: {len(llama_documents)}"
+    )
     return llama_documents
 
 
@@ -1230,66 +1717,96 @@ def convert_df_to_llamadoc_kb_articles(
 # Convert dataframe of Update Packages to Llama Documents
 # =============================================================================
 def convert_df_to_llamadoc_update_packages(
-    df: pd.DataFrame,
-    exclusion_keys: set[str] = {"text", "node_id", "downloadable_packages"},
+    df: pd.DataFrame
 ) -> list[LlamaDocument]:
+    """Convert a DataFrame of Update Packages to a list of LlamaDocuments."""
     llama_documents = []
 
+    logging.info(
+        f"Starting conversion of Update Packages to LlamaDocuments "
+        f"with row count: {len(df)}"
+    )
+
     for _, row in df.iterrows():
-        # Construct text content
-        text_content = (
-            f"Update Package published on: {row.get('published', '').strftime('%B %d, %Y')}\n"
-            f"Build Number: {row.get('build_number', '')}\n"
-            f"Package Type: {row.get('package_type', '')}\n"
-            f"Package URL: {row.get('package_url', '')}"
-        )
+        try:
+            # Log raw input data for debugging
+            logging.debug(
+                f"Processing row:\n"
+                f"{row.to_dict()}"
+            )
 
-        # Handle datetime conversion for published date
-        if "published" in row and isinstance(row["published"], pd.Timestamp):
-            row["published"] = row["published"].isoformat()
+            # Construct text content
+            text_content = (
+                f"Update Package published on: {row.get('published', '').strftime('%B %d, %Y')}\n"
+                f"Build Number: {row.get('build_number', '')}\n"
+                f"Package Type: {row.get('package_type', '')}\n"
+                f"Package URL: {row.get('package_url', '')}"
+            )
 
-        # Process downloadable packages
-        downloadable_packages = row.get("downloadable_packages", [])
-        if isinstance(downloadable_packages, list):
-            downloadable_packages = [
-                (
-                    {
-                        k: v.isoformat() if isinstance(v, datetime) else v
-                        for k, v in pkg.items()
-                    }
-                    if isinstance(pkg, dict)
-                    else pkg
-                )
-                for pkg in downloadable_packages
-            ]
+            # Handle datetime conversion for published date
+            if "published" in row and isinstance(row["published"], pd.Timestamp):
+                row["published"] = row["published"].isoformat()
 
-        # Extract metadata dynamically, excluding specified keys
-        metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
+            # Process downloadable packages
+            downloadable_packages = row.get("downloadable_packages", [])
+            if isinstance(downloadable_packages, list):
+                downloadable_packages = [
+                    (
+                        {
+                            k: v.isoformat() if isinstance(v, datetime) else v
+                            for k, v in pkg.items()
+                        }
+                        if isinstance(pkg, dict)
+                        else pkg
+                    )
+                    for pkg in downloadable_packages
+                ]
 
-        # Set default values for specific fields
-        defaults = {
-            "source": "UpdatePackage",
-            "build_number": "",
-            "product_build_ids": [],
-            "package_type": "",
-            "package_url": "",
-            "downloadable_packages": downloadable_packages,
-            "excluded_embed_metadata_keys": ["product_build_ids", "node_label"],
-        }
+            # Extract metadata dynamically, excluding specified keys
+            metadata = _create_metadata_from_row(row)
 
-        # Update metadata with defaults
-        for key, default_value in defaults.items():
-            if key not in metadata or not metadata[key]:
-                metadata[key] = default_value
+            # Set default values for specific fields
+            defaults = {
+                "node_label": row.get("node_label", "UpdatePackage"),  # Use node_label from row or default to "UpdatePackage"
+                "build_number": row.get("build_number", ""),
+                "product_build_ids": row.get("product_build_ids", []),
+                "package_type": row.get("package_type", ""),
+                "package_url": row.get("package_url", ""),
+                "downloadable_packages": downloadable_packages,
+                "reliability": row.get("reliability", ""),
+                "readability": row.get("readability", "HIGH"),
+                "excluded_embed_metadata_keys": ["product_build_ids", "node_label"],
+                "excluded_llm_metadata_keys": [],
+            }
 
-        # Create the LlamaDocument
-        doc = LlamaDocument(
-            text=text_content,
-            doc_id=row["node_id"],
-            metadata=metadata,
-            excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
-        )
-        llama_documents.append(doc)
+            # Update metadata with defaults
+            for key, default_value in defaults.items():
+                if key not in metadata or metadata[key] is None:
+                    metadata[key] = default_value
+
+            # Create the LlamaDocument
+            doc = LlamaDocument(
+                text=text_content,
+                doc_id=row["node_id"],
+                extra_info=metadata,
+                excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
+                excluded_llm_metadata_keys=metadata["excluded_llm_metadata_keys"],
+            )
+            llama_documents.append(doc)
+
+            # Log document creation details
+            logging.info("Created LlamaDocument", extra={"doc_id": doc.doc_id})
+            logging.debug("Document metadata", extra={"metadata": metadata})
+
+        except Exception as e:
+            # Log any errors encountered during processing
+            logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
+
+    # Log summary of the conversion process
+    logging.info(
+        f"Completed conversion of Update Packages to LlamaDocuments "
+        f"with total documents: {len(llama_documents)}"
+    )
 
     return llama_documents
 
@@ -1298,37 +1815,63 @@ def convert_df_to_llamadoc_update_packages(
 # Convert dataframe of Symptoms to Llama Documents
 # =============================================================================
 def convert_df_to_llamadoc_symptoms(
-    df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "description"}
+    df: pd.DataFrame
 ) -> list[LlamaDocument]:
+    """Convert a DataFrame of Symptoms to a list of LlamaDocuments."""
     llama_documents = []
 
+    logging.info(
+        f"Starting conversion of Symptoms to LlamaDocuments "
+        f"with row count: {len(df)}"
+    )
+
     for _, row in df.iterrows():
-        # Extract metadata dynamically, excluding specified keys
-        metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
+        try:
+            # Log raw row data for debugging
+            logging.debug("Processing row", extra={"row_data": row.to_dict()})
+            row = clean_na_values_series(row)
+            # Extract metadata, handling NaN values
+            metadata = _create_metadata_from_row(row)
 
-        # Set default values for specific fields
-        defaults = {
-            "source": "Symptom",
-            "symptom_label": "",
-            "severity_type": "NST",
-            "reliability": "MEDIUM",
-            "tags": [],
-            "excluded_embed_metadata_keys": ["source", "symptom_label"],
-        }
+            # Set default values for specific fields
+            defaults = {
+                "node_label": row.get("node_label", "Symptom"),
+                "symptom_label": row.get("symptom_label", ""),
+                "severity_type": row.get("severity_type", "NST"),
+                "reliability": row.get("reliability", ""),
+                "tags": row.get("tags", []),
+                "excluded_embed_metadata_keys": ["node_label", "symptom_label"],
+                "excluded_llm_metadata_keys": [],
+            }
 
-        # Update metadata with defaults
-        for key, default_value in defaults.items():
-            if key not in metadata or not metadata[key]:
-                metadata[key] = default_value
+            # Update metadata with defaults
+            for key, default_value in defaults.items():
+                if key not in metadata or metadata[key] is None:
+                    metadata[key] = default_value
 
-        # Create the LlamaDocument
-        doc = LlamaDocument(
-            text=row["description"],
-            doc_id=row["node_id"],
-            metadata=metadata,
-            excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
-        )
-        llama_documents.append(doc)
+            # Create the LlamaDocument
+            doc = LlamaDocument(
+                text=_handle_na_text(row["description"]),
+                doc_id=row["node_id"],
+                extra_info=metadata,
+                excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
+                excluded_llm_metadata_keys=metadata["excluded_llm_metadata_keys"],
+            )
+            llama_documents.append(doc)
+
+            # Log document creation details
+            logging.info("Created LlamaDocument", extra={"doc_id": doc.doc_id})
+            logging.debug("Document metadata", extra={"metadata": metadata})
+
+        except Exception as e:
+            # Log any errors encountered during processing
+            logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
+
+    # Log summary of the conversion process
+    logging.info(
+        f"Completed conversion of Symptoms to LlamaDocuments "
+        f"with total documents: {len(llama_documents)}"
+    )
 
     return llama_documents
 
@@ -1337,37 +1880,63 @@ def convert_df_to_llamadoc_symptoms(
 # Convert dataframe of Causes to Llama Documents
 # =============================================================================
 def convert_df_to_llamadoc_causes(
-    df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "description"}
+    df: pd.DataFrame
 ) -> list[LlamaDocument]:
+    """Convert a DataFrame of Causes to a list of LlamaDocuments."""
     llama_documents = []
 
+    logging.info(
+        f"Starting conversion of Causes to LlamaDocuments "
+        f"with row count: {len(df)}"
+    )
+
     for _, row in df.iterrows():
-        # Extract metadata dynamically, excluding specified keys
-        metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
+        try:
+            # Log raw row data for debugging
+            logging.debug("Processing row", extra={"row_data": row.to_dict()})
 
-        # Set default values for specific fields
-        defaults = {
-            "source": "Cause",
-            "cause_label": "",
-            "severity_type": "NST",
-            "reliability": "MEDIUM",
-            "tags": [],
-            "excluded_embed_metadata_keys": ["source", "cause_label"],
-        }
+            # Extract metadata, handling NaN values
+            metadata = _create_metadata_from_row(clean_na_values_series(row))
 
-        # Update metadata with defaults
-        for key, default_value in defaults.items():
-            if key not in metadata or not metadata[key]:
-                metadata[key] = default_value
+            # Set default values for specific fields
+            defaults = {
+                "node_label": row.get("node_label", "Cause"),
+                "cause_label": row.get("cause_label", ""),
+                "severity_type": row.get("severity_type", "NST"),
+                "reliability": row.get("reliability", ""),
+                "tags": row.get("tags", []),
+                "excluded_embed_metadata_keys": ["node_label", "cause_label"],
+                "excluded_llm_metadata_keys": [],
+            }
 
-        # Create the LlamaDocument
-        doc = LlamaDocument(
-            text=row["description"],
-            doc_id=row["node_id"],
-            metadata=metadata,
-            excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
-        )
-        llama_documents.append(doc)
+            # Update metadata with defaults
+            for key, default_value in defaults.items():
+                if key not in metadata or metadata[key] is None:
+                    metadata[key] = default_value
+
+            # Create the LlamaDocument
+            doc = LlamaDocument(
+                text=_handle_na_text(row["description"]),
+                doc_id=row["node_id"],
+                extra_info=metadata,
+                excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
+                excluded_llm_metadata_keys=metadata["excluded_llm_metadata_keys"],
+            )
+            llama_documents.append(doc)
+
+            # Log document creation details
+            logging.info("Created LlamaDocument", extra={"doc_id": doc.doc_id})
+            logging.debug("Document metadata", extra={"metadata": metadata})
+
+        except Exception as e:
+            # Log any errors encountered during processing
+            logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
+
+    # Log summary of the conversion process
+    logging.info(
+        f"Completed conversion of Causes to LlamaDocuments "
+        f"with total documents: {len(llama_documents)}"
+    )
 
     return llama_documents
 
@@ -1376,37 +1945,63 @@ def convert_df_to_llamadoc_causes(
 # Convert dataframe of Fixes to Llama Documents
 # =============================================================================
 def convert_df_to_llamadoc_fixes(
-    df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "description"}
+    df: pd.DataFrame
 ) -> list[LlamaDocument]:
+    """Convert a DataFrame of Fix nodes to a list of LlamaDocuments."""
     llama_documents = []
 
+    logging.info(
+        f"Starting conversion of Fix nodes to LlamaDocuments "
+        f"with row count: {len(df)}"
+    )
+
     for _, row in df.iterrows():
-        # Extract metadata dynamically, excluding specified keys
-        metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
+        try:
+            # Log raw input row data for debugging
+            logging.debug("Processing row", extra={"row_data": row.to_dict()})
 
-        # Set default values for specific fields
-        defaults = {
-            "source": "Fix",
-            "fix_label": "",
-            "severity_type": "NST",
-            "reliability": "MEDIUM",
-            "tags": [],
-            "excluded_embed_metadata_keys": ["source", "fix_label"],
-        }
+            # Extract metadata dynamically, excluding specified keys
+            metadata = _create_metadata_from_row(clean_na_values_series(row))
 
-        # Update metadata with defaults
-        for key, default_value in defaults.items():
-            if key not in metadata or not metadata[key]:
-                metadata[key] = default_value
+            # Set default values for specific fields
+            defaults = {
+                "node_label": row.get("node_label", "Fix"),  # Use node_label from row or default to "Fix"
+                "fix_label": row.get("fix_label", ""),
+                "cve_ids": row.get("cve_ids", []),
+                "reliability": row.get("reliability", "HIGH"),
+                "readability": row.get("readability", "HIGH"),
+                "excluded_embed_metadata_keys": ["node_label", "fix_label", "cve_ids"],
+                "excluded_llm_metadata_keys": []
+            }
 
-        # Create the LlamaDocument
-        doc = LlamaDocument(
-            text=row["description"],
-            doc_id=row["node_id"],
-            metadata=metadata,
-            excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
-        )
-        llama_documents.append(doc)
+            # Update metadata with defaults
+            for key, default_value in defaults.items():
+                if key not in metadata or metadata[key] is None:
+                    metadata[key] = default_value
+
+            # Create the LlamaDocument
+            doc = LlamaDocument(
+                text=_handle_na_text(row["description"]),
+                doc_id=row["node_id"],
+                extra_info=metadata,
+                excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
+                excluded_llm_metadata_keys=metadata["excluded_llm_metadata_keys"]
+            )
+            llama_documents.append(doc)
+
+            # Log document creation details
+            logging.info("Created LlamaDocument", extra={"doc_id": doc.doc_id})
+            logging.debug("Document metadata", extra={"metadata": metadata})
+
+        except Exception as e:
+            # Log any errors encountered during processing
+            logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
+
+    # Log summary of the conversion process
+    logging.info(
+        f"Completed conversion of Fix nodes to LlamaDocuments "
+        f"with total documents: {len(llama_documents)}"
+    )
 
     return llama_documents
 
@@ -1415,38 +2010,65 @@ def convert_df_to_llamadoc_fixes(
 # Convert dataframe of Tools to Llama Documents
 # =============================================================================
 def convert_df_to_llamadoc_tools(
-    df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id", "description"}
+    df: pd.DataFrame
 ) -> list[LlamaDocument]:
+    """Convert a DataFrame of Tool nodes to a list of LlamaDocuments."""
     llama_documents = []
 
+    logging.info(
+        f"Starting conversion of Tool nodes to LlamaDocuments "
+        f"with row count: {len(df)}"
+    )
+
     for _, row in df.iterrows():
-        # Extract metadata dynamically, excluding specified keys
-        metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
+        try:
+            # Log raw input row data for debugging
+            logging.debug("Processing row", extra={"row_data": row.to_dict()})
 
-        # Set default values for specific fields
-        defaults = {
-            "source": "Tool",
-            "tool_label": "",
-            "severity_type": "NST",
-            "reliability": "MEDIUM",
-            "tags": [],
-            "tool_url": "",
-            "excluded_embed_metadata_keys": ["source", "tool_label"],
-        }
+            # Extract metadata dynamically, excluding specified keys
+            metadata = _create_metadata_from_row(clean_na_values_series(row))
 
-        # Update metadata with defaults
-        for key, default_value in defaults.items():
-            if key not in metadata or not metadata[key]:
-                metadata[key] = default_value
+            # Set default values for specific fields
+            defaults = {
+                "node_label": row.get("node_label", "Tool"),  # Use node_label from row or default to "Tool"
+                "tool_label": row.get("tool_label", ""),
+                "name": row.get("name", ""),
+                "cve_ids": row.get("cve_ids", []),
+                "tool_url": row.get("tool_url", ""),
+                "reliability": "HIGH",
+                "readability": "HIGH",
+                "excluded_embed_metadata_keys": ["node_label", "tool_label", "node_id"],
+                "excluded_llm_metadata_keys": [],
+            }
 
-        # Create the LlamaDocument
-        doc = LlamaDocument(
-            text=row["description"],
-            doc_id=row["node_id"],
-            metadata=metadata,
-            excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
-        )
-        llama_documents.append(doc)
+            # Update metadata with defaults
+            for key, default_value in defaults.items():
+                if key not in metadata or metadata[key] is None:
+                    metadata[key] = default_value
+
+            # Create the LlamaDocument
+            doc = LlamaDocument(
+                text=_handle_na_text(row["description"]),
+                doc_id=row["node_id"],
+                extra_info=metadata,
+                excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
+                excluded_llm_metadata_keys=metadata["excluded_llm_metadata_keys"],
+            )
+            llama_documents.append(doc)
+
+            # Log document creation details
+            logging.info("Created LlamaDocument", extra={"doc_id": doc.doc_id})
+            logging.debug("Document metadata", extra={"metadata": metadata})
+
+        except Exception as e:
+            # Log any errors encountered during processing
+            logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
+
+    # Log summary of the conversion process
+    logging.info(
+        f"Completed conversion of Tool nodes to LlamaDocuments "
+        f"with total documents: {len(llama_documents)}"
+    )
 
     return llama_documents
 
@@ -1456,70 +2078,121 @@ def convert_df_to_llamadoc_tools(
 # =============================================================================
 def convert_df_to_llamadoc_msrc_posts(
     df: pd.DataFrame,
-    symptom_nodes: list,
-    cause_nodes: list,
-    fix_nodes: list,
-    tool_nodes: list,
-    exclusion_keys: set[str] = {"text", "node_id"},
-) -> list[LlamaDocument]:
+    symptom_nodes: List[str] = None,
+    cause_nodes: List[str] = None,
+    fix_nodes: List[str] = None,
+    tool_nodes: List[str] = None,
+) -> List[LlamaDocument]:
+    """Convert a DataFrame of MSRC posts to a list of LlamaDocuments."""
     llama_documents = []
 
+    logging.info(
+        f"Starting conversion of MSRC posts to LlamaDocuments "
+        f"with row count: {len(df)}"
+    )
+
     for _, row in df.iterrows():
-        # Handle datetime conversion for 'published' and 'nvd_published_date' fields
-        if "published" in row and isinstance(row["published"], pd.Timestamp):
-            row["published"] = row["published"].isoformat()
-        if "nvd_published_date" in row and isinstance(
-            row["nvd_published_date"], pd.Timestamp
-        ):
-            row["nvd_published_date"] = row["nvd_published_date"].isoformat()
+        try:
+            # Log raw input row data for debugging
+            logging.debug("Processing row", extra={"row_data": row.to_dict()})
 
-        # Extract metadata dynamically, excluding specified keys
-        metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
+            # Create metadata using helper function
+            metadata_dict = _create_metadata_from_row(clean_na_values_series(row), preserve_metadata=True)
+            logging.debug(
+                f"Generated metadata:\n"
+                f"{metadata_dict}"
+            )
 
-        # Add extracted nodes and default values
-        metadata.update(
-            {
-                "extracted_symptoms": [
-                    node.node_id
-                    for node in symptom_nodes
-                    if node.source_id == row["node_id"]
+            # Set default values for specific fields in metadata
+            defaults = {
+                "node_label": row.get("node_label", "MSRCPost"),
+                "reliability": row.get("reliability", "HIGH"),
+                "readability": row.get("readability", "HIGH"),
+                "kb_ids": row.get("kb_ids", []),
+                "cve_ids": row.get("cve_ids", []),
+                "build_numbers": row.get("build_numbers", []),
+                "product_mentions": row.get("product_mentions", []),
+                "excluded_embed_metadata_keys": [
+                    "previous_id",
+                    "cve_ids",
+                    "kb_ids",
+                    "next_id",
+                    "node_label",
+                    "subject",
                 ],
-                "extracted_causes": [
-                    node.node_id
-                    for node in cause_nodes
-                    if node.source_id == row["node_id"]
-                ],
-                "extracted_fixes": [
-                    node.node_id
-                    for node in fix_nodes
-                    if node.source_id == row["node_id"]
-                ],
-                "extracted_tools": [
-                    node.node_id
-                    for node in tool_nodes
-                    if node.source_id == row["node_id"]
-                ],
-                "excluded_embed_metadata_keys": row.get(
-                    "excluded_embed_metadata_keys",
-                    [
-                        "source",
-                        "description",
-                        "product_build_ids",
-                        "kb_ids",
-                        "build_numbers",
-                    ],
-                ),
+                "excluded_llm_metadata_keys": row.get("excluded_llm_metadata_keys", []),
+                "extracted_symptoms": row.get("extracted_symptoms", []),
+                "extracted_causes": row.get("extracted_causes", []),
+                "extracted_fixes": row.get("extracted_fixes", []),
+                "extracted_tools": row.get("extracted_tools", []),
             }
-        )
 
-        # Create the LlamaDocument
-        doc = LlamaDocument(
-            text=row["text"],
-            doc_id=row["node_id"],
-            metadata=metadata,
-            excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
-        )
-        llama_documents.append(doc)
+            logging.debug(
+                f"Default metadata values:\n"
+                f"{defaults}"
+            )
+
+            # Update metadata with defaults
+            for key, default_value in defaults.items():
+                if key not in metadata_dict or metadata_dict[key] is None:
+                    metadata_dict[key] = default_value
+                    logging.debug(
+                        f"Applied default value:\n"
+                        f"Key: {key}, Default Value: {default_value}"
+                    )
+
+            # Add extracted nodes
+            metadata_dict.update(
+                {
+                    "extracted_symptoms": [
+                        node.node_id
+                        for node in symptom_nodes or []
+                        if node.source_id == row["node_id"]
+                    ],
+                    "extracted_causes": [
+                        node.node_id
+                        for node in cause_nodes or []
+                        if node.source_id == row["node_id"]
+                    ],
+                    "extracted_fixes": [
+                        node.node_id
+                        for node in fix_nodes or []
+                        if node.source_id == row["node_id"]
+                    ],
+                    "extracted_tools": [
+                        node.node_id
+                        for node in tool_nodes or []
+                        if node.source_id == row["node_id"]
+                    ],
+                }
+            )
+
+            # Create the LlamaDocument
+            doc = LlamaDocument(
+                text=_handle_na_text(row["text"]),
+                doc_id=metadata_dict["doc_id"],
+                extra_info=metadata_dict,
+                excluded_embed_metadata_keys=metadata_dict["excluded_embed_metadata_keys"],
+                excluded_llm_metadata_keys=metadata_dict["excluded_llm_metadata_keys"],
+            )
+            llama_documents.append(doc)
+
+            # Log document creation
+            logging.info("Created LlamaDocument", extra={"doc_id": doc.doc_id})
+            logging.debug(
+                f"Document metadata:\n"
+                f"{doc.metadata}"
+            )
+
+        except Exception as e:
+            # Log any errors encountered during processing
+            logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
+
+    # Log summary of the conversion process
+    logging.info(
+        f"Completed conversion of MSRC posts to LlamaDocuments "
+        f"with total documents: {len(llama_documents)}"
+    )
 
     return llama_documents
 
@@ -1527,81 +2200,225 @@ def convert_df_to_llamadoc_msrc_posts(
 # =============================================================================
 # Convert dataframe of Patch Management Posts to Llama Documents
 # =============================================================================
+# def convert_df_to_llamadoc_msrc_posts(
+#     df: pd.DataFrame,
+#     symptom_nodes: List[str] = None,
+#     cause_nodes: List[str] = None,
+#     fix_nodes: List[str] = None,
+#     tool_nodes: List[str] = None,
+# ) -> List[LlamaDocument]:
+#     """Convert a DataFrame of MSRC posts to a list of LlamaDocuments."""
+#     llama_documents = []
+
+#     logging.info("Starting conversion of MSRC posts to LlamaDocuments", extra={"row_count": len(df)})
+
+#     for _, row in df.iterrows():
+#         try:
+#             # Log raw input row data for debugging
+#             logging.debug("Processing row", extra={"row_data": row.to_dict()})
+
+#             # Create metadata using helper function
+#             metadata_dict = _create_metadata_from_row(row, preserve_metadata=True)
+#             logging.debug(
+#                 f"Generated metadata:\n"
+#                 f"{metadata_dict}"
+#             )
+
+#             # Set default values for specific fields in metadata
+#             defaults = {
+#                 "node_label": row.get("node_label", "MSRCPost"),
+#                 "reliability": row.get("reliability", "HIGH"),
+#                 "readability": row.get("readability", "HIGH"),
+#                 "kb_ids": row.get("kb_ids", []),
+#                 "cve_ids": row.get("cve_ids", []),
+#                 "build_numbers": row.get("build_numbers", []),
+#                 "product_mentions": row.get("product_mentions", []),
+#                 "excluded_embed_metadata_keys": [
+#                     "previous_id",
+#                     "cve_ids",
+#                     "kb_ids",
+#                     "next_id",
+#                     "node_label",
+#                     "subject",
+#                 ],
+#                 "excluded_llm_metadata_keys": row.get("excluded_llm_metadata_keys", []),
+#                 "extracted_symptoms": row.get("extracted_symptoms", []),
+#                 "extracted_causes": row.get("extracted_causes", []),
+#                 "extracted_fixes": row.get("extracted_fixes", []),
+#                 "extracted_tools": row.get("extracted_tools", []),
+#             }
+
+#             logging.debug(
+#                 f"Default metadata values:\n"
+#                 f"{defaults}"
+#             )
+
+#             # Update metadata with defaults
+#             for key, default_value in defaults.items():
+#                 if key not in metadata_dict or metadata_dict[key] is None:
+#                     metadata_dict[key] = default_value
+#                     logging.debug(
+#                         f"Applied default value:\n"
+#                         f"Key: {key}, Default Value: {default_value}"
+#                     )
+
+#             # Add extracted nodes
+#             metadata_dict.update(
+#                 {
+#                     "extracted_symptoms": [
+#                         node.node_id
+#                         for node in symptom_nodes or []
+#                         if node.source_id == row["node_id"]
+#                     ],
+#                     "extracted_causes": [
+#                         node.node_id
+#                         for node in cause_nodes or []
+#                         if node.source_id == row["node_id"]
+#                     ],
+#                     "extracted_fixes": [
+#                         node.node_id
+#                         for node in fix_nodes or []
+#                         if node.source_id == row["node_id"]
+#                     ],
+#                     "extracted_tools": [
+#                         node.node_id
+#                         for node in tool_nodes or []
+#                         if node.source_id == row["node_id"]
+#                     ],
+#                 }
+#             )
+
+#             # Create the LlamaDocument
+#             doc = LlamaDocument(
+#                 text=row["text"],
+#                 doc_id=metadata_dict["doc_id"],
+#                 metadata=metadata_dict,
+#                 excluded_embed_metadata_keys=metadata_dict["excluded_embed_metadata_keys"],
+#                 excluded_llm_metadata_keys=metadata_dict["excluded_llm_metadata_keys"],
+#             )
+#             llama_documents.append(doc)
+
+#             # Log document creation
+#             logging.info("Created LlamaDocument", extra={"doc_id": doc.doc_id})
+#             logging.debug(
+#                 f"Document metadata:\n"
+#                 f"{doc.metadata}"
+#             )
+
+#         except Exception as e:
+#             # Log any errors encountered during processing
+#             logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
+
+#     # Log summary of the conversion process
+#     logging.info("Completed conversion of MSRC posts to LlamaDocuments", extra={"total_documents": len(llama_documents)})
+
+#     return llama_documents
+
+
 def convert_df_to_llamadoc_patch_posts(
-    df: pd.DataFrame, exclusion_keys: set[str] = {"text", "node_id"}
+    df: pd.DataFrame,
+    symptom_nodes: List[str] = None,
+    cause_nodes: List[str] = None,
+    fix_nodes: List[str] = None,
+    tool_nodes: List[str] = None,
 ) -> list[LlamaDocument]:
+    """Convert a DataFrame of PatchManagement posts to a list of LlamaDocuments."""
     llama_documents = []
 
+    logging.info(
+        f"Starting conversion of PatchManagement posts to LlamaDocuments "
+        f"with row count: {len(df)}"
+    )
+
     for _, row in df.iterrows():
-        # Convert datetime columns to ISO 8601 strings
-        if "published" in row and isinstance(row["published"], pd.Timestamp):
-            row["published"] = row["published"].isoformat()
-        if "receivedDateTime" in row and isinstance(
-            row["receivedDateTime"], pd.Timestamp
-        ):
-            row["receivedDateTime"] = row["receivedDateTime"].isoformat()
+        try:
+            # Log raw input row data for debugging
+            logging.debug("Processing row", extra={"row_data": row.to_dict()})
 
-        # Extract metadata dynamically, excluding specified keys
-        metadata = {key: row[key] for key in row.index if key not in exclusion_keys}
+            # Create metadata using helper function
+            metadata = _create_metadata_from_row(clean_na_values_series(row))
+            logging.debug("Generated metadata", extra={"metadata": metadata})
 
-        # Set default values for specific fields
-        defaults = {
-            "source": "PatchManagementPost",
-            "reliability": "MEDIUM",
-            "readability": "MEDIUM",
-            "conversation_link": [],
-            "kb_ids": [],
-            "cve_ids": [],
-            "build_numbers": [],
-            "product_mentions": [],
-            "excluded_embed_metadata_keys": [
-                "previous_id",
-                "cve_ids",
-                "kb_ids",
-                "next_id",
-                "node_label",
-                "subject",
-            ],
-        }
-
-        # Update metadata with defaults
-        for key, default_value in defaults.items():
-            if key not in metadata or not metadata[key]:
-                metadata[key] = default_value
-
-        # Add extracted nodes
-        metadata.update(
-            {
-                "extracted_symptoms": [
-                    node.node_id
-                    for node in symptom_nodes
-                    if node.source_id == row["node_id"]
+            # Set default values for specific fields
+            defaults = {
+                "node_label": row.get("node_label", "PatchManagementPost"),
+                "reliability": row.get("reliability", ""),
+                "readability": row.get("readability", ""),
+                "conversation_link": row.get("conversation_link", ""),
+                "kb_ids": row.get("kb_ids", []),
+                "cve_ids": row.get("cve_ids", []),
+                "build_numbers": row.get("build_numbers", []),
+                "product_mentions": row.get("product_mentions", []),
+                "excluded_embed_metadata_keys": [
+                    "previous_id",
+                    "cve_ids",
+                    "kb_ids",
+                    "next_id",
+                    "node_label",
+                    "subject",
                 ],
-                "extracted_causes": [
-                    node.node_id
-                    for node in cause_nodes
-                    if node.source_id == row["node_id"]
-                ],
-                "extracted_fixes": [
-                    node.node_id
-                    for node in fix_nodes
-                    if node.source_id == row["node_id"]
-                ],
-                "extracted_tools": [
-                    node.node_id
-                    for node in tool_nodes
-                    if node.source_id == row["node_id"]
-                ],
+                "excluded_llm_metadata_keys": row.get("excluded_llm_metadata_keys", []),
+                "extracted_symptoms": row.get("extracted_symptoms", []),
+                "extracted_causes": row.get("extracted_causes", []),
+                "extracted_fixes": row.get("extracted_fixes", []),
+                "extracted_tools": row.get("extracted_tools", []),
             }
-        )
 
-        # Create the LlamaDocument
-        doc = LlamaDocument(
-            text=row["text"],
-            doc_id=row["node_id"],
-            metadata=metadata,
-            excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
-        )
-        llama_documents.append(doc)
+            # Update metadata with defaults
+            for key, default_value in defaults.items():
+                if key not in metadata or metadata[key] is None:
+                    metadata[key] = default_value
+                    logging.debug("Applied default value", extra={"key": key, "default_value": default_value})
+
+            # Add extracted nodes
+            metadata.update(
+                {
+                    "extracted_symptoms": [
+                        node.node_id
+                        for node in symptom_nodes or []
+                        if node.source_id == row["node_id"]
+                    ],
+                    "extracted_causes": [
+                        node.node_id
+                        for node in cause_nodes or []
+                        if node.source_id == row["node_id"]
+                    ],
+                    "extracted_fixes": [
+                        node.node_id
+                        for node in fix_nodes or []
+                        if node.source_id == row["node_id"]
+                    ],
+                    "extracted_tools": [
+                        node.node_id
+                        for node in tool_nodes or []
+                        if node.source_id == row["node_id"]
+                    ],
+                }
+            )
+
+            # Create the LlamaDocument
+            doc = LlamaDocument(
+                text=_handle_na_text(row["text"]),
+                doc_id=row["node_id"],
+                extra_info=metadata,
+                excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
+                excluded_llm_metadata_keys=metadata["excluded_llm_metadata_keys"],
+            )
+            llama_documents.append(doc)
+
+            # Log document creation
+            logging.info("Created LlamaDocument", extra={"doc_id": doc.doc_id})
+            logging.debug("Document metadata", extra={"metadata": doc.metadata})
+
+        except Exception as e:
+            # Log any errors encountered during processing
+            logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
+
+    # Log summary of the conversion process
+    logging.info(
+        f"Completed conversion of PatchManagement posts to LlamaDocuments "
+        f"with total documents: {len(llama_documents)}"
+    )
 
     return llama_documents
+# End Convert dataframes to LlamaDocs ==========================

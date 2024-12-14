@@ -138,7 +138,7 @@ async def load_products_graph_db(products: pd.DataFrame):
     }
     # The ProductService ensures that the key-value pairs in the dictionary are used to create an instance of AsyncStructuredNode for Product
     product_service = ProductService(db_manager)
-
+    new_products_list = []
     if not products.empty:
         NeomodelConfig.DATABASE_URL = get_graph_db_uri()
 
@@ -191,7 +191,7 @@ async def load_product_builds_graph_db(product_builds: pd.DataFrame):
 
     # Instantiate the ProductBuildService
     product_build_service = ProductBuildService(db_manager)
-
+    new_product_builds_list = []
     # Check if the DataFrame is not empty
     if not product_builds.empty:
         print(f"received product_builds: {product_builds.shape[0]}")
@@ -246,7 +246,7 @@ async def load_kbs_graph_db(kb_articles: pd.DataFrame):
         "insert_ids": [],
         "nodes": [],
     }
-
+    new_kb_article_nodes_list = []
     # Check if the DataFrame is not empty
     if not kb_articles.empty:
         kb_article_service = KBArticleService(db_manager)
@@ -306,7 +306,7 @@ async def load_update_packages_graph_db(update_packages: pd.DataFrame):
 
     # Instantiate the UpdatePackageService
     update_packages_service = UpdatePackageService(db_manager)
-
+    new_update_packages_list = []
     # Check if the DataFrame is not empty
     if not update_packages.empty:
         print(f"received update_packages: {update_packages.shape[0]}")
@@ -364,7 +364,7 @@ async def load_msrc_posts_graph_db(msrc_posts: pd.DataFrame):
 
     # Instantiate the MSRCPostService
     msrc_posts_service = MSRCPostService(db_manager)
-
+    new_msrc_posts_list = []
     # Check if the DataFrame is valid and not empty
     if isinstance(msrc_posts, pd.DataFrame) and not msrc_posts.empty:
         print(f"received msrc_posts: {msrc_posts.shape[0]}")
@@ -427,14 +427,13 @@ async def load_patch_posts_graph_db(patch_posts: pd.DataFrame):
 
     # Instantiate the PatchManagementPostService
     patch_posts_service = PatchManagementPostService(db_manager)
-
+    all_nodes = []
     if not patch_posts.empty:
         NeomodelConfig.DATABASE_URL = get_graph_db_uri()
 
         # Group patch posts by thread_id
         grouped_posts = patch_posts.groupby("thread_id")
 
-        all_nodes = []
         for thread_id, group in grouped_posts:
             # Look up existing emails for this thread
             existing_emails = await lookup_thread_emails(thread_id)

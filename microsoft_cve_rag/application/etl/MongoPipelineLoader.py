@@ -19,7 +19,7 @@ for key in list(CustomLoader.yaml_implicit_resolvers):
     CustomLoader.yaml_implicit_resolvers[key] = [
         res for res in resolvers if res[0] != 'tag:yaml.org,2002:bool'
     ]
-    
+
 def custom_constructor(loader, node):
     if isinstance(node, yaml.ScalarNode):
         value = loader.construct_scalar(node)
@@ -60,7 +60,7 @@ class MongoPipelineLoader:
         # Set the base directory for YAML files, defaulting to 'etl'
         self.base_directory = base_directory
         self.template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(searchpath=self.base_directory))
-    
+
     def get_pipeline(self, yaml_path, arguments):
         """
         Load and render a MongoDB aggregation pipeline from a YAML file using Jinja templating.
@@ -71,11 +71,11 @@ class MongoPipelineLoader:
         :raises ValueError: If unexpected or missing arguments are detected
         """
         try:
-            logging.info(f"Loading pipeline from: {yaml_path}")
+            logging.debug(f"Loading pipeline from: {yaml_path}")
             logging.debug(f"Arguments passed to the template: {arguments}")
             # Load the Jinja template
             template = self.template_env.get_template(yaml_path)
-            
+
             with open(os.path.join(self.base_directory, yaml_path), 'r') as file:
                 template_source = file.read()
             parsed_content = self.template_env.parse(template_source)
@@ -102,8 +102,7 @@ class MongoPipelineLoader:
 
             # Parse the rendered YAML into a list of dictionaries
             pipeline = yaml.load(rendered_yaml, Loader=CustomLoader)
-            # logging.info(f"Successfully loaded and rendered: {yaml_path}")
-            # logging.info(f"Rendered pipeline: {pipeline}\n")
+
             return pipeline
 
         except FileNotFoundError as e:

@@ -26,6 +26,7 @@ from application.core.schemas.vector_schemas import (
 from application.app_utils import get_app_config, get_vector_db_credentials
 from typing import Optional, List, Union, Dict, Any
 from fastapi import HTTPException
+import asyncio
 
 import logging
 
@@ -36,10 +37,11 @@ settings = get_app_config()
 vector_db_settings = settings.get("VECTORDB_CONFIG")
 logging.getLogger(__name__)
 
+
 class VectorDBService:
     """
     A service class that manages vector database operations using Qdrant as the backend.
-    
+
     This service handles the creation, retrieval, update, and deletion of vector embeddings
     in a Qdrant database. It serves as a bridge between the application and the vector store,
     integrating with LlamaIndex by providing compatible vector storage and retrieval capabilities.
@@ -49,7 +51,7 @@ class VectorDBService:
     - Handles vector embeddings generation through configurable embedding providers
     - Supports both synchronous and asynchronous operations
     - Provides CRUD operations for vector records
-    
+
     Initialization Process:
     1. Establishes connections to Qdrant (both sync and async clients)
     2. Creates an embedding service based on the specified provider
@@ -82,7 +84,7 @@ class VectorDBService:
             "tier1_collection": "my_collection",
             "distance_metric": "cosine"
         }
-        
+
         vector_service = VectorDBService(
             embedding_config=embedding_config,
             vectordb_config=vectordb_config
@@ -405,13 +407,13 @@ class VectorDBService:
     ) -> int:
         """
         Delete multiple vectors by their IDs.
-        
+
         Args:
             vector_ids: List of vector IDs to delete
             collection_name: Optional collection name override
             wait: Whether to wait for operation completion
             ordering: Optional write ordering configuration
-            
+
         Returns:
             int: Number of vectors successfully deleted
         """
@@ -423,7 +425,7 @@ class VectorDBService:
                 ordering=ordering,
                 **kwargs
             )
-            
+
             return {
                 "operation_id": result.operation_id,
                 "status": result.status
@@ -446,13 +448,13 @@ class VectorDBService:
     ) -> int:
         """
         Delete multiple points by their IDs.
-        
+
         Args:
             point_ids: List of point IDs to delete
             collection_name: Optional collection name override
             wait: Whether to wait for operation completion
             ordering: Optional write ordering configuration
-            
+
         Returns:
             int: Number of points successfully deleted
         """
@@ -464,7 +466,7 @@ class VectorDBService:
                 ordering=ordering,
                 **kwargs
             )
-            
+
             return {
                 "operation_id": result.operation_id,
                 "status": result.status
@@ -480,7 +482,7 @@ class VectorDBService:
     async def delete_all_points(self) -> dict:
         """
         Delete all points from the collection while preserving the collection structure.
-        
+
         Returns:
             dict: Operation status including operation_id and status
         """
@@ -492,7 +494,7 @@ class VectorDBService:
                 with_payload=False,
                 with_vectors=False
             )
-            
+
             points = scroll_result[0]  # First element contains the points
             if not points:
                 return {
@@ -500,17 +502,17 @@ class VectorDBService:
                     "status": "success",
                     "message": "No points to delete"
                 }
-            
+
             # Extract point IDs
             point_ids = [point.id for point in points]
-            
+
             # Delete all points
             result = await self.async_client.delete(
                 collection_name=self.collection,
                 points_selector=point_ids,
                 wait=True
             )
-            
+
             return {
                 "operation_id": result.operation_id,
                 "status": result.status,
@@ -534,14 +536,36 @@ class VectorDBService:
             with_payload=True,
             with_vectors=True
         )
-        
+
         with open('vector_matches.txt', 'w', encoding='utf-8') as f:
             f.write(f"Points matching vector {vector[:5]}...\n\n")
             for point in results:
                 f.write(json.dumps(point.payload, indent=2))
                 f.write("\n" + "="*80 + "\n")
-        
+
         return results
+
+    async def upsert_points(self, points: List[PointStruct], batch_size: int = 100) -> None:
+        """
+        Upserts points in batches for better performance.
+        
+        Args:
+            points: List of points to upsert
+            batch_size: Number of points to upsert in each batch
+        """
+        tasks = []
+        for i in range(0, len(points), batch_size):
+            batch = points[i:i + batch_size]
+            task = self.async_client.upsert(
+                collection_name=self.collection,
+                points=batch,
+                wait=False  # Don't wait for each batch
+            )
+            tasks.append(task)
+        
+        # Wait for all tasks to complete at the end
+        if tasks:
+            await asyncio.gather(*tasks)
 
     async def aclose(self):
         """Asynchronously close the Qdrant client connections."""

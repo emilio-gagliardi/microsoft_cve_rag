@@ -15,9 +15,11 @@ import traceback
 from typing import Type, TypeVar, Generic, List, Dict, Optional, Any, Tuple, Union, Set
 from neomodel import (
     AsyncStructuredNode,
+    AsyncStructuredRel,
     DoesNotExist,
     DeflateError,
-    # db,
+    IntegerProperty,
+    FloatProperty,
 )
 from neomodel.exceptions import UniqueProperty
 import uuid
@@ -29,15 +31,18 @@ from application.app_utils import (
     get_graph_db_credentials,
 )
 from application.core.models import graph_db_models
-
+from decimal import Decimal, InvalidOperation
 # import asyncio  # required for testing
 from neomodel import config as NeomodelConfig  # required by AsyncDatabase
 from neomodel.async_.core import AsyncDatabase  # required for db CRUD
+from neomodel.async_.relationship_manager import (
+    AsyncRelationshipTo,
+)
 from neo4j import GraphDatabase  # required for constraints check
 from neo4j.exceptions import ClientError
 import time
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 import json
 import hashlib
 from tqdm import tqdm
@@ -480,7 +485,7 @@ class BaseService(Generic[T]):
             RETURN m
             """
             params = {"node_id": node.node_id}
-            results = await self.db_manager.cypher(query, params)
+            results = await self.cypher(query, params)
             return [target_model.inflate(record[0]) for record in results]
         except Exception as e:
             logging.error(f"Error finding related nodes: {str(e)}")
@@ -761,12 +766,23 @@ async def sort_and_update_msrc_nodes(
     for post in msrc_posts:
         if post.post_id not in post_groups:
             post_groups[post.post_id] = []
+        # Clean and validate the revision string before converting to Decimal
+        revision = post.revision.strip() if post.revision else "0"
+        try:
+            # Store the Decimal value temporarily for sorting
+            post._temp_revision_decimal = Decimal(revision)
+        except (InvalidOperation, TypeError):
+            # Handle invalid revision formats by setting a default
+            post._temp_revision_decimal = Decimal("0")
         post_groups[post.post_id].append(post)
 
     updated_msrc_posts = []
     for post_id, posts in post_groups.items():
-        sorted_posts = sorted(posts, key=lambda x: Decimal(x.revision), reverse=True)
+        # Sort using the temporary Decimal value
+        sorted_posts = sorted(posts, key=lambda x: x._temp_revision_decimal, reverse=True)
         for i, post in enumerate(sorted_posts):
+            # Clean up temporary attribute
+            delattr(post, '_temp_revision_decimal')
             if i < len(sorted_posts) - 1:
                 post.previous_version_id = sorted_posts[i + 1].node_id
                 await post.save()
@@ -822,11 +838,476 @@ def build_number_id_in_list(target_build_number_id, build_number_ids_list):
 
     return False
 
+# BEGIN RELATIONSHIP TRACKER =====================================================
+
+
+db = AsyncDatabase()
+NeomodelConfig.DATABASE_URL = get_graph_db_uri()
+
+
+class RelationshipTracker:
+    """
+    A high-performance relationship tracking system for Neo4j graph database operations.
+
+    This class manages the creation and tracking of relationships between nodes in a Neo4j
+    database, with specific optimizations for handling both Neo4j native relationships and
+    Neomodel AsyncStructuredRel relationships. It includes batching capabilities and caching
+    mechanisms to prevent Cartesian products and improve performance.
+
+    Attributes:
+        existing_relationships (Dict[str, Set[Tuple[str, str, str]]]): Tracks existing relationships by node type
+        batch_relationships (Dict[str, Set[Tuple[str, str, str]]]): Tracks new relationships to be created
+        batch_size (int): Maximum number of nodes to process in a single batch
+        _relationship_cache (dict): Cache for frequently checked relationships
+    """
+
+    def __init__(self, batch_size: int = 1000):
+        """
+        Initialize the RelationshipTracker with specified batch size.
+
+        Args:
+            batch_size (int, optional): Maximum number of nodes to process in a single batch.
+                                      Defaults to 1000.
+        """
+        self.batch_size = batch_size
+        self.batch_relationships = {}
+        self._relationship_cache = {}
+        self.existing_relationships = {}
+        self.current_relationships = set()
+        self.one_to_one_rel_types = {
+            "PREVIOUS_VERSION",
+            "PREVIOUS_MESSAGE"
+        }
+
+    async def fetch_existing_relationships(
+        self,
+        node_types: List[str],
+        node_ids: List[str],
+        relationship_types: Optional[List[str]] = None
+    ):
+        """
+        Fetch existing relationships in batches with improved filtering and caching.
+
+        Args:
+            node_types (List[str]): List of node types to fetch relationships for
+            node_ids (List[str]): List of node IDs to fetch relationships for
+            relationship_types (Optional[List[str]]): Specific relationship types to fetch,
+                if None, fetches all relationships
+        """
+        logging.info(f"Fetching relationships for {len(node_types)} node types and {len(node_ids)} nodes")
+
+        # Define relationship cardinality constraints
+        one_to_one_relationships = {
+            "MSRCPost": {
+                "HAS_SYMPTOM", "HAS_CAUSE", "HAS_FIX", "HAS_TOOL",
+                "PREVIOUS_VERSION"  # Ensure sequence relationship is included
+            },
+            "PatchManagementPost": {
+                "HAS_SYMPTOM", "HAS_CAUSE", "HAS_FIX", "HAS_TOOL",
+                "PREVIOUS_MESSAGE"  # Ensure sequence relationship is included
+            },
+        }
+
+        for node_type in node_types:
+            if node_type not in self.existing_relationships:
+                self.existing_relationships[node_type] = {}
+
+            for i in range(0, len(node_ids), self.batch_size):
+                batch_ids = node_ids[i:i + self.batch_size]
+
+                try:
+                    # Optimized query with relationship type filtering
+                    query = """
+                        MATCH (source)
+                        WHERE source.node_id IN $batch_ids
+                        WITH source
+                        MATCH (source)-[r]->(target)
+                        WHERE CASE
+                            WHEN size($rel_types) > 0 THEN type(r) IN $rel_types
+                            ELSE true
+                        END
+                        RETURN source.node_id as source_id,
+                            type(r) as rel_type,
+                            target.node_id as target_id,
+                            labels(source) as source_labels,
+                            labels(target) as target_labels
+                        """
+                    params = {
+                        "batch_ids": batch_ids,
+                        "rel_types": relationship_types if relationship_types else []
+                    }
+
+                    results, _ = await db.cypher_query(query, params)
+
+                    for source_id, rel_type, target_id, source_labels, target_labels in results:
+                        # Store only necessary information without full node conversion
+                        source_type = source_labels[0]
+                        target_type = target_labels[0]
+
+                        # Initialize relationship type set if not exists
+                        if rel_type not in self.existing_relationships[node_type]:
+                            self.existing_relationships[node_type][rel_type] = set()
+
+                        # Check cardinality constraints
+                        if (node_type in one_to_one_relationships and rel_type in one_to_one_relationships[node_type]):
+                            # For one-to-one relationships, ensure uniqueness
+                            existing_relationships = self.existing_relationships[node_type][rel_type]
+                            for existing_rel in existing_relationships:
+                                if existing_rel[0] == source_id:
+                                    logging.warning(f"Duplicate one-to-one relationship found: {source_id}-[{rel_type}]->{target_id}")
+                                    continue
+
+                        # Store relationship with minimal information
+                        relationship_key = (source_id, target_id)
+                        self.existing_relationships[node_type][rel_type].add(relationship_key)
+
+                        # Cache node existence
+                        self._cache_node_existence(source_id, source_type)
+                        self._cache_node_existence(target_id, target_type)
+
+                except Exception as e:
+                    logging.error(f"Error fetching relationships for {node_type}: {str(e)}")
+                    raise
+
+    def _cache_node_existence(self, node_id: str, node_type: str):
+        """Cache node existence to prevent duplicate node creation."""
+        if not hasattr(self, '_node_existence_cache'):
+            self._node_existence_cache = {}
+        self._node_existence_cache[node_id] = node_type
+
+    def _convert_to_neomodel_node(self, neo4j_node, node_type: str) -> AsyncStructuredNode:
+        """
+        Convert a native Neo4j Node to a corresponding Neomodel AsyncStructuredNode instance.
+
+        This method ensures proper Object-Graph Mapping (OGM) integration by converting
+        native Neo4j nodes to their corresponding Neomodel class instances, with caching
+        and minimal property conversion.
+
+        Args:
+            neo4j_node: Native Neo4j node instance
+            node_type (str): Type of the node to convert to
+
+        Returns:
+            AsyncStructuredNode: Converted Neomodel node instance
+
+        Raises:
+            ValueError: If the node_type is not supported or required properties are missing
+        """
+        # Check node existence cache first
+        node_id = neo4j_node.get('node_id')
+        if node_id and hasattr(self, '_node_existence_cache'):
+            if node_id in self._node_existence_cache:
+                cached_type = self._node_existence_cache[node_id]
+                if cached_type == node_type:
+                    logging.debug(f"Node cache hit for {node_id} of type {node_type}")
+                    return self._get_cached_node(node_id, node_type)
+
+        # Define required properties for each node type
+        required_properties = {
+            "MSRCPost": {"node_id", "text"},
+            "Symptom": {"node_id", "description", "symptom_label"},
+            "Cause": {"node_id", "description"},
+            "Fix": {"node_id", "description"},
+            "Tool": {"node_id", "description", "tool_label"},
+            "KBArticle": {"node_id", "product_build_id"},
+            "UpdatePackage": {"node_id", "product_build_ids"},
+            "PatchManagementPost": {"node_id"},
+            "Product": {"node_id", "product_name"},
+            "ProductBuild": {"node_id", "build_number"},
+            "FAQ": {"node_id", "question", "answer"}
+        }
+
+        try:
+            # Extract properties with type conversion
+            properties = self._extract_node_properties(neo4j_node, required_properties.get(node_type, set()))
+
+            # Get model class from map
+            model_class = self._get_model_class(node_type)
+
+            # Create instance with validated properties
+            instance = model_class(**properties)
+
+            # Cache the node
+            self._cache_node_existence(properties['node_id'], node_type)
+            self._cache_node_instance(instance)
+
+            logging.debug(
+                f"Converted node of type {node_type} with ID: {properties.get('node_id')}"
+            )
+            return instance
+
+        except Exception as e:
+            error_msg = f"Error converting node of type {node_type}: {str(e)}"
+            logging.error(error_msg)
+            raise ValueError(error_msg) from e
+
+    def _extract_node_properties(self, neo4j_node, required_properties: Set[str]) -> Dict:
+        """Extract and validate node properties."""
+        properties = dict(neo4j_node._properties)
+
+        # Validate required properties
+        missing_props = required_properties - set(properties.keys())
+        if missing_props:
+            raise ValueError(f"Missing required properties: {missing_props}")
+
+        # Convert array properties if they exist
+        array_properties = {'embedding', 'build_number', 'tags', 'product_build_ids'}
+        for prop in array_properties:
+            if prop in properties and properties[prop] is not None:
+                if not isinstance(properties[prop], (list, set)):
+                    properties[prop] = [properties[prop]]
+
+        return properties
+
+    def _get_model_class(self, node_type: str) -> Type[AsyncStructuredNode]:
+        """Get the appropriate model class for the node type."""
+        model_map = {
+            "Product": graph_db_models.Product,
+            "ProductBuild": graph_db_models.ProductBuild,
+            "MSRCPost": graph_db_models.MSRCPost,
+            "Symptom": graph_db_models.Symptom,
+            "Cause": graph_db_models.Cause,
+            "Fix": graph_db_models.Fix,
+            "FAQ": graph_db_models.FAQ,
+            "Tool": graph_db_models.Tool,
+            "KBArticle": graph_db_models.KBArticle,
+            "UpdatePackage": graph_db_models.UpdatePackage,
+            "PatchManagementPost": graph_db_models.PatchManagementPost
+        }
+
+        model_class = model_map.get(node_type)
+        if not model_class:
+            raise ValueError(f"Unsupported node type: {node_type}")
+        return model_class
+
+    def _cache_node_instance(self, node: AsyncStructuredNode):
+        """Cache a node instance for future use."""
+        if not hasattr(self, '_node_instance_cache'):
+            self._node_instance_cache = {}
+        self._node_instance_cache[node.node_id] = node
+
+    def _get_cached_node(self, node_id: str, node_type: str) -> Optional[AsyncStructuredNode]:
+        """Retrieve a cached node instance."""
+        if hasattr(self, '_node_instance_cache') and node_id in self._node_instance_cache:
+            return self._node_instance_cache[node_id]
+        return None
+
+    def _create_relationship_key(
+    self,
+    source: AsyncStructuredNode,
+    rel_type: str,
+    target: AsyncStructuredNode
+) -> Tuple[str, str]:
+        """
+        Create a unique key for tracking relationships.
+
+        Creates a consistent and reliable key for relationship tracking using node_id
+        instead of element_id. Handles special cases for Product->ProductBuild relationships
+        by creating a deterministic hash based on business keys.
+
+        Args:
+            source (AsyncStructuredNode): Source node of the relationship
+            rel_type (str): Type of relationship
+            target (AsyncStructuredNode): Target node of the relationship
+
+        Returns:
+            Tuple[str, str]: Tuple of (source_id, target_id) representing the relationship
+
+        Raises:
+            ValueError: If required node properties are missing
+        """
+        source_id = str(source.node_id)
+        target_id = str(target.node_id)
+
+        # Special case for Product->ProductBuild relationships
+        if (isinstance(source, graph_db_models.Product) and
+            isinstance(target, graph_db_models.ProductBuild) and
+            rel_type == "HAS_BUILD"):
+
+            try:
+                # Create deterministic key using business properties
+                product_key = {
+                    "name": source.product_name,
+                    "version": getattr(source, "product_version", ""),
+                    "arch": getattr(source, "product_architecture", ""),
+                }
+                build_key = {
+                    "number": target.build_number[0] if isinstance(target.build_number, list) else target.build_number
+                }
+
+                # Create deterministic hash
+                product_hash = self._create_deterministic_hash(product_key)
+                build_hash = self._create_deterministic_hash(build_key)
+
+                logging.debug(
+                    f"Created special Product->ProductBuild key: "
+                    f"{product_hash} -> {build_hash}"
+                )
+                return (product_hash, build_hash)
+
+            except AttributeError as e:
+                error_msg = (
+                    f"Missing required property for Product->ProductBuild relationship: {str(e)}"
+                )
+                logging.error(error_msg)
+                raise ValueError(error_msg) from e
+
+        return (source_id, target_id)
+
+    def _create_deterministic_hash(self, data: Dict) -> str:
+        """
+        Create a deterministic hash from a dictionary.
+
+        Args:
+            data (Dict): Dictionary of data to hash
+
+        Returns:
+            str: Deterministic hash of the data
+        """
+        # Sort dictionary to ensure deterministic output
+        sorted_str = json.dumps(data, sort_keys=True)
+        return hashlib.sha256(sorted_str.encode()).hexdigest()[:32]
+
+    def relationship_exists(
+        self,
+        source: AsyncStructuredNode,
+        rel_type: str,
+        target: AsyncStructuredNode
+    ) -> bool:
+        """
+        Check if a relationship exists using hierarchical caching and cardinality rules.
+
+        Args:
+            source (AsyncStructuredNode): Source node of the relationship
+            rel_type (str): Type of relationship
+            target (AsyncStructuredNode): Target node of the relationship
+
+        Returns:
+            bool: True if the relationship exists or violates cardinality, False otherwise
+        """
+        node_type = type(source).__name__
+        source_id = str(source.node_id)
+        target_id = str(target.node_id)
+        cache_key = (source_id, rel_type, target_id)
+
+        # Check memory cache first
+        if cache_key in self._relationship_cache:
+            logging.debug(f"Cache hit for relationship: {cache_key}")
+            return self._relationship_cache[cache_key]
+
+        # Define one-to-one relationship constraints
+        one_to_one_relationships = {
+            "MSRCPost": {
+                "HAS_SYMPTOM", "HAS_CAUSE", "HAS_FIX", "HAS_TOOL",
+                "PREVIOUS_VERSION"  # Added sequence relationship constraint
+            },
+            "PatchManagementPost": {
+                "HAS_SYMPTOM", "HAS_CAUSE", "HAS_FIX", "HAS_TOOL",
+                "PREVIOUS_MESSAGE"  # Added sequence relationship constraint
+            },
+        }
+
+        # Check cardinality constraints
+        if (node_type in one_to_one_relationships and rel_type in one_to_one_relationships[node_type]):
+
+            # Check if source node already has this type of relationship
+            if (node_type in self.existing_relationships and rel_type in self.existing_relationships[node_type]):
+
+                existing_relationships = self.existing_relationships[node_type][rel_type]
+                for existing_rel in existing_relationships:
+                    if existing_rel[0] == source_id:
+                        # Special logging for sequence relationships
+                        if rel_type in {"PREVIOUS_VERSION", "PREVIOUS_MESSAGE"}:
+                            logging.warning(
+                                f"Sequence relationship violation: {source_id} already has a "
+                                f"{rel_type} relationship. Only one {rel_type} allowed."
+                            )
+                        else:
+                            logging.warning(
+                                f"One-to-one relationship violation: {source_id} already has a "
+                                f"{rel_type} relationship"
+                            )
+                        return True
+
+        # Check existence in current relationships
+        exists_in_existing = False
+        if (node_type in self.existing_relationships and rel_type in self.existing_relationships[node_type]):
+            exists_in_existing = (source_id, target_id) in self.existing_relationships[node_type][rel_type]
+
+        # Check existence in batch relationships
+        exists_in_batch = False
+        if (node_type in self.batch_relationships and rel_type in self.batch_relationships[node_type]):
+            exists_in_batch = (source_id, target_id) in self.batch_relationships[node_type][rel_type]
+
+        result = exists_in_existing or exists_in_batch
+        self._relationship_cache[cache_key] = result
+
+        logging.debug(f"Relationship {cache_key} exists: {result}")
+        return result
+
+    def add_relationship(
+        self,
+        source: AsyncStructuredNode,
+        rel_type: str,
+        target: AsyncStructuredNode
+    ) -> bool:
+        """
+        Add a new relationship to the tracker if it doesn't violate cardinality constraints.
+
+        Updates both the tracking set and cache. The relationship will be created in the
+        database when the batch is committed.
+
+        Args:
+            source (AsyncStructuredNode): Source node of the relationship
+            rel_type (str): Type of relationship
+            target (AsyncStructuredNode): Target node of the relationship
+
+        Returns:
+            bool: True if relationship was added successfully, False if it violates constraints
+        """
+        node_type = type(source).__name__
+        source_id = str(source.node_id)
+        target_id = str(target.node_id)
+
+        # Check if relationship already exists or violates constraints
+        if self.relationship_exists(source, rel_type, target):
+            logging.warning(
+                f"Relationship not added: {source_id} -[{rel_type}]-> {target_id} "
+                "already exists or violates constraints"
+            )
+            return False
+
+        # Initialize relationship type set if not exists
+        if node_type not in self.batch_relationships:
+            self.batch_relationships[node_type] = {}
+        if rel_type not in self.batch_relationships[node_type]:
+            self.batch_relationships[node_type][rel_type] = set()
+
+        # Store relationship with minimal information
+        relationship_key = (source_id, target_id)
+        self.batch_relationships[node_type][rel_type].add(relationship_key)
+
+        # Update cache
+        cache_key = (source_id, rel_type, target_id)
+        self._relationship_cache[cache_key] = True
+
+        # Cache node existence
+        self._cache_node_existence(source_id, node_type)
+        self._cache_node_existence(target_id, type(target).__name__)
+
+        logging.debug(
+            f"Added relationship: {source_id} -[{rel_type}]-> {target_id}"
+        )
+        return True
+
+
+# =================== END RELATIONSHIP TRACKER ==========================
+
 
 async def check_has_symptom(
     source_node: Any,
     target_node: Any,
-    rel_info: graph_db_models.AsyncSymptomCauseFixRel,
+    rel_info: graph_db_models.AsyncSymptomRel,
 ) -> bool:
     return (
         target_node.source_id == source_node.node_id
@@ -836,7 +1317,7 @@ async def check_has_symptom(
 async def check_has_cause(
     source_node: Any,
     target_node: Any,
-    rel_info: graph_db_models.AsyncSymptomCauseFixRel,
+    rel_info: graph_db_models.AsyncCauseRel,
 ) -> bool:
     return target_node.source_id == source_node.node_id
 
@@ -844,7 +1325,7 @@ async def check_has_cause(
 async def check_has_fix(
     source_node: Any,
     target_node: Any,
-    rel_info: graph_db_models.AsyncSymptomCauseFixRel,
+    rel_info: graph_db_models.AsyncFixRel,
 ) -> bool:
     return target_node.source_id == source_node.node_id
 
@@ -856,13 +1337,15 @@ async def check_has_faq(
 
 
 async def check_has_tool(
-    source_node: Any, target_node: Any, rel_info: graph_db_models.AsyncZeroToManyRel
+    source_node: Any,
+    target_node: Any,
+    rel_info: graph_db_models.AsyncToolRel
 ) -> bool:
     return target_node.source_id == source_node.node_id
 
 
 async def check_has_kb(
-    source_node: Any, target_node: Any, rel_info: graph_db_models.AsyncZeroToManyRel
+    source_node: Any, target_node: Any, rel_info: graph_db_models.AsyncReferencesRel
 ) -> bool:
     if isinstance(source_node, graph_db_models.MSRCPost):
         if isinstance(target_node, graph_db_models.KBArticle):
@@ -924,13 +1407,13 @@ async def match_product(source_node, target_node) -> bool:
 
         # Windows logic (e.g., windows_10_21H2_x64)
         if parts[0].lower() == "windows":
-            product_name = f"windows_{parts[1]}"  # e.g., windows_10, windows_11
+            product_name = f"windows_{parts[1]}"  # e.g., windows_10
             product_version = parts[2] if len(parts) > 2 else None
             product_architecture = parts[3] if len(parts) > 3 else None
 
             # Check the target product for an exact product_name match first
             if target_node.product_name == product_name:
-                # Now check for product_version and product_architecture if available
+                # Now check for product_version and product_architecture
                 if (
                     not product_version
                     or target_node.product_version == product_version
@@ -952,7 +1435,9 @@ async def match_product(source_node, target_node) -> bool:
 
 
 async def check_affects_product(
-    source_node: Any, target_node: Any, rel_info: graph_db_models.AsyncAffectsProductRel
+    source_node: Any,
+    target_node: Any,
+    rel_info: graph_db_models.AsyncAffectsProductRel
 ) -> bool:
     if isinstance(source_node, graph_db_models.MSRCPost):
         return any(
@@ -968,9 +1453,6 @@ async def check_affects_product(
         # print(f"check_affects_product: Patch-[affects]>Product = {response}")
         return response
     return False
-
-
-from decimal import Decimal
 
 
 async def check_previous_version(
@@ -1005,7 +1487,9 @@ async def check_previous_message(
 
 
 async def check_references(
-    source_node: Any, target_node: Any, rel_info: graph_db_models.AsyncReferencesRel
+    source_node: Any,
+    target_node: Any,
+    rel_info: graph_db_models.AsyncReferencesRel
 ) -> bool:
     # if isinstance(source_node, graph_db_models.Fix):
     #     if isinstance(target_node, graph_db_models.KBArticle):
@@ -1013,14 +1497,14 @@ async def check_references(
 
     if isinstance(source_node, graph_db_models.KBArticle):
         if isinstance(target_node, graph_db_models.ProductBuild):
-            print(f"This is the From direction. No relationship to create.")
-            # return target_node.product_build_id in source_node.product_build_id
+            logger.warning(f"This is the From direction. No relationship to create.")
+
             return False
-    
+
     elif isinstance(source_node, graph_db_models.MSRCPost):
         if isinstance(target_node, graph_db_models.KBArticle):
             return target_node.kb_id in source_node.kb_ids
-    
+
     elif isinstance(source_node, graph_db_models.PatchManagementPost):
         if isinstance(target_node, graph_db_models.KBArticle):
             """
@@ -1030,15 +1514,12 @@ async def check_references(
                 if response:
                     print(f"source: {source_node}\ntarget:{target_node}")
                     print(
-                        f"\n=========================================================\nPatch -[HAS_KB]->KB: {response}\n=========================================================\n"
+                        f"\n======\nPatch -[HAS_KB]->KB: {response}\n======\n"
                     )
                     time.sleep(10)
                 else:
                     print(f"Patch -[HAS_KB]->KB: False")
                     print(f"source: {source_node}\ntarget:{target_node}")
-                return response
-            else:
-                print(f"Unexpected:\nsource: {source_node}\ntarget:{target_node}")
             """
             # print("Patch-[REFERENCES]->KB checking...")
             return target_node.kb_id in source_node.kb_ids
@@ -1049,31 +1530,20 @@ async def check_references(
         if isinstance(target_node, graph_db_models.MSRCPost):
             return target_node.post_id in source_node.cve_id
         elif isinstance(target_node, graph_db_models.KBArticle):
-            # print(f"source_node->target_node")
-            # print(
-            #     f"{source_node.node_label} - {source_node.kb_id}\n{target_node.node_label} - {target_node.kb_id}"
-            # )
             return target_node.kb_id in source_node.kb_id
     return False
 
 
 async def check_has_build(
-    source_node: Any, target_node: Any, rel_info: graph_db_models.AsyncZeroToManyRel
+    source_node: Any,
+    target_node: Any,
+    rel_info: graph_db_models.AsyncZeroToManyRel
 ) -> bool:
-    # print(
-    #     f"check has build:\n{source_node.node_label}\n{target_node.node_label}\n{rel_info}"
-    # )
     if isinstance(source_node, graph_db_models.Product):
-        # print(f"source_node is Product.")
         build_number_to_check = target_node.build_number
         build_numbers_list = source_node.get_build_numbers()
-        # print(
-        #     f"source: {source_node.product_name}|{source_node.product_architecture}|{source_node.product_version} - target: {target_node.product_name}|{target_node.product_architecture}|{target_node.product_version}"
-        # )
+
         found = any(sublist == build_number_to_check for sublist in build_numbers_list)
-        # print(
-        #     f"answer: {any(sublist == build_number_to_check for sublist in build_numbers_list)}"
-        # )
         return found
 
     return False
@@ -1085,15 +1555,16 @@ async def should_be_related(
     rel_info: Tuple[str, str, type],
 ) -> bool:
     """
-    Determine if two nodes should be related based on specific criteria.
-    :param source_node: The source node instance.
-    :param target_node: The target node instance.
-    :param rel_info: A tuple containing (target_model, relation_type, rel_model).
-    :return: True if the nodes should be related, False otherwise.
+    Check if a relationship between two nodes should be created based on the
+    relationship type and the node types.
+
+    :param source_node: The source node of the relationship.
+    :param target_node: The target node of the relationship.
+    :param rel_info: A tuple containing the target node model, the relationship type,
+                     and the relationship class.
+    :return: True if the relationship should be created, False otherwise.
     """
-    # print("SBR 1. should be related?")
     target_model, relation_type, _ = rel_info
-    # print(f"SBR 2. rel_type: {relation_type}\ntarget:\n{target_model} - ")
     relation_checkers = {
         "HAS_SYMPTOM": check_has_symptom,
         "HAS_CAUSE": check_has_cause,
@@ -1122,40 +1593,112 @@ async def should_be_related(
 async def create_and_return_relationship(
     relationship, source_node, target_node, rel_class
 ):
-    # Generate a unique identifier for the relationship
-    unique_id = hashlib.sha256(
-        f"{source_node.node_id}_{target_node.node_id}".encode()
-    ).hexdigest()
-
-    # Connect the relationship and assign the unique ID
-    await relationship.connect(target_node, {"relationship_id": unique_id})
-
-    # Get the actual relationship type from the rel_class
-    rel_type = relationship.definition["relation_type"]
-    # print(f"computed rel_type: {rel_type}")
-    # Construct the Cypher query to retrieve the relationship
-    query = f"""
-    MATCH (source:{source_node.__label__})-[r:{rel_type}]->(target:{target_node.__label__})
-    WHERE source.node_id = $source_id AND target.node_id = $target_id AND r.relationship_id = $rel_id
-    RETURN r
     """
-    params = {
-        "source_id": source_node.node_id,
-        "target_id": target_node.node_id,
-        "rel_id": unique_id,
-    }
+    Creates a relationship between two nodes and returns the created relationship
+    instance.
 
-    # Execute the query
-    results, _ = await db.cypher_query(query, params)
+    :param relationship: The relationship object from the relationship mapping.
+    :param source_node: The source node of the relationship.
+    :param target_node: The target node of the relationship.
+    :param rel_class: The relationship class.
+    :return: The created relationship instance.
+    """
+    try:
+        # Get the actual relationship type from the relationship definition
+        rel_type = relationship.definition["relation_type"]
 
-    if results:
-        # Create an instance of the relationship class
-        relationship_instance = rel_class.inflate(results[0][0])
-        # print(f"Returning relationship instance: {relationship_instance}")
-        return relationship_instance
-    else:
-        # print("No relationship found")
-        return None
+        # Create a deterministic relationship key based on business properties
+        rel_key = {}
+
+        # For Product->ProductBuild relationships, use business keys
+        if isinstance(source_node, graph_db_models.Product) and isinstance(target_node, graph_db_models.ProductBuild):
+            rel_key = {
+                "product_name": source_node.product_name,
+                "product_version": source_node.product_version,
+                "product_architecture": source_node.product_architecture,
+                "build_number": target_node.build_number,
+                "rel_type": rel_type
+            }
+        else:
+            # For other relationships, use node IDs
+            rel_key = {
+                "source_id": source_node.node_id,
+                "target_id": target_node.node_id,
+                "rel_type": rel_type
+            }
+
+        # Create a deterministic hash of the relationship key
+        unique_id = hashlib.sha256(
+            json.dumps(rel_key, sort_keys=True).encode()
+        ).hexdigest()
+
+        # Initialize base properties
+        rel_properties = {
+            "created_at": datetime.now(timezone.utc),
+            "updated_at": datetime.now(timezone.utc),
+            "relationship_id": unique_id,
+            "source_node_id": source_node.node_id,
+            "target_node_id": target_node.node_id,
+        }
+
+        # Add relationship-specific properties
+        if hasattr(relationship, "confidence"):
+            rel_properties["confidence"] = relationship.confidence
+        if hasattr(relationship, "tags"):
+            rel_properties["tags"] = relationship.tags
+        if hasattr(relationship, "relationship_type"):
+            rel_properties["relationship_type"] = relationship.relationship_type
+        if hasattr(relationship, "severity"):
+            rel_properties["severity"] = relationship.severity
+        if hasattr(relationship, "description"):
+            rel_properties["description"] = relationship.description
+        if hasattr(relationship, "reported_date"):
+            rel_properties["reported_date"] = relationship.reported_date
+
+        # Use an optimized query that avoids Cartesian products and enforces uniqueness
+        query = """
+        MATCH (source)
+        WHERE source.node_id = $source_id
+        WITH source
+        MATCH (target)
+        WHERE target.node_id = $target_id
+        MERGE (source)-[r:`%s` {relationship_id: $rel_id}]->(target)
+        SET r += $properties
+        RETURN r
+        """ % rel_type
+
+        params = {
+            "source_id": source_node.node_id,
+            "target_id": target_node.node_id,
+            "rel_id": unique_id,
+            "properties": rel_properties
+        }
+
+        results, _ = await db.cypher_query(query, params)
+
+        if results and results[0]:
+            # Convert the neo4j relationship to a neomodel relationship instance
+            rel_instance = rel_class.inflate(results[0][0])
+            logging.info(
+                f"Successfully created and retrieved relationship {rel_type} "
+                f"from {source_node.node_id} to {target_node.node_id}"
+            )
+            return rel_instance
+        else:
+            logging.error(
+                f"Failed to retrieve relationship {rel_type} "
+                f"from {source_node.node_id} to {target_node.node_id} "
+                f"after creation"
+            )
+            return None
+
+    except Exception as e:
+        logging.error(
+            f"Error in create_and_return_relationship: {str(e)}\n"
+            f"Source: {source_node.node_id}, Target: {target_node.node_id}, "
+            f"Rel Type: {rel_class.__name__}"
+        )
+        raise
 
 
 # END RELATIONSHIP HELPER FUNCTIONS =============================================
@@ -1165,112 +1708,394 @@ async def create_and_return_relationship(
 
 
 async def build_relationships(
-    nodes_dict: dict[str, list[graph_db_models.AsyncStructuredNode]]
-):
-    print("begin build relationships")
+    nodes_dict: Dict[str, List[graph_db_models.AsyncStructuredNode]]
+) -> None:
+    """
+    Build relationships between nodes based on defined mappings and business rules.
+
+    This function handles relationship creation with proper validation, deduplication,
+    and property setting. It uses a RelationshipTracker to prevent duplicate relationships
+    and enforce cardinality constraints.
+
+    Args:
+        nodes_dict: Dictionary mapping node types to lists of nodes
+
+    Raises:
+        ValueError: If invalid node types or relationship mappings are encountered
+    """
+    logging.info("Starting relationship building process")
     tracker = RelationshipTracker()
-    all_node_ids = [node.node_id for nodes in nodes_dict.values() for node in nodes]
-    await tracker.fetch_existing_relationships(list(nodes_dict.keys()), all_node_ids)
 
-    # Sort & update MSRCPost nodes
-    if "MSRCPost" in nodes_dict:
-        updated_msrc_posts = await sort_and_update_msrc_nodes(nodes_dict["MSRCPost"])
-        nodes_dict["MSRCPost"] = updated_msrc_posts
+    try:
+        # Get all possible relationship types for the node types
+        relationship_types = set()
+        for node_type in nodes_dict.keys():
+            if node_type in graph_db_models.RELATIONSHIP_MAPPING:
+                for _, rel_info in graph_db_models.RELATIONSHIP_MAPPING[node_type].items():
+                    relationship_types.add(rel_info[1])  # Add the relationship type string
 
-    for node_type_str, nodes in nodes_dict.items():
-        if node_type_str in graph_db_models.RELATIONSHIP_MAPPING:
-            # print(f"BR 1: node_type_str: {node_type_str}")
-            for node in tqdm(nodes, desc=f"Processing {node_type_str} nodes"):
-                for rel_name, rel_info in graph_db_models.RELATIONSHIP_MAPPING[
-                    node_type_str
-                ].items():
-                    target_model, rel_type, rel_class = rel_info
-                    target_nodes = nodes_dict.get(target_model, [])
+        # Initialize relationship tracking
+        all_node_ids = [node.node_id for nodes in nodes_dict.values() for node in nodes]
+        await tracker.fetch_existing_relationships(
+            list(nodes_dict.keys()),
+            all_node_ids,
+            list(relationship_types)
+        )
 
-                    for target_node in target_nodes:
-                        if await should_be_related(node, target_node, rel_info):
-                            relationship = getattr(node, rel_name)
+        # Pre-process MSRCPost nodes if present
+        if "MSRCPost" in nodes_dict:
+            nodes_dict["MSRCPost"] = await sort_and_update_msrc_nodes(nodes_dict["MSRCPost"])
 
-                            # Check if the relationship already exists
-                            if not tracker.relationship_exists(
-                                node, rel_type, target_node
-                            ):
-                                # print(
-                                #     f"Creating new relationship: {node.node_label} -{rel_type}-> {target_node.node_label}"
-                                # )
+        # Process each node type
+        for node_type_str, nodes in nodes_dict.items():
+            if node_type_str not in graph_db_models.RELATIONSHIP_MAPPING:
+                logging.warning(f"No relationship mappings found for node type: {node_type_str}")
+                continue
+            logging.info("Processing node type: " + node_type_str)
+            await _process_node_type_relationships(
+                node_type_str=node_type_str,
+                nodes=nodes,
+                nodes_dict=nodes_dict,
+                tracker=tracker
+            )
 
-                                # Disconnect all relationships if it is a one-to-one relationship
-                                if issubclass(
-                                    rel_class, graph_db_models.AsyncOneToOneRel
-                                ):
-                                    # print("detected 1-to-1 relationship")
-                                    await relationship.disconnect_all()
+    except Exception as e:
+        error_msg = f"Error building relationships: {str(e)}"
+        logging.error(error_msg)
+        raise ValueError(error_msg) from e
 
-                                # Connect the new relationship
-                                relationship_instance = (
-                                    await create_and_return_relationship(
-                                        relationship, node, target_node, rel_class
-                                    )
-                                )
-                                # print(
-                                #     f"Received relationship instance: {relationship_instance}"
-                                # )
-                                tracker.add_relationship(node, rel_type, target_node)
 
-                                # Set properties for custom relationship classes
-                                if rel_class == graph_db_models.AsyncSymptomCauseFixRel:
-                                    # print("BR 3: rel_class = AsyncSymptomCauseFixRel")
-                                    await set_symptom_cause_fix_properties(
-                                        relationship_instance, node, target_node
-                                    )
-                                elif (
-                                    rel_class == graph_db_models.AsyncPreviousVersionRel
-                                ):
-                                    # print("BR 4: rel_class = AsyncPreviousVersionRel")
-                                    await set_previous_version_properties(
-                                        relationship_instance, node, target_node
-                                    )
-                                elif (
-                                    rel_class == graph_db_models.AsyncPreviousMessageRel
-                                ):
-                                    # print("BR 4: rel_class = AsyncPreviousMessageRel")
-                                    await set_previous_message_properties(
-                                        relationship_instance, node, target_node
-                                    )
-                                elif (
-                                    rel_class == graph_db_models.AsyncAffectsProductRel
-                                ):
-                                    # print("BR 5: rel_class = AsyncAffectsProductRel")
-                                    await set_affects_product_properties(
-                                        relationship_instance, node, target_node
-                                    )
-                                elif (
-                                    rel_class
-                                    == graph_db_models.AsyncHasUpdatePackageRel
-                                ):
-                                    # print("BR 6: rel_class = AsyncHasUpdatePackageRel")
-                                    await set_has_update_package_properties(
-                                        relationship_instance, node, target_node
-                                    )
+async def _process_node_type_relationships(
+    node_type_str: str,
+    nodes: List[AsyncStructuredNode],
+    nodes_dict: Dict[str, List[AsyncStructuredNode]],
+    tracker: RelationshipTracker
+) -> None:
+    """Process relationships for a specific node type."""
+    for node in tqdm(nodes, desc=f"Processing {node_type_str} relationships"):
+        for rel_name, rel_info in graph_db_models.RELATIONSHIP_MAPPING[node_type_str].items():
+            target_model, rel_type, rel_class = rel_info
+            target_nodes = nodes_dict.get(target_model, [])
+            logging.info("_process_node_type_relationships about to await")
+            await _process_node_relationships(
+                source_node=node,
+                target_nodes=target_nodes,
+                rel_name=rel_name,
+                rel_info=rel_info,
+                rel_type=rel_type,
+                rel_class=rel_class,
+                tracker=tracker
+            )
 
-                                elif rel_class == graph_db_models.AsyncReferencesRel:
-                                    # print("BR 7: rel_class = AsyncReferencesRel")
-                                    await set_references_properties(
-                                        relationship_instance, node, target_node
-                                    )
-                            else:
-                                # print(
-                                #     f"Relationship already exists: {node.node_id} -{rel_type}-> {target_node.node_id}"
-                                # )
-                                pass
+
+async def _process_node_relationships(
+    source_node: graph_db_models.AsyncStructuredNode,
+    target_nodes: List[graph_db_models.AsyncStructuredNode],
+    rel_name: str,
+    rel_info: Any,
+    rel_type: str,
+    rel_class: Type[graph_db_models.AsyncStructuredRel],
+    tracker: RelationshipTracker
+) -> None:
+    """Process relationships between a source node and potential target nodes."""
+    relationship = getattr(source_node, rel_name)
+
+    for target_node in target_nodes:
+        try:
+            if not await should_be_related(source_node, target_node, rel_info):
+                continue
+            logging.info("_process_node_relationships about to call tracker.relationship_exists")
+            if tracker.relationship_exists(source_node, rel_type, target_node):
+                logging.debug(
+                    f"Skipping existing relationship: {source_node.node_id} "
+                    f"-[{rel_type}]-> {target_node.node_id}"
+                )
+                continue
+            logging.info("_process_node_relationships about to call _create_and_configure_relationship")
+            # Create and configure the relationship
+            await _create_and_configure_relationship(
+                relationship=relationship,
+                source_node=source_node,
+                target_node=target_node,
+                rel_class=rel_class,
+                rel_type=rel_type
+            )
+
+        except Exception as e:
+            logging.error(
+                f"Error processing relationship {rel_type} between "
+                f"{source_node.node_id} and {target_node.node_id}: {str(e)}"
+            )
+
+
+async def _create_and_configure_relationship(
+    relationship,
+    source_node: graph_db_models.AsyncStructuredNode,
+    target_node: graph_db_models.AsyncStructuredNode,
+    rel_class: Type[graph_db_models.AsyncStructuredRel],
+    rel_type: str
+) -> None:
+    """Create and configure a relationship with appropriate properties."""
+    try:
+        logging.debug(f"Creating relationship of type {rel_class.__name__}- relationship:{relationship}")
+        logging.debug(f"Source node: {source_node.node_id} ({type(source_node).__name__})")
+        logging.debug(f"Target node: {target_node.node_id} ({type(target_node).__name__})")
+
+        # Find the relationship attribute name that matches our criteria
+        rel_attr_name = next(
+            name for name, rel in source_node.defined_properties(aliases=True, properties=False).items()
+            if isinstance(rel, AsyncRelationshipTo)
+            and rel.definition["relation_type"] == rel_type
+            and rel.definition["node_class"] == type(target_node)
+        )
+
+        # Get the actual relationship manager instance using the attribute name
+        rel_manager = getattr(source_node, rel_attr_name)
+        if not hasattr(rel_manager, "connect"):
+            raise ValueError(
+                f"Relationship manager for '{rel_attr_name}' does not support 'connect'. "
+                f"Got {type(rel_manager).__name__}. Ensure the relationship is correctly initialized."
+            )
+        # Base properties that all relationships need
+        base_properties = {
+            'source_node_id': source_node.node_id,
+            'target_node_id': target_node.node_id,
+            'relationship_type': rel_type,
+            'created_at': datetime.now(),
+            'updated_at': datetime.now()
+        }
+
+        # Create and configure the relationship based on type
+        if rel_class == graph_db_models.AsyncSymptomRel:
+            severity = await calculate_severity(source_node, target_node)
+            confidence = await calculate_confidence(source_node, target_node)
+            description = await generate_description(source_node, target_node)
+            reported_date = await get_reported_date(source_node, target_node)
+
+            initial_props = {
+                "severity": severity or "medium",  # Default to medium if None
+                "confidence": confidence if confidence is not None else 50,  # Default to 50% if None
+                "description": description or "",  # Default to empty string if None
+                "reported_date": reported_date or datetime.now().strftime("%Y-%m-%d")  # Default to current date if None
+            }
+            properties = {**base_properties, **initial_props} if initial_props else base_properties
+            rel_instance = await rel_manager.connect(target_node, properties)
+            if not isinstance(rel_instance, AsyncStructuredRel):
+                raise ValueError("Failed to instantiate relationship as AsyncStructuredRel")
+            logging.debug(f"Symptom properties set: {properties}")
+
+        elif rel_class == graph_db_models.AsyncCauseRel:
+            severity = await calculate_severity(source_node, target_node)
+            confidence = await calculate_confidence(source_node, target_node)
+            description = await generate_description(source_node, target_node)
+            reported_date = await get_reported_date(source_node, target_node)
+
+            initial_props = {
+                "severity": severity or "medium",  # Default to medium if None
+                "confidence": confidence if confidence is not None else 50,  # Default to 50% if None
+                "description": description or "",  # Default to empty string if None
+                "reported_date": reported_date or datetime.now().strftime("%Y-%m-%d")  # Default to current date if None
+            }
+            properties = {**base_properties, **initial_props} if initial_props else base_properties
+            rel_instance = await rel_manager.connect(target_node, properties)
+            if not isinstance(rel_instance, AsyncStructuredRel):
+                raise ValueError("Failed to instantiate relationship as AsyncStructuredRel")
+            logging.debug(f"Cause properties set: {properties}")
+
+        elif rel_class == graph_db_models.AsyncFixRel:
+            severity = await calculate_severity(source_node, target_node)
+            confidence = await calculate_confidence(source_node, target_node)
+            description = await generate_description(source_node, target_node)
+            reported_date = await get_reported_date(source_node, target_node)
+
+            initial_props = {
+                "severity": severity or "medium",  # Default to medium if None
+                "confidence": confidence if confidence is not None else 50,  # Default to 50% if None
+                "description": description or "",  # Default to empty string if None
+                "reported_date": reported_date or datetime.now().strftime("%Y-%m-%d")  # Default to current date if None
+            }
+            properties = {**base_properties, **initial_props} if initial_props else base_properties
+            rel_instance = await rel_manager.connect(target_node, properties)
+            if not isinstance(rel_instance, AsyncStructuredRel):
+                raise ValueError("Failed to instantiate relationship as AsyncStructuredRel")
+            logging.debug(f"Fix properties set: {properties}")
+
+        elif rel_class == graph_db_models.AsyncToolRel:
+            severity = await calculate_severity(source_node, target_node)
+            confidence = await calculate_confidence(source_node, target_node)
+            description = await generate_description(source_node, target_node)
+            reported_date = await get_reported_date(source_node, target_node)
+
+            initial_props = {
+                "severity": severity or "medium",  # Default to medium if None
+                "confidence": confidence if confidence is not None else 50,  # Default to 50% if None
+                "description": description or "",  # Default to empty string if None
+                "reported_date": reported_date or datetime.now().strftime("%Y-%m-%d")  # Default to current date if None
+            }
+            properties = {**base_properties, **initial_props} if initial_props else base_properties
+            rel_instance = await rel_manager.connect(target_node, properties)
+            if not isinstance(rel_instance, AsyncStructuredRel):
+                raise ValueError("Failed to instantiate relationship as AsyncStructuredRel")
+            logging.debug(f"Tool properties set: {properties}")
+
+        elif rel_class == graph_db_models.AsyncAffectsProductRel:
+            initial_props = {
+                'impact_rating': await calculate_impact_rating(source_node, target_node),
+                'severity': await calculate_severity(source_node, target_node, rel_class),
+                'affected_versions': await get_affected_versions(source_node, target_node),
+                'patched_in_version': await get_patched_version(source_node, target_node)
+            }
+            properties = {**base_properties, **initial_props}
+            rel_instance = await rel_manager.connect(target_node, properties)
+            if not isinstance(rel_instance, AsyncStructuredRel):
+                raise ValueError("Failed to instantiate relationship as AsyncStructuredRel")
+            logging.debug(f"Product properties set: {properties}")
+
+        elif rel_class == graph_db_models.AsyncHasUpdatePackageRel:
+            release_date = await get_release_date(source_node, target_node)
+            has_cumulative = await has_cumulative(source_node, target_node)
+            has_dynamic = await has_dynamic(source_node, target_node)
+
+            initial_props = {
+                "release_date": release_date or datetime.now().strftime("%Y-%m-%d"),  # Default to current date
+                "has_cumulative": has_cumulative if has_cumulative is not None else False,
+                "has_dynamic": has_dynamic if has_dynamic is not None else False,
+            }
+            properties = {**base_properties, **initial_props} if initial_props else base_properties
+            rel_instance = await rel_manager.connect(target_node, properties)
+            if not isinstance(rel_instance, AsyncStructuredRel):
+                raise ValueError("Failed to instantiate relationship as AsyncStructuredRel")
+            logging.debug(f"Update package properties set: {properties}")
+
+        elif rel_class == graph_db_models.AsyncPreviousVersionRel:
+            if not target_node or not target_node.node_id:
+                raise ValueError("Target node with valid node_id is required for previous version relationship")
+
+            version_difference = await calculate_version_difference(source_node, target_node)
+            changes_summary = await generate_changes_summary(source_node, target_node)
+
+            initial_props = {
+                "version_difference": version_difference or "",  # Optional, default to empty string
+                "changes_summary": changes_summary or "",  # Optional, default to empty string
+                "previous_version_id": target_node.node_id,  # Required, from target node
+            }
+            properties = {**base_properties, **initial_props} if initial_props else base_properties
+            rel_instance = await rel_manager.connect(target_node, properties)
+            if not isinstance(rel_instance, AsyncStructuredRel):
+                raise ValueError("Failed to instantiate relationship as AsyncStructuredRel")
+            logging.debug(f"Previous version properties set: {properties}")
+
+        elif rel_class == graph_db_models.AsyncPreviousMessageRel:
+            if not target_node or not target_node.node_id:
+                raise ValueError("Target node with valid node_id is required for previous message relationship")
+
+            initial_props = {
+                "previous_id": target_node.node_id,  # Required, from target node
+            }
+            properties = {**base_properties, **initial_props} if initial_props else base_properties
+            rel_instance = await rel_manager.connect(target_node, properties)
+            if not isinstance(rel_instance, AsyncStructuredRel):
+                raise ValueError("Failed to instantiate relationship as AsyncStructuredRel")
+            logging.debug(f"Previous message properties set: {properties}")
+
+        elif rel_class == graph_db_models.AsyncReferencesRel:
+            relevance_score = await calculate_relevance_score(source_node, target_node)
+            context = await extract_context(source_node, target_node)
+            cited_section = await extract_cited_section(source_node, target_node)
+
+            initial_props = {
+                "relevance_score": max(0, min(100, relevance_score or 0)),
+                "context": context or "",
+                "cited_section": cited_section or "",
+            }
+            properties = {**base_properties, **initial_props} if initial_props else base_properties
+            rel_instance = await rel_manager.connect(target_node, properties)
+            if not isinstance(rel_instance, AsyncStructuredRel):
+                raise ValueError("Failed to instantiate relationship as AsyncStructuredRel")
+            logging.debug(f"References properties set: {properties}")
+
         else:
-            print(f"BR 9: shouldn't be here: node_type_str: {node_type_str}")
+            # Default case for AsyncZeroToManyRel and unknown types
+            rel_instance = await rel_manager.connect(target_node, base_properties)
+            if not isinstance(rel_instance, AsyncStructuredRel):
+                raise ValueError("Failed to instantiate relationship as AsyncStructuredRel")
+            logging.debug(f"Basic properties set: {base_properties}")
 
+        logging.debug(f"Successfully created and configured relationship: {rel_type}")
+        return rel_instance
+
+    except Exception as e:
+        logging.error(f"Error in _create_and_configure_relationship: {str(e)}")
+        logging.error(f"Source node: {source_node.node_id}")
+        logging.error(f"Target node: {target_node.node_id}")
+        logging.error(f"Relationship class: {rel_class.__name__}")
+        raise
 
 # END BUILD RELATIONSHIP FUNCTION ================================================
 
 
 # BEGIN RELATIONSHIP SETTER FUNCTIONS ============================================
+async def _get_relationship_name(
+    source_node: graph_db_models.AsyncStructuredNode,
+    target_node: graph_db_models.AsyncStructuredNode,
+    rel_class: Type[graph_db_models.AsyncStructuredRel]
+) -> Optional[str]:
+    """
+    Get the relationship name from RELATIONSHIP_MAPPING based on source and target nodes.
+
+    Args:
+        source_node: Source node of the relationship
+        target_node: Target node of the relationship
+        rel_class: Expected relationship class
+
+    Returns:
+        str: Relationship name if found, None otherwise
+    """
+    source_node_type = source_node.__class__.__name__
+    target_node_type = target_node.__class__.__name__
+
+    try:
+        return next(
+            name
+            for name, (target, _, cls) in graph_db_models.RELATIONSHIP_MAPPING[source_node_type].items()
+            if target == target_node_type and cls == rel_class
+        )
+    except (KeyError, StopIteration):
+        logging.warning(
+            f"No relationship mapping found for {source_node_type}->{target_node_type} "
+            f"with class {rel_class.__name__}"
+        )
+        return None
+
+
+async def _save_relationship_properties(
+    relationship: AsyncStructuredRel,
+    properties: Dict[str, Any]
+):
+    try:
+        logging.debug(f"Setting properties for relationship {type(relationship).__name__}")
+        for key, value in properties.items():
+            # Get property definition to access default value
+            prop_def = getattr(type(relationship), key, None)
+
+            if value is None and prop_def and hasattr(prop_def, 'default'):
+                # Use default value if property has one defined
+                value = prop_def.default
+                if callable(value):
+                    value = value()
+                logging.info(f"Using default value {value} for property {key}")
+            elif value is None:
+                logging.warning(f"Skipping None value for property {key}")
+                continue
+
+            logging.debug(f"Setting {key}={value} (type: {type(value)})")
+            setattr(relationship, key, value)
+
+        await relationship.save()
+    except Exception as e:
+        logging.error(f"Error saving relationship properties: {str(e)}")
+        logging.error(f"Properties that failed: {properties}")
+        raise
 
 
 async def calculate_confidence(source_node, target_node):
@@ -1278,13 +2103,33 @@ async def calculate_confidence(source_node, target_node):
     Calculate the confidence level for a SymptomCauseFix relationship.
     This function determines how confident we are about the relationship between a symptom, cause, or fix.
     """
-    # Extract relevant properties
-    source_reliability = getattr(source_node, "reliability", "MEDIUM")
-    target_reliability = getattr(target_node, "reliability", "MEDIUM")
+    try:
+        # Extract relevant properties with default values
+        source_reliability = getattr(source_node, "reliability", "MEDIUM")
+        target_reliability = getattr(target_node, "reliability", "MEDIUM")
 
-    # Simple average as a placeholder
-    confidence = f"{source_reliability}-{target_reliability}"
-    return confidence
+        def get_reliability_value(reliability):
+            if isinstance(reliability, (int, float)):
+                return float(reliability)
+            reliability_map = {
+                "HIGH": 90,
+                "MEDIUM": 50,
+                "LOW": 10,
+                "": 50  # Default value for empty string
+            }
+            return reliability_map.get(str(reliability).upper(), 50)
+
+
+        # Get numeric values with default of 50 for unknown values
+        source_value = get_reliability_value(source_reliability)
+        target_value = get_reliability_value(target_reliability)
+        confidence_value = int((source_value + target_value) / 2)
+        # Return average confidence score
+        return confidence_value if confidence_value is not None else 25
+
+    except Exception as e:
+        logging.error(f"Error calculating confidence: {e}")
+        return 25  # Return default value on error
 
 
 async def generate_description(source_node, target_node):
@@ -1312,10 +2157,27 @@ async def calculate_impact_rating(source_node, target_node):
     Calculate the impact level for an AffectsProduct relationship.
     This function determines how severely a product is affected.
     """
-    source_impact = getattr(source_node, "impact_type", "NIT")
-    source_severity = getattr(source_node, "severity_type", "NST")
-    impact_rating = f"{source_impact}-{source_severity}"
-    return impact_rating
+    source_impact = getattr(source_node, "impact_type", "medium")  # Default to medium if not specified
+    source_severity = getattr(source_node, "severity_type", "medium")  # Default to medium if not specified
+
+    # Map impact and severity to standard levels
+    impact_map = {
+        "NIT": "medium",  # Default NIT (Not Impact Type) to medium
+        "low": "low",
+        "medium": "medium",
+        "high": "high",
+        "critical": "critical"
+    }
+
+    # Use the higher of impact_type or severity_type
+    severity_levels = ["low", "medium", "high", "critical"]
+    impact_level = impact_map.get(source_impact, "medium")
+    severity_level = impact_map.get(source_severity, "medium")
+
+    # Return the higher severity level
+    if severity_levels.index(severity_level) > severity_levels.index(impact_level):
+        return severity_level
+    return impact_level
 
 
 async def get_affected_versions(source_node, target_node):
@@ -1536,12 +2398,39 @@ async def extract_cited_section(source_node, target_node):
     return "Whole document"
 
 
-async def calculate_severity(source_node, target_node):
-    # Implement your logic here to calculate severity based on source and target node properties
-    # Symptoms, Causes, Fixes & affecting products
-    if hasattr(source_node, "severity_type"):
-        return source_node.severity_type
-    return "NST"  # default value
+async def calculate_severity(source_node, target_node, relationship_type=None):
+    """Calculate severity based on source node properties and relationship type."""
+    try:
+        # First try to get severity from source node
+        if hasattr(source_node, "severity_type"):
+            severity = source_node.severity_type
+
+            # For AffectsProduct relationships, map NST/nst to medium
+            if relationship_type == graph_db_models.AsyncAffectsProductRel:
+                if severity in ["NST", "nst"]:
+                    return "medium"
+                # Map important to high for product relationships
+                if severity == "important":
+                    return "high"
+                # Only return valid choices for product relationships
+                if severity in ["low", "medium", "high", "critical"]:
+                    return severity
+                return "medium"  # Default for product relationships
+
+            # For Symptom/Cause/Fix relationships, return as is if valid
+            if severity in ["low", "medium", "high", "important", "nst", "NST"]:
+                return severity
+
+        # Default values based on relationship type
+        if relationship_type == graph_db_models.AsyncAffectsProductRel:
+            return "medium"  # Default for product relationships
+
+        return "NST"  # Default for symptom/cause/fix relationships
+
+    except Exception as e:
+        logging.error(f"Error calculating severity: {str(e)}")
+        # Return safe defaults based on relationship type
+        return "medium" if relationship_type == graph_db_models.AsyncAffectsProductRel else "NST"
 
 
 async def get_previous_message_id(source_node, target_node):
@@ -1551,237 +2440,312 @@ async def get_previous_message_id(source_node, target_node):
 
 
 # Updated utility functions
-async def set_symptom_cause_fix_properties(relationship, source_node, target_node):
-    print(
-        f"set_symptom_cause_fix_properties called with source_node: {type(source_node).__name__}, target_node: {type(target_node).__name__}"
-    )
-    if relationship:
+async def set_symptom_cause_fix_tool_properties(relationship, source_node, target_node):
+    """Set properties for Symptom, Cause, Fix, and Tool relationships."""
+    try:
+        # Determine the relationship class and name if we have a relationship instance
+        rel_class = None
+        rel_name = None
+        if relationship is not None:
+            if isinstance(relationship, graph_db_models.AsyncSymptomRel):
+                rel_class = graph_db_models.AsyncSymptomRel
+            elif isinstance(relationship, graph_db_models.AsyncCauseRel):
+                rel_class = graph_db_models.AsyncCauseRel
+            elif isinstance(relationship, graph_db_models.AsyncFixRel):
+                rel_class = graph_db_models.AsyncFixRel
+            elif isinstance(relationship, graph_db_models.AsyncToolRel):
+                rel_class = graph_db_models.AsyncToolRel
+            else:
+                logging.warning(f"Unknown relationship type: {type(relationship)}")
+                return None
+
+            rel_name = await _get_relationship_name(source_node, target_node, rel_class)
+            if not rel_name:
+                return None
+
+            logging.info(f"Setting properties for existing {rel_class.__name__} relationship")
+        else:
+            logging.info(f"Preparing properties for new symptom/cause/fix/tool relationship")
+
+        logging.info(f"Source node: {source_node.node_id} ({type(source_node).__name__})")
+        logging.info(f"Target node: {target_node.node_id} ({type(target_node).__name__})")
+
+        # Compute property values
         severity = await calculate_severity(source_node, target_node)
-        reliability = await calculate_confidence(source_node, target_node)
+        confidence = await calculate_confidence(source_node, target_node)
         description = await generate_description(source_node, target_node)
         reported_date = await get_reported_date(source_node, target_node)
 
-        source_node_type = source_node.__class__.__name__
-        target_node_type = target_node.__class__.__name__
-        rel_name = next(
-            name
-            for name, (target, _, rel_class) in graph_db_models.RELATIONSHIP_MAPPING[
-                source_node_type
-            ].items()
-            if target == target_node.__class__.__name__
-            and rel_class == graph_db_models.AsyncSymptomCauseFixRel
+        # Properties common to all these relationships
+        properties = {
+            "severity": severity or "medium",  # Default to medium if None
+            "confidence": confidence if confidence is not None else 50,  # Default to 50% if None
+            "description": description or "",  # Default to empty string if None
+            "reported_date": reported_date or datetime.now().strftime("%Y-%m-%d")  # Default to current date if None
+        }
+
+        # If we have an existing relationship, set its properties and type
+        if relationship is not None and rel_class and rel_name:
+            await set_relationship_type(relationship, source_node.__class__.__name__, rel_name)
+            await _save_relationship_properties(relationship, properties)
+            logging.info(f"Updated properties for {rel_class.__name__} relationship")
+        else:
+            logging.info(f"Prepared properties for new symptom/cause/fix/tool relationship")
+
+        return properties
+
+    except Exception as e:
+        logging.error(
+            f"Error setting symptom/cause/fix/tool properties between {source_node.node_id} "
+            f"and {target_node.node_id}: {str(e)}"
         )
-        if rel_name:
-            await set_relationship_type(relationship, source_node_type, rel_name)
-            relationship.severity = severity
-            relationship.reliability = reliability
-            relationship.description = description
-            relationship.reported_date = reported_date
-            
-            await relationship.save()
+        raise
 
 
 async def set_affects_product_properties(relationship, source_node, target_node):
-    # print(
-    #     f"set_affects_product_properties called with source_node: {type(source_node).__name__}, target_node: {type(target_node).__name__}"
-    # )
-    if relationship:
-        source_node_type = source_node.__class__.__name__
-        target_node_type = target_node.__class__.__name__
-        if source_node_type == "PatchManagementPost":
-            # print("Detected PatchPost -[AFFECTS]-> Product")
-            impact_level = ""
-            severity = ""
-            affected_versions = source_node.build_numbers
-            patched_version = ""
+    """Set properties for AffectsProduct relationships."""
+    if not relationship:
+        return
 
-            rel_name = next(
-                name
-                for name, (
-                    target,
-                    _,
-                    rel_class,
-                ) in graph_db_models.RELATIONSHIP_MAPPING[source_node_type].items()
-                if target == target_node_type
-                and rel_class == graph_db_models.AsyncAffectsProductRel
-            )
+    try:
+        rel_name = await _get_relationship_name(
+            source_node, target_node, graph_db_models.AsyncAffectsProductRel
+        )
+        if not rel_name:
+            return
+
+        # Handle PatchManagementPost specially
+        if source_node.__class__.__name__ == "PatchManagementPost":
+            properties = {
+                "impact_rating": "medium",  # Default to medium for PatchManagementPost
+                "severity": "medium",  # Default to medium for PatchManagementPost
+                "affected_versions": source_node.build_numbers,
+                "patched_in_version": ""
+            }
         else:
-            impact_level = await calculate_impact_rating(source_node, target_node)
-            severity = await calculate_severity(source_node, target_node)
-            affected_versions = await get_affected_versions(source_node, target_node)
-            patched_version = await get_patched_version(source_node, target_node)
+            properties = {
+                "impact_rating": await calculate_impact_rating(source_node, target_node),
+                "severity": await calculate_severity(source_node, target_node),
+                "affected_versions": await get_affected_versions(source_node, target_node),
+                "patched_in_version": await get_patched_version(source_node, target_node)
+            }
 
-            source_node_type = source_node.__class__.__name__
-            target_node_type = target_node.__class__.__name__
-            rel_name = next(
-                name
-                for name, (
-                    target,
-                    _,
-                    rel_class,
-                ) in graph_db_models.RELATIONSHIP_MAPPING[source_node_type].items()
-                if target == target_node_type
-                and rel_class == graph_db_models.AsyncAffectsProductRel
+        await set_relationship_type(relationship, source_node.__class__.__name__, rel_name)
+        await _save_relationship_properties(relationship, properties)
+
+    except Exception as e:
+        logging.error(
+            f"Error setting affects_product properties between {source_node.node_id} "
+            f"and {target_node.node_id}: {str(e)}"
+        )
+        raise
+
+
+async def set_has_update_package_properties(
+    relationship: graph_db_models.AsyncHasUpdatePackageRel,
+    source_node: AsyncStructuredNode,
+    target_node: AsyncStructuredNode
+) -> Dict[str, str]:
+    """
+    Set properties for an existing HasUpdatePackage relationship instance.
+
+    Args:
+        relationship (AsyncHasUpdatePackageRel): The relationship instance to update.
+        source_node (AsyncStructuredNode): The source node in the relationship.
+        target_node (AsyncStructuredNode): The target node in the relationship.
+
+    Returns:
+        Dict[str, str]: A dictionary of updated properties.
+    """
+    try:
+        # Validate the relationship instance type
+        if not isinstance(relationship, graph_db_models.AsyncHasUpdatePackageRel):
+            raise ValueError(
+                f"Expected instance of AsyncHasUpdatePackageRel, got {type(relationship).__name__}"
             )
-        if rel_name:
-            await set_relationship_type(relationship, source_node_type, rel_name)
-            relationship.impact_level = impact_level
-            relationship.severity = severity
-            relationship.affected_versions = affected_versions
-            relationship.patched_in_version = patched_version
-            await relationship.save()
-    # else:
-    #     print("No relationship -> set_affects_product()")
 
-
-async def set_has_update_package_properties(relationship, source_node, target_node):
-    # print(
-    #     f"set_has_update_package_properties called with source_node: {type(source_node).__name__}, target_node: {type(target_node).__name__}"
-    # )
-    if relationship:
+        # Compute or retrieve properties
         release_date = await get_release_date(source_node, target_node)
-        cumulative = await has_cumulative(source_node, target_node)
-        dynamic = await has_dynamic(source_node, target_node)
-        # print(f"set_update() received: {cumulative} & {dynamic}")
-        source_node_type = source_node.__class__.__name__
-        target_node_type = target_node.__class__.__name__
-        rel_name = next(
-            (
-                name
-                for name, (
-                    target,
-                    _,
-                    rel_class,
-                ) in graph_db_models.RELATIONSHIP_MAPPING[source_node_type].items()
-                if target == target_node_type
-                and rel_class == graph_db_models.AsyncHasUpdatePackageRel
-            ),
-            None,  # Default value if no match is found
+        has_cumulative = await has_cumulative(source_node, target_node)
+        has_dynamic = await has_dynamic(source_node, target_node)
+
+        properties = {
+            "release_date": release_date or datetime.now().strftime("%Y-%m-%d"),  # Default to current date
+            "has_cumulative": has_cumulative if has_cumulative is not None else False,
+            "has_dynamic": has_dynamic if has_dynamic is not None else False,
+        }
+
+        # Update the relationship properties
+        for key, value in properties.items():
+            setattr(relationship, key, value)
+
+        # Save the updated relationship
+        await relationship.save()
+        logging.info(f"Updated properties for HasUpdatePackage relationship: {relationship}")
+
+        return properties
+
+    except Exception as e:
+        logging.error(
+            f"Error updating HasUpdatePackage properties between {source_node.node_id} "
+            f"and {target_node.node_id}: {str(e)}"
         )
-        if rel_name:
-            await set_relationship_type(relationship, source_node_type, rel_name)
-            relationship.release_date = release_date
-            relationship.has_cumulative = cumulative
-            relationship.has_dynamic = dynamic
-            # print(
-            #     f"Before save: release_date={relationship.release_date}, has_cumulative={relationship.has_cumulative}, has_dynamic={relationship.has_dynamic}"
-            # )
-            await relationship.save()
-            # print(
-            #     f"After save: release_date={relationship.release_date}, has_cumulative={relationship.has_cumulative}, has_dynamic={relationship.has_dynamic}"
-            # )
-        # else:
-        #     print(
-        #         f"No matching relationship found for {source_node_type} -> {target_node_type}"
-        #     )
+        raise
 
 
-async def set_previous_version_properties(relationship, source_node, target_node):
-    # print(
-    #     f"set_previous_version_properties called with source_node: {type(source_node).__name__}, target_node: {type(target_node).__name__}"
-    # )
-    if relationship:
-        # print("set_previous: relationship exists...gathering properties")
-        version_difference = await calculate_version_difference(
-            source_node, target_node
-        )
+async def set_previous_version_properties(
+    relationship: graph_db_models.AsyncPreviousVersionRel,
+    source_node: AsyncStructuredNode,
+    target_node: AsyncStructuredNode
+) -> Dict[str, str]:
+    """
+    Set properties for an existing PreviousVersion relationship instance.
+
+    Args:
+        relationship (AsyncPreviousVersionRel): The relationship instance to update.
+        source_node (AsyncStructuredNode): The source node in the relationship.
+        target_node (AsyncStructuredNode): The target node in the relationship.
+
+    Returns:
+        Dict[str, str]: A dictionary of updated properties.
+    """
+    try:
+        # Validate the relationship instance type
+        if not isinstance(relationship, graph_db_models.AsyncPreviousVersionRel):
+            raise ValueError(
+                f"Expected instance of AsyncPreviousVersionRel, got {type(relationship).__name__}"
+            )
+
+        # Compute or retrieve properties
+        if not target_node or not target_node.node_id:
+            raise ValueError("Target node with valid node_id is required for previous version relationship")
+
+        version_difference = await calculate_version_difference(source_node, target_node)
         changes_summary = await generate_changes_summary(source_node, target_node)
 
-        source_node_type = source_node.__class__.__name__
-        target_node_type = target_node.__class__.__name__
-        rel_name = next(
-            (
-                name
-                for name, (
-                    target,
-                    _,
-                    rel_class,
-                ) in graph_db_models.RELATIONSHIP_MAPPING[source_node_type].items()
-                if target == target_node_type
-                and rel_class == graph_db_models.AsyncPreviousVersionRel
-            ),
-            None,  # Default value if no match is found
+        properties = {
+            "version_difference": version_difference or "",  # Optional, default to empty string
+            "changes_summary": changes_summary or "",  # Optional, default to empty string
+            "previous_version_id": target_node.node_id,  # Required, from target node
+        }
+
+        # Update the relationship properties
+        for key, value in properties.items():
+            setattr(relationship, key, value)
+
+        # Save the updated relationship
+        await relationship.save()
+        logging.info(f"Updated properties for PreviousVersion relationship: {relationship}")
+
+        return properties
+
+    except Exception as e:
+        logging.error(
+            f"Error updating PreviousVersion properties between {source_node.node_id} "
+            f"and {target_node.node_id}: {str(e)}"
         )
-        if rel_name:
-            await set_relationship_type(relationship, source_node_type, rel_name)
-            relationship.version_difference = version_difference
-            relationship.changes_summary = changes_summary
-            relationship.previous_version_id = target_node.node_id
-            # print(
-            #     f"Before save: version_difference={relationship.version_difference}, changes_summary={relationship.changes_summary}"
-            # )
-            await relationship.save()
-            # print(
-            #     f"After save: version_difference={relationship.version_difference}, changes_summary={relationship.changes_summary}"
-            # )
-        # else:
-        #     print(
-        #         f"No matching relationship found for {source_node_type} -> {target_node_type}"
-        #     )
-    # else:
-    #     print("Relationship is None")
+        raise
 
 
-async def set_previous_message_properties(relationship, source_node, target_node):
-    # print(
-    #     f"set_previous_message_properties called with source_node: {type(source_node).__name__}, target_node: {type(target_node).__name__}"
-    # )
-    if relationship:
-        # print("set_previous_message: relationship exists...gathering properties")
-        previous_id = target_node.node_id
+async def set_previous_message_properties(
+    relationship: graph_db_models.AsyncPreviousMessageRel,
+    source_node: AsyncStructuredNode,
+    target_node: AsyncStructuredNode
+) -> Dict[str, str]:
+    """
+    Set properties for an existing PreviousMessage relationship instance.
 
-        source_node_type = source_node.__class__.__name__
-        target_node_type = target_node.__class__.__name__
-        rel_name = next(
-            (
-                name
-                for name, (
-                    target,
-                    _,
-                    rel_class,
-                ) in graph_db_models.RELATIONSHIP_MAPPING[source_node_type].items()
-                if target == target_node_type
-                and rel_class == graph_db_models.AsyncPreviousMessageRel
-            ),
-            None,  # Default value if no match is found
+    Args:
+        relationship (AsyncPreviousMessageRel): The relationship instance to update.
+        source_node (AsyncStructuredNode): The source node in the relationship.
+        target_node (AsyncStructuredNode): The target node in the relationship.
+
+    Returns:
+        Dict[str, str]: A dictionary of updated properties.
+    """
+    try:
+        # Validate the relationship instance type
+        if not isinstance(relationship, graph_db_models.AsyncPreviousMessageRel):
+            raise ValueError(
+                f"Expected instance of AsyncPreviousMessageRel, got {type(relationship).__name__}"
+            )
+
+        # Compute or retrieve properties
+        if not target_node or not target_node.node_id:
+            raise ValueError("Target node with valid node_id is required for previous message relationship")
+
+        properties = {
+            "previous_id": target_node.node_id,  # Required, from target node
+        }
+
+        # Update the relationship properties
+        for key, value in properties.items():
+            setattr(relationship, key, value)
+
+        # Save the updated relationship
+        await relationship.save()
+        logging.info(f"Updated properties for PreviousMessage relationship: {relationship}")
+
+        return properties
+
+    except Exception as e:
+        logging.error(
+            f"Error updating PreviousMessage properties between {source_node.node_id} "
+            f"and {target_node.node_id}: {str(e)}"
         )
-        if rel_name:
-            await set_relationship_type(relationship, source_node_type, rel_name)
-            relationship.previous_id = previous_id
-            await relationship.save()
-    # else:
-    #     print("Relationship is None")
+        raise
 
 
-async def set_references_properties(relationship, source_node, target_node):
-    print(
-        f"set_references_properties called with source_node: {type(source_node).__name__}, target_node: {type(target_node).__name__}"
-    )
-    if relationship:
+async def set_references_properties(
+    relationship: graph_db_models.AsyncReferencesRel,
+    source_node: AsyncStructuredNode,
+    target_node: AsyncStructuredNode
+) -> Dict[str, str]:
+    """
+    Set properties for an existing References relationship instance.
+
+    Args:
+        relationship (AsyncStructuredRel): The relationship instance to update.
+        source_node (AsyncStructuredNode): The source node in the relationship.
+        target_node (AsyncStructuredNode): The target node in the relationship.
+
+    Returns:
+        Dict[str, str]: A dictionary of updated properties.
+    """
+    try:
+        # Validate the relationship instance type
+        if not isinstance(relationship, graph_db_models.AsyncReferencesRel):
+            raise ValueError(
+                f"Expected instance of AsyncReferencesRel, got {type(relationship).__name__}"
+            )
+
+        # Compute or retrieve properties
         relevance_score = await calculate_relevance_score(source_node, target_node)
         context = await extract_context(source_node, target_node)
         cited_section = await extract_cited_section(source_node, target_node)
 
-        print(f"relationship type: {type(relationship)}")
+        properties: Dict[str, str] = {
+            "relevance_score": max(0, min(100, relevance_score or 0)),  # Ensure between 0-100
+            "context": context or "",  # Optional, default to empty string
+            "cited_section": cited_section or "",  # Optional, default to empty string
+        }
 
-        relationship.relevance_score = relevance_score
-        relationship.context = context
-        relationship.cited_section = cited_section
+        # Update the relationship properties
+        for key, value in properties.items():
+            setattr(relationship, key, value)
 
-        source_node_type = source_node.__class__.__name__
-        target_node_type = target_node.__class__.__name__
-        rel_name = next(
-            name
-            for name, (target, _, rel_class) in graph_db_models.RELATIONSHIP_MAPPING[
-                source_node_type
-            ].items()
-            if target == target_node_type
-            and rel_class == graph_db_models.AsyncReferencesRel
-        )
-        await set_relationship_type(relationship, source_node_type, rel_name)
-
-        # Don't forget to save the changes
+        # Save the updated relationship
         await relationship.save()
+        logging.info(f"Updated properties for relationship: {relationship}")
+
+        return properties
+
+    except Exception as e:
+        logging.error(
+            f"Error updating references properties between {source_node.node_id} "
+            f"and {target_node.node_id}: {str(e)}"
+        )
+        raise
 
 
 async def set_relationship_type(relationship, source_node_type, rel_name):
@@ -1809,152 +2773,176 @@ async def set_relationship_type(relationship, source_node_type, rel_name):
 
 # END RELATIONSHIP SETTER FUNCTIONS ==============================================
 
-# BEGIN RELATIONSHIP TRACKER =====================================================
 
-db = AsyncDatabase()
-NeomodelConfig.DATABASE_URL = get_graph_db_uri()
+# =================== BEGIN PIPELINE HELPERS ================
 
 
-class RelationshipTracker:
-    def __init__(self):
-        self.existing_relationships: Dict[str, Set[Tuple[str, str, str]]] = {}
-        self.batch_relationships: Dict[str, Set[Tuple[str, str, str]]] = {}
+async def build_relationships_in_batches(
+    nodes_dict: Dict[str, List[graph_db_models.AsyncStructuredNode]],
+    batch_size: int = 1000,
+    checkpoint_file: str = "relationship_checkpoint.json"
+) -> None:
+    """
+    Build relationships between nodes in batches with checkpointing and progress tracking.
 
-    async def fetch_existing_relationships(
-        self, node_types: List[str], node_ids: List[str]
-    ):
-        # print("Start fetch_existing")
-        # print(f"node_types: {node_types} num ids: {len(node_ids)}")
-        query = """
-        UNWIND $node_types AS node_type
-        MATCH (n)
-        WHERE n.node_id IN $node_ids AND any(label IN labels(n) WHERE label = node_type)
-        MATCH (n)-[r]->(m)
-        RETURN n, type(r), m, labels(m) AS target_labels, node_type
-        """
-        results, _ = await db.cypher_query(
-            query, {"node_types": node_types, "node_ids": node_ids}
+    Args:
+        nodes_dict: Dictionary mapping node types to lists of nodes
+        batch_size: Number of relationships to process in each batch
+        checkpoint_file: File to store progress information
+    """
+    logging.info("Starting relationship building process with batching")
+    tracker = RelationshipTracker(batch_size=batch_size)
+
+    # Load checkpoint if exists
+    processed_pairs = set()
+    if os.path.exists(checkpoint_file):
+        try:
+            with open(checkpoint_file, 'r') as f:
+                processed_pairs = set(tuple(pair) for pair in json.load(f))
+            logging.info(f"Loaded {len(processed_pairs)} processed pairs from checkpoint")
+        except Exception as e:
+            logging.warning(f"Error loading checkpoint file: {str(e)}")
+
+    try:
+        # Get all possible relationship types for the node types
+        relationship_types = set()
+        for node_type in nodes_dict.keys():
+            if node_type in graph_db_models.RELATIONSHIP_MAPPING:
+                for _, rel_info in graph_db_models.RELATIONSHIP_MAPPING[node_type].items():
+                    relationship_types.add(rel_info[1])  # Add the relationship type string
+
+        # Initialize relationship tracking
+        all_node_ids = [node.node_id for nodes in nodes_dict.values() for node in nodes]
+        await tracker.fetch_existing_relationships(
+            list(nodes_dict.keys()),
+            all_node_ids,
+            list(relationship_types)
         )
-        print(f"Number of relationships fetched: {len(results)}")
-        for source, rel_type, target, target_labels, node_type in results:
-            source_label = list(source.labels)[0] if source.labels else "UnknownLabel"
-            target_label = list(target.labels)[0] if target.labels else "UnknownLabel"
-            source_node_id = source["node_id"]
-            target_node_id = target["node_id"]
+        logging.info("tracker attempted to fetch existing relationships")
+        # Pre-process MSRCPost nodes if present
+        if "MSRCPost" in nodes_dict:
+            nodes_dict["MSRCPost"] = await sort_and_update_msrc_nodes(nodes_dict["MSRCPost"])
 
-            # print(
-            #     f"Relationship: {source_label}({source_node_id}) -[{rel_type}]-> {target_label}({target_node_id})"
-            # )
-        # time.sleep(10)
-        for source, rel_type, target, target_labels, node_type in results:
-            source_node = self._convert_to_neomodel_node(source, node_type)
-            target_node_type = target_labels[
-                0
-            ]  # Assuming the first label is the node type.
-            target_node = self._convert_to_neomodel_node(target, target_node_type)
+        # Process each node type in batches
+        total_pairs = sum(len(nodes) for nodes in nodes_dict.values())
+        with tqdm(total=total_pairs, desc="Building relationships") as pbar:
+            for node_type_str, nodes in nodes_dict.items():
+                if node_type_str not in graph_db_models.RELATIONSHIP_MAPPING:
+                    logging.warning(f"No relationship mappings found for node type: {node_type_str}")
+                    continue
+                logging.info(f"Processing node type: {node_type_str}")
+                # Process nodes in batches
+                for i in range(0, len(nodes), batch_size):
+                    batch = nodes[i:i + batch_size]
+                    try:
+                        await _process_node_batch(
+                            node_type_str=node_type_str,
+                            nodes=batch,
+                            nodes_dict=nodes_dict,
+                            tracker=tracker,
+                            processed_pairs=processed_pairs,
+                            checkpoint_file=checkpoint_file
+                        )
+                    except Exception as e:
+                        logging.error(f"Error processing batch for {node_type_str}: {str(e)}")
+                        # Save checkpoint before re-raising
+                        _save_checkpoint(processed_pairs, checkpoint_file)
+                        raise
 
-            # Add the relationship to the tracker
-            if node_type not in self.existing_relationships:
-                self.existing_relationships[node_type] = set()
+                    pbar.update(len(batch))
 
-            key = self._create_relationship_key(source_node, rel_type, target_node)
-            self.existing_relationships[node_type].add(key)
-        # print("in fetch, checking existing rels added...")
-        # for node_type, relationships in self.existing_relationships.items():
-        #     print(
-        #         f"Node type: {node_type}, Total relationships: {len(relationships)}\n{relationships}"
-        #     )
-        # print("if nothing printed for Node type:. Total relationships. take note")
-        # time.sleep(15)
+        # Clean up checkpoint file after successful completion
+        if os.path.exists(checkpoint_file):
+            os.remove(checkpoint_file)
 
-    def _convert_to_neomodel_node(self, neo4j_node, node_type):
-        """
-        Converts a native Neo4j Node to a corresponding Neomodel AsyncStructuredNode instance.
-        """
-        properties = dict(neo4j_node._properties)
-
-        # Map node_type to the appropriate Neomodel class
-        if node_type == "Product":
-            return graph_db_models.Product(**properties)
-        elif node_type == "ProductBuild":
-            return graph_db_models.ProductBuild(**properties)
-        elif node_type == "MSRCPost":
-            return graph_db_models.MSRCPost(**properties)
-        elif node_type == "Symptom":
-            return graph_db_models.Symptom(**properties)
-        elif node_type == "Cause":
-            return graph_db_models.Cause(**properties)
-        elif node_type == "Fix":
-            return graph_db_models.Fix(**properties)
-        elif node_type == "FAQ":
-            return graph_db_models.FAQ(**properties)
-        elif node_type == "Tool":
-            return graph_db_models.Tool(**properties)
-        elif node_type == "KBArticle":
-            return graph_db_models.KBArticle(**properties)
-        elif node_type == "UpdatePackage":
-            return graph_db_models.UpdatePackage(**properties)
-        elif node_type == "PatchManagementPost":
-            return graph_db_models.PatchManagementPost(**properties)
-        else:
-            raise ValueError(f"Unsupported node type: {node_type}")
-
-    def _create_relationship_key(self, source, rel_type, target) -> Tuple[str, ...]:
-        """
-        Create a unique key to track the relationships, based on node types and properties.
-        """
-        # print("_create_relationship_key")
-        # print(f"source type: {type(source)}\ntarget type: {type(target)}")
-        if isinstance(source, graph_db_models.Product) and isinstance(
-            target, graph_db_models.ProductBuild
-        ):
-            # Generate a unique key for Product -> ProductBuild based on the 7 properties
-            unique_string = (
-                f"{source.product_name}_{source.product_architecture}_{source.product_version}_"
-                f"{target.product_name}_{target.product_architecture}_{target.product_version}_{target.cve_id}"
-            )
-            # Create a hash of the string to keep the key consistent and simple
-            unique_hash = hashlib.sha256(unique_string.encode()).hexdigest()
-
-            # print(f"Product -> ProductBuild Key (hash): {unique_hash}")
-            # Return the key in the same format as other relationships
-            return (source.node_id, rel_type, unique_hash)
-        if isinstance(source, graph_db_models.Product) and isinstance(
-            target, graph_db_models.Product
-        ):
-            print(
-                "Warning: Attempting to create a Product -> Product relationship, which is unexpected."
-            )
-        else:
-            # print(f"Node({source.node_label}) -> Node({target.node_label})")
-            # print(
-            #     f"_create_relationship_key: {(source.node_id, rel_type, target.node_id)}"
-            # )
-            return (source.node_id, rel_type, target.node_id)
-
-    def relationship_exists(self, source: Any, rel_type: str, target: Any) -> bool:
-        node_type = type(source).__name__
-        key = self._create_relationship_key(source, rel_type, target)
-        # print(f"relationship_exists key: {key}")
-        exists_in_existing = key in self.existing_relationships.get(node_type, set())
-        exists_in_batch = key in self.batch_relationships.get(node_type, set())
-        # print(
-        #     f"Exists in existing relationships: {exists_in_existing}, Exists in batch relationships: {exists_in_batch}"
-        # )
-
-        return exists_in_existing or exists_in_batch
-
-    def add_relationship(self, source: Any, rel_type: str, target: Any):
-        node_type = type(source).__name__
-        key = self._create_relationship_key(source, rel_type, target)
-        # print(f"add_relationship: {node_type}:{key}")
-        if node_type not in self.batch_relationships:
-            self.batch_relationships[node_type] = set()
-        self.batch_relationships[node_type].add(key)
-        # print(f"batch_relationships updated: {self.batch_relationships[node_type]}\n")
+    except Exception as e:
+        error_msg = f"Error building relationships: {str(e)}"
+        logging.error(error_msg)
+        raise ValueError(error_msg) from e
 
 
-# =================== END RELATIONSHIP TRACKER ==========================
+async def _process_node_batch(
+    node_type_str: str,
+    nodes: List[AsyncStructuredNode],
+    nodes_dict: Dict[str, List[AsyncStructuredNode]],
+    tracker: RelationshipTracker,
+    processed_pairs: Set[Tuple[str, str]],
+    checkpoint_file: str
+) -> None:
+    """Process a batch of nodes for relationship building."""
+    for node in tqdm(nodes, desc=f"Processing {node_type_str} relationships"):
+        for rel_name, rel_info in graph_db_models.RELATIONSHIP_MAPPING[node_type_str].items():
+            target_model, rel_type, rel_class = rel_info
+            target_nodes = nodes_dict.get(target_model, [])
+            logging.debug(f"Processing relationship between {node.node_id} and {target_model}")
+            for target_node in target_nodes:
+                # Skip if this pair has already been processed
+                pair_key = (node.node_id, target_node.node_id)
+                if pair_key in processed_pairs:
+                    continue
+                logging.debug(f"Processing relationship between {node.node_id} and {target_node.node_id}")
+                try:
+                    await _process_single_relationship(
+                        source_node=node,
+                        target_node=target_node,
+                        rel_name=rel_name,
+                        rel_info=rel_info,
+                        rel_type=rel_type,
+                        rel_class=rel_class,
+                        tracker=tracker
+                    )
+
+                    # Mark as processed and update checkpoint
+                    processed_pairs.add(pair_key)
+                    if len(processed_pairs) % 1000 == 0:  # Periodic checkpoint
+                        _save_checkpoint(processed_pairs, checkpoint_file)
+
+                except Exception as e:
+                    logging.error(
+                        f"Error processing relationship between {node.node_id} and "
+                        f"{target_node.node_id}: {str(e)}"
+                    )
+                    raise
+
+
+async def _process_single_relationship(
+    source_node: AsyncStructuredNode,
+    target_node: AsyncStructuredNode,
+    rel_name: str,
+    rel_info: Any,
+    rel_type: str,
+    rel_class: Type[AsyncStructuredRel],
+    tracker: RelationshipTracker
+) -> None:
+    """Process a single relationship between two nodes."""
+    if not await should_be_related(source_node, target_node, rel_info):
+        return
+
+    if tracker.relationship_exists(source_node, rel_type, target_node):
+        logging.debug(
+            f"Skipping existing relationship: {source_node.node_id} "
+            f"-[{rel_type}]-> {target_node.node_id}"
+        )
+        return
+
+    relationship = getattr(source_node, rel_name)
+    await _create_and_configure_relationship(
+        relationship=relationship,
+        source_node=source_node,
+        target_node=target_node,
+        rel_class=rel_class,
+        rel_type=rel_type
+    )
+
+
+def _save_checkpoint(processed_pairs: Set[Tuple[str, str]], checkpoint_file: str) -> None:
+    """Save the current progress to a checkpoint file."""
+    try:
+        with open(checkpoint_file, 'w') as f:
+            json.dump([list(pair) for pair in processed_pairs], f)
+    except Exception as e:
+        logging.error(f"Error saving checkpoint: {str(e)}")
+# =================== END PIPELINE HELPERS ================
 
 # =================== BEGIN MIGRATION RELATIONSHIP BUILD ================
 
@@ -2013,52 +3001,46 @@ async def build_migration_relationships(
         relationship = getattr(source_node, rel_name)
 
         # Check if the relationship already exists
-        existing_rel = await relationship.is_connected(target_node)
-        if existing_rel:
+        if not tracker.relationship_exists(
+            source_node, rel_type, target_node
+        ):
             # print(
-            #     f"Relationship already exists: {source_id} -[{rel_type}]-> {target_id}"
+            #     f"Creating new relationship: {node.node_label} -{rel_type}-> {target_node.node_label}"
             # )
-            continue
+            await relationship.connect(target_node)
 
-        # Disconnect existing relationships if it's a one-to-one relationship
-        if issubclass(rel_class, graph_db_models.AsyncOneToOneRel):
-            await relationship.disconnect_all()
+            # Fetch the relationship instance to set properties
+            rel_instance = await relationship.relationship(target_node)
 
-        # Connect the new relationship
-        await relationship.connect(target_node)
+            # Set properties from the properties dict
+            if properties:
+                for prop_name, prop_value in properties.items():
+                    setattr(rel_instance, prop_name, prop_value)
+                await rel_instance.save()
 
-        # Fetch the relationship instance to set properties
-        rel_instance = await relationship.relationship(target_node)
+            # Set properties for custom relationship classes
+            if rel_class == graph_db_models.AsyncSymptomCauseFixRel:
+                await set_symptom_cause_fix_properties(
+                    rel_instance, source_node, target_node
+                )
+            elif rel_class == graph_db_models.AsyncPreviousVersionRel:
+                await set_previous_version_properties(
+                    rel_instance, source_node, target_node
+                )
+            elif rel_class == graph_db_models.AsyncPreviousMessageRel:
+                await set_previous_message_properties(
+                    rel_instance, source_node, target_node
+                )
+            elif rel_class == graph_db_models.AsyncAffectsProductRel:
+                await set_affects_product_properties(rel_instance, source_node, target_node)
+            elif rel_class == graph_db_models.AsyncHasUpdatePackageRel:
+                await set_has_update_package_properties(
+                    rel_instance, source_node, target_node
+                )
+            elif rel_class == graph_db_models.AsyncReferencesRel:
+                await set_references_properties(rel_instance, source_node, target_node)
 
-        # Set properties from the properties dict
-        if properties:
-            for prop_name, prop_value in properties.items():
-                setattr(rel_instance, prop_name, prop_value)
-            await rel_instance.save()
-
-        # Set properties for custom relationship classes
-        if rel_class == graph_db_models.AsyncSymptomCauseFixRel:
-            await set_symptom_cause_fix_properties(
-                rel_instance, source_node, target_node
-            )
-        elif rel_class == graph_db_models.AsyncPreviousVersionRel:
-            await set_previous_version_properties(
-                rel_instance, source_node, target_node
-            )
-        elif rel_class == graph_db_models.AsyncPreviousMessageRel:
-            await set_previous_message_properties(
-                rel_instance, source_node, target_node
-            )
-        elif rel_class == graph_db_models.AsyncAffectsProductRel:
-            await set_affects_product_properties(rel_instance, source_node, target_node)
-        elif rel_class == graph_db_models.AsyncHasUpdatePackageRel:
-            await set_has_update_package_properties(
-                rel_instance, source_node, target_node
-            )
-        elif rel_class == graph_db_models.AsyncReferencesRel:
-            await set_references_properties(rel_instance, source_node, target_node)
-
-        print(f"Created relationship: {source_id} -[{rel_type}]-> {target_id}")
+            print(f"Created relationship: {source_id} -[{rel_type}]-> {target_id}")
 
 
 # =================== END MIGRATION RELATIONSHIP BUILD ==================
@@ -2080,8 +3062,10 @@ async def test_neomodel_get_or_none():
         test_properties = {
             "node_id": "86ccde33-1c3f-7a68-a842-2b24dc8a2b8f",
             "product_name": "windows_10",
+            "product_architecture": "x64",
             "product_version": "NV",
-            "product_architecture": "x86",
+            "description": "Windows 11 Version 22H2 for x64-based Systems",
+            "node_label": "windows_11 x64 22H2",
         }
 
         print(
@@ -2245,138 +3229,6 @@ async def main():
         "cve_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-21406",
         "impact_type": "spoofing",
         "severity_type": "important",
-    }
-    # create product build service for a single product_build
-    product_build_service = ProductBuildService(db_manager)
-    product_build, message, status = await product_build_service.create(
-        **product_build_data
-    )
-    if status == 201:
-        print(f"Product Build created")
-        # Set build numbers (example data)
-        if product_build:
-            # no post creation operations yet
-            await product_build.save()
-    else:
-        print(f"Error: {message}")
-        product_build = await product_build_service.get(
-            "fdbb56d3-d1aa-6819-59bd-dc326d0b64c0"
-        )
-        if product_build:
-            print(f"product_build found: {product_build}")
-        else:
-            print("product_build not found")
-
-    # Create a relationship between the Product and the ProductBuild
-    if product:
-        existing_product_rel_build = await product.has_builds.relationship(
-            product_build
-        )
-        if not existing_product_rel_build:
-            await product.has_builds.connect(
-                product_build,
-                {
-                    "relationship_type": "HAS_BUILD",
-                },
-            )
-        else:
-            print("Relationship between product and build exists.")
-        # Update the product description
-        response = await product_service.update(
-            product.node_id,
-            description="UPDATE UPDATE UPDATE description for Windows 10",
-        )
-        print(f"Updated Product response:\n{response}")
-    else:
-        product = await product_service.get("1f635c63-45e2-457e-a808-8df84951c5b1")
-    # create kb article
-    kb_article_service = KBArticleService(db_manager)
-
-    kb_article_data = {
-        "node_id": "1be277b3-2092-dc43-9dab-add5fd0eaeb1",
-        "kb_id": "5040442",
-        "build_number": [10, 0, 22621, 3880],
-        "node_label": "KB5040442",
-        "published": datetime.strptime("2024-07-09 12:00:00", "%Y-%m-%d %H:%M:%S"),
-        "product_build_id": "fdbb56d3-d1aa-6819-59bd-dc326d0b64c0",
-        "article_url": "https://support.microsoft.com/help/5040442",
-        "embedding": [],
-        "text": """ \
-You're invited to try Microsoft 365 for free
-Unlock now
-Release Date:
-7/9/2024
-Version:
-OS Builds 22621.3880 and 22631.3880
-NEW
- 07/09/24---
-END OF SERVICE NOTICE
----
-IMPORTANT
-Home and Pro editions of Windows 11, version 22H2 will reach end of service on October 8, 2024. Until then, these editions will only receive security updates. They will not receive non-security, preview updates. To continue receiving security and non-security updates after October 8, 2024, we recommend that you update to the latest version of Windows.
-Note
-We will continue to support Enterprise and Education editions after October 8, 2024. For information about Windows update terminology, see the article about the types of Windows updates and the monthly quality update types. For an overview of Windows 11, version 23H2, see its update history page.
-Note
-Follow
-@WindowsUpdate
-to find out when new content is published to the Windows release health dashboard.Highlights
-Below is a summary of the key issues that this update addresses when you install this KB. If there are new features, it lists them as well.
-Taskbar (known issue)
- You might not be able to view or interact with the taskbar after you install KB5039302. This issue occurs on devices that run the Windows N edition. This edition is like other editions but lacks most media-related tools. The issue also occurs if you turn off “Media Features” from the Control Panel.
-Improvements
-Note:
-To view the list of addressed issues, click or tap the OS name to expand the collapsible section.
-Windows 11, version 23H2
-        """,
-        "title": "July 9, 2024—KB5040442 (OS Builds 22621.3880 and 22631.3880) - Microsoft Support",
-    }
-
-    kb_article, message, status = await kb_article_service.create(**kb_article_data)
-    print(f"{status}: {message}")
-
-    if kb_article:
-        print(f"Created KB Article: {kb_article}")
-
-    else:
-        kb_article = await kb_article_service.get(
-            "1be277b3-2092-dc43-9dab-add5fd0eaeb1"
-        )
-    # Check and create relationship between ProductBuild and KBArticle
-    existing_product_build_rel_kb = await product_build.references_kbs.relationship(
-        kb_article
-    )
-    if not existing_product_build_rel_kb:
-        await product_build.references_kbs.connect(
-            kb_article,
-            {
-                "relationship_type": "REFERENCES",
-            },
-        )
-
-    # Check and create relationship between KBArticle and Product
-    existing_kb_article_rel_product = await kb_article.affects_product.relationship(
-        product
-    )
-    if not existing_kb_article_rel_product:
-        await kb_article.affects_product.connect(
-            product,
-            {
-                "relationship_type": "AFFECTS_PRODUCT",
-            },
-        )
-    # create msrc post
-    msrc_post_data = {
-        "node_id": "6f5403e0-d9b1-804a-67db-fa99ba5f7b44",
-        "embedding": [],
-        "metadata": {"key": "value"},
-        "published": datetime.strptime("2024-07-09 00:00:00", "%Y-%m-%d %H:%M:%S"),
-        "revision": "1.0",
-        "title": "CVE-2024-38027 Windows Line Printer Daemon Service Denial of Service Vulnerability",
-        "description": "Information published.",
-        "node_label": "CVE-2024-38027",
-        "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38027",
-        "impact_type": "dos",
-        "severity_type": "critical",
         "post_type": "Solution provided",
         "attack_complexity": "low",
         "attack_vector": "network",
@@ -2457,9 +3309,9 @@ The vulnerable system can be exploited without any interaction from any user.
     else:
         print("KBArticle relationship already exists between MSRCPost and KBArticle.")
 
-    # ===========================
+    # ====================================
     # update package service test
-    # ===========================
+    # ====================================
     update_package_service = UpdatePackageService(db_manager)
 
     update_package_data = {

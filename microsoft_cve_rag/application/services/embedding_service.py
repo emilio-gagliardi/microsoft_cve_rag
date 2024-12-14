@@ -16,6 +16,7 @@ import httpx
 import asyncio
 from qdrant_client import QdrantClient
 from qdrant_client.async_qdrant_client import AsyncQdrantClient
+import concurrent.futures
 
 from application.app_utils import get_app_config
 from llama_index.core.embeddings import BaseEmbedding
@@ -115,7 +116,8 @@ class FastEmbedProvider(EmbeddingProvider):
         """
         from qdrant_client.qdrant_fastembed import TextEmbedding
         self._model_name = model_name or embedding_config.get("fastembed_model_name")
-        self.model = TextEmbedding(self._model_name)
+        self.providers = ["CUDAExecutionProvider"]
+        self.model = TextEmbedding(model_name=self._model_name, providers=self.providers)
         self._embedding_length = embedding_config.get("fastembed_embedding_length")
         print(f"fastembed loaded with: {self._model_name} ({self._embedding_length})")
 
@@ -145,15 +147,15 @@ class FastEmbedProvider(EmbeddingProvider):
 
         Args:
             texts (List[str]): List of text strings to embed.
+            Each text will be embedded as a single vector.
 
         Returns:
-            List[List[float]]: List of embedding vectors.
+            List[List[float]]: List of embedding vectors, one vector per input text.
         """
-        # print("FastEmbed(sync) embedding...")
+        # Use FastEmbed to generate embeddings for all texts at once
         embeddings = list(self.model.embed(texts))
-        converted_embeddings = self._convert_to_list(embeddings)
-
-        return converted_embeddings
+        # Convert numpy arrays to Python lists for JSON serialization
+        return self._convert_to_list(embeddings)
 
     async def embed_async(self, texts: List[str]) -> List[List[float]]:
         """
@@ -161,13 +163,22 @@ class FastEmbedProvider(EmbeddingProvider):
 
         Args:
             texts (List[str]): List of text strings to embed.
+            Each text will be embedded as a single vector.
 
         Returns:
-            List[List[float]]: List of embedding vectors.
+            List[List[float]]: List of embedding vectors, one vector per input text.
         """
-        # print("FastEmbed(async) embedding...")
-        # FastEmbed doesn't have a native async API, so we'll use the sync version.
-        return await asyncio.to_thread(self.embed, texts)
+        try:
+            # Run the synchronous embed method in a separate thread to avoid blocking
+            loop = asyncio.get_event_loop()
+            embeddings = await loop.run_in_executor(None, self.embed, texts)
+            return embeddings
+        except asyncio.CancelledError:
+            logging.warning("Embedding generation was cancelled")
+            raise
+        except Exception as e:
+            logging.error(f"Error in embed_async: {str(e)}")
+            raise
 
 
 class OllamaProvider(EmbeddingProvider):
@@ -299,7 +310,12 @@ class EmbeddingService:
         if isinstance(texts, str):
             texts = [texts]
 
-        return await self.provider.embed_async(texts)
+        # Use the provider's async method if available
+        if hasattr(self.provider, 'embed_async'):
+            return await self.provider.embed_async(texts)
+        # Fall back to sync method in a thread pool if no async method
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(None, self.generate_embeddings, texts)
 
     @classmethod
     def from_provider_name(

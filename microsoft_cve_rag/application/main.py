@@ -67,9 +67,10 @@ graph_db_credentials = get_graph_db_credentials()
 vector_db_credentials = get_vector_db_credentials()
 # Initialize colorama
 colorama_init(strip=False, convert=True, autoreset=True)
+
 class ColoredFormatter(logging.Formatter):
     """Custom formatter with colors"""
-    
+
     COLORS = {
         'DEBUG': Fore.GREEN,
         'INFO': Fore.CYAN,
@@ -87,17 +88,18 @@ class ColoredFormatter(logging.Formatter):
             # Add color to levelname for our application logs
             levelname_color = self.COLORS.get(record.levelname, Fore.WHITE)
             record.levelname = f"{levelname_color}{record.levelname}{Style.RESET_ALL}"
-            
+
             # Format the message
             formatted = super().format(record)
-            
+
             # Color the metadata
             parts = formatted.split(" - ", 1)
             if len(parts) == 2:
                 metadata, message = parts
                 return f"{Fore.WHITE}{metadata}{Style.RESET_ALL} - {message}"
-            
+
         return super().format(record)
+
 
 def setup_logging(level=logging.INFO):
     # Remove existing handlers
@@ -130,14 +132,25 @@ def setup_logging(level=logging.INFO):
     root_logger.addHandler(stream_handler)
     root_logger.addHandler(file_handler)
 
-log_level = os.getenv("LOG_LEVEL", "INFO").upper()
+    # Adjust logging levels for specific loggers
+    logging.getLogger("uvicorn").setLevel(logging.INFO)
+    logging.getLogger("uvicorn.error").setLevel(logging.INFO)
+    logging.getLogger("uvicorn.access").setLevel(logging.WARNING)
+    logging.getLogger("fastapi").setLevel(logging.WARNING)
+    
+    app_logger = logging.getLogger("microsoft_cve_rag")
+    app_logger.setLevel(level)
+
+
+log_level = getattr(logging, os.getenv("LOG_LEVEL", "INFO").upper(), logging.INFO)
 setup_logging(log_level)
 logger = logging.getLogger(__name__)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Begin lifespan tasks")
-    
+
     # Load configurations
     embedding_config = settings["EMBEDDING_CONFIG"]
     vectordb_config = settings["VECTORDB_CONFIG"]

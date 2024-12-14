@@ -16,7 +16,7 @@ pip install protobuf==4.25.4
 # grpcio-tools 1.62.2 has requirement protobuf<5.0dev,>=4.21.6
 # opentelemetry-proto 1.16.0 has requirement protobuf<5.0,>=3.19
 
-# FastEmbed is a lightweight, fast, Python library built for embedding generation. Used # by Qdrant and others. 
+# FastEmbed is a lightweight, fast, Python library built for embedding generation. Used # by Qdrant and others.
 # Models - https://qdrant.github.io/fastembed/examples/Supported_Models/
 # snowflake/snowflake-arctic-embed-l (1024)
 # BAAI/bge-large-en-v1.5 (1024)
@@ -52,6 +52,47 @@ remove Jupyter resources from environment
 conda remove --name myenv jupyter jupyterlab notebook ipywidgets jupyter_contrib_nbextensions jupyter_nbextensions_configurator
 
 update to test git connection
+
+
+## TODO
+### Refactor relationships for PatchManagementPosts
+- Current - all posts within a thread are connected to the CVE or KB referenced in the original post
+- Refactor- only the original post is connected to the CVE or KB referenced. But if a post within the thread explicitly references a CVE or KB then create an explicit relationship for it.
+- Notes:
+Adjusted Approach
+1. Thread-Level to CVE Relationship:
+- Maintain a single relationship from the originating post (thread level) to the CVE. This simplifies queries about the general topics discussed in the thread.
+2. Selective Post-Level Relationships:
+- Relate individual posts to the CVE only if they contain a Cause, Fix, or other significant information relevant to understanding or resolving the CVE. This helps filter out irrelevant posts and creates a more focused view of the discussion.
+- Include key metadata, like timestamps, sentiment, or authority, to track the evolution of the discussion.
+3. Tagging Posts with Significance:
+    Posts should be tagged with properties like:
+    contains_fix: true/false
+    contains_cause: true/false
+    contains_symptom: true/false
+    This allows you to filter for posts that add substantive value without creating unnecessary edges.
+4. Thread Navigation:
+- Use PREVIOUS_MESSAGE edges to capture the order of the discussion. This helps reconstruct the flow of information and identifies where a solution (if any) originated.
+5. Summarized Relationships:
+- Instead of relating every post to the CVE, summarize the thread's key findings (e.g., causes, fixes) at the thread level:
+Use properties or sub-nodes connected to the originating post to capture aggregated insights like causes_found or fixes_proposed.
+
+#### Why This Works:
+- Efficiency: Avoids excessive edges while still preserving valuable relationships.
+- Granularity: Enables post-level insights when needed, without cluttering the graph with redundant connections.
+- Flexibility: Supports both thread-level analysis (broad overview) and post-level analysis (detailed insight).
+#### Suggested Schema Enhancements:
+- Add a SIGNIFICANT edge type for posts containing critical information (e.g., cause, fix).
+- Use properties on SIGNIFICANT edges to capture additional details like severity, confidence, or source reliability.
+#### Example Query Patterns:
+1. Identify All Fixes for a CVE
+- Query posts with contains_fix: true linked to a specific CVE.
+2. Track Key Post Flow
+- Traverse PREVIOUS_MESSAGE edges backward from a post containing a Fix to understand how the solution evolved.
+This approach balances scalability with granularity and makes the graph both useful and manageable.
+
+End Refactor relationships for PatchManagementPosts
+
 
 LlamaIndex
 https://llamahub.ai/llama_index/quickstart

@@ -7,9 +7,10 @@ from application.services.document_service import DocumentService
 from pymongo import ASCENDING, DESCENDING
 from bson import ObjectId
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 import hashlib
 import json
+import logging
 
 
 def extract_from_mongo(
@@ -67,7 +68,7 @@ def extract_products(max_records=10):
     product_docs = extract_from_mongo(
         db_name, collection_name, query, max_records, sort, projection
     )["results"]
-    print(f"Total Products: {len(product_docs)}")
+
     return product_docs
 
     # get product_builds
@@ -84,7 +85,6 @@ def extract_product_builds(start_date, end_date, max_records=10):
             "$in": [
                 "windows_10",
                 "windows_11",
-                "microsoft_edge_(chromium-based)_extended_stable",
                 "microsoft_edge",
                 "microsoft_edge_(chromium-based)",
             ]
@@ -107,7 +107,7 @@ def extract_product_builds(start_date, end_date, max_records=10):
     product_build_docs = extract_from_mongo(
         db_name, collection_name, query, max_records, sort, projection
     )["results"]
-    print(f"Total Product Builds: {len(product_build_docs)}")
+
     return product_build_docs
 
 
@@ -178,9 +178,9 @@ def extract_kb_articles(start_date, end_date, max_records=10):
     # document_service = DocumentService(db_name, collection_name)
     # results = document_service.aggregate_documents(pipeline)
     # ids_to_delete = [doc["_id"] for doc in results]
-    # print(f"num kbs to remove: {len(ids_to_delete)}")
+    # logging.info(f"num kbs to remove: {len(ids_to_delete)}")
     # delete_count = document_service.delete_documents({"_id": {"$in": ids_to_delete}})
-    # print(f"delete count: {delete_count}")
+    # logging.info(f"delete count: {delete_count}")
     db_name = "report_docstore"
     collection_name = "microsoft_kb_articles"
     # equals null is for windows kb articles
@@ -231,8 +231,6 @@ def extract_kb_articles(start_date, end_date, max_records=10):
                 if kb_id in doc["metadata"]["post_id"]:
                     kb_article["title"] = doc["metadata"]["title"]
                     kb_article["text"] = doc["text"]
-
-    print(f"Total Windows-based KB articles: {len(kb_article_docs_windows)}")
 
     # For edge-based KB articles
     # These are synthetic in that microsoft doesn't publish kbs for edge issues, they point to the stable notes/security notes. I'm building these for symmetry with windows-based kb articles
@@ -438,7 +436,7 @@ def extract_kb_articles(start_date, end_date, max_records=10):
     kb_article_docs_edge_combined = (
         kb_article_docs_edge_stable + kb_article_docs_edge_security
     )
-    print(f"Total Edge-based KB articles: {len(kb_article_docs_edge_combined)}")
+
     return kb_article_docs_windows, kb_article_docs_edge_combined
 
 
@@ -463,10 +461,10 @@ def extract_update_packages(start_date, end_date, max_records=10):
     # document_service = DocumentService(db_name, collection_name)
     # results = document_service.aggregate_documents(pipeline)
     # ids_to_delete = [doc["id"] for doc in results]
-    # print(f"num update_packages to remove: {len(ids_to_delete)}\n{ids_to_delete}")
+    # logging.info(f"num update_packages to remove: {len(ids_to_delete)}\n{ids_to_delete}")
 
     # delete_count = document_service.delete_documents({"id": {"$in": ids_to_delete}})
-    # print(f"delete count: {delete_count}")
+    # logging.info(f"delete count: {delete_count}")
 
     db_name = "report_docstore"
     collection_name = "microsoft_update_packages"
@@ -547,9 +545,7 @@ def extract_update_packages(start_date, end_date, max_records=10):
     update_packages_docs.sort(key=lambda x: x["build_number"])
     for article in update_packages_docs:
         article["build_number"] = list(article["build_number"])
-    # for item in update_packages_docs:
-    #     print(item)
-    print(f"Total Update Packages: {len(update_packages_docs)}")
+
     return update_packages_docs
 
 
@@ -584,21 +580,29 @@ def extract_msrc_posts(start_date, end_date, max_records=None):
     for msrc in msrc_docs:
         msrc.setdefault("kb_ids", [])
 
-    print(f"Total MSRC Posts: {len(msrc_docs)}")
     return msrc_docs
 
 
 def convert_received_date_time(doc):
     try:
-        received_date_time_str = doc["metadata"]["receivedDateTime"]
+        received_date_time = doc["metadata"]["receivedDateTime"]
+
+        if isinstance(received_date_time, datetime):
+            # Ensure timezone awareness
+            if received_date_time.tzinfo is None:
+                received_date_time = received_date_time.replace(tzinfo=timezone.utc)
+            doc["metadata"]["receivedDateTime"] = received_date_time
+            return doc
+
         doc["metadata"]["receivedDateTime"] = datetime.fromisoformat(
-            received_date_time_str
-        )
+            str(received_date_time).rstrip('Z')
+        ).replace(tzinfo=timezone.utc)
+        logging.debug(f"Converted receivedDateTime to: {doc['metadata']['receivedDateTime']}")
     except KeyError:
-        # Handle case where 'receivedDateTime' might be missing
+        logging.warning("receivedDateTime missing in metadata")
         pass
-    except ValueError:
-        # Handle case where date string is not in the correct format
+    except ValueError as e:
+        logging.error(f"Failed to convert receivedDateTime: {str(e)}")
         pass
     return doc
 
@@ -628,6 +632,7 @@ def extract_patch_posts(start_date, end_date, max_records=10):
         "class_name": 0,
         "hash": 0,
     }
+    patch_docs_unsorted = []
     patch_docs_unsorted = extract_from_mongo(
         db_name, collection_name, query, max_records, None, projection
     )["results"]
@@ -637,6 +642,5 @@ def extract_patch_posts(start_date, end_date, max_records=10):
     patch_docs_sorted = sorted(
         patch_docs_unsorted, key=lambda x: x["metadata"]["receivedDateTime"]
     )
-    print(f"Total Patch Posts: {len(patch_docs_sorted)}")
 
     return patch_docs_sorted
