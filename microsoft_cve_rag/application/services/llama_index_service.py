@@ -715,6 +715,7 @@ async def extract_entities_relationships(
     documents_df: pd.DataFrame,
     document_type: str,
     max_prompt_length=3050,
+    process_all: bool = False,
 ) -> dict:
     """
     Extract entities and relationships from documents using LlamaIndex.
@@ -727,6 +728,7 @@ async def extract_entities_relationships(
     """
     if not isinstance(documents_df, pd.DataFrame) or documents_df.empty:
         return {}
+
     token_counter = {"input_tokens": 0, "output_tokens": 0, "total_cost": 0.0}
     extracted_data = {
         "symptoms": [],
@@ -738,7 +740,7 @@ async def extract_entities_relationships(
 
     cached_files = []
 
-    client = OpenAI()
+    # client = OpenAI()
     data_directory = r"C:\Users\emili\PycharmProjects\microsoft_cve_rag\microsoft_cve_rag\application\data"
     cache_dir = os.path.join(data_directory, "llm_cache")
     os.makedirs(cache_dir, exist_ok=True)
@@ -763,6 +765,19 @@ async def extract_entities_relationships(
 
     start_time = time.time()
     for _, row in tqdm(documents_df.iterrows(), total=len(documents_df)):
+
+        metadata = row.get('metadata', {})
+        if isinstance(metadata, str):
+            try:
+                metadata = json.loads(metadata)
+            except json.JSONDecodeError:
+                metadata = {}
+        etl_status = metadata.get('etl_processing_status', {})
+
+        if etl_status.get('entities_extracted', False) and not process_all:
+            logging.info(f"Skipping entity extraction for {row['node_id']} - already processed")
+            continue
+
         if document_type in metadata_columns:
             metadata_str = create_metadata_string_for_user_prompt(row, metadata_columns[document_type])
         else:
@@ -898,7 +913,16 @@ async def extract_entities_relationships(
                         logging.error(f"Error writing cache file {cache_file_path}: {e}")
 
                     extracted_data[key].append(extracted_entity)
+                    current_time = datetime.datetime.now().isoformat()
+                    if 'metadata' not in row:
+                        row['metadata'] = {}
+                    if 'etl_processing_status' not in row['metadata']:
+                        row['metadata']['etl_processing_status'] = {}
 
+                    row['metadata']['etl_processing_status'].update({
+                        'entities_extracted': True,
+                        'last_entity_extraction': current_time
+                    })
             except json.JSONDecodeError as e:
                 logging.error(f"Error decoding JSON for llm response in document {row['node_id']}: {e}")
                 continue
@@ -1712,22 +1736,26 @@ async def track_dataframe_documents(
                 doc_data[key] = value
             elif key == "metadata":
                 # Handle metadata field specially
-                if isinstance(value, str):
+                if isinstance(value, dict):
+                    # If it's already a dict, extract nested metadata if it exists
+                    if 'metadata' in value:
+                        metadata.update(value['metadata'])
+                    # Remove any nested metadata and update
+                    value_copy = value.copy()
+                    value_copy.pop('metadata', None)
+                    metadata.update(value_copy)
+                elif isinstance(value, str):
                     try:
                         # Try to parse if it's a JSON string
                         parsed_metadata = json.loads(value)
                         if isinstance(parsed_metadata, dict):
-                            # Remove any nested metadata key
+                            if 'metadata' in parsed_metadata:
+                                metadata.update(parsed_metadata['metadata'])
                             parsed_metadata.pop('metadata', None)
                             metadata.update(parsed_metadata)
                     except json.JSONDecodeError:
                         # If not valid JSON, store as is
                         metadata[key] = value
-                elif isinstance(value, dict):
-                    # If it's already a dict, remove nested metadata and update
-                    metadata_copy = value.copy()
-                    metadata_copy.pop('metadata', None)
-                    metadata.update(metadata_copy)
                 else:
                     # For any other type, store as is
                     metadata[key] = value

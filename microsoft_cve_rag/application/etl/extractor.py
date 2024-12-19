@@ -133,7 +133,8 @@ def process_kb_article(article):
         article["build_number"] = ()
     else:
         article["build_number"] = tuple(map(int, article["kb_id"].split(".")))
-    article["id"] = generate_kb_id(article)
+    if "id" not in article:
+        article["id"] = generate_kb_id(article)
     return article
 
 
@@ -298,6 +299,7 @@ def extract_kb_articles(start_date, end_date, max_records=10):
         {
             "$group": {
                 "_id": "$build_number",
+                "id": {"$first": "$id"},
                 "kb_id": {
                     "$first": {
                         "$concat": [
@@ -388,6 +390,7 @@ def extract_kb_articles(start_date, end_date, max_records=10):
         {
             "$group": {
                 "_id": "$build_number",
+                "id": {"$first": "$id"},
                 "kb_id": {
                     "$first": {
                         "$concat": [

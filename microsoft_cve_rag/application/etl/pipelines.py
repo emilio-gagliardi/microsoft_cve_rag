@@ -235,37 +235,53 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     logging.info("Begin Full ETL data transformation =====================================")
     start_time = time.time()
 
-    products_df = await asyncio.to_thread(
-        transformer.transform_products,
-        extracted_docs["products"]
+    products_df = None
+    if extracted_docs.get("products"):
+        products_df = await asyncio.to_thread(
+            transformer.transform_products,
+            extracted_docs["products"]
         )
-    product_builds_df = await asyncio.to_thread(
-        transformer.transform_product_builds,
-        extracted_docs["product_builds"]
-    )
-    logging.info(f"num product build df rows: {product_builds_df.shape[0]}")
-    kb_articles_combined_df = await asyncio.to_thread(
-        transformer.transform_kb_articles,
-        extracted_docs["kb_articles"][0],
-        extracted_docs["kb_articles"][1]
-    )
-    logging.info(f"num kb articles df rows: {kb_articles_combined_df.shape[0]}")
-    update_packages_df = await asyncio.to_thread(
-        transformer.transform_update_packages,
-        extracted_docs["update_packages"]
-    )
-    for doc in extracted_docs['msrc_posts']:
-        logging.info(f"msrc id: {doc['metadata']['id']}")
-    msrc_posts_df = await asyncio.to_thread(
-        transformer.transform_msrc_posts,
-        extracted_docs["msrc_posts"]
+    product_builds_df = None
+    if extracted_docs.get("product_builds"):
+        product_builds_df = await asyncio.to_thread(
+            transformer.transform_product_builds,
+            extracted_docs["product_builds"]
         )
-    logging.info(f"num msrc_posts_df rows: {msrc_posts_df.shape[0]}")
-    patch_posts_df = await asyncio.to_thread(
-        transformer.transform_patch_posts,
-        extracted_docs["patch_posts"]
-    )
-    logging.info(f"num patch_posts_df rows: {patch_posts_df.shape[0]}")
+        if product_builds_df is not None and not product_builds_df.empty:
+            logging.info(f"num product build df rows: {product_builds_df.shape[0]}")
+    kb_articles_combined_df = None
+    if extracted_docs.get("kb_articles") and len(extracted_docs["kb_articles"]) >= 2:
+        kb_articles_combined_df = await asyncio.to_thread(
+            transformer.transform_kb_articles,
+            extracted_docs["kb_articles"][0],
+            extracted_docs["kb_articles"][1]
+        )
+        if kb_articles_combined_df is not None and not kb_articles_combined_df.empty:
+            logging.info(f"num kb articles df rows: {kb_articles_combined_df.shape[0]}")
+    update_packages_df = None
+    if extracted_docs.get("update_packages"):
+        update_packages_df = await asyncio.to_thread(
+            transformer.transform_update_packages,
+            extracted_docs["update_packages"]
+        )
+    msrc_posts_df = None
+    if extracted_docs.get("msrc_posts"):
+        for doc in extracted_docs['msrc_posts']:
+            logging.info(f"msrc id: {doc['metadata']['id']}")
+        msrc_posts_df = await asyncio.to_thread(
+            transformer.transform_msrc_posts,
+            extracted_docs["msrc_posts"]
+        )
+        if msrc_posts_df is not None and not msrc_posts_df.empty:
+            logging.info(f"num msrc_posts_df rows: {msrc_posts_df.shape[0]}")
+    patch_posts_df = None
+    if extracted_docs.get("patch_posts"):
+        patch_posts_df = await asyncio.to_thread(
+            transformer.transform_patch_posts,
+            extracted_docs["patch_posts"]
+        )
+        if patch_posts_df is not None and not patch_posts_df.empty:
+            logging.info(f"num patch_posts_df rows: {patch_posts_df.shape[0]}")
 
     end_time = time.time()
     elapsed_time = end_time - start_time
@@ -279,6 +295,7 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     # EXTRACT SYMPTOMS, CAUSES, FIXES, AND TOOLS
     # FROM MSRCPosts and PatchManagementPosts.
     # Custom entity extraction
+    msrc_llm_extracted_data = None
     if isinstance(msrc_posts_df, pd.DataFrame) and not msrc_posts_df.empty:
         logging.debug(f"{msrc_posts_df.shape} : {msrc_posts_df.columns}")
 
@@ -295,8 +312,13 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
             msrc_total += count
     logging.info(f"{msrc_total} non-empty msrc items returned by extract_entities_relationships")
 
+    patch_llm_extracted_data = None
+    if isinstance(patch_posts_df, pd.DataFrame) and not patch_posts_df.empty:
+        logging.debug(f"{patch_posts_df.shape} : {patch_posts_df.columns}")
+
     patch_llm_extracted_data = await extract_entities_relationships(
-        patch_posts_df, "PatchManagementPost"
+        patch_posts_df,
+        "PatchManagementPost"
     )
     patch_total = 0
     for key, value in patch_llm_extracted_data.items():
@@ -305,17 +327,36 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
         else:
             count = len(value)
             patch_total += count
-
     logging.info(f"{patch_total} non-empty patch items returned by extract_entities_relationships")
-    combined_df = transformer.combine_and_split_dicts(msrc_llm_extracted_data, patch_llm_extracted_data)
-    all_symptoms_df = combined_df['symptoms']
-    logging.debug(f"{all_symptoms_df.shape} : {all_symptoms_df.sample(n=min(all_symptoms_df.shape[0], 6))}")
-    all_causes_df = combined_df['causes']
-    logging.debug(f"{all_causes_df.shape} : {all_causes_df.sample(n=min(all_causes_df.shape[0], 6))}")
-    all_fixes_df = combined_df['fixes']
-    logging.debug(f"{all_fixes_df.shape} : {all_fixes_df.sample(n=min(all_fixes_df.shape[0], 6))}")
-    all_tools_df = combined_df['tools']
-    logging.debug(f"{all_tools_df.shape} : {all_tools_df.sample(n=min(all_tools_df.shape[0], 6))}")
+
+    combined_df = None
+    all_symptoms_df = None
+    all_causes_df = None
+    all_fixes_df = None
+    all_tools_df = None
+
+    if (msrc_llm_extracted_data is not None or patch_llm_extracted_data is not None):
+        combined_df = transformer.combine_and_split_dicts(msrc_llm_extracted_data, patch_llm_extracted_data)
+
+        if combined_df and 'symptoms' in combined_df:
+            all_symptoms_df = combined_df['symptoms']
+            if not all_symptoms_df.empty:
+                logging.debug(f"{all_symptoms_df.shape} : {all_symptoms_df.sample(n=min(all_symptoms_df.shape[0], 6))}")
+
+        if combined_df and 'causes' in combined_df:
+            all_causes_df = combined_df['causes']
+            if not all_causes_df.empty:
+                logging.debug(f"{all_causes_df.shape} : {all_causes_df.sample(n=min(all_causes_df.shape[0], 6))}")
+
+        if combined_df and 'fixes' in combined_df:
+            all_fixes_df = combined_df['fixes']
+            if not all_fixes_df.empty:
+                logging.debug(f"{all_fixes_df.shape} : {all_fixes_df.sample(n=min(all_fixes_df.shape[0], 6))}")
+
+        if combined_df and 'tools' in combined_df:
+            all_tools_df = combined_df['tools']
+            if not all_tools_df.empty:
+                logging.debug(f"{all_tools_df.shape} : {all_tools_df.sample(n=min(all_tools_df.shape[0], 6))}")
 
     end_time = time.time()
     elapsed_time = end_time - start_time
@@ -497,6 +538,8 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
                 # UPSERT
                 await llama_vector_service.upsert_documents(llama_documents, verify_upsert=True)  # Enable verification during development
                 logging.info(f"Upserted {len(llama_documents)} documents to vector store")
+
+                current_time = datetime.now().isoformat()
                 # Track documents after successful upsert
                 for name, df in dataframe_conversions:
                     if name == 'kb_articles':
@@ -547,6 +590,7 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
 
     msrc_exclude_columns = [
         'node_id',
+        'id',
         'metadata',
         'excluded_embed_metadata_keys',
         'excluded_llm_metadata_keys',
@@ -560,16 +604,29 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
         'description',
         'embedding'
         ]
+
     patch_exclude_columns = [
         'node_id',
+        'id',
         'metadata',
+        'receivedDateTime',
+        'published',
+        'subject',
+        'topic',
+        'build_numbers',
+        'kb_ids',
+        'previous_id',
+        'next_id',
         'excluded_embed_metadata_keys',
         'excluded_llm_metadata_keys',
         'noun_chunks',
         'keywords',
         'text',
         'node_label',
-        'embedding'
+        'embedding',
+        'post_type',
+        'collection',
+        'conversation_link',
         ]
     kb_exclude_columns = [
         'node_id',
@@ -586,6 +643,7 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
         'article_url',
         'embedding'
         ]
+
     NULL_VALUE_REPLACEMENTS = {
         pd.NA: None,
         "None": None,
@@ -595,6 +653,7 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
         pd.NaT: None,
         np.nan: None
     }
+
     def convert_and_replace_nulls(df: pd.DataFrame) -> pd.DataFrame:
         """Convert categorical columns to object type and replace null values."""
         # Get categorical columns
@@ -624,9 +683,33 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
             metadata_dict = {
                 col: row[col] if isinstance(row[col], pd.Timestamp) else row[col]
                 for col in row.index
-                if col not in msrc_exclude_columns
+                if col not in msrc_exclude_columns and col != 'node_id'
+            }
+            # Ensure etl_processing_status is included in metadata
+            if 'metadata' in row:
+                source_metadata = row['metadata']
+                if isinstance(source_metadata, str):
+                    try:
+                        source_metadata = json.loads(source_metadata)
+                    except json.JSONDecodeError:
+                        source_metadata = {}
+
+                if isinstance(source_metadata, dict):
+                    # Update with source metadata, preserving our new values
+                    metadata_dict.update(source_metadata)
+
+            # Update ETL status
+            metadata_dict['etl_processing_status'] = {
+                "document_processed": True,
+                "nvd_extracted": True,
+                "entities_extracted": True,
+                "graph_prepared": True,
+                "vector_prepared": True,
+                "last_processed_at": datetime.now().isoformat(),
+                "processing_version": "1.0"
             }
 
+            # Create DocumentMetadata - it will handle all the nested dictionary logic now
             metadata = DocumentMetadata(
                 id=row['node_id'],
                 **metadata_dict
@@ -649,6 +732,7 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
             logging.info(f"Update result for document {row['node_id']}: {update_result}")
 
         logging.info(f"Updated {len(msrc_posts_df)} MSRC posts")
+
     print("STARTING PATCH DOCUMENT UPDATES")
     logging.debug(
         f"before document upsert - patch_posts_df.columns:"
@@ -665,25 +749,50 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
             logging.debug(f"Original row data:\n{row.to_dict()}")
             logging.debug(f"Columns being excluded: {patch_exclude_columns}")
 
-            # Convert row data into metadata dictionary first
-            metadata_dict = {
-                col: row[col] if isinstance(row[col], pd.Timestamp) else row[col]
-                for col in row.index
-                if col not in patch_exclude_columns
+            # Extract original metadata
+            original_metadata = {}
+            if 'metadata' in row:
+                source_metadata = row['metadata']
+                if isinstance(source_metadata, str):
+                    try:
+                        original_metadata = json.loads(source_metadata)
+                    except json.JSONDecodeError:
+                        original_metadata = {}
+                elif isinstance(source_metadata, dict):
+                    original_metadata = source_metadata
+
+            # Get new/modified fields only
+            new_metadata = {}
+            exclude_fields = set(patch_exclude_columns)
+
+            for col in row.index:
+                if col not in exclude_fields and not pd.isna(row[col]):
+                    value = row[col]
+                    if isinstance(value, pd.Timestamp):
+                        value = value.isoformat()
+                    new_metadata[col] = value
+
+            # Add ETL status
+            new_metadata['etl_processing_status'] = {
+                "document_processed": True,
+                "entities_extracted": True,
+                "graph_prepared": True,
+                "vector_prepared": True,
+                "last_processed_at": datetime.now().isoformat(),
+                "processing_version": "1.0"
             }
 
-            metadata = DocumentMetadata(
-                id=row['node_id'],
-                **metadata_dict
-            )
-            logging.debug(f"Created DocumentMetadata:\n{metadata.model_dump(exclude_none=False)}")
+            # Combine metadata and create instances
+            final_metadata = {**original_metadata, **new_metadata}
+            metadata = DocumentMetadata(**final_metadata)
 
+            # Create document with optional fields
             doc = Document(
                 id_=row['node_id'],
                 metadata=metadata,
-                text=row['text'],
-                embedding=row['embedding']
-                )
+                text=row['text'] if 'text' in row and not pd.isna(row['text']) else "",
+                embedding=row['embedding'] if 'embedding' in row and not pd.isna(row['embedding']) else None
+            )
             logging.debug(f"Created Document instance:\n{doc.model_dump(exclude_none=False)}")
 
             update_result = docstore_service.update_document(
@@ -708,8 +817,8 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
             # Convert row data into update dictionary, excluding specified columns
             update_data = {
                 col: (row[col] if isinstance(row[col], pd.Timestamp)
-                     else None if pd.isna(row[col])
-                     else row[col])
+                      else None if pd.isna(row[col])
+                      else row[col])
                 for col in row.index
                 if col not in kb_exclude_columns
             }
@@ -718,6 +827,34 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
                 update_data['text'] = row['text']
             if 'title' in row.index:
                 update_data['title'] = row['title']
+            # update the etl_processing_status dictionary with latest status values
+            if 'metadata' in row:
+                current_metadata = row['metadata']
+                if isinstance(current_metadata, str):
+                    try:
+                        current_metadata = json.loads(current_metadata)
+                    except json.JSONDecodeError:
+                        current_metadata = {}
+
+                if not isinstance(current_metadata, dict):
+                    current_metadata = {}
+
+                # Get or create etl_processing_status
+                etl_status = current_metadata.get('etl_processing_status', {})
+                if not isinstance(etl_status, dict):
+                    etl_status = {}
+
+                # Update ETL status
+                etl_status.update({
+                    'vector_prepared': True,
+                    'entities_extracted': True,
+                    'graph_prepared': True,
+                    'last_processed_at': datetime.now().isoformat()
+                })
+
+                # Update metadata in update_data
+                current_metadata['etl_processing_status'] = etl_status
+                update_data['metadata'] = current_metadata
             # Create filter to match documents
             filter_query = {
                 "id": row['node_id'],

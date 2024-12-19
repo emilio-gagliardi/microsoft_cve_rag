@@ -445,6 +445,40 @@ class DocumentService:
 
         return before, after
 
+    def update_etl_status(self, document_id: str, status_updates: Dict[str, Any]) -> int:
+        """
+        Update the ETL processing status of a document.
+
+        Args:
+            document_id (str): The ID of the document to update
+            status_updates (Dict[str, Any]): Dictionary containing ETL status updates
+                e.g., {"entities_extracted": True, "last_entity_extraction": "2024-03-13T12:00:00"}
+
+        Returns:
+            int: Number of documents modified
+        """
+        query = {}
+        if ObjectId.is_valid(document_id):
+            query["_id"] = ObjectId(document_id)
+        else:
+            query["id_"] = document_id
+
+        # Prepare the update dictionary with dot notation for nested fields
+        update_dict = {
+            f"metadata.etl_processing_status.{key}": value
+            for key, value in status_updates.items()
+        }
+
+        try:
+            logging.debug(f"Updating ETL status for document {document_id}: {status_updates}")
+            result = self.collection.update_one(query, {"$set": update_dict})
+            if result.modified_count == 0:
+                logging.warning(f"No document found or no changes made for ID: {document_id}")
+            return result.modified_count
+        except Exception as e:
+            logging.error(f"Error updating ETL status for document {document_id}: {e}")
+            raise
+
     def _describe(self):
         """
         Print all instance properties of the DocumentService.

@@ -139,7 +139,7 @@ async def load_products_graph_db(products: pd.DataFrame):
     # The ProductService ensures that the key-value pairs in the dictionary are used to create an instance of AsyncStructuredNode for Product
     product_service = ProductService(db_manager)
     new_products_list = []
-    if not products.empty:
+    if isinstance(products, pd.DataFrame) and not products.empty:
         NeomodelConfig.DATABASE_URL = get_graph_db_uri()
 
         # Bulk create products and return newly inserted nodes
@@ -193,7 +193,7 @@ async def load_product_builds_graph_db(product_builds: pd.DataFrame):
     product_build_service = ProductBuildService(db_manager)
     new_product_builds_list = []
     # Check if the DataFrame is not empty
-    if not product_builds.empty:
+    if isinstance(product_builds, pd.DataFrame) and not product_builds.empty:
         print(f"received product_builds: {product_builds.shape[0]}")
 
         # Set the database URL
@@ -248,7 +248,7 @@ async def load_kbs_graph_db(kb_articles: pd.DataFrame):
     }
     new_kb_article_nodes_list = []
     # Check if the DataFrame is not empty
-    if not kb_articles.empty:
+    if isinstance(kb_articles, pd.DataFrame) and not kb_articles.empty:
         kb_article_service = KBArticleService(db_manager)
 
         # Set the Neo4j database URL
@@ -308,7 +308,7 @@ async def load_update_packages_graph_db(update_packages: pd.DataFrame):
     update_packages_service = UpdatePackageService(db_manager)
     new_update_packages_list = []
     # Check if the DataFrame is not empty
-    if not update_packages.empty:
+    if isinstance(update_packages, pd.DataFrame) and not update_packages.empty:
         print(f"received update_packages: {update_packages.shape[0]}")
 
         # Set the Neo4j database URL
@@ -428,7 +428,7 @@ async def load_patch_posts_graph_db(patch_posts: pd.DataFrame):
     # Instantiate the PatchManagementPostService
     patch_posts_service = PatchManagementPostService(db_manager)
     all_nodes = []
-    if not patch_posts.empty:
+    if isinstance(patch_posts, pd.DataFrame) and not patch_posts.empty:
         NeomodelConfig.DATABASE_URL = get_graph_db_uri()
 
         # Group patch posts by thread_id
@@ -501,7 +501,7 @@ async def load_symptoms_graph_db(symptoms: pd.DataFrame):
     # Ensures that the list of dicts is properly converted into an AsyncStructuredNode Symptom when the bulk_create() is called.
     symptom_service = SymptomService(db_manager)
 
-    if not symptoms.empty:
+    if isinstance(symptoms, pd.DataFrame) and not symptoms.empty:
         NeomodelConfig.DATABASE_URL = get_graph_db_uri()
 
         # Bulk create products and return newly inserted nodes
@@ -535,7 +535,7 @@ async def load_causes_graph_db(causes: pd.DataFrame):
     # Ensures that the list of dicts is properly converted into an AsyncStructuredNode Cause when the bulk_create() is called.
     cause_service = CauseService(db_manager)
 
-    if not causes.empty:
+    if isinstance(causes, pd.DataFrame) and not causes.empty:
         NeomodelConfig.DATABASE_URL = get_graph_db_uri()
 
         # Bulk create products and return newly inserted nodes
@@ -569,7 +569,7 @@ async def load_fixes_graph_db(fixes: pd.DataFrame):
     # Ensures that the list of dicts is properly converted into an AsyncStructuredNode Cause when the bulk_create() is called.
     fix_service = FixService(db_manager)
 
-    if not fixes.empty:
+    if isinstance(fixes, pd.DataFrame) and not fixes.empty:
         NeomodelConfig.DATABASE_URL = get_graph_db_uri()
 
         # Bulk create products and return newly inserted nodes
@@ -601,7 +601,7 @@ async def load_tools_graph_db(tools: pd.DataFrame):
     # Ensures that the list of dicts is properly converted into an AsyncStructuredNode Cause when the bulk_create() is called.
     tool_service = ToolService(db_manager)
 
-    if not tools.empty:
+    if isinstance(tools, pd.DataFrame) and not tools.empty:
         NeomodelConfig.DATABASE_URL = get_graph_db_uri()
 
         # Bulk create products and return newly inserted nodes
@@ -633,7 +633,7 @@ async def load_technologies_graph_db(technologies: pd.DataFrame):
     # Ensures that the list of dicts is properly converted into an AsyncStructuredNode Cause when the bulk_create() is called.
     technology_service = TechnologyService(db_manager)
 
-    if not technologies.empty:
+    if isinstance(technologies, pd.DataFrame) and not technologies.empty:
         NeomodelConfig.DATABASE_URL = get_graph_db_uri()
 
         # Bulk create products and return newly inserted nodes

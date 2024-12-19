@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 from bson import ObjectId
 import pandas as pd
 
+
 class BaseMetadata(BaseModel):
     id: str  # This is required for all documents
     # Only include fields that are truly common across ALL document types
@@ -20,16 +21,19 @@ class BaseMetadata(BaseModel):
         "from_attributes": True
     }
 
-class DocumentMetadata(BaseMetadata):
 
-    added_to_vector_store: Optional[bool] = None
-    added_to_summary_index: Optional[bool] = None
-    added_to_graph_store: Optional[bool] = None
+class DocumentMetadata(BaseMetadata):
+    """
+    A flexible metadata class that can handle any document type's metadata.
+    Only defines the minimal required tracking fields, all other fields are handled dynamically.
+    """
     model_config = {
-        "extra": "allow",  # Allow additional fields at runtime
+        "extra": "allow",         # Allow any additional fields
         "arbitrary_types_allowed": True,
-        "from_attributes": True
+        "from_attributes": True,
+        "populate_by_name": True  # Allow population by field name
     }
+
     @field_validator('*')
     def convert_nan_to_none(cls, v):
         if pd.api.types.is_float(v) and pd.isna(v):
@@ -43,7 +47,7 @@ class Document(BaseModel):
     embedding: Optional[List[float]] = None
     metadata: DocumentMetadata
     text: Optional[str] = None
-    
+
     model_config = {
         "extra": "allow",  # Allow extra fields
         "arbitrary_types_allowed": True,  # Allow arbitrary types in metadata
