@@ -1,0 +1,92 @@
+[
+  {
+    "node_id": "822fd9f6-1a75-e4d1-5cb1-db19428a5406",
+    "subject": "Re: [patchmanagement] Re: 23H2 being dribbled out on Windows update",
+    "receivedDateTime": "2023-11-02T21:48:32+00:00",
+    "published": "2023-11-02T00:00:00",
+    "previous_id": null,
+    "next_id": "08e8bd27-8d8a-2abe-1ac7-9e22411385ba",
+    "thread_id": "23h2_dribbled_windows_update_5dadf8"
+  },
+  {
+    "node_id": "08e8bd27-8d8a-2abe-1ac7-9e22411385ba",
+    "subject": "RE: [patchmanagement] Re: 23H2 being dribbled out on Windows update",
+    "receivedDateTime": "2023-11-03T00:34:43+00:00",
+    "published": "2023-11-03T00:00:00",
+    "previous_id": "822fd9f6-1a75-e4d1-5cb1-db19428a5406",
+    "next_id": null,
+    "thread_id": "23h2_dribbled_windows_update_5dadf8"
+  },
+  {
+    "node_id": "c60fe673-ac9e-68fc-5101-72bafc59b1e0",
+    "subject": "AW: [patchmanagement] Windows LAPS on-premises issue and fix",
+    "receivedDateTime": "2023-11-02T18:26:36+00:00",
+    "published": "2023-11-02T00:00:00",
+    "previous_id": null,
+    "next_id": "9fbdb121-664d-9273-898e-9489df4ea86b",
+    "thread_id": "aw_windows_laps_onpremises_issue_fix_a8745d"
+  },
+  {
+    "node_id": "9fbdb121-664d-9273-898e-9489df4ea86b",
+    "subject": "Re: [patchmanagement] Windows LAPS on-premises issue and fix",
+    "receivedDateTime": "2023-11-03T00:34:43+00:00",
+    "published": "2023-11-03T00:00:00",
+    "previous_id": "c60fe673-ac9e-68fc-5101-72bafc59b1e0",
+    "next_id": null,
+    "thread_id": "aw_windows_laps_onpremises_issue_fix_a8745d"
+  },
+  {
+    "node_id": "2dde10c4-80fc-366a-6cc4-c1801594d17d",
+    "subject": "[patchmanagement] Issue with Windows 10 and the netlogon/lanmanworkstation services not starting",
+    "receivedDateTime": "2023-11-03T10:24:12+00:00",
+    "published": "2023-11-03T00:00:00",
+    "previous_id": null,
+    "next_id": "21fe2bc1-d888-0cef-314e-7578333b4649",
+    "thread_id": "issue_windows_10_netlogonlanmanworkstation_service_d1670f"
+  },
+  {
+    "node_id": "21fe2bc1-d888-0cef-314e-7578333b4649",
+    "subject": "RE: [patchmanagement] Issue with Windows 10 and the netlogon/lanmanworkstation services not starting",
+    "receivedDateTime": "2023-11-03T14:53:59+00:00",
+    "published": "2023-11-03T00:00:00",
+    "previous_id": "2dde10c4-80fc-366a-6cc4-c1801594d17d",
+    "next_id": null,
+    "thread_id": "issue_windows_10_netlogonlanmanworkstation_service_d1670f"
+  },
+  {
+    "node_id": "867b1857-61fa-3755-af0f-618e2d1de345",
+    "subject": "[patchmanagement] End of the week thoughts - what are your thoughts on 20 years of Patch Tuesday?",
+    "receivedDateTime": "2023-11-03T22:36:28+00:00",
+    "published": "2023-11-03T00:00:00",
+    "previous_id": null,
+    "next_id": "e389648a-b348-30c8-4631-358562901c62",
+    "thread_id": "end_week_thoughts_20_d35d41"
+  },
+  {
+    "node_id": "e389648a-b348-30c8-4631-358562901c62",
+    "subject": "Re: [patchmanagement] RE: End of the week thoughts - what are your thoughts on 20 years of Patch Tuesday?",
+    "receivedDateTime": "2023-11-04T10:15:18+00:00",
+    "published": "2023-11-04T00:00:00",
+    "previous_id": "867b1857-61fa-3755-af0f-618e2d1de345",
+    "next_id": "3c20d87c-8b58-fe26-346e-05db2f277b3e",
+    "thread_id": "end_week_thoughts_20_d35d41"
+  },
+  {
+    "node_id": "3c20d87c-8b58-fe26-346e-05db2f277b3e",
+    "subject": "Re: [patchmanagement] End of the week thoughts - what are your thoughts on 20 years of Patch Tuesday?",
+    "receivedDateTime": "2023-11-04T11:03:20+00:00",
+    "published": "2023-11-04T00:00:00",
+    "previous_id": "e389648a-b348-30c8-4631-358562901c62",
+    "next_id": "0d5d7f10-d47c-e94f-dd35-5bd6362bbd7e",
+    "thread_id": "end_week_thoughts_20_d35d41"
+  },
+  {
+    "node_id": "0d5d7f10-d47c-e94f-dd35-5bd6362bbd7e",
+    "subject": "Re: [patchmanagement] End of the week thoughts - what are your thoughts on 20 years of Patch Tuesday?",
+    "receivedDateTime": "2023-11-04T14:37:43+00:00",
+    "published": "2023-11-04T00:00:00",
+    "previous_id": "3c20d87c-8b58-fe26-346e-05db2f277b3e",
+    "next_id": null,
+    "thread_id": "end_week_thoughts_20_d35d41"
+  }
+]
