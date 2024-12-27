@@ -25,4 +25,9 @@ neomodel-basics-docs.txt
 
 notebooks/
 data/
+!microsoft_cve_rag/application/data/pair_programming/cascade_notes.md
+!microsoft_cve_rag/application/data/debug/
 package docs/
+
+# windsurf rules
+.windsurfrules
