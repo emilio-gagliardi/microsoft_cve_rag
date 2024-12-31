@@ -1953,13 +1953,13 @@ async def _create_and_configure_relationship(
 
         elif rel_class == graph_db_models.AsyncHasUpdatePackageRel:
             release_date = await get_release_date(source_node, target_node)
-            has_cumulative = await has_cumulative(source_node, target_node)
-            has_dynamic = await has_dynamic(source_node, target_node)
+            is_cumulative = await has_cumulative(source_node, target_node)
+            is_dynamic = await has_dynamic(source_node, target_node)
 
             initial_props = {
                 "release_date": release_date or datetime.now().strftime("%Y-%m-%d"),  # Default to current date
-                "has_cumulative": has_cumulative if has_cumulative is not None else False,
-                "has_dynamic": has_dynamic if has_dynamic is not None else False,
+                "has_cumulative": is_cumulative if is_cumulative is not None else False,
+                "has_dynamic": is_dynamic if is_dynamic is not None else False,
             }
             properties = {**base_properties, **initial_props} if initial_props else base_properties
             rel_instance = await rel_manager.connect(target_node, properties)
@@ -2566,13 +2566,13 @@ async def set_has_update_package_properties(
 
         # Compute or retrieve properties
         release_date = await get_release_date(source_node, target_node)
-        has_cumulative = await has_cumulative(source_node, target_node)
-        has_dynamic = await has_dynamic(source_node, target_node)
+        is_cumulative = await has_cumulative(source_node, target_node)
+        is_dynamic = await has_dynamic(source_node, target_node)
 
         properties = {
             "release_date": release_date or datetime.now().strftime("%Y-%m-%d"),  # Default to current date
-            "has_cumulative": has_cumulative if has_cumulative is not None else False,
-            "has_dynamic": has_dynamic if has_dynamic is not None else False,
+            "has_cumulative": is_cumulative if is_cumulative is not None else False,
+            "has_dynamic": is_dynamic if is_dynamic is not None else False,
         }
 
         # Update the relationship properties

@@ -435,26 +435,26 @@ async def load_patch_posts_graph_db(patch_posts: pd.DataFrame):
         grouped_posts = patch_posts.groupby("thread_id")
 
         for thread_id, group in grouped_posts:
-            # Look up existing emails for this thread
-            existing_emails = await lookup_thread_emails(thread_id)
-
+            # Convert records and handle datetime serialization
+            records = group.to_dict(orient="records")
+            serialized_records = []
+            
+            for record in records:
+                # Handle metadata datetime fields - convert to ISO string
+                if 'metadata' in record and isinstance(record['metadata'], dict):
+                    record['metadata'] = json.loads(json.dumps(record['metadata'], default=custom_json_serializer))
+                
+                # Handle published field - ensure it's a datetime object
+                if 'published' in record and isinstance(record['published'], (str, pd.Timestamp)):
+                    if isinstance(record['published'], str):
+                        record['published'] = datetime.fromisoformat(record['published'].replace('Z', '+00:00'))
+                    else:  # pd.Timestamp
+                        record['published'] = record['published'].to_pydatetime()
+                
+                serialized_records.append(record)
+            
             # Create new nodes
-            batch_nodes = await patch_posts_service.bulk_create(
-                group.to_dict(orient="records")
-            )
-
-            # Prepare new emails data for sequencing
-            all_emails = existing_emails + [
-                {"node_id": node.node_id, "receivedDateTime": node.receivedDateTime}
-                for node in batch_nodes
-            ]
-
-            # Determine the correct sequence
-            updates = await determine_email_sequence(all_emails)
-
-            # Update the sequence in the database
-            await update_email_sequence(updates, patch_posts_service)
-
+            batch_nodes = await patch_posts_service.bulk_create(serialized_records)
             all_nodes.extend(batch_nodes)
 
         # If new patch posts were created, update the response and run the Cypher query

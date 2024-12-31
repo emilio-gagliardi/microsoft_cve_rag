@@ -671,14 +671,20 @@ def is_empty_extracted_entity(entity: dict, entity_type: str) -> bool:
         bool: True if the entity is empty, False otherwise.
     """
     empty_fields = {
-        "Symptom": ["description", "symptom_label"],
-        "Cause": ["description", "cause_label"],
-        "Fix": ["description", "fix_label"],
-        "Tool": ["description", "tool_label"],
+        "SYMPTOM": ["description", "symptom_label"],
+        "CAUSE": ["description", "cause_label"],
+        "FIX": ["description", "fix_label"],
+        "TOOL": ["description", "tool_label"],
     }
 
+    # Convert entity_type to uppercase for case-insensitive comparison
+    entity_type_upper = entity_type.upper()
+    if entity_type_upper not in empty_fields:
+        logging.warning(f"Unknown entity type: {entity_type}")
+        return True
+
     # Check if all specified fields are empty or default values
-    for field in empty_fields.get(entity_type, []):
+    for field in empty_fields[entity_type_upper]:
         if entity.get(field):
             return False
     return True
@@ -772,7 +778,7 @@ async def extract_entities_relationships(
                 metadata = json.loads(metadata)
             except json.JSONDecodeError:
                 metadata = {}
-        etl_status = metadata.get('etl_processing_status', {})
+        etl_status = metadata.get('etl_processing_status')
 
         if etl_status.get('entities_extracted', False) and not process_all:
             logging.info(f"Skipping entity extraction for {row['node_id']} - already processed")
@@ -864,7 +870,7 @@ async def extract_entities_relationships(
                     logging.error(f"Error reading cache file {cache_file_path}: {e}")
                     # If cache file is corrupted, proceed with LLM extraction
 
-            logging.debug(f"Extracting {entity_type} from document {row['node_id']}...")
+            logging.info(f"Extracting {entity_type} from document {row['node_id']}...")
             # Use the LLM to generate the extraction
             try:
                 llm_response = await call_llm_no_logging_no_cache(system_prompt, user_prompt)
@@ -914,15 +920,25 @@ async def extract_entities_relationships(
 
                     extracted_data[key].append(extracted_entity)
                     current_time = datetime.datetime.now().isoformat()
-                    if 'metadata' not in row:
-                        row['metadata'] = {}
-                    if 'etl_processing_status' not in row['metadata']:
-                        row['metadata']['etl_processing_status'] = {}
+                    metadata_dict = row.get('metadata', {})
+                    if isinstance(metadata_dict, str):
+                        try:
+                            metadata_dict = json.loads(metadata_dict)
+                        except json.JSONDecodeError:
+                            metadata_dict = {}
 
-                    row['metadata']['etl_processing_status'].update({
+                    # Ensure etl_processing_status exists
+                    if 'etl_processing_status' not in metadata_dict:
+                        metadata_dict['etl_processing_status'] = {}
+
+                    # Update the status
+                    metadata_dict['etl_processing_status'].update({
                         'entities_extracted': True,
-                        'last_entity_extraction': current_time
+                        'last_processed_at': current_time
                     })
+
+                    # Update the row's metadata with our changes
+                    row['metadata'] = metadata_dict
             except json.JSONDecodeError as e:
                 logging.error(f"Error decoding JSON for llm response in document {row['node_id']}: {e}")
                 continue

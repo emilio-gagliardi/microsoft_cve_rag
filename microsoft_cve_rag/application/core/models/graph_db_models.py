@@ -537,7 +537,7 @@ class MSRCPost(AsyncStructuredNode):
     summary = StringProperty(default="")
     metadata = JSONProperty()
     embedding = ArrayProperty(FloatProperty())
-
+    post_type = StringProperty()
     # Publication Details
     published = DateTimeProperty()
     created_on = DateTimeFormatProperty(

@@ -6,15 +6,15 @@ import os
 import logging
 # from neomodel import AsyncStructuredNode
 import numpy as np
-import warnings
-from typing import Union, List, Dict, Any
+# import warnings
+from typing import (Union, List, Dict, Any, Optional)
 import pandas as pd
 from fuzzywuzzy import fuzz, process
 import re
 import hashlib
 import spacy
 import json
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from spacy.lang.en.stop_words import STOP_WORDS
 from collections import defaultdict
 from application.core.models.basic_models import (
@@ -33,12 +33,177 @@ from llama_index.core import Document as LlamaDocument
 import asyncio
 import marvin
 from marvin.ai.text import generate_llm_response
+import ast
 
 # from microsoft_cve_rag.application.core.models import graph_db_models
 
 marvin.settings.openai.chat.completions.model = "gpt-4o-mini"
 # embedding_service = EmbeddingService.from_provider_name("fastembed")
 logging.getLogger(__name__)
+
+# BEGIN PATCH FEATURE ENGINEERING HERLPERS ==================================
+
+
+def prepare_products(df):
+    df["product_name"] = df["product_name"].str.replace("_", " ")
+    df["product_full"] = df.apply(
+        lambda row: " ".join(
+            [
+                part
+                for part in [
+                    row["product_name"],
+                    row["product_version"],
+                    row["product_architecture"],
+                ]
+                if part not in ["NV", "NA"]
+            ]
+        ),
+        axis=1,
+    )
+    df["product_name_version"] = df.apply(
+        lambda row: " ".join(
+            [
+                part
+                for part in [row["product_name"], row["product_version"]]
+                if part not in ["NV"]
+            ]
+        ),
+        axis=1,
+    )
+
+    # Add additional search terms for "edge"
+    edge_terms = ["microsoft edge", "chromium", "chromiumbased", "chromium based"]
+    df.loc[df["product_name"] == "edge", "product_full"] = df.loc[
+        df["product_name"] == "edge", "product_full"
+    ].apply(lambda x: x + " " + " ".join(edge_terms))
+    df.loc[df["product_name"] == "edge", "product_name_version"] = df.loc[
+        df["product_name"] == "edge", "product_name_version"
+    ].apply(lambda x: x + " " + " ".join(edge_terms))
+
+    return df
+
+
+def fuzzy_search(text, search_terms, threshold=80):
+    if pd.isna(text):
+        return []
+    matches = set()
+    for term in search_terms:
+        if fuzz.partial_ratio(text.lower(), term.lower()) >= threshold:
+            matches.add(term)
+    return list(matches)
+
+
+def fuzzy_search_column(column, products_df, threshold=80):
+    product_mentions = []
+    for text in column:
+        if isinstance(text, list):
+            text = " ".join(text)
+        matches = fuzzy_search(text, products_df["product_full"], threshold)
+        if not matches:
+            matches = fuzzy_search(text, products_df["product_name_version"], threshold)
+        if not matches:
+            matches = fuzzy_search(text, products_df["product_name"], threshold)
+        product_mentions.append(matches)
+    return product_mentions
+
+
+def retain_most_specific(mentions, products_df):
+    specific_mentions = set()
+    for mention in mentions:
+        parts = mention.split()
+        if len(parts) == 3:
+            product_name, product_version, product_architecture = parts
+            if product_version != "NV" and product_architecture != "NA":
+                specific_mentions.add(mention)
+        elif len(parts) == 2:
+            product_name, product_version = parts
+            if product_version != "NV":
+                specific_mentions.add(mention)
+        else:
+            specific_mentions.add(mention)
+
+    # Remove less specific mentions
+    final_mentions = set()
+    for mention in specific_mentions:
+        if not any(mention in other for other in specific_mentions if other != mention):
+            final_mentions.add(mention)
+
+    return list(final_mentions)
+
+
+def convert_to_original_representation(mentions):
+    return [mention.replace(" ", "_") for mention in mentions]
+
+
+def construct_regex_pattern():
+    max_digits_per_group = (4, 4, 5, 5)
+    pattern = (
+        r"\b"
+        + r"\.".join(
+            [r"\d{1," + str(max_digits) + r"}" for max_digits in max_digits_per_group]
+        )
+        + r"\b"
+    )
+    return pattern
+
+
+# Function to extract build numbers from text
+def extract_build_numbers(text, pattern):
+    matches = re.findall(pattern, text)
+    build_numbers = [[int(part) for part in match.split(".")] for match in matches]
+    return build_numbers
+
+
+def extract_windows_kbs(text):
+    pattern = r"(?i)KB[-\s]?\d{6,7}"
+    matches = re.findall(pattern, text)
+    # Convert matches to uppercase and ensure the format is "KB-123456"
+    matches = [match.upper().replace(" ", "").replace("-", "") for match in matches]
+    matches = [f"KB-{match[2:]}" for match in matches]
+    return list(set(matches))
+
+
+def extract_edge_kbs(row):
+    edge_kbs = []
+    if "edge" in row["product_mentions"]:
+        for build_number in row["build_numbers"]:
+            build_str = ".".join(map(str, build_number))
+            edge_kbs.append(f"KB-{build_str}")
+    return list(set(edge_kbs))
+
+
+async def update_email_records(emails_df, document_service):
+    total_processed = 0
+    total_updated = 0
+    not_updated_docs = []
+
+    for index, row in emails_df.iterrows():
+        document_id = row["node_id"]
+        total_processed += 1
+        try:
+            document = Document(
+                id_=document_id,
+                product_mentions=row["product_mentions"],
+                build_numbers=row["build_numbers"],
+                kb_mentions=row["kb_mentions"],
+                metadata={"id": document_id},
+            )
+
+            updated = document_service.update_document(document_id, document)
+            if updated:
+                total_updated += 1
+            else:
+                not_updated_docs.append(document_id)
+                logging.debug(f"Document not updated: {document_id}")
+        except Exception as e:
+            not_updated_docs.append(document_id)
+            logging.error(
+                f"Exception {e}. Data input: doc id: {document_id}\n{row['product_mentions']}\n{row['build_numbers']}\n{row['kb_mentions']}"
+            )
+
+    logging.info(f"Processed {total_processed} documents, updated {total_updated} documents")
+    if not_updated_docs:
+        logging.debug(f"Documents not updated: {', '.join(map(str, not_updated_docs))}")
 
 
 def normalize_mongo_kb_id(kb_id_input):
@@ -992,8 +1157,257 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]], process_all: bool = F
 nlp = spacy.load("en_core_web_lg")
 
 
-def normalize_subject(subject):
-    # Define the patterns to remove
+def construct_natural_subject(noun_chunks, keywords, timestamp=None):
+    """
+    Construct a natural-sounding subject from noun chunks and keywords using spaCy.
+    Format: <best_candidate>_<product_mention>_<timestamp>
+    """
+    # First convert string representations of lists to actual lists if needed
+    if isinstance(noun_chunks, str):
+        try:
+            # Handle string representation of list
+            noun_chunks = ast.literal_eval(noun_chunks)
+        except (ValueError, SyntaxError):
+            noun_chunks = []
+
+    if isinstance(keywords, str):
+        try:
+            # Handle string representation of list
+            keywords = ast.literal_eval(keywords)
+        except (ValueError, SyntaxError):
+            keywords = []
+
+    # If we have no data, return empty string
+    if not noun_chunks and not keywords:
+        return ""
+
+    # List of products we're watching for, from general to specific
+    product_patterns = [
+        # Windows 11
+        (r"windows\s*11\b", "Windows 11"),
+        (r"windows\s*11.*?24h2\b", "Windows 11 Version 24H2"),
+        (r"windows\s*11.*?23h2\b", "Windows 11 Version 23H2"),
+        (r"windows\s*11.*?22h2\b", "Windows 11 Version 22H2"),
+        (r"windows\s*11.*?21h2\b", "Windows 11 Version 21H2"),
+        (r"windows\s*11.*?(x64|64|64[\s-]*bit)\b", "Windows 11 for x64-based Systems"),
+        (r"windows\s*11.*?24h2.*?(x64|64|64[\s-]*bit)\b", "Windows 11 Version 24H2 for x64-based Systems"),
+        (r"windows\s*11.*?23h2.*?(x64|64|64[\s-]*bit)\b", "Windows 11 Version 23H2 for x64-based Systems"),
+        (r"windows\s*11.*?22h2.*?(x64|64|64[\s-]*bit)\b", "Windows 11 Version 22H2 for x64-based Systems"),
+        (r"windows\s*11.*?21h2.*?(x64|64|64[\s-]*bit)\b", "Windows 11 Version 21H2 for x64-based Systems"),
+
+        # Windows 10
+        (r"windows\s*10\b", "Windows 10"),
+        (r"windows\s*10.*?23h2\b", "Windows 10 Version 23H2"),
+        (r"windows\s*10.*?22h2\b", "Windows 10 Version 22H2"),
+        (r"windows\s*10.*?21h2\b", "Windows 10 Version 21H2"),
+        (r"windows\s*10.*?(x64|64|64[\s-]*bit)\b", "Windows 10 for x64-based Systems"),
+        (r"windows\s*10.*?(32|32[\s-]*bit)\b", "Windows 10 for 32-bit Systems"),
+        (r"windows\s*10.*?23h2.*?(x64|64|64[\s-]*bit)\b", "Windows 10 Version 23H2 for x64-based Systems"),
+        (r"windows\s*10.*?22h2.*?(x64|64|64[\s-]*bit)\b", "Windows 10 Version 22H2 for x64-based Systems"),
+        (r"windows\s*10.*?21h2.*?(x64|64|64[\s-]*bit)\b", "Windows 10 Version 21H2 for x64-based Systems"),
+        (r"windows\s*10.*?23h2.*?(32|32[\s-]*bit)\b", "Windows 10 Version 23H2 for 32-bit Systems"),
+        (r"windows\s*10.*?22h2.*?(32|32[\s-]*bit)\b", "Windows 10 Version 22H2 for 32-bit Systems"),
+        (r"windows\s*10.*?21h2.*?(32|32[\s-]*bit)\b", "Windows 10 Version 21H2 for 32-bit Systems"),
+
+        # Edge
+        (r"(?:microsoft\s*)?edge\b", "Microsoft Edge"),
+        (r"(?:microsoft\s*)?edge.*?chromium", "Microsoft Edge (Chromium-based)"),
+        (r"(?:microsoft\s*)?edge.*?extended", "Microsoft Edge (Chromium-based) Extended Stable")
+    ]
+
+    def score_candidate_subject(text):
+        words = text.lower().split()
+        score = 0
+
+        # Penalize product mentions to avoid them in initial selection
+        text_lower = text.lower()
+        for pattern, _ in product_patterns:
+            if re.search(pattern, text_lower):
+                score -= 30  # Significant penalty for product mentions
+
+        # Score based on length (but not too much)
+        score += min(len(words), 8) * 5
+
+        # Bonus for action words/verbs
+        action_words = {
+            # High-importance terms (score ~20)
+            'vulnerability': 20,   # signals security exposure
+            'exploit': 20,         # signals active or potential exploitation
+            'unsupported': 20,     # indicates environment is no longer supported
+            'escalation': 20,      # signals a major issue has been escalated
+            'critical': 20,        # indicates severity is very high
+            'noncompliant': 20,    # variant/spelling related to "non compliant"
+            'compliance': 20,      # already in your dictionary, but ensure spelled variants are covered
+
+            # Medium-high terms (score ~15)
+            # Use for important actions or states that often necessitate urgent attention.
+            'rollback': 15,        # signals rolling back patches/updates
+            'uninstall': 15,       # indicates removing problematic updates
+            'regression': 15,      # indicates the update caused something to break
+            'dependency': 15,      # blocking or required component
+            'deadline': 15,        # a crucial timeline factor
+            'enable': 15,          # action that might be part of config changes
+            'disable': 15,         # likewise, can cause compliance issues
+            'retry': 15,           # re-attempting an install or deploy
+            'priority': 15,        # indicates urgency or triage
+
+            # Medium terms (score ~10)
+            # Use for words that highlight a problem or state but may not be catastrophic.
+            'conflict': 10,        # signals potential library/dll/app conflict
+            'blocked': 10,         # signals an install/deploy step is halted
+            'outage': 10,          # can be partial or total downtime
+            'downtime': 10,        # indicates system unavailability
+            'stuck': 10,           # in-progress patching or installation that fails to complete
+            'error': 10,           # already in your dictionary
+            'fail': 10,            # already in your dictionary
+            'issue': 10,           # already in your dictionary
+            'stability': 10,       # signals reliability concerns
+            'performance': 10,     # signals performance impacts
+            'incompatibility': 10, # indicates mismatch in versions or dependencies
+            'corrupt': 10,         # already in your dictionary
+
+            # Lower terms (score ~5)
+            # Use for words that might matter but aren’t always show-stoppers.
+            'delay': 5,            # non-critical postpone
+            'skip': 5,             # skipping a patch might be less urgent than failing
+            'unattended': 5,       # a mode of deployment
+            'interactive': 5,      # a mode of deployment
+            'schedule': 5,         # might matter, but not necessarily urgent
+            'notify': 5,           # indicates communication step
+            'log': 5,              # logging or log files
+            'backup': 5            # not always urgent, but relevant to patch strategy
+
+        }
+
+        for action, bonus in action_words.items():
+            if action in text_lower:
+                score += bonus
+
+        # Penalty for very generic phrases
+        generic_words = {'the', 'a', 'an', 'this', 'that', 'these', 'those'}
+        if all(w in generic_words for w in words):
+            score -= 30
+
+        return score
+
+    # Score all candidates
+    candidates = []
+    if noun_chunks:
+        candidates.extend((chunk, score_candidate_subject(chunk)) for chunk in noun_chunks)
+    if keywords:
+        candidates.extend((kw, score_candidate_subject(kw)) for kw in keywords)
+
+    # Sort by score and take the best one
+    if not candidates:
+        return ""
+
+    best_candidate = max(candidates, key=lambda x: x[1])[0]
+
+    # Scan both noun_chunks and keywords for product mentions
+    def find_product_mention(text_list):
+        if not text_list:
+            return None
+
+        def get_specificity_score(product_name):
+            """Calculate how specific a product name is based on its components"""
+            # Count meaningful components like version, architecture, etc.
+            components = 0
+            product_lower = product_name.lower()
+            if "version" in product_lower:
+                components += 1
+            if any(arch in product_lower for arch in ["x64", "32-bit"]):
+                components += 1
+            if any(ver in product_lower for ver in ["21h2", "22h2", "23h2", "24h2"]):
+                components += 1
+            if "extended" in product_lower:
+                components += 1
+            if "chromium" in product_lower:
+                components += 1
+            # Base product adds 1 (windows 10, windows 11, edge)
+            components += 1
+            return components
+
+        found_product = None
+        max_specificity = -1
+
+        for text in text_list:
+            text_lower = text.lower()
+            for pattern, product_name in product_patterns:
+                if re.search(pattern, text_lower):
+                    specificity = get_specificity_score(product_name)
+                    if found_product is None or specificity > max_specificity:
+                        found_product = product_name
+                        max_specificity = specificity
+        return found_product
+
+    # First check noun_chunks as they're likely to be more precise
+    product_mention = find_product_mention(noun_chunks)
+
+    # If no product found in noun_chunks, check keywords
+    if not product_mention:
+        product_mention = find_product_mention(keywords)
+
+    # Format timestamp
+    ts = ""
+    if timestamp:
+        try:
+            # Try to parse the timestamp if it's a string
+            if isinstance(timestamp, str):
+                dt = datetime.fromisoformat(timestamp.replace('Z', '+00:00'))
+            else:
+                dt = timestamp
+            ts = dt.strftime("%Y%m%d_%H%M%S")
+        except (ValueError, AttributeError):
+            pass
+
+    # Construct final subject
+    parts = []
+
+    # Add best candidate (main action/issue)
+    parts.append(best_candidate.strip())
+
+    # Add product if found
+    if product_mention:
+        parts.append(product_mention)
+
+    # Add timestamp if available
+    if ts:
+        parts.append(ts)
+
+    # Join with underscores
+    return "_".join(parts)
+
+
+def normalize_subject(subject, text=None, noun_chunks=None, keywords=None, timestamp=None):
+    """
+    Normalize a subject string, or generate one from metadata if cleaning removes all content.
+    Prioritizes the raw subject while still cleaning it up for better indexing.
+
+    Args:
+        subject: Original subject string
+        text: Optional text content to use if subject is empty
+        noun_chunks: Optional pre-extracted noun chunks
+        keywords: Optional pre-extracted keywords
+        timestamp: Optional ISO 8601 timestamp string. If not provided, current time will be used.
+    """
+    def get_fallback_subject():
+        # Use provided timestamp or current time
+        ts = timestamp or datetime.now().isoformat()
+        # Remove timezone and subsecond precision
+        ts = ts.split('.')[0].split('+')[0].split('-07:00')[0]
+        return f"patch_management_thread_{ts}"
+
+    if not subject:
+        # Handle truly empty subjects (rare case)
+        constructed = construct_natural_subject(noun_chunks or [], keywords or [], timestamp)
+        if constructed:
+            logging.warning(f"Generated subject for empty input: {constructed}")
+            subject = constructed
+        else:
+            logging.error("No content available to generate subject")
+            return get_fallback_subject()
+
+    # Initial cleanup of standard patterns
     patterns_to_remove = [
         r"\[patchmanagement\]",
         r"\[External\]",
@@ -1001,52 +1415,43 @@ def normalize_subject(subject):
         r"🟣",  # Specifically remove this emoji
     ]
 
-    # Remove the specified patterns including the space immediately after
+    # Remove standard patterns
     for pattern in patterns_to_remove:
-        subject = re.sub(pattern + r"\s*", "", subject, flags=re.IGNORECASE)
+        subject = re.sub(pattern, "", subject, flags=re.IGNORECASE)
+
+    # Handle email prefixes - keep replacing until no more changes
+    prefix_pattern = r"(?i:^|\s+)(RE|FW|FWD|AW)\s*[_:]?\s+"
+    prev_subject = None
+    while prev_subject != subject:
+        prev_subject = subject
+        subject = re.sub(prefix_pattern, " ", subject, flags=re.IGNORECASE)
+        subject = subject.strip()
 
     # Remove any remaining emojis or special symbols
     subject = re.sub(r"[^\w\s]", "", subject).strip()
 
-    # Lowercase and tokenize the subject
+    # If cleaning removed all content, try to construct from metadata
+    if not subject or subject.isspace():
+        logging.warning("Subject empty after cleaning, attempting reconstruction")
+        constructed = construct_natural_subject(noun_chunks or [], keywords or [], timestamp)
+        if constructed:
+            logging.info(f"Reconstructed subject from metadata: {constructed}")
+            subject = constructed
+        else:
+            logging.warning("Could not reconstruct subject from metadata")
+            return get_fallback_subject()
+
+    # Lowercase and tokenize
     words = subject.lower().split()
 
     # Remove stop words
     words = [word for word in words if word not in STOP_WORDS]
 
-    # Get the first 5 words for raw extraction
-    first_five_words = "_".join(words[:5])
+    if not words:
+        return get_fallback_subject()
 
-    # Extract key phrases using spaCy
-    doc = nlp(" ".join(words))
-    noun_chunks = list(doc.noun_chunks)
-    key_phrases = [chunk.text.replace(" ", "_") for chunk in noun_chunks[:5]]
-
-    # Check the similarity between the first 5 words and each key phrase
-    meaningful_key_phrases = []
-    for phrase in key_phrases:
-        similarity = fuzz.ratio(first_five_words, phrase)
-        if similarity < 70:  # Threshold can be adjusted based on needs
-            meaningful_key_phrases.append(phrase)
-
-    # Combine the first 5 words and meaningful key phrases
-    combined_words = first_five_words
-    if meaningful_key_phrases:
-        combined_words += "_" + "_".join(meaningful_key_phrases[:2])
-
-    # Deduplicate by keeping the first occurrence of each word
-    words_list = combined_words.split("_")
-    deduplicated_words = []
-    seen = set()
-    for word in words_list:
-        if word not in seen:
-            deduplicated_words.append(word)
-            seen.add(word)
-
-    # Join the deduplicated words back into a single string
-    deduplicated_combined_words = "_".join(deduplicated_words)
-
-    return deduplicated_combined_words
+    # Join with underscores for final format
+    return "_".join(words)
 
 
 def generate_thread_id(subject):
@@ -1064,15 +1469,26 @@ def generate_thread_id(subject):
 def group_emails(df, similarity_threshold=90):
     groups = defaultdict(list)
     for idx, row in df.iterrows():
-        normalized_subject = normalize_subject(row["metadata"]["subject"])
+        subject = row["metadata"].get("subject", "")
+        text = row.get("text") # DO NOT MODIFY
+        noun_chunks = row.get("metadata", {}).get("evaluated_noun_chunks", []) # DO NOT MODIFY
+        keywords = row.get("metadata", {}).get("evaluated_keywords", []) # DO NOT MODIFY
+        timestamp = row.get("metadata", {}).get("receivedDateTime") # DO NOT MODIFY
+        normalized_subj = normalize_subject(
+            subject,
+            text=text,
+            noun_chunks=noun_chunks,
+            keywords=keywords,
+            timestamp=timestamp
+        )
         matched = False
         for key in groups:
-            if fuzz.ratio(normalized_subject, key) >= similarity_threshold:
+            if fuzz.ratio(normalized_subj, key) >= similarity_threshold:
                 groups[key].append(idx)
                 matched = True
                 break
         if not matched:
-            groups[normalized_subject].append(idx)
+            groups[normalized_subj].append(idx)
     return groups
 
 
@@ -1143,12 +1559,660 @@ def remove_metadata_fields(
     return metadata
 
 
-def transform_patch_posts(patch_posts: List[Dict[str, Any]], process_all: bool = False) -> pd.DataFrame:
-    """Transform patch posts, handling both new and pre-processed records efficiently.
+def group_by_normalized_subject(
+    df: pd.DataFrame,
+    subject_col: str = "subject",
+    threshold: int = 90
+) -> Dict[str, List[int]]:
+    """
+    Groups DataFrame indices by subject similarity.
+    For rows with same stripped subject (e.g. "Re: [patchmanagement]"), ensures they get the same
+    synthesized subject if stripping removes all content.
 
     Args:
-        patch_posts: List of patch post dictionaries
-        process_all: If True, process all records. If False, only process new records.
+        df (pd.DataFrame): Dataframe to group
+        subject_col (str): Column name of the DataFrame containing subject text
+        threshold (int): Minimum ratio for fuzzy matching
+
+    Returns:
+        Dict[str, List[int]]: A dictionary where the keys are normalized subjects and the values are lists of indices in the DataFrame
+    """
+    # First pass: Group by raw subject to find rows that need the same synthesized subject
+    raw_subject_groups = defaultdict(list)
+    for idx, row in df.iterrows():
+        subject = row[subject_col]
+        if pd.isna(subject):
+            subject = ""
+        raw_subject_groups[subject.lower()].append(idx)
+
+    # Process each raw subject group
+    groups = defaultdict(list)
+    processed_subjects = {}  # Maps raw subject to normalized subject
+
+    # First normalize all raw subjects
+    for raw_subject, indices in raw_subject_groups.items():
+        if raw_subject not in processed_subjects:
+            # Get data from first row in group to normalize subject
+            row = df.iloc[indices[0]]
+            text = row.get("text", "") # DO NOT MODIFY
+            noun_chunks = row.get("noun_chunks", []) # DO NOT MODIFY
+            keywords = row.get("keywords", []) # DO NOT MODIFY
+            timestamp = row.get("receivedDateTime") # DO NOT MODIFY
+
+            normalized_subj = normalize_subject(
+                raw_subject,
+                text=text,
+                noun_chunks=noun_chunks,
+                keywords=keywords,
+                timestamp=timestamp
+            )
+            processed_subjects[raw_subject] = normalized_subj
+
+    # Now group by normalized subjects with fuzzy matching
+    normalized_groups = defaultdict(list)
+    for raw_subject, indices in raw_subject_groups.items():
+        normalized_subj = processed_subjects[raw_subject]
+
+        # Try to match with existing groups
+        matched = False
+        best_match = None
+        best_ratio = -1
+
+        for key in normalized_groups:
+            ratio = fuzz.ratio(normalized_subj.lower(), key.lower())
+            if ratio >= threshold and ratio > best_ratio:
+                best_ratio = ratio
+                best_match = key
+                matched = True
+
+        if matched:
+            normalized_groups[best_match].extend(indices)
+        else:
+            normalized_groups[normalized_subj].extend(indices)
+
+    return normalized_groups
+
+
+_historical_docs_cache = {}
+
+
+def find_previous_thread_doc(
+    normalized_subject: str,
+    before_date: datetime,
+    collection: str = "docstore",
+    lookback_days: int = 30
+) -> Optional[Dict]:
+    """
+    Find the most recent historical document in a thread before a given date.
+
+    Args:
+        normalized_subject: The normalized subject to match
+        before_date: Find documents before this date
+        collection: MongoDB collection name to query
+        lookback_days: Number of days to look back for historical documents
+
+    Returns:
+        The most recent matching document, or None if none found
+    """
+    global _historical_docs_cache
+    from application.services.document_service import DocumentService
+
+    # Initialize document service
+    document_service = DocumentService(db_name="report_docstore", collection_name=collection)
+
+    # Create cache key using date only (since published dates are at midnight)
+    cache_key = f"{collection}_{before_date.date()}"
+
+    if cache_key not in _historical_docs_cache:
+        # Calculate the lookback window
+        query_end = before_date
+        lookback_start = query_end - timedelta(days=lookback_days)
+
+        # Query for processed documents within the lookback window
+        query = {
+            "metadata.collection": "patch_management",
+            "metadata.published": {
+                "$lt": query_end,
+                "$gte": lookback_start
+            },
+            "metadata.etl_processing_status.document_processed": True
+        }
+        logging.info(
+            f"Querying MongoDB for historical documents:\n"
+            f"  End date: {query_end}\n"
+            f"  Start date: {lookback_start}\n"
+            f"  Query: {query}"
+        )
+
+        result = document_service.query_documents(
+            query=query,
+            sort=[("metadata.subject", 1), ("metadata.receivedDateTime", 1)]
+        )
+
+        # Pre-process and sort docs by normalized subject for binary search
+        processed_docs = []
+        for doc in result["results"]:
+            doc_subject = doc.get("metadata", {}).get("subject", "") # DO NOT MODIFY
+            doc_text = doc.get("text", "") # DO NOT MODIFY
+            doc_noun_chunks = doc.get("metadata", {}).get("evaluated_noun_chunks", None)
+            doc_noun_chunks = [] if pd.isna(doc_noun_chunks) else doc_noun_chunks
+            doc_keywords = doc.get("metadata", {}).get("evaluated_keywords", None)
+            doc_keywords = [] if pd.isna(doc_keywords) else doc_keywords
+            doc_received_date = doc.get("metadata", {}).get("receivedDateTime", "") # DO NOT MODIFY
+
+            # Normalize the subject before using it as a key
+            norm_subject = normalize_subject(
+                doc_subject,
+                text=doc_text,
+                noun_chunks=doc_noun_chunks,
+                keywords=doc_keywords,
+                timestamp=doc_received_date
+            )
+            processed_docs.append((norm_subject, doc))
+
+        # Sort by normalized subject AND receivedDateTime
+        processed_docs.sort(
+            key=lambda x: (
+                x[0],  # normalized subject
+                datetime.fromisoformat(x[1]["metadata"].get("receivedDateTime", ""))  # preserves timezone
+            )
+        )
+
+        # Log the sorted documents to verify order
+        # logging.info("Sorted documents:")
+        # for norm_subj, doc in processed_docs:
+        #     logging.info(f"  Normalized: {norm_subj}")
+        #     logging.info(f"  Original: {doc['metadata'].get('subject', '')}")
+        #     logging.info(f"  ID: {doc.get('id_', '')}")
+        #     logging.info(f"  Date: {doc['metadata'].get('receivedDateTime', '')}")
+        #     logging.info("---")
+
+        _historical_docs_cache[cache_key] = processed_docs
+        logging.info(f"Cached {len(processed_docs)} historical documents for {cache_key}")
+
+        # for norm_subj, doc in _historical_docs_cache[cache_key]:
+        #     logging.info(f"  Subject: {norm_subj}")
+        #     logging.info(f"  Original: {doc['metadata'].get('subject', '')}")
+        #     logging.info(f"  ID: {doc.get('id_', '')}")
+        #     logging.info(f"  Date: {doc['metadata'].get('receivedDateTime', '')}")
+        #     logging.info("---")
+
+    # Constants for fuzzy matching thresholds
+    HIGH_MATCH_THRESHOLD = 90
+    FALLBACK_MATCH_THRESHOLD = 85
+
+    # Group-based search
+    docs = _historical_docs_cache[cache_key]
+    if not docs:
+        return None
+
+    # Handle empty normalized_subject
+    if not normalized_subject:
+        return None
+
+    first_char = normalized_subject[0]
+
+    # Find a good starting point based on first character
+    start_idx = 0
+    for i, (subj, _) in enumerate(docs):
+        if not subj:  # Skip empty subjects
+            continue
+        if subj[0] >= first_char:
+            start_idx = i
+            break
+
+    # Search through subject groups
+    current_idx = start_idx
+    best_matches = []
+    best_ratio = 0
+
+    while current_idx < len(docs):
+        current_subject, current_doc = docs[current_idx]
+        match_ratio = fuzz.ratio(normalized_subject.lower(), current_subject.lower())
+
+        # logging.info(f"\nChecking group at position {current_idx}/{len(docs)}:\n"
+        #             f"  Target: {normalized_subject}\n"
+        #             f"  Current: {current_subject}\n"
+        #             f"  Original: {current_doc['metadata'].get('subject', '')}\n"
+        #             f"  Match ratio: {match_ratio}")
+
+        # First try to find matches above HIGH_MATCH_THRESHOLD
+        if match_ratio >= HIGH_MATCH_THRESHOLD:
+            print(f"\n{'='*50}\nFound high match: {match_ratio}\n{'='*50}")
+            if match_ratio > best_ratio:
+                best_ratio = match_ratio
+                best_matches = []
+
+            # Collect all docs in this group
+            group_idx = current_idx
+            while group_idx < len(docs) and docs[group_idx][0] == current_subject:
+                if match_ratio == best_ratio:
+                    best_matches.append((match_ratio, docs[group_idx][1]))
+                group_idx += 1
+
+            # Skip to next group
+            current_idx = group_idx
+
+        # If no high-confidence match, try fallback threshold
+        elif match_ratio >= FALLBACK_MATCH_THRESHOLD:
+            # Only collect fallback matches if we haven't found any high-confidence matches
+            if best_ratio < HIGH_MATCH_THRESHOLD:
+                if match_ratio > best_ratio:
+                    best_ratio = match_ratio
+                    best_matches = []
+
+                # Collect all docs in this group
+                group_idx = current_idx
+                while group_idx < len(docs) and docs[group_idx][0] == current_subject:
+                    if match_ratio == best_ratio:
+                        best_matches.append((match_ratio, docs[group_idx][1]))
+                    group_idx += 1
+
+                # Skip to next group
+                current_idx = group_idx
+            else:
+                # Skip this group since we already have high-confidence matches
+                while current_idx < len(docs) and docs[current_idx][0] == current_subject:
+                    current_idx += 1
+        else:
+            # Move to next different subject
+            current_subject = docs[current_idx][0]
+            while current_idx < len(docs) and docs[current_idx][0] == current_subject:
+                current_idx += 1
+
+            # If we've moved past subjects starting with a higher first letter, we can stop
+            if current_idx < len(docs) and docs[current_idx][0][0] > first_char:
+                break
+
+    # Return latest matching document if any meet threshold
+    if best_matches:
+        # First try to find the latest document with next_id=None
+        latest_doc = None
+        latest_date = None
+
+        for ratio, doc in best_matches:
+            if doc["metadata"].get("next_id") is None:
+                doc_date = datetime.fromisoformat(doc["metadata"].get("receivedDateTime", ""))
+                if latest_date is None or doc_date > latest_date:
+                    latest_date = doc_date
+                    latest_doc = (ratio, doc)
+
+        # If no end-of-thread doc found, take the latest by date
+        if latest_doc is None:
+            logging.warning("No end-of-thread document found, using latest by date")
+            latest_doc = max(
+                best_matches,
+                key=lambda x: datetime.fromisoformat(x[1]["metadata"].get("receivedDateTime", ""))
+            )
+
+        # Log statistics about matching documents
+        # for ratio, doc in best_matches:
+        #     logging.info(
+        #         f"Found matching document:\n"
+        #         f"  Ratio: {ratio}\n"
+        #         f"  ID: {doc['id_']}\n"
+        #         f"  Subject: {doc['metadata'].get('subject', '')}\n"
+        #         f"  Date: {doc['metadata'].get('receivedDateTime')}\n"
+        #         f"  Next ID: {doc['metadata'].get('next_id')}"
+        #     )
+
+        logging.info(
+            f"Selected latest match:\n"
+            f"  Ratio: {latest_doc[0]}\n"
+            f"  ID: {latest_doc[1]['id_']}\n"
+            f"  Subject: {latest_doc[1]['metadata'].get('subject', '')}\n"
+            f"  Date: {latest_doc[1]['metadata'].get('receivedDateTime')}\n"
+            f"  Next ID: {latest_doc[1]['metadata'].get('next_id')}"
+        )
+        return latest_doc[1]
+
+    logging.info(f"No match found above threshold {FALLBACK_MATCH_THRESHOLD}")
+    return None
+
+
+def transform_patch_posts_v2(
+    patch_posts: List[Dict[str, Any]],
+    process_all: bool = False
+) -> pd.DataFrame:
+    """
+    Transform patch management posts with thread management and historical document integration.
+
+    This transformer handles both new and preprocessed documents, maintaining thread continuity
+    and proper chronological ordering. It can process either all documents or only threads
+    containing new documents.
+
+    Workflow:
+    1. Load and Prepare:
+       - Convert all documents to DataFrame format
+       - Extract standard fields from metadata to columns
+       - Normalize column names and data types
+
+    2. Thread Processing:
+       - Group documents by normalized subject
+       - For each group:
+         a. Find historical documents from the last 30 days
+         b. Sort all documents chronologically by receivedDateTime
+         c. Link documents in chronological order:
+            - Set thread_id (preserve existing or generate new)
+            - Set previous_id/next_id for document sequence
+         d. Preserve historical document linking:
+            - Maintain existing thread_id and previous_id
+            - Update next_id of last historical to first in-batch
+            - Update previous_id of first in-batch to last historical
+
+    3. Document Status:
+       - Preserve existing etl_processing_status for processed documents
+       - Only update status for new documents:
+         * Set document_processed = True
+         * Initialize other status fields as False
+         * Add timestamp and version
+
+    Args:
+        patch_posts: List of patch management post dictionaries
+        process_all: If True, process and return all documents.
+                    If False, only process threads containing at least one new document.
+
+    Returns:
+        pd.DataFrame: Transformed documents with proper thread management and metadata.
+                     Includes columns for node_id, metadata, and standard fields.
+
+    Note:
+        Historical documents are fetched from MongoDB and must have been previously processed
+        (document_processed=True in their etl_processing_status).
+    """
+    if not patch_posts:
+        print("No patch posts to transform.")
+        return None
+
+    df = pd.DataFrame(patch_posts)
+    logging.info(f"Loaded {len(df)} patch posts")
+
+    # Standard fields to move from metadata
+    metadata_fields_to_move = [
+        "receivedDateTime",
+        "published",
+        "subject",
+        "conversation_link",
+        "cve_mentions",
+        "evaluated_noun_chunks",
+        "post_type",
+        "evaluated_keywords",
+        "tags",
+        "collection",
+    ]
+
+    # Move needed fields from metadata into top-level columns if not already present
+    for field in metadata_fields_to_move:
+        if field not in df.columns:
+            df[field] = df["metadata"].apply(lambda x: x.get(field, None))
+
+    df = df.rename(
+        columns={
+            "id_": "node_id",
+            "evaluated_noun_chunks": "noun_chunks",
+            "evaluated_keywords": "keywords",
+            "cve_mentions": "cve_ids",
+            "kb_mentions": "kb_ids",
+        }
+    )
+    # Sort KB IDs in reverse if present
+    if "kb_ids" in df.columns:
+        df["kb_ids"] = df["kb_ids"].apply(
+            lambda x: sorted(x, reverse=True) if isinstance(x, list) else x
+        )
+
+    # Each doc is PatchManagementPost
+    df["node_label"] = "PatchManagementPost"
+
+    # Flag records that are new vs. preprocessed
+    df["is_processed"] = df["metadata"].apply(
+        lambda m: m.get("etl_processing_status", {}).get("document_processed", False)
+    )
+
+    # Group all docs by subject similarity regardless of process_all
+    groups = group_by_normalized_subject(df, subject_col="subject")
+
+    if process_all:
+        # Process everything but still maintain grouping
+        df_to_process = df
+        logging.info(f"Processing all {len(df)} docs with thread grouping.")
+    else:
+        # If there are no new docs, there's nothing to do
+        unprocessed_df = df[~df["is_processed"]]
+        if unprocessed_df.empty:
+            logging.info("No new documents found; returning None unless you want to re-process everything.")
+            return None
+
+        # We only want to unify threads that contain at least one new doc
+        new_indices = set(unprocessed_df.index)
+
+        # We'll gather all docs from the groups that have any new doc
+        indices_to_include = []
+        for norm_subj, idx_list in groups.items():
+            if any(i in new_indices for i in idx_list):
+                indices_to_include.extend(idx_list)
+
+        df_to_process = df.loc[indices_to_include].copy()
+        logging.info(f"Processing {len(df_to_process)} docs from threads containing new docs.")
+
+    # Now we can process the documents in df_to_process
+    # We'll use the same groups we already calculated
+    process_groups = groups
+
+    # We'll store updated rows in a list, then concat them
+    processed_rows = []
+
+    for norm_subj, idx_list in process_groups.items():
+        group_df = df_to_process.loc[idx_list].copy()  # Create explicit copy
+
+        # Get earliest date from group
+        earliest_date = pd.to_datetime(group_df["receivedDateTime"]).min()
+        # logging.info(f"\nReceived dates for group:")
+        # for idx, row in group_df.iterrows():
+        #     logging.info(f"  Node ID: {row['node_id']}")
+        #     logging.info(f"  Received: {pd.to_datetime(row['receivedDateTime'])}")
+        #     logging.info(f"  Subject: {row.get('metadata', {}).get('subject', 'NO_SUBJECT')}")
+        #     logging.info("---")
+
+        # Query for the most recent historical document before our earliest
+        historical_doc = find_previous_thread_doc(
+            normalized_subject=norm_subj,
+            before_date=earliest_date,
+            collection="docstore"
+        )
+
+        # Pause and show status
+        # input("\nPress Enter to continue to next subject group...")
+
+        if historical_doc:
+            # Convert historical doc to DataFrame row with same schema
+            historical_df = pd.DataFrame([{
+                "node_id": historical_doc["id_"],
+                "metadata": {
+                    **historical_doc["metadata"],
+                    "is_historical": True,  # Mark as historical for tracking
+                },
+                "subject": historical_doc["metadata"].get("subject", ""),
+                "receivedDateTime": datetime.fromisoformat(str(historical_doc["metadata"].get("receivedDateTime", ""))),
+                "published": historical_doc["metadata"].get("published", ""),
+                "conversation_link": historical_doc["metadata"].get("conversation_link", ""),
+                "cve_mentions": historical_doc["metadata"].get("cve_mentions", []),
+                "noun_chunks": historical_doc["metadata"].get("evaluated_noun_chunks", []),
+                "post_type": historical_doc["metadata"].get("post_type", ""),
+                "keywords": historical_doc["metadata"].get("evaluated_keywords", []),
+                "tags": historical_doc["metadata"].get("tags", []),
+                "collection": historical_doc["metadata"].get("collection", "patch_management"),
+                "node_label": "PatchManagementPost",
+                "kb_ids": historical_doc["metadata"].get("kb_mentions", []),
+                "cve_ids": historical_doc["metadata"].get("cve_mentions", []),
+                "previous_id": historical_doc["metadata"].get("previous_id", None),
+            }])
+
+            logging.info(
+                f"Found historical document for subject '{norm_subj}' "
+                f"(ID: {historical_doc['id_']}, receivedDateTime: {historical_doc['metadata'].get('receivedDateTime')})"
+            )
+
+            # Combine historical with current group and sort chronologically
+            group_df = pd.concat([historical_df, group_df], ignore_index=True)
+
+        # Sort by receivedDateTime - already datetime objects
+        group_df = group_df.sort_values("receivedDateTime")
+        node_ids = group_df["node_id"].tolist()
+
+        # Get thread_id from historical doc if it exists, otherwise generate new one
+        thread_id = None
+        if historical_doc:
+            thread_id = historical_doc["metadata"].get("thread_id")
+        if not thread_id:
+            thread_id = norm_subj
+
+        group_rows = []
+        # Update the linking between documents
+        for i, idx in enumerate(group_df.index):
+            row = group_df.loc[idx].copy()  # Create explicit copy of the row
+            m = row["metadata"].copy()
+
+            # Set thread_id for all documents in group
+            m["thread_id"] = thread_id
+
+            # Set previous and next IDs based on position in sorted list and document type
+            next_id = node_ids[i + 1] if i < len(node_ids) - 1 else None
+            if m.get("is_historical", False):
+                # For historical docs, preserve their existing previous_id and only update next_id
+                previous_id = m.get("previous_id")  # Keep existing previous_id
+                m["next_id"] = next_id
+            else:
+                # For in-batch docs, set both previous and next
+                previous_id = node_ids[i - 1] if i > 0 else None
+                m["previous_id"] = previous_id
+                m["next_id"] = next_id
+
+            # Update processing status only for new documents
+            if not m.get("etl_processing_status", {}).get("document_processed", False):
+                current_time = datetime.now(timezone.utc).isoformat()
+                m["etl_processing_status"] = {
+                    "document_processed": True,
+                    "entities_extracted": False,
+                    "graph_prepared": False,
+                    "vector_prepared": False,
+                    "last_processed_at": current_time,
+                    "processing_version": "1.0"
+                }
+
+            row["metadata"] = m
+
+            # Extract fields from metadata to top-level columns
+            row["thread_id"] = thread_id  # Use thread_id directly
+            row["post_type"] = m.get("post_type", "")
+            row["product_mentions"] = m.get("product_mentions", [])
+            row["build_numbers"] = m.get("build_numbers", [])
+            row["published"] = m.get("published", "")
+            row["previous_id"] = previous_id  # Use previous_id directly
+            row["next_id"] = next_id  # Use next_id directly
+
+            group_rows.append(row)
+
+        # Create DataFrame for this group and append to processed_rows
+        if group_rows:
+            group_df = pd.DataFrame(group_rows)
+            processed_rows.append(group_df)
+            logging.info(f"Processed group with subject '{norm_subj}' - {len(group_rows)} documents")
+
+    # Combine all processed groups
+    if processed_rows:
+        # Filter out empty DataFrames before concatenation
+        non_empty_rows = [df for df in processed_rows if not df.empty]
+        final_df = pd.concat(non_empty_rows, axis=0, ignore_index=True)
+        logging.info(f"Transformed {len(final_df)} patch posts (including historical thread docs)")
+        try:
+            # Convert DataFrame to detailed markdown format
+            output_lines = ["# Patch Posts Debug Output\n"]
+
+            # Group documents by normalized subject for better organization
+            subject_groups = {}
+            for _, row in final_df.iterrows():
+                thread_id = row["metadata"].get("thread_id")
+                if thread_id not in subject_groups:
+                    subject_groups[thread_id] = []
+                # Convert row to dict and ensure metadata is a dict
+                row_dict = row.to_dict()
+                if isinstance(row_dict["metadata"], str):
+                    try:
+                        row_dict["metadata"] = json.loads(row_dict["metadata"])
+                    except:
+                        row_dict["metadata"] = {}
+                elif not isinstance(row_dict["metadata"], dict):
+                    row_dict["metadata"] = {}
+                subject_groups[thread_id].append(row_dict)
+
+            # Output each thread group
+            for thread_id, docs in subject_groups.items():
+                output_lines.append(f"\n## Thread Group: {thread_id}\n")
+
+                # Sort docs by receivedDateTime
+                docs.sort(key=lambda x: x["receivedDateTime"])
+
+                # Output thread statistics
+                historical_count = sum(1 for doc in docs if doc["metadata"].get("is_historical", False))
+                output_lines.append(f"- Total Documents: {len(docs)}")
+                output_lines.append(f"- Historical Documents: {historical_count}")
+                output_lines.append(f"- In-batch Documents: {len(docs) - historical_count}\n")
+
+                # Output document details in chronological order
+                output_lines.append("### Documents (Chronological Order)\n")
+                for doc in docs:
+                    metadata = doc["metadata"]
+                    is_historical = metadata.get("is_historical", False)
+                    doc_type = "Historical" if is_historical else "In-batch"
+
+                    output_lines.append("```")
+                    output_lines.append(f"Document Type: {doc_type}")
+                    output_lines.append(f"Node ID: {doc['node_id']}")
+                    output_lines.append(f"Subject: {doc['subject']}")
+                    output_lines.append(f"Received: {doc['receivedDateTime']}")
+                    output_lines.append(f"Published: {doc['published'].isoformat() if pd.notnull(doc['published']) else 'None'}")
+                    output_lines.append(f"Thread ID: {metadata.get('thread_id', 'None')}")
+                    output_lines.append(f"Previous ID: {metadata.get('previous_id', 'None')}")
+                    output_lines.append(f"Next ID: {metadata.get('next_id', 'None')}")
+                    output_lines.append(f"Collection: {metadata.get('collection', 'None')}")
+                    output_lines.append(f"Is Historical: {metadata.get('is_historical', False)}")
+                    output_lines.append("```\n")
+
+                # Write to markdown file
+                output_path = "C:/Users/emili/PycharmProjects/microsoft_cve_rag/microsoft_cve_rag/application/data/debug/patch_posts_debug.md"
+                os.makedirs(os.path.dirname(output_path), exist_ok=True)
+                with open(output_path, "w", encoding="utf-8") as f:
+                    f.write("\n".join(output_lines))
+
+                logging.info(f"Debug output written to {output_path}")
+
+                # Log summary statistics
+                total_docs = len(final_df)
+                historical_docs = sum(1 for _, row in final_df.iterrows()
+                                    if isinstance(row["metadata"], dict)
+                                    and row["metadata"].get("is_historical", False))
+                logging.info(f"\nOverall Statistics:")
+                logging.info(f"Total documents: {total_docs}")
+                logging.info(f"Historical documents: {historical_docs}")
+                logging.info(f"In-batch documents: {total_docs - historical_docs}")
+                logging.info(f"Number of threads: {len(subject_groups)}")
+
+        except Exception as e:
+            logging.error(f"Error writing debug output: {e}", exc_info=True)
+        return final_df
+
+    return None
+
+
+def patch_fe_transformer(
+    docs: List[Dict[str, Any]],
+    products_df: pd.DataFrame
+) -> pd.DataFrame:
+    """
+    Transform the extracted patch documents to populate product mentions,
+    build numbers, and KB references. Ignores thread_id/previous_id/next_id logic.
+    Returns a DataFrame ready for updates.
     """
     metadata_fields_to_move = [
         "receivedDateTime",
@@ -1163,19 +2227,17 @@ def transform_patch_posts(patch_posts: List[Dict[str, Any]], process_all: bool =
         "collection",
     ]
 
-    if not patch_posts:
-        print("No patch posts to transform.")
+    if not docs:
+        print("No patch posts to featur e engineer.")
         return None
-
-    df = pd.DataFrame(patch_posts)
-
+    # Convert docs to DataFrame for easier manipulation
+    patch_posts_df = pd.DataFrame(docs)
     # Extract metadata fields
     for field in metadata_fields_to_move:
-        if field not in df.columns:
-            df[field] = df["metadata"].apply(lambda x: x.get(field, None))
+        if field not in patch_posts_df.columns:
+            patch_posts_df[field] = patch_posts_df["metadata"].apply(lambda x: x.get(field, None))
 
-    # Rename columns
-    df = df.rename(
+    patch_posts_df = patch_posts_df.rename(
         columns={
             "id_": "node_id",
             "evaluated_noun_chunks": "noun_chunks",
@@ -1184,121 +2246,61 @@ def transform_patch_posts(patch_posts: List[Dict[str, Any]], process_all: bool =
             "kb_mentions": "kb_ids",
         }
     )
-    df["kb_ids"] = df["kb_ids"].apply(lambda x: sorted(x, reverse=True))
-    # Add node_label
-    df["node_label"] = "PatchManagementPost"
+    # Example columns in the DataFrame might differ in real code
+    # Assume 'text', 'noun_chunks', 'keywords', etc. are present
+    patch_posts_df["windows_kbs"] = None
+    patch_posts_df["edge_kbs"] = None
 
-    # Partition records based on whether they've been processed before
-    is_processed = df["metadata"].apply(
-        lambda x: x.get("etl_processing_status", {}).get("document_processed", False)
+    patch_posts_df["product_mentions_noun_chunks"] = fuzzy_search_column(
+        patch_posts_df["noun_chunks"], products_df
     )
-    preprocessed_records = df[is_processed].copy()
-    new_records = df[~is_processed].copy()
+    patch_posts_df["product_mentions_keywords"] = fuzzy_search_column(
+        patch_posts_df["keywords"], products_df
+    )
 
-    logging.info(f"Found {len(preprocessed_records)} pre-processed records and {len(new_records)} new records")
+    # Combine product mentions, then refine them
+    patch_posts_df["product_mentions"] = patch_posts_df.apply(
+        lambda row: list(
+            set(row["product_mentions_noun_chunks"] + row["product_mentions_keywords"])
+        ),
+        axis=1,
+    )
+    patch_posts_df["product_mentions"] = patch_posts_df["product_mentions"].apply(
+        lambda mentions: retain_most_specific(mentions, products_df)
+    )
+    patch_posts_df["product_mentions"] = patch_posts_df["product_mentions"].apply(
+        convert_to_original_representation
+    )
 
-    # Determine which records to process based on process_all flag
-    if process_all:
-        records_to_process = df
-        logging.info("Processing all records as requested")
-    else:
-        records_to_process = new_records
-        if not preprocessed_records.empty:
-            logging.info(f"Skipping {len(preprocessed_records)} pre-processed records")
+    # Extract build numbers
+    regex_pattern = construct_regex_pattern()
+    patch_posts_df["build_numbers"] = patch_posts_df["text"].apply(
+        lambda x: extract_build_numbers(x, regex_pattern) if pd.notna(x) else []
+    )
 
-    if not records_to_process.empty:
-        # Process emails
-        records_to_process = process_emails(records_to_process)
+    # Extract Windows and Edge KB references
+    patch_posts_df["windows_kbs"] = patch_posts_df["text"].apply(
+        lambda x: extract_windows_kbs(x) if pd.notna(x) else []
+    )
+    patch_posts_df["edge_kbs"] = patch_posts_df.apply(extract_edge_kbs, axis=1)
+    patch_posts_df["kb_mentions"] = patch_posts_df.apply(
+        lambda row: list(set(row["windows_kbs"] + row["edge_kbs"])), axis=1
+    )
 
-        # Update processing status in metadata
-        current_time = datetime.utcnow().isoformat()
-        records_to_process["metadata"] = records_to_process["metadata"].apply(
-            lambda x: {
-                **x,
-                "etl_processing_status": {
-                    "document_processed": True,
-                    "entities_extracted": False,
-                    "graph_prepared": False,
-                    "vector_prepared": False,
-                    "last_processed_at": current_time,
-                    "processing_version": "1.0"  # Useful for future schema migrations
-                }
-            }
-        )
-    else:
-        records_to_process = pd.DataFrame()
+    # Clean up
+    patch_posts_df.drop(
+        columns=[
+            "windows_kbs",
+            "edge_kbs",
+            "product_mentions_noun_chunks",
+            "product_mentions_keywords",
+        ],
+        inplace=True,
+    )
 
-    # Return logic based on process_all flag
-    if not process_all:
-        # Return only newly processed records
-        if not records_to_process.empty:
-            # Make metadata JSON safe
-            metadata_fields_to_move.append("build_numbers")
-            records_to_process["metadata"] = records_to_process["metadata"].apply(
-                lambda x: remove_metadata_fields(x, metadata_fields_to_move)
-            )
-            records_to_process["metadata"] = records_to_process["metadata"].apply(make_json_safe_metadata)
-            records_to_process["excluded_embed_metadata_keys"] = [[] for _ in range(len(records_to_process))]
-            records_to_process["excluded_embed_metadata_keys"] = records_to_process["excluded_embed_metadata_keys"].apply(
-                lambda x: list(
-                    set(x if isinstance(x, list) else [])
-                    | {
-                        "previous_id",
-                        "cve_ids",
-                        "kb_ids",
-                        "next_id",
-                        "node_label",
-                        "subject",
-                        "etl_processing_status"  # Exclude processing status from embeddings
-                    }
-                )
-            )
-            # Remove duplicate columns
-            records_to_process = records_to_process.loc[:, ~records_to_process.columns.duplicated()]
-            records_to_process["published"] = pd.to_datetime(records_to_process["published"])
-            print(f"Total new patch posts transformed: {records_to_process.shape[0]}")
-            return records_to_process
-        return None
-    else:
-        # Combine and return all records
-        if not preprocessed_records.empty and not records_to_process.empty:
-            combined_df = pd.concat([preprocessed_records, records_to_process], axis=0, ignore_index=True)
-        elif not preprocessed_records.empty:
-            combined_df = preprocessed_records
-        elif not records_to_process.empty:
-            combined_df = records_to_process
-        else:
-            logging.error("No records to process")
-            return None
+    return patch_posts_df
 
-        # Make metadata JSON safe
-        metadata_fields_to_move.append("build_numbers")
-        combined_df["metadata"] = combined_df["metadata"].apply(
-            lambda x: remove_metadata_fields(x, metadata_fields_to_move)
-        )
-        combined_df["metadata"] = combined_df["metadata"].apply(make_json_safe_metadata)
-        combined_df["excluded_embed_metadata_keys"] = [[] for _ in range(len(combined_df))]
-        combined_df["excluded_embed_metadata_keys"] = combined_df["excluded_embed_metadata_keys"].apply(
-            lambda x: list(
-                set(x if isinstance(x, list) else [])
-                | {
-                    "previous_id",
-                    "cve_ids",
-                    "kb_ids",
-                    "next_id",
-                    "node_label",
-                    "subject",
-                    "etl_processing_status"  # Exclude processing status from embeddings
-                }
-            )
-        )
-        # Remove duplicate columns
-        combined_df = combined_df.loc[:, ~combined_df.columns.duplicated()]
-        combined_df["published"] = pd.to_datetime(combined_df["published"])
-        print(f"Total patch posts transformed: {combined_df.shape[0]}")
-        return combined_df
-
-# End Patch Transformer ========================================
+# End Feature ENgineering Patch Transformer ===================================
 
 
 def transform_symptoms(symptoms: List[Dict[str, Any]]) -> pd.DataFrame:
@@ -1360,6 +2362,7 @@ def transform_fixes(fixes: List[Dict[str, Any]]) -> pd.DataFrame:
                 reliability="MEDIUM",
             )
         df["labels"] = df["labels"].apply(lambda x: x[0] if isinstance(x, list) else x)
+        df["severity_type"] = df["severity_type"].fillna("NST")
 
         print(f"Total Fixes transformed: {df.shape[0]}")
         # print(f"Columns: {df.columns}")
@@ -1539,13 +2542,20 @@ def _create_metadata_from_row(
             return value.isoformat()
         elif isinstance(value, (pd.Series, np.ndarray)):
             # Handle Series or arrays
+            if value.size == 0:
+                return []
             return value.tolist()
         elif isinstance(value, list):
             # Handle lists and nested lists
+            if not value:
+                return []
             return [
                 process_value(sub_value) if isinstance(sub_value, list) else sub_value
                 for sub_value in value
             ]
+        elif isinstance(value, dict):
+            # Handle dictionaries
+            return {k: process_value(v) for k, v in value.items()}
         elif pd.api.types.is_scalar(value):
             # Handle scalar NaN, NAType, and primitive types
             if pd.isna(value) or isinstance(value, pd._libs.missing.NAType):
@@ -1745,7 +2755,7 @@ def convert_df_to_llamadoc_kb_articles(
             logging.error(f"Error processing row row_data {row.to_dict()} \nerror {str(e)}")
 
     logging.info(
-        f"Completed conversion of DataFrame to LlamaDocuments "
+        f"Completed conversion of KB Articles to LlamaDocuments "
         f"with total documents: {len(llama_documents)}"
     )
     return llama_documents
@@ -2015,7 +3025,7 @@ def convert_df_to_llamadoc_fixes(
                 "reliability": row.get("reliability", "HIGH"),
                 "readability": row.get("readability", "HIGH"),
                 "excluded_embed_metadata_keys": ["node_label", "fix_label", "cve_ids"],
-                "excluded_llm_metadata_keys": []
+                "excluded_llm_metadata_keys": [],
             }
 
             # Update metadata with defaults
@@ -2293,6 +3303,8 @@ def convert_df_to_llamadoc_patch_posts(
                 "extracted_causes": row.get("extracted_causes", []),
                 "extracted_fixes": row.get("extracted_fixes", []),
                 "extracted_tools": row.get("extracted_tools", []),
+                "excluded_embed_metadata_keys": row.get("excluded_embed_metadata_keys", []),
+                "excluded_llm_metadata_keys": row.get("excluded_llm_metadata_keys", []),
                 "etl_processing_status": row.get("etl_processing_status", {
                     'document_processed': True,
                     'entities_extracted': True,
@@ -2344,9 +3356,8 @@ def convert_df_to_llamadoc_patch_posts(
                 text=_handle_na_text(row["text"]),
                 doc_id=row["node_id"],
                 extra_info=metadata_dict,
-                excluded_embed_metadata_keys=metadata_dict["excluded_embed_metadata_keys"],
-                excluded_llm_metadata_keys=metadata_dict["excluded_llm_metadata_keys"],
-            )
+                excluded_embed_metadata_keys=metadata_dict.get("excluded_embed_metadata_keys", []) if isinstance(metadata_dict.get("excluded_embed_metadata_keys"), list) else [],
+                excluded_llm_metadata_keys=metadata_dict.get("excluded_llm_metadata_keys", []) if isinstance(metadata_dict.get("excluded_llm_metadata_keys"), list) else [],            )
             llama_documents.append(doc)
 
             # Log document creation

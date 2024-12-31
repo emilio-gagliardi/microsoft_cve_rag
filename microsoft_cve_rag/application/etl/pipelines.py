@@ -277,9 +277,11 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     patch_posts_df = None
     if extracted_docs.get("patch_posts"):
         patch_posts_df = await asyncio.to_thread(
-            transformer.transform_patch_posts,
-            extracted_docs["patch_posts"]
+            transformer.transform_patch_posts_v2,
+            extracted_docs["patch_posts"],
+            True
         )
+
         if patch_posts_df is not None and not patch_posts_df.empty:
             logging.info(f"num patch_posts_df rows: {patch_posts_df.shape[0]}")
 
@@ -590,7 +592,6 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
 
     msrc_exclude_columns = [
         'node_id',
-        'id',
         'metadata',
         'excluded_embed_metadata_keys',
         'excluded_llm_metadata_keys',
@@ -602,12 +603,22 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
         'published',
         'title',
         'description',
-        'embedding'
+        'embedding',
+        'post_type',
+        'collection',
+        'kb_ids',
+        'source',
+        'build_numbers',
+        'impact_type',
+        'severity_type',
+        'product_build_ids',
+        'summary',
+        'cve_fixes',
+        'cve_mentions',
         ]
 
     patch_exclude_columns = [
         'node_id',
-        'id',
         'metadata',
         'receivedDateTime',
         'published',
@@ -615,8 +626,6 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
         'topic',
         'build_numbers',
         'kb_ids',
-        'previous_id',
-        'next_id',
         'excluded_embed_metadata_keys',
         'excluded_llm_metadata_keys',
         'noun_chunks',
@@ -679,24 +688,27 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
             logging.debug(f"Original row data:\n{row.to_dict()}")
             logging.debug(f"Columns being excluded: {msrc_exclude_columns}")
 
+            exclude_fields = set(msrc_exclude_columns)
             # Convert row data into metadata dictionary first
             metadata_dict = {
-                col: row[col] if isinstance(row[col], pd.Timestamp) else row[col]
+                col: (pd.Timestamp(row[col]).to_pydatetime() if isinstance(row[col], (pd.Timestamp, np.datetime64))
+                      else None if row[col] is pd.NA
+                      else row[col])
                 for col in row.index
-                if col not in msrc_exclude_columns and col != 'node_id'
+                if col not in exclude_fields
             }
             # Ensure etl_processing_status is included in metadata
-            if 'metadata' in row:
-                source_metadata = row['metadata']
-                if isinstance(source_metadata, str):
-                    try:
-                        source_metadata = json.loads(source_metadata)
-                    except json.JSONDecodeError:
-                        source_metadata = {}
+            # if 'metadata' in row:
+            #     source_metadata = row['metadata']
+            #     if isinstance(source_metadata, str):
+            #         try:
+            #             source_metadata = json.loads(source_metadata)
+            #         except json.JSONDecodeError:
+            #             source_metadata = {}
 
-                if isinstance(source_metadata, dict):
-                    # Update with source metadata, preserving our new values
-                    metadata_dict.update(source_metadata)
+            #     if isinstance(source_metadata, dict):
+            #         # Update with source metadata, preserving our new values
+            #         metadata_dict.update(source_metadata)
 
             # Update ETL status
             metadata_dict['etl_processing_status'] = {
@@ -734,11 +746,7 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
         logging.info(f"Updated {len(msrc_posts_df)} MSRC posts")
 
     print("STARTING PATCH DOCUMENT UPDATES")
-    logging.debug(
-        f"before document upsert - patch_posts_df.columns:"
-        f"\n{patch_posts_df.dtypes}"
-        f"\n{patch_posts_df.columns}"
-    )
+
     # Update Patch Management Posts
     if isinstance(patch_posts_df, pd.DataFrame) and not patch_posts_df.empty:
         patch_posts_df = convert_and_replace_nulls(patch_posts_df)
@@ -750,27 +758,31 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
             logging.debug(f"Columns being excluded: {patch_exclude_columns}")
 
             # Extract original metadata
-            original_metadata = {}
-            if 'metadata' in row:
-                source_metadata = row['metadata']
-                if isinstance(source_metadata, str):
-                    try:
-                        original_metadata = json.loads(source_metadata)
-                    except json.JSONDecodeError:
-                        original_metadata = {}
-                elif isinstance(source_metadata, dict):
-                    original_metadata = source_metadata
+            # original_metadata = {}
+            # if 'metadata' in row:
+            #     source_metadata = row['metadata']
+            #     if isinstance(source_metadata, str):
+            #         try:
+            #             original_metadata = json.loads(source_metadata)
+            #         except json.JSONDecodeError:
+            #             original_metadata = {}
+            #     elif isinstance(source_metadata, dict):
+            #         original_metadata = source_metadata
 
             # Get new/modified fields only
             new_metadata = {}
             exclude_fields = set(patch_exclude_columns)
 
             for col in row.index:
-                if col not in exclude_fields and not pd.isna(row[col]):
-                    value = row[col]
-                    if isinstance(value, pd.Timestamp):
+                col_name = col if isinstance(col, str) else str(col)
+                value = row[col]
+                # Check if the field itself exists (is not NA)
+                if col_name not in exclude_fields and value is not pd.NA:
+                    if col_name == "receivedDateTime" and isinstance(value, pd.Timestamp):
                         value = value.isoformat()
-                    new_metadata[col] = value
+                    elif col_name == "published" and isinstance(value, pd.Timestamp):
+                        value = value.to_pydatetime()
+                    new_metadata[col_name] = value
 
             # Add ETL status
             new_metadata['etl_processing_status'] = {
@@ -783,8 +795,12 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
             }
 
             # Combine metadata and create instances
-            final_metadata = {**original_metadata, **new_metadata}
-            metadata = DocumentMetadata(**final_metadata)
+            # final_metadata = {**original_metadata, **new_metadata}
+            final_metadata = {**new_metadata}
+            metadata = DocumentMetadata(
+                id=row['node_id'],
+                **final_metadata
+            )
 
             # Create document with optional fields
             doc = Document(
@@ -816,9 +832,9 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
 
             # Convert row data into update dictionary, excluding specified columns
             update_data = {
-                col: (row[col] if isinstance(row[col], pd.Timestamp)
-                      else None if pd.isna(row[col])
-                      else row[col])
+                col: (row[col].to_pydatetime() if isinstance(row[col], pd.Timestamp)
+                    else None if row[col] is pd.NA
+                    else row[col])
                 for col in row.index
                 if col not in kb_exclude_columns
             }
@@ -894,7 +910,7 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     return response
 # END FULL INGESTION PIPELINE ===============================================
 
-# BEGIN PATCH FEATURE ENGINEERING HERLPERS ==================================
+# # BEGIN PATCH FEATURE ENGINEERING HERLPERS ==================================
 
 
 def prepare_products(df):
@@ -936,93 +952,93 @@ def prepare_products(df):
     return df
 
 
-def fuzzy_search(text, search_terms, threshold=80):
-    if pd.isna(text):
-        return []
-    matches = set()
-    for term in search_terms:
-        if fuzz.partial_ratio(text.lower(), term.lower()) >= threshold:
-            matches.add(term)
-    return list(matches)
+# def fuzzy_search(text, search_terms, threshold=80):
+#     if pd.isna(text):
+#         return []
+#     matches = set()
+#     for term in search_terms:
+#         if fuzz.partial_ratio(text.lower(), term.lower()) >= threshold:
+#             matches.add(term)
+#     return list(matches)
 
 
-def fuzzy_search_column(column, products_df, threshold=80):
-    product_mentions = []
-    for text in column:
-        if isinstance(text, list):
-            text = " ".join(text)
-        matches = fuzzy_search(text, products_df["product_full"], threshold)
-        if not matches:
-            matches = fuzzy_search(text, products_df["product_name_version"], threshold)
-        if not matches:
-            matches = fuzzy_search(text, products_df["product_name"], threshold)
-        product_mentions.append(matches)
-    return product_mentions
+# def fuzzy_search_column(column, products_df, threshold=80):
+#     product_mentions = []
+#     for text in column:
+#         if isinstance(text, list):
+#             text = " ".join(text)
+#         matches = fuzzy_search(text, products_df["product_full"], threshold)
+#         if not matches:
+#             matches = fuzzy_search(text, products_df["product_name_version"], threshold)
+#         if not matches:
+#             matches = fuzzy_search(text, products_df["product_name"], threshold)
+#         product_mentions.append(matches)
+#     return product_mentions
 
 
-def retain_most_specific(mentions, products_df):
-    specific_mentions = set()
-    for mention in mentions:
-        parts = mention.split()
-        if len(parts) == 3:
-            product_name, product_version, product_architecture = parts
-            if product_version != "NV" and product_architecture != "NA":
-                specific_mentions.add(mention)
-        elif len(parts) == 2:
-            product_name, product_version = parts
-            if product_version != "NV":
-                specific_mentions.add(mention)
-        else:
-            specific_mentions.add(mention)
+# def retain_most_specific(mentions, products_df):
+#     specific_mentions = set()
+#     for mention in mentions:
+#         parts = mention.split()
+#         if len(parts) == 3:
+#             product_name, product_version, product_architecture = parts
+#             if product_version != "NV" and product_architecture != "NA":
+#                 specific_mentions.add(mention)
+#         elif len(parts) == 2:
+#             product_name, product_version = parts
+#             if product_version != "NV":
+#                 specific_mentions.add(mention)
+#         else:
+#             specific_mentions.add(mention)
 
-    # Remove less specific mentions
-    final_mentions = set()
-    for mention in specific_mentions:
-        if not any(mention in other for other in specific_mentions if other != mention):
-            final_mentions.add(mention)
+#     # Remove less specific mentions
+#     final_mentions = set()
+#     for mention in specific_mentions:
+#         if not any(mention in other for other in specific_mentions if other != mention):
+#             final_mentions.add(mention)
 
-    return list(final_mentions)
-
-
-def convert_to_original_representation(mentions):
-    return [mention.replace(" ", "_") for mention in mentions]
+#     return list(final_mentions)
 
 
-def construct_regex_pattern():
-    max_digits_per_group = (4, 4, 5, 5)
-    pattern = (
-        r"\b"
-        + r"\.".join(
-            [r"\d{1," + str(max_digits) + r"}" for max_digits in max_digits_per_group]
-        )
-        + r"\b"
-    )
-    return pattern
+# def convert_to_original_representation(mentions):
+#     return [mention.replace(" ", "_") for mention in mentions]
 
 
-# Function to extract build numbers from text
-def extract_build_numbers(text, pattern):
-    matches = re.findall(pattern, text)
-    build_numbers = [[int(part) for part in match.split(".")] for match in matches]
-    return build_numbers
+# def construct_regex_pattern():
+#     max_digits_per_group = (4, 4, 5, 5)
+#     pattern = (
+#         r"\b"
+#         + r"\.".join(
+#             [r"\d{1," + str(max_digits) + r"}" for max_digits in max_digits_per_group]
+#         )
+#         + r"\b"
+#     )
+#     return pattern
 
 
-def extract_windows_kbs(text):
-    pattern = r"(?i)KB[-\s]?\d{6,7}"
-    matches = re.findall(pattern, text)
-    # Convert matches to uppercase and ensure the format is "KB-123456"
-    matches = [match.upper().replace(" ", "").replace("-", "") for match in matches]
-    matches = [f"KB-{match[2:]}" for match in matches]
-    return list(set(matches))
+# # Function to extract build numbers from text
+# def extract_build_numbers(text, pattern):
+#     matches = re.findall(pattern, text)
+#     build_numbers = [[int(part) for part in match.split(".")] for match in matches]
+#     return build_numbers
 
 
-def extract_edge_kbs(row):
-    edge_kbs = []
-    if "edge" in row["product_mentions"]:
-        for build_number in row["build_numbers"]:
-            build_str = ".".join(map(str, build_number))
-            edge_kbs.append(f"KB-{build_str}")
-    return list(set(edge_kbs))
+# def extract_windows_kbs(text):
+#     pattern = r"(?i)KB[-\s]?\d{6,7}"
+#     matches = re.findall(pattern, text)
+#     # Convert matches to uppercase and ensure the format is "KB-123456"
+#     matches = [match.upper().replace(" ", "").replace("-", "") for match in matches]
+#     matches = [f"KB-{match[2:]}" for match in matches]
+#     return list(set(matches))
+
+
+# def extract_edge_kbs(row):
+#     edge_kbs = []
+#     if "edge" in row["product_mentions"]:
+#         for build_number in row["build_numbers"]:
+#             build_str = ".".join(map(str, build_number))
+#             edge_kbs.append(f"KB-{build_str}")
+#     return list(set(edge_kbs))
 
 
 async def update_email_records(emails_df, document_service):
@@ -1068,7 +1084,9 @@ async def patch_feature_engineering_pipeline(
         "status": "in progress",
         "code": 200,
     }
-    logging.info("Patch Feature Engineering data extraction ==================================")
+    logging.info(
+        "Patch Feature Engineering data extraction ==========================="
+    )
     start_time = time.time()
     # Ensure both dates are timezone-aware
     if start_date.tzinfo is None:
@@ -1076,9 +1094,15 @@ async def patch_feature_engineering_pipeline(
     if end_date and end_date.tzinfo is None:
         end_date = end_date.replace(tzinfo=timezone.utc)
 
-    product_docs = await asyncio.to_thread(extractor.extract_products, None)
+    product_docs = await asyncio.to_thread(
+        extractor.extract_products,
+        None
+    )
     patch_docs = await asyncio.to_thread(
-        extractor.extract_patch_posts, start_date, end_date, None
+        extractor.patch_fe_extractor,
+        start_date,
+        end_date,
+        max_records=None,
     )
     if not patch_docs:
         response = {
@@ -1088,58 +1112,13 @@ async def patch_feature_engineering_pipeline(
         }
         return response
     products_df = await asyncio.to_thread(transformer.transform_products, product_docs)
-    patch_posts_df = await asyncio.to_thread(
-        transformer.transform_patch_posts, patch_docs
-    )
     products_df = prepare_products(products_df)
-    # for _, row in products_df.iterrows():
-    #     print(row)
-
-    patch_posts_df["windows_kbs"] = None
-    patch_posts_df["edge_kbs"] = None
-    patch_posts_df["product_mentions_noun_chunks"] = fuzzy_search_column(
-        patch_posts_df["noun_chunks"], products_df
-    )
-    patch_posts_df["product_mentions_keywords"] = fuzzy_search_column(
-        patch_posts_df["keywords"], products_df
-    )
-    patch_posts_df["product_mentions"] = patch_posts_df.apply(
-        lambda row: list(
-            set(row["product_mentions_noun_chunks"] + row["product_mentions_keywords"])
-        ),
-        axis=1,
-    )
-    patch_posts_df["product_mentions"] = patch_posts_df["product_mentions"].apply(
-        lambda mentions: retain_most_specific(mentions, products_df)
-    )
-    patch_posts_df["product_mentions"] = patch_posts_df["product_mentions"].apply(
-        convert_to_original_representation
-    )
-    regex_pattern = construct_regex_pattern()
-    patch_posts_df["build_numbers"] = patch_posts_df["text"].apply(
-        lambda x: extract_build_numbers(x, regex_pattern) if pd.notna(x) else []
+    patch_posts_df = await asyncio.to_thread(
+        transformer.patch_fe_transformer,
+        patch_docs,
+        products_df
     )
 
-    patch_posts_df["windows_kbs"] = patch_posts_df["text"].apply(
-        lambda x: extract_windows_kbs(x) if pd.notna(x) else []
-    )
-    patch_posts_df["edge_kbs"] = patch_posts_df.apply(extract_edge_kbs, axis=1)
-
-    patch_posts_df["kb_mentions"] = patch_posts_df.apply(
-        lambda row: list(set(row["windows_kbs"] + row["edge_kbs"])), axis=1
-    )
-
-    patch_posts_df.drop(
-        columns=[
-            "windows_kbs",
-            "edge_kbs",
-            "product_mentions_noun_chunks",
-            "product_mentions_keywords",
-        ],
-        inplace=True,
-    )
-    # for _, row in patch_posts_df.iterrows():
-    #     print(f"{row['node_id']}-{row['build_numbers']}-{row['kb_mentions']}")
     document_service = DocumentService(collection_name="docstore")
     await update_email_records(patch_posts_df, document_service)
 
