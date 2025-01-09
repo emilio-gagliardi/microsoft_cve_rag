@@ -490,9 +490,11 @@ def transform_kb_articles(
         "build_number",
         "cve_ids",
         "excluded_embed_metadata_keys",
+        "excluded_llm_metadata_keys",
         "node_label",
         "article_url",
         "summary",
+        "update_package_url"
     ]
     dtypes = {
             'node_id': 'str',
@@ -505,8 +507,11 @@ def transform_kb_articles(
             'build_number': 'object',
             'cve_ids': 'object',
             'excluded_embed_metadata_keys': 'object',
+            'excluded_llm_metadata_keys': 'object',
             'node_label': 'str',
-            'article_url': 'str'
+            'article_url': 'str',
+            'summary': 'str',
+            'update_package_url': 'str'
         }
 
     # Process Windows KB articles
@@ -561,12 +566,28 @@ def transform_kb_articles(
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
         logging.info(f"Generating summaries for {df_windows.shape[0]} Windows-based KBs")
-        df_windows_has_summary = df_windows[df_windows["summary"].notna()].copy()
-        df_windows_no_summary = df_windows[df_windows["summary"].isna()].copy()
+
+        # Split into docs with and without summaries
+        df_windows_has_summary = df_windows[
+            (df_windows["summary"].notna()) & (df_windows["summary"].str.strip() != "")
+        ].copy()
+        df_windows_no_summary = df_windows[
+            (df_windows["summary"].isna()) | (df_windows["summary"].str.strip() == "")
+        ].copy()
+
         logging.info(f"Windows-based KBs with no summaries: {df_windows_no_summary.shape[0]}")
         df_windows_no_summary["summary"] = ""
         summaries = loop.run_until_complete(generate_summaries(df_windows_no_summary["text"]))
         df_windows_no_summary["summary"] = summaries
+
+        # Add update package URL for Windows KB articles
+        df_windows_no_summary["update_package_url"] = df_windows_no_summary["kb_id"].apply(
+            lambda x: f"https://catalog.update.microsoft.com/Search.aspx?q={x.replace('-', '')}" if pd.notna(x) else ""
+        )
+        df_windows_has_summary["update_package_url"] = df_windows_has_summary["kb_id"].apply(
+            lambda x: f"https://catalog.update.microsoft.com/Search.aspx?q={x.replace('-', '')}" if pd.notna(x) else ""
+        )
+
         df_windows = pd.concat([df_windows_has_summary, df_windows_no_summary])
         df_windows.sort_values(by="kb_id", ascending=True, inplace=True)
 
@@ -621,6 +642,7 @@ def transform_kb_articles(
         } for _ in range(len(df_edge))]
 
         df_edge["summary"] = ""
+        df_edge["update_package_url"] = ""  # Initialize update_package_url with empty strings for Edge KB articles
         df_edge.sort_values(by="kb_id", ascending=True, inplace=True)
         print(f"Total Edge-based KBs transformed: {df_edge.shape[0]}")
 
@@ -849,10 +871,11 @@ def extract_cve_category_from_description(description: str) -> str:
     Extract CVE category from NVD description text with enhanced pattern matching.
     Returns the most severe/specific category if multiple are found.
     """
-    if not description:
+    # Handle None, NA, and empty strings
+    if pd.isna(description) or description is None or description == "":
         return "NC"
 
-    description = description.lower()
+    description = str(description).lower()
 
     # Define keywords with variations for each category
     category_patterns = {
@@ -901,6 +924,14 @@ def extract_cve_category_from_description(description: str) -> str:
             "availability",
             "system crash",
             "system hang"
+        ],
+        "mitm": [
+            "man in the middle",
+            "man in the middle attack",
+            "mitm",
+            "middle man attack",
+            "eavesdropping attack",
+            "interception attack"
         ]
     }
 
@@ -913,7 +944,8 @@ def extract_cve_category_from_description(description: str) -> str:
         "tampering",
         "spoofing",
         "feature_bypass",
-        "availability"
+        "availability",
+        "mitm"
     ]
 
     # Find all matching categories
@@ -940,30 +972,34 @@ def _prepare_base_dataframe(msrc_posts: List[Dict[str, Any]], metadata_fields_to
     return df
 
 
-def _process_new_records(df: pd.DataFrame, mapping_cve_category: Dict[str, str]) -> pd.DataFrame:
-    """Process records that haven't been enriched with NVD data yet."""
-    # Rename impact_type to cve_category only for new records
-    df = df.rename(columns={"impact_type": "cve_category"})
-
-    # Handle the mapping with None/NaN protection
-    df["cve_category"] = df["cve_category"].apply(
-        lambda x: mapping_cve_category.get(x, x) if pd.notna(x) else "NC"
-    )
-    return df
-
-
 def _apply_common_transformations(df: pd.DataFrame) -> pd.DataFrame:
     """Apply transformations common to both new and pre-processed records."""
-    df["cve_category"] = df["cve_category"].fillna("NC")
+    df = df.rename(columns={"id_": "node_id", "impact_type": "cve_category"})
+
+    # Try direct assignment instead of fillna
+    # df.loc[df["cve_category"].isna(), "cve_category"] = "NC"
+    cve_category_choices = {
+        "Tampering": "tampering",
+        "Spoofing": "spoofing",
+        "Availability": "availability",
+        "Elevation of Privilege": "privilege_elevation",
+        "Denial of Service": "denial_of_service",
+        "Information Disclosure": "disclosure",
+        "Remote Code Execution": "remote_code_execution",
+        "Security Feature Bypass": "feature_bypass",
+        "No Category": "NC",
+        "None": "none"
+    }
+    # Map display values to their corresponding keys
+    # For example, "Information Disclosure" -> "disclosure"
+    df["cve_category"] = df["cve_category"].map(cve_category_choices).fillna("NC")
     df["severity_type"] = df["severity_type"].str.lower()
     df["severity_type"] = df["severity_type"].fillna("NST")
-    df["metadata"] = df["metadata"].apply(make_json_safe_metadata)
     df["kb_ids"] = df["kb_ids"].apply(normalize_mongo_kb_id)
     df["kb_ids"] = df["kb_ids"].apply(lambda x: sorted(x, reverse=True))
     df["product_build_ids"] = df["product_build_ids"].apply(convert_to_list)
     df["node_label"] = "MSRCPost"
     df["published"] = pd.to_datetime(df["published"])
-
     df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(
         lambda x: list(
             set(x if isinstance(x, list) else [])
@@ -983,22 +1019,49 @@ def _apply_common_transformations(df: pd.DataFrame) -> pd.DataFrame:
         lambda x: pd.Series(remove_generic_text(x))
     )
     df = df.drop(["patterns_found", "patterns_missing"], axis=1)
-    df = df.rename(columns={"id_": "node_id"})
+
     return df
 
 
-def transform_msrc_posts(msrc_posts: List[Dict[str, Any]], process_all: bool = False) -> pd.DataFrame:
-    """Transform MSRC posts, handling both new and pre-processed records efficiently.
+def _extract_nvd_properties(metadata_dict: Dict) -> Dict[str, Any]:
+    """Extract NVD properties from metadata dictionary."""
+    nvd_properties = {}
+    if not isinstance(metadata_dict, dict):
+        return nvd_properties
 
-    Args:
-        msrc_posts: List of MSRC post dictionaries
-        process_all: If True, process all records. If False, only process new records.
-    """
+    # Base properties that get prefixed
+    base_properties = [
+        "attack_complexity", "attack_vector", "availability",
+        "base_score", "base_score_num", "base_score_rating",
+        "confidentiality", "exploitability_score", "impact_score",
+        "integrity", "privileges_required", "scope",
+        "user_interaction", "vector"
+    ]
+
+    # Add prefixed properties (nist_, cna_, adp_)
+    for prefix in ["nist_", "cna_", "adp_"]:
+        for prop in base_properties:
+            key = f"{prefix}{prop}"
+            nvd_properties[key] = metadata_dict.get(key)
+
+    # Add non-prefixed properties
+    non_prefixed = [
+        "nvd_description", "nvd_published_date",
+        "cwe_id", "cwe_name", "cwe_source", "cwe_url"
+    ]
+    for prop in non_prefixed:
+        nvd_properties[prop] = metadata_dict.get(prop)
+
+    return nvd_properties
+
+
+def transform_msrc_posts(msrc_posts: List[Dict[str, Any]], process_all: bool = False) -> pd.DataFrame:
+    """Transform MSRC posts, handling both new and pre-processed records efficiently."""
     logging.info(f"process New or All: {'All' if process_all else 'New'}")
     metadata_fields_to_move = [
-        "revision", "title", "description", "source", "impact_type",
-        "severity_type", "post_type", "post_id", "summary", "build_numbers",
-        "published", "product_build_ids", "collection", "cve_category",
+        "revision", "title", "description", "source", "severity_type",
+        "post_type", "post_id", "summary", "build_numbers",
+        "published", "product_build_ids", "collection", "impact_type",
     ]
 
     if not msrc_posts:
@@ -1021,31 +1084,22 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]], process_all: bool = F
 
     # Partition records based on whether they've been processed before
     is_processed = df["metadata"].apply(
-        lambda x: x.get("etl_processing_status", {}).get("nvd_extracted", False)
+        lambda x: x.get("etl_processing_status", {}).get("document_processed", False)
     )
     preprocessed_records = df[is_processed].copy()
     new_records = df[~is_processed].copy()
 
     logging.info(f"Found {len(preprocessed_records)} pre-processed records and {len(new_records)} new records")
 
-    # Determine which records to process based on process_all flag
-    if process_all:
-        records_to_process = df
-        logging.info("Processing all records as requested")
-    else:
-        records_to_process = new_records
-        if not preprocessed_records.empty:
-            logging.info(f"Skipping {len(preprocessed_records)} pre-processed records")
-
-    # Process records if there are any to process
-    if not records_to_process.empty:
-        # Initialize processing status
-        current_time = datetime.now().isoformat()
-        records_to_process['metadata'] = records_to_process['metadata'].apply(
+    # Apply transformations to new records first
+    if not new_records.empty:
+        new_records = _apply_common_transformations(new_records)
+        # Initialize processing status for new records only
+        current_time = datetime.now(timezone.utc).isoformat()
+        new_records['metadata'] = new_records['metadata'].apply(
             lambda x: {
-                **(x if isinstance(x, dict) else {}),
-                'etl_processing_status': {
-                    **(x.get('etl_processing_status', {}) if isinstance(x, dict) else {}),
+                **x,  # Keep all existing metadata
+                'etl_processing_status': {  # Update only the processing status
                     'document_processed': True,
                     'nvd_extracted': False,
                     'entities_extracted': False,
@@ -1057,6 +1111,51 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]], process_all: bool = F
             }
         )
 
+    # If process_all is True, also transform preprocessed records and extract NVD properties
+    if process_all or not preprocessed_records.empty:
+        # Define base properties that get prefixed
+        base_properties = [
+            "attack_complexity", "attack_vector", "availability",
+            "base_score", "base_score_num", "base_score_rating",
+            "confidentiality", "exploitability_score", "impact_score",
+            "integrity", "privileges_required", "scope",
+            "user_interaction", "vector"
+        ]
+
+        # Build full property list with prefixes
+        nvd_properties = []
+        for prefix in ["nist_", "cna_", "adp_"]:
+            nvd_properties.extend(f"{prefix}{prop}" for prop in base_properties)
+
+        # Add non-prefixed properties
+        nvd_properties.extend([
+            "nvd_description", "nvd_published_date",
+            "cwe_id", "cwe_name", "cwe_source", "cwe_url"
+        ])
+
+        # Extract NVD properties for all records (both preprocessed and new)
+        if not preprocessed_records.empty:
+            for nvd_prop in nvd_properties:
+                preprocessed_records[nvd_prop] = preprocessed_records['metadata'].apply(
+                    lambda x: _extract_nvd_properties(x).get(nvd_prop)
+                )
+            preprocessed_records = _apply_common_transformations(preprocessed_records)
+
+        if not new_records.empty:
+            for nvd_prop in nvd_properties:
+                new_records[nvd_prop] = new_records['metadata'].apply(
+                    lambda x: _extract_nvd_properties(x).get(nvd_prop)
+                )
+
+        records_to_process = pd.concat([preprocessed_records, new_records]) if not preprocessed_records.empty else new_records
+        logging.info("Processing all records as requested")
+    else:
+        records_to_process = new_records
+        if not preprocessed_records.empty:
+            logging.info(f"Skipping {len(preprocessed_records)} pre-processed records")
+
+    # Process records if there are any to process
+    if not records_to_process.empty:
         # Set up NVD extraction
         num_cves = len(records_to_process)
         scraping_params = ScrapingParams.from_target_time(
@@ -1067,11 +1166,15 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]], process_all: bool = F
 
         nvd_extractor = NVDDataExtractor(
             properties_to_extract=[
-                "base_score", "vector_element", "impact_score", "exploitability_score",
+                # Base metrics
+                "base_score", "base_score_num", "base_score_rating",
+                "vector", "impact_score", "exploitability_score",
                 "attack_vector", "attack_complexity", "privileges_required",
                 "user_interaction", "scope", "confidentiality", "integrity",
-                "availability", "nvd_published_date", "nvd_description",
-                "vector_element", "cwe_id", "cwe_name", "cwe_source", "cwe_url",
+                "availability",
+                # Non-prefixed properties
+                "nvd_published_date", "nvd_description",
+                "cwe_id", "cwe_name", "cwe_source", "cwe_url"
             ],
             max_records=None,
             scraping_params=scraping_params,
@@ -1081,6 +1184,7 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]], process_all: bool = F
         )
 
         try:
+            # enrich the row data from NVD website
             enriched_records = nvd_extractor.augment_dataframe(
                 df=records_to_process,
                 url_column="post_id",
@@ -1088,32 +1192,53 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]], process_all: bool = F
             )
 
             if not enriched_records.empty:
+                # Log initial cve_category values
+                # If the document has already been processed, it will have a value for cve_category
+                # If the document has not been processed, it won't have a value for cve_category
+                for idx, row in enriched_records.iterrows():
+                    if isinstance(row['cve_category'], (list, pd.Series)):
+                        logging.info(f"Row {idx} has non-scalar cve_category: {row['cve_category']}")
+
                 # Update CVE categories where needed
                 mask = (enriched_records['cve_category'].isin(['NC', '']))
+
                 enriched_records.loc[mask, 'cve_category'] = \
                     enriched_records.loc[mask, 'nvd_description'].apply(extract_cve_category_from_description)
+
+                # Log post-update values
+                for idx in enriched_records[mask].index:
+                    if isinstance(enriched_records.loc[idx, 'cve_category'], (list, pd.Series)):
+                        logging.warning(f"After NVD update: Row {idx} has non-scalar cve_category: {enriched_records.loc[idx, 'cve_category']}")
+                    else:
+                        logging.info(f"After NVD update: Row {idx} cve_category: {enriched_records.loc[idx, 'cve_category']}")
 
                 # Log statistics about category updates
                 updated_count = mask.sum()
                 if updated_count > 0 and os.getenv('LOG_LEVEL', '').upper() == 'DEBUG':
                     category_stats = enriched_records.loc[mask, 'cve_category'].value_counts()
-                    logging.debug(f"Updated {updated_count} CVE categories from NVD descriptions")
-                    logging.debug("Category distribution for updated records:")
-                    logging.debug(f"\n{category_stats}")
+                    logging.info(f"Updated {updated_count} CVE categories from NVD descriptions")
+                    logging.info("Category distribution for updated records:")
+                    logging.info(f"\n{category_stats}")
 
                 # Update processing status after successful NVD extraction
                 current_time = datetime.now().isoformat()
                 enriched_records["metadata"] = enriched_records["metadata"].apply(
                     lambda x: {
-                        **(x if isinstance(x, dict) else {}),
-                        "etl_processing_status": {
-                            **(x.get('etl_processing_status', {}) if isinstance(x, dict) else {}),
-                            "nvd_extracted": True,
-                            "last_processed_at": current_time
+                        **x,  # Keep all existing metadata
+                        'etl_processing_status': {
+                            'nvd_extracted': True,
+                            'last_processed_at': current_time
                         }
                     }
                 )
 
+                # Clean up impact_type if it exists
+                if 'impact_type' in enriched_records.columns:
+                    enriched_records['impact_type'] = None
+                    logging.info("Cleaned up impact_type column")
+                if 'id_' in enriched_records.columns:
+                    # drop the column
+                    enriched_records = enriched_records.drop(columns=['id_'])
         except Exception as e:
             logging.error(f"Error during NVD data extraction: {str(e)}")
             raise
@@ -1126,28 +1251,22 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]], process_all: bool = F
     if not process_all:
         # Return only newly processed records
         if not enriched_records.empty:
-            result_df = _apply_common_transformations(enriched_records)
+            result_df = enriched_records
             result_df.sort_values(by="post_id", ascending=True, inplace=True)
+            result_df["metadata"] = result_df["metadata"].apply(make_json_safe_metadata)
             print(f"Total new MSRC Posts transformed: {result_df.shape[0]}")
-            return result_df #has etl dict
+            return result_df
         return None
     else:
-        # Combine and return all records
-        if not preprocessed_records.empty and not enriched_records.empty:
-            combined_df = pd.concat([preprocessed_records, enriched_records], axis=0, ignore_index=True)
-        elif not preprocessed_records.empty:
-            combined_df = preprocessed_records
-        elif not enriched_records.empty:
-            combined_df = enriched_records
-        else:
-            logging.error("No records to process")
-            return None
-
-        # Apply common transformations and sort
-        result_df = _apply_common_transformations(combined_df)
-        result_df.sort_values(by="post_id", ascending=True, inplace=True)
-        print(f"Total MSRC Posts transformed: {result_df.shape[0]}")
-        return result_df
+        # Return all records with updates from enriched_records
+        if not records_to_process.empty:
+            records_to_process.loc[enriched_records.index] = enriched_records
+            records_to_process.sort_values(by="post_id", ascending=True, inplace=True)
+            records_to_process["metadata"] = records_to_process["metadata"].apply(make_json_safe_metadata)
+            print(f"Total MSRC Posts transformed: {records_to_process.shape[0]}")
+            return records_to_process
+        logging.error("No records to process")
+        return None
 
 # End MSRC transformer ========================================
 
@@ -1163,14 +1282,18 @@ def construct_natural_subject(noun_chunks, keywords, timestamp=None):
     Format: <best_candidate>_<product_mention>_<timestamp>
     """
     # First convert string representations of lists to actual lists if needed
-    if isinstance(noun_chunks, str):
+    if pd.isna(noun_chunks):
+        noun_chunks = []
+    elif isinstance(noun_chunks, str):
         try:
             # Handle string representation of list
             noun_chunks = ast.literal_eval(noun_chunks)
         except (ValueError, SyntaxError):
             noun_chunks = []
 
-    if isinstance(keywords, str):
+    if pd.isna(keywords):
+        keywords = []
+    elif isinstance(keywords, str):
         try:
             # Handle string representation of list
             keywords = ast.literal_eval(keywords)
@@ -1447,6 +1570,22 @@ def normalize_subject(subject, text=None, noun_chunks=None, keywords=None, times
     # Remove stop words
     words = [word for word in words if word not in STOP_WORDS]
 
+    # If we have less than 3 meaningful words, try to enhance with constructed subject
+    if len(words) < 3:
+        constructed = construct_natural_subject(noun_chunks or [], keywords or [], timestamp)
+        if constructed:
+            # Take the constructed subject but remove timestamp parts
+            constructed_parts = [
+                part for part in constructed.split('_')
+                if not part.isdigit() and not re.match(r'\d{8}', part)
+            ]
+            if constructed_parts:
+                # Skip the first two parts (original subject) and any timestamp parts
+                additional_parts = constructed_parts[2:]
+                if additional_parts:
+                    words.extend(additional_parts)
+                    logging.info(f"Enhanced short subject with constructed parts: {words}")
+
     if not words:
         return get_fallback_subject()
 
@@ -1677,7 +1816,7 @@ def find_previous_thread_doc(
             },
             "metadata.etl_processing_status.document_processed": True
         }
-        logging.info(
+        logging.debug(
             f"Querying MongoDB for historical documents:\n"
             f"  End date: {query_end}\n"
             f"  Start date: {lookback_start}\n"
@@ -1770,12 +1909,6 @@ def find_previous_thread_doc(
         current_subject, current_doc = docs[current_idx]
         match_ratio = fuzz.ratio(normalized_subject.lower(), current_subject.lower())
 
-        # logging.info(f"\nChecking group at position {current_idx}/{len(docs)}:\n"
-        #             f"  Target: {normalized_subject}\n"
-        #             f"  Current: {current_subject}\n"
-        #             f"  Original: {current_doc['metadata'].get('subject', '')}\n"
-        #             f"  Match ratio: {match_ratio}")
-
         # First try to find matches above HIGH_MATCH_THRESHOLD
         if match_ratio >= HIGH_MATCH_THRESHOLD:
             print(f"\n{'='*50}\nFound high match: {match_ratio}\n{'='*50}")
@@ -1845,25 +1978,14 @@ def find_previous_thread_doc(
                 key=lambda x: datetime.fromisoformat(x[1]["metadata"].get("receivedDateTime", ""))
             )
 
-        # Log statistics about matching documents
-        # for ratio, doc in best_matches:
-        #     logging.info(
-        #         f"Found matching document:\n"
-        #         f"  Ratio: {ratio}\n"
-        #         f"  ID: {doc['id_']}\n"
-        #         f"  Subject: {doc['metadata'].get('subject', '')}\n"
-        #         f"  Date: {doc['metadata'].get('receivedDateTime')}\n"
-        #         f"  Next ID: {doc['metadata'].get('next_id')}"
-        #     )
-
-        logging.info(
-            f"Selected latest match:\n"
-            f"  Ratio: {latest_doc[0]}\n"
-            f"  ID: {latest_doc[1]['id_']}\n"
-            f"  Subject: {latest_doc[1]['metadata'].get('subject', '')}\n"
-            f"  Date: {latest_doc[1]['metadata'].get('receivedDateTime')}\n"
-            f"  Next ID: {latest_doc[1]['metadata'].get('next_id')}"
-        )
+        # logging.info(
+        #     f"Selected latest match:\n"
+        #     f"  Ratio: {latest_doc[0]}\n"
+        #     f"  ID: {latest_doc[1]['id_']}\n"
+        #     f"  Subject: {latest_doc[1]['metadata'].get('subject', '')}\n"
+        #     f"  Date: {latest_doc[1]['metadata'].get('receivedDateTime')}\n"
+        #     f"  Next ID: {latest_doc[1]['metadata'].get('next_id')}"
+        # )
         return latest_doc[1]
 
     logging.info(f"No match found above threshold {FALLBACK_MATCH_THRESHOLD}")
@@ -1925,7 +2047,11 @@ def transform_patch_posts_v2(
         return None
 
     df = pd.DataFrame(patch_posts)
-    logging.info(f"Loaded {len(df)} patch posts")
+
+    # Debug rows where text is NaN
+    nan_text_rows = df[df['text'].isna()]
+    if not nan_text_rows.empty:
+        logging.debug(f"Found {len(nan_text_rows)} rows with NaN text values:")
 
     # Standard fields to move from metadata
     metadata_fields_to_move = [
@@ -2002,7 +2128,17 @@ def transform_patch_posts_v2(
     # We'll store updated rows in a list, then concat them
     processed_rows = []
 
+    # Filter process_groups to only include indices that exist in df_to_process
+    process_groups = {
+        norm_subj: [idx for idx in idx_list if idx in df_to_process.index]
+        for norm_subj, idx_list in groups.items()
+        if any(idx in df_to_process.index for idx in idx_list)
+    }
+
     for norm_subj, idx_list in process_groups.items():
+        if not idx_list:  # Skip if no valid indices for this group
+            continue
+
         group_df = df_to_process.loc[idx_list].copy()  # Create explicit copy
 
         # Get earliest date from group
@@ -2024,13 +2160,18 @@ def transform_patch_posts_v2(
         # Pause and show status
         # input("\nPress Enter to continue to next subject group...")
 
-        if historical_doc:
+        if historical_doc and historical_doc["id_"] not in group_df["node_id"].values:
+            # Get the first in-batch document's node_id for linking
+            first_batch_node_id = group_df.iloc[0]["node_id"]
+
             # Convert historical doc to DataFrame row with same schema
             historical_df = pd.DataFrame([{
                 "node_id": historical_doc["id_"],
+                "text": historical_doc["text"],
                 "metadata": {
                     **historical_doc["metadata"],
                     "is_historical": True,  # Mark as historical for tracking
+                    "next_id": first_batch_node_id,  # Link to first in-batch doc
                 },
                 "subject": historical_doc["metadata"].get("subject", ""),
                 "receivedDateTime": datetime.fromisoformat(str(historical_doc["metadata"].get("receivedDateTime", ""))),
@@ -2046,6 +2187,7 @@ def transform_patch_posts_v2(
                 "kb_ids": historical_doc["metadata"].get("kb_mentions", []),
                 "cve_ids": historical_doc["metadata"].get("cve_mentions", []),
                 "previous_id": historical_doc["metadata"].get("previous_id", None),
+                "next_id": first_batch_node_id,  # Set next_id to first in-batch doc
             }])
 
             logging.info(
@@ -2053,8 +2195,32 @@ def transform_patch_posts_v2(
                 f"(ID: {historical_doc['id_']}, receivedDateTime: {historical_doc['metadata'].get('receivedDateTime')})"
             )
 
+            # Create a new DataFrame with the updated first row
+            updated_rows = []
+
+            # Update first row with historical link
+            first_row = group_df.iloc[0].copy()
+            first_row_metadata = first_row["metadata"].copy()
+            first_row_metadata["previous_id"] = historical_doc["id_"]
+            first_row["metadata"] = first_row_metadata
+            first_row["previous_id"] = historical_doc["id_"]
+            updated_rows.append(first_row)
+
+            # Add remaining rows unchanged
+            if len(group_df) > 1:
+                for idx in range(1, len(group_df)):
+                    updated_rows.append(group_df.iloc[idx].copy())
+
+            # Create DataFrame ensuring index is preserved
+            updated_group_df = pd.DataFrame(updated_rows, index=[r.name for r in updated_rows])
+
             # Combine historical with current group and sort chronologically
-            group_df = pd.concat([historical_df, group_df], ignore_index=True)
+            group_df = pd.concat([historical_df, updated_group_df], ignore_index=True)
+        elif historical_doc:
+            logging.info(
+                f"Skipping historical document for subject '{norm_subj}' - "
+                f"ID {historical_doc['id_']} already exists in current group"
+            )
 
         # Sort by receivedDateTime - already datetime objects
         group_df = group_df.sort_values("receivedDateTime")
@@ -2072,19 +2238,29 @@ def transform_patch_posts_v2(
         for i, idx in enumerate(group_df.index):
             row = group_df.loc[idx].copy()  # Create explicit copy of the row
             m = row["metadata"].copy()
+            current_id = row["node_id"]
 
             # Set thread_id for all documents in group
             m["thread_id"] = thread_id
 
             # Set previous and next IDs based on position in sorted list and document type
             next_id = node_ids[i + 1] if i < len(node_ids) - 1 else None
+            # Don't link to self
+            if next_id == current_id:
+                next_id = None
+
             if m.get("is_historical", False):
                 # For historical docs, preserve their existing previous_id and only update next_id
                 previous_id = m.get("previous_id")  # Keep existing previous_id
+                if previous_id == current_id:  # Don't link to self
+                    previous_id = None
                 m["next_id"] = next_id
             else:
                 # For in-batch docs, set both previous and next
                 previous_id = node_ids[i - 1] if i > 0 else None
+                # Don't link to self
+                if previous_id == current_id:
+                    previous_id = None
                 m["previous_id"] = previous_id
                 m["next_id"] = next_id
 
@@ -2185,14 +2361,14 @@ def transform_patch_posts_v2(
                 with open(output_path, "w", encoding="utf-8") as f:
                     f.write("\n".join(output_lines))
 
-                logging.info(f"Debug output written to {output_path}")
+                logging.debug(f"Debug output written to {output_path}")
 
                 # Log summary statistics
                 total_docs = len(final_df)
                 historical_docs = sum(1 for _, row in final_df.iterrows()
-                                    if isinstance(row["metadata"], dict)
-                                    and row["metadata"].get("is_historical", False))
-                logging.info(f"\nOverall Statistics:")
+                                      if isinstance(row["metadata"], dict)
+                                      and row["metadata"].get("is_historical", False))
+                logging.info("\nOverall Statistics:")
                 logging.info(f"Total documents: {total_docs}")
                 logging.info(f"Historical documents: {historical_docs}")
                 logging.info(f"In-batch documents: {total_docs - historical_docs}")
@@ -2200,6 +2376,8 @@ def transform_patch_posts_v2(
 
         except Exception as e:
             logging.error(f"Error writing debug output: {e}", exc_info=True)
+
+        final_df["metadata"] = final_df["metadata"].apply(make_json_safe_metadata)
         return final_df
 
     return None
@@ -2300,7 +2478,7 @@ def patch_fe_transformer(
 
     return patch_posts_df
 
-# End Feature ENgineering Patch Transformer ===================================
+# End Feature Engineering Patch Transformer ===================================
 
 
 def transform_symptoms(symptoms: List[Dict[str, Any]]) -> pd.DataFrame:
@@ -2317,11 +2495,11 @@ def transform_symptoms(symptoms: List[Dict[str, Any]]) -> pd.DataFrame:
             )
         df["labels"] = df["labels"].apply(lambda x: x[0] if isinstance(x, list) else x)
 
-        print(f"Total Products transformed: {df.shape[0]}")
-        # print(f"Columns: {df.columns}")
+        logging.debug(f"Total Symptoms transformed: {df.shape[0]}")
+
         return df
     else:
-        print("No Symptoms to transform.")
+        logging.warning("No Symptoms to transform.")
 
     return None
 
@@ -2340,11 +2518,11 @@ def transform_causes(causes: List[Dict[str, Any]]) -> pd.DataFrame:
             )
         df["labels"] = df["labels"].apply(lambda x: x[0] if isinstance(x, list) else x)
 
-        print(f"Total Causes transformed: {df.shape[0]}")
+        logging.debug(f"Total Causes transformed: {df.shape[0]}")
         # print(f"Columns: {df.columns}")
         return df
     else:
-        print("No Causes to transform.")
+        logging.warning("No Causes to transform.")
 
     return None
 
@@ -2364,11 +2542,11 @@ def transform_fixes(fixes: List[Dict[str, Any]]) -> pd.DataFrame:
         df["labels"] = df["labels"].apply(lambda x: x[0] if isinstance(x, list) else x)
         df["severity_type"] = df["severity_type"].fillna("NST")
 
-        print(f"Total Fixes transformed: {df.shape[0]}")
+        logging.debug(f"Total Fixes transformed: {df.shape[0]}")
         # print(f"Columns: {df.columns}")
         return df
     else:
-        print("No Fixes to transform.")
+        logging.warning("No Fixes to transform.")
 
     return None
 
@@ -2384,11 +2562,11 @@ def transform_tools(tools: List[Dict[str, Any]]) -> pd.DataFrame:
             )
         df["labels"] = df["labels"].apply(lambda x: x[0] if isinstance(x, list) else x)
 
-        print(f"Total Tools transformed: {df.shape[0]}")
+        logging.debug(f"Total Tools transformed: {df.shape[0]}")
         # print(f"Columns: {df.columns}")
         return df
     else:
-        print("No Tools to transform.")
+        logging.warning("No Tools to transform.")
 
     return None
 
@@ -2399,15 +2577,15 @@ def transform_technologies(technologies: List[Dict[str, Any]]) -> pd.DataFrame:
         df = pd.DataFrame(technologies, columns=list(technologies[0].keys()))
         if not all(col in df.columns for col in ["node_label"]):
             df = df.assign(
-                node_label="Fix",
+                node_label="Technology",
             )
         df["labels"] = df["labels"].apply(lambda x: x[0] if isinstance(x, list) else x)
 
-        print(f"Total Technologies transformed: {df.shape[0]}")
+        logging.debug(f"Total Technologies transformed: {df.shape[0]}")
         # print(f"Columns: {df.columns}")
         return df
     else:
-        print("No Technologies to transform.")
+        logging.warning("No Technologies to transform.")
 
     return None
 
@@ -2495,6 +2673,7 @@ def transform_extracted_entities(
             df[field] = None  # Set default value if field is missing
     return df
 
+
 def make_text_json_safe(text: str) -> str:
     """
     Make text safe for JSON serialization by properly escaping special characters.
@@ -2510,7 +2689,7 @@ def make_text_json_safe(text: str) -> str:
 
     # Replace backslashes first to avoid double escaping
     text = text.replace('\\', '\\\\')
-    # Replace quotes and other special characters
+    # Replace quotes and other special symbols
     text = text.replace('"', '\\"')
     text = text.replace('\n', '\\n')
     text = text.replace('\r', '\\r')
@@ -2668,10 +2847,7 @@ def convert_df_to_llamadoc_kb_articles(
 ) -> list[LlamaDocument]:
     """Convert a DataFrame of KB Articles to a list of LlamaDocuments."""
     llama_documents = []
-    logging.info(
-        f"Starting conversion of KB Articles to LlamaDocuments "
-        f"with row count: {len(df)}"
-    )
+
     for _, row in df.iterrows():
         try:
             logging.debug(
@@ -2770,11 +2946,6 @@ def convert_df_to_llamadoc_update_packages(
     """Convert a DataFrame of Update Packages to a list of LlamaDocuments."""
     llama_documents = []
 
-    logging.info(
-        f"Starting conversion of Update Packages to LlamaDocuments "
-        f"with row count: {len(df)}"
-    )
-
     for _, row in df.iterrows():
         try:
             # Log raw input data for debugging
@@ -2849,18 +3020,13 @@ def convert_df_to_llamadoc_update_packages(
             llama_documents.append(doc)
 
             # Log document creation details
-            logging.info("Created LlamaDocument", extra={"doc_id": doc.doc_id})
+            logging.info(f"Created KB LlamaDocument {doc.doc_id}")
             logging.debug("Document metadata", extra={"metadata": metadata})
 
         except Exception as e:
             # Log any errors encountered during processing
             logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
 
-    # Log summary of the conversion process
-    logging.info(
-        f"Completed conversion of Update Packages to LlamaDocuments "
-        f"with total documents: {len(llama_documents)}"
-    )
 
     return llama_documents
 
@@ -2873,11 +3039,6 @@ def convert_df_to_llamadoc_symptoms(
 ) -> list[LlamaDocument]:
     """Convert a DataFrame of Symptoms to a list of LlamaDocuments."""
     llama_documents = []
-
-    logging.info(
-        f"Starting conversion of Symptoms to LlamaDocuments "
-        f"with row count: {len(df)}"
-    )
 
     for _, row in df.iterrows():
         try:
@@ -2914,18 +3075,12 @@ def convert_df_to_llamadoc_symptoms(
             llama_documents.append(doc)
 
             # Log document creation details
-            logging.info("Created LlamaDocument", extra={"doc_id": doc.doc_id})
+            logging.info(f"Created Symptom LlamaDocument {doc.doc_id}")
             logging.debug("Document metadata", extra={"metadata": metadata})
 
         except Exception as e:
             # Log any errors encountered during processing
             logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
-
-    # Log summary of the conversion process
-    logging.info(
-        f"Completed conversion of Symptoms to LlamaDocuments "
-        f"with total documents: {len(llama_documents)}"
-    )
 
     return llama_documents
 
@@ -2938,11 +3093,6 @@ def convert_df_to_llamadoc_causes(
 ) -> list[LlamaDocument]:
     """Convert a DataFrame of Causes to a list of LlamaDocuments."""
     llama_documents = []
-
-    logging.info(
-        f"Starting conversion of Causes to LlamaDocuments "
-        f"with row count: {len(df)}"
-    )
 
     for _, row in df.iterrows():
         try:
@@ -2979,18 +3129,12 @@ def convert_df_to_llamadoc_causes(
             llama_documents.append(doc)
 
             # Log document creation details
-            logging.info("Created LlamaDocument", extra={"doc_id": doc.doc_id})
+            logging.info(f"Created Cause LlamaDocument {doc.doc_id}")
             logging.debug("Document metadata", extra={"metadata": metadata})
 
         except Exception as e:
             # Log any errors encountered during processing
             logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
-
-    # Log summary of the conversion process
-    logging.info(
-        f"Completed conversion of Causes to LlamaDocuments "
-        f"with total documents: {len(llama_documents)}"
-    )
 
     return llama_documents
 
@@ -3003,11 +3147,6 @@ def convert_df_to_llamadoc_fixes(
 ) -> list[LlamaDocument]:
     """Convert a DataFrame of Fix nodes to a list of LlamaDocuments."""
     llama_documents = []
-
-    logging.info(
-        f"Starting conversion of Fix nodes to LlamaDocuments "
-        f"with row count: {len(df)}"
-    )
 
     for _, row in df.iterrows():
         try:
@@ -3044,18 +3183,12 @@ def convert_df_to_llamadoc_fixes(
             llama_documents.append(doc)
 
             # Log document creation details
-            logging.info("Created LlamaDocument", extra={"doc_id": doc.doc_id})
+            logging.info(f"Created Fix LlamaDocument {doc.doc_id}")
             logging.debug("Document metadata", extra={"metadata": metadata})
 
         except Exception as e:
             # Log any errors encountered during processing
             logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
-
-    # Log summary of the conversion process
-    logging.info(
-        f"Completed conversion of Fix nodes to LlamaDocuments "
-        f"with total documents: {len(llama_documents)}"
-    )
 
     return llama_documents
 
@@ -3068,11 +3201,6 @@ def convert_df_to_llamadoc_tools(
 ) -> list[LlamaDocument]:
     """Convert a DataFrame of Tool nodes to a list of LlamaDocuments."""
     llama_documents = []
-
-    logging.info(
-        f"Starting conversion of Tool nodes to LlamaDocuments "
-        f"with row count: {len(df)}"
-    )
 
     for _, row in df.iterrows():
         try:
@@ -3111,18 +3239,12 @@ def convert_df_to_llamadoc_tools(
             llama_documents.append(doc)
 
             # Log document creation details
-            logging.info("Created LlamaDocument", extra={"doc_id": doc.doc_id})
+            logging.info(f"Created Tool LlamaDocument {doc.doc_id}")
             logging.debug("Document metadata", extra={"metadata": metadata})
 
         except Exception as e:
             # Log any errors encountered during processing
             logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
-
-    # Log summary of the conversion process
-    logging.info(
-        f"Completed conversion of Tool nodes to LlamaDocuments "
-        f"with total documents: {len(llama_documents)}"
-    )
 
     return llama_documents
 
@@ -3140,11 +3262,6 @@ def convert_df_to_llamadoc_msrc_posts(
     """Convert a DataFrame of MSRC posts to a list of LlamaDocuments."""
     llama_documents = []
 
-    logging.info(
-        f"Starting conversion of MSRC posts to LlamaDocuments "
-        f"with row count: {len(df)}"
-    )
-
     for _, row in df.iterrows():
         try:
             # Log raw input row data for debugging
@@ -3159,7 +3276,7 @@ def convert_df_to_llamadoc_msrc_posts(
             logging.debug(
                 f"Generated metadata:\n"
                 f"{metadata_dict}"
-            )
+                )
 
             # Set default values for specific fields in metadata
             defaults = {
@@ -3238,7 +3355,7 @@ def convert_df_to_llamadoc_msrc_posts(
             llama_documents.append(doc)
 
             # Log document creation
-            logging.info("Created LlamaDocument", extra={"doc_id": doc.doc_id})
+            logging.info(f"Created MSRCPost LlamaDocument {doc.doc_id}")
             logging.debug(
                 f"Document metadata:\n"
                 f"{doc.metadata}"
@@ -3247,12 +3364,6 @@ def convert_df_to_llamadoc_msrc_posts(
         except Exception as e:
             # Log any errors encountered during processing
             logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
-
-    # Log summary of the conversion process
-    logging.info(
-        f"Completed conversion of MSRC posts to LlamaDocuments "
-        f"with total documents: {len(llama_documents)}"
-    )
 
     return llama_documents
 
@@ -3270,11 +3381,6 @@ def convert_df_to_llamadoc_patch_posts(
 ) -> list[LlamaDocument]:
     """Convert a DataFrame of PatchManagement posts to a list of LlamaDocuments."""
     llama_documents = []
-
-    logging.info(
-        f"Starting conversion of PatchManagement posts to LlamaDocuments "
-        f"with row count: {len(df)}"
-    )
 
     for _, row in df.iterrows():
         try:
@@ -3361,18 +3467,12 @@ def convert_df_to_llamadoc_patch_posts(
             llama_documents.append(doc)
 
             # Log document creation
-            logging.info(f"Created LlamaDocument doc_id: {doc.doc_id}")
+            logging.info(f"Created Patch LlamaDocument doc_id: {doc.doc_id}")
             logging.debug(f"Document metadata: {doc.extra_info}")
 
         except Exception as e:
             # Log any errors encountered during processing
             logging.error(f"Error processing row_data: {row.to_dict()}\n error: {str(e)}")
-
-    # Log summary of the conversion process
-    logging.info(
-        f"Completed conversion of PatchManagement posts to LlamaDocuments "
-        f"with total documents: {len(llama_documents)}"
-    )
 
     return llama_documents
 # End Convert dataframes to LlamaDocs ==========================

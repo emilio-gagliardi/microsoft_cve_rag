@@ -368,39 +368,39 @@ async def load_msrc_posts_graph_db(msrc_posts: pd.DataFrame):
     # Check if the DataFrame is valid and not empty
     if isinstance(msrc_posts, pd.DataFrame) and not msrc_posts.empty:
         print(f"received msrc_posts: {msrc_posts.shape[0]}")
-
+        # rename column source to source_url
+        msrc_posts = msrc_posts.rename(columns={"source": "source_url"})
         # Set the Neo4j database URL
         NeomodelConfig.DATABASE_URL = get_graph_db_uri()
 
+        # Convert DataFrame to records and handle datetime serialization
+        records = msrc_posts.to_dict(orient="records")
+        for record in records:
+            # if 'metadata' in record:
+            #     # Convert datetime objects in metadata to ISO format strings
+            #     if 'published' in record['metadata'] and isinstance(record['metadata']['published'], datetime):
+            #         record['metadata']['published'] = record['metadata']['published'].isoformat()
+            #     if 'nvd_published_date' in record['metadata'] and isinstance(record['metadata']['nvd_published_date'], datetime):
+            #         record['metadata']['nvd_published_date'] = record['metadata']['nvd_published_date'].isoformat()
+            if 'cve_category' in record:
+                if isinstance(record['cve_category'], float):
+                    record['cve_category'] = 'NC'
+                    logging.info(f"Invalid cve_category id: {record['node_id']}. Setting to 'NC'.")
+                elif record['cve_category'] is None:
+                    record['cve_category'] = 'NC'
+                    logging.info(f"Invalid cve_category id: {record['node_id']}. Setting to 'NC'.")
+                else:
+                    record['cve_category'] = str(record['cve_category']).lower()
         # Bulk create MSRC posts in the graph database
-        new_msrc_posts_list = await msrc_posts_service.bulk_create(
-            msrc_posts.to_dict(orient="records")
-        )
+        new_msrc_posts_list = await msrc_posts_service.bulk_create(records)
 
-        # If new MSRC posts were created, update the response and run the Cypher query
+        # If new MSRC posts were created, update the response
         if new_msrc_posts_list:
             node_ids = [node.node_id for node in new_msrc_posts_list]
             response["code"] = 200
             response["message"] = "MSRC Posts inserted"
             response["insert_ids"] = node_ids
             response["nodes"] = new_msrc_posts_list
-
-            # Construct the Cypher query to update the published field for the new nodes
-            # update_published_query = """
-            # MATCH (n:MSRCPost)
-            # WHERE n.node_id IN $node_ids
-            # SET n.published = datetime({epochSeconds: toInteger(n.published)})
-            # RETURN n.node_id, n.published
-            # """
-
-            # Execute the Cypher query to update the published field for the new MSRC posts
-            # try:
-            #     await msrc_posts_service.cypher(
-            #         update_published_query, {"node_ids": node_ids}
-            #     )
-            #     print("Updated published field for new MSRCPost nodes.")
-            # except Exception as e:
-            #     print(f"Failed to update published field for MSRC Posts: {e}")
 
         print(f"Total MSRC Posts Returned: {len(new_msrc_posts_list)}")
 
@@ -438,21 +438,21 @@ async def load_patch_posts_graph_db(patch_posts: pd.DataFrame):
             # Convert records and handle datetime serialization
             records = group.to_dict(orient="records")
             serialized_records = []
-            
+
             for record in records:
                 # Handle metadata datetime fields - convert to ISO string
                 if 'metadata' in record and isinstance(record['metadata'], dict):
                     record['metadata'] = json.loads(json.dumps(record['metadata'], default=custom_json_serializer))
-                
+
                 # Handle published field - ensure it's a datetime object
                 if 'published' in record and isinstance(record['published'], (str, pd.Timestamp)):
                     if isinstance(record['published'], str):
                         record['published'] = datetime.fromisoformat(record['published'].replace('Z', '+00:00'))
                     else:  # pd.Timestamp
                         record['published'] = record['published'].to_pydatetime()
-                
+
                 serialized_records.append(record)
-            
+
             # Create new nodes
             batch_nodes = await patch_posts_service.bulk_create(serialized_records)
             all_nodes.extend(batch_nodes)

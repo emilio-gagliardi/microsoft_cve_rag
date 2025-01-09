@@ -769,6 +769,5 @@ def extract_patch_posts(
     docs = [convert_received_date_time(doc) for doc in docs]
     docs = sorted(docs, key=lambda x: x["metadata"]["receivedDateTime"])
     # print out the metadata.id for each document, add some text
-    for doc in docs:
-        print(f"{doc['metadata']['id']}: {doc['metadata']['subject']}")
+
     return docs

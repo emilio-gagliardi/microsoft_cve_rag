@@ -195,9 +195,11 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
 
             # Run patch feature engineering after main feature engineering
             patch_response = await patch_feature_engineering_pipeline(start_date, end_date)
-            if patch_response["code"] != 200:
+            if patch_response["code"] not in [200, 204]:  # Accept both success and no content
                 logging.error(f"Patch feature engineering failed: {patch_response['message']}")
                 return patch_response
+            elif patch_response["code"] == 204:
+                logging.info(f"Patch feature engineering: {patch_response['message']}")
 
             end_time = time.time()
             elapsed_time = end_time - start_time
@@ -278,8 +280,7 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     if extracted_docs.get("patch_posts"):
         patch_posts_df = await asyncio.to_thread(
             transformer.transform_patch_posts_v2,
-            extracted_docs["patch_posts"],
-            True
+            extracted_docs["patch_posts"]
         )
 
         if patch_posts_df is not None and not patch_posts_df.empty:
@@ -461,11 +462,30 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
             vectordb_config=settings["VECTORDB_CONFIG"],
         )
         try:
+            # Set insert-optimized mode for bulk loading
+            await vector_db_service.update_collection_params(optimize_for="insert")
+
             llama_vector_service = await LlamaIndexVectorService.initialize(
                 vector_db_service=vector_db_service,
                 persist_dir=settings["VECTORDB_CONFIG"]['persist_dir']
             )
             logging.debug("initialized llama vector service")
+
+            # Create indexes for frequently queried fields
+            payload_indexes = [
+                ("post_type", {"type": "keyword"}),
+                ("collection", {"type": "keyword"}),
+                ("published", {"type": "keyword"}),
+                ("source_type", {"type": "keyword"}),
+                ("severity_type", {"type": "keyword"}),
+                ("entity_type", {"type": "keyword"})
+            ]
+
+            for field_name, schema in payload_indexes:
+                try:
+                    await vector_db_service.create_payload_index(field_name, schema)
+                except Exception as e:
+                    logging.warning(f"Failed to create index for {field_name}: {e}")
 
             llama_documents = []
             dataframe_conversions = []
@@ -537,40 +557,76 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
                 doc_tracker = CustomDocumentTracker(
                     persist_path=os.path.join(settings["VECTORDB_CONFIG"]['persist_dir'], 'doc_tracker.json')
                 )
-                # UPSERT
-                await llama_vector_service.upsert_documents(llama_documents, verify_upsert=True)  # Enable verification during development
-                logging.info(f"Upserted {len(llama_documents)} documents to vector store")
 
-                current_time = datetime.now().isoformat()
-                # Track documents after successful upsert
-                for name, df in dataframe_conversions:
-                    if name == 'kb_articles':
-                        await track_dataframe_documents(df, doc_tracker, kb_articles_root_keys)
-                    elif name == 'update_packages':
-                        await track_dataframe_documents(df, doc_tracker, update_packages_root_keys)
-                    elif name == 'symptoms':
-                        await track_dataframe_documents(df, doc_tracker, symptoms_root_keys)
-                    elif name == 'causes':
-                        await track_dataframe_documents(df, doc_tracker, causes_root_keys)
-                    elif name == 'fixes':
-                        await track_dataframe_documents(df, doc_tracker, fixes_root_keys)
-                    elif name == 'tools':
-                        await track_dataframe_documents(df, doc_tracker, tools_root_keys)
-                    elif name == 'msrc_posts':
-                        await track_dataframe_documents(df, doc_tracker, msrc_posts_root_keys)
-                    elif name == 'patch_posts':
-                        await track_dataframe_documents(df, doc_tracker, patch_posts_root_keys)
+                # Configure batch size based on document count
+                batch_size = min(max(1000, len(llama_documents) // 10), 5000)
+                logging.info(f"Using batch size of {batch_size} for {len(llama_documents)} documents")
 
-                # Save all tracked documents
-                doc_tracker._save_catalog()
+                try:
+                    # UPSERT with optimized batch processing and proper await
+                    nodes_created = await llama_vector_service.upsert_documents(
+                        documents=llama_documents,
+                        verify_upsert=True,
+                        wait=False,  # Don't wait for indexing
+                        show_progress=True,
+                        batch_size=batch_size
+                    )
+
+                    if nodes_created is not None:
+                        logging.info(f" - Created {nodes_created} nodes from {len(llama_documents)} documents")
+
+                        # Track documents after successful upsert
+                        tracking_tasks = []
+                        for name, df in dataframe_conversions:
+                            tracking_task = None
+                            if name == 'kb_articles':
+                                tracking_task = track_dataframe_documents(df, doc_tracker, kb_articles_root_keys)
+                            elif name == 'update_packages':
+                                tracking_task = track_dataframe_documents(df, doc_tracker, update_packages_root_keys)
+                            elif name == 'symptoms':
+                                tracking_task = track_dataframe_documents(df, doc_tracker, symptoms_root_keys)
+                            elif name == 'causes':
+                                tracking_task = track_dataframe_documents(df, doc_tracker, causes_root_keys)
+                            elif name == 'fixes':
+                                tracking_task = track_dataframe_documents(df, doc_tracker, fixes_root_keys)
+                            elif name == 'tools':
+                                tracking_task = track_dataframe_documents(df, doc_tracker, tools_root_keys)
+                            elif name == 'msrc_posts':
+                                tracking_task = track_dataframe_documents(df, doc_tracker, msrc_posts_root_keys)
+                            elif name == 'patch_posts':
+                                tracking_task = track_dataframe_documents(df, doc_tracker, patch_posts_root_keys)
+
+                            if tracking_task:
+                                tracking_tasks.append(tracking_task)
+
+                        if tracking_tasks:
+                            # Wait for all tracking tasks to complete concurrently
+                            await asyncio.gather(*tracking_tasks)
+                            logging.info(f" - Successfully tracked {len(tracking_tasks)} document groups")
+
+                        # Save tracked documents
+                        doc_tracker._save_catalog()
+                        logging.info(" - Saved document tracking catalog")
+                    else:
+                        logging.error("Failed to create nodes - upsert returned None")
+                        raise ValueError("Upsert operation failed")
+
+                except Exception as e:
+                    logging.error(f"Error during document upsert or tracking: {str(e)}")
+                    raise
             else:
-                print("No documents to upsert")
-
+                logging.info("No documents to process")
         except Exception as e:
             logging.error(f"Error in llama workflow in pipeline: {e}")
             raise
 
         finally:
+            # Switch back to search-optimized mode before closing
+            try:
+                await vector_db_service.update_collection_params(optimize_for="search")
+            except Exception as e:
+                logging.warning(f"Failed to switch to search mode: {e}")
+
             # Ensure cleanup happens even if there's an error
             if 'llama_vector_service' in locals():
                 await llama_vector_service.aclose()
@@ -681,71 +737,72 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     # print(f"before document upsert - msrc_df.columns:\n{msrc_posts_df.columns}")
     # Update MSRC Posts
     if isinstance(msrc_posts_df, pd.DataFrame) and not msrc_posts_df.empty:
+
         msrc_posts_df = convert_and_replace_nulls(msrc_posts_df)
         docstore_service = DocumentService(db_name="report_docstore", collection_name="docstore")
         for _, row in msrc_posts_df.iterrows():
-            logging.info(f"Processing document {row['node_id']} ================")
-            logging.debug(f"Original row data:\n{row.to_dict()}")
-            logging.debug(f"Columns being excluded: {msrc_exclude_columns}")
+            try:
+                logging.debug(f"Original row data:\n{row.to_dict()}")
+                logging.debug(f"Columns being excluded: {msrc_exclude_columns}")
 
-            exclude_fields = set(msrc_exclude_columns)
-            # Convert row data into metadata dictionary first
-            metadata_dict = {
-                col: (pd.Timestamp(row[col]).to_pydatetime() if isinstance(row[col], (pd.Timestamp, np.datetime64))
-                      else None if row[col] is pd.NA
-                      else row[col])
-                for col in row.index
-                if col not in exclude_fields
-            }
-            # Ensure etl_processing_status is included in metadata
-            # if 'metadata' in row:
-            #     source_metadata = row['metadata']
-            #     if isinstance(source_metadata, str):
-            #         try:
-            #             source_metadata = json.loads(source_metadata)
-            #         except json.JSONDecodeError:
-            #             source_metadata = {}
+                exclude_fields = set(msrc_exclude_columns)
+                # Convert row data into metadata dictionary with explicit Series handling
+                metadata_dict = {}
+                for col in row.index:
+                    if col not in exclude_fields:
+                        value = row[col]
+                        if isinstance(value, pd.Series):
+                            # If we get a Series, log it and take the first non-null value
+                            logging.warning(f"Found Series instead of scalar for column {col}: {value}")
+                            non_null_values = value.dropna()
+                            value = non_null_values.iloc[0] if not non_null_values.empty else None
 
-            #     if isinstance(source_metadata, dict):
-            #         # Update with source metadata, preserving our new values
-            #         metadata_dict.update(source_metadata)
+                        if isinstance(value, (pd.Timestamp, np.datetime64)):
+                            value = pd.Timestamp(value).to_pydatetime()
+                        elif value is pd.NA:
+                            value = None
 
-            # Update ETL status
-            metadata_dict['etl_processing_status'] = {
-                "document_processed": True,
-                "nvd_extracted": True,
-                "entities_extracted": True,
-                "graph_prepared": True,
-                "vector_prepared": True,
-                "last_processed_at": datetime.now().isoformat(),
-                "processing_version": "1.0"
-            }
+                        metadata_dict[col] = value
 
-            # Create DocumentMetadata - it will handle all the nested dictionary logic now
-            metadata = DocumentMetadata(
-                id=row['node_id'],
-                **metadata_dict
-            )
-            logging.debug(f"Created DocumentMetadata:\n{metadata.model_dump(exclude_none=False)}")
+                # Update ETL status
+                metadata_dict['etl_processing_status'] = {
+                    "document_processed": True,
+                    "nvd_extracted": True,
+                    "entities_extracted": True,
+                    "graph_prepared": True,
+                    "vector_prepared": True,
+                    "last_processed_at": datetime.now().isoformat(),
+                    "processing_version": "1.0"
+                }
 
-            doc = Document(
-                id_=row['node_id'],
-                metadata=metadata,
-                text=row['text'],
-                embedding=row['embedding']
+                # Create DocumentMetadata - it will handle all the nested dictionary logic now
+                metadata = DocumentMetadata(
+                    id=row['node_id'],
+                    **metadata_dict
                 )
-            logging.debug(f"Created Document instance:\n{doc.model_dump(exclude_none=False)}")
+                logging.debug(f"Created DocumentMetadata:\n{metadata.model_dump(exclude_none=False)}")
 
-            update_result = docstore_service.update_document(
-                row['node_id'],
-                doc,
-                False
-            )
-            logging.info(f"Update result for document {row['node_id']}: {update_result}")
+                doc = Document(
+                    id_=row['node_id'],
+                    metadata=metadata,
+                    text=row['text'],
+                    embedding=row['embedding']
+                    )
+                logging.debug(f"Created Document instance:\n{doc.model_dump(exclude_none=False)}")
+
+                update_result = docstore_service.update_document(
+                    row['node_id'],
+                    doc,
+                    False
+                )
+                logging.info(f"Update result for document {row['node_id']}: {update_result}")
+            except Exception as e:
+                logging.error(f"Error processing document {row['node_id']}: {str(e)}")
+                logging.error(f"Row data that caused error:\n{row.to_dict()}")
+                continue
 
         logging.info(f"Updated {len(msrc_posts_df)} MSRC posts")
-
-    print("STARTING PATCH DOCUMENT UPDATES")
+    logging.info("STARTING PATCH DOCUMENT UPDATES")
 
     # Update Patch Management Posts
     if isinstance(patch_posts_df, pd.DataFrame) and not patch_posts_df.empty:
@@ -753,7 +810,6 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
         docstore_service = DocumentService(db_name="report_docstore", collection_name="docstore")
 
         for _, row in patch_posts_df.iterrows():
-            logging.info(f"\nProcessing document {row['node_id']} ================")
             logging.debug(f"Original row data:\n{row.to_dict()}")
             logging.debug(f"Columns being excluded: {patch_exclude_columns}")
 
@@ -766,6 +822,7 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
             #             original_metadata = json.loads(source_metadata)
             #         except json.JSONDecodeError:
             #             original_metadata = {}
+
             #     elif isinstance(source_metadata, dict):
             #         original_metadata = source_metadata
 
@@ -786,13 +843,13 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
 
             # Add ETL status
             new_metadata['etl_processing_status'] = {
-                "document_processed": True,
-                "entities_extracted": True,
-                "graph_prepared": True,
-                "vector_prepared": True,
-                "last_processed_at": datetime.now().isoformat(),
-                "processing_version": "1.0"
-            }
+                    "document_processed": True,
+                    "entities_extracted": True,
+                    "graph_prepared": True,
+                    "vector_prepared": True,
+                    "last_processed_at": datetime.now().isoformat(),
+                    "processing_version": "1.0"
+                }
 
             # Combine metadata and create instances
             # final_metadata = {**original_metadata, **new_metadata}
@@ -817,24 +874,21 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
                 False
             )
             logging.info(f"Update result for document {row['node_id']}: {update_result}")
-            logging.info("=" * 50)
         logging.info(f"Updated {len(patch_posts_df)} Patch Management posts")
 
-    print("STARTING KB ARTICLE DOCUMENT UPDATES")
+    logging.info("STARTING KB ARTICLE DOCUMENT UPDATES")
 
-    # print(f"before document upsert - kb_df.columns:\n{kb_articles_combined_df.columns}")
-    # Update KB Articles
     if isinstance(kb_articles_combined_df, pd.DataFrame) and not kb_articles_combined_df.empty:
         kb_articles_combined_df = convert_and_replace_nulls(kb_articles_combined_df)
         kb_service = DocumentService(db_name="report_docstore", collection_name="microsoft_kb_articles")
         for _, row in kb_articles_combined_df.iterrows():
-            logging.info(f"\nProcessing document {row['node_id']} ================")
-
             # Convert row data into update dictionary, excluding specified columns
             update_data = {
-                col: (row[col].to_pydatetime() if isinstance(row[col], pd.Timestamp)
+                col: (
+                    row[col].to_pydatetime() if isinstance(row[col], pd.Timestamp)
                     else None if row[col] is pd.NA
-                    else row[col])
+                    else row[col]
+                )
                 for col in row.index
                 if col not in kb_exclude_columns
             }
@@ -882,7 +936,7 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
             # Update all matching documents
             update_result = kb_service.update_documents(filter_query, update_data)
             logging.info(f"Update result for document {row['node_id']}: {update_result} documents updated")
-            logging.info("=" * 50)
+
             # updated_document = kb_service.collection.find_one(filter_query)
             # logging.info(f"Updated document for node_id {row['node_id']}:\n{updated_document}")
             # if update_result == 0:
@@ -910,7 +964,7 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     return response
 # END FULL INGESTION PIPELINE ===============================================
 
-# # BEGIN PATCH FEATURE ENGINEERING HERLPERS ==================================
+# BEGIN PATCH FEATURE ENGINEERING HERLPERS ==================================
 
 
 def prepare_products(df):
@@ -1080,9 +1134,9 @@ async def patch_feature_engineering_pipeline(
 ):
 
     response = {
-        "message": "patch feature engineering pipeline complete.",
+        "message": "patch feature engineering pipeline inomplete.",
         "status": "in progress",
-        "code": 200,
+        "code": 500,
     }
     logging.info(
         "Patch Feature Engineering data extraction ==========================="
@@ -1106,9 +1160,9 @@ async def patch_feature_engineering_pipeline(
     )
     if not patch_docs:
         response = {
-            "message": "patch feature engineering pipeline terminated.",
-            "status": "Failed",
-            "code": 500,
+            "message": "No Patch documents found for the specified time period.",
+            "status": "NoRecords",
+            "code": 204  # Using 204 to indicate success but no content
         }
         return response
     products_df = await asyncio.to_thread(transformer.transform_products, product_docs)

@@ -40,12 +40,17 @@ from neomodel.async_.relationship_manager import (
 )
 from neo4j import GraphDatabase  # required for constraints check
 from neo4j.exceptions import ClientError
-import time
+# import time
+from rapidfuzz import fuzz, process, utils
 import re
 from datetime import datetime, timezone
+import time
 import json
 import hashlib
 from tqdm import tqdm
+import yaml
+import os
+import difflib
 
 settings = get_app_config()
 graph_db_settings = settings["GRAPHDB_CONFIG"]
@@ -262,7 +267,7 @@ class BaseService(Generic[T]):
 
     async def execute_cypher(self, query: str, params: Optional[Dict[str, Any]] = None):
         print(f"query type: {type(query)} type params: {type(params)}\n{params}")
-        results = db.cypher_query(query, params)
+        results = self.db_manager._db.cypher_query(query, params)
         return results
 
     async def inflate_results(self, results: List[Any]) -> List[T]:
@@ -326,7 +331,7 @@ class BaseService(Generic[T]):
         results = []
         errors = []
         async with self.db_manager:
-            async with db.transaction:
+            async with self.db_manager._db.transaction:
                 for item in items:
                     try:
                         # Handle None or empty values for embedding
@@ -530,6 +535,235 @@ class FAQService(BaseService[graph_db_models.FAQ]):
 class ToolService(BaseService[graph_db_models.Tool]):
     def __init__(self, db_manager: GraphDatabaseManager):
         super().__init__(graph_db_models.Tool, db_manager)
+        self._cached_tools = None
+        self._last_cache_time = None
+        self._cache_ttl = 300  # 5 minutes TTL
+        self._compound_words, self._acronyms = self._load_compound_words()
+
+    def _load_compound_words(self) -> tuple[set, set]:
+        """
+        Load compound words and acronyms from YAML file.
+        Returns tuple of (compound_words, acronyms)
+        """
+        try:
+            compound_words_path = os.path.join(
+                os.path.dirname(os.path.dirname(__file__)),
+                "etl",
+                "microsoft_compound_phrases.yaml"
+            )
+            with open(compound_words_path, 'r') as f:
+                data = yaml.safe_load(f)
+                compound_words = set(data.get("_COMPOUND_WORDS", []))
+                acronyms = set(data.get("_ACRONYMS", []))
+                logging.info(f"Loaded {len(compound_words)} compound words and {len(acronyms)} acronyms")
+                return compound_words, acronyms
+        except Exception as e:
+            logging.error(f"Error loading compound words from {compound_words_path}: {str(e)}")
+            return set(), set()
+
+    async def _load_all_tools(self, force_refresh: bool = False) -> List[graph_db_models.Tool]:
+        """
+        Load all tools from the database with caching.
+
+        Args:
+            force_refresh: If True, force a cache refresh even if TTL hasn't expired
+
+        Returns:
+            List of Tool nodes
+        """
+        current_time = time.time()
+
+        # Check if cache is valid
+        if (not force_refresh and
+            self._cached_tools is not None and
+            self._last_cache_time is not None and
+            current_time - self._last_cache_time < self._cache_ttl):
+            return self._cached_tools
+
+        # Cache miss or forced refresh - load from database
+        try:
+            self._cached_tools = await self.model.nodes.all()
+            self._last_cache_time = current_time
+            logging.info(f"Loaded {len(self._cached_tools)} tools into cache")
+            return self._cached_tools
+        except Exception as e:
+            logging.error(f"Error loading tools from database: {str(e)}")
+            # If we have cached data, return it as fallback
+            if self._cached_tools is not None:
+                logging.info("Returning cached tools as fallback")
+                return self._cached_tools
+            raise
+
+    async def invalidate_cache(self):
+        """Force the tool cache to be refreshed on next access."""
+        self._cached_tools = None
+        self._last_cache_time = None
+
+    async def find_similar_tool(
+        self,
+        tool_label: str,
+        threshold: float = 0.85,
+        max_candidates: int = 5
+    ) -> Optional[graph_db_models.Tool]:
+        """
+        Find existing tools with similar labels using string similarity matching.
+        This method performs the following steps:
+        1. Normalizes the input tool label to snake_case
+        2. Retrieves candidate tools from the database cache
+        3. Uses SequenceMatcher for string similarity comparison
+        4. Returns the most similar tool if it meets the threshold
+
+        Args:
+            tool_label: The tool label to match against
+            threshold: Similarity threshold (0-1), higher means stricter matching
+            max_candidates: Maximum number of candidates to compare
+
+        Returns:
+            Optional[Tool]: The most similar tool if one exists above threshold, else None
+
+        Example:
+            >>> tool = await tool_service.find_similar_tool("update_edge", threshold=0.85)
+            >>> if tool:
+            >>>     print(f"Found similar tool: {tool.tool_label}")
+        """
+        if not tool_label or len(tool_label.strip()) == 0:
+            logging.warning("Empty tool label provided to find_similar_tool")
+            return None
+
+        def normalize_label(text: str) -> str:
+            """Convert any string to snake_case format"""
+            if not text:
+                return text
+
+            # If already in snake_case, return as-is
+            if is_snake_case(text):
+                return text
+
+            # Remove any special characters and extra whitespace
+            text = re.sub(r'[^a-zA-Z0-9\s]', '', text.strip())
+
+            # Convert CamelCase to space-separated words
+            text = re.sub(r'([A-Z])', r' \1', text).strip()
+
+            # Convert to lowercase and replace spaces with underscores
+            return re.sub(r'\s+', '_', text.lower())
+
+        def is_snake_case(text: str) -> bool:
+            """
+            Check if a string is already in valid snake_case format.
+            Returns True if:
+            - Contains only lowercase letters, numbers, and underscores
+            - No consecutive underscores
+            - No leading/trailing underscores
+            - No spaces
+            """
+            if not text:
+                return True
+
+            # Check for uppercase letters or spaces
+            if any(c.isupper() or c.isspace() for c in text):
+                return False
+
+            # Check for valid characters (lowercase, numbers, single underscores)
+            if not re.match(r'^[a-z0-9]+(?:_[a-z0-9]+)*$', text):
+                return False
+
+            return True
+
+        def combined_similarity(input_label: str, candidate_label: str) -> float:
+            """
+            Calculate similarity between two labels using both character and token-based matching.
+
+            Args:
+                input_label: The input label to compare
+                candidate_label: The candidate label to compare against
+
+            Returns:
+                float: Combined similarity score between 0 and 1
+            """
+            # Character-based ratio using SequenceMatcher
+            char_ratio = difflib.SequenceMatcher(None, input_label, candidate_label).ratio()
+
+            # Token-based ratios using RapidFuzz (returns scores in 0..100)
+            token_set_ratio = fuzz.token_set_ratio(input_label, candidate_label) / 100.0
+            token_sort_ratio = fuzz.token_sort_ratio(input_label, candidate_label) / 100.0
+
+            # Common suffixes to consider less important
+            common_suffixes = ['available', 'enabled', 'disabled', 'running', 'complete', 'failed', 'tool', 'utility']
+
+            # Boost score if the only difference is a common suffix
+            input_parts = input_label.split('_')
+            candidate_parts = candidate_label.split('_')
+
+            # If one label contains a common suffix that the other doesn't, boost the token scores
+            suffix_boost = 0
+            if len(input_parts) != len(candidate_parts):
+                extra_words = set(input_parts) ^ set(candidate_parts)  # Words that differ
+                if all(word in common_suffixes for word in extra_words):
+                    suffix_boost = 0.1  # Boost score by 0.1 if only difference is common suffix
+
+            # Use the higher of the token ratios and apply suffix boost
+            token_ratio = max(token_set_ratio, token_sort_ratio) + suffix_boost
+            token_ratio = min(1.0, token_ratio)  # Cap at 1.0
+
+            # Weighted average (token matching given more weight)
+            weight_char = 0.3  # Reduced character-level weight
+            weight_token = 0.7  # Increased token-level weight
+            final_score = (char_ratio * weight_char) + (token_ratio * weight_token)
+            if final_score > 0.6:
+                # Detailed logging for development/tuning
+                logging.info(f"Similarity Analysis:")
+                logging.info(f"  Input:     '{input_label}'")
+                logging.info(f"  Candidate: '{candidate_label}'")
+                logging.info(f"  Char Score:      {char_ratio:.3f}")
+                logging.info(f"  Token Set:       {token_set_ratio:.3f}")
+                logging.info(f"  Token Sort:      {token_sort_ratio:.3f}")
+                logging.info(f"  Suffix Boost:    {suffix_boost:.3f}")
+                logging.info(f"  Final Score:     {final_score:.3f}")
+
+            return final_score
+
+        try:
+            # Get all tools from cache
+            all_tools = await self._load_all_tools()
+            if not all_tools:
+                logging.debug("No existing tools found in database")
+                return None
+
+            # Normalize input label
+            normalized_input = normalize_label(tool_label)
+            logging.info(f"Normalized input: '{normalized_input}'")
+
+            # Calculate similarity scores using combined similarity
+            candidates = []
+            for idx, tool in enumerate(all_tools):
+                normalized_tool = tool.tool_label.lower()  # Tool labels are already in snake_case
+                score = combined_similarity(normalized_input, normalized_tool)
+                if score > threshold * 0.7:  # Lower threshold for development/monitoring
+                    candidates.append((tool, score))
+
+            if not candidates:
+                logging.info(f"No candidates passed threshold ({threshold})")
+                return None
+
+            # Sort by score and get top candidates
+            candidates.sort(key=lambda x: x[1], reverse=True)
+            candidates = candidates[:max_candidates]
+
+            # Return the best match if it meets the final threshold
+            best_match = candidates[0]
+            if best_match[1] >= threshold:
+                logging.info(
+                    f"Found similar tool: '{best_match[0].tool_label}' with score {best_match[1]}"
+                )
+                return best_match[0]
+
+            logging.info("No candidates passed final threshold")
+            return None
+
+        except Exception as e:
+            logging.error(f"Error finding similar tool: {str(e)}")
+            return None
 
 
 class KBArticleService(BaseService[graph_db_models.KBArticle]):
@@ -951,18 +1185,18 @@ class RelationshipTracker:
                         # Check cardinality constraints
                         if (node_type in one_to_one_relationships and rel_type in one_to_one_relationships[node_type]):
                             # For one-to-one relationships, ensure uniqueness
-                            existing_relationships = self.existing_relationships[node_type][rel_type]
-                            for existing_rel in existing_relationships:
-                                if existing_rel[0] == source_id:
-                                    logging.warning(f"Duplicate one-to-one relationship found: {source_id}-[{rel_type}]->{target_id}")
-                                    continue
+                                existing_relationships = self.existing_relationships[node_type][rel_type]
+                                for existing_rel in existing_relationships:
+                                    if existing_rel[0] == source_id:
+                                        logging.warning(f"Duplicate one-to-one relationship found: {source_id}-[{rel_type}]->{target_id}")
+                                        continue
 
                         # Store relationship with minimal information
                         relationship_key = (source_id, target_id)
                         self.existing_relationships[node_type][rel_type].add(relationship_key)
 
                         # Cache node existence
-                        self._cache_node_existence(source_id, source_type)
+                        self._cache_node_existence(source_id, node_type)
                         self._cache_node_existence(target_id, target_type)
 
                 except Exception as e:
@@ -1341,7 +1575,17 @@ async def check_has_tool(
     target_node: Any,
     rel_info: graph_db_models.AsyncToolRel
 ) -> bool:
-    return target_node.source_id == source_node.node_id
+    # Check direct source_id match
+    direct_match = target_node.source_id == source_node.node_id
+
+    # Check source_ids array if property exists
+    array_match = (
+        source_node.node_id in target_node.source_ids
+        if hasattr(target_node, 'source_ids')
+        else False
+    )
+
+    return direct_match or array_match
 
 
 async def check_has_kb(

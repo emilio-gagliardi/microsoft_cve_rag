@@ -223,15 +223,20 @@ class NVDDataExtractor:
             'cwe_source': 'category',
             'cwe_url': 'string',
         }
+
         def parse_nvd_date(date_str):
             if pd.isna(date_str):
                 return None
             try:
-                # NVD uses MM/DD/YYYY format
+                # First try MM/DD/YYYY format (from NVD website)
                 return datetime.strptime(str(date_str), '%m/%d/%Y')
-            except ValueError as e:
-                logging.warning(f"Could not parse NVD date: {date_str} - {str(e)}")
-                return None
+            except ValueError:
+                try:
+                    # Try YYYY-MM-DD HH:MM:SS format (from MongoDB)
+                    return datetime.strptime(str(date_str), '%Y-%m-%d %H:%M:%S')
+                except ValueError as e:
+                    logging.warning(f"Could not parse NVD date: {date_str} - {str(e)}")
+                    return None
         # Apply source prefixes to relevant columns
         prefixed_types = {}
         for source in self.VECTOR_SOURCES.keys():
@@ -333,12 +338,19 @@ class NVDDataExtractor:
                         element = tooltip.find_element(By.XPATH, xpath)
                         value = element.text.strip()
 
-                        # Special handling for base score
-                        if metric == 'base_score':
+                        # Special handling for numeric metric values
+                        if metric in ['base_score', 'impact_score', 'exploitability_score']:
                             try:
-                                data[f"{prefix}base_score_num"] = float(value)
+                                data[f"{prefix}{metric}"] = float(value)
                             except ValueError:
-                                data[f"{prefix}base_score_num"] = None
+                                data[f"{prefix}{metric}"] = None
+
+                            # Additional handling for base_score
+                            if metric == 'base_score':
+                                try:
+                                    data[f"{prefix}base_score_num"] = float(value)
+                                except ValueError:
+                                    data[f"{prefix}base_score_num"] = None
                         elif metric == 'base_score_rating':
                             data[f"{prefix}base_score_rating"] = value.lower()
                         else:
@@ -526,6 +538,15 @@ class NVDDataExtractor:
                 batch = df_copy.iloc[start_idx:end_idx]
 
                 for idx, row in batch.iterrows():
+                    # Skip if NVD data has already been extracted
+                    if isinstance(row.get('metadata', {}), dict):
+                        etl_status = row['metadata'].get('etl_processing_status', {})
+                        if isinstance(etl_status, dict) and etl_status.get('nvd_extracted', False):
+                            if progress_bar:
+                                progress_bar.update(1)
+                            logging.info(f"Skipping NVD extraction for {row[url_column]} - already extracted")
+                            continue
+
                     post_id = row[url_column]
                     if pd.isna(post_id):
                         if progress_bar:
