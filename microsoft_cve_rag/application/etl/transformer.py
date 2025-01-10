@@ -44,41 +44,48 @@ logging.getLogger(__name__)
 # BEGIN PATCH FEATURE ENGINEERING HERLPERS ==================================
 
 
+def _join_product_parts(row: pd.Series) -> str:
+    """Join product parts into a full product string, excluding 'NV' and 'NA' values."""
+    parts = [
+        part
+        for part in [
+            row["product_name"],
+            row["product_version"],
+            row["product_architecture"],
+        ]
+        if part not in ["NV", "NA"]
+    ]
+    return " ".join(parts)
+
+
+def _join_product_name_version(row: pd.Series) -> str:
+    """Join product name and version, excluding 'NV' values."""
+    parts = [
+        part
+        for part in [row["product_name"], row["product_version"]]
+        if part not in ["NV"]
+    ]
+    return " ".join(parts)
+
+
+def _add_edge_terms(text: str, edge_terms: List[str]) -> str:
+    """Add Edge-specific terms to a text field."""
+    return text + " " + " ".join(edge_terms)
+
+
 def prepare_products(df):
     df["product_name"] = df["product_name"].str.replace("_", " ")
-    df["product_full"] = df.apply(
-        lambda row: " ".join(
-            [
-                part
-                for part in [
-                    row["product_name"],
-                    row["product_version"],
-                    row["product_architecture"],
-                ]
-                if part not in ["NV", "NA"]
-            ]
-        ),
-        axis=1,
-    )
-    df["product_name_version"] = df.apply(
-        lambda row: " ".join(
-            [
-                part
-                for part in [row["product_name"], row["product_version"]]
-                if part not in ["NV"]
-            ]
-        ),
-        axis=1,
-    )
+    df["product_full"] = df.apply(_join_product_parts, axis=1)
+    df["product_name_version"] = df.apply(_join_product_name_version, axis=1)
 
     # Add additional search terms for "edge"
     edge_terms = ["microsoft edge", "chromium", "chromiumbased", "chromium based"]
     df.loc[df["product_name"] == "edge", "product_full"] = df.loc[
         df["product_name"] == "edge", "product_full"
-    ].apply(lambda x: x + " " + " ".join(edge_terms))
+    ].apply(lambda x: _add_edge_terms(x, edge_terms))
     df.loc[df["product_name"] == "edge", "product_name_version"] = df.loc[
         df["product_name"] == "edge", "product_name_version"
-    ].apply(lambda x: x + " " + " ".join(edge_terms))
+    ].apply(lambda x: _add_edge_terms(x, edge_terms))
 
     return df
 
@@ -278,6 +285,85 @@ def custom_json_serializer(obj):
     raise TypeError(f"Type {type(obj)} not serializable")
 
 
+def _map_product_name(x: str, mapping: Dict[str, str]) -> str:
+    """Map product names using a predefined mapping dictionary."""
+    return mapping.get(x, x)
+
+
+def _map_architecture(x: str, mapping: Dict[str, str]) -> str:
+    """Map architecture names using a predefined mapping dictionary."""
+    return mapping.get(x, x)
+
+
+def _handle_single_item_list(x: Any) -> Any:
+    """Extract single item from a list if it's a single-item list, otherwise return as is."""
+    return x[0] if isinstance(x, list) and len(x) == 1 else x
+
+
+def _map_impact_type(x: str, mapping: Dict[str, str]) -> str:
+    """Map impact type using a predefined mapping dictionary."""
+    return mapping.get(x, x)
+
+
+def _create_excluded_metadata_keys(x: Union[List, Any]) -> List[str]:
+    """Create a list of excluded metadata keys, combining existing keys with standard ones."""
+    base_keys = {
+        "node_id",
+        "cve_ids",
+        "build_number",
+        "node_label",
+        "product_build_id",
+        "product_build_ids",
+    }
+    existing_keys = set(x if isinstance(x, list) else [])
+    return list(existing_keys | base_keys)
+
+
+def _create_kb_catalog_url(kb_id: str) -> str:
+    """Create a URL for the Microsoft Update Catalog based on KB ID."""
+    return f"https://catalog.update.microsoft.com/Search.aspx?q={kb_id.replace('-', '')}" if pd.notna(kb_id) else ""
+
+
+def _get_first_label(labels: Any) -> str:
+    """Get the first label from a list of labels, or return the label as is if not a list."""
+    return labels[0] if isinstance(labels, list) else labels
+
+
+def _map_package_type(x: str, mapping: Dict[str, str]) -> str:
+    """Map package type using a predefined mapping dictionary."""
+    return mapping.get(x, x)
+
+
+def _get_metadata_field(metadata: Dict[str, Any], field: str) -> Any:
+    """Retrieve a specific field from the metadata dictionary."""
+    return metadata.get(field) if metadata else None
+
+
+def _sort_kb_ids(kb_ids: Union[List[str], str]) -> Union[List[str], str]:
+    """Sort KB IDs in reverse order if input is a list, otherwise return as is."""
+    if isinstance(kb_ids, list):
+        return sorted(kb_ids, reverse=True)
+    return kb_ids
+
+
+def _check_doc_processed(metadata: Dict[str, Any]) -> bool:
+    """Check if a document has been processed based on its metadata."""
+    return bool(metadata.get("etl_processing_status", {}).get("document_processed", False))
+
+
+def _create_excluded_update_metadata_keys(x: List[str]) -> List[str]:
+    """Create a list of excluded metadata keys specific to update packages."""
+    base_keys = {
+        "node_id",
+        "node_label",
+        "package_type",
+        "published",
+        "downloadable_packages"
+    }
+    existing_keys = set(x if isinstance(x, list) else [])
+    return list(existing_keys | base_keys)
+
+
 def transform_products(products: List[Dict[str, Any]]) -> pd.DataFrame:
     # clean up document dict from mongo to align with data models
     if products:
@@ -290,10 +376,8 @@ def transform_products(products: List[Dict[str, Any]]) -> pd.DataFrame:
             "microsoft_edge_(chromium-based)": "edge",
             "microsoft_edge_(chromium-based)_extended_stable": "edge_ext",
         }
-        df["product_name"] = df["product_name"].apply(lambda x: mapping_names.get(x, x))
-        df["product_architecture"] = df["product_architecture"].apply(
-            lambda x: mapping.get(x, x)
-        )
+        df["product_name"] = df["product_name"].apply(lambda x: _map_product_name(x, mapping_names))
+        df["product_architecture"] = df["product_architecture"].apply(lambda x: _map_architecture(x, mapping))
         df["product_architecture"] = df["product_architecture"].replace("", "NA")
         df["product_version"] = df["product_version"].replace("", "NV")
         df["node_label"] = "Product"
@@ -321,9 +405,7 @@ def transform_product_builds(product_builds: List[Dict[str, Any]]) -> pd.DataFra
 
         # Apply the process_kb_id function to the 'kb_id' column
         df["kb_id"] = df["kb_id"].apply(normalize_mongo_kb_id)
-        df["kb_id"] = df["kb_id"].apply(
-            lambda x: x[0] if isinstance(x, list) and len(x) == 1 else x
-        )
+        df["kb_id"] = df["kb_id"].apply(_handle_single_item_list)
         # unclear why I added the next line. Neither the mongo doc nor the neo4j node have a `kb_ids` field.
         # df["kb_ids"] = df["kb_ids"].apply(lambda x: sorted(x, reverse=True))
 
@@ -339,14 +421,12 @@ def transform_product_builds(product_builds: List[Dict[str, Any]]) -> pd.DataFra
             "information_disclosure": "disclosure",
             "elevation_of_privilege": "privilege_elevation",
         }
-        df["product_architecture"] = df["product_architecture"].apply(
-            lambda x: mapping_architectures.get(x, x)
-        )
+        df["product_architecture"] = df["product_architecture"].apply(lambda x: _map_architecture(x, mapping_architectures))
         df["product_architecture"] = df["product_architecture"].replace("", "NA")
         df["product_version"] = df["product_version"].replace("", "NV")
-        df["product_name"] = df["product_name"].apply(lambda x: mapping_names.get(x, x))
+        df["product_name"] = df["product_name"].apply(lambda x: _map_product_name(x, mapping_names))
         df["impact_type"] = df["impact_type"].str.lower().str.replace(" ", "_")
-        df["impact_type"] = df["impact_type"].apply(lambda x: mapping_impacts.get(x, x))
+        df["impact_type"] = df["impact_type"].apply(lambda x: _map_impact_type(x, mapping_impacts))
         df["impact_type"] = df["impact_type"].fillna("NIT")
         df["severity_type"] = df["severity_type"].str.lower()
         df["severity_type"] = df["severity_type"].fillna("NST")
@@ -460,7 +540,7 @@ async def async_generate_summary(text: str) -> str:
         KB Article text:
         {kb_article_text}
         """
-    model_kwargs = {"max_tokens": 850, "temperature": 0.9}
+    model_kwargs = {"max_tokens": 1150, "temperature": 0.87}
     response = await generate_llm_response(
         marvin_summary_prompt.format(kb_article_text=text),
         model_kwargs=model_kwargs,
@@ -497,22 +577,22 @@ def transform_kb_articles(
         "update_package_url"
     ]
     dtypes = {
-            'node_id': 'str',
-            'kb_id': 'str',
-            'title': 'str',
-            'text': 'str',
-            'published': 'datetime64[ns]',
-            'product_build_id': 'str',
-            'product_build_ids': 'object',
-            'build_number': 'object',
-            'cve_ids': 'object',
-            'excluded_embed_metadata_keys': 'object',
-            'excluded_llm_metadata_keys': 'object',
-            'node_label': 'str',
-            'article_url': 'str',
-            'summary': 'str',
-            'update_package_url': 'str'
-        }
+        'node_id': 'str',
+        'kb_id': 'str',
+        'title': 'str',
+        'text': 'str',
+        'published': 'datetime64[ns]',
+        'product_build_id': 'str',
+        'product_build_ids': 'object',
+        'build_number': 'object',
+        'cve_ids': 'object',
+        'excluded_embed_metadata_keys': 'object',
+        'excluded_llm_metadata_keys': 'object',
+        'node_label': 'str',
+        'article_url': 'str',
+        'summary': 'str',
+        'update_package_url': 'str'
+    }
 
     # Process Windows KB articles
     if kb_articles_windows:
@@ -530,24 +610,11 @@ def transform_kb_articles(
         df_windows = validate_and_adjust_columns(df_windows, master_columns)
         df_windows["node_label"] = "KBArticle"
         df_windows["published"] = pd.to_datetime(df_windows["published"])
-        df_windows["excluded_embed_metadata_keys"] = [
-            [] for _ in range(len(df_windows))
-        ]
+        df_windows["excluded_embed_metadata_keys"] = [[] for _ in range(len(df_windows))]
         df_windows["excluded_embed_metadata_keys"] = df_windows[
             "excluded_embed_metadata_keys"
-        ].apply(
-            lambda x: list(
-                set(x if isinstance(x, list) else [])
-                | {
-                    "node_id",
-                    "cve_ids",
-                    "build_number",
-                    "node_label",
-                    "product_build_id",
-                    "product_build_ids",
-                }
-            )
-        )
+        ].apply(_create_excluded_metadata_keys)
+
         # Initialize metadata with etl_processing_status
         df_windows["metadata"] = [{
             "etl_processing_status": {
@@ -581,13 +648,8 @@ def transform_kb_articles(
         df_windows_no_summary["summary"] = summaries
 
         # Add update package URL for Windows KB articles
-        df_windows_no_summary["update_package_url"] = df_windows_no_summary["kb_id"].apply(
-            lambda x: f"https://catalog.update.microsoft.com/Search.aspx?q={x.replace('-', '')}" if pd.notna(x) else ""
-        )
-        df_windows_has_summary["update_package_url"] = df_windows_has_summary["kb_id"].apply(
-            lambda x: f"https://catalog.update.microsoft.com/Search.aspx?q={x.replace('-', '')}" if pd.notna(x) else ""
-        )
-
+        df_windows_no_summary["update_package_url"] = df_windows_no_summary["kb_id"].apply(_create_kb_catalog_url)
+        df_windows_has_summary["update_package_url"] = df_windows_has_summary["kb_id"].apply(_create_kb_catalog_url)
         df_windows = pd.concat([df_windows_has_summary, df_windows_no_summary])
         df_windows.sort_values(by="kb_id", ascending=True, inplace=True)
 
@@ -615,19 +677,7 @@ def transform_kb_articles(
         df_edge["excluded_embed_metadata_keys"] = [[] for _ in range(len(df_edge))]
         df_edge["excluded_embed_metadata_keys"] = df_edge[
             "excluded_embed_metadata_keys"
-        ].apply(
-            lambda x: list(
-                set(x if isinstance(x, list) else [])
-                | {
-                    "node_id",
-                    "cve_ids",
-                    "build_number",
-                    "node_label",
-                    "product_build_id",
-                    "product_build_ids",
-                }
-            )
-        )
+        ].apply(_create_excluded_metadata_keys)
 
         # Initialize metadata with etl_processing_status
         df_edge["metadata"] = [{
@@ -730,24 +780,14 @@ def transform_update_packages(update_packages: List[Dict[str, Any]]) -> pd.DataF
     if update_packages:
         df = pd.DataFrame(update_packages, columns=list(update_packages[0].keys()))
         df["package_type"] = df["package_type"].str.lower().str.replace(" ", "_")
-        df["package_type"] = df["package_type"].apply(lambda x: mapping_types.get(x, x))
+        df["package_type"] = df["package_type"].apply(lambda x: _map_package_type(x, mapping_types))
         # df["downloadable_packages"] = df["downloadable_packages"].apply(
         #     process_downloadable_packages
         # )
         df["node_label"] = "UpdatePackage"
         df["published"] = pd.to_datetime(df["published"])
         df["excluded_embed_metadata_keys"] = [[] for _ in range(len(df))]
-        df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(
-            lambda x: list(
-                set(x if isinstance(x, list) else [])
-                | {
-                    "product_build_ids",
-                    "node_label",
-                    "downloadable_packages",
-                    "source",
-                }
-            )
-        )
+        df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(_create_excluded_update_metadata_keys)
         df = df.rename(columns={"id": "node_id"})
         # print(df["downloadable_packages"])
         print(f"Total Update Packages transformed: {df.shape[0]}")
@@ -755,8 +795,16 @@ def transform_update_packages(update_packages: List[Dict[str, Any]]) -> pd.DataF
         return df
     else:
         print("No Update Packages to transform.")
-        return pd.DataFrame(columns=["node_id", "package_type", "node_label", "published",
-                                   "excluded_embed_metadata_keys", "downloadable_packages"])
+        return pd.DataFrame(
+            columns=[
+                "node_id",
+                "package_type",
+                "node_label",
+                "published",
+                "excluded_embed_metadata_keys",
+                "downloadable_packages"
+            ]
+        )
 
     return None
 
@@ -1040,17 +1088,17 @@ def _extract_nvd_properties(metadata_dict: Dict) -> Dict[str, Any]:
 
     # Add prefixed properties (nist_, cna_, adp_)
     for prefix in ["nist_", "cna_", "adp_"]:
-        for prop in base_properties:
-            key = f"{prefix}{prop}"
-            nvd_properties[key] = metadata_dict.get(key)
+        nvd_properties.update({f"{prefix}{prop}": metadata_dict.get(f"{prefix}{prop}") for prop in base_properties})
 
     # Add non-prefixed properties
-    non_prefixed = [
-        "nvd_description", "nvd_published_date",
-        "cwe_id", "cwe_name", "cwe_source", "cwe_url"
-    ]
-    for prop in non_prefixed:
-        nvd_properties[prop] = metadata_dict.get(prop)
+    nvd_properties.update({
+        "nvd_description": metadata_dict.get("nvd_description"),
+        "nvd_published_date": metadata_dict.get("nvd_published_date"),
+        "cwe_id": metadata_dict.get("cwe_id"),
+        "cwe_name": metadata_dict.get("cwe_name"),
+        "cwe_source": metadata_dict.get("cwe_source"),
+        "cwe_url": metadata_dict.get("cwe_url")
+    })
 
     return nvd_properties
 
@@ -1083,9 +1131,7 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]], process_all: bool = F
         )
 
     # Partition records based on whether they've been processed before
-    is_processed = df["metadata"].apply(
-        lambda x: x.get("etl_processing_status", {}).get("document_processed", False)
-    )
+    is_processed = df["metadata"].apply(_check_doc_processed)
     preprocessed_records = df[is_processed].copy()
     new_records = df[~is_processed].copy()
 
@@ -1992,10 +2038,87 @@ def find_previous_thread_doc(
     return None
 
 
+def _write_debug_output(final_df: pd.DataFrame, debug: bool = False) -> None:
+    """
+    Write detailed debug output for patch post transformations.
+
+    Args:
+        final_df: The final transformed DataFrame
+        debug: If True, generates and writes debug output
+    """
+    if not debug:
+        return
+
+    try:
+        # Convert DataFrame to detailed markdown format
+        output_lines = ["# Patch Posts Debug Output\n"]
+
+        # Group documents by normalized subject for better organization
+        subject_groups = {}
+        for _, row in final_df.iterrows():
+            thread_id = row["metadata"].get("thread_id")
+            if thread_id not in subject_groups:
+                subject_groups[thread_id] = []
+            # Convert row to dict and ensure metadata is a dict
+            row_dict = row.to_dict()
+            if isinstance(row_dict["metadata"], str):
+                try:
+                    row_dict["metadata"] = json.loads(row_dict["metadata"])
+                except:
+                    row_dict["metadata"] = {}
+            elif not isinstance(row_dict["metadata"], dict):
+                row_dict["metadata"] = {}
+            subject_groups[thread_id].append(row_dict)
+
+        # Output each thread group
+        for thread_id, docs in subject_groups.items():
+            output_lines.append(f"\n## Thread Group: {thread_id}\n")
+
+            # Sort docs by receivedDateTime
+            docs.sort(key=lambda x: x["receivedDateTime"])
+
+            # Output thread statistics
+            historical_count = sum(1 for doc in docs if doc["metadata"].get("is_historical", False))
+            output_lines.append(f"- Total Documents: {len(docs)}")
+            output_lines.append(f"- Historical Documents: {historical_count}")
+            output_lines.append(f"- In-batch Documents: {len(docs) - historical_count}\n")
+
+            # Output document details in chronological order
+            output_lines.append("### Documents (Chronological Order)\n")
+            for doc in docs:
+                metadata = doc["metadata"]
+                is_historical = metadata.get("is_historical", False)
+                doc_type = "Historical" if is_historical else "In-batch"
+
+                output_lines.append("```")
+                output_lines.append(f"Document Type: {doc_type}")
+                output_lines.append(f"Node ID: {doc['node_id']}")
+                output_lines.append(f"Subject: {doc['subject']}")
+                output_lines.append(f"Received: {doc['receivedDateTime']}")
+                output_lines.append(f"Published: {doc['published'].isoformat() if pd.notnull(doc['published']) else 'None'}")
+                output_lines.append(f"Thread ID: {metadata.get('thread_id', 'None')}")
+                output_lines.append(f"Previous ID: {metadata.get('previous_id', 'None')}")
+                output_lines.append(f"Next ID: {metadata.get('next_id', 'None')}")
+                output_lines.append(f"Collection: {metadata.get('collection', 'None')}")
+                output_lines.append(f"Is Historical: {metadata.get('is_historical', False)}")
+                output_lines.append("```\n")
+
+        # Write to markdown file
+        output_path = "C:/Users/emili/PycharmProjects/microsoft_cve_rag/microsoft_cve_rag/application/data/debug/patch_posts_debug.md"
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        with open(output_path, "w", encoding="utf-8") as f:
+            f.write("\n".join(output_lines))
+
+        logging.debug(f"Debug output written to {output_path}")
+    except Exception as e:
+        logging.error(f"Error writing debug output: {str(e)}")
+
+
 def transform_patch_posts_v2(
     patch_posts: List[Dict[str, Any]],
-    process_all: bool = False
-) -> pd.DataFrame:
+    process_all: bool = False,
+    debug: bool = False
+) -> Optional[pd.DataFrame]:
     """
     Transform patch management posts with thread management and historical document integration.
 
@@ -2033,6 +2156,7 @@ def transform_patch_posts_v2(
         patch_posts: List of patch management post dictionaries
         process_all: If True, process and return all documents.
                     If False, only process threads containing at least one new document.
+        debug: If True, generates debug output
 
     Returns:
         pd.DataFrame: Transformed documents with proper thread management and metadata.
@@ -2070,7 +2194,7 @@ def transform_patch_posts_v2(
     # Move needed fields from metadata into top-level columns if not already present
     for field in metadata_fields_to_move:
         if field not in df.columns:
-            df[field] = df["metadata"].apply(lambda x: x.get(field, None))
+            df[field] = df["metadata"].apply(lambda x: _get_metadata_field(x, field))
 
     df = df.rename(
         columns={
@@ -2083,17 +2207,13 @@ def transform_patch_posts_v2(
     )
     # Sort KB IDs in reverse if present
     if "kb_ids" in df.columns:
-        df["kb_ids"] = df["kb_ids"].apply(
-            lambda x: sorted(x, reverse=True) if isinstance(x, list) else x
-        )
+        df["kb_ids"] = df["kb_ids"].apply(_sort_kb_ids)
 
     # Each doc is PatchManagementPost
     df["node_label"] = "PatchManagementPost"
 
     # Flag records that are new vs. preprocessed
-    df["is_processed"] = df["metadata"].apply(
-        lambda m: m.get("etl_processing_status", {}).get("document_processed", False)
-    )
+    df["is_processed"] = df["metadata"].apply(_check_doc_processed)
 
     # Group all docs by subject similarity regardless of process_all
     groups = group_by_normalized_subject(df, subject_col="subject")
@@ -2184,7 +2304,9 @@ def transform_patch_posts_v2(
                 "tags": historical_doc["metadata"].get("tags", []),
                 "collection": historical_doc["metadata"].get("collection", "patch_management"),
                 "node_label": "PatchManagementPost",
-                "kb_ids": historical_doc["metadata"].get("kb_mentions", []),
+                "kb_ids": historical_doc.get("kb_mentions", []),
+                "product_mentions": historical_doc.get("product_mentions"),
+                "build_numbers": historical_doc.get("build_numbers"),
                 "cve_ids": historical_doc["metadata"].get("cve_mentions", []),
                 "previous_id": historical_doc["metadata"].get("previous_id", None),
                 "next_id": first_batch_node_id,  # Set next_id to first in-batch doc
@@ -2281,8 +2403,8 @@ def transform_patch_posts_v2(
             # Extract fields from metadata to top-level columns
             row["thread_id"] = thread_id  # Use thread_id directly
             row["post_type"] = m.get("post_type", "")
-            row["product_mentions"] = m.get("product_mentions", [])
-            row["build_numbers"] = m.get("build_numbers", [])
+            # row["product_mentions"] = m.get("product_mentions", [])
+            # row["build_numbers"] = m.get("build_numbers", [])
             row["published"] = m.get("published", "")
             row["previous_id"] = previous_id  # Use previous_id directly
             row["next_id"] = next_id  # Use next_id directly
@@ -2301,86 +2423,11 @@ def transform_patch_posts_v2(
         non_empty_rows = [df for df in processed_rows if not df.empty]
         final_df = pd.concat(non_empty_rows, axis=0, ignore_index=True)
         logging.info(f"Transformed {len(final_df)} patch posts (including historical thread docs)")
-        try:
-            # Convert DataFrame to detailed markdown format
-            output_lines = ["# Patch Posts Debug Output\n"]
+        _write_debug_output(final_df, debug)
+    final_df["metadata"] = final_df["metadata"].apply(make_json_safe_metadata)
+    return final_df
 
-            # Group documents by normalized subject for better organization
-            subject_groups = {}
-            for _, row in final_df.iterrows():
-                thread_id = row["metadata"].get("thread_id")
-                if thread_id not in subject_groups:
-                    subject_groups[thread_id] = []
-                # Convert row to dict and ensure metadata is a dict
-                row_dict = row.to_dict()
-                if isinstance(row_dict["metadata"], str):
-                    try:
-                        row_dict["metadata"] = json.loads(row_dict["metadata"])
-                    except:
-                        row_dict["metadata"] = {}
-                elif not isinstance(row_dict["metadata"], dict):
-                    row_dict["metadata"] = {}
-                subject_groups[thread_id].append(row_dict)
-
-            # Output each thread group
-            for thread_id, docs in subject_groups.items():
-                output_lines.append(f"\n## Thread Group: {thread_id}\n")
-
-                # Sort docs by receivedDateTime
-                docs.sort(key=lambda x: x["receivedDateTime"])
-
-                # Output thread statistics
-                historical_count = sum(1 for doc in docs if doc["metadata"].get("is_historical", False))
-                output_lines.append(f"- Total Documents: {len(docs)}")
-                output_lines.append(f"- Historical Documents: {historical_count}")
-                output_lines.append(f"- In-batch Documents: {len(docs) - historical_count}\n")
-
-                # Output document details in chronological order
-                output_lines.append("### Documents (Chronological Order)\n")
-                for doc in docs:
-                    metadata = doc["metadata"]
-                    is_historical = metadata.get("is_historical", False)
-                    doc_type = "Historical" if is_historical else "In-batch"
-
-                    output_lines.append("```")
-                    output_lines.append(f"Document Type: {doc_type}")
-                    output_lines.append(f"Node ID: {doc['node_id']}")
-                    output_lines.append(f"Subject: {doc['subject']}")
-                    output_lines.append(f"Received: {doc['receivedDateTime']}")
-                    output_lines.append(f"Published: {doc['published'].isoformat() if pd.notnull(doc['published']) else 'None'}")
-                    output_lines.append(f"Thread ID: {metadata.get('thread_id', 'None')}")
-                    output_lines.append(f"Previous ID: {metadata.get('previous_id', 'None')}")
-                    output_lines.append(f"Next ID: {metadata.get('next_id', 'None')}")
-                    output_lines.append(f"Collection: {metadata.get('collection', 'None')}")
-                    output_lines.append(f"Is Historical: {metadata.get('is_historical', False)}")
-                    output_lines.append("```\n")
-
-                # Write to markdown file
-                output_path = "C:/Users/emili/PycharmProjects/microsoft_cve_rag/microsoft_cve_rag/application/data/debug/patch_posts_debug.md"
-                os.makedirs(os.path.dirname(output_path), exist_ok=True)
-                with open(output_path, "w", encoding="utf-8") as f:
-                    f.write("\n".join(output_lines))
-
-                logging.debug(f"Debug output written to {output_path}")
-
-                # Log summary statistics
-                total_docs = len(final_df)
-                historical_docs = sum(1 for _, row in final_df.iterrows()
-                                      if isinstance(row["metadata"], dict)
-                                      and row["metadata"].get("is_historical", False))
-                logging.info("\nOverall Statistics:")
-                logging.info(f"Total documents: {total_docs}")
-                logging.info(f"Historical documents: {historical_docs}")
-                logging.info(f"In-batch documents: {total_docs - historical_docs}")
-                logging.info(f"Number of threads: {len(subject_groups)}")
-
-        except Exception as e:
-            logging.error(f"Error writing debug output: {e}", exc_info=True)
-
-        final_df["metadata"] = final_df["metadata"].apply(make_json_safe_metadata)
-        return final_df
-
-    return None
+# End Feature Engineering Patch Transformer ===================================
 
 
 def patch_fe_transformer(
@@ -2475,7 +2522,12 @@ def patch_fe_transformer(
         ],
         inplace=True,
     )
-
+    # Log any records that have product mentions
+    has_mentions = patch_posts_df["product_mentions"].apply(lambda x: bool(x) if isinstance(x, list) else False)
+    if has_mentions.any():
+        logging.info(f"Found {has_mentions.sum()} records with product mentions:")
+        for node_id in patch_posts_df[has_mentions]["node_id"]:
+            logging.info(f"Record {node_id} has product mentions")
     return patch_posts_df
 
 # End Feature Engineering Patch Transformer ===================================
@@ -2493,7 +2545,7 @@ def transform_symptoms(symptoms: List[Dict[str, Any]]) -> pd.DataFrame:
                 node_label="Symptom",
                 reliability="HIGH",
             )
-        df["labels"] = df["labels"].apply(lambda x: x[0] if isinstance(x, list) else x)
+        df["labels"] = df["labels"].apply(_get_first_label)
 
         logging.debug(f"Total Symptoms transformed: {df.shape[0]}")
 
@@ -2516,7 +2568,7 @@ def transform_causes(causes: List[Dict[str, Any]]) -> pd.DataFrame:
                 node_label="Cause",
                 reliability="MEDIUM",
             )
-        df["labels"] = df["labels"].apply(lambda x: x[0] if isinstance(x, list) else x)
+        df["labels"] = df["labels"].apply(_get_first_label)
 
         logging.debug(f"Total Causes transformed: {df.shape[0]}")
         # print(f"Columns: {df.columns}")
@@ -2539,7 +2591,7 @@ def transform_fixes(fixes: List[Dict[str, Any]]) -> pd.DataFrame:
                 node_label="Fix",
                 reliability="MEDIUM",
             )
-        df["labels"] = df["labels"].apply(lambda x: x[0] if isinstance(x, list) else x)
+        df["labels"] = df["labels"].apply(_get_first_label)
         df["severity_type"] = df["severity_type"].fillna("NST")
 
         logging.debug(f"Total Fixes transformed: {df.shape[0]}")
@@ -2560,7 +2612,7 @@ def transform_tools(tools: List[Dict[str, Any]]) -> pd.DataFrame:
                 node_label="Tool",
                 reliability="MEDIUM",
             )
-        df["labels"] = df["labels"].apply(lambda x: x[0] if isinstance(x, list) else x)
+        df["labels"] = df["labels"].apply(_get_first_label)
 
         logging.debug(f"Total Tools transformed: {df.shape[0]}")
         # print(f"Columns: {df.columns}")
@@ -2579,7 +2631,7 @@ def transform_technologies(technologies: List[Dict[str, Any]]) -> pd.DataFrame:
             df = df.assign(
                 node_label="Technology",
             )
-        df["labels"] = df["labels"].apply(lambda x: x[0] if isinstance(x, list) else x)
+        df["labels"] = df["labels"].apply(_get_first_label)
 
         logging.debug(f"Total Technologies transformed: {df.shape[0]}")
         # print(f"Columns: {df.columns}")
@@ -2605,14 +2657,18 @@ def combine_dicts_to_dataframe(
     df = pd.DataFrame(combined_data)
 
     # Add a column to identify the original category (key)
-    df["category"] = df.apply(
-        lambda row: next(
-            key for key, items in dict1.items() if row.to_dict() in items + dict2[key]
-        ),
-        axis=1,
-    )
+    df["category"] = df.apply(lambda row: _find_category(row, dict1, dict2), axis=1)
 
     return df
+
+
+def _find_category(row: pd.Series, dict1: Dict[str, List[Dict]], dict2: Dict[str, List[Dict]]) -> str:
+    """Find the category for a row by checking which dictionary and key it belongs to."""
+    row_dict = row.to_dict()
+    for key, items in dict1.items():
+        if row_dict in items + dict2[key]:
+            return key
+    return ""
 
 
 def combine_and_split_dicts(
@@ -2735,14 +2791,14 @@ def _create_metadata_from_row(
         elif isinstance(value, dict):
             # Handle dictionaries
             return {k: process_value(v) for k, v in value.items()}
+        elif isinstance(value, str):
+            # Handle strings
+            return make_text_json_safe(value)
         elif pd.api.types.is_scalar(value):
             # Handle scalar NaN, NAType, and primitive types
             if pd.isna(value) or isinstance(value, pd._libs.missing.NAType):
                 return None
             return value
-        elif isinstance(value, str):
-            # Handle strings
-            return make_text_json_safe(value)
         else:
             # Convert unknown types to string
             return make_text_json_safe(str(value))
@@ -2778,7 +2834,6 @@ def _create_metadata_from_row(
     logging.debug(f"Final metadata structure - Metadata keys: {list(metadata.keys())}")
 
     return metadata
-
 
 # =============================================================================
 # Convert dataframe of KB Articles to Llama Documents
