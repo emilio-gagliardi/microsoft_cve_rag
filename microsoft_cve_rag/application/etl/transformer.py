@@ -1016,7 +1016,7 @@ def _prepare_base_dataframe(msrc_posts: List[Dict[str, Any]], metadata_fields_to
     """Prepare the initial dataframe from MSRC posts."""
     df = pd.DataFrame(msrc_posts, columns=list(msrc_posts[0].keys()))
     for field in metadata_fields_to_move:
-        df[field] = df["metadata"].apply(lambda x: x.get(field, None))
+        df[field] = df["metadata"].apply(lambda x, field=field: x.get(field, None))
     return df
 
 
@@ -1183,14 +1183,14 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]], process_all: bool = F
         if not preprocessed_records.empty:
             for nvd_prop in nvd_properties:
                 preprocessed_records[nvd_prop] = preprocessed_records['metadata'].apply(
-                    lambda x: _extract_nvd_properties(x).get(nvd_prop)
+                    lambda x, nvd_prop=nvd_prop: _extract_nvd_properties(x).get(nvd_prop)
                 )
             preprocessed_records = _apply_common_transformations(preprocessed_records)
 
         if not new_records.empty:
             for nvd_prop in nvd_properties:
                 new_records[nvd_prop] = new_records['metadata'].apply(
-                    lambda x: _extract_nvd_properties(x).get(nvd_prop)
+                    lambda x, nvd_prop=nvd_prop: _extract_nvd_properties(x).get(nvd_prop)
                 )
 
         records_to_process = pd.concat([preprocessed_records, new_records]) if not preprocessed_records.empty else new_records
@@ -2064,7 +2064,7 @@ def _write_debug_output(final_df: pd.DataFrame, debug: bool = False) -> None:
             if isinstance(row_dict["metadata"], str):
                 try:
                     row_dict["metadata"] = json.loads(row_dict["metadata"])
-                except:
+                except json.JSONDecodeError:
                     row_dict["metadata"] = {}
             elif not isinstance(row_dict["metadata"], dict):
                 row_dict["metadata"] = {}
@@ -2194,7 +2194,7 @@ def transform_patch_posts_v2(
     # Move needed fields from metadata into top-level columns if not already present
     for field in metadata_fields_to_move:
         if field not in df.columns:
-            df[field] = df["metadata"].apply(lambda x: _get_metadata_field(x, field))
+            df[field] = df["metadata"].apply(lambda x, field=field: x.get(field, None))
 
     df = df.rename(
         columns={
@@ -2460,7 +2460,7 @@ def patch_fe_transformer(
     # Extract metadata fields
     for field in metadata_fields_to_move:
         if field not in patch_posts_df.columns:
-            patch_posts_df[field] = patch_posts_df["metadata"].apply(lambda x: x.get(field, None))
+            patch_posts_df[field] = patch_posts_df["metadata"].apply(lambda x, field=field: x.get(field, None))
 
     patch_posts_df = patch_posts_df.rename(
         columns={

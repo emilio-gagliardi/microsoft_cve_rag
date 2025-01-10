@@ -16,6 +16,7 @@ import math
 from typing import List, Dict, Optional, Any, Tuple
 import json
 from application.app_utils import setup_logger
+from application.etl.type_utils import convert_to_float
 
 logging.getLogger(__name__)
 
@@ -340,17 +341,12 @@ class NVDDataExtractor:
 
                         # Special handling for numeric metric values
                         if metric in ['base_score', 'impact_score', 'exploitability_score']:
-                            try:
-                                data[f"{prefix}{metric}"] = float(value)
-                            except ValueError:
-                                data[f"{prefix}{metric}"] = None
+                            score = convert_to_float(value)
+                            data[f"{prefix}{metric}"] = score
 
                             # Additional handling for base_score
                             if metric == 'base_score':
-                                try:
-                                    data[f"{prefix}base_score_num"] = float(value)
-                                except ValueError:
-                                    data[f"{prefix}base_score_num"] = None
+                                data[f"{prefix}base_score_num"] = score
                         elif metric == 'base_score_rating':
                             data[f"{prefix}base_score_rating"] = value.lower()
                         else:
