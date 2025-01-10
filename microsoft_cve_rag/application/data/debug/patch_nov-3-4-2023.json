@@ -1,0 +1,249 @@
+[{
+  "_id": {
+    "$oid": "6557d7318af2fcac882dd4c5"
+  },
+  "id_": "0d5d7f10-d47c-e94f-dd35-5bd6362bbd7e",
+  "metadata": {
+    "id": "0d5d7f10-d47c-e94f-dd35-5bd6362bbd7e",
+    "receivedDateTime": "2023-11-04T14:37:43+00:00",
+    "topic": "End of the week thoughts - what are your thoughts on 20 years of Patch Tuesday?",
+    "subject": "Re: [patchmanagement] End of the week thoughts - what are your thoughts on 20 years of Patch Tuesday?",
+    "published": {
+      "$date": "2023-11-04T00:00:00.000Z"
+    },
+    "collection": "patch_management",
+    "added_to_vector_store": false,
+    "added_to_summary_index": false,
+    "cve_fixes": "",
+    "cve_mentions": "",
+    "tags": "",
+    "conversation_link": "//groups.google.com/d/msgid/patchmanagement/9A7E1826-92AF-4070-9644-84A1D81AEB5D%40gmail.com",
+    "email_text_clean": "Workstation patch parties with all hands on deck manually installing patches and\nhoping to not need the SP 3 disk. But always needing it.",
+    "evaluated_keywords": "['deck manually instal patch', 'workstation patch party', 'sp 3 disk', 'always need']",
+    "evaluated_noun_chunks": "['Workstation patch parties', 'all hands', 'patches', 'the SP 3 disk']",
+    "unique_tokens": 24,
+    "post_type": "Conversational",
+    "added_to_graph_store": false,
+    "email_text_original": "End of the week thoughts - what are your thoughts on 20 years of Patch Tuesday? \nYou don't often get email from jeiversen@gmail.com. Learn why this is important\n[https://aka.ms/LearnAboutSenderIdentification] \nWorkstation patch parties with all hands on deck manually installing patches and\nhoping to not need the SP 3 disk. But always needing it. \nSent from my iPhone\nLink: https://groups.google.com/d/msgid/patchmanagement/9A7E1826-92AF-4070-9644-84A1D81AEB5D%40gmail.com \n",
+    "product_build_ids": []
+  },
+  "class_name": "Document"
+},
+{
+  "_id": {
+    "$oid": "6557d7318af2fcac882dd4c4"
+  },
+  "id_": "3c20d87c-8b58-fe26-346e-05db2f277b3e",
+  "metadata": {
+    "id": "3c20d87c-8b58-fe26-346e-05db2f277b3e",
+    "receivedDateTime": "2023-11-04T11:03:20+00:00",
+    "topic": "End of the week thoughts - what are your thoughts on 20 years of Patch Tuesday?",
+    "subject": "Re: [patchmanagement] End of the week thoughts - what are your thoughts on 20 years of Patch Tuesday?",
+    "published": {
+      "$date": "2023-11-04T00:00:00.000Z"
+    },
+    "collection": "patch_management",
+    "added_to_vector_store": false,
+    "added_to_summary_index": false,
+    "cve_fixes": "",
+    "cve_mentions": "",
+    "tags": "",
+    "conversation_link": "//groups.google.com/d/msgid/patchmanagement/CAGN5iaiEJ4d4yYfWXDuBv7mhWVJO_%3Dsm%2BuNMO%2BsAvMa5apv%2BbQ%40mail.gmail.com",
+    "email_text_clean": "Microsoft should reaffirm this long-term commitment for the next decade whatever\nthe context, challenges and new technology disruption/new marketing heaven (AI,\nquantum computing...) \nI mean we should stick to the big picture, applaud their effort in bringing such\na commitment for \"patch management\" over 2 decades.\nWe should thank them for listening administrators and provide the right (and\nalmost free) tools to help them implement the \"patch management\" sanity\npractice.\nPatch management isn't going away, it'll go on harder and stronger.\nConsumer and corporate IT are so much more vulnerable without a proper patch\nmanagement practice. \nPS: I remember Blaster in August 2003\nhttps://en.wikipedia.org/wiki/Blaster_(computer_worm)",
+    "evaluated_keywords": "['proper patch management practice', 'new technology disruption', 'big picture', 'patch management']",
+    "evaluated_noun_chunks": "['this long-term commitment', 'the big picture', 'patch management', 'a proper patch management practice']",
+    "unique_tokens": 80,
+    "post_type": "Conversational",
+    "added_to_graph_store": false,
+    "email_text_original": "End of the week thoughts - what are your thoughts on 20 years of Patch Tuesday? \nMicrosoft should reaffirm this long-term commitment for the next decade whatever\nthe context, challenges and new technology disruption/new marketing heaven (AI,\nquantum computing...) \nI mean we should stick to the big picture, applaud their effort in bringing such\na commitment for \"patch management\" over 2 decades.\nWe should thank them for listening administrators and provide the right (and\nalmost free) tools to help them implement the \"patch management\" sanity\npractice.\nPatch management isn't going away, it'll go on harder and stronger.\nConsumer and corporate IT are so much more vulnerable without a proper patch\nmanagement practice. \nPS: I remember Blaster in August 2003\nhttps://en.wikipedia.org/wiki/Blaster_(computer_worm)\n[https://can01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FBlaster_(computer_worm)&data=05%7C01%7Cemail_ingestion%40bighatgroup.com%7Ca0c82f9d8e2b4104131008dbdd25a715%7C5a01497e1bcb4711b6e6d24f4ab00393%7C0%7C0%7C638346926005464873%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=xGlOaNNxPBV2JN%2BqxpRGjkQyaludnjPe7YyevKzs3Zk%3D&reserved=0] \nOn Fri, Nov 3, 2023 at 11:36 PM 'Susan Bradley' via PatchManagement\n<patchmanagement@googlegroups.com\nLink: https://groups.google.com/d/msgid/patchmanagement/CAGN5iaiEJ4d4yYfWXDuBv7mhWVJO_%3Dsm%2BuNMO%2BsAvMa5apv%2BbQ%40mail.gmail.com \n",
+    "product_build_ids": []
+  },
+  "class_name": "Document"
+},
+{
+  "_id": {
+    "$oid": "6557d7318af2fcac882dd4c8"
+  },
+  "id_": "e389648a-b348-30c8-4631-358562901c62",
+  "metadata": {
+    "id": "e389648a-b348-30c8-4631-358562901c62",
+    "receivedDateTime": "2023-11-04T10:15:18+00:00",
+    "topic": "RE: End of the week thoughts - what are your thoughts on 20 years of Patch Tuesday?",
+    "subject": "Re: [patchmanagement] RE: End of the week thoughts - what are your thoughts on 20 years of Patch Tuesday?",
+    "published": {
+      "$date": "2023-11-04T00:00:00.000Z"
+    },
+    "collection": "patch_management",
+    "added_to_vector_store": false,
+    "added_to_summary_index": false,
+    "cve_fixes": "",
+    "cve_mentions": "",
+    "tags": "",
+    "conversation_link": "//groups.google.com/d/msgid/patchmanagement/CADy1Ce6u0zcPX8%3DL6kmOWkSb%2Bibacd4H4v3UuX3HjEXN6FEkZA%40mail.gmail.com",
+    "email_text_clean": "2003, probably June. \nI was trying to get permission to set up WSUS for our environment. \nIT Director wasn't having it -\"We don't need it\", said he. \nI downloaded the PoC for SMBDie, and told him to pay attention to his computer. \nI don't see anything, he said. \nWait a moment more, I said. \nAfter the bluescreen, I asked for WSUS again. \nHe consented.... \nKurt",
+    "evaluated_keywords": "['get permission', 'pay attention', 'see anything', 'consent .... kurt']",
+    "evaluated_noun_chunks": "['our environment', 'IT Director', 'the PoC', 'the bluescreen']",
+    "unique_tokens": 47,
+    "post_type": "Conversational",
+    "added_to_graph_store": false,
+    "email_text_original": "RE: End of the week thoughts - what are your thoughts on 20 years of Patch Tuesday? \n2003, probably June. \nI was trying to get permission to set up WSUS for our environment. \nIT Director wasn't having it -\"We don't need it\", said he. \nI downloaded the PoC for SMBDie, and told him to pay attention to his computer. \nI don't see anything, he said. \nWait a moment more, I said. \nAfter the bluescreen, I asked for WSUS again. \nHe consented.... \nKurt \nOn Fri, Nov 3, 2023 at 5:21 PM Michael Judd <MJudd@360smartnet.com\nLink: https://groups.google.com/d/msgid/patchmanagement/CADy1Ce6u0zcPX8%3DL6kmOWkSb%2Bibacd4H4v3UuX3HjEXN6FEkZA%40mail.gmail.com \n",
+    "product_build_ids": []
+  },
+  "class_name": "Document"
+},
+{
+  "_id": {
+    "$oid": "6557d7318af2fcac882dd4d7"
+  },
+  "id_": "867b1857-61fa-3755-af0f-618e2d1de345",
+  "metadata": {
+    "id": "867b1857-61fa-3755-af0f-618e2d1de345",
+    "receivedDateTime": "2023-11-03T22:36:28+00:00",
+    "topic": "End of the week thoughts - what are your thoughts on 20 years of Patch Tuesday?",
+    "subject": "[patchmanagement] End of the week thoughts - what are your thoughts on 20 years of Patch Tuesday?",
+    "published": {
+      "$date": "2023-11-03T00:00:00.000Z"
+    },
+    "collection": "patch_management",
+    "added_to_vector_store": false,
+    "added_to_summary_index": false,
+    "cve_fixes": "",
+    "cve_mentions": "",
+    "tags": "",
+    "conversation_link": "//groups.google.com/d/msgid/patchmanagement/em3b07bfb9-ed27-4142-8579-32a759c7a619%4022b9b709.com",
+    "email_text_clean": "https://www.directionsonmicrosoft.com/blog/thoughts-on-patching-on-the-20th-anniversary-of-patch-tuesday/?utm_medium=email&utm_source=sharpspring&sslid=szAwsbSwtDAyNzA3AQA&sseid=MzK1NLewMAIiAA&jobid=1bdb4d2f-4eb6-4f88-a9bb-ead41cbfdabd\n \nWhat do you think Microsoft should do? \n--\n%4022b9b709.com",
+    "evaluated_keywords": "['think microsoft']",
+    "evaluated_noun_chunks": {
+      "$numberDouble": "NaN"
+    },
+    "unique_tokens": 8,
+    "post_type": "Conversational",
+    "added_to_graph_store": true,
+    "email_text_original": "End of the week thoughts - what are your thoughts on 20 years of Patch Tuesday? \nhttps://www.directionsonmicrosoft.com/blog/thoughts-on-patching-on-the-20th-anniversary-of-patch-tuesday/?utm_medium=email&utm_source=sharpspring&sslid=szAwsbSwtDAyNzA3AQA&sseid=MzK1NLewMAIiAA&jobid=1bdb4d2f-4eb6-4f88-a9bb-ead41cbfdabd\n[https://can01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.directionsonmicrosoft.com%2Fblog%2Fthoughts-on-patching-on-the-20th-anniversary-of-patch-tuesday%2F%3Futm_medium%3Demail%26utm_source%3Dsharpspring%26sslid%3DszAwsbSwtDAyNzA3AQA%26sseid%3DMzK1NLewMAIiAA%26jobid%3D1bdb4d2f-4eb6-4f88-a9bb-ead41cbfdabd&data=05%7C01%7Cemail_ingestion%40bighatgroup.com%7C088f123b6b9e4c3f5c8508dbdcbd50ac%7C5a01497e1bcb4711b6e6d24f4ab00393%7C0%7C0%7C638346477879300604%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=DXUXwy0MRf94GDmTOTKKOE4CodBgwv4POerbQb75yu4%3D&reserved=0] \nWhat do you think Microsoft should do? \n--\nLink: https://groups.google.com/d/msgid/patchmanagement/em3b07bfb9-ed27-4142-8579-32a759c7a619%4022b9b709.com \n"
+  },
+  "class_name": "Document"
+},
+{
+  "_id": {
+    "$oid": "6557d7318af2fcac882dd4ee"
+  },
+  "id_": "21fe2bc1-d888-0cef-314e-7578333b4649",
+  "metadata": {
+    "id": "21fe2bc1-d888-0cef-314e-7578333b4649",
+    "receivedDateTime": "2023-11-03T14:53:59+00:00",
+    "topic": "Issue with Windows 10 and the netlogon/lanmanworkstation services not starting",
+    "subject": "RE: [patchmanagement] Issue with Windows 10 and the netlogon/lanmanworkstation services not starting",
+    "published": {
+      "$date": "2023-11-03T00:00:00.000Z"
+    },
+    "collection": "patch_management",
+    "added_to_vector_store": false,
+    "added_to_summary_index": false,
+    "cve_fixes": "",
+    "cve_mentions": "",
+    "tags": "",
+    "conversation_link": "N/A",
+    "email_text_clean": "RDBSS is the Redirected Buffering Sub System and it depends on Mup (Multiple UNC\nProvider Driver). Mup doesn't have any dependencies. Is Mup starting correctly\non these machines? -S\nLink: None",
+    "evaluated_keywords": "['redirected buffering sub system', 'multiple unc provider driver', 'mup start correctly']",
+    "evaluated_noun_chunks": "['the Redirected Buffering Sub System', 'Multiple UNC Provider Driver', 'any dependencies', 'these machines']",
+    "unique_tokens": 28,
+    "post_type": "Problem statement",
+    "added_to_graph_store": false,
+    "email_text_original": "Issue with Windows 10 and the netlogon/lanmanworkstation services not starting \nRDBSS is the Redirected Buffering Sub System and it depends on Mup (Multiple UNC\nProvider Driver). Mup doesn't have any dependencies. Is Mup starting correctly\non these machines? -S\nLink: None \n"
+  },
+  "class_name": "Document"
+},
+{
+  "_id": {
+    "$oid": "6557d7318af2fcac882dd4d8"
+  },
+  "id_": "2dde10c4-80fc-366a-6cc4-c1801594d17d",
+  "metadata": {
+    "id": "2dde10c4-80fc-366a-6cc4-c1801594d17d",
+    "receivedDateTime": "2023-11-03T10:24:12+00:00",
+    "topic": "Issue with Windows 10 and the netlogon/lanmanworkstation services not starting",
+    "subject": "[patchmanagement] Issue with Windows 10 and the netlogon/lanmanworkstation services not starting",
+    "published": {
+      "$date": "2023-11-03T00:00:00.000Z"
+    },
+    "collection": "patch_management",
+    "added_to_vector_store": false,
+    "added_to_summary_index": false,
+    "cve_fixes": "",
+    "cve_mentions": "",
+    "tags": "",
+    "conversation_link": "//groups.google.com/d/msgid/patchmanagement/AM6PR03MB554305B28A21494BD3B2E9C994A5A%40AM6PR03MB5543.eurprd03.prod.outlook.com",
+    "email_text_clean": "This is likely due to the October update, but we’re not 100% sure. \nIn the last couple of weeks, we’ve noticed problems with increasing numbers of\nmachines running windows 10. The netlogon service fails to start, saying it\ncouldn’t start a dependent service. According to eventviewer this is due to the\ndependency in the chain netlogon",
+    "evaluated_keywords": "['machine run window 10', 'netlogon service fail', 'dependent service', 'october update']",
+    "evaluated_noun_chunks": "['the October update', 'increasing numbers', 'The netlogon service', 'a dependent service']",
+    "unique_tokens": 43,
+    "post_type": "Problem statement",
+    "added_to_graph_store": true,
+    "email_text_original": "Issue with Windows 10 and the netlogon/lanmanworkstation services not starting \nThis is likely due to the October update, but we’re not 100% sure. \nIn the last couple of weeks, we’ve noticed problems with increasing numbers of\nmachines running windows 10. The netlogon service fails to start, saying it\ncouldn’t start a dependent service. According to eventviewer this is due to the\ndependency in the chain netlogon>lanmanworkstation>mrxsmb20>mrxsmb which depends\non a device driver called rdbss, which fails to start. There is no indication of\nwhy it fails. \nAfter booting the service can be manually started, but only a minute or so\nlater. \nThis occurs on machines running different AVs in different domains, with no\ncommon thread linking affected machines. The only notable thing in common is\nthat its always windows 10. Windows 11 isn’t affected in so far as we’ve seen. \nAnyone seen similar problems? Any solution? \nIan Murphy \n[cid:image001.png@01DA0E36.28A7F650] \nian@integra-xp.com \n[cid:image002.png@01DA0E36.28A7F650] \n946 21 52 65 [tel:946%2021%2052%2065] \n[cid:image003.png@01DA0E36.28A7F650] \n617 79 26 44 [tel:617%2079%2026%2044] \n[cid:image004.png@01DA0E36.28A7F650] \nwww.integra-xp.com\n[https://can01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.integra-xp.com%2F&data=05%7C01%7Cemail_ingestion%40bighatgroup.com%7C2a48118283384735208908dbdc56fcdb%7C5a01497e1bcb4711b6e6d24f4ab00393%7C0%7C0%7C638346038523761658%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000%7C%7C%7C&sdata=emby2K%2FXTHZIMeIp%2F%2FBFKwpS%2FkyShp9BDPGYgCEnuFo%3D&reserved=0] \n[cid:image005.png@01DA0E36.28A7F650] \nSasikoa, 26 ‑ 2º CD \n48200 \n· \nDurango \n· \nBizkaia \nEn cumplimiento de la normativa relativa a la Protección de Datos de Carácter\nPersonal, se le informa que los datos personales facilitados son tratados por\nIntegra Experience S.L., CIF B95233854 y domicilio en la calle Sasikoa, 26  2º\nCD, 48200 Durango (Bizkaia). La finalidad del tratamiento es la poder gestionar\nla relación comercial que nos une y mantenerle informado de nuestros productos y\nservicios tanto durante su relación actual con Integra Experience S.L., como a\nfuturo, siempre que no nos haya comunicado la revocación de su consentimiento.\nSus datos no son cedidos a terceros ajenos a Integra Experience S.L. En todo\ncaso, le recordamos que podrá ejercitar sus derechos de protección de datos\nestablecidos en el Reglamento en la dirección anteriormente indicada, o enviando\nun email a gprd@integra-xp.com, así como el derecho a presentar una reclamación\nante la Agencia Española de Protección de Datos. \nEl contenido de este correo electrónico y de sus anexos es estrictamente\nconfidencial. En el supuesto de que Vd. no sea el destinatario y haya recibido\neste mensaje por error, le agradeceremos que lo comunique al remitente, sin\ndifundir, almacenar o copiar su contenido. \n--\nLink: https://groups.google.com/d/msgid/patchmanagement/AM6PR03MB554305B28A21494BD3B2E9C994A5A%40AM6PR03MB5543.eurprd03.prod.outlook.com \n"
+  },
+  "class_name": "Document"
+},
+{
+  "_id": {
+    "$oid": "6557d7318af2fcac882dd4bd"
+  },
+  "id_": "08e8bd27-8d8a-2abe-1ac7-9e22411385ba",
+  "metadata": {
+    "id": "08e8bd27-8d8a-2abe-1ac7-9e22411385ba",
+    "receivedDateTime": "2023-11-03T00:34:43+00:00",
+    "topic": "Re: 23H2 being dribbled out on Windows update",
+    "subject": "RE: [patchmanagement] Re: 23H2 being dribbled out on Windows update",
+    "published": {
+      "$date": "2023-11-03T00:00:00.000Z"
+    },
+    "collection": "patch_management",
+    "added_to_vector_store": false,
+    "added_to_summary_index": false,
+    "cve_fixes": "",
+    "cve_mentions": "",
+    "tags": "",
+    "conversation_link": "N/A",
+    "email_text_clean": "What I remember of enablement packages, they just \"turned on\" previously\ninstalled but not active enhancements...",
+    "evaluated_keywords": "['active enhancement', 'previously instal', 'enablement package']",
+    "evaluated_noun_chunks": "['enablement packages', 'previously installed', 'not active enhancements']",
+    "unique_tokens": 16,
+    "post_type": "Conversational",
+    "added_to_graph_store": false,
+    "email_text_original": "Re: 23H2 being dribbled out on Windows update \nWhat I remember of enablement packages, they just \"turned on\" previously\ninstalled but not active enhancements... -----Original Message----- From:\npatchmanagement@googlegroups.com On Behalf Of Abbodii Sent: Thursday, November\n2, 2023 2:40 PM To: patchmanagement@googlegroups.com Subject: [patchmanagement]\nRe: 23H2 being dribbled out on Windows update EKB = Enablement Package W11 21H2\nto W11 23H2 = W11 22H2 + EKB W11 22H2 to W11 23H2 = EKB only think of it as W10\n21H2 to W10 22H2 On 11/2/23, Karl Wester-Ebbinghaus wrote:\nLink: None \n"
+  },
+  "class_name": "Document"
+},
+{
+  "_id": {
+    "$oid": "6557d7318af2fcac882dd4d6"
+  },
+  "id_": "9fbdb121-664d-9273-898e-9489df4ea86b",
+  "metadata": {
+    "id": "9fbdb121-664d-9273-898e-9489df4ea86b",
+    "receivedDateTime": "2023-11-03T00:34:43+00:00",
+    "topic": "Windows LAPS on-premises issue and fix",
+    "subject": "Re: [patchmanagement] Windows LAPS on-premises issue and fix",
+    "published": {
+      "$date": "2023-11-03T00:00:00.000Z"
+    },
+    "collection": "patch_management",
+    "added_to_vector_store": false,
+    "added_to_summary_index": false,
+    "cve_fixes": "",
+    "cve_mentions": "",
+    "tags": "",
+    "conversation_link": "//groups.google.com/d/msgid/patchmanagement/23669915-abc5-453c-ac61-a4651c2a66aen%40googlegroups.com",
+    "email_text_clean": "I implemented it a few months back without issue... lol\n%40googlegroups.com",
+    "evaluated_keywords": {
+      "$numberDouble": "NaN"
+    },
+    "evaluated_noun_chunks": {
+      "$numberDouble": "NaN"
+    },
+    "unique_tokens": 11,
+    "post_type": "Conversational",
+    "added_to_graph_store": false,
+    "email_text_original": "Windows LAPS on-premises issue and fix \nI implemented it a few months back without issue... lol\nLink: https://groups.google.com/d/msgid/patchmanagement/23669915-abc5-453c-ac61-a4651c2a66aen%40googlegroups.com \n"
+  },
+  "class_name": "Document"
+}]

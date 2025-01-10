@@ -6,8 +6,8 @@ from typing import Any, Dict, Optional, List, Tuple
 from application.services.document_service import DocumentService
 from pymongo import ASCENDING, DESCENDING
 from bson import ObjectId
-import uuid
-from datetime import datetime, timezone
+# import uuid
+from datetime import datetime, timedelta, timezone
 import hashlib
 import json
 import logging
@@ -46,8 +46,77 @@ def extract_from_mongo(
     )
 
 
+def patch_fe_extractor(
+    start_date: datetime,
+    end_date: datetime,
+    max_records: int = 10
+) -> List[Dict[str, Any]]:
+    """
+    Extracts patch management documents for feature engineering,
+    ignoring thread/link logic. This is separate from the main pipeline extractor.
+    """
+
+    db_name = "report_docstore"
+    collection_name = "docstore"
+
+    # Initialize document service at the start and keep reference
+    document_service = DocumentService(db_name, collection_name)
+
+    query = {
+        "metadata.collection": "patch_management",
+        "metadata.published": {"$gte": start_date, "$lt": end_date},
+    }
+
+    projection = {
+        "_id": 0,
+        "metadata.added_to_vector_store": 0,
+        "metadata.added_to_summary_index": 0,
+        "metadata.added_to_graph_store": 0,
+        "metadata.build_numbers": 0,
+        "relationships": 0,
+        "start_char_idx": 0,
+        "end_char_idx": 0,
+        "text_template": 0,
+        "metadata_template": 0,
+        "metadata_seperator": 0,
+        "class_name": 0,
+        "hash": 0,
+    }
+
+    # Pull the docs from Mongo using the service instance
+    mongo_result = document_service.query_documents(
+        query, max_records=max_records, sort=None, projection=projection
+    )
+    patch_docs_unsorted = mongo_result["results"]
+
+    # Convert to datetime objects and ensure chronological order
+    patch_docs_unsorted = [
+        convert_received_date_time(doc) for doc in patch_docs_unsorted
+    ]
+    patch_docs_sorted = sorted(
+        patch_docs_unsorted, key=lambda x: x["metadata"]["receivedDateTime"]
+    )
+
+    return patch_docs_sorted
+
+
 # get products
-def extract_products(max_records=10):
+def extract_products(max_records: int = 10) -> List[Dict[str, Any]]:
+    """
+    DO NOT MODIFY
+    Extracts Microsoft product documents from the "report_docstore" MongoDB database.
+
+    Args:
+        max_records (int, optional): The maximum number of records to return. Defaults to 10.
+
+    Returns:
+        List[Dict[str, Any]]: A list of product documents.
+
+    Notes:
+        - Product documents are filtered based on product_name, product_version, and product_architecture.
+        - The resulting documents are sorted by product_name, product_architecture, and product_version.
+        - The projection excludes the "_id" and "hash" fields.
+    """
     db_name = "report_docstore"
     collection_name = "microsoft_products"
     query = {
@@ -74,7 +143,28 @@ def extract_products(max_records=10):
     # get product_builds
 
 
-def extract_product_builds(start_date, end_date, max_records=10):
+def extract_product_builds(
+    start_date: datetime,
+    end_date: datetime,
+    max_records: int = 10,
+) -> List[Dict[str, Any]]:
+    """
+    DO NOT MODIFY
+    Extracts Microsoft product build documents from the "report_docstore" MongoDB database.
+
+    Args:
+        start_date (datetime): The start date of the time range to extract documents.
+        end_date (datetime): The end date of the time range to extract documents.
+        max_records (int, optional): The maximum number of records to return. Defaults to 10.
+
+    Returns:
+        List[Dict[str, Any]]: A list of product build documents.
+
+    Notes:
+        - Product build documents are filtered based on product_name, product_version, product_architecture, and published.
+        - The resulting documents are sorted by product_name, product_architecture, product_version, and cve_id.
+        - The projection excludes the "_id", "hash", "summary", "article_url", and "cve_url" fields.
+    """
     db_name = "report_docstore"
     collection_name = "microsoft_product_builds"
     query = {
@@ -156,32 +246,36 @@ def process_kb_articles(articles):
     return articles
 
 
-def extract_kb_articles(start_date, end_date, max_records=10):
-    # # get kb articles
-    # # NOTE. This required merging data from two collections. microsoft_kb_articles contains everything but the text. Search docstore of windows 10/11 edge documents with matching KB_ID
+def extract_kb_articles(
+    start_date: datetime,
+    end_date: datetime,
+    max_records: int = 10
+) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    """
+    DO NOT MODIFY
+    Extracts Microsoft KB articles from the "report_docstore" MongoDB database.
 
-    # remove kbs without product_builds
+    Args:
+        start_date (datetime): The start date of the time range to extract documents.
+        end_date (datetime): The end date of the time range to extract documents.
+        max_records (int, optional): The maximum number of records to return. Defaults to 10.
+
+    Returns:
+        Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]: A tuple of two lists, the first containing Windows-based KB articles and the second containing Edge-based KB articles.
+
+    Notes:
+        - Windows-based KB articles are extracted from the "microsoft_kb_articles" collection and filtered based on "cve_id" being None.
+        - The resulting documents are sorted by "kb_id" and projected to exclude "_id" and "cve_id" fields.
+        - The extracted documents are then matched with documents from the "docstore" collection based on "post_id" matching the "kb_id" from the "microsoft_kb_articles" collection.
+        - The matched documents have their "text" and "title" fields added to the "microsoft_kb_articles" documents.
+        - Edge-based KB articles are extracted from the "microsoft_kb_articles" collection and filtered based on "cve_id" being None and "product_name" being "edge_ext".
+        - The resulting documents are sorted by "kb_id" and projected to exclude "_id" and "cve_id" fields.
+        - The extracted documents are then matched with documents from the "docstore" collection based on "post_id" matching the "kb_id" from the "microsoft_kb_articles" collection.
+        - The matched documents have their "text" and "title" fields added to the "microsoft_kb_articles" documents.
+    """
     db_name = "report_docstore"
     collection_name = "microsoft_kb_articles"
-    # pipeline = [
-    #     {
-    #         "$lookup": {
-    #             "from": "microsoft_product_builds",
-    #             "localField": "product_build_id",
-    #             "foreignField": "product_build_id",
-    #             "as": "matched_builds",
-    #         }
-    #     },
-    #     {"$match": {"matched_builds": {"$size": 0}}},
-    #     {"$project": {"_id": 1}},
-    # ]
 
-    # document_service = DocumentService(db_name, collection_name)
-    # results = document_service.aggregate_documents(pipeline)
-    # ids_to_delete = [doc["_id"] for doc in results]
-    # logging.info(f"num kbs to remove: {len(ids_to_delete)}")
-    # delete_count = document_service.delete_documents({"_id": {"$in": ids_to_delete}})
-    # logging.info(f"delete count: {delete_count}")
     db_name = "report_docstore"
     collection_name = "microsoft_kb_articles"
     # equals null is for windows kb articles
@@ -444,41 +538,31 @@ def extract_kb_articles(start_date, end_date, max_records=10):
 
 
 # get update_packages
-def extract_update_packages(start_date, end_date, max_records=10):
-    # db_name = "report_docstore"
-    # collection_name = "microsoft_update_packages"
-    # pipeline = [
-    #     {
-    #         "$lookup": {
-    #             "from": "microsoft_product_builds",
-    #             "localField": "product_build_id",
-    #             "foreignField": "product_build_id",
-    #             "as": "matched_builds",
-    #         }
-    #     },
-    #     {"$match": {"matched_builds": {"$size": 0}}},
-    #     {"$project": {"_id": 0, "id": 1}},
-    # ]
+def extract_update_packages(
+    start_date: datetime,
+    end_date: datetime,
+    max_records: int = 10
+) -> List[Dict[str, Any]]:
+    """
+    DO NOT MODIFY
+    Extracts Microsoft update package documents from the "report_docstore" MongoDB database.
 
-    # # Assuming you have a DocumentService class with an aggregate_documents method
-    # document_service = DocumentService(db_name, collection_name)
-    # results = document_service.aggregate_documents(pipeline)
-    # ids_to_delete = [doc["id"] for doc in results]
-    # logging.info(f"num update_packages to remove: {len(ids_to_delete)}\n{ids_to_delete}")
+    Args:
+        start_date (datetime): The start date of the time range to extract documents.
+        end_date (datetime): The end date of the time range to extract documents.
+        max_records (int, optional): The maximum number of records to return. Defaults to 10.
 
-    # delete_count = document_service.delete_documents({"id": {"$in": ids_to_delete}})
-    # logging.info(f"delete count: {delete_count}")
+    Returns:
+        List[Dict[str, Any]]: A list of update package documents.
 
+    Notes:
+        - Update packages are filtered based on published date and matched to product builds.
+        - Resulting documents are grouped by package URL and sorted by build number.
+        - The projection excludes "downloadable_packages.install_resources_html" and "_id" fields.
+    """
     db_name = "report_docstore"
     collection_name = "microsoft_update_packages"
-    # query = {
-    #     "published": {"$gte": start_date, "$lt": end_date},
-    # }
-    # projection = {"_id": 0, "downloadable_packages.install_resources_html": 0}
-    # max_records = max_records
-    # update_packages_docs = extract_from_mongo(
-    #     db_name, collection_name, query, max_records, None, projection
-    # )["results"]
+
     pipeline = [
         {"$match": {"published": {"$gte": start_date, "$lte": end_date}}},
         {
@@ -552,9 +636,29 @@ def extract_update_packages(start_date, end_date, max_records=10):
     return update_packages_docs
 
 
-def extract_msrc_posts(start_date, end_date, max_records=None):
-    # get msrc posts
-    #
+def extract_msrc_posts(
+    start_date: datetime,
+    end_date: datetime,
+    max_records: Optional[int] = None
+) -> List[Dict[str, Any]]:
+    """
+    DO NOT MODIFY
+    Extracts MSRC post documents from the "report_docstore" MongoDB database.
+
+    Args:
+        start_date (datetime): The start date of the time range to extract documents.
+        end_date (datetime): The end date of the time range to extract documents.
+        max_records (int, optional): The maximum number of records to return. Defaults to None.
+
+    Returns:
+        List[Dict[str, Any]]: A list of MSRC post documents.
+
+    Notes:
+        - MSRC posts are filtered based on collection name, published date, and product build IDs.
+        - Resulting documents have the following fields excluded: _id, added_to_vector_store, added_to_summary_index, added_to_graph_store, relationships,
+            start_char_idx, end_char_idx, text_template, metadata_template, metadata_seperator, class_name, and hash.
+        - The kb_ids field is initialized to an empty list if it does not exist in a document.
+    """
     db_name = "report_docstore"
     collection_name = "docstore"
     query = {
@@ -610,16 +714,36 @@ def convert_received_date_time(doc):
     return doc
 
 
-def extract_patch_posts(start_date, end_date, max_records=10):
-    # get msrc posts
-    #
+def extract_patch_posts(
+    start_date: datetime,
+    end_date: datetime,
+    max_records: int = 10,
+) -> List[Dict[str, Any]]:
+    """
+    Extracts patch management posts from the "report_docstore" MongoDB database.
+
+    Args:
+        start_date (datetime): The start date of the time range to extract documents.
+        end_date (datetime): The end date of the time range to extract documents.
+        max_records (int, optional): The maximum number of records to return. Defaults to 10.
+
+    Returns:
+        List[Dict[str, Any]]: A list of patch management post documents.
+
+    Notes:
+        - Patch management posts are filtered based on collection name and published date
+        - Documents are sorted by receivedDateTime
+        - Historical document lookup and thread linking is handled by the transformer
+    """
     db_name = "report_docstore"
     collection_name = "docstore"
+
+    # Primary query: date-based extraction
     query = {
         "metadata.collection": "patch_management",
         "metadata.published": {"$gte": start_date, "$lt": end_date},
     }
-    max_records = max_records
+
     projection = {
         "_id": 0,
         "metadata.added_to_vector_store": 0,
@@ -635,15 +759,15 @@ def extract_patch_posts(start_date, end_date, max_records=10):
         "class_name": 0,
         "hash": 0,
     }
-    patch_docs_unsorted = []
-    patch_docs_unsorted = extract_from_mongo(
+
+    # Extract documents within date range
+    docs = extract_from_mongo(
         db_name, collection_name, query, max_records, None, projection
     )["results"]
-    patch_docs_unsorted = [
-        convert_received_date_time(doc) for doc in patch_docs_unsorted
-    ]
-    patch_docs_sorted = sorted(
-        patch_docs_unsorted, key=lambda x: x["metadata"]["receivedDateTime"]
-    )
 
-    return patch_docs_sorted
+    # Convert receivedDateTime and sort
+    docs = [convert_received_date_time(doc) for doc in docs]
+    docs = sorted(docs, key=lambda x: x["metadata"]["receivedDateTime"])
+    # print out the metadata.id for each document, add some text
+
+    return docs

@@ -111,3 +111,31 @@ LlamaIndex Vector Index
 ├── Gets similar vectors from Qdrant
 ├── Maps vectors back to original content
 └── Synthesizes final response
+
+
+## Recent Updates [2024-12-24]
+
+### Patch Post Transformer Enhancements
+1. Historical Document Integration
+   - Improved thread linking between historical and in-batch documents
+   - Preserved existing thread_id and previous_id from historical documents
+   - Updated next_id of last historical to point to first in-batch document
+   - Updated previous_id of first in-batch to point to last historical document
+
+2. Code Documentation
+   - Added detailed docstrings with complete workflow documentation
+   - Enhanced type hints for function signatures
+   - Improved code organization and readability
+
+3. Pipeline Optimization
+   - Removed async wrapper for patch post transformation
+   - Direct synchronous execution of transform_patch_posts_v2
+
+4. Function Refinements
+   - Enhanced group_by_normalized_subject with proper type hints
+   - Improved documentation for subject normalization and fuzzy matching
+
+### Next Steps
+- Validate thread linking behavior with historical documents
+- Monitor performance of synchronous patch post transformation
+- Consider adding metrics for thread linking success rate

@@ -440,7 +440,9 @@ class MSRCPost(AsyncStructuredNode):
         "remote_code_execution": "Remote Code Execution",
         "rce": "Remote Code Execution",
         "feature_bypass": "Security Feature Bypass",
+        "mitm": "Man-in-the-Middle",
         "NC": "No Category",
+        "nc": "No Category",
         "none": "None",
     }
 
@@ -537,7 +539,9 @@ class MSRCPost(AsyncStructuredNode):
     summary = StringProperty(default="")
     metadata = JSONProperty()
     embedding = ArrayProperty(FloatProperty())
-
+    post_type = StringProperty()
+    source_url = StringProperty()
+    node_label = StringProperty()
     # Publication Details
     published = DateTimeProperty()
     created_on = DateTimeFormatProperty(
@@ -849,6 +853,7 @@ class Tool(AsyncStructuredNode):
     source_url = StringProperty(default="")
     tool_url = StringProperty(default="")
     source_id = StringProperty(default="")
+    source_ids = ArrayProperty(StringProperty(), default=[])
     source_type = StringProperty(default="")
     reliability = StringProperty(default="")
     readability = FloatProperty(default=0.0)
@@ -892,9 +897,11 @@ class KBArticle(AsyncStructuredNode):
     product_build_id = StringProperty(required=True)
     product_build_ids = ArrayProperty(StringProperty())
     article_url = StringProperty()
+    update_package_url = StringProperty()
     cve_ids = ArrayProperty(StringProperty(), default=[])
     title = StringProperty()
     text = StringProperty()
+    summary = StringProperty()
     severity_type = StringProperty(choices=severity_type_choices)
     embedding = ArrayProperty(FloatProperty(), default=[])
     tags = ArrayProperty(StringProperty(), default=[])
