@@ -19,6 +19,7 @@ from neomodel.async_.relationship_manager import (
     AsyncRelationshipFrom,
     AsyncRelationshipTo,
 )
+
 import json
 import uuid
 from datetime import datetime

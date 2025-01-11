@@ -571,23 +571,54 @@ def transform_update_packages(update_packages: List[Dict[str, Any]]) -> pd.DataF
         return pd.DataFrame(columns=["node_id", "package_type", "node_label", "published",
                                    "excluded_embed_metadata_keys", "downloadable_packages"])
 
-    return None
-
-
-def make_json_safe_metadata(metadata: Dict[str, Any]) -> str:
-    for key, value in metadata.items():
-        if isinstance(value, datetime):
-            metadata[key] = value.isoformat()
-    return json.dumps(metadata, default=custom_json_serializer)
-
 
 def convert_to_list(value):
     if isinstance(value, str):
         return [value]
     elif isinstance(value, list):
         return value
-    else:
-        return []
+
+
+def make_json_safe_metadata(metadata: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Make metadata dictionary JSON-safe while preserving dictionary structure.
+    Only converts to JSON string if the value itself needs to be JSON-encoded.
+
+    Args:
+        metadata: Dictionary containing metadata fields
+
+    Returns:
+        Dictionary with JSON-safe values but still in dictionary format
+    """
+    if not isinstance(metadata, dict):
+        return metadata
+
+    safe_metadata = {}
+    for key, value in metadata.items():
+        if isinstance(value, dict):
+            # Recursively process nested dictionaries
+            safe_metadata[key] = make_json_safe_metadata(value)
+        elif isinstance(value, (datetime, np.datetime64)):
+            # Convert datetime to ISO format string
+            safe_metadata[key] = value.isoformat()
+        elif isinstance(value, (list, tuple)):
+            # Handle lists/tuples
+            safe_metadata[key] = [
+                make_json_safe_metadata(item) if isinstance(item, dict) else item
+                for item in value
+            ]
+        elif isinstance(value, (float, np.float32, np.float64)) and np.isnan(value):
+            # Handle NaN values
+            safe_metadata[key] = None
+        elif isinstance(value, (np.int64, np.int32)):
+            # Convert numpy integers to Python integers
+            safe_metadata[key] = int(value)
+        elif isinstance(value, (np.bool_)):
+            # Convert numpy booleans to Python booleans
+            safe_metadata[key] = bool(value)
+        else:
+            return []
+    return safe_metadata
 
 
 def remove_generic_text(text, threshold=80, max_match_length=500):
@@ -792,7 +823,7 @@ def _apply_common_transformations(df: pd.DataFrame) -> pd.DataFrame:
     df["cve_category"] = df["cve_category"].fillna("NC")
     df["severity_type"] = df["severity_type"].str.lower()
     df["severity_type"] = df["severity_type"].fillna("NST")
-    df["metadata"] = df["metadata"].apply(make_json_safe_metadata)
+    # df["metadata"] = df["metadata"].apply(make_json_safe_metadata)
     df["kb_ids"] = df["kb_ids"].apply(normalize_mongo_kb_id)
     df["kb_ids"] = df["kb_ids"].apply(lambda x: sorted(x, reverse=True))
     df["product_build_ids"] = df["product_build_ids"].apply(convert_to_list)
@@ -1237,7 +1268,7 @@ def transform_patch_posts(patch_posts: List[Dict[str, Any]], process_all: bool =
             records_to_process["metadata"] = records_to_process["metadata"].apply(
                 lambda x: remove_metadata_fields(x, metadata_fields_to_move)
             )
-            records_to_process["metadata"] = records_to_process["metadata"].apply(make_json_safe_metadata)
+            # records_to_process["metadata"] = records_to_process["metadata"].apply(make_json_safe_metadata)
             records_to_process["excluded_embed_metadata_keys"] = [[] for _ in range(len(records_to_process))]
             records_to_process["excluded_embed_metadata_keys"] = records_to_process["excluded_embed_metadata_keys"].apply(
                 lambda x: list(

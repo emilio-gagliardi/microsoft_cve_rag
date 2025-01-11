@@ -873,7 +873,19 @@ async def extract_entities_relationships(
                     logging.warning(f"LLM response is empty for document {row['node_id']}")
                     continue
 
-                extracted_entity = json.loads(llm_response)
+                try:
+                    # Try to parse the JSON response
+                    extracted_entity = json.loads(llm_response)
+
+                    # Validate that we got a dictionary
+                    if not isinstance(extracted_entity, dict):
+                        logging.error(f"LLM response is not a dictionary for document {row['node_id']}: {llm_response[:100]}...")
+                        continue
+
+                except json.JSONDecodeError as e:
+                    logging.error(f"Failed to parse LLM response as JSON for document {row['node_id']}: {str(e)}\nResponse: {llm_response[:100]}...")
+                    continue
+
                 # Generate a unique node_id for each sub-entity
                 extracted_entity["node_id"] = str(uuid.uuid4())
                 # Ensure source_id points to parent document

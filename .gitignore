@@ -19,13 +19,14 @@ env/
 
 /mongo_playground/
 .aider*
-C:\Users\emili\PycharmProjects\microsoft_cve_rag\.windsurfrules
+.windsurfrules
 neomodel-async-docs.txt
 neomodel-basics-docs.txt
 
 notebooks/
 data/
 package docs/
-microsoft_cve_rag\architect\pr_feedback.md
-microsoft_cve_rag\architect\qdrant_optimation.md
+
+/microsoft_cve_rag/architect/qdrant_optimization.md
+/microsoft_cve_rag/architect/pr_feedback.md
 neomodel-scraper/

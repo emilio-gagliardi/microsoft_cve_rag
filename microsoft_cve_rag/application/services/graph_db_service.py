@@ -31,6 +31,7 @@ from application.app_utils import (
     get_graph_db_credentials,
 )
 from application.core.models import graph_db_models
+from application.etl.transformer import make_json_safe_metadata
 from decimal import Decimal, InvalidOperation
 # import asyncio  # required for testing
 from neomodel import config as NeomodelConfig  # required by AsyncDatabase
@@ -329,6 +330,22 @@ class BaseService(Generic[T]):
             async with db.transaction:
                 for item in items:
                     try:
+                        # Handle metadata conversion
+                        if "metadata" in item:
+                            if isinstance(item["metadata"], dict):
+                                # Keep as dictionary but ensure values are JSON-safe
+                                item["metadata"] = make_json_safe_metadata(item["metadata"])
+                            elif isinstance(item["metadata"], str):
+                                # If it's a string, try to parse it as JSON
+                                try:
+                                    metadata_dict = json.loads(item["metadata"])
+                                    item["metadata"] = make_json_safe_metadata(metadata_dict)
+                                except json.JSONDecodeError:
+                                    logging.warning(f"Invalid JSON in metadata: {item['metadata']}")
+                                    item["metadata"] = {}
+                            else:
+                                item["metadata"] = {}
+
                         # Handle None or empty values for embedding
                         if "embedding" in item:
                             if isinstance(item["embedding"], float) and math.isnan(
@@ -398,7 +415,7 @@ class BaseService(Generic[T]):
                             if item["keywords"] is None or (
                                 isinstance(item["keywords"], float)
                                 and math.isnan(item["keywords"])
-                            ):
+                                ):
                                 item["keywords"] = []
                             elif isinstance(item["keywords"], str):
                                 item["keywords"] = [item["keywords"]]
@@ -420,6 +437,7 @@ class BaseService(Generic[T]):
                                 and math.isnan(item["post_type"])
                             ):
                                 item["post_type"] = ""
+
                         node, message, code = await self.get_or_create(**item)
                         if node:
                             # Handle specific node types if needed
@@ -1350,6 +1368,33 @@ async def check_has_kb(
     if isinstance(source_node, graph_db_models.MSRCPost):
         if isinstance(target_node, graph_db_models.KBArticle):
             return target_node.kb_id in source_node.kb_ids
+
+    elif isinstance(source_node, graph_db_models.PatchManagementPost):
+        if isinstance(target_node, graph_db_models.KBArticle):
+            """
+            elif isinstance(source_node, graph_db_models.PatchManagementPost):
+                print(f"Patch -[HAS_KB]-> KB checking...")
+                response = target_node.kb_id in source_node.kb_ids
+                if response:
+                    print(f"source: {source_node}\ntarget:{target_node}")
+                    print(
+                        f"\n======\nPatch -[HAS_KB]->KB: {response}\n======\n"
+                    )
+                    time.sleep(10)
+                else:
+                    print(f"Patch -[HAS_KB]->KB: False")
+                    print(f"source: {source_node}\ntarget:{target_node}")
+            """
+            # print("Patch-[REFERENCES]->KB checking...")
+            return target_node.kb_id in source_node.kb_ids
+        elif isinstance(target_node, graph_db_models.MSRCPost):
+            return target_node.post_id in source_node.cve_ids
+
+    elif isinstance(source_node, graph_db_models.ProductBuild):
+        if isinstance(target_node, graph_db_models.MSRCPost):
+            return target_node.post_id in source_node.cve_id
+        elif isinstance(target_node, graph_db_models.KBArticle):
+            return target_node.kb_id in source_node.kb_id
     return False
 
 
@@ -1953,13 +1998,13 @@ async def _create_and_configure_relationship(
 
         elif rel_class == graph_db_models.AsyncHasUpdatePackageRel:
             release_date = await get_release_date(source_node, target_node)
-            has_cumulative = await has_cumulative(source_node, target_node)
-            has_dynamic = await has_dynamic(source_node, target_node)
+            is_cumulative = await has_cumulative(source_node, target_node)
+            is_dynamic = await has_dynamic(source_node, target_node)
 
             initial_props = {
                 "release_date": release_date or datetime.now().strftime("%Y-%m-%d"),  # Default to current date
-                "has_cumulative": has_cumulative if has_cumulative is not None else False,
-                "has_dynamic": has_dynamic if has_dynamic is not None else False,
+                "has_cumulative": is_cumulative if is_cumulative is not None else False,
+                "has_dynamic": is_dynamic if is_dynamic is not None else False,
             }
             properties = {**base_properties, **initial_props} if initial_props else base_properties
             rel_instance = await rel_manager.connect(target_node, properties)
@@ -2566,13 +2611,13 @@ async def set_has_update_package_properties(
 
         # Compute or retrieve properties
         release_date = await get_release_date(source_node, target_node)
-        has_cumulative = await has_cumulative(source_node, target_node)
-        has_dynamic = await has_dynamic(source_node, target_node)
+        is_cumulative = await has_cumulative(source_node, target_node)
+        is_dynamic = await has_dynamic(source_node, target_node)
 
         properties = {
             "release_date": release_date or datetime.now().strftime("%Y-%m-%d"),  # Default to current date
-            "has_cumulative": has_cumulative if has_cumulative is not None else False,
-            "has_dynamic": has_dynamic if has_dynamic is not None else False,
+            "has_cumulative": is_cumulative if is_cumulative is not None else False,
+            "has_dynamic": is_dynamic if is_dynamic is not None else False,
         }
 
         # Update the relationship properties
