@@ -25,7 +25,15 @@ neomodel-basics-docs.txt
 
 notebooks/
 data/
+!microsoft_cve_rag/application/data/pair_programming/cascade_notes.md
+!microsoft_cve_rag/application/data/debug/
+!microsoft_cve_rag/application/data/debug/patch_nov-3-4-2023.json
+!microsoft_cve_rag/application/data/debug/patch_posts_debug.json
 package docs/
+
+# windsurf rules
+.windsurfrules
+
 
 /microsoft_cve_rag/architect/qdrant_optimization.md
 /microsoft_cve_rag/architect/pr_feedback.md

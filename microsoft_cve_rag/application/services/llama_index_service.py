@@ -31,6 +31,8 @@ from application.services.embedding_service import (
     LlamaIndexEmbeddingAdapter,
     )
 from application.services.vector_db_service import VectorDBService
+from application.services.graph_db_service import ToolService, GraphDatabaseManager, get_graph_db_uri, set_graph_db_uri
+from application.core.models import graph_db_models
 from qdrant_client.http.models import (
     Filter,
     FieldCondition,
@@ -38,7 +40,9 @@ from qdrant_client.http.models import (
     MatchAny,
     FilterSelector,
 )
-from typing import Dict, List, Literal, Tuple, Optional, Any
+from neomodel.async_.core import AsyncDatabase
+from neomodel import config as NeomodelConfig
+from typing import Dict, List, Literal, Tuple, Optional, Any, Union
 import pandas as pd
 import numpy as np
 import uuid
@@ -71,6 +75,8 @@ logging.getLogger('fuzzywuzzy.fuzz').setLevel(logging.ERROR)
 logging.getLogger('fuzzywuzzy.process').setLevel(logging.ERROR)
 warnings.filterwarnings("ignore", category=UserWarning, module="fuzzywuzzy")
 
+# from neomodel import db as AsyncDatabase
+
 settings = get_app_config()
 graph_db_settings = settings["GRAPHDB_CONFIG"]
 credentials = get_graph_db_credentials()
@@ -81,7 +87,7 @@ llm_model = "gpt-4o-mini"
 # Settings.tokenizer = tokenizer
 tokenizer = AutoTokenizer.from_pretrained("Snowflake/snowflake-arctic-embed-m-long")
 # Settings.tokenizer = tokenizer
-
+set_graph_db_uri()
 # Define your schema and extractor
 EntityType = Literal["SYMPTOM", "CAUSE", "FIX", "TOOL", "TECHNOLOGY"]
 RelationType = Literal[
@@ -129,6 +135,9 @@ metadata_columns = {
         "impact_type",
         "severity_type",
         "product_build_ids",
+        "cwe_id",
+        "cwe_name",
+        "nvd_description",
     ],
     "PatchManagementPost": [
         "node_id",
@@ -444,7 +453,10 @@ def build_prompt(
             update_package_urls=update_package_urls,
         )
     else:
-        prompt_static = template.format(
+        # Convert source_ids to a JSON-formatted string
+        source_ids_json = json.dumps([source_id])
+        prompt_static = template.replace('"source_ids": {source_ids}', f'"source_ids": {source_ids_json}')
+        prompt_static = prompt_static.format(
             context_str=context_str,
             source_id=source_id,
             source_type=source_type,
@@ -525,99 +537,145 @@ async def call_llm_no_logging_no_cache(system_prompt: str, user_prompt: str):
         raise
 
 
-def extract_data_backwards(products: List[str], text: str) -> Dict[str, Dict[str, List[str]]]:
+def extract_data_backwards(
+    products: List[str],
+    text: Union[str, float, None]
+) -> Dict[str, Dict[str, List[str]]]:
     """
-    Extracts build numbers and KB IDs from text by processing it from the end toward the beginning.Deduplicates build numbers and KB IDs within each product.
+    Extracts build numbers and KB IDs from text by processing it from the end toward the beginning.
+    Specifically handles Microsoft Security Update Guide format where build numbers and KB articles
+    appear after their associated product names.
 
     Args:
         products (List[str]): The list of product names to search for.
-        text (str): The document text to analyze.
+        text (Union[str, float, None]): The document text to analyze.
 
     Returns:
-        Dict[str, Dict[str, List[str]]]: A dictionary where keys are products and values are dictionaries with 'build_numbers' and 'kb_ids' as keys, each containing a list of values.
-
-    Note:
-        Uses `safe_extract_one` to avoid warnings and meaningless matches when the query or choices are too short. This is necessary to prevent potential issues with overly short strings that could otherwise lead to errors or low-quality results.
-    """
-    lines = text.splitlines()
-    result = {product: {"build_numbers": [], "kb_ids": []} for product in products}
-    current_unit = {"build_number": None, "kb_id": None}
-
-    # Iterate lines in reverse order
-    for line in reversed(lines):
-        preprocessed_line = re.sub(r'[^a-zA-Z0-9\s\-:/().,]', '', line).strip()
-        # Check for the terminating chunk
-        if "Updates" in line and "CVSS" in preprocessed_line:
-            break
-
-        # Extract build number
-        build_number_match = re.search(r"\b(\d+\.\d+\.\d+\.\d+)\b", preprocessed_line)
-        if build_number_match:
-            current_unit["build_number"] = build_number_match.group(1)
-            continue
-
-        # Extract KB ID
-        kb_id_match = re.search(r"\b(\d{7})\b", preprocessed_line)
-        if kb_id_match:
-            current_unit["kb_id"] = f"KB{kb_id_match.group(1)}"
-            continue
-
-        # Fuzzy match for product names against the product list
-        closest_product = safe_extract_one(preprocessed_line, products)
-        if closest_product:
-            # If product found, complete the unit and store it in result
-            closest_product_name = closest_product[0]
-            if current_unit["build_number"] or current_unit["kb_id"]:
-                if current_unit["build_number"] and current_unit["build_number"] not in result[closest_product_name]["build_numbers"]:
-                    result[closest_product_name]["build_numbers"].append(current_unit["build_number"])
-                if current_unit["kb_id"] and current_unit["kb_id"] not in result[closest_product_name]["kb_ids"]:
-                    result[closest_product_name]["kb_ids"].append(current_unit["kb_id"])
-
-                # Clear current unit after extracting data
-                current_unit = {"build_number": None, "kb_id": None}
-
-    # Print extracted results
-    # for product, data in result.items():
-    #     print(f"{product}: Build Numbers - {data['build_numbers']}, KB IDs - {data['kb_ids']}")
-
-    return result
-
-
-def extract_data_patch_management(products: List[str], text: str) -> Dict[str, Dict[str, List[str]]]:
-    """
-    Extracts build numbers and KB IDs from PatchManagementPost documents by performing fuzzy matching for products and regex matching for build numbers and KB IDs.
-
-    Args:
-        products (List[str]): The list of product names to search for.
-        text (str): The document text to analyze.
-
-    Returns:
-        Dict[str, Dict[str, List[str]]]: A dictionary where keys are products and values are dictionaries with 'build_numbers' and 'kb_ids' as keys, each containing a list of values.
-
-    Note:
-        Uses `safe_partial_ratio` to avoid warnings and ineffective comparisons when either string is too short. This helper ensures that both strings are long enough to generate meaningful fuzzy scores, improving accuracy and reducing errors.
+        Dict[str, Dict[str, List[str]]]: A dictionary where keys are products and values are dictionaries
+        with 'build_numbers' and 'kb_ids' as keys, each containing a list of values.
     """
     # Initialize result dictionary with empty lists for each product
     result = {product: {"build_numbers": [], "kb_ids": []} for product in products}
 
-    # Extract build numbers and KB IDs from the text using regex
-    build_numbers = re.findall(r"\b\d+\.\d+\.\d+\.\d+\b", text)
-    kb_ids = [f"KB{match}" for match in re.findall(r"\b\d{7}\b", text)]
+    # Handle non-string text input
+    if not isinstance(text, str) or pd.isna(text):
+        logging.warning(f"Invalid text type {type(text)} or NaN value. Returning empty result.")
+        return result
 
-    # Fuzzy match product names against the text to find relevant products
+    # Split into lines and clean
+    lines = [line.strip() for line in text.split('\n') if line.strip()]
+    current_unit = {"build_numbers": [], "kb_id": None}
+
+    def expand_build_number(match_text: str) -> List[str]:
+        """Helper function to expand slash-separated build numbers."""
+        if '/' in match_text:
+            base_parts = match_text.split('.')
+            variations = base_parts[-1].split('/')
+            base = '.'.join(base_parts[:-1])
+            return [f"{base}.{var.strip()}" for var in variations]
+        return [match_text.strip()]
+
+    # Iterate lines in reverse order
+    for i, line in enumerate(reversed(lines)):
+        preprocessed_line = re.sub(r'[^a-zA-Z0-9\s\-:/().,]', '', line).strip()
+
+        # Stop if we hit the header section
+        if "Updates" in line and "CVSS" in preprocessed_line:
+            break
+
+        # Extract build number
+        build_number_match = re.search(r"\b(\d+\.\d+\.\d+\.\d+(?:/\d+)?)\b", preprocessed_line)
+        if build_number_match and "Build Number" not in preprocessed_line:  # Avoid matching header
+            current_unit["build_numbers"] = expand_build_number(build_number_match.group(1))
+            continue
+
+        # Extract KB ID - now handles 5-7 digit format
+        kb_matches = re.finditer(r"\b(\d{5,7})\b", preprocessed_line)
+        for match in kb_matches:
+            kb_id = match.group(1)
+            # Skip if it's part of a build number pattern
+            if not re.search(rf"\b\d+\.\d+\.\d+\.{kb_id}\b", preprocessed_line):
+                current_unit["kb_id"] = f"KB{kb_id}"
+
+        # Look for product names
+        for product in products:
+            # Use a more lenient match for product names since they might contain version info
+            if product.lower() in preprocessed_line.lower():
+                if current_unit["build_numbers"] or current_unit["kb_id"]:
+                    # Add all build numbers that aren't already in the list
+                    for build in current_unit["build_numbers"]:
+                        if build not in result[product]["build_numbers"]:
+                            result[product]["build_numbers"].append(build)
+                    if current_unit["kb_id"] and current_unit["kb_id"] not in result[product]["kb_ids"]:
+                        result[product]["kb_ids"].append(current_unit["kb_id"])
+
+                    # Clear current unit after extracting data
+                    current_unit = {"build_numbers": [], "kb_id": None}
+                break  # Stop checking other products once we find a match
+
+    return result
+
+
+def extract_data_patch_management(
+    products: List[str],
+    text: str
+) -> Dict[str, Dict[str, List[str]]]:
+    """
+    Extracts build numbers and KB IDs from PatchManagementPost documents by performing fuzzy matching for products
+    and regex matching for build numbers and KB IDs. Unlike the backwards extraction, this function doesn't
+    try to map relationships between products and numbers since the text is unstructured.
+
+    Args:
+        products (List[str]): The list of product names to search for.
+        text (Union[str, float, None]): The document text to analyze.
+
+    Returns:
+        Dict[str, Dict[str, List[str]]]: A dictionary where keys are products and values are dictionaries
+        with 'build_numbers' and 'kb_ids' as keys, each containing a list of values. Includes an 'unknown'
+        key for build numbers and KB IDs that aren't associated with specific products.
+    """
+    # Initialize result dictionary with empty lists for each product and add 'unknown' key
+    result = {product: {"build_numbers": [], "kb_ids": []} for product in products}
+    result["unknown"] = {"build_numbers": [], "kb_ids": []}
+
+    # Handle non-string text input
+    if not isinstance(text, str) or pd.isna(text):
+        logging.warning(f"Invalid text type {type(text)} or NaN value -> {text}. Returning empty result.")
+        return result
+
+    # Extract all build numbers using regex
+    build_numbers = []
+    build_number_matches = re.finditer(r"\b(\d+\.\d+\.\d+\.\d+(?:/\d+)?)\b", text)
+    for match in build_number_matches:
+        build_number = match.group(1)
+        if build_number not in build_numbers:
+            build_numbers.append(build_number)
+
+    # Extract KB IDs - handles 5-7 digit format
+    kb_ids = []
+    for line in text.split('\n'):
+        kb_matches = re.finditer(r"\b(\d{5,7})\b", line)
+        for match in kb_matches:
+            kb_id = match.group(1)
+            # Skip if it's part of a build number pattern
+            if not re.search(rf"\b\d+\.\d+\.\d+\.{kb_id}\b", line):
+                kb_id = f"KB{kb_id}"
+                if kb_id not in kb_ids:
+                    kb_ids.append(kb_id)
+
+    # Find product mentions using fuzzy matching
     matched_products = set()
     for product in products:
         if safe_partial_ratio(product, text) >= 70:
             matched_products.add(product)
+            result[product]["build_numbers"].extend(build_numbers)
+            result[product]["kb_ids"].extend(kb_ids)
 
-    # Assign build numbers and KB IDs to matched products
-    for product in matched_products:
-        result[product]["build_numbers"].extend(build_numbers)
-        result[product]["kb_ids"].extend(kb_ids)
-
-    # Print extracted results for verification
-    # for product, data in result.items():
-    #     print(f"{product}: Build Numbers - {data['build_numbers']}, KB IDs - {data['kb_ids']}")
+    # If we found build numbers or KB IDs but no product matches,
+    # add them to the unknown category
+    if (build_numbers or kb_ids) and not matched_products:
+        result["unknown"]["build_numbers"] = build_numbers
+        result["unknown"]["kb_ids"] = kb_ids
 
     return result
 
@@ -671,14 +729,20 @@ def is_empty_extracted_entity(entity: dict, entity_type: str) -> bool:
         bool: True if the entity is empty, False otherwise.
     """
     empty_fields = {
-        "Symptom": ["description", "symptom_label"],
-        "Cause": ["description", "cause_label"],
-        "Fix": ["description", "fix_label"],
-        "Tool": ["description", "tool_label"],
+        "SYMPTOM": ["description", "symptom_label"],
+        "CAUSE": ["description", "cause_label"],
+        "FIX": ["description", "fix_label"],
+        "TOOL": ["description", "tool_label"],
     }
 
+    # Convert entity_type to uppercase for case-insensitive comparison
+    entity_type_upper = entity_type.upper()
+    if entity_type_upper not in empty_fields:
+        logging.warning(f"Unknown entity type: {entity_type}")
+        return True
+
     # Check if all specified fields are empty or default values
-    for field in empty_fields.get(entity_type, []):
+    for field in empty_fields[entity_type_upper]:
         if entity.get(field):
             return False
     return True
@@ -709,6 +773,30 @@ def get_entities_to_extract(post_type: str) -> list:
         return ["Symptom", "Cause", "Fix", "Tool"]
 
     return valid_post_types[post_type]
+
+
+_tool_service = None
+_last_service_time = None
+_service_ttl = 300  # 5 minutes
+
+
+async def _get_tool_service():
+    """Get or create a cached ToolService instance."""
+    global _tool_service, _last_service_time
+
+    current_time = time.time()
+    if (_tool_service is not None and
+        _last_service_time is not None and
+        current_time - _last_service_time < _service_ttl):
+        return _tool_service
+
+    # Create new service instance
+    NeomodelConfig.DATABASE_URL = get_graph_db_uri()
+    db = AsyncDatabase()
+    async with GraphDatabaseManager(db) as db_manager:
+        _tool_service = ToolService(db_manager)
+        _last_service_time = current_time
+        return _tool_service
 
 
 async def extract_entities_relationships(
@@ -772,11 +860,7 @@ async def extract_entities_relationships(
                 metadata = json.loads(metadata)
             except json.JSONDecodeError:
                 metadata = {}
-        etl_status = metadata.get('etl_processing_status', {})
-
-        if etl_status.get('entities_extracted', False) and not process_all:
-            logging.info(f"Skipping entity extraction for {row['node_id']} - already processed")
-            continue
+        etl_status = metadata.get('etl_processing_status')
 
         if document_type in metadata_columns:
             metadata_str = create_metadata_string_for_user_prompt(row, metadata_columns[document_type])
@@ -784,6 +868,9 @@ async def extract_entities_relationships(
             metadata_str = ""
 
         document_text = row["text"]
+        if pd.isna(document_text):
+            logging.info(f"Document {row['node_id']} has NaN text value, setting to empty string")
+            continue
 
         if document_type == "MSRCPost":
             extracted_data_backwards = extract_data_backwards(products, document_text)
@@ -806,6 +893,29 @@ async def extract_entities_relationships(
         if not entities_to_extract:
             logging.info(f"Skipping extraction for document {row['node_id']} with post_type: {post_type}")
             continue
+
+        if etl_status.get('entities_extracted', False) and not process_all:
+            logging.info(f"Loading cached extractions for {row['node_id']}")
+
+            # For each entity type, try to load from cache
+            for entity_type in entities_to_extract:
+                cache_file_name = f"{entity_type.lower()}_{row['node_id']}.json"
+                cache_file_path = os.path.join(cache_dir, cache_file_name)
+
+                if os.path.exists(cache_file_path):
+                    try:
+                        with open(cache_file_path, "r", encoding="utf-8") as f:
+                            extracted_entity = json.load(f)
+                        cached_files.append(cache_file_path)
+                        # Add to appropriate list if not empty
+                        key = entity_type.lower() + 'es' if entity_type == 'Fix' else entity_type.lower() + 's'
+                        if not is_empty_extracted_entity(extracted_entity, entity_type):
+                            extracted_data[key].append(extracted_entity)
+                            logging.debug(f"Loaded cached {entity_type} extraction for {row['node_id']}")
+                    except json.JSONDecodeError as e:
+                        logging.error(f"Error reading cache file {cache_file_path}: {e}")
+            continue
+
         # For each entity type
         for entity_type in entities_to_extract:
             try:
@@ -849,13 +959,7 @@ async def extract_entities_relationships(
                     with open(cache_file_path, "r", encoding="utf-8") as f:
                         extracted_entity = json.load(f)
                     cached_files.append(cache_file_path)
-                    # No tokens used when loading from cache
-                    token_counter["input_tokens"] += 0
-                    token_counter["output_tokens"] += 0
-                    token_counter["total_cost"] += 0.0
-                    update_llm_usage(token_counter_instance.empty_usage())
-
-                    # Add to appropriate list and continue to next iteration
+                    # Skip token counting for cached results
                     key = entity_type.lower() + 'es' if entity_type == 'Fix' else entity_type.lower() + 's'
                     if not is_empty_extracted_entity(extracted_entity, entity_type):
                         extracted_data[key].append(extracted_entity)
@@ -864,7 +968,7 @@ async def extract_entities_relationships(
                     logging.error(f"Error reading cache file {cache_file_path}: {e}")
                     # If cache file is corrupted, proceed with LLM extraction
 
-            logging.debug(f"Extracting {entity_type} from document {row['node_id']}...")
+            logging.info(f"Extracting {entity_type} from document {row['node_id']}...")
             # Use the LLM to generate the extraction
             try:
                 llm_response = await call_llm_no_logging_no_cache(system_prompt, user_prompt)
@@ -892,6 +996,65 @@ async def extract_entities_relationships(
                 extracted_entity["source_id"] = row["node_id"]
                 # Add entity type
                 extracted_entity["entity_type"] = entity_type
+                # Initialize source_ids as a list with the current document's node_id
+                extracted_entity["source_ids"] = [row["node_id"]]
+
+                # Special handling for Tool entities to find similar existing tools
+                if entity_type == "Tool":
+                    # Skip database check if no real tool was extracted
+                    tool_label = extracted_entity.get("tool_label")
+                    description = extracted_entity.get("description")
+                    if ((not tool_label or not str(tool_label).strip()) and
+                        (not description or not str(description).strip())):
+                        continue
+                    # Create a single ToolService instance for all tool checks in this batch
+                    tool_service = await _get_tool_service()
+
+                    try:
+                        # Check for similar existing tool using cached service
+                        similar_tool = await tool_service.find_similar_tool(
+                            extracted_entity.get("tool_label", ""),
+                            threshold=0.85
+                        )
+                        if similar_tool:
+                            # Convert Neomodel node to dictionary
+                            similar_tool_dict = similar_tool.__properties__
+                            # Update with the new source_ids
+                            source_ids = set(similar_tool_dict.get("source_ids", []) or [])
+                            source_ids.add(row["node_id"])
+                            similar_tool_dict["source_ids"] = list(source_ids)
+
+                            # Use the existing tool's data but keep new description if available
+                            # if extracted_entity.get("description"):
+                            #     similar_tool_dict["description"] = extracted_entity["description"]
+
+                            # Update extracted_entity with the deflated node data
+                            extracted_entity.update(similar_tool_dict)
+
+                            # Update the source_ids in Neo4j database
+                            try:
+                                # Get the node using get_or_create to ensure we have the latest version
+                                node, msg, status = await tool_service.get_or_create(
+                                    node_id=similar_tool.node_id,
+                                    node_label="Tool"
+                                )
+                                if node and status in [200, 201]:
+                                    # Update the source_ids property
+                                    node.source_ids = similar_tool_dict["source_ids"]
+                                    await node.save()
+                                    logging.info(
+                                        f"Updated source_ids for tool '{similar_tool.tool_label}' in Neo4j database. "
+                                        f"New source_ids: {similar_tool_dict['source_ids']}"
+                                    )
+                                else:
+                                    logging.error(f"Failed to retrieve tool node for update: {msg}")
+                            except Exception as db_error:
+                                logging.error(f"Error updating source_ids in Neo4j: {str(db_error)}")
+                    except Exception as e:
+                        logging.error(f"Error while checking for similar tools: {str(e)}")
+                else:
+                    # No special handling for other entity types
+                    pass
 
                 # Add to the list of extracted entities
                 extracted_entities = []
@@ -910,7 +1073,6 @@ async def extract_entities_relationships(
                 token_counter["input_tokens"] += usage.input_tokens
                 token_counter["output_tokens"] += usage.output_tokens
                 token_counter["total_cost"] += usage.total_cost
-                update_llm_usage(usage)
 
                 # Add to appropriate list
                 key = entity_type.lower() + 'es' if entity_type == 'Fix' else entity_type.lower() + 's'
@@ -926,15 +1088,25 @@ async def extract_entities_relationships(
 
                     extracted_data[key].append(extracted_entity)
                     current_time = datetime.datetime.now().isoformat()
-                    if 'metadata' not in row:
-                        row['metadata'] = {}
-                    if 'etl_processing_status' not in row['metadata']:
-                        row['metadata']['etl_processing_status'] = {}
+                    metadata_dict = row.get('metadata', {})
+                    if isinstance(metadata_dict, str):
+                        try:
+                            metadata_dict = json.loads(metadata_dict)
+                        except json.JSONDecodeError:
+                            metadata_dict = {}
 
-                    row['metadata']['etl_processing_status'].update({
+                    # Ensure etl_processing_status exists
+                    if 'etl_processing_status' not in metadata_dict:
+                        metadata_dict['etl_processing_status'] = {}
+
+                    # Update the status
+                    metadata_dict['etl_processing_status'].update({
                         'entities_extracted': True,
-                        'last_entity_extraction': current_time
+                        'last_processed_at': current_time
                     })
+
+                    # Update the row's metadata with our changes
+                    row['metadata'] = metadata_dict
             except json.JSONDecodeError as e:
                 logging.error(f"Error decoding JSON for llm response in document {row['node_id']}: {e}")
                 continue
@@ -956,6 +1128,19 @@ async def extract_entities_relationships(
     logging.info(f"Total input tokens: {token_counter['input_tokens']}")
     logging.info(f"Total output tokens: {token_counter['output_tokens']}")
     logging.info(f"Total cost: ${token_counter['total_cost']:.6f}")
+
+    # Update usage tracking with total tokens and costs for this batch
+    if token_counter["input_tokens"] > 0:
+        final_usage = TokenUsage(
+            input_tokens=token_counter["input_tokens"],
+            output_tokens=token_counter["output_tokens"],
+            input_cost=token_counter["total_cost"] * (token_counter_instance.input_cost_per_million / (token_counter_instance.input_cost_per_million + token_counter_instance.output_cost_per_million)),
+            output_cost=token_counter["total_cost"] * (token_counter_instance.output_cost_per_million / (token_counter_instance.input_cost_per_million + token_counter_instance.output_cost_per_million)),
+            total_cost=token_counter["total_cost"],
+            input_cost_per_million=token_counter_instance.input_cost_per_million,
+            output_cost_per_million=token_counter_instance.output_cost_per_million
+        )
+        update_llm_usage(final_usage)
 
     return extracted_data
 
@@ -1097,58 +1282,59 @@ class CustomDocumentTracker:
             doc_id (str): The ID of the document to add or update.
             document (dict): The document data.
         """
-        current_time = datetime.datetime.now()
-
-        # Check if document exists
-        existing_doc = self.get_document(doc_id)
-        if existing_doc:
-            original_added_at = existing_doc.get("added_at")
-        else:
-            original_added_at = current_time.isoformat()
-
-        # If this document has a source_id, remove any existing documents with the same source_id
-        source_id = document.get('source_id')
-        if source_id:
-            # Find and remove any documents that share this source_id
-            docs_to_remove = set()
-
-            # Check memory cache
-            for existing_id, existing_doc in self.recent_documents.items():
-                if existing_doc.get('source_id') == source_id:
-                    docs_to_remove.add(existing_id)
-
-            # Check disk storage
-            for file_path in self.cache_dir.glob("*.json"):
-                try:
-                    with open(file_path, 'r') as f:
-                        existing_doc = json.load(f)
-                        if existing_doc.get('source_id') == source_id:
-                            docs_to_remove.add(file_path.stem)
-                except Exception as e:
-                    logging.error(f"Error reading document {file_path}: {e}")
-
-            # Remove all found documents
-            for doc_id_to_remove in docs_to_remove:
-                await self.remove_document(doc_id_to_remove)
-
-        # Update document
-        document_copy = document.copy()
-        document_copy["added_at"] = original_added_at
-        document_copy["last_updated"] = current_time.isoformat()
-
-        # Store based on document age
-        if self._should_cache_in_memory(document_copy):
-            logging.debug(f"Adding document {doc_id} to memory cache")
-            self.recent_documents[doc_id] = document_copy
-            self.last_accessed[doc_id] = current_time
-        else:
-            logging.debug(f"Adding document {doc_id} to disk storage")
-            self._write_to_disk(doc_id, document_copy)
-
         try:
-            self._save_catalog()
+            current_time = datetime.datetime.now()
+
+            # Check if document exists
+            existing_doc = self.get_document(doc_id)
+            if existing_doc:
+                original_added_at = existing_doc.get("added_at")
+            else:
+                original_added_at = current_time.isoformat()
+
+            # If this document has a source_id, remove any existing documents with the same source_id
+            source_id = document.get('source_id')
+            if source_id:
+                # Find and remove any documents that share this source_id
+                docs_to_remove = set()
+
+                # Check memory cache first
+                for existing_id, existing_doc in self.recent_documents.items():
+                    if existing_doc.get('source_id') == source_id:
+                        docs_to_remove.add(existing_id)
+
+                # Check disk storage only if necessary
+                if not docs_to_remove:  # Only check disk if no matches found in memory
+                    for file_path in self.cache_dir.glob("*.json"):
+                        try:
+                            with open(file_path, 'r') as f:
+                                existing_doc = json.load(f)
+                                if existing_doc.get('source_id') == source_id:
+                                    docs_to_remove.add(file_path.stem)
+                        except Exception as e:
+                            logging.error(f"Error reading document {file_path}: {e}")
+
+                # Remove all found documents in parallel
+                if docs_to_remove:
+                    tasks = [self.remove_document(doc_id_to_remove) for doc_id_to_remove in docs_to_remove]
+                    await asyncio.gather(*tasks)
+
+            # Update document
+            document_copy = document.copy()
+            document_copy["added_at"] = original_added_at
+            document_copy["last_updated"] = current_time.isoformat()
+
+            # Store based on document age
+            if self._should_cache_in_memory(document_copy):
+                logging.debug(f"Adding document {doc_id} to memory cache")
+                self.recent_documents[doc_id] = document_copy
+                self.last_accessed[doc_id] = current_time
+            else:
+                logging.debug(f"Adding document {doc_id} to disk storage")
+                self._write_to_disk(doc_id, document_copy)
+
         except Exception as e:
-            logging.error(f"Error saving catalog for document {doc_id}: {e}")
+            logging.error(f"Error adding document {doc_id}: {e}")
             # Rollback the document addition
             if doc_id in self.recent_documents:
                 self.recent_documents.pop(doc_id)
@@ -1160,6 +1346,24 @@ class CustomDocumentTracker:
                 except Exception as del_e:
                     logging.error(f"Error during rollback of document {doc_id}: {del_e}")
             logging.info(f"Rolled back document {doc_id}")
+            raise
+
+    async def save_catalog_batch(self):
+        """
+        Save the complete catalog (both memory and disk documents) in a batch operation.
+
+        This method is used to persist the complete catalog of documents to disk after
+        a batch of documents has been processed. It collects all documents from memory
+        and disk, then writes them to a temporary file. If the write is successful,
+        it atomically replaces the existing catalog file.
+
+        Raises:
+            Exception: If the save fails, with the specific error logged before re-raising
+        """
+        try:
+            self._save_catalog()
+        except Exception as e:
+            logging.error(f"Error saving catalog batch: {e}")
             raise
 
     def _write_to_disk(self, doc_id: str, document: dict):
@@ -1256,12 +1460,18 @@ class CustomDocumentTracker:
             # Find child documents on disk
             for file_path in self.cache_dir.glob("*.json"):
                 try:
+                    # If file belongs to a document we know about
+                    if doc_id in file_path.stem:
+                        continue
+
+                    # Try to read the document to check its age
                     with open(file_path, 'r') as f:
                         child_doc = json.load(f)
-                        if child_doc.get('source_id') == doc_id:
-                            docs_to_remove.add(file_path.stem)
+
+                    if child_doc.get('source_id') == doc_id:
+                        docs_to_remove.add(file_path.stem)
                 except Exception as e:
-                    logging.error(f"Error reading document {file_path}: {e}")
+                    logging.error(f"Error cleaning up document {doc_id}: {e}")
 
             # Remove all collected documents
             for doc_id_to_remove in docs_to_remove:
@@ -1279,7 +1489,6 @@ class CustomDocumentTracker:
                         file_path.unlink()
                     except Exception as e:
                         logging.error(f"Error removing file {file_path}: {e}")
-                        raise
 
             try:
                 self._save_catalog()
@@ -1708,81 +1917,83 @@ async def track_dataframe_documents(
 
     Raises:
         Exception: Logs an error if adding a document fails.
-
-    Example Row Transformation:
-        Input Row:
-        {
-            "node_id": "1",
-            "tool_label": "Tool A",
-            "metadata": {"existing_key": "value1"},
-            "extra_col1": "extra1"
-        }
-        Output Dictionary:
-        {
-            "node_id": "1",
-            "tool_label": "Tool A",
-            "metadata": {
-                "existing_key": "value1",
-                "extra_col1": "extra1"
-            }
-        }
     """
     # Replace NaN with None for clean JSON serialization
     df_clean = df.replace({np.nan: None})
 
-    for _, row in df_clean.iterrows():
-        # Convert the row to a dictionary
-        doc_dict = row.to_dict()
-        node_id = str(doc_dict.get('node_id'))
-        if not node_id:
-            continue
+    # Process all documents in batches
+    batch_size = 100  # Adjust this based on your needs
+    total_rows = len(df_clean)
+    processed_docs = []
 
-        # Initialize the document structure
-        doc_data = {}
-        metadata = {}
+    try:
+        for start_idx in range(0, total_rows, batch_size):
+            end_idx = min(start_idx + batch_size, total_rows)
+            batch_df = df_clean.iloc[start_idx:end_idx]
 
-        # Process all fields in the row
-        for key, value in doc_dict.items():
-            if key in root_keys:
-                # Assign root-level fields directly
-                doc_data[key] = value
-            elif key == "metadata":
-                # Handle metadata field specially
-                if isinstance(value, dict):
-                    # If it's already a dict, extract nested metadata if it exists
-                    if 'metadata' in value:
-                        metadata.update(value['metadata'])
-                    # Remove any nested metadata and update
-                    value_copy = value.copy()
-                    value_copy.pop('metadata', None)
-                    metadata.update(value_copy)
-                elif isinstance(value, str):
-                    try:
-                        # Try to parse if it's a JSON string
-                        parsed_metadata = json.loads(value)
-                        if isinstance(parsed_metadata, dict):
-                            if 'metadata' in parsed_metadata:
-                                metadata.update(parsed_metadata['metadata'])
-                            parsed_metadata.pop('metadata', None)
-                            metadata.update(parsed_metadata)
-                    except json.JSONDecodeError:
-                        # If not valid JSON, store as is
+            # Process each row in the batch
+            for _, row in batch_df.iterrows():
+                doc_dict = row.to_dict()
+                node_id = str(doc_dict.get('node_id'))
+                if not node_id:
+                    continue
+
+                # Initialize the document structure
+                doc_data = {}
+                metadata = {}
+
+                # Process all fields in the row
+                for key, value in doc_dict.items():
+                    if key in root_keys:
+                        # Assign root-level fields directly
+                        doc_data[key] = value
+                    elif key == "metadata":
+                        # Handle metadata field specially
+                        if isinstance(value, dict):
+                            # If it's already a dict, extract nested metadata if it exists
+                            if 'metadata' in value:
+                                metadata.update(value['metadata'])
+                            # Remove any nested metadata and update
+                            value_copy = value.copy()
+                            value_copy.pop('metadata', None)
+                            metadata.update(value_copy)
+                        elif isinstance(value, str):
+                            try:
+                                # Try to parse if it's a JSON string
+                                parsed_metadata = json.loads(value)
+                                if isinstance(parsed_metadata, dict):
+                                    if 'metadata' in parsed_metadata:
+                                        metadata.update(parsed_metadata['metadata'])
+                                    parsed_metadata.pop('metadata', None)
+                                    metadata.update(parsed_metadata)
+                            except json.JSONDecodeError:
+                                # If not valid JSON, store as is
+                                metadata[key] = value
+                        else:
+                            # For any other type, store as is
+                            metadata[key] = value
+                    else:
+                        # Add non-root fields to metadata
                         metadata[key] = value
-                else:
-                    # For any other type, store as is
-                    metadata[key] = value
-            else:
-                # Add non-root fields to metadata
-                metadata[key] = value
 
-        # Add the metadata to the document
-        doc_data['metadata'] = metadata
+                # Add the metadata to the document
+                doc_data['metadata'] = metadata
+                processed_docs.append((node_id, doc_data))
 
-        try:
-            # Add the processed document to the tracker
-            await doc_tracker.add_document(node_id, doc_data)
-        except Exception as e:
-            logging.error(f"Error tracking document {node_id}: {str(e)}")
+            # Add the batch of processed documents to the tracker
+            tasks = [doc_tracker.add_document(doc_id, doc_data) for doc_id, doc_data in processed_docs]
+            await asyncio.gather(*tasks)
+            processed_docs = []  # Clear the batch after successful processing
+
+            # Save catalog after each batch
+            await doc_tracker.save_catalog_batch()
+
+            # Log progress
+            logging.info(f"Processed {end_idx}/{total_rows} documents")
+
+    except Exception as e:
+        logging.error(f"Error tracking batch of documents: {str(e)}")
+        raise
 
 
 class LlamaIndexVectorService:
@@ -1995,8 +2206,11 @@ class LlamaIndexVectorService:
     async def upsert_documents(
         self,
         documents: List[LlamaDocument],
-        verify_upsert: bool = False
-    ) -> None:
+        verify_upsert: bool = False,
+        batch_size: int = 1000,
+        wait: bool = True,
+        show_progress: bool = False
+    ) -> int:
         """
         Upsert documents to the vector store.
 
@@ -2011,6 +2225,12 @@ class LlamaIndexVectorService:
         Args:
             documents: List of documents to upsert
             verify_upsert: If True, verify that all nodes were properly created in vector store (development only)
+            batch_size: Size of batches for processing documents and embeddings (default: 1000)
+            wait: Whether to wait for indexing to complete
+            show_progress: Whether to show progress information
+
+        Returns:
+            int: Number of nodes created
         """
         try:
             start_time = time.time()
@@ -2024,20 +2244,31 @@ class LlamaIndexVectorService:
 
             if existing_docs:
                 logging.info(f"Found {len(existing_docs)} existing documents in tracker")
-                # First delete points matching doc_id directly (1-to-1 deletion)
-                for doc_id in existing_docs:
-                    await self._delete_document_points(doc_id, is_source=False)
-
-                # Then check for any remaining points with matching source_ids
-                # This catches sub-document entities from previous runs that might have different node_ids
-                for doc_id in existing_docs:
-                    await self._delete_document_points(doc_id, is_source=True)
+                # Use a single deletion operation for all matching documents
+                await self.vector_db_service.async_client.delete(
+                    collection_name=self.vector_db_service.collection,
+                    points_selector=FilterSelector(
+                        filter=Filter(
+                            should=[
+                                FieldCondition(
+                                    key="metadata.source_id",
+                                    match=MatchAny(any=existing_docs)
+                                ),
+                                FieldCondition(
+                                    key="doc_id",
+                                    match=MatchAny(any=existing_docs)
+                                )
+                            ]
+                        )
+                    ),
+                    wait=True
+                )
 
             # Convert documents to nodes using sentence window parser
             all_nodes = []
             doc_id_to_nodes = {}  # Track nodes per document
 
-            with tqdm(total=len(documents), desc="Parsing documents", unit="doc") as pbar:
+            with tqdm(total=len(documents), desc="Parsing documents", unit="doc", disable=not show_progress) as pbar:
                 for doc in documents:
                     # Each node will contain a sentence or window of sentences
                     nodes = self.node_parser.get_nodes_from_documents([doc])
@@ -2066,15 +2297,14 @@ class LlamaIndexVectorService:
             logging.info(f"Created {nodes_created} nodes from {len(documents)} documents")
 
             # Generate embeddings and create points in batches
-            batch_size = 50  # Process 50 nodes at a time to manage memory
             points = []
 
-            with tqdm(total=len(all_nodes), desc="Generating embeddings", unit="node") as pbar:
+            with tqdm(total=len(all_nodes), desc="Generating embeddings", unit="node", disable=not show_progress) as pbar:
                 for i in range(0, len(all_nodes), batch_size):
                     batch = all_nodes[i:i + batch_size]
 
                     # Extract text content from nodes
-                    texts = [node.get_content(metadata_mode="all") for node in batch]
+                    texts = [self._get_embedding_content(node) for node in batch]
 
                     try:
                         # Generate embeddings for the batch using the embedding service
@@ -2103,6 +2333,10 @@ class LlamaIndexVectorService:
                         points.extend(batch_points)
                         pbar.update(len(batch))
 
+                        if not wait:
+                            # Let the indexing happen asynchronously
+                            await asyncio.sleep(0)
+
                     except Exception as e:
                         logging.error(f"Error processing batch: {e}")
                         raise
@@ -2112,37 +2346,38 @@ class LlamaIndexVectorService:
             logging.info(f"Upserting {total_points} points to vector store")
 
             try:
-                with tqdm(total=total_points, desc="Upserting points to vector store", unit="point") as pbar:
-                    for i in range(0, total_points, batch_size):
-                        batch = points[i:i + batch_size]
-                        await self.vector_db_service.async_client.upsert(
+                with tqdm(total=total_points, desc="Upserting points to vector store", unit="point", disable=not show_progress) as pbar:
+                    # Create batches for parallel processing
+                    batches = [points[i:i + batch_size] for i in range(0, total_points, batch_size)]
+
+                    # Create upsert coroutines for each batch
+                    upsert_tasks = [
+                        self.vector_db_service.async_client.upsert(
                             collection_name=self.vector_db_service.collection,
                             points=batch,
-                            wait=True
+                            wait=wait
                         )
-                        # Track which documents have been processed based on points in this batch
+                        for batch in batches
+                    ]
+
+                    # Track documents before awaiting tasks
+                    for batch in batches:
                         for point in batch:
                             doc_id = point['payload'].get('doc_id')
                             if doc_id:
                                 processed_doc_ids.add(doc_id)
                         pbar.update(len(batch))
 
-                # Only update document tracker after successful vector store update
-                for doc in documents:
-                    if doc.doc_id not in processed_doc_ids:
-                        continue
-                    try:
-                        if self.doc_tracker is None:
-                            raise ValueError("Document tracker is not initialized")
+                    # Wait for all upserts to complete in parallel
+                    await asyncio.gather(*upsert_tasks)
 
-                        await self.doc_tracker.add_document(doc.doc_id, doc.metadata)
-                        logging.debug(f"Updated document tracker for {doc.doc_id}")
-
-                    except Exception as track_error:
-                        logging.error(f"Error tracking document {doc.doc_id}: {track_error}")
-                        # Continue processing other documents even if tracking fails for one
-                        continue
-
+                    # Verify that all points were created
+                    collection_info = await self.vector_db_service.async_client.get_collection(
+                        self.vector_db_service.collection
+                    )
+                    if collection_info.points_count < total_points:
+                        logging.error(f"Expected {total_points} points but found {collection_info.points_count}")
+                        raise ValueError("Not all points were created")
             except Exception as e:
                 logging.error(f"Error during vector store upsert: {e}")
                 # Attempt rollback for processed documents
@@ -2158,9 +2393,40 @@ class LlamaIndexVectorService:
             logging.info(f"Upsert completed in {end_time - start_time:.2f} seconds.")
             logging.info(f"Documents processed: {len(documents)}")
 
+            if verify_upsert:
+                await self._verify_upsert(processed_doc_ids, nodes_created)
+
+            return nodes_created
+
         except Exception as e:
             logging.error(f"Error in upsert_documents: {e}")
             raise
+
+    async def _verify_upsert(self, processed_ids: set, nodes_created: int) -> bool:
+        """
+        Verify that the upsert operation was successful by checking document presence.
+
+        Args:
+            processed_ids: Set of document IDs that were processed
+            nodes_created: Number of nodes created in the index
+
+        Returns:
+            bool: True if all documents are found in Qdrant, False otherwise
+        """
+        try:
+            # Get current collection stats
+            collection_info = await self.vector_db_service.async_client.get_collection(
+                self.vector_db_service.collection
+            )
+            points_count = collection_info.points_count
+
+            logging.info(f"Collection contains {points_count} points after upsert")
+            logging.info(f"Created {nodes_created} nodes from {len(processed_ids)} documents")
+
+            return True
+        except Exception as e:
+            logging.error(f"Error verifying upsert: {e}")
+            return False
 
     async def delete_document(self, doc_id: str):
         """Delete a specific document from both Qdrant and tracking."""
@@ -2277,6 +2543,39 @@ class LlamaIndexVectorService:
         except Exception as e:
             logging.error(f"Error counting points for document {doc_id}: {e}")
             return 0
+
+    def _get_embedding_content(self, node) -> str:
+        """
+        Extract only the core content fields for embedding to create more distinct clusters.
+
+        Priority:
+        1. original_text/window from SentenceWindowNodeParser
+        2. title or *_label fields for document type
+        3. fallback to raw text if needed
+        """
+        metadata = node.metadata or {}
+        content_parts = []
+
+        # Get core text content
+        if hasattr(node, 'original_text') and node.original_text:
+            content_parts.append(node.original_text)
+        elif metadata.get('window'):
+            content_parts.append(metadata['window'])
+
+        # Add title or label if available
+        if metadata.get('title'):
+            content_parts.append(metadata['title'])
+        elif any(metadata.get(f"{type}_label") for type in ['symptom', 'cause', 'fix', 'tool']):
+            for type in ['symptom', 'cause', 'fix', 'tool']:
+                if label := metadata.get(f"{type}_label"):
+                    content_parts.append(label)
+                    break
+
+        # Fallback to raw text if no other content
+        if not content_parts and hasattr(node, 'text'):
+            content_parts.append(node.text)
+
+        return " ".join(content_parts).strip()
 
 
 def _truncate_for_logging(value: Any, max_length: int = 250) -> str:

@@ -27,6 +27,8 @@ from application.app_utils import get_app_config, get_vector_db_credentials
 from typing import Optional, List, Union, Dict, Any
 from fastapi import HTTPException
 import asyncio
+import random
+import time
 
 import logging
 
@@ -39,6 +41,56 @@ logging.getLogger(__name__)
 
 
 class VectorDBService:
+    """
+    A service class for managing vector database operations with optimized performance.
+    
+    Features:
+    - Optimized collection configuration for insert/search performance
+    - Batch processing with automatic size optimization
+    - Dynamic parameter management for different workloads
+    - Payload index management for filtered queries
+    - Error handling with retry logic
+    
+    Usage:
+        # Initialize service
+        service = VectorDBService(
+            embedding_config={
+                "embedding_provider": "fastembed",
+                "fastembed_model_name": "BAAI/bge-small-en-v1.5"
+            },
+            vectordb_config={
+                "tier1_collection": "my_collection"
+            }
+        )
+        
+        # Bulk insert with progress tracking
+        result = await service.upsert_points(
+            points=points_list,
+            batch_size=1000,
+            wait=False,
+            show_progress=True
+        )
+        
+        # Switch to search optimization
+        await service.update_collection_params(optimize_for="search")
+        
+        # Create indexes for filtered fields
+        await service.create_payload_index(
+            field_name="post_type",
+            field_schema={"type": "keyword"}
+        )
+    
+    Configuration:
+        embedding_config:
+            embedding_provider: Provider for embeddings (e.g., "fastembed")
+            fastembed_model_name: Name of the FastEmbed model
+            
+        vectordb_config:
+            tier1_collection: Name of the collection
+            distance_metric: Distance metric for vectors (default: "cosine")
+            hnsw_config: HNSW index configuration
+            optimizer_config: Optimizer settings for resource management
+    """
     """
     A service class that manages vector database operations using Qdrant as the backend.
 
@@ -156,20 +208,256 @@ class VectorDBService:
             print(f"Collection '{self.collection}' already exists.")
 
     async def ensure_collection_exists_async(self):
+        """
+        Ensures a collection exists with optimized configuration for vector operations.
+
+        The method configures:
+        1. HNSW index parameters for optimal insert/search balance
+        2. Optimizer settings for efficient resource usage
+        3. Payload schema for better filtering performance
+
+        Configuration can be customized via vectordb_config or falls back to optimized defaults.
+        """
         print("Collection check...")
         if not await self.async_client.collection_exists(self.collection):
-            await self.async_client.create_collection(
-                collection_name=self.collection,
-                vectors_config=VectorParams(
-                    size=self.embedding_length,
-                    distance=self._distance_metric,
-                    # "text": VectorParams(size=300, distance=Distance.COSINE),
-                    # "thread_id": VectorParams(size=50, distance=Distance.EUCLID),
-                ),
-            )
-            print(f"Collection '{self.collection}' created successfully.")
+            # Get HNSW config from vectordb_config or use optimized defaults
+            hnsw_config = self.vectordb_config.get("hnsw_config", {
+                "m": 16,  # Lower than default for faster inserts
+                "ef_construct": 32,  # Lower than default (100) for faster inserts
+                "full_scan_threshold": 10000,
+                "max_indexing_threads": 4,
+                "on_disk": False  # Keep in memory for better performance
+            })
+
+            # Get optimizer config from vectordb_config or use optimized defaults
+            optimizer_config = self.vectordb_config.get("optimizer_config", {
+                "indexing_threshold": 50000,  # Higher threshold to batch index operations
+                "memmap_threshold": 10000,
+                "vacuum_min_vector_number": 1000,
+                "default_segment_number": 2,
+                "flush_interval_sec": 30
+            })
+
+            # Define payload schema for better filtering
+            payload_schema = self.vectordb_config.get("payload_schema", {
+                # Lists
+                "build_numbers": {
+                    "type": "integer",  # Individual numbers in the list
+                    "index": True
+                },
+                "kb_ids": {
+                    "type": "keyword",  # Exact string matching
+                    "index": True
+                },
+                "products": {
+                    "type": "keyword",  # Exact string matching
+                    "index": True
+                },
+
+                # String fields with exact matching
+                "collection": {
+                    "type": "keyword",
+                    "index": True
+                },
+                "cwe_id": {
+                    "type": "keyword",
+                    "index": True
+                },
+                "cwe_name": {
+                    "type": "keyword",
+                    "index": True
+                },
+                "post_id": {
+                    "type": "keyword",
+                    "index": True
+                },
+                "post_type": {
+                    "type": "keyword",
+                    "index": True
+                },
+                "entity_type": {
+                    "type": "keyword",
+                    "index": True
+                },
+                "source_type": {
+                    "type": "keyword",
+                    "index": True
+                },
+                "symptom_label": {
+                    "type": "keyword",
+                    "index": True
+                },
+                "cause_label": {
+                    "type": "keyword",
+                    "index": True
+                },
+                "fix_label": {
+                    "type": "keyword",
+                    "index": True
+                },
+                "tool_label": {
+                    "type": "keyword",
+                    "index": True
+                },
+                "tool_url": {
+                    "type": "keyword",
+                    "index": True
+                },
+                "tags": {
+                    "type": "keyword",
+                    "index": True
+                },
+                "severity_type": {
+                    "type": "keyword",
+                    "index": True
+                },
+
+                # Text fields for full-text search
+                "nvd_description": {
+                    "type": "text",
+                    "index": True
+                },
+                "title": {
+                    "type": "text",
+                    "index": True
+                },
+
+                # Date field
+                "published": {
+                    "type": "keyword",  # Store as string for exact matching
+                    "index": True
+                },
+
+                # Keep generic metadata field for flexibility
+                "metadata": {
+                    "type": "object"
+                }
+            })
+
+            try:
+                await self.async_client.create_collection(
+                    collection_name=self.collection,
+                    vectors_config=VectorParams(
+                        size=self.embedding_length,
+                        distance=self._distance_metric,
+                        hnsw_config=self._validate_hnsw_config(hnsw_config),
+                        optimizers_config=self._validate_optimizer_config(optimizer_config),
+                        on_disk=hnsw_config.get("on_disk", False)
+                    ),
+                    payload_schema=self._validate_payload_schema(payload_schema)
+                )
+                print(f"Collection '{self.collection}' created successfully with optimized parameters:")
+                print(f"- HNSW Config: {hnsw_config}")
+                print(f"- Optimizer Config: {optimizer_config}")
+                print(f"- Payload Schema: {payload_schema}")
+            except Exception as e:
+                print(f"Error creating collection: {str(e)}")
+                # Attempt to create with minimal config if optimized fails
+                await self.async_client.create_collection(
+                    collection_name=self.collection,
+                    vectors_config=VectorParams(
+                        size=self.embedding_length,
+                        distance=self._distance_metric
+                    )
+                )
+                print(f"Collection '{self.collection}' created with default parameters after optimization attempt failed.")
         else:
             print(f"Collection '{self.collection}' already exists.")
+
+    def _validate_hnsw_config(self, config: dict) -> dict:
+        """
+        Validates and normalizes HNSW configuration parameters.
+
+        Args:
+            config: Dictionary containing HNSW parameters
+
+        Returns:
+            Validated and normalized configuration dictionary
+        """
+        validated = config.copy()
+
+        # Validate m (number of edges per node)
+        if "m" in validated:
+            validated["m"] = max(8, min(validated["m"], 100))
+
+        # Validate ef_construct (size of dynamic candidate list)
+        if "ef_construct" in validated:
+            validated["ef_construct"] = max(8, min(validated["ef_construct"], 200))
+
+        # Validate full_scan_threshold
+        if "full_scan_threshold" in validated:
+            validated["full_scan_threshold"] = max(1000, validated["full_scan_threshold"])
+
+        # Validate max_indexing_threads
+        if "max_indexing_threads" in validated:
+            validated["max_indexing_threads"] = max(1, min(validated["max_indexing_threads"], 8))
+
+        return validated
+
+    def _validate_optimizer_config(self, config: dict) -> dict:
+        """
+        Validates and normalizes optimizer configuration parameters.
+
+        Args:
+            config: Dictionary containing optimizer parameters
+
+        Returns:
+            Validated and normalized configuration dictionary
+        """
+        validated = config.copy()
+
+        # Validate indexing_threshold
+        if "indexing_threshold" in validated:
+            validated["indexing_threshold"] = max(10000, validated["indexing_threshold"])
+
+        # Validate memmap_threshold
+        if "memmap_threshold" in validated:
+            validated["memmap_threshold"] = max(1000, validated["memmap_threshold"])
+
+        # Validate vacuum_min_vector_number
+        if "vacuum_min_vector_number" in validated:
+            validated["vacuum_min_vector_number"] = max(100, validated["vacuum_min_vector_number"])
+
+        # Validate default_segment_number
+        if "default_segment_number" in validated:
+            validated["default_segment_number"] = max(1, min(validated["default_segment_number"], 8))
+
+        # Validate flush_interval_sec
+        if "flush_interval_sec" in validated:
+            validated["flush_interval_sec"] = max(5, validated["flush_interval_sec"])
+
+        return validated
+
+    def _validate_payload_schema(self, schema: dict) -> dict:
+        """
+        Validates and normalizes payload schema configuration.
+
+        Args:
+            schema: Dictionary containing payload schema
+
+        Returns:
+            Validated and normalized schema dictionary
+        """
+        validated = schema.copy()
+        valid_types = {"keyword", "integer", "float", "geo", "text", "object"}
+
+        for field, config in validated.items():
+            if isinstance(config, dict):
+                # Validate field type
+                if "type" in config and config["type"] not in valid_types:
+                    config["type"] = "keyword"  # Default to keyword for invalid types
+
+                # Ensure index property exists
+                if "index" not in config:
+                    config["index"] = True  # Default to indexed
+            else:
+                # Convert simple type strings to full config
+                validated[field] = {
+                    "type": "keyword" if config not in valid_types else config,
+                    "index": True
+                }
+
+        return validated
 
     def _get_embedding_length(self) -> int:
         """Get embedding length based on selected provider"""
@@ -545,27 +833,168 @@ class VectorDBService:
 
         return results
 
-    async def upsert_points(self, points: List[PointStruct], batch_size: int = 100) -> None:
+    def _validate_batch_size(self, batch_size: int, total_points: int) -> int:
         """
-        Upserts points in batches for better performance.
-        
+        Validates and optimizes batch size based on total points and system constraints.
+
         Args:
-            points: List of points to upsert
-            batch_size: Number of points to upsert in each batch
+            batch_size: Requested batch size
+            total_points: Total number of points to process
+
+        Returns:
+            Optimized batch size
         """
-        tasks = []
-        for i in range(0, len(points), batch_size):
-            batch = points[i:i + batch_size]
-            task = self.async_client.upsert(
+        # Minimum batch size for efficiency
+        MIN_BATCH = 10
+        # Maximum batch size to prevent memory issues
+        MAX_BATCH = 10000
+
+        # Adjust batch size based on total points
+        if total_points < batch_size:
+            return max(MIN_BATCH, total_points)
+
+        # Keep batch size within reasonable limits
+        return max(MIN_BATCH, min(batch_size, MAX_BATCH))
+
+    async def _process_batch_with_retry(
+        self,
+        batch: List[PointStruct],
+        attempt: int = 1,
+        max_retries: int = 3,
+        wait: bool = False
+    ) -> Dict[str, Any]:
+        """
+        Process a batch of points with retry logic and exponential backoff.
+
+        Args:
+            batch: List of points to upsert
+            attempt: Current attempt number
+            max_retries: Maximum number of retry attempts
+            wait: Whether to wait for indexing
+
+        Returns:
+            Dict containing operation status and details
+        """
+        try:
+            result = await self.async_client.upsert(
                 collection_name=self.collection,
                 points=batch,
-                wait=False  # Don't wait for each batch
+                wait=wait
             )
-            tasks.append(task)
-        
-        # Wait for all tasks to complete at the end
-        if tasks:
-            await asyncio.gather(*tasks)
+            return {
+                "status": "success",
+                "operation_id": result.operation_id,
+                "points": len(batch)
+            }
+        except Exception as e:
+            if attempt < max_retries:
+                # Exponential backoff with jitter
+                delay = (2 ** attempt) + random.uniform(0, 1)
+                print(f"Batch processing failed, retrying in {delay:.2f}s... (Attempt {attempt}/{max_retries})")
+                await asyncio.sleep(delay)
+                return await self._process_batch_with_retry(
+                    batch, attempt + 1, max_retries, wait
+                )
+            return {
+                "status": "failed",
+                "error": str(e),
+                "points": len(batch)
+            }
+
+    async def upsert_points(
+        self,
+        points: List[PointStruct],
+        batch_size: int = 100,
+        max_retries: int = 3,
+        wait: bool = False,
+        show_progress: bool = True
+    ) -> Dict[str, Any]:
+        """
+        Upserts points in optimized batches with parallel processing and retry logic.
+
+        Features:
+        - Automatic batch size optimization
+        - Parallel processing with asyncio.gather
+        - Retry logic with exponential backoff
+        - Progress tracking
+        - Detailed error reporting
+
+        Args:
+            points: List of points to upsert
+            batch_size: Target batch size (will be optimized)
+            max_retries: Maximum number of retry attempts per batch
+            wait: Whether to wait for indexing to complete
+            show_progress: Whether to show progress information
+
+        Returns:
+            Dict containing operation summary
+        """
+        total_points = len(points)
+        if total_points == 0:
+            return {"status": "success", "points_processed": 0, "failed_batches": 0}
+
+        # Validate and optimize batch size
+        optimized_batch_size = self._validate_batch_size(batch_size, total_points)
+        if optimized_batch_size != batch_size:
+            print(f"Optimized batch size from {batch_size} to {optimized_batch_size}")
+
+        # Split points into batches
+        batches = [
+            points[i:i + optimized_batch_size]
+            for i in range(0, total_points, optimized_batch_size)
+        ]
+
+        # Process batches in parallel with progress tracking
+        if show_progress:
+            print(f"\nProcessing {total_points} points in {len(batches)} batches...")
+            start_time = time.time()
+
+        # Process all batches
+        batch_results = await asyncio.gather(
+            *[self._process_batch_with_retry(
+                batch,
+                max_retries=max_retries,
+                wait=wait
+            ) for batch in batches]
+        )
+
+        # Analyze results
+        successful_points = 0
+        failed_batches = []
+        operation_ids = set()
+
+        for i, result in enumerate(batch_results):
+            if result["status"] == "success":
+                successful_points += result["points"]
+                operation_ids.add(result["operation_id"])
+            else:
+                failed_batches.append({
+                    "batch_index": i,
+                    "error": result["error"],
+                    "points": result["points"],
+                    "start_index": i * optimized_batch_size
+                })
+
+        # Show progress summary
+        if show_progress:
+            elapsed = time.time() - start_time
+            points_per_second = total_points / elapsed if elapsed > 0 else 0
+            print(f"\nProcessing completed in {elapsed:.2f}s")
+            print(f"Points/second: {points_per_second:.2f}")
+            print(f"Successful points: {successful_points}/{total_points}")
+            if failed_batches:
+                print(f"Failed batches: {len(failed_batches)}")
+
+        return {
+            "status": "completed",
+            "total_points": total_points,
+            "successful_points": successful_points,
+            "points_per_second": points_per_second if show_progress else None,
+            "operation_ids": list(operation_ids),
+            "failed_batches": len(failed_batches),
+            "failed_batch_details": failed_batches if failed_batches else None,
+            "batch_size_used": optimized_batch_size
+        }
 
     async def aclose(self):
         """Asynchronously close the Qdrant client connections."""
@@ -578,3 +1007,163 @@ class VectorDBService:
         """Destructor to ensure the sync client is closed when the object is garbage collected."""
         if self.sync_client:
             self.sync_client.close()
+
+    async def update_collection_params(
+        self,
+        optimize_for: str = "insert",  # or "search"
+        custom_params: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """
+        Updates collection parameters to optimize for either insert or search performance.
+        
+        Args:
+            optimize_for: Either "insert" or "search"
+            custom_params: Optional custom parameters to override defaults
+            
+        Returns:
+            Dict containing operation status and applied parameters
+        """
+        # Define optimization presets
+        optimization_presets = {
+            "insert": {
+                "hnsw_config": {
+                    "m": 16,  # Lower for faster inserts
+                    "ef_construct": 32,  # Lower for faster inserts
+                    "full_scan_threshold": 10000,
+                    "max_indexing_threads": 4
+                },
+                "optimizer_config": {
+                    "indexing_threshold": 50000,  # Higher for batch indexing
+                    "memmap_threshold": 10000,
+                    "vacuum_min_vector_number": 1000,
+                    "default_segment_number": 2,
+                    "flush_interval_sec": 30
+                }
+            },
+            "search": {
+                "hnsw_config": {
+                    "m": 32,  # Higher for better recall
+                    "ef_construct": 100,  # Higher for better recall
+                    "full_scan_threshold": 1000,
+                    "max_indexing_threads": 4
+                },
+                "optimizer_config": {
+                    "indexing_threshold": 20000,  # Lower for more frequent indexing
+                    "memmap_threshold": 5000,
+                    "vacuum_min_vector_number": 500,
+                    "default_segment_number": 4,
+                    "flush_interval_sec": 5
+                }
+            }
+        }
+
+        try:
+            # Get base configuration
+            if optimize_for not in optimization_presets:
+                raise ValueError(f"Invalid optimization mode: {optimize_for}. Must be 'insert' or 'search'")
+                
+            config = optimization_presets[optimize_for].copy()
+            
+            # Override with custom params if provided
+            if custom_params:
+                for category in ["hnsw_config", "optimizer_config"]:
+                    if category in custom_params:
+                        config[category].update(custom_params[category])
+
+            # Validate configurations
+            config["hnsw_config"] = self._validate_hnsw_config(config["hnsw_config"])
+            config["optimizer_config"] = self._validate_optimizer_config(config["optimizer_config"])
+
+            # Update collection parameters
+            success = await self.async_client.update_collection(
+                collection_name=self.collection,
+                optimizers_config=config["optimizer_config"],
+                hnsw_config=config["hnsw_config"]
+            )
+
+            return {
+                "status": "success" if success else "failed",
+                "optimization_mode": optimize_for,
+                "applied_config": config
+            }
+
+        except Exception as e:
+            logging.error(f"Failed to update collection parameters: {e}")
+            raise HTTPException(
+                status_code=500,
+                detail=f"Failed to update collection parameters: {str(e)}"
+            )
+
+    async def create_payload_index(
+        self,
+        field_name: str,
+        field_schema: Dict[str, Any],
+        wait: bool = True
+    ) -> Dict[str, Any]:
+        """
+        Creates an index on a payload field for faster filtering.
+        
+        Args:
+            field_name: Name of the field to index
+            field_schema: Schema definition for the field
+            wait: Whether to wait for the indexing operation to complete
+            
+        Returns:
+            Dict containing operation status
+        """
+        try:
+            # Validate field schema
+            valid_schema = self._validate_payload_schema({field_name: field_schema})
+            field_config = valid_schema[field_name]
+
+            # Create the index
+            result = await self.async_client.create_payload_index(
+                collection_name=self.collection,
+                field_name=field_name,
+                field_schema=field_config["type"],
+                wait=wait
+            )
+            
+            return {
+                "status": "success",
+                "operation_id": result.operation_id,
+                "field_name": field_name,
+                "field_schema": field_config
+            }
+
+        except Exception as e:
+            logging.error(f"Failed to create payload index: {e}")
+            raise HTTPException(
+                status_code=500,
+                detail=f"Failed to create payload index: {str(e)}"
+            )
+
+    async def list_payload_indexes(self) -> List[Dict[str, Any]]:
+        """
+        Lists all payload indexes in the collection.
+        
+        Returns:
+            List of payload index configurations
+        """
+        try:
+            collection_info = await self.async_client.get_collection(
+                collection_name=self.collection
+            )
+            
+            if hasattr(collection_info, "payload_schema"):
+                return [
+                    {
+                        "field_name": field_name,
+                        "schema": schema
+                    }
+                    for field_name, schema in collection_info.payload_schema.items()
+                    if isinstance(schema, dict) and schema.get("index", False)
+                ]
+            return []
+
+        except Exception as e:
+            logging.error(f"Failed to list payload indexes: {e}")
+            raise HTTPException(
+                status_code=500,
+                detail=f"Failed to list payload indexes: {str(e)}"
+            )
