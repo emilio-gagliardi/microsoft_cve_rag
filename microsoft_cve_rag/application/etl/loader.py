@@ -376,12 +376,14 @@ async def load_msrc_posts_graph_db(msrc_posts: pd.DataFrame):
         # Convert DataFrame to records and handle datetime serialization
         records = msrc_posts.to_dict(orient="records")
         for record in records:
-            # if 'metadata' in record:
-            #     # Convert datetime objects in metadata to ISO format strings
-            #     if 'published' in record['metadata'] and isinstance(record['metadata']['published'], datetime):
-            #         record['metadata']['published'] = record['metadata']['published'].isoformat()
-            #     if 'nvd_published_date' in record['metadata'] and isinstance(record['metadata']['nvd_published_date'], datetime):
-            #         record['metadata']['nvd_published_date'] = record['metadata']['nvd_published_date'].isoformat()
+            # Convert datetime fields to proper python datetime objects
+            for datetime_field in ['published', 'nvd_published_date']:
+                if datetime_field in record and isinstance(record[datetime_field], (str, pd.Timestamp)):
+                    if isinstance(record[datetime_field], str):
+                        record[datetime_field] = datetime.fromisoformat(record[datetime_field].replace('Z', '+00:00'))
+                    else:  # pd.Timestamp
+                        record[datetime_field] = record[datetime_field].to_pydatetime()
+
             if 'cve_category' in record:
                 if isinstance(record['cve_category'], float):
                     record['cve_category'] = 'NC'
@@ -440,10 +442,6 @@ async def load_patch_posts_graph_db(patch_posts: pd.DataFrame):
             serialized_records = []
 
             for record in records:
-                # Handle metadata datetime fields - convert to ISO string
-                if 'metadata' in record and isinstance(record['metadata'], dict):
-                    record['metadata'] = json.loads(json.dumps(record['metadata'], default=custom_json_serializer))
-
                 # Handle published field - ensure it's a datetime object
                 if 'published' in record and isinstance(record['published'], (str, pd.Timestamp)):
                     if isinstance(record['published'], str):

@@ -854,7 +854,7 @@ async def extract_entities_relationships(
     start_time = time.time()
     for _, row in tqdm(documents_df.iterrows(), total=len(documents_df)):
 
-        metadata = row.get('metadata', {})
+        metadata = row.get('metadata')
         if isinstance(metadata, str):
             try:
                 metadata = json.loads(metadata)
@@ -1088,7 +1088,7 @@ async def extract_entities_relationships(
 
                     extracted_data[key].append(extracted_entity)
                     current_time = datetime.datetime.now().isoformat()
-                    metadata_dict = row.get('metadata', {})
+                    metadata_dict = row.get('metadata')
                     if isinstance(metadata_dict, str):
                         try:
                             metadata_dict = json.loads(metadata_dict)

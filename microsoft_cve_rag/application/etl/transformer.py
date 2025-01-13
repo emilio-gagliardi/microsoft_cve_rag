@@ -809,7 +809,7 @@ def convert_to_list(value):
 def make_json_safe_metadata(metadata: Dict[str, Any]) -> Dict[str, Any]:
     """
     Make metadata dictionary JSON-safe while preserving dictionary structure.
-    Only converts to JSON string if the value itself needs to be JSON-encoded.
+    Converts any non-JSON-serializable values to appropriate JSON-safe formats.
 
     Args:
         metadata: Dictionary containing metadata fields
@@ -822,29 +822,36 @@ def make_json_safe_metadata(metadata: Dict[str, Any]) -> Dict[str, Any]:
 
     safe_metadata = {}
     for key, value in metadata.items():
-        if isinstance(value, dict):
-            # Recursively process nested dictionaries
-            safe_metadata[key] = make_json_safe_metadata(value)
-        elif isinstance(value, (datetime, np.datetime64)):
-            # Convert datetime to ISO format string
-            safe_metadata[key] = value.isoformat()
-        elif isinstance(value, (list, tuple)):
-            # Handle lists/tuples
-            safe_metadata[key] = [
-                make_json_safe_metadata(item) if isinstance(item, dict) else item
-                for item in value
-            ]
-        elif isinstance(value, (float, np.float32, np.float64)) and np.isnan(value):
-            # Handle NaN values
-            safe_metadata[key] = None
-        elif isinstance(value, (np.int64, np.int32)):
-            # Convert numpy integers to Python integers
-            safe_metadata[key] = int(value)
-        elif isinstance(value, (np.bool_)):
-            # Convert numpy booleans to Python booleans
-            safe_metadata[key] = bool(value)
-        else:
-            return []
+        try:
+            if isinstance(value, dict):
+                # Recursively process nested dictionaries
+                safe_metadata[key] = make_json_safe_metadata(value)
+            elif isinstance(value, (datetime, np.datetime64)):
+                # Convert datetime to ISO format string
+                safe_metadata[key] = value.isoformat()
+            elif isinstance(value, (list, tuple)):
+                # Handle lists/tuples
+                safe_metadata[key] = [
+                    make_json_safe_metadata(item) if isinstance(item, dict) else item
+                    for item in value
+                ]
+            elif isinstance(value, (float, np.float32, np.float64)) and np.isnan(value):
+                # Handle NaN values
+                safe_metadata[key] = None
+            elif isinstance(value, (np.int64, np.int32)):
+                # Convert numpy integers to Python integers
+                safe_metadata[key] = int(value)
+            elif isinstance(value, (np.bool_)):
+                # Convert numpy booleans to Python booleans
+                safe_metadata[key] = bool(value)
+            else:
+                # Try json serialization to verify it's safe
+                json.dumps(value)
+                safe_metadata[key] = value
+        except (TypeError, OverflowError, ValueError):
+            # If value can't be JSON serialized, convert to string
+            safe_metadata[key] = str(value)
+
     return safe_metadata
 
 
@@ -1127,7 +1134,10 @@ def _extract_nvd_properties(metadata_dict: Dict) -> Dict[str, Any]:
     return nvd_properties
 
 
-def transform_msrc_posts(msrc_posts: List[Dict[str, Any]], process_all: bool = False) -> pd.DataFrame:
+def transform_msrc_posts(
+    msrc_posts: List[Dict[str, Any]],
+    process_all: bool = False
+) -> pd.DataFrame:
     """Transform MSRC posts, handling both new and pre-processed records efficiently."""
     logging.info(f"process New or All: {'All' if process_all else 'New'}")
     metadata_fields_to_move = [
@@ -1292,15 +1302,17 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]], process_all: bool = F
 
                 # Update processing status after successful NVD extraction
                 current_time = datetime.now().isoformat()
-                enriched_records["metadata"] = enriched_records["metadata"].apply(
-                    lambda x: {
-                        **x,  # Keep all existing metadata
-                        'etl_processing_status': {
-                            'nvd_extracted': True,
-                            'last_processed_at': current_time
-                        }
-                    }
-                )
+
+                def update_status(metadata):
+                    if 'etl_processing_status' not in metadata:
+                        logging.info(f"No processing status found in metadata for {metadata['id']}")
+                        return metadata
+                    metadata['etl_processing_status'].update({
+                        'nvd_extracted': True,
+                        'last_processed_at': current_time
+                    })
+                    return metadata
+                enriched_records['metadata'] = enriched_records['metadata'].apply(update_status)
 
                 # Clean up impact_type if it exists
                 if 'impact_type' in enriched_records.columns:
@@ -1323,7 +1335,7 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]], process_all: bool = F
         if not enriched_records.empty:
             result_df = enriched_records
             result_df.sort_values(by="post_id", ascending=True, inplace=True)
-            result_df["metadata"] = result_df["metadata"].apply(make_json_safe_metadata)
+            # result_df["metadata"] = result_df["metadata"].apply(make_json_safe_metadata)
             print(f"Total new MSRC Posts transformed: {result_df.shape[0]}")
             return result_df
         return None
@@ -1332,7 +1344,7 @@ def transform_msrc_posts(msrc_posts: List[Dict[str, Any]], process_all: bool = F
         if not records_to_process.empty:
             records_to_process.loc[enriched_records.index] = enriched_records
             records_to_process.sort_values(by="post_id", ascending=True, inplace=True)
-            records_to_process["metadata"] = records_to_process["metadata"].apply(make_json_safe_metadata)
+            # records_to_process["metadata"] = records_to_process["metadata"].apply(make_json_safe_metadata)
             print(f"Total MSRC Posts transformed: {records_to_process.shape[0]}")
             return records_to_process
         logging.error("No records to process")
@@ -2163,7 +2175,7 @@ def transform_patch_posts_v2(
          b. Sort all documents chronologically by receivedDateTime
          c. Link documents in chronological order:
             - Set thread_id (preserve existing or generate new)
-            - Set previous_id/next_id for document sequence
+            - Set previous and next IDs based on position in sorted list and document type
          d. Preserve historical document linking:
             - Maintain existing thread_id and previous_id
             - Update next_id of last historical to first in-batch
@@ -2447,8 +2459,9 @@ def transform_patch_posts_v2(
         non_empty_rows = [df for df in processed_rows if not df.empty]
         final_df = pd.concat(non_empty_rows, axis=0, ignore_index=True)
         logging.info(f"Transformed {len(final_df)} patch posts (including historical thread docs)")
-        _write_debug_output(final_df, debug)
-    final_df["metadata"] = final_df["metadata"].apply(make_json_safe_metadata)
+        if debug:
+            _write_debug_output(final_df, debug)
+    # final_df["metadata"] = final_df["metadata"].apply(make_json_safe_metadata)
     return final_df
 
 # End Feature Engineering Patch Transformer ===================================
@@ -3105,7 +3118,6 @@ def convert_df_to_llamadoc_update_packages(
         except Exception as e:
             # Log any errors encountered during processing
             logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
-
 
     return llama_documents
 
