@@ -1,0 +1,34 @@
+- $match:
+    metadata.cve_mentions:
+      $exists: true
+      $ne: ""
+    metadata.collection: "patch_management"
+
+- $set:
+    metadata.cve_mentions:
+      $let:
+        vars:
+          cve_array:
+            $map:
+              input:
+                $regexFindAll:
+                  input: "$metadata.cve_mentions"
+                  regex: "CVE-\\d{4}-\\d{4,}"
+              as: cve
+              in: "$$cve.match"
+        in:
+          $reduce:
+            input: "$cve_array"
+            initialValue: []
+            in:
+              $cond:
+                if: { $in: [ "$$this", "$$value" ] }
+                then: "$$value"
+                else: { $concatArrays: [ "$$value", [ "$$this" ] ] }
+
+- $merge:
+    into: "docstore"
+    on: "_id"
+    whenMatched: "merge"
+    whenNotMatched: "fail"
+

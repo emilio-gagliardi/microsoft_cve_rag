@@ -1,8 +1,24 @@
 import os
+import logging
+import time
+from datetime import datetime
+from typing import Dict, Any, List, Tuple
+import pandas as pd
 from application.etl import extractor
 from application.etl import transformer
 from application.etl import loader
 from application.etl import neo4j_migrator
+from application.services.graph_db_service import (
+    BaseService,
+    KBArticleService,
+    UpdatePackageService,
+    MSRCPostService,
+    PatchManagementPostService,
+    SymptomService,
+    CauseService,
+    FixService,
+    ToolService,
+)
 from application.services.graph_db_service import (
     build_relationships,
     build_relationships_in_batches,
@@ -16,7 +32,7 @@ from application.services.graph_db_service import (
     CauseService,
     FixService,
     ToolService,
-    TechnologyService,
+    GraphDatabaseManager,
 )
 from application.services.document_service import DocumentService
 from application.services.vector_db_service import VectorDBService
@@ -35,7 +51,7 @@ from application.services.llama_index_service import (
 from application.etl.MongoPipelineLoader import MongoPipelineLoader
 from application.app_utils import get_app_config
 from llama_index.core import Document as LlamaDocument
-
+from neomodel.async_.core import AsyncDatabase
 from typing import Dict, Any
 import time
 import asyncio
@@ -302,10 +318,11 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     if isinstance(msrc_posts_df, pd.DataFrame) and not msrc_posts_df.empty:
         logging.debug(f"{msrc_posts_df.shape} : {msrc_posts_df.columns}")
 
-    msrc_llm_extracted_data = await extract_entities_relationships(
+    msrc_llm_extracted_data, msrc_failed_extractions, msrc_empty_extractions = await extract_entities_relationships(
         msrc_posts_df,
         "MSRCPost"
     )
+
     msrc_total = 0
     for key, value in msrc_llm_extracted_data.items():
         if not isinstance(value, list):
@@ -319,10 +336,11 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     if isinstance(patch_posts_df, pd.DataFrame) and not patch_posts_df.empty:
         logging.debug(f"{patch_posts_df.shape} : {patch_posts_df.columns}")
 
-    patch_llm_extracted_data = await extract_entities_relationships(
+    patch_llm_extracted_data, patch_failed_extractions, patch_empty_extractions = await extract_entities_relationships(
         patch_posts_df,
         "PatchManagementPost"
     )
+
     patch_total = 0
     for key, value in patch_llm_extracted_data.items():
         if not isinstance(value, list):
@@ -397,6 +415,20 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
         "Tool": tool_nodes
     }
 
+    # Initialize error tracking
+    error_dict = {
+        "Product": [],
+        "ProductBuild": [],
+        "KBArticle": [],
+        "UpdatePackage": [],
+        "MSRCPost": [],
+        "PatchManagementPost": [],
+        "Symptom": [],
+        "Cause": [],
+        "Fix": [],
+        "Tool": []
+    }
+
     # Load all nodes first
     node_loading_tasks = [
         ("Product", loader.load_products_graph_db(products_df)),
@@ -410,21 +442,63 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
         ("Fix", loader.load_fixes_graph_db(all_fixes_df)),
         ("Tool", loader.load_tools_graph_db(all_tools_df))
     ]
+
     # Load nodes with progress tracking
     nodes_dict = {}
     with tqdm(total=len(node_loading_tasks), desc="Loading nodes") as pbar:
         for node_type, task in node_loading_tasks:
             try:
                 task_response = await task
-                if task_response["nodes"] and len(task_response["nodes"]) > 0:
-                    nodes_dict[node_type] = task_response["nodes"]
-                    # Update the corresponding node list
-                    node_list_mapping[node_type].extend(task_response["nodes"])
-                    logging.info(f"Loaded {len(task_response['nodes'])} {node_type} nodes")
+                # Handle successful inserts - more defensive check
+                nodes = task_response.get("nodes", [])
+                if nodes:  # This will handle both None and empty list cases
+                    nodes_dict[node_type] = nodes
+                    node_list_mapping[node_type].extend(nodes)
+                    logging.info(f"Loaded {len(nodes)} {node_type} nodes")
+
+                # Handle errors if present
+                if task_response.get("errors"):
+                    error_dict[node_type].extend(task_response["errors"])
+                    logging.warning(f"Encountered {len(task_response['errors'])} errors while loading {node_type} nodes")
+
+                # Log partial success
+                if task_response["code"] == 207:
+                    logging.info(f"Partial success for {node_type}: {task_response['message']}")
+
             except Exception as e:
                 logging.error(f"Error loading {node_type} nodes: {str(e)}")
                 raise
             pbar.update(1)
+
+    # Log error summary
+    llm_extraction_types = ["Symptom", "Cause", "Fix", "Tool"]
+    for node_type, errors in error_dict.items():
+        if errors:
+            logging.error(f"\n{node_type} Loading Errors:")
+            id_field = "source_id" if node_type in llm_extraction_types else "node_id"
+            for error in errors:
+                logging.error(f"  - {id_field}: {error[id_field]}, Error: {error['message']}")
+
+    # Calculate stats with proper handling of missing nodes
+    stats = {}
+    for node_type in node_list_mapping.keys():
+        successful = len(nodes_dict.get(node_type, []))  # Default to empty list if missing
+        failed = len(error_dict.get(node_type, []))      # Default to empty list if missing
+
+        # Count empty extractions for this node type from both MSRC and Patch sources
+        empty_count = 0
+        # Only add lengths if the lists actually exist in the defaultdict
+        if node_type in msrc_empty_extractions and msrc_empty_extractions[node_type]:
+            empty_count += len(msrc_empty_extractions[node_type])
+        if node_type in patch_empty_extractions and patch_empty_extractions[node_type]:
+            empty_count += len(patch_empty_extractions[node_type])
+
+        stats[node_type] = {
+            "successful": successful,
+            "failed": failed,
+            "empty_extractions": empty_count,
+            "total_attempted": successful + failed + empty_count
+        }
 
     # Build relationships with batching and checkpointing
     checkpoint_file = "C:/Users/emili/PycharmProjects/microsoft_cve_rag/microsoft_cve_rag/application/data/graph_db/relationship_checkpoint.json"
@@ -444,14 +518,6 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
         end_time = time.time()
         duration = end_time - start_time
         logging.info(f"\nGraph database loading completed in {duration:.2f} seconds")
-
-    end_time = time.time()
-    elapsed_time = end_time - start_time
-    minutes, seconds = divmod(elapsed_time, 60)
-    logging.info(
-        f"Time taken to upsert graph entities: {int(minutes)} min : {int(seconds)} sec"
-    )
-    logging.info("Done with graph database loading ------------------------------\n")
 
     logging.info("Begin vector database loading ------------------------------\n")
     start_time = time.time()
@@ -733,7 +799,7 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
         # Replace null values
         return df.replace(NULL_VALUE_REPLACEMENTS)
 
-    print("STARTING MSRC DOCUMENT UPDATES")
+    logging.info("STARTING MSRC DOCUMENT UPDATES")
     # print(f"before document upsert - msrc_df.columns:\n{msrc_posts_df.columns}")
     # Update MSRC Posts
     if isinstance(msrc_posts_df, pd.DataFrame) and not msrc_posts_df.empty:
@@ -952,9 +1018,120 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     minutes, seconds = divmod(elapsed_time, 60)
     logging.info(f"Time taken to upsert mongo data: {int(minutes)} min : {int(seconds)} sec")
 
-    generate_cost_report()
+    if msrc_failed_extractions:
+        logging.warning(f"Failed to extract {len(msrc_failed_extractions)} entities from MSRC posts")
+        for entity in msrc_failed_extractions:
+            logging.warning(f"Failed to extract entity: {entity}")
+    if patch_failed_extractions:
+        logging.warning(f"Failed to extract {len(patch_failed_extractions)} entities from Patch posts")
+        for entity in patch_failed_extractions:
+            logging.warning(f"Failed to extract entity: {entity}")
 
     logging.info("Full Ingestion complete =====================================\n")
+
+    def format_extraction_issue(source_id: str, node_type: str, issue_type: str, message: str = None) -> str:
+        base_msg = f"- source: {source_id} - {node_type} - {issue_type}"
+        return f"{base_msg} - {message}" if message else base_msg
+
+    print("\nExtraction and Loading Results:")
+    print("=" * 80)
+
+    # Process MSRC Posts
+    msrc_issues = []
+    # Add failed extractions
+    for entity in msrc_failed_extractions:
+        msrc_issues.append(format_extraction_issue(
+            entity.get('source_id', 'unknown'),
+            entity.get('node_type', 'unknown'),
+            'Failed Extraction',
+            entity.get('error', '')
+        ))
+    # Add empty extractions
+    for node_type, items in msrc_empty_extractions.items():
+        if items:  # Only process if there are actual items
+            for item in items:
+                msrc_issues.append(format_extraction_issue(
+                    item.get('source_id', 'unknown'),
+                    node_type,
+                    'Empty Extraction'
+                ))
+    # Add loading errors
+    for node_type, errors in error_dict.items():
+        for error in errors:
+            if error.get('source_type') == 'MSRCPost':
+                msrc_issues.append(format_extraction_issue(
+                    error.get('source_id', 'unknown'),
+                    node_type,
+                    'Failed Loading',
+                    error.get('message', '')
+                ))
+
+    # Process Patch Posts
+    patch_issues = []
+    # Add failed extractions
+    for entity in patch_failed_extractions:
+        patch_issues.append(format_extraction_issue(
+            entity.get('source_id', 'unknown'),
+            entity.get('node_type', 'unknown'),
+            'Failed Extraction',
+            entity.get('error', '')
+        ))
+    # Add empty extractions
+    for node_type, items in patch_empty_extractions.items():
+        if items:  # Only process if there are actual items
+            for item in items:
+                patch_issues.append(format_extraction_issue(
+                    item.get('source_id', 'unknown'),
+                    node_type,
+                    'Empty Extraction'
+                ))
+    # Add loading errors
+    for node_type, errors in error_dict.items():
+        for error in errors:
+            if error.get('source_type') == 'PatchManagementPost':
+                patch_issues.append(format_extraction_issue(
+                    error.get('source_id', 'unknown'),
+                    node_type,
+                    'Failed Loading',
+                    error.get('message', '')
+                ))
+
+    # Check if there are any issues to report
+    has_issues = bool(msrc_issues or patch_issues or
+                     any(items for items in msrc_empty_extractions.values()) or
+                     any(items for items in patch_empty_extractions.values()))
+
+    print("\nExtraction and Loading Results:")
+    print("=" * 80)
+
+    if not has_issues:
+        print("No failures or empty extractions in batch")
+        logging.info("Empty extraction state:")
+        logging.info(f"MSRC empty extractions: {dict(msrc_empty_extractions)}")
+        logging.info(f"Patch empty extractions: {dict(patch_empty_extractions)}")
+        logging.info(f"Stats: {stats}")
+    else:
+        # Display results
+        if msrc_issues:
+            print("\nMSRC Posts Issues:")
+            print("\n".join(sorted(msrc_issues)))
+
+        if patch_issues:
+            print("\nPatch Management Posts Issues:")
+            print("\n".join(sorted(patch_issues)))
+
+        # Display summary stats
+        print("\nSummary Statistics:")
+        print("-" * 40)
+        for node_type, stat in stats.items():
+            if stat["failed"] > 0 or stat["empty_extractions"] > 0:
+                print(f"{node_type}:")
+                if stat["failed"] > 0:
+                    print(f"  Failed: {stat['failed']}/{stat['total_attempted']}")
+                if stat["empty_extractions"] > 0:
+                    print(f"  Empty: {stat['empty_extractions']}/{stat['total_attempted']}")
+
+    print("=" * 80)
 
     response = {
         "message": "full ingestion pipeline complete.",
@@ -1573,9 +1750,11 @@ async def extract_all_documents(start_date, end_date):
         # Sort KB articles by kb_id
         if "kb_articles" in extracted_docs:
             windows_kb, edge_kb = extracted_docs["kb_articles"]
+            # Filter out edge KB articles with None kb_id before sorting
+            filtered_edge_kb = [kb for kb in edge_kb if kb.get("kb_id") is not None]
             extracted_docs["kb_articles"] = (
                 sorted(windows_kb, key=lambda x: x.get("kb_id", "")),
-                sorted(edge_kb, key=lambda x: x.get("kb_id", ""))
+                sorted(filtered_edge_kb, key=lambda x: x.get("kb_id", ""))
             )
 
         return extracted_docs

@@ -264,7 +264,12 @@ class AsyncReferencesRel(AsyncZeroToManyRel):
 
 
 # =============== BEGIN Node Classes ======================
-
+verification_choices = {
+        "unverified": "Unverified",
+        "verified_valid": "Verified and Valid",
+        "verified_invalid": "Verified and Invalid",
+        "corrected": "Corrected",
+    }
 
 class Product(AsyncStructuredNode):
     name_choices = {
@@ -543,6 +548,13 @@ class MSRCPost(AsyncStructuredNode):
     post_type = StringProperty()
     source_url = StringProperty()
     node_label = StringProperty()
+    verification_status = StringProperty(
+        choices=verification_choices,
+        default="unverified",
+    )
+    last_verified_on = DateTimeFormatProperty(
+        default=None, format="%Y-%m-%d %H:%M:%S"
+    )
     # Publication Details
     published = DateTimeProperty()
     created_on = DateTimeFormatProperty(
@@ -687,7 +699,7 @@ class Symptom(AsyncStructuredNode):
     node_label = StringProperty()
     source_id = StringProperty(default="")
     source_type = StringProperty(default="")
-    reliability = StringProperty(default="")
+    reliability = FloatProperty(default=0.0)
     readability = FloatProperty(default=0.0)
     severity_type = StringProperty(choices=severity_type_choices)
     embedding = ArrayProperty(FloatProperty(), default=None)
@@ -696,7 +708,13 @@ class Symptom(AsyncStructuredNode):
         format="%Y-%m-%d %H:%M:%S",
     )
     tags = ArrayProperty(StringProperty(), default=None)
-
+    verification_status = StringProperty(
+        choices=verification_choices,
+        default="unverified",
+    )
+    last_verified_on = DateTimeFormatProperty(
+        default=None, format="%Y-%m-%d %H:%M:%S"
+    )
     # Relationships
     msrc_posts_have = AsyncRelationshipFrom(
         "MSRCPost", "HAS_SYMPTOM", model=AsyncSymptomRel
@@ -730,7 +748,7 @@ class Cause(AsyncStructuredNode):
     cause_label = StringProperty()
     source_id = StringProperty(default="")
     source_type = StringProperty(default="")
-    reliability = StringProperty(default="")
+    reliability = FloatProperty(default=0.0)
     readability = FloatProperty(default=0.0)
     severity_type = StringProperty(choices=severity_type_choices)
     embedding = ArrayProperty(FloatProperty(), default=None)
@@ -739,7 +757,13 @@ class Cause(AsyncStructuredNode):
         format="%Y-%m-%d %H:%M:%S",
     )
     tags = ArrayProperty(StringProperty(), default=[])
-
+    verification_status = StringProperty(
+        choices=verification_choices,
+        default="unverified",
+    )
+    last_verified_on = DateTimeFormatProperty(
+        default=None, format="%Y-%m-%d %H:%M:%S"
+    )
     # Relationships
     msrc_posts_have = AsyncRelationshipFrom(
         "MSRCPost", "HAS_CAUSE", model=AsyncCauseRel
@@ -770,7 +794,7 @@ class Fix(AsyncStructuredNode):
     fix_label = StringProperty()
     source_id = StringProperty(default=None)
     source_type = StringProperty(default=None)
-    reliability = StringProperty(default="")
+    reliability = FloatProperty(default=0.0)
     readability = FloatProperty(default=0.0)
     severity_type = StringProperty(choices=severity_type_choices)
     embedding = ArrayProperty(FloatProperty(), default=None)
@@ -779,7 +803,13 @@ class Fix(AsyncStructuredNode):
         format="%Y-%m-%d %H:%M:%S",
     )
     tags = ArrayProperty(StringProperty(), default=[])
-
+    verification_status = StringProperty(
+        choices=verification_choices,
+        default="unverified",
+    )
+    last_verified_on = DateTimeFormatProperty(
+        default=None, format="%Y-%m-%d %H:%M:%S"
+    )
     # Relationships
     msrc_posts_have = AsyncRelationshipFrom(
         "MSRCPost", "HAS_FIX", model=AsyncFixRel
@@ -815,6 +845,13 @@ class FAQ(AsyncStructuredNode):
         format="%Y-%m-%d %H:%M:%S",
     )
     tags = ArrayProperty(StringProperty(), default=[])
+    verification_status = StringProperty(
+        choices=verification_choices,
+        default="unverified",
+    )
+    last_verified_on = DateTimeFormatProperty(
+        default=None, format="%Y-%m-%d %H:%M:%S"
+    )
     # Relationships
     msrc_posts_have = AsyncRelationshipFrom(
         "MSRCPost", "HAS_FAQ", model=AsyncZeroToManyRel
@@ -840,7 +877,7 @@ class Tool(AsyncStructuredNode):
         * tool_url: URL of the tool itself.
         * source_id: ID of the source of the tool (e.g. KB article, MSRC post, etc.).
         * source_type: Type of the source (e.g. KB article, MSRC post, etc.).
-        * reliability: A string describing the reliability of the tool.
+        * reliability: A float describing the reliability of the tool.
         * readability: A float describing the readability of the tool.
         * created_on: Timestamp for when the tool node was created.
         * tags: A list of tags associated with the tool.
@@ -856,14 +893,20 @@ class Tool(AsyncStructuredNode):
     source_id = StringProperty(default="")
     source_ids = ArrayProperty(StringProperty(), default=[])
     source_type = StringProperty(default="")
-    reliability = StringProperty(default="")
+    reliability = FloatProperty(default=0.0)
     readability = FloatProperty(default=0.0)
     created_on = DateTimeFormatProperty(
         default=lambda: datetime.now(),
         format="%Y-%m-%d %H:%M:%S",
     )
     tags = ArrayProperty(StringProperty(), default=[])
-
+    verification_status = StringProperty(
+        choices=verification_choices,
+        default="unverified",
+    )
+    last_verified_on = DateTimeFormatProperty(
+        default=None, format="%Y-%m-%d %H:%M:%S"
+    )
     # Relationships
     msrc_posts_have = AsyncRelationshipFrom(
         "MSRCPost", "HAS_TOOL", model=AsyncToolRel
@@ -910,7 +953,13 @@ class KBArticle(AsyncStructuredNode):
         default=lambda: datetime.now(),
         format="%Y-%m-%d %H:%M:%S",
     )
-
+    verification_status = StringProperty(
+        choices=verification_choices,
+        default="unverified",
+    )
+    last_verified_on = DateTimeFormatProperty(
+        default=None, format="%Y-%m-%d %H:%M:%S"
+    )
     # Relationships
     msrc_posts_have = AsyncRelationshipFrom(
         "MSRCPost", "HAS_KB", model=AsyncZeroToManyRel
@@ -961,8 +1010,14 @@ class UpdatePackage(AsyncStructuredNode):
         format="%Y-%m-%d %H:%M:%S",
     )
     node_label = StringProperty()
-    tags = ArrayProperty(StringProperty(), default=None)
-
+    tags = ArrayProperty(StringProperty(), default=[])
+    verification_status = StringProperty(
+        choices=verification_choices,
+        default="unverified",
+    )
+    last_verified_on = DateTimeFormatProperty(
+        default=None, format="%Y-%m-%d %H:%M:%S"
+    )
     # Relationships
     msrc_posts_have = AsyncRelationshipFrom(
         "MSRCPost", "HAS_UPDATE_PACKAGE", model=AsyncHasUpdatePackageRel
@@ -1032,7 +1087,13 @@ class PatchManagementPost(AsyncStructuredNode):
         default=lambda: datetime.now(),
         format="%Y-%m-%d %H:%M:%S",
     )
-
+    verification_status = StringProperty(
+        choices=verification_choices,
+        default="unverified",
+    )
+    last_verified_on = DateTimeFormatProperty(
+        default=None, format="%Y-%m-%d %H:%M:%S"
+    )
     # Relationships
     has_symptoms = AsyncRelationshipTo(
         "Symptom", "HAS_SYMPTOM", model=AsyncSymptomRel

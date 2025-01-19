@@ -1,0 +1,13 @@
+- $match:
+    metadata.cve_ids:
+      $exists: true
+    metadata.collection: "patch_management"
+
+- $unset:
+    - "metadata.cve_mentions"
+
+- $merge:
+    into: "docstore"
+    on: "_id"
+    whenMatched: "merge"
+    whenNotMatched: "fail"

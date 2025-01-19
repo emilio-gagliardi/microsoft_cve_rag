@@ -23,6 +23,7 @@ env/
 neomodel-async-docs.txt
 neomodel-basics-docs.txt
 
+# Ignore all Jupyter notebook files
 notebooks/
 data/
 !microsoft_cve_rag/application/data/pair_programming/cascade_notes.md
@@ -38,3 +39,5 @@ package docs/
 /microsoft_cve_rag/architect/qdrant_optimization.md
 /microsoft_cve_rag/architect/pr_feedback.md
 neomodel-scraper/
+check_graph_insert_for_completeness
+.ipynb_checkpoints/check_graph_insert_for_completeness-checkpoint

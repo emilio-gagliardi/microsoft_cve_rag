@@ -14,6 +14,7 @@ from llama_index.core import (
     VectorStoreIndex,
     load_index_from_storage,
     )
+from application.etl.type_utils import convert_to_float
 from llama_index.core.schema import Document as LlamaDocument, NodeRelationship, RelatedNodeInfo
 from llama_index.core.llms import ChatMessage
 # from llama_index.llms.openai import OpenAI
@@ -60,6 +61,7 @@ from fuzzywuzzy import fuzz, process
 from tqdm import tqdm
 import warnings
 from dataclasses import dataclass
+from collections import defaultdict
 from application.app_utils import (
     get_app_config,
     get_graph_db_credentials,
@@ -765,7 +767,8 @@ def get_entities_to_extract(post_type: str) -> list:
         "Problem statement": ["Symptom", "Tool"],
         "Helpful Tool": ["Tool"],
         "Helpful tool": ["Tool"],
-        "Solution provided": ["Symptom", "Cause", "Fix", "Tool"]
+        "Solution provided": ["Symptom", "Cause", "Fix", "Tool"],
+        "Critical": ["Symptom", "Cause", "Fix", "Tool"],
     }
 
     if post_type not in valid_post_types:
@@ -799,23 +802,122 @@ async def _get_tool_service():
         return _tool_service
 
 
+def sanitize_llm_response(llm_response: str) -> Tuple[str, bool]:
+    """
+    Attempt to sanitize malformed JSON in LLM responses.
+
+    Args:
+        llm_response: Raw LLM response string
+
+    Returns:
+        Tuple of (sanitized_response, was_modified)
+    """
+    was_modified = False
+    sanitized = llm_response
+
+    # Common JSON formatting issues to fix
+    replacements = [
+        (r'\\n', r'\n'),  # Fix escaped newlines
+        (r'\\\"', r'\"'),  # Fix escaped quotes
+        (r'True', r'true'),  # Python -> JSON booleans
+        (r'False', r'false'),
+        (r'None', r'null'),
+        (r'\'', r'"'),  # Single quotes to double quotes
+        (r'\s+,\s*}', r'}'),  # Remove trailing commas
+        (r'\s+,\s*\]', r']'),
+        (r',\s*$', ''),  # Remove trailing comma at end of string
+        (r'^\s*,', ''),  # Remove leading comma
+        (r'(?<!\\)"(?![\s,}\]])', r'\"'),  # Fix unescaped quotes in strings
+        (r'undefined', r'null'),  # Convert JS undefined to null
+        (r'NaN', r'null'),  # Convert JS NaN to null
+    ]
+
+    for old, new in replacements:
+        new_response = re.sub(old, new, sanitized)
+        if new_response != sanitized:
+            was_modified = True
+            sanitized = new_response
+
+    # Try to fix unmatched brackets/braces
+    open_chars = '[{'
+    close_chars = ']}'
+    char_pairs = dict(zip(open_chars, close_chars))
+    stack = []
+
+    for i, char in enumerate(sanitized):
+        if char in open_chars:
+            stack.append(char)
+        elif char in close_chars:
+            if not stack:
+                # Found closing char without matching opening
+                sanitized = sanitized[:i] + sanitized[i+1:]
+                was_modified = True
+            else:
+                expected = char_pairs[stack[-1]]
+                if char != expected:
+                    # Mismatched closing char
+                    sanitized = sanitized[:i] + expected + sanitized[i+1:]
+                    was_modified = True
+                stack.pop()
+
+    # Add missing closing chars
+    while stack:
+        sanitized += char_pairs[stack.pop()]
+        was_modified = True
+
+    return sanitized, was_modified
+
+
+class FailedExtraction:
+    """
+    Represents a failed extraction attempt from an LLM response.
+
+    Attributes:
+        source_id: ID of the source document
+        node_label: Type of node being extracted (Symptom, Cause, Fix, Tool)
+        llm_response: Raw LLM response that failed to parse
+        error: Error message describing the failure
+        timestamp: When the failure occurred
+    """
+    def __init__(self, source_id: str, node_label: str, llm_response: str, error: str):
+        self.source_id: str = source_id
+        self.node_label: str = node_label
+        self.llm_response: str = llm_response
+        self.error: str = error
+        self.timestamp: datetime = datetime.datetime.now()
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert the failed extraction to a dictionary for DataFrame creation."""
+        return {
+            'source_id': self.source_id,
+            'node_label': self.node_label,
+            'llm_response': self.llm_response,
+            'error': self.error,
+            'timestamp': self.timestamp
+        }
+
+
 async def extract_entities_relationships(
     documents_df: pd.DataFrame,
     document_type: str,
     max_prompt_length=3050,
     process_all: bool = False,
-) -> dict:
+) -> Tuple[Dict[str, List[Dict]], List[FailedExtraction], Dict[str, List[Dict]]]:
     """
     Extract entities and relationships from documents using LlamaIndex.
 
     Args:
         documents_df (pd.DataFrame): DataFrame containing documents with 'content' and 'doc_id'.
+        document_type (str): Type of document being processed
+        max_prompt_length (int): Maximum length for prompts
+        process_all (bool): Whether to process all documents
 
     Returns:
-        Dict[str, List[Dict]]: Dictionary containing lists of extracted entities.
+        Tuple[Dict[str, List[Dict]], List[FailedExtraction], Dict[str, List[Dict]]]: Dictionary containing lists of extracted entities,
+        a list of failed extractions, and a dictionary of empty extractions.
     """
     if not isinstance(documents_df, pd.DataFrame) or documents_df.empty:
-        return {}
+        return {}, [], {}
 
     token_counter = {"input_tokens": 0, "output_tokens": 0, "total_cost": 0.0}
     extracted_data = {
@@ -825,6 +927,8 @@ async def extract_entities_relationships(
         "tools": [],
         "technologies": [],
     }
+    failed_extractions = []  # Initialize list to track failed extractions
+    empty_extractions = defaultdict(list)  # Track empty extractions by type
 
     cached_files = []
 
@@ -916,6 +1020,7 @@ async def extract_entities_relationships(
                         logging.error(f"Error reading cache file {cache_file_path}: {e}")
             continue
 
+        has_successful_extraction = False
         # For each entity type
         for entity_type in entities_to_extract:
             try:
@@ -963,6 +1068,7 @@ async def extract_entities_relationships(
                     key = entity_type.lower() + 'es' if entity_type == 'Fix' else entity_type.lower() + 's'
                     if not is_empty_extracted_entity(extracted_entity, entity_type):
                         extracted_data[key].append(extracted_entity)
+                        has_successful_extraction = True
                     continue
                 except json.JSONDecodeError as e:
                     logging.error(f"Error reading cache file {cache_file_path}: {e}")
@@ -974,149 +1080,208 @@ async def extract_entities_relationships(
                 llm_response = await call_llm_no_logging_no_cache(system_prompt, user_prompt)
 
                 if not llm_response:
-                    logging.warning(f"LLM response is empty for document {row['node_id']}")
+                    failed_extractions.append(FailedExtraction(
+                        source_id=row['node_id'],
+                        node_label=entity_type,
+                        llm_response="",
+                        error="Empty LLM response"
+                    ))
                     continue
 
+                # Try to parse the JSON response
                 try:
-                    # Try to parse the JSON response
                     extracted_entity = json.loads(llm_response)
 
                     # Validate that we got a dictionary
                     if not isinstance(extracted_entity, dict):
+                        failed_extractions.append(FailedExtraction(
+                            source_id=row['node_id'],
+                            node_label=entity_type,
+                            llm_response=llm_response,
+                            error=f"LLM response is not a dictionary: {type(extracted_entity)}"
+                        ))
                         logging.error(f"LLM response is not a dictionary for document {row['node_id']}: {llm_response[:100]}...")
                         continue
 
                 except json.JSONDecodeError as e:
-                    logging.error(f"Failed to parse LLM response as JSON for document {row['node_id']}: {str(e)}\nResponse: {llm_response[:100]}...")
-                    continue
-
-                # Generate a unique node_id for each sub-entity
-                extracted_entity["node_id"] = str(uuid.uuid4())
-                # Ensure source_id points to parent document
-                extracted_entity["source_id"] = row["node_id"]
-                # Add entity type
-                extracted_entity["entity_type"] = entity_type
-                # Initialize source_ids as a list with the current document's node_id
-                extracted_entity["source_ids"] = [row["node_id"]]
-
-                # Special handling for Tool entities to find similar existing tools
-                if entity_type == "Tool":
-                    # Skip database check if no real tool was extracted
-                    tool_label = extracted_entity.get("tool_label")
-                    description = extracted_entity.get("description")
-                    if ((not tool_label or not str(tool_label).strip()) and
-                        (not description or not str(description).strip())):
+                    # Attempt to sanitize the response
+                    sanitized, was_modified = sanitize_llm_response(llm_response)
+                    if was_modified:
+                        try:
+                            extracted_entity = json.loads(sanitized)
+                        except json.JSONDecodeError as e2:
+                            failed_extractions.append(FailedExtraction(
+                                source_id=row['node_id'],
+                                node_label=entity_type,
+                                llm_response=llm_response,
+                                error=f"Failed to parse after sanitization: {str(e2)}"
+                            ))
+                            logging.error(f"Failed to parse sanitized LLM response as JSON for document {row['node_id']}: {str(e2)}")
+                            continue
+                    else:
+                        failed_extractions.append(FailedExtraction(
+                            source_id=row['node_id'],
+                            node_label=entity_type,
+                            llm_response=llm_response,
+                            error=f"Failed to parse JSON: {str(e)}"
+                        ))
+                        logging.error(f"Failed to parse LLM response as JSON for document {row['node_id']}: {str(e)}\nResponse: {llm_response[:100]}...")
                         continue
-                    # Create a single ToolService instance for all tool checks in this batch
-                    tool_service = await _get_tool_service()
 
-                    try:
-                        # Check for similar existing tool using cached service
-                        similar_tool = await tool_service.find_similar_tool(
-                            extracted_entity.get("tool_label", ""),
-                            threshold=0.85
-                        )
-                        if similar_tool:
-                            # Convert Neomodel node to dictionary
-                            similar_tool_dict = similar_tool.__properties__
-                            # Update with the new source_ids
-                            source_ids = set(similar_tool_dict.get("source_ids", []) or [])
-                            source_ids.add(row["node_id"])
-                            similar_tool_dict["source_ids"] = list(source_ids)
+            except Exception as e:
+                failed_extractions.append(FailedExtraction(
+                    source_id=row['node_id'],
+                    node_label=entity_type,
+                    llm_response=llm_response if 'llm_response' in locals() else "",
+                    error=f"Unexpected error: {str(e)}"
+                ))
+                logging.error(f"Error during LLM extraction for document {row['node_id']}: {e}")
+                continue
 
-                            # Use the existing tool's data but keep new description if available
-                            # if extracted_entity.get("description"):
-                            #     similar_tool_dict["description"] = extracted_entity["description"]
+            # Generate a unique node_id for each sub-entity
+            extracted_entity["node_id"] = str(uuid.uuid4())
+            extracted_entity["source_id"] = row["node_id"]
+            extracted_entity["entity_type"] = entity_type
+            extracted_entity["source_ids"] = [row["node_id"]]
+            extracted_entity["verification_status"] = "unverified"
+            if (
+                'severity_type' in extracted_entity
+                and (
+                    extracted_entity['severity_type'] is None
+                    or (
+                        isinstance(extracted_entity['severity_type'], str)
+                        and extracted_entity['severity_type'].lower() not in [
+                            'low',
+                            'moderate',
+                            'important',
+                            'critical'
+                        ]
+                    )
+                )
+            ):
+                extracted_entity['severity_type'] = 'moderate'
 
-                            # Update extracted_entity with the deflated node data
-                            extracted_entity.update(similar_tool_dict)
+            # Special handling for Tool entities
+            if entity_type == "Tool":
+                tool_label = extracted_entity.get("tool_label")
+                description = extracted_entity.get("description")
+                if ((not tool_label or not str(tool_label).strip()) and
+                    (not description or not str(description).strip())):
+                    # Track empty tool extraction
+                    empty_extractions["Tool"].append({
+                        "source_id": row["node_id"],
+                        "message": "Valid LLM extraction with no tool found in source text"
+                    })
+                    continue
+                # Create a single ToolService instance for all tool checks in this batch
+                tool_service = await _get_tool_service()
 
-                            # Update the source_ids in Neo4j database
-                            try:
-                                # Get the node using get_or_create to ensure we have the latest version
-                                node, msg, status = await tool_service.get_or_create(
-                                    node_id=similar_tool.node_id,
-                                    node_label="Tool"
-                                )
-                                if node and status in [200, 201]:
-                                    # Update the source_ids property
-                                    node.source_ids = similar_tool_dict["source_ids"]
-                                    await node.save()
-                                    logging.info(
-                                        f"Updated source_ids for tool '{similar_tool.tool_label}' in Neo4j database. "
-                                        f"New source_ids: {similar_tool_dict['source_ids']}"
-                                    )
-                                else:
-                                    logging.error(f"Failed to retrieve tool node for update: {msg}")
-                            except Exception as db_error:
-                                logging.error(f"Error updating source_ids in Neo4j: {str(db_error)}")
-                    except Exception as e:
-                        logging.error(f"Error while checking for similar tools: {str(e)}")
-                else:
-                    # No special handling for other entity types
-                    pass
+                try:
+                    # Check for similar existing tool using cached service
+                    similar_tool = await tool_service.find_similar_tool(
+                        extracted_entity.get("tool_label", ""),
+                        threshold=0.91
+                    )
+                    if similar_tool:
+                        # Convert Neomodel node to dictionary and remove timestamp fields
+                        similar_tool_dict = similar_tool.__properties__
+                        similar_tool_dict.pop('created_on', None)
+                        similar_tool_dict.pop('last_verified_on', None)
+                        if "reliability" in similar_tool_dict:
+                            similar_tool_dict["reliability"] = convert_to_float(similar_tool_dict["reliability"])
+                        # Update with the new source_ids
+                        source_ids = set(similar_tool_dict.get("source_ids", []) or [])
+                        source_ids.add(row["node_id"])
+                        similar_tool_dict["source_ids"] = list(source_ids)
 
-                # Add to the list of extracted entities
-                extracted_entities = []
-                extracted_entities.append(extracted_entity)
+                        # Create a new tool dict with all required properties
+                        extracted_entity = {
+                            "node_id": similar_tool_dict["node_id"],  # Use existing tool's node_id
+                            "source_id": similar_tool_dict["source_id"],
+                            "entity_type": "Tool",
+                            "source_type": similar_tool_dict["source_type"],
+                            "source_ids": similar_tool_dict["source_ids"],
+                            "source_url": similar_tool_dict["source_url"],
+                            "tool_url": similar_tool_dict["tool_url"],
+                            "verification_status": similar_tool_dict.get("verification_status", "unverified"),
+                            "tool_label": similar_tool_dict["tool_label"],
+                            "description": similar_tool_dict.get("description"),
+                            "reliability": extracted_entity.get("reliability"),
+                            "tags": similar_tool_dict.get("tags", []),
+                        }
 
-                # Log success
+                        # Update the source_ids in Neo4j database
+                        try:
+                            # Update source_ids directly on the existing node
+                            similar_tool.source_ids = similar_tool_dict["source_ids"]
+                            await similar_tool.save()
+                            logging.info(
+                                f"Updated source_ids for tool '{similar_tool_dict['tool_label']}' in Neo4j database. "
+                                f"New source_ids: {similar_tool_dict['source_ids']}"
+                            )
+
+                        except Exception as db_error:
+                            logging.error(f"Error updating source_ids in Neo4j: {str(db_error)}")
+                except Exception as e:
+                    logging.error(f"Error while checking for similar tools: {str(e)}")
+            else:
+                # No special handling for other entity types
+                pass
+
+            # Add to appropriate list
+            key = entity_type.lower() + 'es' if entity_type == 'Fix' else entity_type.lower() + 's'
+            if not is_empty_extracted_entity(extracted_entity, entity_type):
+                # add extracted entity to in-batch data container
+                extracted_data[key].append(extracted_entity)
+                has_successful_extraction = True
                 logging.debug(
                     f"Successfully extracted {entity_type} from document {row['node_id']}"
                 )
 
-                # Count tokens and costs only on successful extraction
-                usage = token_counter_instance.from_prompt_response(
-                    system_prompt + user_prompt,
-                    llm_response
-                )
-                token_counter["input_tokens"] += usage.input_tokens
-                token_counter["output_tokens"] += usage.output_tokens
-                token_counter["total_cost"] += usage.total_cost
-
-                # Add to appropriate list
-                key = entity_type.lower() + 'es' if entity_type == 'Fix' else entity_type.lower() + 's'
-                if not is_empty_extracted_entity(extracted_entity, entity_type):
-                    # Write to cache file
-                    try:
-                        with open(cache_file_path, "w", encoding="utf-8") as f:
-                            json.dump(extracted_entity, f, indent=2, cls=JSONSanitizingEncoder)
-                        cached_files.append(cache_file_path)
-                        logging.debug(f"Cached extraction result to {cache_file_path}")
-                    except Exception as e:
-                        logging.error(f"Error writing cache file {cache_file_path}: {e}")
-
-                    extracted_data[key].append(extracted_entity)
-                    current_time = datetime.datetime.now().isoformat()
-                    metadata_dict = row.get('metadata')
-                    if isinstance(metadata_dict, str):
-                        try:
-                            metadata_dict = json.loads(metadata_dict)
-                        except json.JSONDecodeError:
-                            metadata_dict = {}
-
-                    # Ensure etl_processing_status exists
-                    if 'etl_processing_status' not in metadata_dict:
-                        metadata_dict['etl_processing_status'] = {}
-
-                    # Update the status
-                    metadata_dict['etl_processing_status'].update({
-                        'entities_extracted': True,
-                        'last_processed_at': current_time
-                    })
-
-                    # Update the row's metadata with our changes
-                    row['metadata'] = metadata_dict
-            except json.JSONDecodeError as e:
-                logging.error(f"Error decoding JSON for llm response in document {row['node_id']}: {e}")
-                continue
+            try:
+                with open(cache_file_path, "w", encoding="utf-8") as f:
+                    json.dump(extracted_entity, f, indent=2, cls=JSONSanitizingEncoder)
+                cached_files.append(cache_file_path)
+                logging.debug(f"Cached extraction result to {cache_file_path}")
             except Exception as e:
-                logging.error(f"Error during LLM extraction for document {row['node_id']}: {e}")
-                continue
+                logging.error(f"Error writing cache file {cache_file_path}: {e}")
+
+            # Count tokens and costs only on successful extraction
+            usage = token_counter_instance.from_prompt_response(
+                system_prompt + user_prompt,
+                llm_response
+            )
+            token_counter["input_tokens"] += usage.input_tokens
+            token_counter["output_tokens"] += usage.output_tokens
+            token_counter["total_cost"] += usage.total_cost
+
+        # Update metadata after all entities are processed if at least one was successful
+        if has_successful_extraction:
+            current_time = datetime.datetime.now().isoformat()
+            metadata_dict = row.get('metadata')
+            if isinstance(metadata_dict, str):
+                try:
+                    metadata_dict = json.loads(metadata_dict)
+                except json.JSONDecodeError:
+                    metadata_dict = {}
+
+            # Ensure etl_processing_status exists
+            if 'etl_processing_status' not in metadata_dict:
+                metadata_dict['etl_processing_status'] = {}
+
+            # Update the status
+            metadata_dict['etl_processing_status'].update({
+                'entities_extracted': True,
+                'last_processed_at': current_time
+            })
+
+            # Update the row's metadata with our changes
+            row['metadata'] = metadata_dict
+
     end_time = time.time()
     logging.info(
         f"{documents_df.shape[0]} rows processed for extraction of {document_type} "
-        f" in {end_time - start_time:.2f} seconds."
+        f"in {end_time - start_time:.2f} seconds."
     )
 
     # Print cached file paths
@@ -1142,7 +1307,7 @@ async def extract_entities_relationships(
         )
         update_llm_usage(final_usage)
 
-    return extracted_data
+    return extracted_data, failed_extractions, dict(empty_extractions)
 
 
 class JSONSanitizingEncoder (json.JSONEncoder):
@@ -1309,8 +1474,9 @@ class CustomDocumentTracker:
                         try:
                             with open(file_path, 'r') as f:
                                 existing_doc = json.load(f)
-                                if existing_doc.get('source_id') == source_id:
-                                    docs_to_remove.add(file_path.stem)
+
+                            if existing_doc.get('source_id') == source_id:
+                                docs_to_remove.add(file_path.stem)
                         except Exception as e:
                             logging.error(f"Error reading document {file_path}: {e}")
 

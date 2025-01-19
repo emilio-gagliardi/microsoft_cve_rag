@@ -221,7 +221,7 @@ Output:
         "tags": ["KB5040442", "Windows11", "KernelVulnerabilities"],
         "node_id": "placeholder_node_id_leave_as_is",
         "node_label": "Fix",
-        "severity_type": "medium",
+        "severity_type": "moderate",
         "reliability": 0.9
     }}
 
@@ -236,7 +236,7 @@ Output:
         "tags": ["PowerShell", "SystemConfiguration", "LLM Synthesized"],
         "node_id": "placeholder_node_id_leave_as_is",
         "node_label": "Fix",
-        "severity_type": "medium",
+        "severity_type": "important",
         "reliability": 0.6
     }}
 
@@ -400,7 +400,7 @@ Output:
         "node_id": "placeholder_node_id_leave_as_is",
         "node_label": "Tool",
         "reliability": 0.8,
-        "severity_type": "medium"
+        "severity_type": "important"
     }}
 
 #### Invalid Tool Extraction:
@@ -416,7 +416,7 @@ Output:
         "node_id": "placeholder_node_id_leave_as_is",
         "node_label": null,
         "reliability": 0.5,
-        "severity_type": null
+        "severity_type": "NST"
     }}
 
 ### Handling Ambiguities:
@@ -871,7 +871,7 @@ Output:
         "node_id": "placeholder_node_id_leave_as_is",
         "node_label": null,
         "reliability": 0.0,
-        "severity_type": null
+        "severity_type": "NST"
     }}
 
 ### Handling Ambiguities:

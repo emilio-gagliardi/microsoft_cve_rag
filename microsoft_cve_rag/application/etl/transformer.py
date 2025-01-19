@@ -164,9 +164,9 @@ def extract_build_numbers(text, pattern):
 def extract_windows_kbs(text):
     pattern = r"(?i)KB[-\s]?\d{6,7}"
     matches = re.findall(pattern, text)
-    # Convert matches to uppercase and ensure the format is "KB-123456"
-    matches = [match.upper().replace(" ", "").replace("-", "") for match in matches]
-    matches = [f"KB-{match[2:]}" for match in matches]
+    # Convert matches to uppercase and standardize format to "KB-123456"
+    matches = [match.upper().replace(" ", "").replace("KB", "") for match in matches]
+    matches = [f"KB-{match.strip('-')}" for match in matches]
     return list(set(matches))
 
 
@@ -2029,6 +2029,7 @@ def find_previous_thread_doc(
                 # Skip this group since we already have high-confidence matches
                 while current_idx < len(docs) and docs[current_idx][0] == current_subject:
                     current_idx += 1
+
         else:
             # Move to next different subject
             current_subject = docs[current_idx][0]
@@ -2247,7 +2248,7 @@ def transform_patch_posts_v2(
 
     # Each doc is PatchManagementPost
     df["node_label"] = "PatchManagementPost"
-
+    df["verification_status"] = "unverified"
     # Flag records that are new vs. preprocessed
     df["is_processed"] = df["metadata"].apply(_check_doc_processed)
 
@@ -2346,6 +2347,7 @@ def transform_patch_posts_v2(
                 "cve_ids": historical_doc["metadata"].get("cve_mentions", []),
                 "previous_id": historical_doc["metadata"].get("previous_id", None),
                 "next_id": first_batch_node_id,  # Set next_id to first in-batch doc
+                "verification_status": historical_doc["metadata"].get("verification_status", "unverified"),
             }])
 
             logging.info(
@@ -2519,7 +2521,17 @@ def patch_fe_transformer(
     patch_posts_df["product_mentions_keywords"] = fuzzy_search_column(
         patch_posts_df["keywords"], products_df
     )
-
+    # create a new column "product_mentions_subject" that contains the product mentions from the subject
+    # create a new function to extract product mentions from the subject that can identify `windows10/11` and convert that to 'windows_10' and 'windows_11'
+    # and use the fuzzy match from `fuzzy_search_column` which cannot handle this
+    patch_posts_df["product_mentions_subject"] = patch_posts_df["subject"].apply(
+        lambda x: extract_product_mentions(x, products_df)
+    )
+    # create another function we can apply to the dataframe that checks if the column `post_type` is 'conversational' if it is, set `product_mentions_subject` to None
+    patch_posts_df["product_mentions_subject"] = patch_posts_df.apply(
+        lambda row: None if row["post_type"].lower() == "conversational" else row["product_mentions_subject"],
+        axis=1,
+    )
     # Combine product mentions, then refine them
     patch_posts_df["product_mentions"] = patch_posts_df.apply(
         lambda row: list(
@@ -2541,9 +2553,12 @@ def patch_fe_transformer(
     )
 
     # Extract Windows and Edge KB references
-    patch_posts_df["windows_kbs"] = patch_posts_df["text"].apply(
-        lambda x: extract_windows_kbs(x) if pd.notna(x) else []
-    )
+    def get_windows_kbs(row):
+        kbs_from_text = extract_windows_kbs(row["text"]) if pd.notna(row["text"]) else []
+        kbs_from_subject = extract_windows_kbs(row["subject"]) if pd.notna(row["subject"]) else []
+        return list(set(kbs_from_text + kbs_from_subject))
+
+    patch_posts_df["windows_kbs"] = patch_posts_df.apply(get_windows_kbs, axis=1)
     patch_posts_df["edge_kbs"] = patch_posts_df.apply(extract_edge_kbs, axis=1)
     patch_posts_df["kb_mentions"] = patch_posts_df.apply(
         lambda row: list(set(row["windows_kbs"] + row["edge_kbs"])), axis=1
@@ -2568,6 +2583,45 @@ def patch_fe_transformer(
     return patch_posts_df
 
 # End Feature Engineering Patch Transformer ===================================
+
+
+def extract_product_mentions(text: str, products_df: pd.DataFrame, threshold: int = 80) -> List[str]:
+    """
+    Extract product mentions from text, handling both fuzzy matching and special Windows version patterns.
+
+    Args:
+        text: Input text to search for product mentions
+        products_df: DataFrame containing product information
+        threshold: Fuzzy matching threshold (default: 80)
+
+    Returns:
+        List of matched product names
+    """
+    if pd.isna(text):
+        return []
+
+    matches = set()
+
+    # Handle special Windows 10/11 pattern
+    windows_pattern = r"(?:windows|win)\s*(?:10|11|10/11|11/10)"
+    windows_matches = re.finditer(windows_pattern, text.lower())
+    for match in windows_matches:
+        match_text = match.group()
+        if "10/11" in match_text or "11/10" in match_text:
+            matches.add("windows_10")
+            matches.add("windows_11")
+        elif "10" in match_text:
+            matches.add("windows_10")
+        elif "11" in match_text:
+            matches.add("windows_11")
+
+    # Apply standard fuzzy matching
+    text_list = [text]
+    fuzzy_matches = fuzzy_search_column(text_list, products_df, threshold)
+    if fuzzy_matches and fuzzy_matches[0]:
+        matches.update(fuzzy_matches[0])
+
+    return list(matches)
 
 
 def transform_symptoms(symptoms: List[Dict[str, Any]]) -> pd.DataFrame:
@@ -3352,7 +3406,8 @@ def convert_df_to_llamadoc_msrc_posts(
 ) -> List[LlamaDocument]:
     """Convert a DataFrame of MSRC posts to a list of LlamaDocuments."""
     llama_documents = []
-
+    # drop column `impact_type`
+    # df = df.drop(columns=["impact_type"])
     for _, row in df.iterrows():
         try:
             # Log raw input row data for debugging
@@ -3484,6 +3539,8 @@ def convert_df_to_llamadoc_patch_posts(
                 preserve_metadata=True,
                 exclude_columns=[],
             )
+            if "cve_ids" in metadata_dict and metadata_dict["cve_ids"] == "":
+                metadata_dict["cve_ids"] = []
             logging.debug(f"Generated metadata: \n{metadata_dict}")
             current_time = datetime.now().isoformat()
             # Set default values for specific fields

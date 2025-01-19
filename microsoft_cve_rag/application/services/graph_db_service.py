@@ -52,6 +52,7 @@ from tqdm import tqdm
 import yaml
 import os
 import difflib
+from dataclasses import dataclass
 
 settings = get_app_config()
 graph_db_settings = settings["GRAPHDB_CONFIG"]
@@ -98,6 +99,16 @@ class GraphDatabaseManager:
 # BaseService definition
 
 T = TypeVar("T", bound=AsyncStructuredNode)
+
+
+@dataclass
+class NodeCreationResult:
+    """Result of node creation/retrieval operation"""
+    node: Optional[T]
+    source_id: Optional[str]
+    node_id: Optional[str]
+    message: str
+    status_code: int
 
 
 class BaseService(Generic[T]):
@@ -185,57 +196,74 @@ class BaseService(Generic[T]):
             return True
         return False
 
-    async def get_or_create(self, **properties) -> Tuple[T, str, int]:
+    async def get_or_create(self, **properties) -> NodeCreationResult:
         """
         Retrieve a node with matching properties, or create it if it doesn't exist.
 
         :param properties: Key-value pairs of properties to match or set.
-        :return: A tuple containing (node instance, status message, status code)
+        :return: NodeCreationResult containing node instance and status information
         """
-        # print(f"\nAttempting to get or create with properties: {properties}")
-
         try:
             node_label = properties.get("node_label", None)
             search_dict = self._build_search_dict(node_label, properties)
-            # print(f"search_dict: {search_dict}")
-            # print("attempting service based approach")
+
             existing_node_service = await self.model.nodes.get_or_none(**search_dict)
             if existing_node_service:
-                # print(f"Node found by: {search_dict}")
-                return existing_node_service, "Existing node retrieved by node_id", 200
+                return NodeCreationResult(
+                    node=existing_node_service,
+                    source_id=properties.get("source_id"),
+                    node_id=existing_node_service.node_id,
+                    message="Existing node retrieved by node_id",
+                    status_code=200
+                )
 
-            # print("attempting class based approach")
             if properties["node_label"] == "Product":
-                existing_node_class = await graph_db_models.Product.nodes.get_or_none(
-                    **search_dict
-                )
+                existing_node_class = await graph_db_models.Product.nodes.get_or_none(**search_dict)
             elif properties["node_label"] == "ProductBuild":
-                existing_node_class = (
-                    await graph_db_models.ProductBuild.nodes.get_or_none(**search_dict)
-                )
+                existing_node_class = await graph_db_models.ProductBuild.nodes.get_or_none(**search_dict)
             else:
                 existing_node_class = None
 
             if existing_node_class:
-                # print(f"Node found by: {search_dict}")
-                return existing_node_class, "Existing node retrieved by node_id", 200
+                return NodeCreationResult(
+                    node=existing_node_class,
+                    source_id=properties.get("source_id"),
+                    node_id=existing_node_class.node_id,
+                    message="Existing node retrieved by node_id",
+                    status_code=200
+                )
 
-            # If not found, create a new node
             if "build_numbers" in properties:
                 properties.pop("build_numbers")
             node_new = self.model(**properties)
             await node_new.save()
-            return node_new, "Node created successfully", 201
+            return NodeCreationResult(
+                node=node_new,
+                source_id=properties.get("source_id"),
+                node_id=node_new.node_id,
+                message="Node created successfully",
+                status_code=201
+            )
 
         except UniqueProperty as e:
-            print(f"UniqueProperty exception: {str(e)}")
-            # In case of a unique property violation, return the existing node
-            return None, f"Unique property violation: {str(e)}", 409
+            return NodeCreationResult(
+                node=None,
+                source_id=properties.get("source_id"),
+                node_id=properties.get("node_id"),
+                message=f"Unique property violation: {str(e)}",
+                status_code=409
+            )
 
         except Exception as e:
             print(f"General exception: {str(e)}")
             traceback.print_exc()
-            return None, f"Error creating/retrieving node: {str(e)}", 500
+            return NodeCreationResult(
+                node=None,
+                source_id=properties.get("source_id"),
+                node_id=properties.get("node_id"),
+                message=f"Error creating/retrieving node: {str(e)}",
+                status_code=500
+            )
 
     def _build_search_dict(self, node_label: str, properties: dict) -> dict:
         """
@@ -328,7 +356,16 @@ class BaseService(Generic[T]):
         results = await self.cypher(query, params)
         return [self.model.inflate(node) for node in results]
 
-    async def bulk_create(self, items: List[Dict[str, Any]]) -> List[T]:
+    async def bulk_create(self, items: List[Dict[str, Any]]) -> Tuple[List[T], List[NodeCreationResult]]:
+        """
+        Bulk create nodes from a list of items.
+
+        Args:
+            items (List[Dict[str, Any]]): List of items to create nodes from
+
+        Returns:
+            Tuple[List[T], List[NodeCreationResult]]: Tuple of (successful nodes, failed nodes with errors)
+        """
         results = []
         errors = []
         async with self.db_manager:
@@ -371,7 +408,10 @@ class BaseService(Generic[T]):
                             ):
                                 item["cve_ids"] = []
                             elif isinstance(item["cve_ids"], str):
-                                item["cve_ids"] = [item["cve_ids"]]
+                                cve_ids = [cve_id.strip() for cve_id in item["cve_ids"].split() if cve_id.strip()]
+                                # Only keep items that match CVE pattern
+                                cve_pattern = re.compile(r'CVE-\d{4}-\d{4,7}', re.IGNORECASE)
+                                item["cve_ids"] = [cve_id for cve_id in cve_ids if cve_pattern.match(cve_id)]
                             elif not isinstance(item["cve_ids"], list):
                                 item["cve_ids"] = [str(item["cve_ids"])]
                         if "kb_ids" in item:
@@ -443,26 +483,26 @@ class BaseService(Generic[T]):
                             ):
                                 item["post_type"] = ""
 
-                        node, message, code = await self.get_or_create(**item)
-                        if node:
+                        result = await self.get_or_create(**item)
+                        if result.node:
                             # Handle specific node types if needed
                             if (
-                                hasattr(node, "set_build_numbers")
+                                hasattr(result.node, "set_build_numbers")
                                 and "build_numbers" in item
                             ):
-                                node.set_build_numbers(item["build_numbers"])
-                                await node.save()
+                                result.node.set_build_numbers(item["build_numbers"])
+                                await result.node.save()
                             if (
-                                hasattr(node, "set_downloadable_packages")
+                                hasattr(result.node, "set_downloadable_packages")
                                 and "downloadable_packages" in item
                             ):
-                                node.set_downloadable_packages(
+                                result.node.set_downloadable_packages(
                                     item["downloadable_packages"]
                                 )
-                                await node.save()
-                            results.append(node)
+                                await result.node.save()
+                            results.append(result.node)
                         else:
-                            errors.append((message, code, item))
+                            errors.append(result)
                     except UniqueProperty as e:
                         print(f"UniqueProperty error: {str(e)}")
                         # Try to retrieve the existing node
@@ -471,23 +511,44 @@ class BaseService(Generic[T]):
                         if existing_node:
                             results.append(existing_node)
                         else:
-                            errors.append((str(e), 409, item))
+                            errors.append(NodeCreationResult(
+                                node=None,
+                                source_id=item.get("source_id", "unknown"),
+                                node_id=None,
+                                message=str(e),
+                                status_code=409
+                            ))
                     except Exception as e:
-                        # logging.error(f"Error creating/retrieving node: {str(e)}")
-                        errors.append((str(e), 500, item))
+                        error_msg = f"Error processing item: {str(e)}"
+                        errors.append(NodeCreationResult(
+                            node=None,
+                            source_id=item.get("source_id", "unknown"),
+                            node_id=None,
+                            message=error_msg,
+                            status_code=500
+                        ))
+                        logging.error(f"{error_msg}\n{traceback.format_exc()}")
 
         if errors:
+            logging.warning(f"Encountered {len(errors)} errors during bulk create")
             for error in errors:
-                logging.warning(f"bulk_create: {error[1]} - {error[0]}\n{error[2]}")
-                # pass
-        if results:
-            logging.info(
-                f"Successfully created/retrieved {len(results)} nodes of type: {type(results[0]).__name__}"
-            )
-        else:
-            logging.warning("No nodes were created or retrieved.")
+                logging.warning(f"Error: {error.message} for item with source_id: {error.source_id}")
 
-        return results
+        return results, errors
+
+    def _process_array_field(self, value: Any, field_name: str) -> List[str]:
+        """Helper method to process array fields consistently"""
+        if value is None or (isinstance(value, float) and math.isnan(value)):
+            return []
+        if isinstance(value, str):
+            if field_name == "cve_ids":
+                cve_ids = [cve_id.strip() for cve_id in value.split() if cve_id.strip()]
+                cve_pattern = re.compile(r'CVE-\d{4}-\d{4,7}', re.IGNORECASE)
+                return [cve_id for cve_id in cve_ids if cve_pattern.match(cve_id)]
+            return [value]
+        if not isinstance(value, list):
+            return [str(value)]
+        return value
 
     async def find_related_nodes(
         self, node: T, target_model: Type[AsyncStructuredNode], rel_type: str
@@ -1478,7 +1539,7 @@ class RelationshipTracker:
                             logging.warning(
                                 f"One-to-one relationship violation: {source_id} already has a "
                                 f"{rel_type} relationship"
-                            )
+                        )
                         return True
 
         # Check existence in current relationships
@@ -2210,13 +2271,11 @@ async def _create_and_configure_relationship(
             logging.debug(f"Fix properties set: {properties}")
 
         elif rel_class == graph_db_models.AsyncToolRel:
-            severity = await calculate_severity(source_node, target_node)
             confidence = await calculate_confidence(source_node, target_node)
             description = await generate_description(source_node, target_node)
             reported_date = await get_reported_date(source_node, target_node)
 
             initial_props = {
-                "severity": severity or "medium",  # Default to medium if None
                 "confidence": confidence if confidence is not None else 50,  # Default to 50% if None
                 "description": description or "",  # Default to empty string if None
                 "reported_date": reported_date or datetime.now().strftime("%Y-%m-%d")  # Default to current date if None
