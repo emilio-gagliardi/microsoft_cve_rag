@@ -2,38 +2,33 @@
 # Inputs: Raw data
 # Outputs: Transformed data
 # Dependencies: None
-import os
+import ast
+import asyncio
+import hashlib
+import json
 import logging
+import os
+import re
+from collections import defaultdict
+from datetime import datetime, timedelta, timezone
+
+# import warnings
+from typing import Any, Dict, List, Optional, Union
+
+import marvin
+
 # from neomodel import AsyncStructuredNode
 import numpy as np
-# import warnings
-from typing import (Union, List, Dict, Any, Optional)
 import pandas as pd
-from fuzzywuzzy import fuzz, process
-import re
-import hashlib
 import spacy
-import json
-from datetime import datetime, timezone, timedelta
-from spacy.lang.en.stop_words import STOP_WORDS
-from collections import defaultdict
-from application.core.models.basic_models import (
-    Document,
-    Vector,
-    GraphNode,
-    DocumentMetadata,
-    VectorMetadata,
-    GraphNodeMetadata,
-)
+from application.core.models.basic_models import Document
 
 # from application.services.embedding_service import EmbeddingService
-from application.etl.NVDDataExtractor import ScrapingParams, NVDDataExtractor
-
+from application.etl.NVDDataExtractor import NVDDataExtractor, ScrapingParams
+from fuzzywuzzy import fuzz, process
 from llama_index.core import Document as LlamaDocument
-import asyncio
-import marvin
 from marvin.ai.text import generate_llm_response
-import ast
+from spacy.lang.en.stop_words import STOP_WORDS
 
 # from microsoft_cve_rag.application.core.models import graph_db_models
 
@@ -45,7 +40,17 @@ logging.getLogger(__name__)
 
 
 def _join_product_parts(row: pd.Series) -> str:
-    """Join product parts into a full product string, excluding 'NV' and 'NA' values."""
+    """Join product parts into a full product string.
+
+    Combines product name, version, and architecture into a single string,
+    excluding 'NV' and 'NA' values.
+
+    Args:
+        row (pd.Series): DataFrame row containing product parts
+
+    Returns:
+        str: Space-separated string of valid product parts
+    """
     parts = [
         part
         for part in [
@@ -59,7 +64,16 @@ def _join_product_parts(row: pd.Series) -> str:
 
 
 def _join_product_name_version(row: pd.Series) -> str:
-    """Join product name and version, excluding 'NV' values."""
+    """Join product name and version into a single string.
+
+    Combines product name and version, excluding 'NV' values.
+
+    Args:
+        row (pd.Series): DataFrame row containing product information
+
+    Returns:
+        str: Space-separated string of product name and version
+    """
     parts = [
         part
         for part in [row["product_name"], row["product_version"]]
@@ -69,17 +83,41 @@ def _join_product_name_version(row: pd.Series) -> str:
 
 
 def _add_edge_terms(text: str, edge_terms: List[str]) -> str:
-    """Add Edge-specific terms to a text field."""
+    """Add Edge-specific terms to a text field.
+
+    Args:
+        text (str): Original text to append terms to
+        edge_terms (List[str]): List of Edge-specific terms to add
+
+    Returns:
+        str: Text with Edge-specific terms appended
+    """
     return text + " " + " ".join(edge_terms)
 
 
-def prepare_products(df):
+def prepare_products(df: pd.DataFrame) -> pd.DataFrame:
+    """Prepare product information in DataFrame.
+
+    Standardizes product names, creates full product strings, and adds
+    Edge-specific search terms where applicable.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing product information
+
+    Returns:
+        pd.DataFrame: DataFrame with prepared product information
+    """
     df["product_name"] = df["product_name"].str.replace("_", " ")
     df["product_full"] = df.apply(_join_product_parts, axis=1)
     df["product_name_version"] = df.apply(_join_product_name_version, axis=1)
 
     # Add additional search terms for "edge"
-    edge_terms = ["microsoft edge", "chromium", "chromiumbased", "chromium based"]
+    edge_terms = [
+        "microsoft edge",
+        "chromium",
+        "chromiumbased",
+        "chromium based",
+    ]
     df.loc[df["product_name"] == "edge", "product_full"] = df.loc[
         df["product_name"] == "edge", "product_full"
     ].apply(lambda x: _add_edge_terms(x, edge_terms))
@@ -90,7 +128,22 @@ def prepare_products(df):
     return df
 
 
-def fuzzy_search(text, search_terms, threshold=80):
+def fuzzy_search(
+    text: str, search_terms: List[str], threshold: int = 80
+) -> List[str]:
+    """Perform fuzzy string matching on text.
+
+    Search for matches between text and search terms using partial ratio
+    comparison.
+
+    Args:
+        text (str): Text to search within
+        search_terms (List[str]): Terms to search for
+        threshold (int, optional): Minimum match score. Defaults to 80.
+
+    Returns:
+        List[str]: List of matching terms above threshold
+    """
     if pd.isna(text):
         return []
     matches = set()
@@ -100,21 +153,54 @@ def fuzzy_search(text, search_terms, threshold=80):
     return list(matches)
 
 
-def fuzzy_search_column(column, products_df, threshold=80):
+def fuzzy_search_column(
+    column: pd.Series, products_df: pd.DataFrame, threshold: int = 80
+) -> List[List[str]]:
+    """Search for product mentions in a DataFrame column.
+
+    Performs fuzzy matching against product names at different specificity
+    levels.
+
+    Args:
+        column (pd.Series): Column to search within
+        products_df (pd.DataFrame): DataFrame containing product information
+        threshold (int, optional): Minimum match score. Defaults to 80.
+
+    Returns:
+        List[List[str]]: List of product mentions for each row
+    """
     product_mentions = []
     for text in column:
         if isinstance(text, list):
             text = " ".join(text)
         matches = fuzzy_search(text, products_df["product_full"], threshold)
         if not matches:
-            matches = fuzzy_search(text, products_df["product_name_version"], threshold)
+            matches = fuzzy_search(
+                text, products_df["product_name_version"], threshold
+            )
         if not matches:
-            matches = fuzzy_search(text, products_df["product_name"], threshold)
+            matches = fuzzy_search(
+                text, products_df["product_name"], threshold
+            )
         product_mentions.append(matches)
     return product_mentions
 
 
-def retain_most_specific(mentions, products_df):
+def retain_most_specific(
+    mentions: List[str], products_df: pd.DataFrame
+) -> List[str]:
+    """Filter product mentions to keep only the most specific versions.
+
+    Retains mentions with the most detailed product information (name,
+    version, architecture) when multiple versions exist.
+
+    Args:
+        mentions (List[str]): List of product mentions
+        products_df (pd.DataFrame): DataFrame containing product information
+
+    Returns:
+        List[str]: Filtered list of most specific product mentions
+    """
     specific_mentions = set()
     for mention in mentions:
         parts = mention.split()
@@ -132,45 +218,99 @@ def retain_most_specific(mentions, products_df):
     # Remove less specific mentions
     final_mentions = set()
     for mention in specific_mentions:
-        if not any(mention in other for other in specific_mentions if other != mention):
+        if not any(
+            mention in other for other in specific_mentions if other != mention
+        ):
             final_mentions.add(mention)
 
     return list(final_mentions)
 
 
-def convert_to_original_representation(mentions):
+def convert_to_original_representation(mentions: List[str]) -> List[str]:
+    """Convert product mentions back to original format.
+
+    Replaces spaces with underscores to match original product naming.
+
+    Args:
+        mentions (List[str]): List of product mentions
+
+    Returns:
+        List[str]: Product mentions with underscores
+    """
     return [mention.replace(" ", "_") for mention in mentions]
 
 
-def construct_regex_pattern():
+def construct_regex_pattern() -> str:
+    """Construct regex pattern for build number extraction.
+
+    Creates a pattern matching build numbers with up to 4 groups of digits,
+    separated by dots.
+
+    Returns:
+        str: Regex pattern for build number matching
+    """
     max_digits_per_group = (4, 4, 5, 5)
     pattern = (
         r"\b"
-        + r"\.".join(
-            [r"\d{1," + str(max_digits) + r"}" for max_digits in max_digits_per_group]
-        )
+        + r"\.".join([
+            r"\d{1," + str(max_digits) + r"}"
+            for max_digits in max_digits_per_group
+        ])
         + r"\b"
     )
     return pattern
 
 
 # Function to extract build numbers from text
-def extract_build_numbers(text, pattern):
+def extract_build_numbers(text: str, pattern: str) -> List[List[int]]:
+    """Extract build numbers from text using regex pattern.
+
+    Args:
+        text (str): Text to extract build numbers from
+        pattern (str): Regex pattern for matching build numbers
+
+    Returns:
+        List[List[int]]: List of build numbers as integer groups
+    """
     matches = re.findall(pattern, text)
-    build_numbers = [[int(part) for part in match.split(".")] for match in matches]
+    build_numbers = [
+        [int(part) for part in match.split(".")] for match in matches
+    ]
     return build_numbers
 
 
-def extract_windows_kbs(text):
+def extract_windows_kbs(text: str) -> List[str]:
+    """Extract Windows KB article references from text.
+
+    Finds and standardizes KB article numbers to KB-XXXXXX format.
+
+    Args:
+        text (str): Text to extract KB references from
+
+    Returns:
+        List[str]: List of standardized KB article references
+    """
     pattern = r"(?i)KB[-\s]?\d{6,7}"
     matches = re.findall(pattern, text)
     # Convert matches to uppercase and standardize format to "KB-123456"
-    matches = [match.upper().replace(" ", "").replace("KB", "") for match in matches]
+    matches = [
+        match.upper().replace(" ", "").replace("KB", "") for match in matches
+    ]
     matches = [f"KB-{match.strip('-')}" for match in matches]
     return list(set(matches))
 
 
-def extract_edge_kbs(row):
+def extract_edge_kbs(row: pd.Series) -> List[str]:
+    """Extract Edge KB references from build numbers.
+
+    Creates KB references for Edge products based on build numbers.
+
+    Args:
+        row (pd.Series): DataFrame row containing product and build information
+
+    Returns:
+        List[str]: List of Edge KB references
+    """
     edge_kbs = []
     if "edge" in row["product_mentions"]:
         for build_number in row["build_numbers"]:
@@ -180,6 +320,16 @@ def extract_edge_kbs(row):
 
 
 async def update_email_records(emails_df, document_service):
+    """
+    Update documents in the database with information from an email dataframe.
+
+    Args:
+        emails_df (pd.DataFrame): DataFrame containing email data to update documents with.
+        document_service (DocumentService): Service for interacting with the document database.
+
+    Returns:
+        None
+    """
     total_processed = 0
     total_updated = 0
     not_updated_docs = []
@@ -205,27 +355,38 @@ async def update_email_records(emails_df, document_service):
         except Exception as e:
             not_updated_docs.append(document_id)
             logging.error(
-                f"Exception {e}. Data input: doc id: {document_id}\n{row['product_mentions']}\n{row['build_numbers']}\n{row['kb_mentions']}"
+                f"Exception {e}. Data input: doc id:"
+                f" {document_id}\n{row['product_mentions']}\n{row['build_numbers']}\n{row['kb_mentions']}"
             )
 
-    logging.info(f"Processed {total_processed} documents, updated {total_updated} documents")
+    logging.info(
+        f"Processed {total_processed} documents, updated"
+        f" {total_updated} documents"
+    )
     if not_updated_docs:
-        logging.debug(f"Documents not updated: {', '.join(map(str, not_updated_docs))}")
+        logging.debug(
+            f"Documents not updated: {', '.join(map(str, not_updated_docs))}"
+        )
 
 
-def normalize_mongo_kb_id(kb_id_input):
-    """
-    Normalize the 'kb_id' field from MongoDB documents.
+def normalize_mongo_kb_id(
+    kb_id_input: Union[str, List[str]],
+) -> Union[str, List[str]]:
+    """Normalize the 'kb_id' field from MongoDB documents.
 
-    This function checks if the input is a string and converts it to a list if necessary.
-    It removes any 'kb' or 'KB' prefix and ensures the 'kb_id' is in the format KB-XXXXXX or KB-XXX.XXX.XXX.XXX.
-    The function returns a single item if the list has only one element, otherwise it returns the list.
+    Checks if the input is a string and converts it to a list if necessary.
+    Removes any 'kb' or 'KB' prefix and ensures the 'kb_id' is in the format
+    KB-XXXXXX or KB-XXX.XXX.XXX.XXX.
 
     Args:
-        kb_id_input (Union[str, List[str]]): The 'kb_id' field from MongoDB documents, which can be a string or a list.
+        kb_id_input (Union[str, List[str]]): The 'kb_id' field from MongoDB documents
 
     Returns:
-        Union[str, List[str]]: The normalized 'kb_id' field, either as a single string or a list of strings.
+        Union[str, List[str]]: Normalized 'kb_id' field as string or list
+
+    Notes:
+        - Returns single item if list has only one element
+        - Preserves list structure if multiple items present
     """
     if kb_id_input is None:
         return []
@@ -236,7 +397,20 @@ def normalize_mongo_kb_id(kb_id_input):
         kb_id_list = kb_id_input
 
     # Function to normalize a single kb_id
-    def normalize_kb_id(kb_id):
+    def normalize_kb_id(kb_id: str) -> str:
+        """
+        Normalize a single Microsoft KB article ID.
+
+        The function takes a string representing a Microsoft KB article ID, removes
+        any 'kb' or 'KB' prefix, and ensures the returned string is in the format
+        KB-XXXXXX or KB-XXX.XXX.XXX.XXX.
+
+        Args:
+            kb_id (str): A string representing a Microsoft KB article ID
+
+        Returns:
+            str: Normalized Microsoft KB article ID
+        """
         if kb_id is None:
             return None
         # Remove any 'kb' prefix
@@ -286,27 +460,68 @@ def custom_json_serializer(obj):
 
 
 def _map_product_name(x: str, mapping: Dict[str, str]) -> str:
-    """Map product names using a predefined mapping dictionary."""
+    """Map product names using a predefined mapping dictionary.
+
+    Args:
+        x (str): Product name to map
+        mapping (Dict[str, str]): Dictionary of product name mappings
+
+    Returns:
+        str: Mapped product name or original if no mapping exists
+    """
     return mapping.get(x, x)
 
 
 def _map_architecture(x: str, mapping: Dict[str, str]) -> str:
-    """Map architecture names using a predefined mapping dictionary."""
+    """Map architecture names using a predefined mapping dictionary.
+
+    Args:
+        x (str): Architecture name to map
+        mapping (Dict[str, str]): Dictionary of architecture mappings
+
+    Returns:
+        str: Mapped architecture name or original if no mapping exists
+    """
     return mapping.get(x, x)
 
 
 def _handle_single_item_list(x: Any) -> Any:
-    """Extract single item from a list if it's a single-item list, otherwise return as is."""
+    """Extract single item from a list if it's a single-item list.
+
+    Args:
+        x (Any): Input value to process
+
+    Returns:
+        Any: Single item if input was single-item list, otherwise original input
+    """
     return x[0] if isinstance(x, list) and len(x) == 1 else x
 
 
 def _map_impact_type(x: str, mapping: Dict[str, str]) -> str:
-    """Map impact type using a predefined mapping dictionary."""
+    """Map impact type using a predefined mapping dictionary.
+
+    Args:
+        x (str): Impact type to map
+        mapping (Dict[str, str]): Dictionary of impact type mappings
+
+    Returns:
+        str: Mapped impact type or original if no mapping exists
+    """
     return mapping.get(x, x)
 
 
 def _create_excluded_metadata_keys(x: Union[List, Any]) -> List[str]:
-    """Create a list of excluded metadata keys, combining existing keys with standard ones."""
+    """Create a list of excluded metadata keys.
+
+    Combines existing keys with standard ones to create a comprehensive
+    exclusion list for metadata processing.
+
+    Args:
+        x (Union[List, Any]): Existing excluded keys
+
+    Returns:
+        List[str]: Combined list of excluded metadata keys
+    """
     base_keys = {
         "node_id",
         "cve_ids",
@@ -320,12 +535,30 @@ def _create_excluded_metadata_keys(x: Union[List, Any]) -> List[str]:
 
 
 def _create_kb_catalog_url(kb_id: str) -> str:
-    """Create a URL for the Microsoft Update Catalog based on KB ID."""
-    return f"https://catalog.update.microsoft.com/Search.aspx?q={kb_id.replace('-', '')}" if pd.notna(kb_id) else ""
+    """Create a URL for the Microsoft Update Catalog.
+
+    Args:
+        kb_id (str): KB article ID
+
+    Returns:
+        str: Microsoft Update Catalog URL for the KB article
+    """
+    return (
+        f"https://catalog.update.microsoft.com/Search.aspx?q={kb_id.replace('-', '')}"
+        if pd.notna(kb_id)
+        else ""
+    )
 
 
 def _get_first_label(labels: Any) -> str:
-    """Get the first label from a list of labels, or return the label as is if not a list."""
+    """Get the first label from a list of labels.
+
+    Args:
+        labels (Any): Label or list of labels
+
+    Returns:
+        Any: First label if input is list, otherwise original input
+    """
     return labels[0] if isinstance(labels, list) else labels
 
 
@@ -335,7 +568,15 @@ def _map_package_type(x: str, mapping: Dict[str, str]) -> str:
 
 
 def _get_metadata_field(metadata: Dict[str, Any], field: str) -> Any:
-    """Retrieve a specific field from the metadata dictionary."""
+    """Retrieve a specific field from the metadata dictionary.
+
+    Args:
+        metadata (Dict[str, Any]): Metadata dictionary
+        field (str): Field name to retrieve
+
+    Returns:
+        Any: Field value if found, None otherwise
+    """
     return metadata.get(field) if metadata else None
 
 
@@ -348,7 +589,11 @@ def _sort_kb_ids(kb_ids: Union[List[str], str]) -> Union[List[str], str]:
 
 def _check_doc_processed(metadata: Dict[str, Any]) -> bool:
     """Check if a document has been processed based on its metadata."""
-    return bool(metadata.get("etl_processing_status", {}).get("document_processed", False))
+    return bool(
+        metadata.get("etl_processing_status", {}).get(
+            "document_processed", False
+        )
+    )
 
 
 def _create_excluded_update_metadata_keys(x: List[str]) -> List[str]:
@@ -358,7 +603,7 @@ def _create_excluded_update_metadata_keys(x: List[str]) -> List[str]:
         "node_label",
         "package_type",
         "published",
-        "downloadable_packages"
+        "downloadable_packages",
     }
     existing_keys = set(x if isinstance(x, list) else [])
     return list(existing_keys | base_keys)
@@ -376,9 +621,15 @@ def transform_products(products: List[Dict[str, Any]]) -> pd.DataFrame:
             "microsoft_edge_(chromium-based)": "edge",
             "microsoft_edge_(chromium-based)_extended_stable": "edge_ext",
         }
-        df["product_name"] = df["product_name"].apply(lambda x: _map_product_name(x, mapping_names))
-        df["product_architecture"] = df["product_architecture"].apply(lambda x: _map_architecture(x, mapping))
-        df["product_architecture"] = df["product_architecture"].replace("", "NA")
+        df["product_name"] = df["product_name"].apply(
+            lambda x: _map_product_name(x, mapping_names)
+        )
+        df["product_architecture"] = df["product_architecture"].apply(
+            lambda x: _map_architecture(x, mapping)
+        )
+        df["product_architecture"] = df["product_architecture"].replace(
+            "", "NA"
+        )
         df["product_version"] = df["product_version"].replace("", "NV")
         df["node_label"] = "Product"
         df["published"] = pd.to_datetime(df["published"])
@@ -398,10 +649,14 @@ def transform_products(products: List[Dict[str, Any]]) -> pd.DataFrame:
     return None
 
 
-def transform_product_builds(product_builds: List[Dict[str, Any]]) -> pd.DataFrame:
+def transform_product_builds(
+    product_builds: List[Dict[str, Any]],
+) -> pd.DataFrame:
     # clean up document dict from mongo to align with data models
     if product_builds:
-        df = pd.DataFrame(product_builds, columns=list(product_builds[0].keys()))
+        df = pd.DataFrame(
+            product_builds, columns=list(product_builds[0].keys())
+        )
 
         # Apply the process_kb_id function to the 'kb_id' column
         df["kb_id"] = df["kb_id"].apply(normalize_mongo_kb_id)
@@ -421,12 +676,20 @@ def transform_product_builds(product_builds: List[Dict[str, Any]]) -> pd.DataFra
             "information_disclosure": "disclosure",
             "elevation_of_privilege": "privilege_elevation",
         }
-        df["product_architecture"] = df["product_architecture"].apply(lambda x: _map_architecture(x, mapping_architectures))
-        df["product_architecture"] = df["product_architecture"].replace("", "NA")
+        df["product_architecture"] = df["product_architecture"].apply(
+            lambda x: _map_architecture(x, mapping_architectures)
+        )
+        df["product_architecture"] = df["product_architecture"].replace(
+            "", "NA"
+        )
         df["product_version"] = df["product_version"].replace("", "NV")
-        df["product_name"] = df["product_name"].apply(lambda x: _map_product_name(x, mapping_names))
+        df["product_name"] = df["product_name"].apply(
+            lambda x: _map_product_name(x, mapping_names)
+        )
         df["impact_type"] = df["impact_type"].str.lower().str.replace(" ", "_")
-        df["impact_type"] = df["impact_type"].apply(lambda x: _map_impact_type(x, mapping_impacts))
+        df["impact_type"] = df["impact_type"].apply(
+            lambda x: _map_impact_type(x, mapping_impacts)
+        )
         df["impact_type"] = df["impact_type"].fillna("NIT")
         df["severity_type"] = df["severity_type"].str.lower()
         df["severity_type"] = df["severity_type"].fillna("NST")
@@ -464,7 +727,7 @@ async def async_generate_summary(text: str) -> Optional[str]:
     if pd.isna(text) or text is None or str(text).strip() == "":
         return None
 
-    marvin_summary_prompt = """
+    marvin_summary_prompt = r"""
         Generate a highly technical summary of the following Microsoft KB Article text. This summary is intended for advanced system administrators and IT professionals specializing in modern device management with Intune MDM, Entra ID, Windows 365, and Azure.
 
         **Structure your response as follows:**
@@ -560,7 +823,7 @@ async def generate_summaries(texts: pd.Series) -> List[str]:
 
 def transform_kb_articles(
     kb_articles_windows: List[Dict[str, Any]],
-    kb_articles_edge: List[Dict[str, Any]]
+    kb_articles_edge: List[Dict[str, Any]],
 ) -> pd.DataFrame:
     """Transform KB articles data into a pandas DataFrame."""
     master_columns = [
@@ -578,7 +841,7 @@ def transform_kb_articles(
         "node_label",
         "article_url",
         "summary",
-        "update_package_url"
+        "update_package_url",
     ]
     dtypes = {
         'node_id': 'str',
@@ -595,14 +858,12 @@ def transform_kb_articles(
         'node_label': 'str',
         'article_url': 'str',
         'summary': 'str',
-        'update_package_url': 'str'
+        'update_package_url': 'str',
     }
 
     # Process Windows KB articles
     if kb_articles_windows:
-        df_windows = pd.DataFrame(
-            kb_articles_windows, columns=master_columns
-        )
+        df_windows = pd.DataFrame(kb_articles_windows, columns=master_columns)
         # Filter out duplicates before other operations
         df_windows = df_windows.drop_duplicates(subset=["kb_id"], keep="first")
 
@@ -614,48 +875,64 @@ def transform_kb_articles(
         df_windows = validate_and_adjust_columns(df_windows, master_columns)
         df_windows["node_label"] = "KBArticle"
         df_windows["published"] = pd.to_datetime(df_windows["published"])
-        df_windows["excluded_embed_metadata_keys"] = [[] for _ in range(len(df_windows))]
+        df_windows["excluded_embed_metadata_keys"] = [
+            [] for _ in range(len(df_windows))
+        ]
         df_windows["excluded_embed_metadata_keys"] = df_windows[
             "excluded_embed_metadata_keys"
         ].apply(_create_excluded_metadata_keys)
 
         # Initialize metadata with etl_processing_status
-        df_windows["metadata"] = [{
-            "etl_processing_status": {
-                "document_processed": True,
-                "entities_extracted": False,
-                "graph_prepared": False,
-                "vector_prepared": False,
-                "last_processed_at": None,
-                "processing_version": "1.0",
+        df_windows["metadata"] = [
+            {
+                "etl_processing_status": {
+                    "document_processed": True,
+                    "entities_extracted": False,
+                    "graph_prepared": False,
+                    "vector_prepared": False,
+                    "last_processed_at": None,
+                    "processing_version": "1.0",
+                }
             }
-        } for _ in range(len(df_windows))]
+            for _ in range(len(df_windows))
+        ]
 
         try:
             loop = asyncio.get_event_loop()
         except RuntimeError:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
-        logging.info(f"Generating summaries for {df_windows.shape[0]} Windows-based KBs")
+        logging.info(
+            f"Generating summaries for {df_windows.shape[0]} Windows-based KBs"
+        )
 
         # Split into docs with and without summaries
         df_windows_has_summary = df_windows[
-            df_windows["summary"].notna() &
-            df_windows["summary"].fillna("").astype(str).str.strip().ne("")
+            df_windows["summary"].notna()
+            & df_windows["summary"].fillna("").astype(str).str.strip().ne("")
         ].copy()
         df_windows_no_summary = df_windows[
-            df_windows["summary"].isna() |
-            df_windows["summary"].fillna("").astype(str).str.strip().eq("")
+            df_windows["summary"].isna()
+            | df_windows["summary"].fillna("").astype(str).str.strip().eq("")
         ].copy()
 
-        logging.info(f"Windows-based KBs with no summaries: {df_windows_no_summary.shape[0]}")
+        logging.info(
+            "Windows-based KBs with no summaries:"
+            f" {df_windows_no_summary.shape[0]}"
+        )
         df_windows_no_summary["summary"] = ""
-        summaries = loop.run_until_complete(generate_summaries(df_windows_no_summary["text"]))
+        summaries = loop.run_until_complete(
+            generate_summaries(df_windows_no_summary["text"])
+        )
         df_windows_no_summary["summary"] = summaries
 
         # Add update package URL for Windows KB articles
-        df_windows_no_summary["update_package_url"] = df_windows_no_summary["kb_id"].apply(_create_kb_catalog_url)
-        df_windows_has_summary["update_package_url"] = df_windows_has_summary["kb_id"].apply(_create_kb_catalog_url)
+        df_windows_no_summary["update_package_url"] = df_windows_no_summary[
+            "kb_id"
+        ].apply(_create_kb_catalog_url)
+        df_windows_has_summary["update_package_url"] = df_windows_has_summary[
+            "kb_id"
+        ].apply(_create_kb_catalog_url)
         df_windows = pd.concat([df_windows_has_summary, df_windows_no_summary])
         df_windows.sort_values(by="kb_id", ascending=True, inplace=True)
 
@@ -680,25 +957,34 @@ def transform_kb_articles(
         df_edge = validate_and_adjust_columns(df_edge, master_columns)
         df_edge["node_label"] = "KBArticle"
         df_edge["published"] = pd.to_datetime(df_edge["published"])
-        df_edge["excluded_embed_metadata_keys"] = [[] for _ in range(len(df_edge))]
+        df_edge["excluded_embed_metadata_keys"] = [
+            [] for _ in range(len(df_edge))
+        ]
         df_edge["excluded_embed_metadata_keys"] = df_edge[
             "excluded_embed_metadata_keys"
         ].apply(_create_excluded_metadata_keys)
 
         # Initialize metadata with etl_processing_status
-        df_edge["metadata"] = [{
-            "etl_processing_status": {
-                "document_processed": True,
-                "entities_extracted": False,
-                "graph_prepared": False,
-                "vector_prepared": False,
-                "last_processed_at": None,
-                "processing_version": "1.0",
+        df_edge["metadata"] = [
+            {
+                "etl_processing_status": {
+                    "document_processed": True,
+                    "entities_extracted": False,
+                    "graph_prepared": False,
+                    "vector_prepared": False,
+                    "last_processed_at": None,
+                    "processing_version": "1.0",
+                }
             }
-        } for _ in range(len(df_edge))]
+            for _ in range(len(df_edge))
+        ]
 
         df_edge["summary"] = ""
-        df_edge["update_package_url"] = ""  # Initialize update_package_url with empty strings for Edge KB articles
+        df_edge[
+            "update_package_url"
+        ] = (  # Initialize update_package_url with empty strings for Edge KB articles
+            ""
+        )
         df_edge.sort_values(by="kb_id", ascending=True, inplace=True)
         print(f"Total Edge-based KBs transformed: {df_edge.shape[0]}")
 
@@ -717,16 +1003,16 @@ def transform_kb_articles(
                     try:
                         df[col] = df[col].astype(dtype)
                     except (ValueError, TypeError):
-                        print(f"Warning: Could not convert column {col} to {dtype}")
+                        print(
+                            f"Warning: Could not convert column {col} to"
+                            f" {dtype}"
+                        )
             dfs_to_concat.append(df)
 
     # Only concatenate if we have DataFrames to combine
     if dfs_to_concat:
         kb_articles_combined_df = pd.concat(
-            dfs_to_concat,
-            axis=0,
-            ignore_index=True,
-            copy=True
+            dfs_to_concat, axis=0, ignore_index=True, copy=True
         )
 
         kb_articles_combined_df = kb_articles_combined_df.rename(
@@ -734,13 +1020,20 @@ def transform_kb_articles(
         )
 
         # Convert build_number to tuple for comparison (if it's a list)
-        kb_articles_combined_df["build_number_tuple"] = kb_articles_combined_df[
-            "build_number"
-        ].apply(lambda x: tuple(x) if isinstance(x, list) else x)
+        kb_articles_combined_df["build_number_tuple"] = (
+            kb_articles_combined_df["build_number"].apply(
+                lambda x: tuple(x) if isinstance(x, list) else x
+            )
+        )
 
         # Drop duplicates keeping first occurrence
         kb_articles_combined_df = kb_articles_combined_df.drop_duplicates(
-            subset=["build_number_tuple", "kb_id", "published", "product_build_id"],
+            subset=[
+                "build_number_tuple",
+                "kb_id",
+                "published",
+                "product_build_id",
+            ],
             keep="first",
         )
 
@@ -749,7 +1042,10 @@ def transform_kb_articles(
             columns=["build_number_tuple"]
         )
 
-        print(f"Total KB articles transformed: {kb_articles_combined_df.shape[0]}")
+        print(
+            "Total KB articles transformed:"
+            f" {kb_articles_combined_df.shape[0]}"
+        )
         return kb_articles_combined_df
     else:
         print("No KB articles to transform.")
@@ -757,9 +1053,11 @@ def transform_kb_articles(
 
 
 def process_downloadable_packages(
-    packages: Union[str, List[Dict[str, Any]], None]
+    packages: Union[str, List[Dict[str, Any]], None],
 ) -> str:
-    if packages is None or (isinstance(packages, str) and packages.strip() == ""):
+    if packages is None or (
+        isinstance(packages, str) and packages.strip() == ""
+    ):
         return json.dumps([], default=custom_json_serializer)
 
     if isinstance(packages, str):
@@ -780,20 +1078,30 @@ def process_downloadable_packages(
     return json.dumps(packages, default=custom_json_serializer)
 
 
-def transform_update_packages(update_packages: List[Dict[str, Any]]) -> pd.DataFrame:
+def transform_update_packages(
+    update_packages: List[Dict[str, Any]],
+) -> pd.DataFrame:
     mapping_types = {"security_hotpatch_update": "security_hotpatch"}
     # clean up document dict from mongo to align with data models
     if update_packages:
-        df = pd.DataFrame(update_packages, columns=list(update_packages[0].keys()))
-        df["package_type"] = df["package_type"].str.lower().str.replace(" ", "_")
-        df["package_type"] = df["package_type"].apply(lambda x: _map_package_type(x, mapping_types))
+        df = pd.DataFrame(
+            update_packages, columns=list(update_packages[0].keys())
+        )
+        df["package_type"] = (
+            df["package_type"].str.lower().str.replace(" ", "_")
+        )
+        df["package_type"] = df["package_type"].apply(
+            lambda x: _map_package_type(x, mapping_types)
+        )
         # df["downloadable_packages"] = df["downloadable_packages"].apply(
         #     process_downloadable_packages
         # )
         df["node_label"] = "UpdatePackage"
         df["published"] = pd.to_datetime(df["published"])
         df["excluded_embed_metadata_keys"] = [[] for _ in range(len(df))]
-        df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(_create_excluded_update_metadata_keys)
+        df["excluded_embed_metadata_keys"] = df[
+            "excluded_embed_metadata_keys"
+        ].apply(_create_excluded_update_metadata_keys)
         df = df.rename(columns={"id": "node_id"})
         # print(df["downloadable_packages"])
         print(f"Total Update Packages transformed: {df.shape[0]}")
@@ -801,8 +1109,16 @@ def transform_update_packages(update_packages: List[Dict[str, Any]]) -> pd.DataF
         return df
     else:
         print("No Update Packages to transform.")
-        return pd.DataFrame(columns=["node_id", "package_type", "node_label", "published",
-                                   "excluded_embed_metadata_keys", "downloadable_packages"])
+        return pd.DataFrame(
+            columns=[
+                "node_id",
+                "package_type",
+                "node_label",
+                "published",
+                "excluded_embed_metadata_keys",
+                "downloadable_packages",
+            ]
+        )
 
 
 def convert_to_list(value):
@@ -838,10 +1154,16 @@ def make_json_safe_metadata(metadata: Dict[str, Any]) -> Dict[str, Any]:
             elif isinstance(value, (list, tuple)):
                 # Handle lists/tuples
                 safe_metadata[key] = [
-                    make_json_safe_metadata(item) if isinstance(item, dict) else item
+                    (
+                        make_json_safe_metadata(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
                     for item in value
                 ]
-            elif isinstance(value, (float, np.float32, np.float64)) and np.isnan(value):
+            elif isinstance(
+                value, (float, np.float32, np.float64)
+            ) and np.isnan(value):
                 # Handle NaN values
                 safe_metadata[key] = None
             elif isinstance(value, (np.int64, np.int32)):
@@ -863,21 +1185,97 @@ def make_json_safe_metadata(metadata: Dict[str, Any]) -> Dict[str, Any]:
 
 def remove_generic_text(text, threshold=80, max_match_length=500):
 
-    initial_char_count = len(text)
-    problematic_pattern = r"This metric describes the conditions beyond the attacker's control that must exist in order to exploit the vulnerability. Such conditions may require the collection of more information about the target or computational exceptions. The assessment of this metric excludes any requirements for user interaction in order to exploit the vulnerability. If a specific configuration is required for an attack to succeed, the Base metrics should be scored assuming the vulnerable component is in that configuration."
+    # initial_char_count = len(text)
+    problematic_pattern = (
+        r"This metric describes the conditions beyond the attacker's control"
+        r" that must exist in order to exploit the vulnerability. Such"
+        r" conditions may require the collection of more information about the"
+        r" target or computational exceptions. The assessment of this metric"
+        r" excludes any requirements for user interaction in order to exploit"
+        r" the vulnerability. If a specific configuration is required for an"
+        r" attack to succeed, the Base metrics should be scored assuming the"
+        r" vulnerable component is in that configuration."
+    )
     icon_pattern = r"[^\w\s]+\s+Subscribe\s+RSS\s+PowerShell\s+[^\w\s]+\s+API"
     generic_text_patterns = [
-        r"This metric reflects the context by which vulnerability exploitation is possible. The Base Score increases the more remote \(logically, and physically\) an attacker can be in order to exploit the vulnerable component.",
+        (
+            r"This metric reflects the context by which vulnerability"
+            r" exploitation is possible. The Base Score increases the more"
+            r" remote \(logically, and physically\) an attacker can be in"
+            r" order to exploit the vulnerable component."
+        ),
         problematic_pattern,
-        r"This metric describes the level of privileges an attacker must possess before successfully exploiting the vulnerability.",
-        r"This metric captures the requirement for a user, other than the attacker, to participate in the successful compromise the vulnerable component. This metric determines whether the vulnerability can be exploited solely at the will of the attacker, or whether a separate user \(or user-initiated process\) must participate in some manner.",
-        r"Does a successful attack impact a component other than the vulnerable component\? If so, the Base Score increases and the Confidentiality, Integrity and Authentication metrics should be scored relative to the impacted component.",
-        r"This metric measures the impact to the confidentiality of the information resources managed by a software component due to a successfully exploited vulnerability. Confidentiality refers to limiting information access and disclosure to only authorized users, as well as preventing access by, or disclosure to, unauthorized ones.",
-        r"This metric measures the impact to integrity of a successfully exploited vulnerability. Integrity refers to the trustworthiness and veracity of information.",
-        r"This metric measures the impact to the availability of the impacted component resulting from a successfully exploited vulnerability. It refers to the loss of availability of the impacted component itself, such as a networked service \(e.g., web, database, email\). Since availability refers to the accessibility of information resources, attacks that consume network bandwidth, processor cycles, or disk space all impact the availability of an impacted component.",
-        r"This metric measures the likelihood of the vulnerability being attacked, and is typically based on the current state of exploit techniques, public availability of exploit code, or active, 'in-the-wild' exploitation.",
-        r"The Remediation Level of a vulnerability is an important factor for prioritization. The typical vulnerability is unpatched when initially published. Workarounds or hotfixes may offer interim remediation until an official patch or upgrade is issued. Each of these respective stages adjusts the temporal score downwards, reflecting the decreasing urgency as remediation becomes final.",
-        r"This metric measures the degree of confidence in the existence of the vulnerability and the credibility of the known technical details. Sometimes only the existence of vulnerabilities are publicized, but without specific details. For example, an impact may be recognized as undesirable, but the root cause may not be known. The vulnerability may later be corroborated by research which suggests where the vulnerability may lie, though the research may not be certain. Finally, a vulnerability may be confirmed through acknowledgement by the author or vendor of the affected technology. The urgency of a vulnerability is higher when a vulnerability is known to exist with certainty. This metric also suggests the level of technical knowledge available to would-be attackers.",
+        (
+            r"This metric describes the level of privileges an attacker must"
+            r" possess before successfully exploiting the vulnerability."
+        ),
+        (
+            r"This metric captures the requirement for a user, other than the"
+            r" attacker, to participate in the successful compromise the"
+            r" vulnerable component. This metric determines whether the"
+            r" vulnerability can be exploited solely at the will of the"
+            r" attacker, or whether a separate user \(or user-initiated"
+            r" process\) must participate in some manner."
+        ),
+        (
+            r"Does a successful attack impact a component other than the"
+            r" vulnerable component\? If so, the Base Score increases and the"
+            r" Confidentiality, Integrity and Authentication metrics should be"
+            r" scored relative to the impacted component."
+        ),
+        (
+            r"This metric measures the impact to the confidentiality of the"
+            r" information resources managed by a software component due to a"
+            r" successfully exploited vulnerability. Confidentiality refers to"
+            r" limiting information access and disclosure to only authorized"
+            r" users, as well as preventing access by, or disclosure to,"
+            r" unauthorized ones."
+        ),
+        (
+            r"This metric measures the impact to integrity of a successfully"
+            r" exploited vulnerability. Integrity refers to the"
+            r" trustworthiness and veracity of information."
+        ),
+        (
+            r"This metric measures the impact to the availability of the"
+            r" impacted component resulting from a successfully exploited"
+            r" vulnerability. It refers to the loss of availability of the"
+            r" impacted component itself, such as a networked service \(e.g.,"
+            r" web, database, email\). Since availability refers to the"
+            r" accessibility of information resources, attacks that consume"
+            r" network bandwidth, processor cycles, or disk space all impact"
+            r" the availability of an impacted component."
+        ),
+        (
+            r"This metric measures the likelihood of the vulnerability being"
+            r" attacked, and is typically based on the current state of"
+            r" exploit techniques, public availability of exploit code, or"
+            r" active, 'in-the-wild' exploitation."
+        ),
+        (
+            r"The Remediation Level of a vulnerability is an important factor"
+            r" for prioritization. The typical vulnerability is unpatched when"
+            r" initially published. Workarounds or hotfixes may offer interim"
+            r" remediation until an official patch or upgrade is issued. Each"
+            r" of these respective stages adjusts the temporal score"
+            r" downwards, reflecting the decreasing urgency as remediation"
+            r" becomes final."
+        ),
+        (
+            r"This metric measures the degree of confidence in the existence"
+            r" of the vulnerability and the credibility of the known technical"
+            r" details. Sometimes only the existence of vulnerabilities are"
+            r" publicized, but without specific details. For example, an"
+            r" impact may be recognized as undesirable, but the root cause may"
+            r" not be known. The vulnerability may later be corroborated by"
+            r" research which suggests where the vulnerability may lie, though"
+            r" the research may not be certain. Finally, a vulnerability may"
+            r" be confirmed through acknowledgement by the author or vendor of"
+            r" the affected technology. The urgency of a vulnerability is"
+            r" higher when a vulnerability is known to exist with certainty."
+            r" This metric also suggests the level of technical knowledge"
+            r" available to would-be attackers."
+        ),
         r"New\s+On this page\s+\ue70d",
         icon_pattern,
     ]
@@ -918,7 +1316,9 @@ def remove_generic_text(text, threshold=80, max_match_length=500):
                         # print(f"Pattern segment skipped in fuzzy matching due to length or low score: {segment[:30]}... (Score: {score})")
                         pass
 
-            elif pattern == icon_pattern:  # Fuzzy matching for the icon pattern
+            elif (
+                pattern == icon_pattern
+            ):  # Fuzzy matching for the icon pattern
                 if re.search(icon_pattern, modified_text):
                     modified_text = re.sub(icon_pattern, "", modified_text)
                     patterns_found += 1
@@ -932,8 +1332,13 @@ def remove_generic_text(text, threshold=80, max_match_length=500):
                             segment, [modified_text], scorer=fuzz.partial_ratio
                         )
                         # Only replace if the match score is high and the length is reasonable
-                        if score >= threshold and len(best_match) < max_match_length:
-                            modified_text = modified_text.replace(best_match, "")
+                        if (
+                            score >= threshold
+                            and len(best_match) < max_match_length
+                        ):
+                            modified_text = modified_text.replace(
+                                best_match, ""
+                            )
                             patterns_found += 1
                             # print(f"Icon pattern segment removed using fuzzy matching: {segment} (Score: {score}) | modified_text len: {len(modified_text)}")
                         else:
@@ -968,55 +1373,47 @@ def extract_cve_category_from_description(description: str) -> str:
             "remote execution",
             "arbitrary code execution",
             "code execution",
-            "command execution"
+            "command execution",
         ],
         "privilege_elevation": [
             "elevation of privilege",
             "privilege elevation",
             "escalation of privilege",
-            "privilege escalation"
+            "privilege escalation",
         ],
         "dos": [
             "denial of service",
             "denial-of-service",
             "service denial",
-            "resource exhaustion"
+            "resource exhaustion",
         ],
         "disclosure": [
             "information disclosure",
             "information leak",
             "data disclosure",
             "memory leak",
-            "sensitive information"
+            "sensitive information",
         ],
         "tampering": [
             "tampering",
             "data manipulation",
-            "unauthorized modification"
+            "unauthorized modification",
         ],
-        "spoofing": [
-            "spoofing",
-            "impersonation",
-            "authentication bypass"
-        ],
+        "spoofing": ["spoofing", "impersonation", "authentication bypass"],
         "feature_bypass": [
             "security feature bypass",
             "security bypass",
-            "protection bypass"
+            "protection bypass",
         ],
-        "availability": [
-            "availability",
-            "system crash",
-            "system hang"
-        ],
+        "availability": ["availability", "system crash", "system hang"],
         "mitm": [
             "man in the middle",
             "man in the middle attack",
             "mitm",
             "middle man attack",
             "eavesdropping attack",
-            "interception attack"
-        ]
+            "interception attack",
+        ],
     }
 
     # Priority order for categories (most severe/specific first)
@@ -1029,7 +1426,7 @@ def extract_cve_category_from_description(description: str) -> str:
         "spoofing",
         "feature_bypass",
         "availability",
-        "mitm"
+        "mitm",
     ]
 
     # Find all matching categories
@@ -1045,14 +1442,19 @@ def extract_cve_category_from_description(description: str) -> str:
 
     return "NC"
 
+
 # Begin MSRC transformer =====================================
 
 
-def _prepare_base_dataframe(msrc_posts: List[Dict[str, Any]], metadata_fields_to_move: List[str]) -> pd.DataFrame:
+def _prepare_base_dataframe(
+    msrc_posts: List[Dict[str, Any]], metadata_fields_to_move: List[str]
+) -> pd.DataFrame:
     """Prepare the initial dataframe from MSRC posts."""
     df = pd.DataFrame(msrc_posts, columns=list(msrc_posts[0].keys()))
     for field in metadata_fields_to_move:
-        df[field] = df["metadata"].apply(lambda x, field=field: x.get(field, None))
+        df[field] = df["metadata"].apply(
+            lambda x, field=field: x.get(field, None)
+        )
     return df
 
 
@@ -1072,11 +1474,13 @@ def _apply_common_transformations(df: pd.DataFrame) -> pd.DataFrame:
         "Remote Code Execution": "remote_code_execution",
         "Security Feature Bypass": "feature_bypass",
         "No Category": "NC",
-        "None": "none"
+        "None": "none",
     }
     # Map display values to their corresponding keys
     # For example, "Information Disclosure" -> "disclosure"
-    df["cve_category"] = df["cve_category"].map(cve_category_choices).fillna("NC")
+    df["cve_category"] = (
+        df["cve_category"].map(cve_category_choices).fillna("NC")
+    )
     df["severity_type"] = df["severity_type"].str.lower()
     df["severity_type"] = df["severity_type"].fillna("NST")
     # df["metadata"] = df["metadata"].apply(make_json_safe_metadata)
@@ -1085,7 +1489,10 @@ def _apply_common_transformations(df: pd.DataFrame) -> pd.DataFrame:
     df["product_build_ids"] = df["product_build_ids"].apply(convert_to_list)
     df["node_label"] = "MSRCPost"
     df["published"] = pd.to_datetime(df["published"])
-    df["excluded_embed_metadata_keys"] = df["excluded_embed_metadata_keys"].apply(
+    df["excluded_embed_metadata_keys"] = [[] for _ in range(len(df))]
+    df["excluded_embed_metadata_keys"] = df[
+        "excluded_embed_metadata_keys"
+    ].apply(
         lambda x: list(
             set(x if isinstance(x, list) else [])
             | {
@@ -1116,16 +1523,28 @@ def _extract_nvd_properties(metadata_dict: Dict) -> Dict[str, Any]:
 
     # Base properties that get prefixed
     base_properties = [
-        "attack_complexity", "attack_vector", "availability",
-        "base_score", "base_score_num", "base_score_rating",
-        "confidentiality", "exploitability_score", "impact_score",
-        "integrity", "privileges_required", "scope",
-        "user_interaction", "vector"
+        "attack_complexity",
+        "attack_vector",
+        "availability",
+        "base_score",
+        "base_score_num",
+        "base_score_rating",
+        "confidentiality",
+        "exploitability_score",
+        "impact_score",
+        "integrity",
+        "privileges_required",
+        "scope",
+        "user_interaction",
+        "vector",
     ]
 
     # Add prefixed properties (nist_, cna_, adp_)
     for prefix in ["nist_", "cna_", "adp_"]:
-        nvd_properties.update({f"{prefix}{prop}": metadata_dict.get(f"{prefix}{prop}") for prop in base_properties})
+        nvd_properties.update({
+            f"{prefix}{prop}": metadata_dict.get(f"{prefix}{prop}")
+            for prop in base_properties
+        })
 
     # Add non-prefixed properties
     nvd_properties.update({
@@ -1134,22 +1553,31 @@ def _extract_nvd_properties(metadata_dict: Dict) -> Dict[str, Any]:
         "cwe_id": metadata_dict.get("cwe_id"),
         "cwe_name": metadata_dict.get("cwe_name"),
         "cwe_source": metadata_dict.get("cwe_source"),
-        "cwe_url": metadata_dict.get("cwe_url")
+        "cwe_url": metadata_dict.get("cwe_url"),
     })
 
     return nvd_properties
 
 
 def transform_msrc_posts(
-    msrc_posts: List[Dict[str, Any]],
-    process_all: bool = False
+    msrc_posts: List[Dict[str, Any]], process_all: bool = False
 ) -> pd.DataFrame:
     """Transform MSRC posts, handling both new and pre-processed records efficiently."""
     logging.info(f"process New or All: {'All' if process_all else 'New'}")
     metadata_fields_to_move = [
-        "revision", "title", "description", "source", "severity_type",
-        "post_type", "post_id", "summary", "build_numbers",
-        "published", "product_build_ids", "collection", "impact_type",
+        "revision",
+        "title",
+        "description",
+        "source",
+        "severity_type",
+        "post_type",
+        "post_id",
+        "summary",
+        "build_numbers",
+        "published",
+        "product_build_ids",
+        "collection",
+        "impact_type",
     ]
 
     if not msrc_posts:
@@ -1161,12 +1589,18 @@ def transform_msrc_posts(
 
     # Ensure metadata column exists and has proper structure
     if 'metadata' not in df.columns:
-        df['metadata'] = [{'etl_processing_status': {}} for _ in range(len(df))]
+        df['metadata'] = [
+            {'etl_processing_status': {}} for _ in range(len(df))
+        ]
     else:
         df['metadata'] = df['metadata'].apply(
             lambda x: {
                 **(x if isinstance(x, dict) else {}),
-                'etl_processing_status': x.get('etl_processing_status', {}) if isinstance(x, dict) else {}
+                'etl_processing_status': (
+                    x.get('etl_processing_status', {})
+                    if isinstance(x, dict)
+                    else {}
+                ),
             }
         )
 
@@ -1175,7 +1609,10 @@ def transform_msrc_posts(
     preprocessed_records = df[is_processed].copy()
     new_records = df[~is_processed].copy()
 
-    logging.info(f"Found {len(preprocessed_records)} pre-processed records and {len(new_records)} new records")
+    logging.info(
+        f"Found {len(preprocessed_records)} pre-processed records and"
+        f" {len(new_records)} new records"
+    )
 
     # Apply transformations to new records first
     if not new_records.empty:
@@ -1192,8 +1629,8 @@ def transform_msrc_posts(
                     'graph_prepared': False,
                     'vector_prepared': False,
                     'last_processed_at': current_time,
-                    'processing_version': '1.0'
-                }
+                    'processing_version': '1.0',
+                },
             }
         )
 
@@ -1201,44 +1638,73 @@ def transform_msrc_posts(
     if process_all or not preprocessed_records.empty:
         # Define base properties that get prefixed
         base_properties = [
-            "attack_complexity", "attack_vector", "availability",
-            "base_score", "base_score_num", "base_score_rating",
-            "confidentiality", "exploitability_score", "impact_score",
-            "integrity", "privileges_required", "scope",
-            "user_interaction", "vector"
+            "attack_complexity",
+            "attack_vector",
+            "availability",
+            "base_score",
+            "base_score_num",
+            "base_score_rating",
+            "confidentiality",
+            "exploitability_score",
+            "impact_score",
+            "integrity",
+            "privileges_required",
+            "scope",
+            "user_interaction",
+            "vector",
         ]
 
         # Build full property list with prefixes
         nvd_properties = []
         for prefix in ["nist_", "cna_", "adp_"]:
-            nvd_properties.extend(f"{prefix}{prop}" for prop in base_properties)
+            nvd_properties.extend(
+                f"{prefix}{prop}" for prop in base_properties
+            )
 
         # Add non-prefixed properties
         nvd_properties.extend([
-            "nvd_description", "nvd_published_date",
-            "cwe_id", "cwe_name", "cwe_source", "cwe_url"
+            "nvd_description",
+            "nvd_published_date",
+            "cwe_id",
+            "cwe_name",
+            "cwe_source",
+            "cwe_url",
         ])
 
         # Extract NVD properties for all records (both preprocessed and new)
         if not preprocessed_records.empty:
             for nvd_prop in nvd_properties:
-                preprocessed_records[nvd_prop] = preprocessed_records['metadata'].apply(
-                    lambda x, nvd_prop=nvd_prop: _extract_nvd_properties(x).get(nvd_prop)
+                preprocessed_records[nvd_prop] = preprocessed_records[
+                    'metadata'
+                ].apply(
+                    lambda x, nvd_prop=nvd_prop: _extract_nvd_properties(
+                        x
+                    ).get(nvd_prop)
                 )
-            preprocessed_records = _apply_common_transformations(preprocessed_records)
+            preprocessed_records = _apply_common_transformations(
+                preprocessed_records
+            )
 
         if not new_records.empty:
             for nvd_prop in nvd_properties:
                 new_records[nvd_prop] = new_records['metadata'].apply(
-                    lambda x, nvd_prop=nvd_prop: _extract_nvd_properties(x).get(nvd_prop)
+                    lambda x, nvd_prop=nvd_prop: _extract_nvd_properties(
+                        x
+                    ).get(nvd_prop)
                 )
 
-        records_to_process = pd.concat([preprocessed_records, new_records]) if not preprocessed_records.empty else new_records
+        records_to_process = (
+            pd.concat([preprocessed_records, new_records])
+            if not preprocessed_records.empty
+            else new_records
+        )
         logging.info("Processing all records as requested")
     else:
         records_to_process = new_records
         if not preprocessed_records.empty:
-            logging.info(f"Skipping {len(preprocessed_records)} pre-processed records")
+            logging.info(
+                f"Skipping {len(preprocessed_records)} pre-processed records"
+            )
 
     # Process records if there are any to process
     if not records_to_process.empty:
@@ -1248,19 +1714,35 @@ def transform_msrc_posts(
             num_cves=num_cves, target_time_per_cve=4.0
         )
         estimated_minutes = scraping_params.estimate_total_time(num_cves) / 60
-        print(f"Estimated processing time for {num_cves} records: {estimated_minutes:.1f} minutes")
+        print(
+            f"Estimated processing time for {num_cves} records:"
+            f" {estimated_minutes:.1f} minutes"
+        )
 
         nvd_extractor = NVDDataExtractor(
             properties_to_extract=[
                 # Base metrics
-                "base_score", "base_score_num", "base_score_rating",
-                "vector", "impact_score", "exploitability_score",
-                "attack_vector", "attack_complexity", "privileges_required",
-                "user_interaction", "scope", "confidentiality", "integrity",
+                "base_score",
+                "base_score_num",
+                "base_score_rating",
+                "vector",
+                "impact_score",
+                "exploitability_score",
+                "attack_vector",
+                "attack_complexity",
+                "privileges_required",
+                "user_interaction",
+                "scope",
+                "confidentiality",
+                "integrity",
                 "availability",
                 # Non-prefixed properties
-                "nvd_published_date", "nvd_description",
-                "cwe_id", "cwe_name", "cwe_source", "cwe_url"
+                "nvd_published_date",
+                "nvd_description",
+                "cwe_id",
+                "cwe_name",
+                "cwe_source",
+                "cwe_url",
             ],
             max_records=None,
             scraping_params=scraping_params,
@@ -1283,26 +1765,50 @@ def transform_msrc_posts(
                 # If the document has not been processed, it won't have a value for cve_category
                 for idx, row in enriched_records.iterrows():
                     if isinstance(row['cve_category'], (list, pd.Series)):
-                        logging.info(f"Row {idx} has non-scalar cve_category: {row['cve_category']}")
+                        logging.info(
+                            f"Row {idx} has non-scalar cve_category:"
+                            f" {row['cve_category']}"
+                        )
 
                 # Update CVE categories where needed
-                mask = (enriched_records['cve_category'].isin(['NC', '']))
+                mask = enriched_records['cve_category'].isin(['NC', ''])
 
-                enriched_records.loc[mask, 'cve_category'] = \
-                    enriched_records.loc[mask, 'nvd_description'].apply(extract_cve_category_from_description)
+                enriched_records.loc[mask, 'cve_category'] = (
+                    enriched_records.loc[mask, 'nvd_description'].apply(
+                        extract_cve_category_from_description
+                    )
+                )
 
                 # Log post-update values
                 for idx in enriched_records[mask].index:
-                    if isinstance(enriched_records.loc[idx, 'cve_category'], (list, pd.Series)):
-                        logging.warning(f"After NVD update: Row {idx} has non-scalar cve_category: {enriched_records.loc[idx, 'cve_category']}")
+                    if isinstance(
+                        enriched_records.loc[idx, 'cve_category'],
+                        (list, pd.Series),
+                    ):
+                        logging.warning(
+                            f"After NVD update: Row {idx} has non-scalar"
+                            " cve_category:"
+                            f" {enriched_records.loc[idx, 'cve_category']}"
+                        )
                     else:
-                        logging.info(f"After NVD update: Row {idx} cve_category: {enriched_records.loc[idx, 'cve_category']}")
+                        logging.info(
+                            f"After NVD update: Row {idx} cve_category:"
+                            f" {enriched_records.loc[idx, 'cve_category']}"
+                        )
 
                 # Log statistics about category updates
                 updated_count = mask.sum()
-                if updated_count > 0 and os.getenv('LOG_LEVEL', '').upper() == 'DEBUG':
-                    category_stats = enriched_records.loc[mask, 'cve_category'].value_counts()
-                    logging.info(f"Updated {updated_count} CVE categories from NVD descriptions")
+                if (
+                    updated_count > 0
+                    and os.getenv('LOG_LEVEL', '').upper() == 'DEBUG'
+                ):
+                    category_stats = enriched_records.loc[
+                        mask, 'cve_category'
+                    ].value_counts()
+                    logging.info(
+                        f"Updated {updated_count} CVE categories from NVD"
+                        " descriptions"
+                    )
                     logging.info("Category distribution for updated records:")
                     logging.info(f"\n{category_stats}")
 
@@ -1311,14 +1817,20 @@ def transform_msrc_posts(
 
                 def update_status(metadata):
                     if 'etl_processing_status' not in metadata:
-                        logging.info(f"No processing status found in metadata for {metadata['id']}")
+                        logging.info(
+                            "No processing status found in metadata for"
+                            f" {metadata['id']}"
+                        )
                         return metadata
                     metadata['etl_processing_status'].update({
                         'nvd_extracted': True,
-                        'last_processed_at': current_time
+                        'last_processed_at': current_time,
                     })
                     return metadata
-                enriched_records['metadata'] = enriched_records['metadata'].apply(update_status)
+
+                enriched_records['metadata'] = enriched_records[
+                    'metadata'
+                ].apply(update_status)
 
                 # Clean up impact_type if it exists
                 if 'impact_type' in enriched_records.columns:
@@ -1349,12 +1861,17 @@ def transform_msrc_posts(
         # Return all records with updates from enriched_records
         if not records_to_process.empty:
             records_to_process.loc[enriched_records.index] = enriched_records
-            records_to_process.sort_values(by="post_id", ascending=True, inplace=True)
+            records_to_process.sort_values(
+                by="post_id", ascending=True, inplace=True
+            )
             # records_to_process["metadata"] = records_to_process["metadata"].apply(make_json_safe_metadata)
-            print(f"Total MSRC Posts transformed: {records_to_process.shape[0]}")
+            print(
+                f"Total MSRC Posts transformed: {records_to_process.shape[0]}"
+            )
             return records_to_process
         logging.error("No records to process")
         return None
+
 
 # End MSRC transformer ========================================
 
@@ -1400,30 +1917,73 @@ def construct_natural_subject(noun_chunks, keywords, timestamp=None):
         (r"windows\s*11.*?23h2\b", "Windows 11 Version 23H2"),
         (r"windows\s*11.*?22h2\b", "Windows 11 Version 22H2"),
         (r"windows\s*11.*?21h2\b", "Windows 11 Version 21H2"),
-        (r"windows\s*11.*?(x64|64|64[\s-]*bit)\b", "Windows 11 for x64-based Systems"),
-        (r"windows\s*11.*?24h2.*?(x64|64|64[\s-]*bit)\b", "Windows 11 Version 24H2 for x64-based Systems"),
-        (r"windows\s*11.*?23h2.*?(x64|64|64[\s-]*bit)\b", "Windows 11 Version 23H2 for x64-based Systems"),
-        (r"windows\s*11.*?22h2.*?(x64|64|64[\s-]*bit)\b", "Windows 11 Version 22H2 for x64-based Systems"),
-        (r"windows\s*11.*?21h2.*?(x64|64|64[\s-]*bit)\b", "Windows 11 Version 21H2 for x64-based Systems"),
-
+        (
+            r"windows\s*11.*?(x64|64|64[\s-]*bit)\b",
+            "Windows 11 for x64-based Systems",
+        ),
+        (
+            r"windows\s*11.*?24h2.*?(x64|64|64[\s-]*bit)\b",
+            "Windows 11 Version 24H2 for x64-based Systems",
+        ),
+        (
+            r"windows\s*11.*?23h2.*?(x64|64|64[\s-]*bit)\b",
+            "Windows 11 Version 23H2 for x64-based Systems",
+        ),
+        (
+            r"windows\s*11.*?22h2.*?(x64|64|64[\s-]*bit)\b",
+            "Windows 11 Version 22H2 for x64-based Systems",
+        ),
+        (
+            r"windows\s*11.*?21h2.*?(x64|64|64[\s-]*bit)\b",
+            "Windows 11 Version 21H2 for x64-based Systems",
+        ),
         # Windows 10
         (r"windows\s*10\b", "Windows 10"),
         (r"windows\s*10.*?23h2\b", "Windows 10 Version 23H2"),
         (r"windows\s*10.*?22h2\b", "Windows 10 Version 22H2"),
         (r"windows\s*10.*?21h2\b", "Windows 10 Version 21H2"),
-        (r"windows\s*10.*?(x64|64|64[\s-]*bit)\b", "Windows 10 for x64-based Systems"),
-        (r"windows\s*10.*?(32|32[\s-]*bit)\b", "Windows 10 for 32-bit Systems"),
-        (r"windows\s*10.*?23h2.*?(x64|64|64[\s-]*bit)\b", "Windows 10 Version 23H2 for x64-based Systems"),
-        (r"windows\s*10.*?22h2.*?(x64|64|64[\s-]*bit)\b", "Windows 10 Version 22H2 for x64-based Systems"),
-        (r"windows\s*10.*?21h2.*?(x64|64|64[\s-]*bit)\b", "Windows 10 Version 21H2 for x64-based Systems"),
-        (r"windows\s*10.*?23h2.*?(32|32[\s-]*bit)\b", "Windows 10 Version 23H2 for 32-bit Systems"),
-        (r"windows\s*10.*?22h2.*?(32|32[\s-]*bit)\b", "Windows 10 Version 22H2 for 32-bit Systems"),
-        (r"windows\s*10.*?21h2.*?(32|32[\s-]*bit)\b", "Windows 10 Version 21H2 for 32-bit Systems"),
-
+        (
+            r"windows\s*10.*?(x64|64|64[\s-]*bit)\b",
+            "Windows 10 for x64-based Systems",
+        ),
+        (
+            r"windows\s*10.*?(32|32[\s-]*bit)\b",
+            "Windows 10 for 32-bit Systems",
+        ),
+        (
+            r"windows\s*10.*?23h2.*?(x64|64|64[\s-]*bit)\b",
+            "Windows 10 Version 23H2 for x64-based Systems",
+        ),
+        (
+            r"windows\s*10.*?22h2.*?(x64|64|64[\s-]*bit)\b",
+            "Windows 10 Version 22H2 for x64-based Systems",
+        ),
+        (
+            r"windows\s*10.*?21h2.*?(x64|64|64[\s-]*bit)\b",
+            "Windows 10 Version 21H2 for x64-based Systems",
+        ),
+        (
+            r"windows\s*10.*?23h2.*?(32|32[\s-]*bit)\b",
+            "Windows 10 Version 23H2 for 32-bit Systems",
+        ),
+        (
+            r"windows\s*10.*?22h2.*?(32|32[\s-]*bit)\b",
+            "Windows 10 Version 22H2 for 32-bit Systems",
+        ),
+        (
+            r"windows\s*10.*?21h2.*?(32|32[\s-]*bit)\b",
+            "Windows 10 Version 21H2 for 32-bit Systems",
+        ),
         # Edge
         (r"(?:microsoft\s*)?edge\b", "Microsoft Edge"),
-        (r"(?:microsoft\s*)?edge.*?chromium", "Microsoft Edge (Chromium-based)"),
-        (r"(?:microsoft\s*)?edge.*?extended", "Microsoft Edge (Chromium-based) Extended Stable")
+        (
+            r"(?:microsoft\s*)?edge.*?chromium",
+            "Microsoft Edge (Chromium-based)",
+        ),
+        (
+            r"(?:microsoft\s*)?edge.*?extended",
+            "Microsoft Edge (Chromium-based) Extended Stable",
+        ),
     ]
 
     def score_candidate_subject(text):
@@ -1442,52 +2002,54 @@ def construct_natural_subject(noun_chunks, keywords, timestamp=None):
         # Bonus for action words/verbs
         action_words = {
             # High-importance terms (score ~20)
-            'vulnerability': 20,   # signals security exposure
-            'exploit': 20,         # signals active or potential exploitation
-            'unsupported': 20,     # indicates environment is no longer supported
-            'escalation': 20,      # signals a major issue has been escalated
-            'critical': 20,        # indicates severity is very high
-            'noncompliant': 20,    # variant/spelling related to "non compliant"
-            'compliance': 20,      # already in your dictionary, but ensure spelled variants are covered
-
+            'vulnerability': 20,  # signals security exposure
+            'exploit': 20,  # signals active or potential exploitation
+            'unsupported': 20,  # indicates environment is no longer supported
+            'escalation': 20,  # signals a major issue has been escalated
+            'critical': 20,  # indicates severity is very high
+            'noncompliant': 20,  # variant/spelling related to "non compliant"
+            'compliance': (
+                20
+            ),  # already in your dictionary, but ensure spelled variants are covered
             # Medium-high terms (score ~15)
             # Use for important actions or states that often necessitate urgent attention.
-            'rollback': 15,        # signals rolling back patches/updates
-            'uninstall': 15,       # indicates removing problematic updates
-            'regression': 15,      # indicates the update caused something to break
-            'dependency': 15,      # blocking or required component
-            'deadline': 15,        # a crucial timeline factor
-            'enable': 15,          # action that might be part of config changes
-            'disable': 15,         # likewise, can cause compliance issues
-            'retry': 15,           # re-attempting an install or deploy
-            'priority': 15,        # indicates urgency or triage
-
+            'rollback': 15,  # signals rolling back patches/updates
+            'uninstall': 15,  # indicates removing problematic updates
+            'regression': 15,  # indicates the update caused something to break
+            'dependency': 15,  # blocking or required component
+            'deadline': 15,  # a crucial timeline factor
+            'enable': 15,  # action that might be part of config changes
+            'disable': 15,  # likewise, can cause compliance issues
+            'retry': 15,  # re-attempting an install or deploy
+            'priority': 15,  # indicates urgency or triage
             # Medium terms (score ~10)
             # Use for words that highlight a problem or state but may not be catastrophic.
-            'conflict': 10,        # signals potential library/dll/app conflict
-            'blocked': 10,         # signals an install/deploy step is halted
-            'outage': 10,          # can be partial or total downtime
-            'downtime': 10,        # indicates system unavailability
-            'stuck': 10,           # in-progress patching or installation that fails to complete
-            'error': 10,           # already in your dictionary
-            'fail': 10,            # already in your dictionary
-            'issue': 10,           # already in your dictionary
-            'stability': 10,       # signals reliability concerns
-            'performance': 10,     # signals performance impacts
-            'incompatibility': 10, # indicates mismatch in versions or dependencies
-            'corrupt': 10,         # already in your dictionary
-
+            'conflict': 10,  # signals potential library/dll/app conflict
+            'blocked': 10,  # signals an install/deploy step is halted
+            'outage': 10,  # can be partial or total downtime
+            'downtime': 10,  # indicates system unavailability
+            'stuck': (
+                10
+            ),  # in-progress patching or installation that fails to complete
+            'error': 10,  # already in your dictionary
+            'fail': 10,  # already in your dictionary
+            'issue': 10,  # already in your dictionary
+            'stability': 10,  # signals reliability concerns
+            'performance': 10,  # signals performance impacts
+            'incompatibility': (
+                10
+            ),  # indicates mismatch in versions or dependencies
+            'corrupt': 10,  # already in your dictionary
             # Lower terms (score ~5)
             # Use for words that might matter but aren’t always show-stoppers.
-            'delay': 5,            # non-critical postpone
-            'skip': 5,             # skipping a patch might be less urgent than failing
-            'unattended': 5,       # a mode of deployment
-            'interactive': 5,      # a mode of deployment
-            'schedule': 5,         # might matter, but not necessarily urgent
-            'notify': 5,           # indicates communication step
-            'log': 5,              # logging or log files
-            'backup': 5            # not always urgent, but relevant to patch strategy
-
+            'delay': 5,  # non-critical postpone
+            'skip': 5,  # skipping a patch might be less urgent than failing
+            'unattended': 5,  # a mode of deployment
+            'interactive': 5,  # a mode of deployment
+            'schedule': 5,  # might matter, but not necessarily urgent
+            'notify': 5,  # indicates communication step
+            'log': 5,  # logging or log files
+            'backup': 5,  # not always urgent, but relevant to patch strategy
         }
 
         for action, bonus in action_words.items():
@@ -1504,7 +2066,9 @@ def construct_natural_subject(noun_chunks, keywords, timestamp=None):
     # Score all candidates
     candidates = []
     if noun_chunks:
-        candidates.extend((chunk, score_candidate_subject(chunk)) for chunk in noun_chunks)
+        candidates.extend(
+            (chunk, score_candidate_subject(chunk)) for chunk in noun_chunks
+        )
     if keywords:
         candidates.extend((kw, score_candidate_subject(kw)) for kw in keywords)
 
@@ -1528,7 +2092,10 @@ def construct_natural_subject(noun_chunks, keywords, timestamp=None):
                 components += 1
             if any(arch in product_lower for arch in ["x64", "32-bit"]):
                 components += 1
-            if any(ver in product_lower for ver in ["21h2", "22h2", "23h2", "24h2"]):
+            if any(
+                ver in product_lower
+                for ver in ["21h2", "22h2", "23h2", "24h2"]
+            ):
                 components += 1
             if "extended" in product_lower:
                 components += 1
@@ -1589,7 +2156,9 @@ def construct_natural_subject(noun_chunks, keywords, timestamp=None):
     return "_".join(parts)
 
 
-def normalize_subject(subject, text=None, noun_chunks=None, keywords=None, timestamp=None):
+def normalize_subject(
+    subject, text=None, noun_chunks=None, keywords=None, timestamp=None
+):
     """
     Normalize a subject string, or generate one from metadata if cleaning removes all content.
     Prioritizes the raw subject while still cleaning it up for better indexing.
@@ -1601,6 +2170,7 @@ def normalize_subject(subject, text=None, noun_chunks=None, keywords=None, times
         keywords: Optional pre-extracted keywords
         timestamp: Optional ISO 8601 timestamp string. If not provided, current time will be used.
     """
+
     def get_fallback_subject():
         # Use provided timestamp or current time
         ts = timestamp or datetime.now().isoformat()
@@ -1610,9 +2180,13 @@ def normalize_subject(subject, text=None, noun_chunks=None, keywords=None, times
 
     if not subject:
         # Handle truly empty subjects (rare case)
-        constructed = construct_natural_subject(noun_chunks or [], keywords or [], timestamp)
+        constructed = construct_natural_subject(
+            noun_chunks or [], keywords or [], timestamp
+        )
         if constructed:
-            logging.warning(f"Generated subject for empty input: {constructed}")
+            logging.warning(
+                f"Generated subject for empty input: {constructed}"
+            )
             subject = constructed
         else:
             logging.error("No content available to generate subject")
@@ -1643,8 +2217,12 @@ def normalize_subject(subject, text=None, noun_chunks=None, keywords=None, times
 
     # If cleaning removed all content, try to construct from metadata
     if not subject or subject.isspace():
-        logging.warning("Subject empty after cleaning, attempting reconstruction")
-        constructed = construct_natural_subject(noun_chunks or [], keywords or [], timestamp)
+        logging.warning(
+            "Subject empty after cleaning, attempting reconstruction"
+        )
+        constructed = construct_natural_subject(
+            noun_chunks or [], keywords or [], timestamp
+        )
         if constructed:
             logging.info(f"Reconstructed subject from metadata: {constructed}")
             subject = constructed
@@ -1660,11 +2238,14 @@ def normalize_subject(subject, text=None, noun_chunks=None, keywords=None, times
 
     # If we have less than 3 meaningful words, try to enhance with constructed subject
     if len(words) < 3:
-        constructed = construct_natural_subject(noun_chunks or [], keywords or [], timestamp)
+        constructed = construct_natural_subject(
+            noun_chunks or [], keywords or [], timestamp
+        )
         if constructed:
             # Take the constructed subject but remove timestamp parts
             constructed_parts = [
-                part for part in constructed.split('_')
+                part
+                for part in constructed.split('_')
                 if not part.isdigit() and not re.match(r'\d{8}', part)
             ]
             if constructed_parts:
@@ -1672,7 +2253,10 @@ def normalize_subject(subject, text=None, noun_chunks=None, keywords=None, times
                 additional_parts = constructed_parts[2:]
                 if additional_parts:
                     words.extend(additional_parts)
-                    logging.info(f"Enhanced short subject with constructed parts: {words}")
+                    logging.info(
+                        "Enhanced short subject with constructed parts:"
+                        f" {words}"
+                    )
 
     if not words:
         return get_fallback_subject()
@@ -1697,16 +2281,22 @@ def group_emails(df, similarity_threshold=90):
     groups = defaultdict(list)
     for idx, row in df.iterrows():
         subject = row["metadata"].get("subject", "")
-        text = row.get("text") # DO NOT MODIFY
-        noun_chunks = row.get("metadata", {}).get("evaluated_noun_chunks", []) # DO NOT MODIFY
-        keywords = row.get("metadata", {}).get("evaluated_keywords", []) # DO NOT MODIFY
-        timestamp = row.get("metadata", {}).get("receivedDateTime") # DO NOT MODIFY
+        text = row.get("text")  # DO NOT MODIFY
+        noun_chunks = row.get("metadata", {}).get(
+            "evaluated_noun_chunks", []
+        )  # DO NOT MODIFY
+        keywords = row.get("metadata", {}).get(
+            "evaluated_keywords", []
+        )  # DO NOT MODIFY
+        timestamp = row.get("metadata", {}).get(
+            "receivedDateTime"
+        )  # DO NOT MODIFY
         normalized_subj = normalize_subject(
             subject,
             text=text,
             noun_chunks=noun_chunks,
             keywords=keywords,
-            timestamp=timestamp
+            timestamp=timestamp,
         )
         matched = False
         for key in groups:
@@ -1734,7 +2324,9 @@ def process_emails(df):
         )
 
         # Generate a unique thread_id based on the first email in the group
-        thread_id = generate_thread_id(df.loc[sorted_group[0], "metadata"]["subject"])
+        thread_id = generate_thread_id(
+            df.loc[sorted_group[0], "metadata"]["subject"]
+        )
 
         for i, idx in enumerate(sorted_group):
             df.at[idx, "thread_id"] = thread_id
@@ -1787,9 +2379,7 @@ def remove_metadata_fields(
 
 
 def group_by_normalized_subject(
-    df: pd.DataFrame,
-    subject_col: str = "subject",
-    threshold: int = 90
+    df: pd.DataFrame, subject_col: str = "subject", threshold: int = 90
 ) -> Dict[str, List[int]]:
     """
     Groups DataFrame indices by subject similarity.
@@ -1813,7 +2403,7 @@ def group_by_normalized_subject(
         raw_subject_groups[subject.lower()].append(idx)
 
     # Process each raw subject group
-    groups = defaultdict(list)
+    # groups = defaultdict(list)
     processed_subjects = {}  # Maps raw subject to normalized subject
 
     # First normalize all raw subjects
@@ -1821,17 +2411,17 @@ def group_by_normalized_subject(
         if raw_subject not in processed_subjects:
             # Get data from first row in group to normalize subject
             row = df.iloc[indices[0]]
-            text = row.get("text", "") # DO NOT MODIFY
-            noun_chunks = row.get("noun_chunks", []) # DO NOT MODIFY
-            keywords = row.get("keywords", []) # DO NOT MODIFY
-            timestamp = row.get("receivedDateTime") # DO NOT MODIFY
+            text = row.get("text", "")  # DO NOT MODIFY
+            noun_chunks = row.get("noun_chunks", [])  # DO NOT MODIFY
+            keywords = row.get("keywords", [])  # DO NOT MODIFY
+            timestamp = row.get("receivedDateTime")  # DO NOT MODIFY
 
             normalized_subj = normalize_subject(
                 raw_subject,
                 text=text,
                 noun_chunks=noun_chunks,
                 keywords=keywords,
-                timestamp=timestamp
+                timestamp=timestamp,
             )
             processed_subjects[raw_subject] = normalized_subj
 
@@ -1867,7 +2457,7 @@ def find_previous_thread_doc(
     normalized_subject: str,
     before_date: datetime,
     collection: str = "docstore",
-    lookback_days: int = 30
+    lookback_days: int = 30,
 ) -> Optional[Dict]:
     """
     Find the most recent historical document in a thread before a given date.
@@ -1885,7 +2475,9 @@ def find_previous_thread_doc(
     from application.services.document_service import DocumentService
 
     # Initialize document service
-    document_service = DocumentService(db_name="report_docstore", collection_name=collection)
+    document_service = DocumentService(
+        db_name="report_docstore", collection_name=collection
+    )
 
     # Create cache key using date only (since published dates are at midnight)
     cache_key = f"{collection}_{before_date.date()}"
@@ -1898,14 +2490,11 @@ def find_previous_thread_doc(
         # Query for processed documents within the lookback window
         query = {
             "metadata.collection": "patch_management",
-            "metadata.published": {
-                "$lt": query_end,
-                "$gte": lookback_start
-            },
-            "metadata.etl_processing_status.document_processed": True
+            "metadata.published": {"$lt": query_end, "$gte": lookback_start},
+            "metadata.etl_processing_status.document_processed": True,
         }
         logging.debug(
-            f"Querying MongoDB for historical documents:\n"
+            "Querying MongoDB for historical documents:\n"
             f"  End date: {query_end}\n"
             f"  Start date: {lookback_start}\n"
             f"  Query: {query}"
@@ -1913,19 +2502,29 @@ def find_previous_thread_doc(
 
         result = document_service.query_documents(
             query=query,
-            sort=[("metadata.subject", 1), ("metadata.receivedDateTime", 1)]
+            sort=[("metadata.subject", 1), ("metadata.receivedDateTime", 1)],
         )
 
         # Pre-process and sort docs by normalized subject for binary search
         processed_docs = []
         for doc in result["results"]:
-            doc_subject = doc.get("metadata", {}).get("subject", "") # DO NOT MODIFY
-            doc_text = doc.get("text", "") # DO NOT MODIFY
-            doc_noun_chunks = doc.get("metadata", {}).get("evaluated_noun_chunks", None)
-            doc_noun_chunks = [] if pd.isna(doc_noun_chunks) else doc_noun_chunks
-            doc_keywords = doc.get("metadata", {}).get("evaluated_keywords", None)
+            doc_subject = doc.get("metadata", {}).get(
+                "subject", ""
+            )  # DO NOT MODIFY
+            doc_text = doc.get("text", "")  # DO NOT MODIFY
+            doc_noun_chunks = doc.get("metadata", {}).get(
+                "evaluated_noun_chunks", None
+            )
+            doc_noun_chunks = (
+                [] if pd.isna(doc_noun_chunks) else doc_noun_chunks
+            )
+            doc_keywords = doc.get("metadata", {}).get(
+                "evaluated_keywords", None
+            )
             doc_keywords = [] if pd.isna(doc_keywords) else doc_keywords
-            doc_received_date = doc.get("metadata", {}).get("receivedDateTime", "") # DO NOT MODIFY
+            doc_received_date = doc.get("metadata", {}).get(
+                "receivedDateTime", ""
+            )  # DO NOT MODIFY
 
             # Normalize the subject before using it as a key
             norm_subject = normalize_subject(
@@ -1933,7 +2532,7 @@ def find_previous_thread_doc(
                 text=doc_text,
                 noun_chunks=doc_noun_chunks,
                 keywords=doc_keywords,
-                timestamp=doc_received_date
+                timestamp=doc_received_date,
             )
             processed_docs.append((norm_subject, doc))
 
@@ -1941,7 +2540,9 @@ def find_previous_thread_doc(
         processed_docs.sort(
             key=lambda x: (
                 x[0],  # normalized subject
-                datetime.fromisoformat(x[1]["metadata"].get("receivedDateTime", ""))  # preserves timezone
+                datetime.fromisoformat(
+                    x[1]["metadata"].get("receivedDateTime", "")
+                ),  # preserves timezone
             )
         )
 
@@ -1955,7 +2556,10 @@ def find_previous_thread_doc(
         #     logging.info("---")
 
         _historical_docs_cache[cache_key] = processed_docs
-        logging.info(f"Cached {len(processed_docs)} historical documents for {cache_key}")
+        logging.info(
+            f"Cached {len(processed_docs)} historical documents for"
+            f" {cache_key}"
+        )
 
         # for norm_subj, doc in _historical_docs_cache[cache_key]:
         #     logging.info(f"  Subject: {norm_subj}")
@@ -1995,7 +2599,9 @@ def find_previous_thread_doc(
 
     while current_idx < len(docs):
         current_subject, current_doc = docs[current_idx]
-        match_ratio = fuzz.ratio(normalized_subject.lower(), current_subject.lower())
+        match_ratio = fuzz.ratio(
+            normalized_subject.lower(), current_subject.lower()
+        )
 
         # First try to find matches above HIGH_MATCH_THRESHOLD
         if match_ratio >= HIGH_MATCH_THRESHOLD:
@@ -2006,7 +2612,9 @@ def find_previous_thread_doc(
 
             # Collect all docs in this group
             group_idx = current_idx
-            while group_idx < len(docs) and docs[group_idx][0] == current_subject:
+            while (
+                group_idx < len(docs) and docs[group_idx][0] == current_subject
+            ):
                 if match_ratio == best_ratio:
                     best_matches.append((match_ratio, docs[group_idx][1]))
                 group_idx += 1
@@ -2024,7 +2632,10 @@ def find_previous_thread_doc(
 
                 # Collect all docs in this group
                 group_idx = current_idx
-                while group_idx < len(docs) and docs[group_idx][0] == current_subject:
+                while (
+                    group_idx < len(docs)
+                    and docs[group_idx][0] == current_subject
+                ):
                     if match_ratio == best_ratio:
                         best_matches.append((match_ratio, docs[group_idx][1]))
                     group_idx += 1
@@ -2033,17 +2644,26 @@ def find_previous_thread_doc(
                 current_idx = group_idx
             else:
                 # Skip this group since we already have high-confidence matches
-                while current_idx < len(docs) and docs[current_idx][0] == current_subject:
+                while (
+                    current_idx < len(docs)
+                    and docs[current_idx][0] == current_subject
+                ):
                     current_idx += 1
 
         else:
             # Move to next different subject
             current_subject = docs[current_idx][0]
-            while current_idx < len(docs) and docs[current_idx][0] == current_subject:
+            while (
+                current_idx < len(docs)
+                and docs[current_idx][0] == current_subject
+            ):
                 current_idx += 1
 
             # If we've moved past subjects starting with a higher first letter, we can stop
-            if current_idx < len(docs) and docs[current_idx][0][0] > first_char:
+            if (
+                current_idx < len(docs)
+                and docs[current_idx][0][0] > first_char
+            ):
                 break
 
     # Return latest matching document if any meet threshold
@@ -2054,17 +2674,23 @@ def find_previous_thread_doc(
 
         for ratio, doc in best_matches:
             if doc["metadata"].get("next_id") is None:
-                doc_date = datetime.fromisoformat(doc["metadata"].get("receivedDateTime", ""))
+                doc_date = datetime.fromisoformat(
+                    doc["metadata"].get("receivedDateTime", "")
+                )
                 if latest_date is None or doc_date > latest_date:
                     latest_date = doc_date
                     latest_doc = (ratio, doc)
 
         # If no end-of-thread doc found, take the latest by date
         if latest_doc is None:
-            logging.warning("No end-of-thread document found, using latest by date")
+            logging.warning(
+                "No end-of-thread document found, using latest by date"
+            )
             latest_doc = max(
                 best_matches,
-                key=lambda x: datetime.fromisoformat(x[1]["metadata"].get("receivedDateTime", ""))
+                key=lambda x: datetime.fromisoformat(
+                    x[1]["metadata"].get("receivedDateTime", "")
+                ),
             )
 
         # logging.info(
@@ -2121,10 +2747,16 @@ def _write_debug_output(final_df: pd.DataFrame, debug: bool = False) -> None:
             docs.sort(key=lambda x: x["receivedDateTime"])
 
             # Output thread statistics
-            historical_count = sum(1 for doc in docs if doc["metadata"].get("is_historical", False))
+            historical_count = sum(
+                1
+                for doc in docs
+                if doc["metadata"].get("is_historical", False)
+            )
             output_lines.append(f"- Total Documents: {len(docs)}")
             output_lines.append(f"- Historical Documents: {historical_count}")
-            output_lines.append(f"- In-batch Documents: {len(docs) - historical_count}\n")
+            output_lines.append(
+                f"- In-batch Documents: {len(docs) - historical_count}\n"
+            )
 
             # Output document details in chronological order
             output_lines.append("### Documents (Chronological Order)\n")
@@ -2138,12 +2770,25 @@ def _write_debug_output(final_df: pd.DataFrame, debug: bool = False) -> None:
                 output_lines.append(f"Node ID: {doc['node_id']}")
                 output_lines.append(f"Subject: {doc['subject']}")
                 output_lines.append(f"Received: {doc['receivedDateTime']}")
-                output_lines.append(f"Published: {doc['published'].isoformat() if pd.notnull(doc['published']) else 'None'}")
-                output_lines.append(f"Thread ID: {metadata.get('thread_id', 'None')}")
-                output_lines.append(f"Previous ID: {metadata.get('previous_id', 'None')}")
-                output_lines.append(f"Next ID: {metadata.get('next_id', 'None')}")
-                output_lines.append(f"Collection: {metadata.get('collection', 'None')}")
-                output_lines.append(f"Is Historical: {metadata.get('is_historical', False)}")
+                output_lines.append(
+                    "Published:"
+                    f" {doc['published'].isoformat() if pd.notnull(doc['published']) else 'None'}"
+                )
+                output_lines.append(
+                    f"Thread ID: {metadata.get('thread_id', 'None')}"
+                )
+                output_lines.append(
+                    f"Previous ID: {metadata.get('previous_id', 'None')}"
+                )
+                output_lines.append(
+                    f"Next ID: {metadata.get('next_id', 'None')}"
+                )
+                output_lines.append(
+                    f"Collection: {metadata.get('collection', 'None')}"
+                )
+                output_lines.append(
+                    f"Is Historical: {metadata.get('is_historical', False)}"
+                )
                 output_lines.append("```\n")
 
         # Write to markdown file
@@ -2160,7 +2805,7 @@ def _write_debug_output(final_df: pd.DataFrame, debug: bool = False) -> None:
 def transform_patch_posts_v2(
     patch_posts: List[Dict[str, Any]],
     process_all: bool = False,
-    debug: bool = False
+    debug: bool = False,
 ) -> Optional[pd.DataFrame]:
     """
     Transform patch management posts with thread management and historical document integration.
@@ -2237,7 +2882,9 @@ def transform_patch_posts_v2(
     # Move needed fields from metadata into top-level columns if not already present
     for field in metadata_fields_to_move:
         if field not in df.columns:
-            df[field] = df["metadata"].apply(lambda x, field=field: x.get(field, None))
+            df[field] = df["metadata"].apply(
+                lambda x, field=field: x.get(field, None)
+            )
 
     df = df.rename(
         columns={
@@ -2269,7 +2916,10 @@ def transform_patch_posts_v2(
         # If there are no new docs, there's nothing to do
         unprocessed_df = df[~df["is_processed"]]
         if unprocessed_df.empty:
-            logging.info("No new documents found; returning None unless you want to re-process everything.")
+            logging.info(
+                "No new documents found; returning None unless you want to"
+                " re-process everything."
+            )
             return None
 
         # We only want to unify threads that contain at least one new doc
@@ -2282,7 +2932,10 @@ def transform_patch_posts_v2(
                 indices_to_include.extend(idx_list)
 
         df_to_process = df.loc[indices_to_include].copy()
-        logging.info(f"Processing {len(df_to_process)} docs from threads containing new docs.")
+        logging.info(
+            f"Processing {len(df_to_process)} docs from threads containing new"
+            " docs."
+        )
 
     # Now we can process the documents in df_to_process
     # We'll use the same groups we already calculated
@@ -2317,48 +2970,76 @@ def transform_patch_posts_v2(
         historical_doc = find_previous_thread_doc(
             normalized_subject=norm_subj,
             before_date=earliest_date,
-            collection="docstore"
+            collection="docstore",
         )
 
         # Pause and show status
         # input("\nPress Enter to continue to next subject group...")
-
-        if historical_doc and historical_doc["id_"] not in group_df["node_id"].values:
+        # fmt: off
+        if (
+            historical_doc
+            and historical_doc["id_"] not in group_df["node_id"].values
+        ):
             # Get the first in-batch document's node_id for linking
             first_batch_node_id = group_df.iloc[0]["node_id"]
 
             # Convert historical doc to DataFrame row with same schema
-            historical_df = pd.DataFrame([{
-                "node_id": historical_doc["id_"],
-                "text": historical_doc["text"],
-                "metadata": {
-                    **historical_doc["metadata"],
-                    "is_historical": True,  # Mark as historical for tracking
-                    "next_id": first_batch_node_id,  # Link to first in-batch doc
-                },
-                "subject": historical_doc["metadata"].get("subject", ""),
-                "receivedDateTime": datetime.fromisoformat(str(historical_doc["metadata"].get("receivedDateTime", ""))),
-                "published": historical_doc["metadata"].get("published", ""),
-                "conversation_link": historical_doc["metadata"].get("conversation_link", ""),
-                "cve_mentions": historical_doc["metadata"].get("cve_mentions", []),
-                "noun_chunks": historical_doc["metadata"].get("evaluated_noun_chunks", []),
-                "post_type": historical_doc["metadata"].get("post_type", ""),
-                "keywords": historical_doc["metadata"].get("evaluated_keywords", []),
-                "tags": historical_doc["metadata"].get("tags", []),
-                "collection": historical_doc["metadata"].get("collection", "patch_management"),
-                "node_label": "PatchManagementPost",
-                "kb_ids": historical_doc.get("kb_mentions", []),
-                "product_mentions": historical_doc.get("product_mentions"),
-                "build_numbers": historical_doc.get("build_numbers"),
-                "cve_ids": historical_doc["metadata"].get("cve_mentions", []),
-                "previous_id": historical_doc["metadata"].get("previous_id", None),
-                "next_id": first_batch_node_id,  # Set next_id to first in-batch doc
-                "verification_status": historical_doc["metadata"].get("verification_status", "unverified"),
-            }])
+            historical_df = pd.DataFrame(
+                [
+                    {
+                        "node_id": historical_doc["id_"],
+                        "text": historical_doc["text"],
+                        "metadata": {
+                            **historical_doc["metadata"],
+                            "is_historical": True,  # Mark as historical for tracking
+                            "next_id": (
+                                first_batch_node_id
+                            ),  # Link to first in-batch doc
+                        },
+                        "subject": historical_doc["metadata"].get("subject", ""),
+                        "receivedDateTime": datetime.fromisoformat(
+                            str(historical_doc["metadata"].get("receivedDateTime", ""))
+                        ),
+                        "published": historical_doc["metadata"].get("published", ""),
+                        "conversation_link": historical_doc["metadata"].get(
+                            "conversation_link", ""
+                        ),
+                        "cve_mentions": historical_doc["metadata"].get(
+                            "cve_mentions", []
+                        ),
+                        "noun_chunks": historical_doc["metadata"].get(
+                            "evaluated_noun_chunks", []
+                        ),
+                        "post_type": historical_doc["metadata"].get("post_type", ""),
+                        "keywords": historical_doc["metadata"].get(
+                            "evaluated_keywords", []
+                        ),
+                        "tags": historical_doc["metadata"].get("tags", []),
+                        "collection": historical_doc["metadata"].get(
+                            "collection", "patch_management"
+                        ),
+                        "node_label": "PatchManagementPost",
+                        "kb_ids": historical_doc.get("kb_mentions", []),
+                        "product_mentions": historical_doc.get("product_mentions"),
+                        "build_numbers": historical_doc.get("build_numbers"),
+                        "cve_ids": historical_doc["metadata"].get("cve_mentions", []),
+                        "previous_id": historical_doc["metadata"].get(
+                            "previous_id", None
+                        ),
+                        "next_id": (
+                            first_batch_node_id
+                        ),  # Set next_id to first in-batch doc
+                        "verification_status": historical_doc["metadata"].get(
+                            "verification_status", "unverified"
+                        ),
+                    }
+                ]
+            )
 
             logging.info(
-                f"Found historical document for subject '{norm_subj}' "
-                f"(ID: {historical_doc['id_']}, receivedDateTime: {historical_doc['metadata'].get('receivedDateTime')})"
+                f"Found historical document for subject '{norm_subj}' (ID:"
+                f" {historical_doc['id_']}, receivedDateTime:"
+                f" {historical_doc['metadata'].get('receivedDateTime')})"
             )
 
             # Create a new DataFrame with the updated first row
@@ -2378,16 +3059,20 @@ def transform_patch_posts_v2(
                     updated_rows.append(group_df.iloc[idx].copy())
 
             # Create DataFrame ensuring index is preserved
-            updated_group_df = pd.DataFrame(updated_rows, index=[r.name for r in updated_rows])
+            updated_group_df = pd.DataFrame(
+                updated_rows, index=[r.name for r in updated_rows]
+            )
 
             # Combine historical with current group and sort chronologically
-            group_df = pd.concat([historical_df, updated_group_df], ignore_index=True)
+            group_df = pd.concat(
+                [historical_df, updated_group_df], ignore_index=True
+            )
         elif historical_doc:
             logging.info(
                 f"Skipping historical document for subject '{norm_subj}' - "
                 f"ID {historical_doc['id_']} already exists in current group"
             )
-
+        # fmt: on
         # Sort by receivedDateTime - already datetime objects
         group_df = group_df.sort_values("receivedDateTime")
         node_ids = group_df["node_id"].tolist()
@@ -2431,7 +3116,9 @@ def transform_patch_posts_v2(
                 m["next_id"] = next_id
 
             # Update processing status only for new documents
-            if not m.get("etl_processing_status", {}).get("document_processed", False):
+            if not m.get("etl_processing_status", {}).get(
+                "document_processed", False
+            ):
                 current_time = datetime.now(timezone.utc).isoformat()
                 m["etl_processing_status"] = {
                     "document_processed": True,
@@ -2439,7 +3126,7 @@ def transform_patch_posts_v2(
                     "graph_prepared": False,
                     "vector_prepared": False,
                     "last_processed_at": current_time,
-                    "processing_version": "1.0"
+                    "processing_version": "1.0",
                 }
 
             row["metadata"] = m
@@ -2459,25 +3146,31 @@ def transform_patch_posts_v2(
         if group_rows:
             group_df = pd.DataFrame(group_rows)
             processed_rows.append(group_df)
-            logging.info(f"Processed group with subject '{norm_subj}' - {len(group_rows)} documents")
+            logging.info(
+                f"Processed group with subject '{norm_subj}' -"
+                f" {len(group_rows)} documents"
+            )
 
     # Combine all processed groups
     if processed_rows:
         # Filter out empty DataFrames before concatenation
         non_empty_rows = [df for df in processed_rows if not df.empty]
         final_df = pd.concat(non_empty_rows, axis=0, ignore_index=True)
-        logging.info(f"Transformed {len(final_df)} patch posts (including historical thread docs)")
+        logging.info(
+            f"Transformed {len(final_df)} patch posts (including historical"
+            " thread docs)"
+        )
         if debug:
             _write_debug_output(final_df, debug)
     # final_df["metadata"] = final_df["metadata"].apply(make_json_safe_metadata)
     return final_df
 
+
 # End Feature Engineering Patch Transformer ===================================
 
 
 def patch_fe_transformer(
-    docs: List[Dict[str, Any]],
-    products_df: pd.DataFrame
+    docs: List[Dict[str, Any]], products_df: pd.DataFrame
 ) -> pd.DataFrame:
     """
     Transform the extracted patch documents to populate product mentions,
@@ -2505,7 +3198,9 @@ def patch_fe_transformer(
     # Extract metadata fields
     for field in metadata_fields_to_move:
         if field not in patch_posts_df.columns:
-            patch_posts_df[field] = patch_posts_df["metadata"].apply(lambda x, field=field: x.get(field, None))
+            patch_posts_df[field] = patch_posts_df["metadata"].apply(
+                lambda x, field=field: x.get(field, None)
+            )
 
     patch_posts_df = patch_posts_df.rename(
         columns={
@@ -2530,41 +3225,58 @@ def patch_fe_transformer(
     # create a new column "product_mentions_subject" that contains the product mentions from the subject
     # create a new function to extract product mentions from the subject that can identify `windows10/11` and convert that to 'windows_10' and 'windows_11'
     # and use the fuzzy match from `fuzzy_search_column` which cannot handle this
-    patch_posts_df["product_mentions_subject"] = patch_posts_df["subject"].apply(
-        lambda x: extract_product_mentions(x, products_df)
-    )
+    patch_posts_df["product_mentions_subject"] = patch_posts_df[
+        "subject"
+    ].apply(lambda x: extract_product_mentions(x, products_df))
     # create another function we can apply to the dataframe that checks if the column `post_type` is 'conversational' if it is, set `product_mentions_subject` to None
     patch_posts_df["product_mentions_subject"] = patch_posts_df.apply(
-        lambda row: None if row["post_type"].lower() == "conversational" else row["product_mentions_subject"],
+        lambda row: (
+            None
+            if row["post_type"].lower() == "conversational"
+            else row["product_mentions_subject"]
+        ),
         axis=1,
     )
     # Combine product mentions, then refine them
     patch_posts_df["product_mentions"] = patch_posts_df.apply(
         lambda row: list(
-            set(row["product_mentions_noun_chunks"] + row["product_mentions_keywords"])
+            set(
+                row["product_mentions_noun_chunks"]
+                + row["product_mentions_keywords"]
+            )
         ),
         axis=1,
     )
-    patch_posts_df["product_mentions"] = patch_posts_df["product_mentions"].apply(
-        lambda mentions: retain_most_specific(mentions, products_df)
-    )
-    patch_posts_df["product_mentions"] = patch_posts_df["product_mentions"].apply(
-        convert_to_original_representation
-    )
+    patch_posts_df["product_mentions"] = patch_posts_df[
+        "product_mentions"
+    ].apply(lambda mentions: retain_most_specific(mentions, products_df))
+    patch_posts_df["product_mentions"] = patch_posts_df[
+        "product_mentions"
+    ].apply(convert_to_original_representation)
 
     # Extract build numbers
     regex_pattern = construct_regex_pattern()
     patch_posts_df["build_numbers"] = patch_posts_df["text"].apply(
-        lambda x: extract_build_numbers(x, regex_pattern) if pd.notna(x) else []
+        lambda x: (
+            extract_build_numbers(x, regex_pattern) if pd.notna(x) else []
+        )
     )
 
     # Extract Windows and Edge KB references
     def get_windows_kbs(row):
-        kbs_from_text = extract_windows_kbs(row["text"]) if pd.notna(row["text"]) else []
-        kbs_from_subject = extract_windows_kbs(row["subject"]) if pd.notna(row["subject"]) else []
+        kbs_from_text = (
+            extract_windows_kbs(row["text"]) if pd.notna(row["text"]) else []
+        )
+        kbs_from_subject = (
+            extract_windows_kbs(row["subject"])
+            if pd.notna(row["subject"])
+            else []
+        )
         return list(set(kbs_from_text + kbs_from_subject))
 
-    patch_posts_df["windows_kbs"] = patch_posts_df.apply(get_windows_kbs, axis=1)
+    patch_posts_df["windows_kbs"] = patch_posts_df.apply(
+        get_windows_kbs, axis=1
+    )
     patch_posts_df["edge_kbs"] = patch_posts_df.apply(extract_edge_kbs, axis=1)
     patch_posts_df["kb_mentions"] = patch_posts_df.apply(
         lambda row: list(set(row["windows_kbs"] + row["edge_kbs"])), axis=1
@@ -2581,17 +3293,24 @@ def patch_fe_transformer(
         inplace=True,
     )
     # Log any records that have product mentions
-    has_mentions = patch_posts_df["product_mentions"].apply(lambda x: bool(x) if isinstance(x, list) else False)
+    has_mentions = patch_posts_df["product_mentions"].apply(
+        lambda x: bool(x) if isinstance(x, list) else False
+    )
     if has_mentions.any():
-        logging.info(f"Found {has_mentions.sum()} records with product mentions:")
+        logging.info(
+            f"Found {has_mentions.sum()} records with product mentions:"
+        )
         for node_id in patch_posts_df[has_mentions]["node_id"]:
             logging.info(f"Record {node_id} has product mentions")
     return patch_posts_df
 
+
 # End Feature Engineering Patch Transformer ===================================
 
 
-def extract_product_mentions(text: str, products_df: pd.DataFrame, threshold: int = 80) -> List[str]:
+def extract_product_mentions(
+    text: str, products_df: pd.DataFrame, threshold: int = 80
+) -> List[str]:
     """
     Extract product mentions from text, handling both fuzzy matching and special Windows version patterns.
 
@@ -2634,8 +3353,10 @@ def transform_symptoms(symptoms: List[Dict[str, Any]]) -> pd.DataFrame:
     # clean up document dict from mongo to align with data models
     if symptoms:
         df = pd.DataFrame(symptoms, columns=list(symptoms[0].keys()))
+
         if not all(
-            col in df.columns for col in ["severity_type", "node_label", "reliability"]
+            col in df.columns
+            for col in ["severity_type", "node_label", "reliability"]
         ):
             df = df.assign(
                 severity_type="NST",
@@ -2658,7 +3379,8 @@ def transform_causes(causes: List[Dict[str, Any]]) -> pd.DataFrame:
     if causes:
         df = pd.DataFrame(causes, columns=list(causes[0].keys()))
         if not all(
-            col in df.columns for col in ["severity_type", "node_label", "reliability"]
+            col in df.columns
+            for col in ["severity_type", "node_label", "reliability"]
         ):
             df = df.assign(
                 severity_type="NST",
@@ -2680,8 +3402,10 @@ def transform_fixes(fixes: List[Dict[str, Any]]) -> pd.DataFrame:
     # clean up document dict from mongo to align with data models
     if fixes:
         df = pd.DataFrame(fixes, columns=list(fixes[0].keys()))
+
         if not all(
-            col in df.columns for col in ["severity_type", "node_label", "reliability"]
+            col in df.columns
+            for col in ["severity_type", "node_label", "reliability"]
         ):
             df = df.assign(
                 severity_type="NST",
@@ -2754,12 +3478,16 @@ def combine_dicts_to_dataframe(
     df = pd.DataFrame(combined_data)
 
     # Add a column to identify the original category (key)
-    df["category"] = df.apply(lambda row: _find_category(row, dict1, dict2), axis=1)
+    df["category"] = df.apply(
+        lambda row: _find_category(row, dict1, dict2), axis=1
+    )
 
     return df
 
 
-def _find_category(row: pd.Series, dict1: Dict[str, List[Dict]], dict2: Dict[str, List[Dict]]) -> str:
+def _find_category(
+    row: pd.Series, dict1: Dict[str, List[Dict]], dict2: Dict[str, List[Dict]]
+) -> str:
     """Find the category for a row by checking which dictionary and key it belongs to."""
     row_dict = row.to_dict()
     for key, items in dict1.items():
@@ -2801,7 +3529,13 @@ def transform_extracted_entities(
             "source_type",
             "tags",
         ],
-        "Cause": ["node_id", "description", "source_id", "source_type", "tags"],
+        "Cause": [
+            "node_id",
+            "description",
+            "source_id",
+            "source_type",
+            "tags",
+        ],
         "Fix": ["node_id", "description", "source_id", "source_type", "tags"],
         "Tool": [
             "node_id",
@@ -2855,7 +3589,7 @@ def make_text_json_safe(text: str) -> str:
 def _create_metadata_from_row(
     row: pd.Series,
     preserve_metadata: bool = False,
-    exclude_columns: List[str] = None
+    exclude_columns: List[str] = None,
 ) -> dict:
     """
     Helper function to create metadata from a DataFrame row, handling NaN values and datetime objects.
@@ -2865,7 +3599,9 @@ def _create_metadata_from_row(
         preserve_metadata: If True, preserves existing metadata structure from source,
                          otherwise places all fields (except doc_id) in metadata
     """
-    logging.debug(f"Creating metadata from row with keys: {row.index.tolist()}")
+    logging.debug(
+        f"Creating metadata from row with keys: {row.index.tolist()}"
+    )
 
     def process_value(value):
         """Helper to process individual values."""
@@ -2882,7 +3618,11 @@ def _create_metadata_from_row(
             if not value:
                 return []
             return [
-                process_value(sub_value) if isinstance(sub_value, list) else sub_value
+                (
+                    process_value(sub_value)
+                    if isinstance(sub_value, list)
+                    else sub_value
+                )
                 for sub_value in value
             ]
         elif isinstance(value, dict):
@@ -2911,7 +3651,9 @@ def _create_metadata_from_row(
             try:
                 metadata.update(json.loads(base_metadata))
             except json.JSONDecodeError:
-                logging.warning(f"Failed to parse metadata string row:{row['node_id']}")
+                logging.warning(
+                    f"Failed to parse metadata string row:{row['node_id']}"
+                )
     # Process each field in the row
     for key, value in row.items():
         if key in exclude_columns or key == 'metadata':
@@ -2925,16 +3667,25 @@ def _create_metadata_from_row(
             else:
                 metadata[key] = processed_value
         except Exception as e:
-            logging.error(f"Error processing key {key} with value {value} ({type(value)}): {str(e)}")
+            logging.error(
+                f"Error processing key {key} with value"
+                f" {value} ({type(value)}): {str(e)}"
+            )
 
-    logging.debug(f"Final metadata structure - Root keys: {list(metadata.keys())}")
-    logging.debug(f"Final metadata structure - Metadata keys: {list(metadata.keys())}")
+    logging.debug(
+        f"Final metadata structure - Root keys: {list(metadata.keys())}"
+    )
+    logging.debug(
+        f"Final metadata structure - Metadata keys: {list(metadata.keys())}"
+    )
 
     return metadata
+
 
 # =============================================================================
 # Convert dataframe of KB Articles to Llama Documents
 # =============================================================================
+
 
 def _handle_na_text(text_value: Any) -> str:
     """Handle potential NA values in text fields.
@@ -2970,13 +3721,19 @@ def clean_na_values_series(series: pd.Series) -> pd.Series:
     Returns:
         pandas Series with all NA values replaced with None
     """
+
     def clean_value(x):
         if isinstance(x, pd._libs.missing.NAType):
             return None
         if pd.api.types.is_scalar(x):
             if pd.isnull(x):
                 return None
-            if isinstance(x, str) and x.lower() in {"nan", "nat", "none", "null"}:
+            if isinstance(x, str) and x.lower() in {
+                "nan",
+                "nat",
+                "none",
+                "null",
+            }:
                 return None
             return x
         if isinstance(x, (list, tuple)):
@@ -2988,24 +3745,19 @@ def clean_na_values_series(series: pd.Series) -> pd.Series:
         return x
 
     return pd.Series(
-        [clean_value(x) for x in series],
-        index=series.index,
-        name=series.name
+        [clean_value(x) for x in series], index=series.index, name=series.name
     )
 
 
 def convert_df_to_llamadoc_kb_articles(
-    df: pd.DataFrame
+    df: pd.DataFrame,
 ) -> list[LlamaDocument]:
     """Convert a DataFrame of KB Articles to a list of LlamaDocuments."""
     llama_documents = []
 
     for _, row in df.iterrows():
         try:
-            logging.debug(
-                f"Processing row:\n"
-                f"{row.to_dict()}"
-            )
+            logging.debug(f"Processing row:\n{row.to_dict()}")
 
             exclude_columns = [
                 'text',
@@ -3014,7 +3766,7 @@ def convert_df_to_llamadoc_kb_articles(
             metadata_dict = _create_metadata_from_row(
                 clean_na_values_series(row),
                 preserve_metadata=True,
-                exclude_columns=exclude_columns
+                exclude_columns=exclude_columns,
             )
 
             def get_clean_value(row, key, default):
@@ -3022,7 +3774,11 @@ def convert_df_to_llamadoc_kb_articles(
                 value = row.get(key)
                 if isinstance(value, (list, np.ndarray)):
                     return value  # Return arrays/lists as is
-                if value is None or isinstance(value, pd._libs.missing.NAType) or (pd.api.types.is_scalar(value) and pd.isna(value)):
+                if (
+                    value is None
+                    or isinstance(value, pd._libs.missing.NAType)
+                    or (pd.api.types.is_scalar(value) and pd.isna(value))
+                ):
                     return default
                 return value
 
@@ -3030,23 +3786,27 @@ def convert_df_to_llamadoc_kb_articles(
             defaults = {
                 "node_label": get_clean_value(row, "node_label", "KBArticle"),
                 "kb_id": get_clean_value(row, "kb_id", ""),
-                "product_build_id": get_clean_value(row, "product_build_id", ""),
-                "product_build_ids": get_clean_value(row, "product_build_ids", []),
+                "product_build_id": get_clean_value(
+                    row, "product_build_id", ""
+                ),
+                "product_build_ids": get_clean_value(
+                    row, "product_build_ids", []
+                ),
                 "cve_ids": get_clean_value(row, "cve_ids", []),
                 "build_number": get_clean_value(row, "build_number", []),
                 "article_url": get_clean_value(row, "article_url", ""),
                 "reliability": get_clean_value(row, "reliability", ""),
                 "readability": get_clean_value(row, "readability", ""),
-                "excluded_embed_metadata_keys": get_clean_value(row, "excluded_embed_metadata_keys", [
-                    "node_label",
-                    "product_build_id",
-                    "product_build_ids",
-                ]),
-                "excluded_llm_metadata_keys": get_clean_value(row, "excluded_llm_metadata_keys", [
-                    "node_label",
-                    "product_build_id",
-                    "product_build_ids",
-                ]),
+                "excluded_embed_metadata_keys": get_clean_value(
+                    row,
+                    "excluded_embed_metadata_keys",
+                    ["node_label", "product_build_id", "product_build_ids"],
+                ),
+                "excluded_llm_metadata_keys": get_clean_value(
+                    row,
+                    "excluded_llm_metadata_keys",
+                    ["node_label", "product_build_id", "product_build_ids"],
+                ),
             }
 
             # Update metadata with defaults
@@ -3061,29 +3821,33 @@ def convert_df_to_llamadoc_kb_articles(
                 "graph_prepared": True,
                 "vector_prepared": False,
                 "last_processed_at": current_time,
-                "processing_version": "1.0"
+                "processing_version": "1.0",
             }
             # Create the LlamaDocument
             doc = LlamaDocument(
                 text=_handle_na_text(row["text"]),
                 doc_id=row["node_id"],
                 extra_info=metadata_dict,
-                excluded_embed_metadata_keys=metadata_dict["excluded_embed_metadata_keys"],
-                excluded_llm_metadata_keys=metadata_dict["excluded_llm_metadata_keys"],
+                excluded_embed_metadata_keys=metadata_dict[
+                    "excluded_embed_metadata_keys"
+                ],
+                excluded_llm_metadata_keys=metadata_dict[
+                    "excluded_llm_metadata_keys"
+                ],
             )
             llama_documents.append(doc)
 
             logging.info("Created LlamaDocument", extra={"doc_id": doc.doc_id})
-            logging.debug(
-                f"Document metadata:\n"
-                f"{metadata_dict}"
-            )
+            logging.debug(f"Document metadata:\n{metadata_dict}")
 
         except Exception as e:
-            logging.error(f"Error processing row row_data {row.to_dict()} \nerror {str(e)}")
+            logging.error(
+                f"Error processing row row_data {row.to_dict()} \nerror"
+                f" {str(e)}"
+            )
 
     logging.info(
-        f"Completed conversion of KB Articles to LlamaDocuments "
+        "Completed conversion of KB Articles to LlamaDocuments "
         f"with total documents: {len(llama_documents)}"
     )
     return llama_documents
@@ -3093,7 +3857,7 @@ def convert_df_to_llamadoc_kb_articles(
 # Convert dataframe of Update Packages to Llama Documents
 # =============================================================================
 def convert_df_to_llamadoc_update_packages(
-    df: pd.DataFrame
+    df: pd.DataFrame,
 ) -> list[LlamaDocument]:
     """Convert a DataFrame of Update Packages to a list of LlamaDocuments."""
     llama_documents = []
@@ -3101,21 +3865,21 @@ def convert_df_to_llamadoc_update_packages(
     for _, row in df.iterrows():
         try:
             # Log raw input data for debugging
-            logging.debug(
-                f"Processing row:\n"
-                f"{row.to_dict()}"
-            )
+            logging.debug(f"Processing row:\n{row.to_dict()}")
 
             # Construct text content
             text_content = (
-                f"Update Package published on: {row.get('published', '').strftime('%B %d, %Y')}\n"
-                f"Build Number: {row.get('build_number', '')}\n"
-                f"Package Type: {row.get('package_type', '')}\n"
-                f"Package URL: {row.get('package_url', '')}"
+                "Update Package published on:"
+                f" {row.get('published', '').strftime('%B %d, %Y')}\nBuild"
+                f" Number: {row.get('build_number', '')}\nPackage Type:"
+                f" {row.get('package_type', '')}\nPackage URL:"
+                f" {row.get('package_url', '')}"
             )
 
             # Handle datetime conversion for published date
-            if "published" in row and isinstance(row["published"], pd.Timestamp):
+            if "published" in row and isinstance(
+                row["published"], pd.Timestamp
+            ):
                 row["published"] = row["published"].isoformat()
 
             # Process downloadable packages
@@ -3140,11 +3904,15 @@ def convert_df_to_llamadoc_update_packages(
                 'excluded_llm_metadata_keys',
             ]
             # Extract metadata dynamically, excluding specified keys
-            metadata = _create_metadata_from_row(row, preserve_metadata=False, exclude_columns=exclude_columns)
+            metadata = _create_metadata_from_row(
+                row, preserve_metadata=False, exclude_columns=exclude_columns
+            )
 
             # Set default values for specific fields
             defaults = {
-                "node_label": row.get("node_label", "UpdatePackage"),  # Use node_label from row or default to "UpdatePackage"
+                "node_label": row.get(
+                    "node_label", "UpdatePackage"
+                ),  # Use node_label from row or default to "UpdatePackage"
                 "build_number": row.get("build_number", ""),
                 "product_build_ids": row.get("product_build_ids", []),
                 "package_type": row.get("package_type", ""),
@@ -3152,7 +3920,10 @@ def convert_df_to_llamadoc_update_packages(
                 "downloadable_packages": downloadable_packages,
                 "reliability": row.get("reliability", ""),
                 "readability": row.get("readability", "HIGH"),
-                "excluded_embed_metadata_keys": ["product_build_ids", "node_label"],
+                "excluded_embed_metadata_keys": [
+                    "product_build_ids",
+                    "node_label",
+                ],
                 "excluded_llm_metadata_keys": [],
             }
 
@@ -3166,8 +3937,12 @@ def convert_df_to_llamadoc_update_packages(
                 text=text_content,
                 doc_id=row["node_id"],
                 extra_info=metadata,
-                excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
-                excluded_llm_metadata_keys=metadata["excluded_llm_metadata_keys"],
+                excluded_embed_metadata_keys=metadata[
+                    "excluded_embed_metadata_keys"
+                ],
+                excluded_llm_metadata_keys=metadata[
+                    "excluded_llm_metadata_keys"
+                ],
             )
             llama_documents.append(doc)
 
@@ -3177,7 +3952,10 @@ def convert_df_to_llamadoc_update_packages(
 
         except Exception as e:
             # Log any errors encountered during processing
-            logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
+            logging.error(
+                "Error processing row",
+                extra={"row_data": row.to_dict(), "error": str(e)},
+            )
 
     return llama_documents
 
@@ -3185,9 +3963,7 @@ def convert_df_to_llamadoc_update_packages(
 # =============================================================================
 # Convert dataframe of Symptoms to Llama Documents
 # =============================================================================
-def convert_df_to_llamadoc_symptoms(
-    df: pd.DataFrame
-) -> list[LlamaDocument]:
+def convert_df_to_llamadoc_symptoms(df: pd.DataFrame) -> list[LlamaDocument]:
     """Convert a DataFrame of Symptoms to a list of LlamaDocuments."""
     llama_documents = []
 
@@ -3206,7 +3982,10 @@ def convert_df_to_llamadoc_symptoms(
                 "severity_type": row.get("severity_type", "NST"),
                 "reliability": row.get("reliability", ""),
                 "tags": row.get("tags", []),
-                "excluded_embed_metadata_keys": ["node_label", "symptom_label"],
+                "excluded_embed_metadata_keys": [
+                    "node_label",
+                    "symptom_label",
+                ],
                 "excluded_llm_metadata_keys": [],
             }
 
@@ -3220,8 +3999,12 @@ def convert_df_to_llamadoc_symptoms(
                 text=_handle_na_text(row["description"]),
                 doc_id=row["node_id"],
                 extra_info=metadata,
-                excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
-                excluded_llm_metadata_keys=metadata["excluded_llm_metadata_keys"],
+                excluded_embed_metadata_keys=metadata[
+                    "excluded_embed_metadata_keys"
+                ],
+                excluded_llm_metadata_keys=metadata[
+                    "excluded_llm_metadata_keys"
+                ],
             )
             llama_documents.append(doc)
 
@@ -3231,7 +4014,10 @@ def convert_df_to_llamadoc_symptoms(
 
         except Exception as e:
             # Log any errors encountered during processing
-            logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
+            logging.error(
+                "Error processing row",
+                extra={"row_data": row.to_dict(), "error": str(e)},
+            )
 
     return llama_documents
 
@@ -3239,9 +4025,7 @@ def convert_df_to_llamadoc_symptoms(
 # =============================================================================
 # Convert dataframe of Causes to Llama Documents
 # =============================================================================
-def convert_df_to_llamadoc_causes(
-    df: pd.DataFrame
-) -> list[LlamaDocument]:
+def convert_df_to_llamadoc_causes(df: pd.DataFrame) -> list[LlamaDocument]:
     """Convert a DataFrame of Causes to a list of LlamaDocuments."""
     llama_documents = []
 
@@ -3274,8 +4058,12 @@ def convert_df_to_llamadoc_causes(
                 text=_handle_na_text(row["description"]),
                 doc_id=row["node_id"],
                 extra_info=metadata,
-                excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
-                excluded_llm_metadata_keys=metadata["excluded_llm_metadata_keys"],
+                excluded_embed_metadata_keys=metadata[
+                    "excluded_embed_metadata_keys"
+                ],
+                excluded_llm_metadata_keys=metadata[
+                    "excluded_llm_metadata_keys"
+                ],
             )
             llama_documents.append(doc)
 
@@ -3285,7 +4073,10 @@ def convert_df_to_llamadoc_causes(
 
         except Exception as e:
             # Log any errors encountered during processing
-            logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
+            logging.error(
+                "Error processing row",
+                extra={"row_data": row.to_dict(), "error": str(e)},
+            )
 
     return llama_documents
 
@@ -3293,9 +4084,7 @@ def convert_df_to_llamadoc_causes(
 # =============================================================================
 # Convert dataframe of Fixes to Llama Documents
 # =============================================================================
-def convert_df_to_llamadoc_fixes(
-    df: pd.DataFrame
-) -> list[LlamaDocument]:
+def convert_df_to_llamadoc_fixes(df: pd.DataFrame) -> list[LlamaDocument]:
     """Convert a DataFrame of Fix nodes to a list of LlamaDocuments."""
     llama_documents = []
 
@@ -3309,12 +4098,18 @@ def convert_df_to_llamadoc_fixes(
 
             # Set default values for specific fields
             defaults = {
-                "node_label": row.get("node_label", "Fix"),  # Use node_label from row or default to "Fix"
+                "node_label": row.get(
+                    "node_label", "Fix"
+                ),  # Use node_label from row or default to "Fix"
                 "fix_label": row.get("fix_label", ""),
                 "cve_ids": row.get("cve_ids", []),
                 "reliability": row.get("reliability", "HIGH"),
                 "readability": row.get("readability", "HIGH"),
-                "excluded_embed_metadata_keys": ["node_label", "fix_label", "cve_ids"],
+                "excluded_embed_metadata_keys": [
+                    "node_label",
+                    "fix_label",
+                    "cve_ids",
+                ],
                 "excluded_llm_metadata_keys": [],
             }
 
@@ -3328,8 +4123,12 @@ def convert_df_to_llamadoc_fixes(
                 text=_handle_na_text(row["description"]),
                 doc_id=row["node_id"],
                 extra_info=metadata,
-                excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
-                excluded_llm_metadata_keys=metadata["excluded_llm_metadata_keys"]
+                excluded_embed_metadata_keys=metadata[
+                    "excluded_embed_metadata_keys"
+                ],
+                excluded_llm_metadata_keys=metadata[
+                    "excluded_llm_metadata_keys"
+                ],
             )
             llama_documents.append(doc)
 
@@ -3339,7 +4138,10 @@ def convert_df_to_llamadoc_fixes(
 
         except Exception as e:
             # Log any errors encountered during processing
-            logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
+            logging.error(
+                "Error processing row",
+                extra={"row_data": row.to_dict(), "error": str(e)},
+            )
 
     return llama_documents
 
@@ -3347,9 +4149,7 @@ def convert_df_to_llamadoc_fixes(
 # =============================================================================
 # Convert dataframe of Tools to Llama Documents
 # =============================================================================
-def convert_df_to_llamadoc_tools(
-    df: pd.DataFrame
-) -> list[LlamaDocument]:
+def convert_df_to_llamadoc_tools(df: pd.DataFrame) -> list[LlamaDocument]:
     """Convert a DataFrame of Tool nodes to a list of LlamaDocuments."""
     llama_documents = []
 
@@ -3363,14 +4163,20 @@ def convert_df_to_llamadoc_tools(
 
             # Set default values for specific fields
             defaults = {
-                "node_label": row.get("node_label", "Tool"),  # Use node_label from row or default to "Tool"
+                "node_label": row.get(
+                    "node_label", "Tool"
+                ),  # Use node_label from row or default to "Tool"
                 "tool_label": row.get("tool_label", ""),
                 "name": row.get("name", ""),
                 "cve_ids": row.get("cve_ids", []),
                 "tool_url": row.get("tool_url", ""),
                 "reliability": "HIGH",
                 "readability": "HIGH",
-                "excluded_embed_metadata_keys": ["node_label", "tool_label", "node_id"],
+                "excluded_embed_metadata_keys": [
+                    "node_label",
+                    "tool_label",
+                    "node_id",
+                ],
                 "excluded_llm_metadata_keys": [],
             }
 
@@ -3384,8 +4190,12 @@ def convert_df_to_llamadoc_tools(
                 text=_handle_na_text(row["description"]),
                 doc_id=row["node_id"],
                 extra_info=metadata,
-                excluded_embed_metadata_keys=metadata["excluded_embed_metadata_keys"],
-                excluded_llm_metadata_keys=metadata["excluded_llm_metadata_keys"],
+                excluded_embed_metadata_keys=metadata[
+                    "excluded_embed_metadata_keys"
+                ],
+                excluded_llm_metadata_keys=metadata[
+                    "excluded_llm_metadata_keys"
+                ],
             )
             llama_documents.append(doc)
 
@@ -3395,7 +4205,10 @@ def convert_df_to_llamadoc_tools(
 
         except Exception as e:
             # Log any errors encountered during processing
-            logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
+            logging.error(
+                "Error processing row",
+                extra={"row_data": row.to_dict(), "error": str(e)},
+            )
 
     return llama_documents
 
@@ -3423,12 +4236,9 @@ def convert_df_to_llamadoc_msrc_posts(
             metadata_dict = _create_metadata_from_row(
                 clean_na_values_series(row),
                 preserve_metadata=True,
-                exclude_columns=exclude_columns
+                exclude_columns=exclude_columns,
             )
-            logging.debug(
-                f"Generated metadata:\n"
-                f"{metadata_dict}"
-                )
+            logging.debug(f"Generated metadata:\n{metadata_dict}")
 
             # Set default values for specific fields in metadata
             defaults = {
@@ -3445,17 +4255,14 @@ def convert_df_to_llamadoc_msrc_posts(
                 "extracted_tools": row.get("extracted_tools", []),
             }
 
-            logging.debug(
-                f"Default metadata values:\n"
-                f"{defaults}"
-            )
+            logging.debug(f"Default metadata values:\n{defaults}")
 
             # Update metadata with defaults
             for key, default_value in defaults.items():
                 if key not in metadata_dict or metadata_dict[key] is None:
                     metadata_dict[key] = default_value
                     logging.debug(
-                        f"Applied default value:\n"
+                        "Applied default value:\n"
                         f"Key: {key}, Default Value: {default_value}"
                     )
 
@@ -3494,28 +4301,32 @@ def convert_df_to_llamadoc_msrc_posts(
                 "graph_prepared": True,
                 "vector_prepared": False,
                 "last_processed_at": current_time,
-                "processing_version": "1.0"
+                "processing_version": "1.0",
             }
             # Create the LlamaDocument
             doc = LlamaDocument(
                 text=_handle_na_text(row["text"]),
                 doc_id=metadata_dict["doc_id"],
                 extra_info=metadata_dict,
-                excluded_embed_metadata_keys=metadata_dict["excluded_embed_metadata_keys"],
-                excluded_llm_metadata_keys=metadata_dict["excluded_llm_metadata_keys"],
+                excluded_embed_metadata_keys=metadata_dict[
+                    "excluded_embed_metadata_keys"
+                ],
+                excluded_llm_metadata_keys=metadata_dict[
+                    "excluded_llm_metadata_keys"
+                ],
             )
             llama_documents.append(doc)
 
             # Log document creation
             logging.info(f"Created MSRCPost LlamaDocument {doc.doc_id}")
-            logging.debug(
-                f"Document metadata:\n"
-                f"{doc.metadata}"
-            )
+            logging.debug(f"Document metadata:\n{doc.metadata}")
 
         except Exception as e:
             # Log any errors encountered during processing
-            logging.error("Error processing row", extra={"row_data": row.to_dict(), "error": str(e)})
+            logging.error(
+                "Error processing row",
+                extra={"row_data": row.to_dict(), "error": str(e)},
+            )
 
     return llama_documents
 
@@ -3523,6 +4334,7 @@ def convert_df_to_llamadoc_msrc_posts(
 # =============================================================================
 # Convert dataframe of Patch Management Posts to Llama Documents
 # =============================================================================
+
 
 def convert_df_to_llamadoc_patch_posts(
     df: pd.DataFrame,
@@ -3533,7 +4345,7 @@ def convert_df_to_llamadoc_patch_posts(
 ) -> list[LlamaDocument]:
     """Convert a DataFrame of PatchManagement posts to a list of LlamaDocuments."""
     llama_documents = []
-
+    # fmt: off
     for _, row in df.iterrows():
         try:
             # Log raw input row data for debugging
@@ -3547,7 +4359,11 @@ def convert_df_to_llamadoc_patch_posts(
             )
             if "cve_ids" in metadata_dict and metadata_dict["cve_ids"] == "":
                 metadata_dict["cve_ids"] = []
-            logging.debug(f"Generated metadata: \n{metadata_dict}")
+            # fmt: off
+            logging.debug(
+                "Generated metadata: \n{metadata_dict}"
+            )
+            # fmt: on
             current_time = datetime.now().isoformat()
             # Set default values for specific fields
             defaults = {
@@ -3563,23 +4379,33 @@ def convert_df_to_llamadoc_patch_posts(
                 "extracted_causes": row.get("extracted_causes", []),
                 "extracted_fixes": row.get("extracted_fixes", []),
                 "extracted_tools": row.get("extracted_tools", []),
-                "excluded_embed_metadata_keys": row.get("excluded_embed_metadata_keys", []),
-                "excluded_llm_metadata_keys": row.get("excluded_llm_metadata_keys", []),
-                "etl_processing_status": row.get("etl_processing_status", {
-                    'document_processed': True,
-                    'entities_extracted': True,
-                    'graph_prepared': True,
-                    'vector_prepared': True,
-                    'last_processed_at': current_time,
-                    'processing_version': '1.0'
-                }),
+                "excluded_embed_metadata_keys": row.get(
+                    "excluded_embed_metadata_keys", []
+                ),
+                "excluded_llm_metadata_keys": row.get(
+                    "excluded_llm_metadata_keys", []
+                ),
+                "etl_processing_status": row.get(
+                    "etl_processing_status",
+                    {
+                        'document_processed': True,
+                        'entities_extracted': True,
+                        'graph_prepared': True,
+                        'vector_prepared': True,
+                        'last_processed_at': current_time,
+                        'processing_version': '1.0',
+                    },
+                ),
             }
 
             # Update metadata with defaults
             for key, default_value in defaults.items():
                 if key not in metadata_dict or metadata_dict[key] is None:
                     metadata_dict[key] = default_value
-                    logging.debug("Applied default value", extra={"key": key, "default_value": default_value})
+                    logging.debug(
+                        "Applied default value",
+                        extra={"key": key, "default_value": default_value},
+                    )
 
             # Add extracted nodes
             extracted_nodes = {
@@ -3610,14 +4436,29 @@ def convert_df_to_llamadoc_patch_posts(
             # update the metadata etl dict to update the vector key and the last updated key
             metadata_dict['etl_processing_status']['entities_extracted'] = True
             metadata_dict['etl_processing_status']['vector_prepared'] = True
-            metadata_dict['etl_processing_status']['last_processed_at'] = current_time
+            metadata_dict['etl_processing_status'][
+                'last_processed_at'
+            ] = current_time
             # Create the LlamaDocument
             doc = LlamaDocument(
                 text=_handle_na_text(row["text"]),
                 doc_id=row["node_id"],
                 extra_info=metadata_dict,
-                excluded_embed_metadata_keys=metadata_dict.get("excluded_embed_metadata_keys", []) if isinstance(metadata_dict.get("excluded_embed_metadata_keys"), list) else [],
-                excluded_llm_metadata_keys=metadata_dict.get("excluded_llm_metadata_keys", []) if isinstance(metadata_dict.get("excluded_llm_metadata_keys"), list) else [],            )
+                excluded_embed_metadata_keys=(
+                    metadata_dict.get("excluded_embed_metadata_keys", [])
+                    if isinstance(
+                        metadata_dict.get("excluded_embed_metadata_keys"), list
+                    )
+                    else []
+                ),
+                excluded_llm_metadata_keys=(
+                    metadata_dict.get("excluded_llm_metadata_keys", [])
+                    if isinstance(
+                        metadata_dict.get("excluded_llm_metadata_keys"), list
+                    )
+                    else []
+                ),
+            )
             llama_documents.append(doc)
 
             # Log document creation
@@ -3626,7 +4467,12 @@ def convert_df_to_llamadoc_patch_posts(
 
         except Exception as e:
             # Log any errors encountered during processing
-            logging.error(f"Error processing row_data: {row.to_dict()}\n error: {str(e)}")
+            logging.error(
+                f"Error processing row_data: {row.to_dict()}\n error: {str(e)}"
+            )
 
+    # fmt: on
     return llama_documents
+
+
 # End Convert dataframes to LlamaDocs ==========================
