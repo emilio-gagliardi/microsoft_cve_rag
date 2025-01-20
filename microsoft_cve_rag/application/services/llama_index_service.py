@@ -1,74 +1,71 @@
 # Contains functions to initialize LlamaIndex components, such as the LLM, extractors, and any configurations.
 # Functions to process documents and extract entities and relationships.
 # insert current working directory into sys.path
-import os
-from pathlib import Path
-# import sys
+import asyncio
+import datetime
+import hashlib
+import json
+import logging
 
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 # print(sys.path)
 import math
-from llama_index.core import (
-    Settings,
-    StorageContext,
-    VectorStoreIndex,
-    load_index_from_storage,
-    )
-from application.etl.type_utils import convert_to_float
-from llama_index.core.schema import Document as LlamaDocument, NodeRelationship, RelatedNodeInfo
-from llama_index.core.llms import ChatMessage
-# from llama_index.llms.openai import OpenAI
-from llama_index.core.indices.property_graph import SchemaLLMPathExtractor
-from llama_index.core.prompts.base import PromptTemplate
-from llama_index.core.vector_stores.types import BasePydanticVectorStore
-from llama_index.vector_stores.qdrant import QdrantVectorStore
-from llama_index.core.node_parser import SentenceWindowNodeParser
-from llama_index.core.storage.docstore import SimpleDocumentStore
-from llama_index.core.storage.index_store import SimpleIndexStore
-from application.etl.kg_extraction_prompts import get_prompt_template
-from application.services.document_chunker import DocumentChunker
-from application.services.embedding_service import (
-    EmbeddingService,
-    LlamaIndexEmbeddingAdapter,
-    )
-from application.services.vector_db_service import VectorDBService
-from application.services.graph_db_service import ToolService, GraphDatabaseManager, get_graph_db_uri, set_graph_db_uri
-from application.core.models import graph_db_models
-from qdrant_client.http.models import (
-    Filter,
-    FieldCondition,
-    MatchValue,
-    MatchAny,
-    FilterSelector,
-)
-from neomodel.async_.core import AsyncDatabase
-from neomodel import config as NeomodelConfig
-from typing import Dict, List, Literal, Tuple, Optional, Any, Union
-import pandas as pd
-import numpy as np
-import uuid
-import json
+import os
+import re
 import shutil
 import tempfile
-import re
 import time
-import datetime
-import tiktoken
-import asyncio
-from transformers import AutoTokenizer
-import hashlib
-from fuzzywuzzy import fuzz, process
-from tqdm import tqdm
+import uuid
 import warnings
-from dataclasses import dataclass
 from collections import defaultdict
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Dict, List, Literal, Optional, Tuple, Union
+
+import numpy as np
+import pandas as pd
+import tiktoken
 from application.app_utils import (
     get_app_config,
     get_graph_db_credentials,
     get_openai_api_key,
 )
-from openai import OpenAI, AsyncOpenAI
-import logging
+from application.etl.kg_extraction_prompts import get_prompt_template
+from application.etl.type_utils import convert_to_float
+from application.services.embedding_service import LlamaIndexEmbeddingAdapter
+from application.services.graph_db_service import (
+    GraphDatabaseManager,
+    ToolService,
+    get_graph_db_uri,
+    set_graph_db_uri,
+)
+from application.services.vector_db_service import VectorDBService
+from fuzzywuzzy import fuzz, process
+from llama_index.core import Settings, StorageContext, VectorStoreIndex
+from llama_index.core.node_parser import SentenceWindowNodeParser
+from llama_index.core.prompts.base import PromptTemplate
+from llama_index.core.schema import Document as LlamaDocument
+from llama_index.core.schema import NodeRelationship, RelatedNodeInfo
+from llama_index.core.storage.docstore import SimpleDocumentStore
+from llama_index.core.storage.index_store import SimpleIndexStore
+from llama_index.core.vector_stores.types import BasePydanticVectorStore
+from llama_index.vector_stores.qdrant import QdrantVectorStore
+from neomodel import config as NeomodelConfig
+from neomodel.async_.core import AsyncDatabase
+from openai import AsyncOpenAI
+from qdrant_client.http.models import (
+    FieldCondition,
+    Filter,
+    FilterSelector,
+    MatchAny,
+    MatchValue,
+)
+from tqdm import tqdm
+from transformers import AutoTokenizer
+
+# import sys
+
+
 # import logging.config
 
 logging.getLogger(__name__)
@@ -87,7 +84,9 @@ llm_model = "gpt-4o-mini"
 # llm = OpenAI(model=llm_model, temperature=0.2, max_tokens=4096)
 # tokenizer = tiktoken.encoding_for_model(llm_model).encode
 # Settings.tokenizer = tokenizer
-tokenizer = AutoTokenizer.from_pretrained("Snowflake/snowflake-arctic-embed-m-long")
+tokenizer = AutoTokenizer.from_pretrained(
+    "Snowflake/snowflake-arctic-embed-m-long"
+)
 # Settings.tokenizer = tokenizer
 set_graph_db_uri()
 # Define your schema and extractor
@@ -97,20 +96,68 @@ RelationType = Literal[
 ]
 
 schema = {
-    "MSRC_POST": ["HAS_SYMPTOM", "HAS_CAUSE", "HAS_FIX", "HAS_TOOL", "HAS_TECHNOLOGY"],
-    "PATCH_POST": ["HAS_SYMPTOM", "HAS_CAUSE", "HAS_FIX", "HAS_TOOL", "HAS_TECHNOLOGY"],
+    "MSRC_POST": [
+        "HAS_SYMPTOM",
+        "HAS_CAUSE",
+        "HAS_FIX",
+        "HAS_TOOL",
+        "HAS_TECHNOLOGY",
+    ],
+    "PATCH_POST": [
+        "HAS_SYMPTOM",
+        "HAS_CAUSE",
+        "HAS_FIX",
+        "HAS_TOOL",
+        "HAS_TECHNOLOGY",
+    ],
 }
 
 
 custom_prompt = PromptTemplate(
-    "You are an expert in Windows security and patch management. You are tasked with identifying additional entities in a given text."
-    "The entities are Symptom, Cause, Fix, Tool, and Technology. Not all are necessarily present. If the document metadata key `post_type` contains 'Solution provided' then the cause and fix are contained within the text."
-    " A Symptom is an observable behavior, an error message, or any indication that something is going wrong in the system, as experienced by end users or system administrators. **It is not a vulnerability or technical exploit, but rather what the user notices as a result of the underlying issue.** For example, a Symptom could be system crashes, poor performance, unexpected reboots, failed updates, or error messages seen by the user. Symptoms help people identify issues that are affecting their environments. \nDo not describe vulnerabilities, exploits, or technical flaws directly. Instead, describe the **impact or observable behavior** that a system administrator or end user would see as a consequence of the security issue. Focus on the **user's perspective**, not the attacker's. \nBe thorough and consider subtle aspects that may not be explicitly stated. Describe how the security update affects a particular system or software product from the perspective of the end user. For instance:\n- 'The computer fails to boot after installing a security patch.'\n'Network communication is intermittently lost on systems using the affected driver.'\n- 'The system experiences slow performance and occasional reboots.'\nDo not restate or reference the original post directly; the Symptom should stand alone and specify the **observable behavior** or **impact** rather than describing the vulnerability itself.\n"
-    "A Cause is any technical or situational condition responsible for the Symptom or issue described in the CVE. This could be a flaw in software, a misconfiguration, or any contributing factor that underpins the identified Symptom. Focus on the technical reasons driving the issue, and avoid restating the full text of the post.\n"
-    "A Fix is a technical action, configuration change, or patch available to address the Cause or mitigate the Symptom. Focus on the specific technical response to the Cause, referencing affected systems or products without repeating the post's full text. This description should stand alone as a precise explanation of the Fix.\n"
-    "A Tool is any software, command-line utility, or similar that Microsoft or end users may use to diagnose, mitigate, or resolve the issue. Focus on names, configurations, or commands necessary for addressing the symptoms or causes of the CVE."
-    "Technologies are separate from the core Microsoft product families. Focus on identifying technologies referenced or implied that could relate to the text. Attempt to extract separate pieces for the `name`, `version`, `architecture`, and `build_number` fields."
-    "Try to limit the output to {max_triplets_per_chunk} extracted paths.\n-------\n{text}\n-------\n"
+    "You are an expert in Windows security and patch management. You are"
+    " tasked with identifying additional entities in a given text.The entities"
+    " are Symptom, Cause, Fix, Tool, and Technology. Not all are necessarily"
+    " present. If the document metadata key `post_type` contains 'Solution"
+    " provided' then the cause and fix are contained within the text. A"
+    " Symptom is an observable behavior, an error message, or any indication"
+    " that something is going wrong in the system, as experienced by end users"
+    " or system administrators. **It is not a vulnerability or technical"
+    " exploit, but rather what the user notices as a result of the underlying"
+    " issue.** For example, a Symptom could be system crashes, poor"
+    " performance, unexpected reboots, failed updates, or error messages seen"
+    " by the user. Symptoms help people identify issues that are affecting"
+    " their environments. \nDo not describe vulnerabilities, exploits, or"
+    " technical flaws directly. Instead, describe the **impact or observable"
+    " behavior** that a system administrator or end user would see as a"
+    " consequence of the security issue. Focus on the **user's perspective**,"
+    " not the attacker's. \nBe thorough and consider subtle aspects that may"
+    " not be explicitly stated. Describe how the security update affects a"
+    " particular system or software product from the perspective of the end"
+    " user. For instance:\n- 'The computer fails to boot after installing a"
+    " security patch.'\n'Network communication is intermittently lost on"
+    " systems using the affected driver.'\n- 'The system experiences slow"
+    " performance and occasional reboots.'\nDo not restate or reference the"
+    " original post directly; the Symptom should stand alone and specify the"
+    " **observable behavior** or **impact** rather than describing the"
+    " vulnerability itself.\nA Cause is any technical or situational condition"
+    " responsible for the Symptom or issue described in the CVE. This could be"
+    " a flaw in software, a misconfiguration, or any contributing factor that"
+    " underpins the identified Symptom. Focus on the technical reasons driving"
+    " the issue, and avoid restating the full text of the post.\nA Fix is a"
+    " technical action, configuration change, or patch available to address"
+    " the Cause or mitigate the Symptom. Focus on the specific technical"
+    " response to the Cause, referencing affected systems or products without"
+    " repeating the post's full text. This description should stand alone as a"
+    " precise explanation of the Fix.\nA Tool is any software, command-line"
+    " utility, or similar that Microsoft or end users may use to diagnose,"
+    " mitigate, or resolve the issue. Focus on names, configurations, or"
+    " commands necessary for addressing the symptoms or causes of the"
+    " CVE.Technologies are separate from the core Microsoft product families."
+    " Focus on identifying technologies referenced or implied that could"
+    " relate to the text. Attempt to extract separate pieces for the `name`,"
+    " `version`, `architecture`, and `build_number` fields.Try to limit the"
+    " output to {max_triplets_per_chunk} extracted"
+    " paths.\n-------\n{text}\n-------\n"
 )
 # kg_extractor = SchemaLLMPathExtractor(
 #     llm=llm,
@@ -204,7 +251,9 @@ def safe_partial_ratio(s1, s2, score_cutoff=80):
 
 
 # Utility function to create metadata string
-def create_metadata_string_for_user_prompt(row: pd.Series, metadata_keys: list) -> str:
+def create_metadata_string_for_user_prompt(
+    row: pd.Series, metadata_keys: list
+) -> str:
     """
     Create a metadata string from the given row of data, including only the specified metadata keys.
 
@@ -220,7 +269,9 @@ def create_metadata_string_for_user_prompt(row: pd.Series, metadata_keys: list) 
     for key in metadata_keys:
         value = row.get(key, None)
         # Handling empty, NaN, None values, and ambiguous array values
-        if value is not None and not (isinstance(value, float) and math.isnan(value)):
+        if value is not None and not (
+            isinstance(value, float) and math.isnan(value)
+        ):
             if isinstance(value, pd.Timestamp):
                 value = value.isoformat()
             if isinstance(value, (list, pd.Series)):
@@ -232,6 +283,22 @@ def create_metadata_string_for_user_prompt(row: pd.Series, metadata_keys: list) 
 
 @dataclass
 class TokenUsage:
+    """
+    A dataclass for tracking the number of input and output tokens, and the cost of those tokens.
+
+    The cost is calculated based on the number of tokens in the input and output, and the cost per million tokens.
+    The cost per million tokens is set when the TokenCounter is initialized, and defaults to $0.150 per million input tokens and $0.600 per million output tokens for the gpt-4o-mini model.
+
+    Attributes:
+        input_tokens (int): The number of input tokens.
+        output_tokens (int): The number of output tokens.
+        input_cost (float): The cost of the input tokens.
+        output_cost (float): The cost of the output tokens.
+        total_cost (float): The total cost of the input and output tokens.
+        input_cost_per_million (float): The cost per million input tokens.
+        output_cost_per_million (float): The cost per million output tokens.
+    """
+
     input_tokens: int
     output_tokens: int
     input_cost: float
@@ -241,6 +308,22 @@ class TokenUsage:
     output_cost_per_million: float
 
     def to_dict(self) -> Dict:
+        """
+        Convert the TokenUsage object to a dictionary.
+
+        The returned dictionary contains the following keys:
+
+        - `input_tokens`: The number of input tokens.
+        - `output_tokens`: The number of output tokens.
+        - `input_cost`: The cost of the input tokens.
+        - `output_cost`: The cost of the output tokens.
+        - `total_cost`: The total cost of the input and output tokens.
+        - `input_cost_per_million`: The cost per million input tokens.
+        - `output_cost_per_million`: The cost per million output tokens.
+
+        Returns:
+            Dict: A dictionary containing the above keys.
+        """
         return {
             "input_tokens": self.input_tokens,
             "output_tokens": self.output_tokens,
@@ -248,27 +331,51 @@ class TokenUsage:
             "output_cost": self.output_cost,
             "total_cost": self.total_cost,
             "input_cost_per_million": self.input_cost_per_million,
-            "output_cost_per_million": self.output_cost_per_million
+            "output_cost_per_million": self.output_cost_per_million,
         }
 
 
 class TokenCounter:
-    def __init__(self, model_name: str = "gpt-4o-mini",
-                 input_cost_per_million: float = 0.150,
-                 output_cost_per_million: float = 0.600):
+    """
+    A class for tracking and calculating the cost of input and output tokens.
+
+    The cost is calculated based on the number of tokens in the input and output, and the cost per million tokens.
+    The cost per million tokens is set when the TokenCounter is initialized, and defaults to $0.150 per million input tokens and $0.600 per million output tokens for the gpt-4o-mini model.
+
+    Attributes:
+        model_name (str): The name of the model being used.
+        input_cost_per_million (float): The cost per million input tokens.
+        output_cost_per_million (float): The cost per million output tokens.
+        encoder (tiktoken.Encoding): The encoding used to calculate the number of tokens in the input and output.
+    """
+
+    def __init__(
+        self,
+        model_name: str = "gpt-4o-mini",
+        input_cost_per_million: float = 0.150,
+        output_cost_per_million: float = 0.600,
+    ):
         self.model_name = model_name
         self.input_cost_per_million = input_cost_per_million
         self.output_cost_per_million = output_cost_per_million
         self.encoder = tiktoken.encoding_for_model(model_name)
 
-    def _calculate_cost(self, num_tokens: int, cost_per_million: float) -> float:
+    def _calculate_cost(
+        self, num_tokens: int, cost_per_million: float
+    ) -> float:
         """Internal method to calculate cost for a given number of tokens."""
         return (num_tokens / 1_000_000) * cost_per_million
 
-    def from_token_counts(self, input_tokens: int, output_tokens: int) -> TokenUsage:
+    def from_token_counts(
+        self, input_tokens: int, output_tokens: int
+    ) -> TokenUsage:
         """Create TokenUsage from raw token counts."""
-        input_cost = self._calculate_cost(input_tokens, self.input_cost_per_million)
-        output_cost = self._calculate_cost(output_tokens, self.output_cost_per_million)
+        input_cost = self._calculate_cost(
+            input_tokens, self.input_cost_per_million
+        )
+        output_cost = self._calculate_cost(
+            output_tokens, self.output_cost_per_million
+        )
 
         return TokenUsage(
             input_tokens=input_tokens,
@@ -277,7 +384,7 @@ class TokenCounter:
             output_cost=output_cost,
             total_cost=input_cost + output_cost,
             input_cost_per_million=self.input_cost_per_million,
-            output_cost_per_million=self.output_cost_per_million
+            output_cost_per_million=self.output_cost_per_million,
         )
 
     def from_prompt_response(self, prompt: str, response: str) -> TokenUsage:
@@ -295,7 +402,7 @@ class TokenCounter:
 token_counter_instance = TokenCounter(
     model_name="gpt-4o-mini",
     input_cost_per_million=0.150,
-    output_cost_per_million=0.600
+    output_cost_per_million=0.600,
 )
 
 
@@ -305,14 +412,18 @@ def load_llm_usage_data(filename):
     If the file is malformed, attempt to recover by truncating to the last complete JSON object.
     """
     if not os.path.exists(filename):
-        logging.info(f"File {filename} does not exist. Initializing with an empty list.")
+        logging.info(
+            f"File {filename} does not exist. Initializing with an empty list."
+        )
         return []
 
     try:
         with open(filename, 'r', encoding='utf-8') as f:
             return json.load(f)
     except json.JSONDecodeError as e:
-        logging.warning(f"JSONDecodeError: {e}. Attempting to recover {filename}.")
+        logging.warning(
+            f"JSONDecodeError: {e}. Attempting to recover {filename}."
+        )
         try:
             with open(filename, 'r', encoding='utf-8') as f:
                 data = f.read()
@@ -320,15 +431,21 @@ def load_llm_usage_data(filename):
             # Find the position of the last closing brace
             last_brace = data.rfind('}')
             if last_brace == -1:
-                logging.error(f"No closing brace found in {filename}. Resetting to an empty list.")
+                logging.error(
+                    f"No closing brace found in {filename}. Resetting to an"
+                    " empty list."
+                )
                 return []
 
             # Truncate the data to the last complete JSON object and close the array
-            recovered_data = data[:last_brace+1] + ']'
+            recovered_data = data[: last_brace + 1] + ']'
 
             # Ensure the data starts with '[' to form a valid JSON array
             if not recovered_data.strip().startswith('['):
-                logging.error(f"Recovered data does not start with '['. Resetting to an empty list.")
+                logging.error(
+                    "Recovered data does not start with '['. Resetting to an"
+                    " empty list."
+                )
                 return []
 
             # Attempt to parse the recovered JSON
@@ -369,7 +486,7 @@ def update_llm_usage(usage):
     usage_record = {
         "full_date": current_date,
         "month": current_month,
-        **usage.to_dict()  # Unpack all token and cost information
+        **usage.to_dict(),  # Unpack all token and cost information
     }
 
     # Append the new record
@@ -378,13 +495,17 @@ def update_llm_usage(usage):
     # Write updated data atomically
     try:
         # Use a temporary file to ensure atomicity
-        with tempfile.NamedTemporaryFile('w', delete=False, dir=usage_dir, suffix='.tmp', encoding='utf-8') as tmp_file:
+        with tempfile.NamedTemporaryFile(
+            'w', delete=False, dir=usage_dir, suffix='.tmp', encoding='utf-8'
+        ) as tmp_file:
             json.dump(usage_data, tmp_file, indent=2)
             temp_name = tmp_file.name
 
         # Replace the original file with the temporary file
         shutil.move(temp_name, usage_file)
-        logging.debug(f"Successfully updated {usage_file} with new usage record.")
+        logging.debug(
+            f"Successfully updated {usage_file} with new usage record."
+        )
 
     except Exception as e:
         logging.error(f"Failed to write to {usage_file}: {e}")
@@ -406,7 +527,7 @@ def build_prompt(
     build_numbers: Dict[str, List[str]] = {},
     kb_ids: Dict[str, List[str]] = {},
     update_package_urls: str = None,
-    post_type: str = ""
+    post_type: str = "",
 ) -> str:
     """
     Build a complete prompt by combining the template with truncated context text and metadata,
@@ -439,10 +560,15 @@ def build_prompt(
     kb_ids_str = ""
 
     if kb_ids:
-        kb_ids_str = "\n".join([f"{product}: {', '.join(kbs)}" for product, kbs in kb_ids.items()])
+        kb_ids_str = "\n".join(
+            [f"{product}: {', '.join(kbs)}" for product, kbs in kb_ids.items()]
+        )
 
     if build_numbers:
-        build_numbers_str = "\n".join([f"{product}: {', '.join(numbers)}" for product, numbers in build_numbers.items()])
+        build_numbers_str = "\n".join([
+            f"{product}: {', '.join(numbers)}"
+            for product, numbers in build_numbers.items()
+        ])
 
     # Step 4: Conditionally format the prompt based on the presence of 'fix_label'
     if 'fix_label' in template:
@@ -457,7 +583,9 @@ def build_prompt(
     else:
         # Convert source_ids to a JSON-formatted string
         source_ids_json = json.dumps([source_id])
-        prompt_static = template.replace('"source_ids": {source_ids}', f'"source_ids": {source_ids_json}')
+        prompt_static = template.replace(
+            '"source_ids": {source_ids}', f'"source_ids": {source_ids_json}'
+        )
         prompt_static = prompt_static.format(
             context_str=context_str,
             source_id=source_id,
@@ -533,15 +661,16 @@ async def call_llm_no_logging_no_cache(system_prompt: str, user_prompt: str):
         return response.choices[0].message.content
     except Exception as e:
         if "insufficient credits" in str(e).lower():
-            logging.error("Tried to process API call, insufficient credits available.")
+            logging.error(
+                "Tried to process API call, insufficient credits available."
+            )
         else:
             logging.error(f"Exception: {e}")
         raise
 
 
 def extract_data_backwards(
-    products: List[str],
-    text: Union[str, float, None]
+    products: List[str], text: Union[str, float, None]
 ) -> Dict[str, Dict[str, List[str]]]:
     """
     Extracts build numbers and KB IDs from text by processing it from the end toward the beginning.
@@ -557,11 +686,16 @@ def extract_data_backwards(
         with 'build_numbers' and 'kb_ids' as keys, each containing a list of values.
     """
     # Initialize result dictionary with empty lists for each product
-    result = {product: {"build_numbers": [], "kb_ids": []} for product in products}
+    result = {
+        product: {"build_numbers": [], "kb_ids": []} for product in products
+    }
 
     # Handle non-string text input
     if not isinstance(text, str) or pd.isna(text):
-        logging.warning(f"Invalid text type {type(text)} or NaN value. Returning empty result.")
+        logging.warning(
+            f"Invalid text type {type(text)} or NaN value. Returning empty"
+            " result."
+        )
         return result
 
     # Split into lines and clean
@@ -586,9 +720,15 @@ def extract_data_backwards(
             break
 
         # Extract build number
-        build_number_match = re.search(r"\b(\d+\.\d+\.\d+\.\d+(?:/\d+)?)\b", preprocessed_line)
-        if build_number_match and "Build Number" not in preprocessed_line:  # Avoid matching header
-            current_unit["build_numbers"] = expand_build_number(build_number_match.group(1))
+        build_number_match = re.search(
+            r"\b(\d+\.\d+\.\d+\.\d+(?:/\d+)?)\b", preprocessed_line
+        )
+        if (
+            build_number_match and "Build Number" not in preprocessed_line
+        ):  # Avoid matching header
+            current_unit["build_numbers"] = expand_build_number(
+                build_number_match.group(1)
+            )
             continue
 
         # Extract KB ID - now handles 5-7 digit format
@@ -596,7 +736,9 @@ def extract_data_backwards(
         for match in kb_matches:
             kb_id = match.group(1)
             # Skip if it's part of a build number pattern
-            if not re.search(rf"\b\d+\.\d+\.\d+\.{kb_id}\b", preprocessed_line):
+            if not re.search(
+                rf"\b\d+\.\d+\.\d+\.{kb_id}\b", preprocessed_line
+            ):
                 current_unit["kb_id"] = f"KB{kb_id}"
 
         # Look for product names
@@ -608,7 +750,11 @@ def extract_data_backwards(
                     for build in current_unit["build_numbers"]:
                         if build not in result[product]["build_numbers"]:
                             result[product]["build_numbers"].append(build)
-                    if current_unit["kb_id"] and current_unit["kb_id"] not in result[product]["kb_ids"]:
+                    if (
+                        current_unit["kb_id"]
+                        and current_unit["kb_id"]
+                        not in result[product]["kb_ids"]
+                    ):
                         result[product]["kb_ids"].append(current_unit["kb_id"])
 
                     # Clear current unit after extracting data
@@ -619,8 +765,7 @@ def extract_data_backwards(
 
 
 def extract_data_patch_management(
-    products: List[str],
-    text: str
+    products: List[str], text: str
 ) -> Dict[str, Dict[str, List[str]]]:
     """
     Extracts build numbers and KB IDs from PatchManagementPost documents by performing fuzzy matching for products
@@ -637,17 +782,24 @@ def extract_data_patch_management(
         key for build numbers and KB IDs that aren't associated with specific products.
     """
     # Initialize result dictionary with empty lists for each product and add 'unknown' key
-    result = {product: {"build_numbers": [], "kb_ids": []} for product in products}
+    result = {
+        product: {"build_numbers": [], "kb_ids": []} for product in products
+    }
     result["unknown"] = {"build_numbers": [], "kb_ids": []}
 
     # Handle non-string text input
     if not isinstance(text, str) or pd.isna(text):
-        logging.warning(f"Invalid text type {type(text)} or NaN value -> {text}. Returning empty result.")
+        logging.warning(
+            f"Invalid text type {type(text)} or NaN value -> {text}. Returning"
+            " empty result."
+        )
         return result
 
     # Extract all build numbers using regex
     build_numbers = []
-    build_number_matches = re.finditer(r"\b(\d+\.\d+\.\d+\.\d+(?:/\d+)?)\b", text)
+    build_number_matches = re.finditer(
+        r"\b(\d+\.\d+\.\d+\.\d+(?:/\d+)?)\b", text
+    )
     for match in build_number_matches:
         build_number = match.group(1)
         if build_number not in build_numbers:
@@ -683,18 +835,49 @@ def extract_data_patch_management(
 
 
 def generate_update_package_links(kb_ids: Dict[str, List[str]]) -> str:
+    """
+    Generate update package links from KB IDs.
+
+    This function takes a dictionary of KB IDs, where the keys are strings and the values are lists of strings representing KB IDs.
+    It generates a string with each unique KB ID linked to its corresponding update package URL on the Microsoft Update Catalog.
+
+    Args:
+        kb_ids (Dict[str, List[str]]): A dictionary containing KB IDs.
+
+    Returns:
+        str: A string with each unique KB ID linked to its update package URL, or None if no KB IDs are provided.
+    """
     update_package_links = None
     unique_kb_ids = set()
     for kb_list in kb_ids.values():
         unique_kb_ids.update(kb_list)
     if unique_kb_ids:
-        update_package_links = "\n".join([f"- https://catalog.update.microsoft.com/Search.aspx?q={kb}" for kb in unique_kb_ids])
+        update_package_links = "\n".join([
+            f"- https://catalog.update.microsoft.com/Search.aspx?q={kb}"
+            for kb in unique_kb_ids
+        ])
     return update_package_links
-
-# f"{entity_type.lower()}_label"
 
 
 def compute_row_key(row, entity_type):
+    """
+    Compute a stable, unique key for a given row and entity type.
+
+    This function takes a pandas Series (row) and an entity type string as input.
+    It creates a dictionary from the row, adds the entity type, and handles any
+    non-serializable values (e.g., Timestamps). It then serializes the dictionary
+    to a JSON string, encodes it to bytes, and computes the SHA256 hash of the
+    result.
+
+    The resulting hash is a stable, unique identifier for the row and entity type.
+
+    Args:
+        row (pandas Series): The row to compute the key for.
+        entity_type (str): The type of entity (e.g., 'Symptom', 'Cause', 'Fix', etc.).
+
+    Returns:
+        str: The computed key as a hexadecimal string.
+    """
     row_dict = row.to_dict()
 
     # Exclude fields that may change
@@ -709,10 +892,13 @@ def compute_row_key(row, entity_type):
             row_dict[key] = value.isoformat()
 
     data_to_hash = json.dumps(row_dict, sort_keys=True).encode("utf-8")
-    hash = hashlib.sha256(data_to_hash).hexdigest()
+    # hash = hashlib.sha256(data_to_hash).hexdigest()
     debug_directory = r"C:\Users\emili\PycharmProjects\microsoft_cve_rag\microsoft_cve_rag\application\data\debug_hash_files"
     os.makedirs(debug_directory, exist_ok=True)
-    debug_file_path = os.path.join(debug_directory, f"{row_dict['node_label']}_{entity_type}_data_to_hash.json")
+    debug_file_path = os.path.join(
+        debug_directory,
+        f"{row_dict['node_label']}_{entity_type}_data_to_hash.json",
+    )
     with open(debug_file_path, "wb") as debug_file:
         debug_file.write(data_to_hash)
 
@@ -772,7 +958,9 @@ def get_entities_to_extract(post_type: str) -> list:
     }
 
     if post_type not in valid_post_types:
-        logging.warning(f"Unexpected post_type: {post_type}. Using default extraction.")
+        logging.warning(
+            f"Unexpected post_type: {post_type}. Using default extraction."
+        )
         return ["Symptom", "Cause", "Fix", "Tool"]
 
     return valid_post_types[post_type]
@@ -788,9 +976,11 @@ async def _get_tool_service():
     global _tool_service, _last_service_time
 
     current_time = time.time()
-    if (_tool_service is not None and
-        _last_service_time is not None and
-        current_time - _last_service_time < _service_ttl):
+    if (
+        _tool_service is not None
+        and _last_service_time is not None
+        and current_time - _last_service_time < _service_ttl
+    ):
         return _tool_service
 
     # Create new service instance
@@ -850,13 +1040,13 @@ def sanitize_llm_response(llm_response: str) -> Tuple[str, bool]:
         elif char in close_chars:
             if not stack:
                 # Found closing char without matching opening
-                sanitized = sanitized[:i] + sanitized[i+1:]
+                sanitized = sanitized[:i] + sanitized[i + 1 :]
                 was_modified = True
             else:
                 expected = char_pairs[stack[-1]]
                 if char != expected:
                     # Mismatched closing char
-                    sanitized = sanitized[:i] + expected + sanitized[i+1:]
+                    sanitized = sanitized[:i] + expected + sanitized[i + 1 :]
                     was_modified = True
                 stack.pop()
 
@@ -879,7 +1069,10 @@ class FailedExtraction:
         error: Error message describing the failure
         timestamp: When the failure occurred
     """
-    def __init__(self, source_id: str, node_label: str, llm_response: str, error: str):
+
+    def __init__(
+        self, source_id: str, node_label: str, llm_response: str, error: str
+    ):
         self.source_id: str = source_id
         self.node_label: str = node_label
         self.llm_response: str = llm_response
@@ -893,7 +1086,7 @@ class FailedExtraction:
             'node_label': self.node_label,
             'llm_response': self.llm_response,
             'error': self.error,
-            'timestamp': self.timestamp
+            'timestamp': self.timestamp,
         }
 
 
@@ -902,7 +1095,9 @@ async def extract_entities_relationships(
     document_type: str,
     max_prompt_length=3050,
     process_all: bool = False,
-) -> Tuple[Dict[str, List[Dict]], List[FailedExtraction], Dict[str, List[Dict]]]:
+) -> Tuple[
+    Dict[str, List[Dict]], List[FailedExtraction], Dict[str, List[Dict]]
+]:
     """
     Extract entities and relationships from documents using LlamaIndex.
 
@@ -952,7 +1147,7 @@ async def extract_entities_relationships(
         "Windows 10 Version 22H2 for 32-bit Systems",
         "windows 10 version 21h2 for 32-bit Systems",
         "Microsoft Edge (Chromium-based)",
-        "Microsoft Edge (Chromium-based) Extended Stable"
+        "Microsoft Edge (Chromium-based) Extended Stable",
     ]
 
     start_time = time.time()
@@ -967,24 +1162,49 @@ async def extract_entities_relationships(
         etl_status = metadata.get('etl_processing_status')
 
         if document_type in metadata_columns:
-            metadata_str = create_metadata_string_for_user_prompt(row, metadata_columns[document_type])
+            metadata_str = create_metadata_string_for_user_prompt(
+                row, metadata_columns[document_type]
+            )
         else:
             metadata_str = ""
 
         document_text = row["text"]
         if pd.isna(document_text):
-            logging.info(f"Document {row['node_id']} has NaN text value, setting to empty string")
+            logging.info(
+                f"Document {row['node_id']} has NaN text value, setting to"
+                " empty string"
+            )
             continue
 
         if document_type == "MSRCPost":
-            extracted_data_backwards = extract_data_backwards(products, document_text)
-            build_numbers = {product: data['build_numbers'] for product, data in extracted_data_backwards.items() if data['build_numbers']}
-            kb_ids = {product: data['kb_ids'] for product, data in extracted_data_backwards.items() if data['kb_ids']}
+            extracted_data_backwards = extract_data_backwards(
+                products, document_text
+            )
+            build_numbers = {
+                product: data['build_numbers']
+                for product, data in extracted_data_backwards.items()
+                if data['build_numbers']
+            }
+            kb_ids = {
+                product: data['kb_ids']
+                for product, data in extracted_data_backwards.items()
+                if data['kb_ids']
+            }
             post_type = row["post_type"]
         elif document_type == "PatchManagementPost":
-            extracted_data_patch = extract_data_patch_management(products, document_text)
-            build_numbers = {product: data['build_numbers'] for product, data in extracted_data_patch.items() if data['build_numbers']}
-            kb_ids = {product: data['kb_ids'] for product, data in extracted_data_patch.items() if data['kb_ids']}
+            extracted_data_patch = extract_data_patch_management(
+                products, document_text
+            )
+            build_numbers = {
+                product: data['build_numbers']
+                for product, data in extracted_data_patch.items()
+                if data['build_numbers']
+            }
+            kb_ids = {
+                product: data['kb_ids']
+                for product, data in extracted_data_patch.items()
+                if data['kb_ids']
+            }
             post_type = row["post_type"]
         else:
             build_numbers, kb_ids = {}, {}
@@ -995,7 +1215,10 @@ async def extract_entities_relationships(
         # Get the entities to extract based on post_type
         entities_to_extract = get_entities_to_extract(post_type)
         if not entities_to_extract:
-            logging.info(f"Skipping extraction for document {row['node_id']} with post_type: {post_type}")
+            logging.info(
+                f"Skipping extraction for document {row['node_id']} with"
+                f" post_type: {post_type}"
+            )
             continue
 
         if etl_status.get('entities_extracted', False) and not process_all:
@@ -1003,7 +1226,9 @@ async def extract_entities_relationships(
 
             # For each entity type, try to load from cache
             for entity_type in entities_to_extract:
-                cache_file_name = f"{entity_type.lower()}_{row['node_id']}.json"
+                cache_file_name = (
+                    f"{entity_type.lower()}_{row['node_id']}.json"
+                )
                 cache_file_path = os.path.join(cache_dir, cache_file_name)
 
                 if os.path.exists(cache_file_path):
@@ -1012,12 +1237,23 @@ async def extract_entities_relationships(
                             extracted_entity = json.load(f)
                         cached_files.append(cache_file_path)
                         # Add to appropriate list if not empty
-                        key = entity_type.lower() + 'es' if entity_type == 'Fix' else entity_type.lower() + 's'
-                        if not is_empty_extracted_entity(extracted_entity, entity_type):
+                        key = (
+                            entity_type.lower() + 'es'
+                            if entity_type == 'Fix'
+                            else entity_type.lower() + 's'
+                        )
+                        if not is_empty_extracted_entity(
+                            extracted_entity, entity_type
+                        ):
                             extracted_data[key].append(extracted_entity)
-                            logging.debug(f"Loaded cached {entity_type} extraction for {row['node_id']}")
+                            logging.debug(
+                                f"Loaded cached {entity_type} extraction for"
+                                f" {row['node_id']}"
+                            )
                     except json.JSONDecodeError as e:
-                        logging.error(f"Error reading cache file {cache_file_path}: {e}")
+                        logging.error(
+                            f"Error reading cache file {cache_file_path}: {e}"
+                        )
             continue
 
         has_successful_extraction = False
@@ -1046,7 +1282,7 @@ async def extract_entities_relationships(
                     build_numbers=build_numbers,
                     kb_ids=kb_ids,
                     update_package_urls=update_links,
-                    post_type=post_type
+                    post_type=post_type,
                 )
                 system_prompt = system_prompt_template
 
@@ -1065,27 +1301,41 @@ async def extract_entities_relationships(
                         extracted_entity = json.load(f)
                     cached_files.append(cache_file_path)
                     # Skip token counting for cached results
-                    key = entity_type.lower() + 'es' if entity_type == 'Fix' else entity_type.lower() + 's'
-                    if not is_empty_extracted_entity(extracted_entity, entity_type):
+                    key = (
+                        entity_type.lower() + 'es'
+                        if entity_type == 'Fix'
+                        else entity_type.lower() + 's'
+                    )
+                    if not is_empty_extracted_entity(
+                        extracted_entity, entity_type
+                    ):
                         extracted_data[key].append(extracted_entity)
                         has_successful_extraction = True
                     continue
                 except json.JSONDecodeError as e:
-                    logging.error(f"Error reading cache file {cache_file_path}: {e}")
+                    logging.error(
+                        f"Error reading cache file {cache_file_path}: {e}"
+                    )
                     # If cache file is corrupted, proceed with LLM extraction
 
-            logging.info(f"Extracting {entity_type} from document {row['node_id']}...")
+            logging.info(
+                f"Extracting {entity_type} from document {row['node_id']}..."
+            )
             # Use the LLM to generate the extraction
             try:
-                llm_response = await call_llm_no_logging_no_cache(system_prompt, user_prompt)
+                llm_response = await call_llm_no_logging_no_cache(
+                    system_prompt, user_prompt
+                )
 
                 if not llm_response:
-                    failed_extractions.append(FailedExtraction(
-                        source_id=row['node_id'],
-                        node_label=entity_type,
-                        llm_response="",
-                        error="Empty LLM response"
-                    ))
+                    failed_extractions.append(
+                        FailedExtraction(
+                            source_id=row['node_id'],
+                            node_label=entity_type,
+                            llm_response="",
+                            error="Empty LLM response",
+                        )
+                    )
                     continue
 
                 # Try to parse the JSON response
@@ -1094,48 +1344,80 @@ async def extract_entities_relationships(
 
                     # Validate that we got a dictionary
                     if not isinstance(extracted_entity, dict):
-                        failed_extractions.append(FailedExtraction(
-                            source_id=row['node_id'],
-                            node_label=entity_type,
-                            llm_response=llm_response,
-                            error=f"LLM response is not a dictionary: {type(extracted_entity)}"
-                        ))
-                        logging.error(f"LLM response is not a dictionary for document {row['node_id']}: {llm_response[:100]}...")
+                        failed_extractions.append(
+                            FailedExtraction(
+                                source_id=row['node_id'],
+                                node_label=entity_type,
+                                llm_response=llm_response,
+                                error=(
+                                    "LLM response is not a dictionary:"
+                                    f" {type(extracted_entity)}"
+                                ),
+                            )
+                        )
+                        logging.error(
+                            "LLM response is not a dictionary for document"
+                            f" {row['node_id']}: {llm_response[:100]}..."
+                        )
                         continue
 
                 except json.JSONDecodeError as e:
                     # Attempt to sanitize the response
-                    sanitized, was_modified = sanitize_llm_response(llm_response)
+                    sanitized, was_modified = sanitize_llm_response(
+                        llm_response
+                    )
                     if was_modified:
                         try:
                             extracted_entity = json.loads(sanitized)
                         except json.JSONDecodeError as e2:
-                            failed_extractions.append(FailedExtraction(
+                            failed_extractions.append(
+                                FailedExtraction(
+                                    source_id=row['node_id'],
+                                    node_label=entity_type,
+                                    llm_response=llm_response,
+                                    error=(
+                                        "Failed to parse after sanitization:"
+                                        f" {str(e2)}"
+                                    ),
+                                )
+                            )
+                            logging.error(
+                                "Failed to parse sanitized LLM response as"
+                                f" JSON for document {row['node_id']}:"
+                                f" {str(e2)}"
+                            )
+                            continue
+                    else:
+                        failed_extractions.append(
+                            FailedExtraction(
                                 source_id=row['node_id'],
                                 node_label=entity_type,
                                 llm_response=llm_response,
-                                error=f"Failed to parse after sanitization: {str(e2)}"
-                            ))
-                            logging.error(f"Failed to parse sanitized LLM response as JSON for document {row['node_id']}: {str(e2)}")
-                            continue
-                    else:
-                        failed_extractions.append(FailedExtraction(
-                            source_id=row['node_id'],
-                            node_label=entity_type,
-                            llm_response=llm_response,
-                            error=f"Failed to parse JSON: {str(e)}"
-                        ))
-                        logging.error(f"Failed to parse LLM response as JSON for document {row['node_id']}: {str(e)}\nResponse: {llm_response[:100]}...")
+                                error=f"Failed to parse JSON: {str(e)}",
+                            )
+                        )
+                        logging.error(
+                            "Failed to parse LLM response as JSON for"
+                            f" document {row['node_id']}: {str(e)}\nResponse:"
+                            f" {llm_response[:100]}..."
+                        )
                         continue
 
             except Exception as e:
-                failed_extractions.append(FailedExtraction(
-                    source_id=row['node_id'],
-                    node_label=entity_type,
-                    llm_response=llm_response if 'llm_response' in locals() else "",
-                    error=f"Unexpected error: {str(e)}"
-                ))
-                logging.error(f"Error during LLM extraction for document {row['node_id']}: {e}")
+                failed_extractions.append(
+                    FailedExtraction(
+                        source_id=row['node_id'],
+                        node_label=entity_type,
+                        llm_response=(
+                            llm_response if 'llm_response' in locals() else ""
+                        ),
+                        error=f"Unexpected error: {str(e)}",
+                    )
+                )
+                logging.error(
+                    "Error during LLM extraction for document"
+                    f" {row['node_id']}: {e}"
+                )
                 continue
 
             # Generate a unique node_id for each sub-entity
@@ -1144,19 +1426,12 @@ async def extract_entities_relationships(
             extracted_entity["entity_type"] = entity_type
             extracted_entity["source_ids"] = [row["node_id"]]
             extracted_entity["verification_status"] = "unverified"
-            if (
-                'severity_type' in extracted_entity
-                and (
-                    extracted_entity['severity_type'] is None
-                    or (
-                        isinstance(extracted_entity['severity_type'], str)
-                        and extracted_entity['severity_type'].lower() not in [
-                            'low',
-                            'moderate',
-                            'important',
-                            'critical'
-                        ]
-                    )
+            if 'severity_type' in extracted_entity and (
+                extracted_entity['severity_type'] is None
+                or (
+                    isinstance(extracted_entity['severity_type'], str)
+                    and extracted_entity['severity_type'].lower()
+                    not in ['low', 'moderate', 'important', 'critical']
                 )
             ):
                 extracted_entity['severity_type'] = 'moderate'
@@ -1165,12 +1440,16 @@ async def extract_entities_relationships(
             if entity_type == "Tool":
                 tool_label = extracted_entity.get("tool_label")
                 description = extracted_entity.get("description")
-                if ((not tool_label or not str(tool_label).strip()) and
-                    (not description or not str(description).strip())):
+                if (not tool_label or not str(tool_label).strip()) and (
+                    not description or not str(description).strip()
+                ):
                     # Track empty tool extraction
                     empty_extractions["Tool"].append({
                         "source_id": row["node_id"],
-                        "message": "Valid LLM extraction with no tool found in source text"
+                        "message": (
+                            "Valid LLM extraction with no tool found in source"
+                            " text"
+                        ),
                     })
                     continue
                 # Create a single ToolService instance for all tool checks in this batch
@@ -1179,8 +1458,7 @@ async def extract_entities_relationships(
                 try:
                     # Check for similar existing tool using cached service
                     similar_tool = await tool_service.find_similar_tool(
-                        extracted_entity.get("tool_label", ""),
-                        threshold=0.91
+                        extracted_entity.get("tool_label", ""), threshold=0.91
                     )
                     if similar_tool:
                         # Convert Neomodel node to dictionary and remove timestamp fields
@@ -1188,24 +1466,36 @@ async def extract_entities_relationships(
                         similar_tool_dict.pop('created_on', None)
                         similar_tool_dict.pop('last_verified_on', None)
                         if "reliability" in similar_tool_dict:
-                            similar_tool_dict["reliability"] = convert_to_float(similar_tool_dict["reliability"])
+                            similar_tool_dict["reliability"] = (
+                                convert_to_float(
+                                    similar_tool_dict["reliability"]
+                                )
+                            )
                         # Update with the new source_ids
-                        source_ids = set(similar_tool_dict.get("source_ids", []) or [])
+                        source_ids = set(
+                            similar_tool_dict.get("source_ids", []) or []
+                        )
                         source_ids.add(row["node_id"])
                         similar_tool_dict["source_ids"] = list(source_ids)
 
                         # Create a new tool dict with all required properties
                         extracted_entity = {
-                            "node_id": similar_tool_dict["node_id"],  # Use existing tool's node_id
+                            "node_id": similar_tool_dict[
+                                "node_id"
+                            ],  # Use existing tool's node_id
                             "source_id": similar_tool_dict["source_id"],
                             "entity_type": "Tool",
                             "source_type": similar_tool_dict["source_type"],
                             "source_ids": similar_tool_dict["source_ids"],
                             "source_url": similar_tool_dict["source_url"],
                             "tool_url": similar_tool_dict["tool_url"],
-                            "verification_status": similar_tool_dict.get("verification_status", "unverified"),
+                            "verification_status": similar_tool_dict.get(
+                                "verification_status", "unverified"
+                            ),
                             "tool_label": similar_tool_dict["tool_label"],
-                            "description": similar_tool_dict.get("description"),
+                            "description": similar_tool_dict.get(
+                                "description"
+                            ),
                             "reliability": extracted_entity.get("reliability"),
                             "tags": similar_tool_dict.get("tags", []),
                         }
@@ -1213,43 +1503,63 @@ async def extract_entities_relationships(
                         # Update the source_ids in Neo4j database
                         try:
                             # Update source_ids directly on the existing node
-                            similar_tool.source_ids = similar_tool_dict["source_ids"]
+                            similar_tool.source_ids = similar_tool_dict[
+                                "source_ids"
+                            ]
                             await similar_tool.save()
                             logging.info(
-                                f"Updated source_ids for tool '{similar_tool_dict['tool_label']}' in Neo4j database. "
-                                f"New source_ids: {similar_tool_dict['source_ids']}"
+                                "Updated source_ids for tool"
+                                f" '{similar_tool_dict['tool_label']}' in"
+                                " Neo4j database. New source_ids:"
+                                f" {similar_tool_dict['source_ids']}"
                             )
 
                         except Exception as db_error:
-                            logging.error(f"Error updating source_ids in Neo4j: {str(db_error)}")
+                            logging.error(
+                                "Error updating source_ids in Neo4j:"
+                                f" {str(db_error)}"
+                            )
                 except Exception as e:
-                    logging.error(f"Error while checking for similar tools: {str(e)}")
+                    logging.error(
+                        f"Error while checking for similar tools: {str(e)}"
+                    )
             else:
                 # No special handling for other entity types
                 pass
 
             # Add to appropriate list
-            key = entity_type.lower() + 'es' if entity_type == 'Fix' else entity_type.lower() + 's'
+            key = (
+                entity_type.lower() + 'es'
+                if entity_type == 'Fix'
+                else entity_type.lower() + 's'
+            )
             if not is_empty_extracted_entity(extracted_entity, entity_type):
                 # add extracted entity to in-batch data container
                 extracted_data[key].append(extracted_entity)
                 has_successful_extraction = True
                 logging.debug(
-                    f"Successfully extracted {entity_type} from document {row['node_id']}"
+                    f"Successfully extracted {entity_type} from document"
+                    f" {row['node_id']}"
                 )
 
             try:
                 with open(cache_file_path, "w", encoding="utf-8") as f:
-                    json.dump(extracted_entity, f, indent=2, cls=JSONSanitizingEncoder)
+                    json.dump(
+                        extracted_entity,
+                        f,
+                        indent=2,
+                        cls=JSONSanitizingEncoder,
+                    )
                 cached_files.append(cache_file_path)
                 logging.debug(f"Cached extraction result to {cache_file_path}")
             except Exception as e:
-                logging.error(f"Error writing cache file {cache_file_path}: {e}")
+                logging.error(
+                    f"Error writing cache file {cache_file_path}: {e}"
+                )
 
             # Count tokens and costs only on successful extraction
             usage = token_counter_instance.from_prompt_response(
-                system_prompt + user_prompt,
-                llm_response
+                system_prompt + user_prompt, llm_response
             )
             token_counter["input_tokens"] += usage.input_tokens
             token_counter["output_tokens"] += usage.output_tokens
@@ -1270,18 +1580,17 @@ async def extract_entities_relationships(
                 metadata_dict['etl_processing_status'] = {}
 
             # Update the status
-            metadata_dict['etl_processing_status'].update({
-                'entities_extracted': True,
-                'last_processed_at': current_time
-            })
+            metadata_dict['etl_processing_status'].update(
+                {'entities_extracted': True, 'last_processed_at': current_time}
+            )
 
             # Update the row's metadata with our changes
             row['metadata'] = metadata_dict
 
     end_time = time.time()
     logging.info(
-        f"{documents_df.shape[0]} rows processed for extraction of {document_type} "
-        f"in {end_time - start_time:.2f} seconds."
+        f"{documents_df.shape[0]} rows processed for extraction of"
+        f" {document_type} in {end_time - start_time:.2f} seconds."
     )
 
     # Print cached file paths
@@ -1299,20 +1608,52 @@ async def extract_entities_relationships(
         final_usage = TokenUsage(
             input_tokens=token_counter["input_tokens"],
             output_tokens=token_counter["output_tokens"],
-            input_cost=token_counter["total_cost"] * (token_counter_instance.input_cost_per_million / (token_counter_instance.input_cost_per_million + token_counter_instance.output_cost_per_million)),
-            output_cost=token_counter["total_cost"] * (token_counter_instance.output_cost_per_million / (token_counter_instance.input_cost_per_million + token_counter_instance.output_cost_per_million)),
+            input_cost=token_counter["total_cost"]
+            * (
+                token_counter_instance.input_cost_per_million
+                / (
+                    token_counter_instance.input_cost_per_million
+                    + token_counter_instance.output_cost_per_million
+                )
+            ),
+            output_cost=token_counter["total_cost"]
+            * (
+                token_counter_instance.output_cost_per_million
+                / (
+                    token_counter_instance.input_cost_per_million
+                    + token_counter_instance.output_cost_per_million
+                )
+            ),
             total_cost=token_counter["total_cost"],
             input_cost_per_million=token_counter_instance.input_cost_per_million,
-            output_cost_per_million=token_counter_instance.output_cost_per_million
+            output_cost_per_million=token_counter_instance.output_cost_per_million,
         )
         update_llm_usage(final_usage)
 
     return extracted_data, failed_extractions, dict(empty_extractions)
 
 
-class JSONSanitizingEncoder (json.JSONEncoder):
+class JSONSanitizingEncoder(json.JSONEncoder):
     """Custom JSON encoder for handling datetime objects and other special types."""
+
     def default(self, obj):
+        """
+        Custom JSON serialization for various object types.
+
+        This method attempts to serialize objects that are not natively supported
+        by the default JSON encoder. Handles common data types like datetime,
+        sets, numpy arrays, and objects with a __dict__ attribute. Converts NaN
+        floats to None and any other unserializable objects to strings.
+
+        Args:
+            obj: The object to be serialized.
+
+        Returns:
+            A JSON-serializable representation of the object.
+
+        Raises:
+            None directly, but logs a warning if serialization fails.
+        """
         try:
             if isinstance(obj, datetime.datetime):
                 return obj.isoformat()
@@ -1324,7 +1665,9 @@ class JSONSanitizingEncoder (json.JSONEncoder):
                 return obj.__dict__
             elif isinstance(obj, float) and (obj != obj):  # Check for NaN
                 return None
-            return str(obj)  # Convert any other unserializable objects to strings
+            return str(
+                obj
+            )  # Convert any other unserializable objects to strings
         except Exception as e:
             logging.warning(f"Error serializing object {type(obj)}: {e}")
             return str(obj)
@@ -1379,7 +1722,9 @@ class CustomDocumentTracker:
                 date_val = document["added_at"]
 
             # Handle different date formats
-            if hasattr(date_val, 'to_pydatetime'):  # pandas built-in to convert Timestamp objects to python datetime
+            if hasattr(
+                date_val, 'to_pydatetime'
+            ):  # pandas built-in to convert Timestamp objects to python datetime
                 doc_date = date_val.to_pydatetime()
             elif isinstance(date_val, str):
                 # Handle string format
@@ -1389,12 +1734,21 @@ class CustomDocumentTracker:
                 raise ValueError(f"Unexpected date format: {type(date_val)}")
 
             days_old = (datetime.datetime.now() - doc_date).days
-            logging.debug(f"Document date: {doc_date}, days old: {days_old}, cache threshold: {self.cache_days}")
+            logging.debug(
+                f"Document date: {doc_date}, days old: {days_old}, cache"
+                f" threshold: {self.cache_days}"
+            )
             return days_old <= self.cache_days
 
         except Exception as e:
-            logging.warning(f"Error determining cache status for document, defaulting to memory cache. Error: {str(e)}")
-            logging.debug(f"Document data - published: {document.get('published')}, added_at: {document.get('added_at')}")
+            logging.warning(
+                "Error determining cache status for document, defaulting to"
+                f" memory cache. Error: {str(e)}"
+            )
+            logging.debug(
+                f"Document data - published: {document.get('published')},"
+                f" added_at: {document.get('added_at')}"
+            )
             return True
 
     def _initialize_cache(self):
@@ -1469,7 +1823,9 @@ class CustomDocumentTracker:
                         docs_to_remove.add(existing_id)
 
                 # Check disk storage only if necessary
-                if not docs_to_remove:  # Only check disk if no matches found in memory
+                if (
+                    not docs_to_remove
+                ):  # Only check disk if no matches found in memory
                     for file_path in self.cache_dir.glob("*.json"):
                         try:
                             with open(file_path, 'r') as f:
@@ -1478,11 +1834,16 @@ class CustomDocumentTracker:
                             if existing_doc.get('source_id') == source_id:
                                 docs_to_remove.add(file_path.stem)
                         except Exception as e:
-                            logging.error(f"Error reading document {file_path}: {e}")
+                            logging.error(
+                                f"Error reading document {file_path}: {e}"
+                            )
 
                 # Remove all found documents in parallel
                 if docs_to_remove:
-                    tasks = [self.remove_document(doc_id_to_remove) for doc_id_to_remove in docs_to_remove]
+                    tasks = [
+                        self.remove_document(doc_id_to_remove)
+                        for doc_id_to_remove in docs_to_remove
+                    ]
                     await asyncio.gather(*tasks)
 
             # Update document
@@ -1510,7 +1871,9 @@ class CustomDocumentTracker:
                 try:
                     doc_path.unlink()
                 except Exception as del_e:
-                    logging.error(f"Error during rollback of document {doc_id}: {del_e}")
+                    logging.error(
+                        f"Error during rollback of document {doc_id}: {del_e}"
+                    )
             logging.info(f"Rolled back document {doc_id}")
             raise
 
@@ -1660,7 +2023,9 @@ class CustomDocumentTracker:
                 self._save_catalog()
             except Exception as e:
                 # If saving fails, we need to rollback all changes
-                raise Exception(f"Failed to save catalog after document removal: {e}")
+                raise Exception(
+                    f"Failed to save catalog after document removal: {e}"
+                )
 
         except Exception as e:
             logging.error(f"Error during document removal {doc_id}: {e}")
@@ -1674,9 +2039,14 @@ class CustomDocumentTracker:
                     with open(file_path, 'w') as f:
                         json.dump(content, f, cls=JSONSanitizingEncoder)
                 except Exception as restore_error:
-                    logging.error(f"Error during rollback of file {file_path}: {restore_error}")
+                    logging.error(
+                        f"Error during rollback of file {file_path}:"
+                        f" {restore_error}"
+                    )
 
-            logging.info(f"Rolled back removal of document {doc_id} and its children")
+            logging.info(
+                f"Rolled back removal of document {doc_id} and its children"
+            )
             raise
 
     def _save_catalog(self):
@@ -1715,12 +2085,14 @@ class CustomDocumentTracker:
             if self.persist_path.exists():
                 try:
                     import shutil
+
                     shutil.copy2(self.persist_path, backup_path)
                 except Exception as e:
                     logging.warning(f"Failed to create backup: {e}")
 
             # Close any potential open handles to the target file
             import gc
+
             gc.collect()
 
             # Attempt to replace the file
@@ -1730,13 +2102,18 @@ class CustomDocumentTracker:
                         self.persist_path.unlink()
                     temp_path.rename(self.persist_path)
             except PermissionError as e:
-                logging.error(f"Permission error while replacing catalog file: {e}")
+                logging.error(
+                    f"Permission error while replacing catalog file: {e}"
+                )
                 # Try alternative approach using shutil
                 try:
                     import shutil
+
                     shutil.move(str(temp_path), str(self.persist_path))
                 except Exception as move_error:
-                    logging.error(f"Failed to move file using shutil: {move_error}")
+                    logging.error(
+                        f"Failed to move file using shutil: {move_error}"
+                    )
                     raise
 
         except Exception as e:
@@ -1744,7 +2121,7 @@ class CustomDocumentTracker:
             if temp_path.exists():
                 try:
                     temp_path.unlink()
-                except:
+                except Exception:
                     pass
             raise
 
@@ -1753,10 +2130,12 @@ class CustomDocumentTracker:
             if temp_path.exists():
                 try:
                     temp_path.unlink()
-                except:
+                except Exception:
                     pass
 
-    async def _count_points_for_document(self, doc_id: str, is_source: bool = True) -> int:
+    async def _count_points_for_document(
+        self, doc_id: str, is_source: bool = True
+    ) -> int:
         """Count points in vector store for a specific document."""
         try:
             # Build the appropriate filter based on is_source flag
@@ -1764,8 +2143,7 @@ class CustomDocumentTracker:
             filter_condition = Filter(
                 must=[
                     FieldCondition(
-                        key=field_key,
-                        match=MatchValue(value=doc_id)
+                        key=field_key, match=MatchValue(value=doc_id)
                     )
                 ]
             )
@@ -1777,7 +2155,7 @@ class CustomDocumentTracker:
                 limit=100,
                 offset=None,
                 with_payload=False,
-                with_vectors=False
+                with_vectors=False,
             )
 
             # Return count of points
@@ -1797,7 +2175,9 @@ class CustomDocumentTracker:
                 date_val = document["added_at"]
 
             # Handle different date formats
-            if hasattr(date_val, 'to_pydatetime'):  # pandas built-in to convert Timestamp objects to python datetime
+            if hasattr(
+                date_val, 'to_pydatetime'
+            ):  # pandas built-in to convert Timestamp objects to python datetime
                 return date_val.to_pydatetime()
             elif isinstance(date_val, str):
                 # Handle string format
@@ -1809,7 +2189,9 @@ class CustomDocumentTracker:
             else:
                 raise ValueError(f"Unexpected date format: {type(date_val)}")
         except Exception as e:
-            logging.warning(f"Error parsing document date, using current time: {str(e)}")
+            logging.warning(
+                f"Error parsing document date, using current time: {str(e)}"
+            )
             return datetime.datetime.now()
 
     def _handle_corruption(self):
@@ -1824,13 +2206,18 @@ class CustomDocumentTracker:
         if self.persist_path.exists():
             # Create timestamped backup
             timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-            backup_path = self.persist_path.with_suffix(f'.corrupted_{timestamp}')
+            backup_path = self.persist_path.with_suffix(
+                f'.corrupted_{timestamp}'
+            )
 
             try:
                 # Attempt to backup the corrupted file
                 import shutil
+
                 shutil.copy2(self.persist_path, backup_path)
-                logging.warning(f"Backed up corrupted tracker file to {backup_path}")
+                logging.warning(
+                    f"Backed up corrupted tracker file to {backup_path}"
+                )
 
                 # Attempt to recover data from corrupted file
                 try:
@@ -1841,25 +2228,37 @@ class CustomDocumentTracker:
                     recovered_docs = {}
                     for doc_id, doc in corrupted_data.items():
                         try:
-                            if isinstance(doc, dict) and all(key in doc for key in ['content', 'metadata']):
+                            if isinstance(doc, dict) and all(
+                                key in doc for key in ['content', 'metadata']
+                            ):
                                 recovered_docs[doc_id] = doc
                         except Exception:
                             continue
 
                     if recovered_docs:
-                        logging.warning(f"Recovered {len(recovered_docs)} valid documents from corrupted file")
+                        logging.warning(
+                            f"Recovered {len(recovered_docs)} valid documents"
+                            " from corrupted file"
+                        )
                         # Save recovered documents
                         with open(self.persist_path, 'w') as f:
-                            json.dump(recovered_docs, f, cls=JSONSanitizingEncoder)
+                            json.dump(
+                                recovered_docs, f, cls=JSONSanitizingEncoder
+                            )
                         return
 
                 except json.JSONDecodeError:
                     logging.error("Could not parse corrupted file as JSON")
                 except Exception as recovery_err:
-                    logging.error(f"Failed to recover data: {str(recovery_err)}")
+                    logging.error(
+                        f"Failed to recover data: {str(recovery_err)}"
+                    )
 
                 # If recovery failed, initialize fresh tracker
-                logging.warning("Initializing fresh document tracker due to unrecoverable corruption")
+                logging.warning(
+                    "Initializing fresh document tracker due to unrecoverable"
+                    " corruption"
+                )
                 self.persist_path.unlink()
                 self._initialize_cache()
 
@@ -1881,7 +2280,9 @@ class CustomDocumentTracker:
         Args:
             max_age_days (int): The maximum age of documents to retain, in days. Defaults to 365.
         """
-        cutoff_date = datetime.datetime.now() - datetime.timedelta(days=max_age_days)
+        cutoff_date = datetime.datetime.now() - datetime.timedelta(
+            days=max_age_days
+        )
         logging.info(f"Cleaning up documents older than {cutoff_date}")
 
         # Clean memory cache
@@ -1942,21 +2343,24 @@ class CustomDocumentTracker:
         try:
             # Step 1: Create vector store (we already have self.vector_store from QdrantVectorStore)
             if not self.vector_store:
-                raise ValueError("Vector store must be initialized before creating fresh context")
+                raise ValueError(
+                    "Vector store must be initialized before creating fresh"
+                    " context"
+                )
 
             # Step 2: Initialize storage context with empty stores
             self.storage_context = StorageContext.from_defaults(
                 vector_store=self.vector_store,
                 persist_dir=self.persist_dir,
                 docstore=SimpleDocumentStore(),
-                index_store=SimpleIndexStore()
+                index_store=SimpleIndexStore(),
             )
 
             # Step 3: Create empty index first, then set its ID
             self.index = VectorStoreIndex(
                 nodes=[],
                 storage_context=self.storage_context,
-                show_progress=False
+                show_progress=False,
             )
 
             # Step 4: Explicitly set the index ID
@@ -1965,11 +2369,17 @@ class CustomDocumentTracker:
 
             # Step 5: Verify index_id was set correctly
             if self.index.index_id != index_id:
-                raise ValueError(f"Failed to set correct index_id. Expected {index_id}, got {self.index.index_id}")
+                raise ValueError(
+                    f"Failed to set correct index_id. Expected {index_id}, got"
+                    f" {self.index.index_id}"
+                )
 
             # Step 6: Persist the storage context
             self.storage_context.persist(persist_dir=self.persist_dir)
-            logging.debug(f"Created and persisted initialized storage context with index_id '{index_id}' at {self.persist_dir}")
+            logging.debug(
+                "Created and persisted initialized storage context with"
+                f" index_id '{index_id}' at {self.persist_dir}"
+            )
 
         except Exception as e:
             logging.error(f"Error initializing fresh context: {e}")
@@ -1982,19 +2392,21 @@ class CustomDocumentTracker:
             await self.vector_db_service.async_client.get_collection(
                 collection_name=self.vector_db_service.collection
             )
-            logging.debug(f"Collection '{self.vector_db_service.collection}' exists")
+            logging.debug(
+                f"Collection '{self.vector_db_service.collection}' exists"
+            )
         except Exception:
             # Create collection if it doesn't exist
-            logging.warning(f"Creating collection '{self.vector_db_service.collection}'")
+            logging.warning(
+                f"Creating collection '{self.vector_db_service.collection}'"
+            )
             await self.vector_db_service.async_client.create_collection(
                 collection_name=self.vector_db_service.collection,
-                vectors_config=self.vector_db_service.vector_config
+                vectors_config=self.vector_db_service.vector_config,
             )
 
     async def _verify_upsert(
-        self,
-        processed_ids: set,
-        nodes_created: int
+        self, processed_ids: set, nodes_created: int
     ) -> bool:
         """
         Verify that the upsert operation was successful by checking document presence
@@ -2012,50 +2424,63 @@ class CustomDocumentTracker:
 
         try:
             # Get total points in collection
-            collection_info = await self.vector_db_service.async_client.get_collection(
-                collection_name=self.vector_db_service.collection
+            collection_info = (
+                await self.vector_db_service.async_client.get_collection(
+                    collection_name=self.vector_db_service.collection
+                )
             )
             total_points = collection_info.points_count
             logging.debug(f"Total points in collection: {total_points}")
             logging.debug(f"Expected nodes: {nodes_created}")
 
             if total_points < nodes_created:
-                logging.error(f"Point count mismatch: Found {total_points} points but created {nodes_created} nodes")
+                logging.error(
+                    f"Point count mismatch: Found {total_points} points but"
+                    f" created {nodes_created} nodes"
+                )
                 return False
 
             # Verify each document exists in Qdrant
             for doc_id in processed_ids:
                 logging.debug(f"Verifying document {doc_id}")
-                scroll_result = await self.vector_db_service.async_client.scroll(
-                    collection_name=self.vector_db_service.collection,
-                    scroll_filter=Filter(
-                        must=[
-                            FieldCondition(
-                                key="metadata.source_id",
-                                match=MatchValue(value=doc_id)
-                            )
-                        ]
-                    ),
-                    limit=1
+                scroll_result = (
+                    await self.vector_db_service.async_client.scroll(
+                        collection_name=self.vector_db_service.collection,
+                        scroll_filter=Filter(
+                            must=[
+                                FieldCondition(
+                                    key="metadata.source_id",
+                                    match=MatchValue(value=doc_id),
+                                )
+                            ]
+                        ),
+                        limit=1,
+                    )
                 )
 
                 # scroll_result is a tuple of (points, offset)
                 points = scroll_result[0]
 
                 if not points:  # Check if points list is empty
-                    logging.error(f"Document {doc_id} not found in Qdrant after upsert")
+                    logging.error(
+                        f"Document {doc_id} not found in Qdrant after upsert"
+                    )
                     return False
                 else:
-                    logging.debug(f"Found {len(points)} points for document {doc_id}")
+                    logging.debug(
+                        f"Found {len(points)} points for document {doc_id}"
+                    )
 
             # Log statistics
-            logging.debug(f"""Upsert verification successful:
+            logging.debug(
+                f"""Upsert verification successful:
             - All documents found in Qdrant
             - Documents processed: {len(processed_ids)}
             - Nodes created: {nodes_created}
             - Embeddings generated: {len(scroll_result[0])}
             - Nodes per document (avg): {nodes_created / len(processed_ids):.1f}
-            - Embeddings per document (avg): {len(scroll_result[0]) / len(processed_ids):.1f}""")
+            - Embeddings per document (avg): {len(scroll_result[0]) / len(processed_ids):.1f}"""
+            )
             return True
 
         except Exception as e:
@@ -2064,9 +2489,7 @@ class CustomDocumentTracker:
 
 
 async def track_dataframe_documents(
-    df: pd.DataFrame,
-    doc_tracker: CustomDocumentTracker,
-    root_keys: List[str]
+    df: pd.DataFrame, doc_tracker: CustomDocumentTracker, root_keys: List[str]
 ) -> None:
     """
     Process a DataFrame and track documents, maintaining specified root-level keys.
@@ -2129,7 +2552,9 @@ async def track_dataframe_documents(
                                 parsed_metadata = json.loads(value)
                                 if isinstance(parsed_metadata, dict):
                                     if 'metadata' in parsed_metadata:
-                                        metadata.update(parsed_metadata['metadata'])
+                                        metadata.update(
+                                            parsed_metadata['metadata']
+                                        )
                                     parsed_metadata.pop('metadata', None)
                                     metadata.update(parsed_metadata)
                             except json.JSONDecodeError:
@@ -2147,7 +2572,10 @@ async def track_dataframe_documents(
                 processed_docs.append((node_id, doc_data))
 
             # Add the batch of processed documents to the tracker
-            tasks = [doc_tracker.add_document(doc_id, doc_data) for doc_id, doc_data in processed_docs]
+            tasks = [
+                doc_tracker.add_document(doc_id, doc_data)
+                for doc_id, doc_data in processed_docs
+            ]
             await asyncio.gather(*tasks)
             processed_docs = []  # Clear the batch after successful processing
 
@@ -2205,21 +2633,29 @@ class LlamaIndexVectorService:
         * Add methods for index updates and maintenance
         * Implement query interface using loaded index
     """
-    def __init__(self, vector_db_service: VectorDBService, persist_dir: str,
-                 window_size: int = 3, window_metadata_key: str = "window"):
+
+    def __init__(
+        self,
+        vector_db_service: VectorDBService,
+        persist_dir: str,
+        window_size: int = 3,
+        window_metadata_key: str = "window",
+    ):
         self.vector_db_service = vector_db_service
         self.embedding_service = vector_db_service.embedding_service
         self.persist_dir = persist_dir
 
         # Configure global settings
-        llama_embedding_model = LlamaIndexEmbeddingAdapter(embedding_service=self.embedding_service)
+        llama_embedding_model = LlamaIndexEmbeddingAdapter(
+            embedding_service=self.embedding_service
+        )
         Settings.embed_model = llama_embedding_model
 
         # Enhanced node parser
         self.node_parser = SentenceWindowNodeParser.from_defaults(
             window_size=window_size,
             window_metadata_key=window_metadata_key,
-            original_text_metadata_key="original_text"
+            original_text_metadata_key="original_text",
         )
         Settings.node_parser = self.node_parser
 
@@ -2230,7 +2666,9 @@ class LlamaIndexVectorService:
         self.doc_tracker: Optional[CustomDocumentTracker] = None
 
     @classmethod
-    async def initialize(cls, vector_db_service: VectorDBService, persist_dir: str, **kwargs) -> "LlamaIndexVectorService":
+    async def initialize(
+        cls, vector_db_service: VectorDBService, persist_dir: str, **kwargs
+    ) -> "LlamaIndexVectorService":
         """
         Asynchronously initialize a new instance of LlamaIndexVectorService.
 
@@ -2284,8 +2722,7 @@ class LlamaIndexVectorService:
             logging.info("initialized vector store")
             # Initialize storage and tracking
             self.storage_context = StorageContext.from_defaults(
-                vector_store=self.vector_store,
-                persist_dir=self.persist_dir
+                vector_store=self.vector_store, persist_dir=self.persist_dir
             )
             logging.info("initialized storage context")
             # TODO. IDE identifies an error
@@ -2302,7 +2739,7 @@ class LlamaIndexVectorService:
                 self.index = VectorStoreIndex.from_vector_store(
                     vector_store=self.vector_store,
                     storage_context=self.storage_context,
-                    show_progress=True
+                    show_progress=True,
                 )
                 index_id = self.vector_db_service.collection
                 self.index.set_index_id(index_id)
@@ -2312,7 +2749,7 @@ class LlamaIndexVectorService:
                 self.index = VectorStoreIndex(
                     nodes=[],
                     storage_context=self.storage_context,
-                    show_progress=True
+                    show_progress=True,
                 )
                 self.index.set_index_id(self.vector_db_service.collection)
                 logging.warning("created new index")
@@ -2320,7 +2757,9 @@ class LlamaIndexVectorService:
             logging.error(f"Error initializing components: {e}")
             raise
 
-    async def _delete_document_points(self, doc_id: str, is_source: bool = True) -> None:
+    async def _delete_document_points(
+        self, doc_id: str, is_source: bool = True
+    ) -> None:
         """Delete all points associated with a document, including child documents.
 
         Args:
@@ -2333,15 +2772,17 @@ class LlamaIndexVectorService:
 
         while retry_count < max_retries:
             try:
-                logging.info(f"Deleting Points for document {doc_id} (attempt {retry_count + 1})")
+                logging.info(
+                    f"Deleting Points for document {doc_id} (attempt"
+                    f" {retry_count + 1})"
+                )
 
                 # Build filter condition based on is_source flag
                 field_key = "metadata.source_id" if is_source else "doc_id"
                 filter_condition = Filter(
                     must=[
                         FieldCondition(
-                            key=field_key,
-                            match=MatchValue(value=doc_id)
+                            key=field_key, match=MatchValue(value=doc_id)
                         )
                     ]
                 )
@@ -2350,24 +2791,35 @@ class LlamaIndexVectorService:
                 await self.vector_db_service.async_client.delete(
                     collection_name=self.vector_db_service.collection,
                     points_selector=FilterSelector(filter=filter_condition),
-                    wait=True
+                    wait=True,
                 )
 
                 # Verify deletion using our new count method
-                count = await self._count_points_for_document(doc_id, is_source)
+                count = await self._count_points_for_document(
+                    doc_id, is_source
+                )
                 if count == 0:
                     break
-                logging.warning(f"Deletion verification failed for {doc_id}, {count} points remain")
+                logging.warning(
+                    f"Deletion verification failed for {doc_id},"
+                    f" {count} points remain"
+                )
 
             except Exception as e:
-                logging.error(f"Error deleting points for document {doc_id} (attempt {retry_count + 1}): {e}")
+                logging.error(
+                    f"Error deleting points for document {doc_id} (attempt"
+                    f" {retry_count + 1}): {e}"
+                )
 
             retry_count += 1
             if retry_count < max_retries:
                 await asyncio.sleep(1)  # Wait before retry
 
         if retry_count == max_retries:
-            raise Exception(f"Failed to delete points for document {doc_id} after {max_retries} attempts")
+            raise Exception(
+                f"Failed to delete points for document {doc_id} after"
+                f" {max_retries} attempts"
+            )
 
     async def upsert_documents(
         self,
@@ -2375,7 +2827,7 @@ class LlamaIndexVectorService:
         verify_upsert: bool = False,
         batch_size: int = 1000,
         wait: bool = True,
-        show_progress: bool = False
+        show_progress: bool = False,
     ) -> int:
         """
         Upsert documents to the vector store.
@@ -2409,7 +2861,9 @@ class LlamaIndexVectorService:
                     existing_docs.append(doc.doc_id)
 
             if existing_docs:
-                logging.info(f"Found {len(existing_docs)} existing documents in tracker")
+                logging.info(
+                    f"Found {len(existing_docs)} existing documents in tracker"
+                )
                 # Use a single deletion operation for all matching documents
                 await self.vector_db_service.async_client.delete(
                     collection_name=self.vector_db_service.collection,
@@ -2418,23 +2872,28 @@ class LlamaIndexVectorService:
                             should=[
                                 FieldCondition(
                                     key="metadata.source_id",
-                                    match=MatchAny(any=existing_docs)
+                                    match=MatchAny(any=existing_docs),
                                 ),
                                 FieldCondition(
                                     key="doc_id",
-                                    match=MatchAny(any=existing_docs)
-                                )
+                                    match=MatchAny(any=existing_docs),
+                                ),
                             ]
                         )
                     ),
-                    wait=True
+                    wait=True,
                 )
 
             # Convert documents to nodes using sentence window parser
             all_nodes = []
             doc_id_to_nodes = {}  # Track nodes per document
 
-            with tqdm(total=len(documents), desc="Parsing documents", unit="doc", disable=not show_progress) as pbar:
+            with tqdm(
+                total=len(documents),
+                desc="Parsing documents",
+                unit="doc",
+                disable=not show_progress,
+            ) as pbar:
                 for doc in documents:
                     # Each node will contain a sentence or window of sentences
                     nodes = self.node_parser.get_nodes_from_documents([doc])
@@ -2445,36 +2904,48 @@ class LlamaIndexVectorService:
 
                         # Set NEXT relationship
                         if i < len(nodes) - 1:
-                            current_node.relationships[NodeRelationship.NEXT] = RelatedNodeInfo(
-                                node_id=nodes[i + 1].node_id
-                            )
+                            current_node.relationships[
+                                NodeRelationship.NEXT
+                            ] = RelatedNodeInfo(node_id=nodes[i + 1].node_id)
 
                         # Set PREVIOUS relationship
                         if i > 0:
-                            current_node.relationships[NodeRelationship.PREVIOUS] = RelatedNodeInfo(
-                                node_id=nodes[i - 1].node_id
-                            )
+                            current_node.relationships[
+                                NodeRelationship.PREVIOUS
+                            ] = RelatedNodeInfo(node_id=nodes[i - 1].node_id)
 
                     all_nodes.extend(nodes)
                     doc_id_to_nodes[doc.doc_id] = nodes
                     pbar.update(1)
 
             nodes_created = len(all_nodes)
-            logging.info(f"Created {nodes_created} nodes from {len(documents)} documents")
+            logging.info(
+                f"Created {nodes_created} nodes from"
+                f" {len(documents)} documents"
+            )
 
             # Generate embeddings and create points in batches
             points = []
 
-            with tqdm(total=len(all_nodes), desc="Generating embeddings", unit="node", disable=not show_progress) as pbar:
+            with tqdm(
+                total=len(all_nodes),
+                desc="Generating embeddings",
+                unit="node",
+                disable=not show_progress,
+            ) as pbar:
                 for i in range(0, len(all_nodes), batch_size):
-                    batch = all_nodes[i:i + batch_size]
+                    batch = all_nodes[i : i + batch_size]
 
                     # Extract text content from nodes
-                    texts = [self._get_embedding_content(node) for node in batch]
+                    texts = [
+                        self._get_embedding_content(node) for node in batch
+                    ]
 
                     try:
                         # Generate embeddings for the batch using the embedding service
-                        embeddings = await self.embedding_service.generate_embeddings_async(texts)
+                        embeddings = await self.embedding_service.generate_embeddings_async(
+                            texts
+                        )
 
                         # Create points with embeddings and metadata
                         batch_points = []
@@ -2512,16 +2983,24 @@ class LlamaIndexVectorService:
             logging.info(f"Upserting {total_points} points to vector store")
 
             try:
-                with tqdm(total=total_points, desc="Upserting points to vector store", unit="point", disable=not show_progress) as pbar:
+                with tqdm(
+                    total=total_points,
+                    desc="Upserting points to vector store",
+                    unit="point",
+                    disable=not show_progress,
+                ) as pbar:
                     # Create batches for parallel processing
-                    batches = [points[i:i + batch_size] for i in range(0, total_points, batch_size)]
+                    batches = [
+                        points[i : i + batch_size]
+                        for i in range(0, total_points, batch_size)
+                    ]
 
                     # Create upsert coroutines for each batch
                     upsert_tasks = [
                         self.vector_db_service.async_client.upsert(
                             collection_name=self.vector_db_service.collection,
                             points=batch,
-                            wait=wait
+                            wait=wait,
                         )
                         for batch in batches
                     ]
@@ -2542,7 +3021,10 @@ class LlamaIndexVectorService:
                         self.vector_db_service.collection
                     )
                     if collection_info.points_count < total_points:
-                        logging.error(f"Expected {total_points} points but found {collection_info.points_count}")
+                        logging.error(
+                            f"Expected {total_points} points but found"
+                            f" {collection_info.points_count}"
+                        )
                         raise ValueError("Not all points were created")
             except Exception as e:
                 logging.error(f"Error during vector store upsert: {e}")
@@ -2552,11 +3034,16 @@ class LlamaIndexVectorService:
                         await self.delete_document(doc_id)
                         logging.info(f"Rolled back document {doc_id}")
                     except Exception as rollback_error:
-                        logging.error(f"Error rolling back document {doc_id}: {rollback_error}")
+                        logging.error(
+                            f"Error rolling back document {doc_id}:"
+                            f" {rollback_error}"
+                        )
                 raise
 
             end_time = time.time()
-            logging.info(f"Upsert completed in {end_time - start_time:.2f} seconds.")
+            logging.info(
+                f"Upsert completed in {end_time - start_time:.2f} seconds."
+            )
             logging.info(f"Documents processed: {len(documents)}")
 
             if verify_upsert:
@@ -2568,7 +3055,9 @@ class LlamaIndexVectorService:
             logging.error(f"Error in upsert_documents: {e}")
             raise
 
-    async def _verify_upsert(self, processed_ids: set, nodes_created: int) -> bool:
+    async def _verify_upsert(
+        self, processed_ids: set, nodes_created: int
+    ) -> bool:
         """
         Verify that the upsert operation was successful by checking document presence.
 
@@ -2581,13 +3070,20 @@ class LlamaIndexVectorService:
         """
         try:
             # Get current collection stats
-            collection_info = await self.vector_db_service.async_client.get_collection(
-                self.vector_db_service.collection
+            collection_info = (
+                await self.vector_db_service.async_client.get_collection(
+                    self.vector_db_service.collection
+                )
             )
             points_count = collection_info.points_count
 
-            logging.info(f"Collection contains {points_count} points after upsert")
-            logging.info(f"Created {nodes_created} nodes from {len(processed_ids)} documents")
+            logging.info(
+                f"Collection contains {points_count} points after upsert"
+            )
+            logging.info(
+                f"Created {nodes_created} nodes from"
+                f" {len(processed_ids)} documents"
+            )
 
             return True
         except Exception as e:
@@ -2605,12 +3101,12 @@ class LlamaIndexVectorService:
                         must=[
                             FieldCondition(
                                 key="metadata.source_id",
-                                match=MatchValue(value=doc_id)
+                                match=MatchValue(value=doc_id),
                             )
                         ]
                     )
                 ),
-                wait=True
+                wait=True,
             )
 
             # Remove from document tracker
@@ -2623,8 +3119,10 @@ class LlamaIndexVectorService:
 
     async def _get_collection_point_count(self) -> int:
         """Get the current number of points in the collection."""
-        collection_stats = await self.vector_db_service.async_client.get_collection(
-            collection_name=self.vector_db_service.collection
+        collection_stats = (
+            await self.vector_db_service.async_client.get_collection(
+                collection_name=self.vector_db_service.collection
+            )
         )
         return collection_stats.points_count
 
@@ -2636,19 +3134,23 @@ class LlamaIndexVectorService:
                 collection_name=self.vector_db_service.collection,
                 limit=10000,
                 with_payload=True,
-                with_vectors=True
+                with_vectors=True,
             )
 
-            if not points or not points[0]:  # Check if points is empty or first tuple element is empty
+            if (
+                not points or not points[0]
+            ):  # Check if points is empty or first tuple element is empty
                 return {
                     "total_points": 0,
                     "unique_vectors": 0,
                     "max_duplicates": 0,
-                    "vector_groups": {}
+                    "vector_groups": {},
                 }
 
             # Extract points from scroll response
-            points = points[0]  # First element contains points, second is next_page_offset
+            points = points[
+                0
+            ]  # First element contains points, second is next_page_offset
 
             # Group points by their vector (convert to tuple for hashability)
             vector_groups = {}
@@ -2661,8 +3163,12 @@ class LlamaIndexVectorService:
             return {
                 "total_points": len(points),
                 "unique_vectors": len(vector_groups),
-                "max_duplicates": max(len(points) for points in vector_groups.values()) if vector_groups else 0,
-                "vector_groups": vector_groups
+                "max_duplicates": (
+                    max(len(points) for points in vector_groups.values())
+                    if vector_groups
+                    else 0
+                ),
+                "vector_groups": vector_groups,
             }
 
         except Exception as e:
@@ -2672,14 +3178,16 @@ class LlamaIndexVectorService:
                 "unique_vectors": 0,
                 "max_duplicates": 0,
                 "vector_groups": {},
-                "error": str(e)
+                "error": str(e),
             }
 
     async def aclose(self):
         """Close connections using existing service"""
         await self.vector_db_service.aclose()
 
-    async def _count_points_for_document(self, doc_id: str, is_source: bool = True) -> int:
+    async def _count_points_for_document(
+        self, doc_id: str, is_source: bool = True
+    ) -> int:
         """Count points in vector store for a specific document."""
         try:
             # Build the appropriate filter based on is_source flag
@@ -2687,8 +3195,7 @@ class LlamaIndexVectorService:
             filter_condition = Filter(
                 must=[
                     FieldCondition(
-                        key=field_key,
-                        match=MatchValue(value=doc_id)
+                        key=field_key, match=MatchValue(value=doc_id)
                     )
                 ]
             )
@@ -2700,7 +3207,7 @@ class LlamaIndexVectorService:
                 limit=100,
                 offset=None,
                 with_payload=False,
-                with_vectors=False
+                with_vectors=False,
             )
 
             # Return count of points
@@ -2731,7 +3238,10 @@ class LlamaIndexVectorService:
         # Add title or label if available
         if metadata.get('title'):
             content_parts.append(metadata['title'])
-        elif any(metadata.get(f"{type}_label") for type in ['symptom', 'cause', 'fix', 'tool']):
+        elif any(
+            metadata.get(f"{type}_label")
+            for type in ['symptom', 'cause', 'fix', 'tool']
+        ):
             for type in ['symptom', 'cause', 'fix', 'tool']:
                 if label := metadata.get(f"{type}_label"):
                     content_parts.append(label)
@@ -2749,13 +3259,18 @@ def _truncate_for_logging(value: Any, max_length: int = 250) -> str:
     if not isinstance(value, str):
         value = str(value)
     if len(value) > max_length:
-        return f"{value[:max_length]}... [truncated, total length: {len(value)}]"
+        return (
+            f"{value[:max_length]}... [truncated, total length: {len(value)}]"
+        )
     return value
 
 
 def generate_cost_report():
     """Generate a report of LLM usage costs for the current run and cumulative costs."""
-    usage_file = os.path.join(r"C:\Users\emili\PycharmProjects\microsoft_cve_rag\microsoft_cve_rag\application\data\llm_usage", "llm_usage.json")
+    usage_file = os.path.join(
+        r"C:\Users\emili\PycharmProjects\microsoft_cve_rag\microsoft_cve_rag\application\data\llm_usage",
+        "llm_usage.json",
+    )
 
     if not os.path.exists(usage_file):
         return "No usage data available."
@@ -2771,18 +3286,22 @@ def generate_cost_report():
 
     # Calculate cumulative costs
     total_cumulative_cost = sum(record['total_cost'] for record in usage_data)
-    total_cumulative_input_tokens = sum(record['input_tokens'] for record in usage_data)
-    total_cumulative_output_tokens = sum(record['output_tokens'] for record in usage_data)
+    total_cumulative_input_tokens = sum(
+        record['input_tokens'] for record in usage_data
+    )
+    total_cumulative_output_tokens = sum(
+        record['output_tokens'] for record in usage_data
+    )
 
     # Generate report
     report = (
-        f"\nCost Report for ETL Run\n"
-        f"=====================\n"
+        "\nCost Report for ETL Run\n"
+        "=====================\n"
         f"Current Run ({latest_run['full_date']}):\n"
         f"  Input Tokens: {latest_run['input_tokens']:,}\n"
         f"  Output Tokens: {latest_run['output_tokens']:,}\n"
         f"  Total Cost: ${latest_run['total_cost']:.4f}\n\n"
-        f"Cumulative Statistics:\n"
+        "Cumulative Statistics:\n"
         f"  Total Runs: {len(usage_data)}\n"
         f"  Total Input Tokens: {total_cumulative_input_tokens:,}\n"
         f"  Total Output Tokens: {total_cumulative_output_tokens:,}\n"
