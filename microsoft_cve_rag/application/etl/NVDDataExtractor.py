@@ -1,39 +1,70 @@
+"""NVD Data Extractor for retrieving vulnerability information from the National Vulnerability Database.
+
+This module provides functionality to extract detailed vulnerability information from
+the NVD website using Selenium WebDriver. It handles the extraction of CVSS scores,
+metrics, CWE data, and other vulnerability-related information.
+"""
+
+import json
+import logging
+import math
 import os
 import time
-import pandas as pd
-import logging
-from datetime import datetime
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException, InvalidSelectorException
-from selenium.webdriver.common.action_chains import ActionChains
-from tqdm import tqdm
-from functools import wraps
+
+# from functools import wraps
 from dataclasses import dataclass
-import math
-from typing import List, Dict, Optional, Any, Tuple
-import json
-from application.app_utils import setup_logger
+from datetime import datetime
+from typing import Any, Dict, List, Optional, Tuple
+
+import pandas as pd
+
+# from application.app_utils import setup_logger
 from application.etl.type_utils import convert_to_float
+from selenium import webdriver
+
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
+from tqdm import tqdm
 
 logging.getLogger(__name__)
 
 
 @dataclass
 class ScrapingParams:
-    """Parameters for controlling scraping speed and behavior"""
-    implicit_wait: float  # seconds to wait for elements
-    hover_wait: float    # seconds to wait for tooltips
-    page_load_wait: float  # seconds to wait for page load
-    rate_limit: float    # minimum seconds between requests
+    """Parameters for controlling web scraping speed and behavior.
+
+    This class manages the timing parameters used during web scraping operations to
+    ensure reliable data extraction while respecting rate limits.
+
+    Args:
+        implicit_wait (float): Seconds to wait for elements to appear.
+        hover_wait (float): Seconds to wait for tooltips to display.
+        page_load_wait (float): Seconds to wait for page load completion.
+        rate_limit (float): Minimum seconds between requests.
+    """
+
+    implicit_wait: float
+    hover_wait: float
+    page_load_wait: float
+    rate_limit: float
 
     @classmethod
-    def from_target_time(cls, num_cves: int, target_time_per_cve: float = 10.0) -> 'ScrapingParams':
-        """
-        Calculate optimal scraping parameters based on desired processing time.
+    def from_target_time(
+        cls, num_cves: int, target_time_per_cve: float = 10.0
+    ) -> 'ScrapingParams':
+        """Calculate optimal scraping parameters based on desired processing time.
+
         Uses a logarithmic scaling to increase delays as batch size grows.
+
+        Args:
+            num_cves (int): Number of CVEs to process.
+            target_time_per_cve (float): Target processing time per CVE in seconds.
+
+        Returns:
+            ScrapingParams: Configured scraping parameters.
         """
         base_implicit_wait = 2.0
         base_hover_wait = 0.5
@@ -46,22 +77,59 @@ class ScrapingParams:
             implicit_wait=min(base_implicit_wait * scale, 4.0),
             hover_wait=min(base_hover_wait * scale, 1.0),
             page_load_wait=min(base_page_load_wait * scale, 2.0),
-            rate_limit=min(base_rate_limit * scale, 3.0)
+            rate_limit=min(base_rate_limit * scale, 3.0),
         )
 
     def estimate_time_per_cve(self) -> float:
-        base_time = self.implicit_wait + self.hover_wait + self.page_load_wait + self.rate_limit
+        """Estimate the processing time for a single CVE.
+
+        Returns:
+            float: Estimated time in seconds to process one CVE.
+        """
+        base_time = (
+            self.implicit_wait
+            + self.hover_wait
+            + self.page_load_wait
+            + self.rate_limit
+        )
         selenium_overhead = 1.0
         network_latency = 2.0
         parsing_time = 1.0
         tooltip_wait = 1.0
 
-        return base_time + selenium_overhead + network_latency + parsing_time + tooltip_wait
+        return (
+            base_time
+            + selenium_overhead
+            + network_latency
+            + parsing_time
+            + tooltip_wait
+        )
 
     def estimate_total_time(self, num_cves: int) -> float:
+        """Estimate total processing time for a batch of CVEs.
+
+        Args:
+            num_cves (int): Number of CVEs to process.
+
+        Returns:
+            float: Estimated total processing time in seconds.
+        """
         return self.estimate_time_per_cve() * num_cves
 
+
 class NVDDataExtractor:
+    """Extracts vulnerability data from the National Vulnerability Database website.
+
+    This class handles the extraction of various vulnerability metrics, scores, and
+    related information from NVD using Selenium WebDriver. It supports extraction of
+    CVSS scores, vector metrics, CWE data, and other vulnerability attributes.
+
+    Attributes:
+        ELEMENT_MAPPINGS (dict): XPath mappings for basic page elements.
+        VECTOR_SOURCES (dict): XPath mappings for different vector sources.
+        METRIC_PATTERNS (dict): XPath patterns for extracting metric values.
+    """
+
     # Element mappings as class constant
     ELEMENT_MAPPINGS = {
         'nvd_published_date': "//span[@data-testid='vuln-published-on']",
@@ -70,40 +138,83 @@ class NVDDataExtractor:
         'base_score_rating': "//a[@data-testid='vuln-cvss3-panel-score']",
         'vector_element': "//span[@data-testid='vuln-cvssv3-vector']",
         'cwe_id': "//td[contains(@data-testid, 'vuln-CWEs-link-')]",
-        'cwe_name': "//td[contains(@data-testid, 'vuln-CWEs-link-')]/following-sibling::td[1]",
-        'cwe_source': "//td[contains(@data-testid, 'vuln-CWEs-link-')]/following-sibling::td[2]"
+        'cwe_name': (
+            "//td[contains(@data-testid,"
+            " 'vuln-CWEs-link-')]/following-sibling::td[1]"
+        ),
+        'cwe_source': (
+            "//td[contains(@data-testid,"
+            " 'vuln-CWEs-link-')]/following-sibling::td[2]"
+        ),
     }
     VECTOR_SOURCES = {
         'nist': {
             'prefix': 'nist_',
             'vector_element': "//span[@data-testid='vuln-cvss3-nist-vector']",
-            'base_score': "//span[@data-testid='vuln-cvss3-nist-panel-score']"
+            'base_score': "//span[@data-testid='vuln-cvss3-nist-panel-score']",
         },
         'cna': {
             'prefix': 'cna_',
             'vector_element': "//span[@data-testid='vuln-cvss3-cna-vector']",
-            'base_score': "//span[@data-testid='vuln-cvss3-cna-panel-score']"
+            'base_score': "//span[@data-testid='vuln-cvss3-cna-panel-score']",
         },
         'adp': {
             'prefix': 'adp_',
             'vector_element': "//span[@data-testid='vuln-cvss3-adp-vector']",
-            'base_score': "//span[@data-testid='vuln-cvss3-adp-panel-score']"
-        }
+            'base_score': "//span[@data-testid='vuln-cvss3-adp-panel-score']",
+        },
     }
     METRIC_PATTERNS = {
-        'base_score': ".//p/strong[contains(text(), 'Base Score:')]/following-sibling::span[1]",
-        'base_score_rating': ".//p/strong[contains(text(), 'Base Score:')]/following-sibling::span[2]",
-        'vector': ".//p/strong[contains(text(), 'Vector:')]/following-sibling::span",
-        'impact_score': ".//p/strong[contains(text(), 'Impact Score:')]/following-sibling::span",
-        'exploitability_score': ".//p/strong[contains(text(), 'Exploitability Score:')]/following-sibling::span",
-        'attack_vector': ".//p/strong[contains(text(), 'Attack Vector')]/following-sibling::span",
-        'attack_complexity': ".//p/strong[contains(text(), 'Attack Complexity')]/following-sibling::span",
-        'privileges_required': ".//p/strong[contains(text(), 'Privileges Required')]/following-sibling::span",
-        'user_interaction': ".//p/strong[contains(text(), 'User Interaction')]/following-sibling::span",
-        'scope': ".//p/strong[contains(text(), 'Scope')]/following-sibling::span",
-        'confidentiality': ".//p/strong[contains(text(), 'Confidentiality')]/following-sibling::span",
-        'integrity': ".//p/strong[contains(text(), 'Integrity')]/following-sibling::span",
-        'availability': ".//p/strong[contains(text(), 'Availability')]/following-sibling::span"
+        'base_score': (
+            ".//p/strong[contains(text(), 'Base"
+            " Score:')]/following-sibling::span[1]"
+        ),
+        'base_score_rating': (
+            ".//p/strong[contains(text(), 'Base"
+            " Score:')]/following-sibling::span[2]"
+        ),
+        'vector': (
+            ".//p/strong[contains(text(), 'Vector:')]/following-sibling::span"
+        ),
+        'impact_score': (
+            ".//p/strong[contains(text(), 'Impact"
+            " Score:')]/following-sibling::span"
+        ),
+        'exploitability_score': (
+            ".//p/strong[contains(text(), 'Exploitability"
+            " Score:')]/following-sibling::span"
+        ),
+        'attack_vector': (
+            ".//p/strong[contains(text(), 'Attack"
+            " Vector')]/following-sibling::span"
+        ),
+        'attack_complexity': (
+            ".//p/strong[contains(text(), 'Attack"
+            " Complexity')]/following-sibling::span"
+        ),
+        'privileges_required': (
+            ".//p/strong[contains(text(), 'Privileges"
+            " Required')]/following-sibling::span"
+        ),
+        'user_interaction': (
+            ".//p/strong[contains(text(), 'User"
+            " Interaction')]/following-sibling::span"
+        ),
+        'scope': (
+            ".//p/strong[contains(text(), 'Scope')]/following-sibling::span"
+        ),
+        'confidentiality': (
+            ".//p/strong[contains(text(),"
+            " 'Confidentiality')]/following-sibling::span"
+        ),
+        'integrity': (
+            ".//p/strong[contains(text(),"
+            " 'Integrity')]/following-sibling::span"
+        ),
+        'availability': (
+            ".//p/strong[contains(text(),"
+            " 'Availability')]/following-sibling::span"
+        ),
     }
 
     def __init__(
@@ -113,31 +224,35 @@ class NVDDataExtractor:
         headless: bool = True,
         window_size: Optional[Tuple[int, int]] = None,
         scraping_params: Optional[ScrapingParams] = None,
-        show_progress: bool = False
+        show_progress: bool = False,
     ) -> None:
-        """
-        Initialize the NVDDataExtractor with specified properties and browser settings.
+        """Initialize the NVD Data Extractor.
 
         Args:
-            properties_to_extract: List of properties to extract from NVD pages.
-            max_records: Maximum number of records to process. If None, process all records.
-            headless: Whether to run Chrome in headless mode. Default True.
-            window_size: Tuple of (width, height) for browser window.
-            scraping_params: Optional custom scraping parameters
-            show_progress: Whether to show progress bar. Default False.
+            properties_to_extract (Optional[List[str]]): List of properties to
+                extract. If None, extracts all valid properties.
+            max_records (Optional[int]): Maximum number of records to process.
+            headless (bool): Whether to run Chrome in headless mode.
+            window_size (Optional[Tuple[int, int]]): Browser window dimensions.
+            scraping_params (Optional[ScrapingParams]): Custom scraping parameters.
+            show_progress (bool): Whether to display a progress bar.
         """
         self.valid_properties = (
-            set(self.ELEMENT_MAPPINGS.keys()) |  # Base properties
-            set(self.METRIC_PATTERNS.keys()) |    # Metric properties
-            {'base_score', 'vector_element'} |    # Special properties
-            {'cwe_id', 'cwe_name', 'cwe_source', 'cwe_url'}  # CWE properties
+            set(self.ELEMENT_MAPPINGS.keys())  # Base properties
+            | set(self.METRIC_PATTERNS.keys())  # Metric properties
+            | {'base_score', 'vector_element'}  # Special properties
+            | {'cwe_id', 'cwe_name', 'cwe_source', 'cwe_url'}  # CWE properties
         )
         # Validate and normalize properties to extract
         if properties_to_extract:
             invalid_props = set(properties_to_extract) - self.valid_properties
             if invalid_props:
-                logging.warning(f"Ignoring invalid properties: {invalid_props}")
-            self.properties_to_extract = [p for p in properties_to_extract if p in self.valid_properties]
+                logging.warning(
+                    f"Ignoring invalid properties: {invalid_props}"
+                )
+            self.properties_to_extract = [
+                p for p in properties_to_extract if p in self.valid_properties
+            ]
         else:
             self.properties_to_extract = list(self.valid_properties)
         self.max_records = max_records
@@ -150,22 +265,28 @@ class NVDDataExtractor:
         self.setup_driver()
 
     def setup_driver(self) -> None:
+        """Setup the Selenium WebDriver instance."""
         chrome_options = webdriver.ChromeOptions()
         if self.headless:
             chrome_options.add_argument('--headless=new')
-        chrome_options.add_argument(f'--window-size={self.window_size[0]},{self.window_size[1]}')
+        chrome_options.add_argument(
+            f'--window-size={self.window_size[0]},{self.window_size[1]}'
+        )
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument('--disable-gpu')
         chrome_options.page_load_strategy = 'eager'
         chrome_options.add_argument('--log-level=3')
         chrome_options.add_argument('--silent')
-        chrome_options.add_experimental_option('excludeSwitches', ['enable-logging', 'enable-automation'])
+        chrome_options.add_experimental_option(
+            'excludeSwitches', ['enable-logging', 'enable-automation']
+        )
 
         self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.implicitly_wait(self.params.implicit_wait)
 
     def cleanup(self) -> None:
+        """Cleanup the Selenium WebDriver instance."""
         if self.driver:
             try:
                 self.driver.quit()
@@ -174,8 +295,17 @@ class NVDDataExtractor:
             except Exception as e:
                 logging.error(f"Error during driver cleanup: {str(e)}")
 
-    def _extract_base_score(self, score_text: str) -> Tuple[Optional[float], Optional[str]]:
-        """Extract numeric score and rating from score text (e.g. '7.5 HIGH')"""
+    def _extract_base_score(
+        self, score_text: str
+    ) -> Tuple[Optional[float], Optional[str]]:
+        """Extract numeric score and rating from score text.
+
+        Args:
+            score_text (str): Text containing score and rating (e.g. '7.5 HIGH').
+
+        Returns:
+            Tuple[Optional[float], Optional[str]]: Tuple of (score, rating).
+        """
         try:
             if not score_text or score_text.lower() == 'none':
                 return None, None
@@ -185,29 +315,27 @@ class NVDDataExtractor:
             rating = parts[1].lower() if len(parts) > 1 else 'none'
             return score, rating
         except (ValueError, IndexError) as e:
-            logging.warning(f"Error parsing base score '{score_text}': {str(e)}")
+            logging.warning(
+                f"Error parsing base score '{score_text}': {str(e)}"
+            )
             return None, 'none'
 
     def _set_column_types(self, df: pd.DataFrame) -> pd.DataFrame:
-        """
-        Sets appropriate data types for all columns in the DataFrame.
-        Ensures datetime fields are Python datetime objects for Neomodel compatibility.
+        """Set appropriate data types for DataFrame columns.
 
         Args:
-            df: Input DataFrame with raw column types
+            df (pd.DataFrame): Input DataFrame.
 
         Returns:
-            pd.DataFrame: DataFrame with correct column types
+            pd.DataFrame: DataFrame with correct column types.
         """
         type_mappings = {
             # Numeric columns
             'base_score_num': 'float64',
             'impact_score': 'float64',
             'exploitability_score': 'float64',
-
             # Date columns handled separately
             'nvd_published_date': 'datetime',
-
             # String columns (categorical might be more appropriate for some)
             'base_score_rating': 'category',
             'attack_vector': 'category',
@@ -234,16 +362,23 @@ class NVDDataExtractor:
             except ValueError:
                 try:
                     # Try YYYY-MM-DD HH:MM:SS format (from MongoDB)
-                    return datetime.strptime(str(date_str), '%Y-%m-%d %H:%M:%S')
+                    return datetime.strptime(
+                        str(date_str), '%Y-%m-%d %H:%M:%S'
+                    )
                 except ValueError as e:
-                    logging.warning(f"Could not parse NVD date: {date_str} - {str(e)}")
+                    logging.warning(
+                        f"Could not parse NVD date: {date_str} - {str(e)}"
+                    )
                     return None
+
         # Apply source prefixes to relevant columns
         prefixed_types = {}
         for source in self.VECTOR_SOURCES.keys():
             prefix = self.VECTOR_SOURCES[source]['prefix']
             for col, dtype in type_mappings.items():
-                if col in ['base_score_num', 'base_score_rating'] + list(self.METRIC_PATTERNS.keys()):
+                if col in ['base_score_num', 'base_score_rating'] + list(
+                    self.METRIC_PATTERNS.keys()
+                ):
                     prefixed_types[f"{prefix}{col}"] = dtype
 
         # Merge original and prefixed type mappings
@@ -261,20 +396,24 @@ class NVDDataExtractor:
                     else:
                         df[column] = df[column].astype(dtype)
                 except Exception as e:
-                    logging.warning(f"Failed to convert column {column} to {dtype}: {str(e)}")
+                    logging.warning(
+                        f"Failed to convert column {column} to {dtype}:"
+                        f" {str(e)}"
+                    )
 
         return df
 
-    def extract_property(self, property_name: str, context_element: Optional[Any] = None) -> Optional[str]:
-        """
-        Extract a single property from the page using predefined element mappings.
+    def extract_property(
+        self, property_name: str, context_element: Optional[Any] = None
+    ) -> Optional[str]:
+        """Extract a single property from the page using predefined mappings.
 
         Args:
-            property_name: Name of the property to extract
-            context_element: Parent element to search within (optional)
+            property_name (str): Name of the property to extract.
+            context_element (Optional[Any]): Context element for relative XPath.
 
         Returns:
-            Optional[str]: The extracted text value or None if not found
+            Optional[str]: Extracted property value or None if not found.
         """
         if property_name not in self.ELEMENT_MAPPINGS:
             print(f"property name: {property_name}")
@@ -283,8 +422,7 @@ class NVDDataExtractor:
 
         try:
             element = self.driver.find_element(
-                By.XPATH,
-                self.ELEMENT_MAPPINGS[property_name]
+                By.XPATH, self.ELEMENT_MAPPINGS[property_name]
             )
             return element.text.lower().strip()
         except NoSuchElementException:
@@ -294,8 +432,12 @@ class NVDDataExtractor:
             logging.warning(f"Error extracting {property_name}: {str(e)}")
             return 'none'
 
-    def extract_vector_metrics(self) -> Dict[str, Optional[str]]:
-        """Extract all metrics from tooltip for each source"""
+    def extract_vector_metrics(self) -> Dict[str, Any]:
+        """Extract CVSS vector metrics from the page.
+
+        Returns:
+            Dict[str, Any]: Dictionary containing extracted vector metrics.
+        """
         data = {}
 
         for source, selectors in self.VECTOR_SOURCES.items():
@@ -312,17 +454,20 @@ class NVDDataExtractor:
             try:
                 # Find vector element
                 vector_element = self.driver.find_element(
-                    By.XPATH,
-                    selectors['vector_element']
+                    By.XPATH, selectors['vector_element']
                 )
 
                 # Get vector string directly from the element
-                vector_text = vector_element.get_attribute('textContent').strip()
+                vector_text = vector_element.get_attribute(
+                    'textContent'
+                ).strip()
                 data[f"{prefix}vector"] = vector_text
                 logging.debug(f"Found vector: {vector_text}")
 
                 # Hover to show tooltip
-                ActionChains(self.driver).move_to_element(vector_element).perform()
+                ActionChains(self.driver).move_to_element(
+                    vector_element
+                ).perform()
                 time.sleep(self.params.hover_wait)
 
                 # Find tooltip by ID (it will be dynamic)
@@ -340,7 +485,11 @@ class NVDDataExtractor:
                         value = element.text.strip()
 
                         # Special handling for numeric metric values
-                        if metric in ['base_score', 'impact_score', 'exploitability_score']:
+                        if metric in [
+                            'base_score',
+                            'impact_score',
+                            'exploitability_score',
+                        ]:
                             score = convert_to_float(value)
                             data[f"{prefix}{metric}"] = score
 
@@ -370,23 +519,21 @@ class NVDDataExtractor:
         logging.debug(f"\nExtracted data: {json.dumps(data, indent=2)}")
         return data
 
-    def extract_cwe_data(self) -> List[Dict[str, str]]:
-        """
-        Extracts CWE information from the Weakness Enumeration table if it exists.
+    def extract_cwe_data(self) -> List[Dict[str, Any]]:
+        """Extract CWE (Common Weakness Enumeration) data from the page.
+
+        Returns:
+            List[Dict[str, Any]]: List of dictionaries containing CWE information.
         """
         cwe_data = []
         try:
             # Find the CWE table
             table = self.driver.find_element(
-                By.XPATH,
-                "//table[@data-testid='vuln-CWEs-table']"
+                By.XPATH, "//table[@data-testid='vuln-CWEs-table']"
             )
 
             # Find all rows except header
-            rows = table.find_elements(
-                By.XPATH,
-                ".//tbody/tr"
-            )
+            rows = table.find_elements(By.XPATH, ".//tbody/tr")
 
             for row in rows:
                 try:
@@ -409,7 +556,7 @@ class NVDDataExtractor:
                         'cwe_id': None,
                         'cwe_url': None,
                         'cwe_name': cwe_name,
-                        'cwe_source': source_cell.text.strip()
+                        'cwe_source': source_cell.text.strip(),
                     }
 
                     # Look for anchor tag in ID cell
@@ -433,8 +580,15 @@ class NVDDataExtractor:
 
         return cwe_data
 
-    def extract_data_from_url(self, url: str) -> Dict[str, Optional[str]]:
-        """Extract data from the given URL based on the properties specified during initialization."""
+    def extract_data_from_url(self, url: str) -> Dict[str, Any]:
+        """Extract data from the given URL based on the properties specified during initialization.
+
+        Args:
+            url (str): URL to extract data from.
+
+        Returns:
+            Dict[str, Any]: Dictionary containing extracted data.
+        """
         data = {}
         try:
             # Rate limiting and page load
@@ -449,14 +603,22 @@ class NVDDataExtractor:
             time.sleep(self.params.page_load_wait)
 
             # Extract vector metrics if requested (always include base_score)
-            metric_properties = [p for p in self.properties_to_extract
-                            if p in self.METRIC_PATTERNS or p in ['base_score', 'vector_element']]
+            metric_properties = [
+                p
+                for p in self.properties_to_extract
+                if p in self.METRIC_PATTERNS
+                or p in ['base_score', 'vector_element']
+            ]
             if metric_properties:
                 vector_data = self.extract_vector_metrics()
                 data.update(vector_data)
 
             # Extract base properties (nvd_published_date, nvd_description)
-            base_properties = [p for p in self.properties_to_extract if p in self.ELEMENT_MAPPINGS]
+            base_properties = [
+                p
+                for p in self.properties_to_extract
+                if p in self.ELEMENT_MAPPINGS
+            ]
             for prop in base_properties:
                 try:
                     value = self.extract_property(prop)
@@ -467,21 +629,33 @@ class NVDDataExtractor:
                     data[prop] = None
 
             # Extract CWE data if requested
-            if any(prop.startswith('cwe_') for prop in self.properties_to_extract):
+            if any(
+                prop.startswith('cwe_') for prop in self.properties_to_extract
+            ):
                 cwe_data = self.extract_cwe_data()
                 if cwe_data:
                     data.update({
-                        'cwe_id': '; '.join(entry['cwe_id'] for entry in cwe_data),
-                        'cwe_name': '; '.join(entry['cwe_name'] for entry in cwe_data),
-                        'cwe_source': '; '.join(entry['cwe_source'] for entry in cwe_data),
-                        'cwe_url': '; '.join(str(entry['cwe_url']) for entry in cwe_data if entry['cwe_url'])
+                        'cwe_id': '; '.join(
+                            entry['cwe_id'] for entry in cwe_data
+                        ),
+                        'cwe_name': '; '.join(
+                            entry['cwe_name'] for entry in cwe_data
+                        ),
+                        'cwe_source': '; '.join(
+                            entry['cwe_source'] for entry in cwe_data
+                        ),
+                        'cwe_url': '; '.join(
+                            str(entry['cwe_url'])
+                            for entry in cwe_data
+                            if entry['cwe_url']
+                        ),
                     })
                 else:
                     data.update({
                         'cwe_id': None,
                         'cwe_name': None,
                         'cwe_source': None,
-                        'cwe_url': None
+                        'cwe_url': None,
                     })
 
         except Exception as e:
@@ -496,11 +670,24 @@ class NVDDataExtractor:
         self,
         df: pd.DataFrame,
         url_column: str = 'post_id',
-        batch_size: int = 100
+        batch_size: int = 100,
     ) -> pd.DataFrame:
-        """Augments the given DataFrame with additional columns based on the extracted data."""
+        """Augment DataFrame with additional columns based on extracted NVD data.
+
+        Args:
+            df (pd.DataFrame): Input DataFrame.
+            url_column (str): Column containing NVD URLs.
+            batch_size (int): Number of records to process in each batch.
+
+        Returns:
+            pd.DataFrame: Augmented DataFrame with additional NVD data columns.
+        """
         df_copy = df.copy()
-        total_rows = min(len(df_copy), self.max_records) if self.max_records else len(df_copy)
+        total_rows = (
+            min(len(df_copy), self.max_records)
+            if self.max_records
+            else len(df_copy)
+        )
 
         # Initialize all possible columns
         columns_to_add = set()
@@ -526,7 +713,11 @@ class NVDDataExtractor:
                 df_copy[col] = None
 
         # Process rows
-        progress_bar = tqdm(total=total_rows, desc="Processing CVEs") if self.show_progress else None
+        progress_bar = (
+            tqdm(total=total_rows, desc="Processing CVEs")
+            if self.show_progress
+            else None
+        )
 
         try:
             for start_idx in range(0, total_rows, batch_size):
@@ -536,11 +727,18 @@ class NVDDataExtractor:
                 for idx, row in batch.iterrows():
                     # Skip if NVD data has already been extracted
                     if isinstance(row.get('metadata', {}), dict):
-                        etl_status = row['metadata'].get('etl_processing_status', {})
-                        if isinstance(etl_status, dict) and etl_status.get('nvd_extracted', False):
+                        etl_status = row['metadata'].get(
+                            'etl_processing_status', {}
+                        )
+                        if isinstance(etl_status, dict) and etl_status.get(
+                            'nvd_extracted', False
+                        ):
                             if progress_bar:
                                 progress_bar.update(1)
-                            logging.info(f"Skipping NVD extraction for {row[url_column]} - already extracted")
+                            logging.info(
+                                "Skipping NVD extraction for"
+                                f" {row[url_column]} - already extracted"
+                            )
                             continue
 
                     post_id = row[url_column]
@@ -557,7 +755,10 @@ class NVDDataExtractor:
                         if key in df_copy.columns:
                             df_copy.at[idx, key] = value
                         else:
-                            logging.debug(f"Skipping column {key} - not in initialized columns")
+                            logging.debug(
+                                f"Skipping column {key} - not in initialized"
+                                " columns"
+                            )
 
                     if progress_bar:
                         progress_bar.update(1)
@@ -572,16 +773,10 @@ class NVDDataExtractor:
         return self._set_column_types(df_copy)
 
     def get_output_columns(self) -> List[str]:
-        """
-        Returns a list of all column names that will be added by this extractor
-        based on the properties_to_extract configuration.
+        """Get list of all column names that will be added by this extractor.
 
         Returns:
-            List[str]: List of column names that will be added to the DataFrame
-
-        Implementation Notes:
-            - columns = extractor.get_output_columns()
-            - print("Columns that will be added:", columns)
+            List[str]: List of column names that will be added to the DataFrame.
         """
         columns = []
 
@@ -606,16 +801,10 @@ class NVDDataExtractor:
 
     @staticmethod
     def get_all_possible_columns() -> List[str]:
-        """
-        Returns a list of all possible column names that could be added by this extractor,
-        regardless of the properties_to_extract configuration.
+        """Get list of all possible column names that could be added by this extractor.
 
         Returns:
-            List[str]: Complete list of all possible column names
-
-        Example:
-            columns = NVDDataExtractor.get_all_possible_columns()
-            print("All possible columns:", columns)
+            List[str]: Complete list of all possible column names.
         """
         columns = []
 
@@ -636,7 +825,7 @@ class NVDDataExtractor:
             'scope',
             'confidentiality',
             'integrity',
-            'availability'
+            'availability',
         ]
         cwe_columns = ['cwe_id', 'cwe_name', 'cwe_source', 'cwe_url']
         columns.extend(cwe_columns)
@@ -649,8 +838,10 @@ class NVDDataExtractor:
         return sorted(columns)
 
     def debug_tooltip_content(self, tooltip_element) -> None:
-        """
-        Debug helper to print the tooltip's HTML content
+        """Debug helper to print the tooltip's HTML content.
+
+        Args:
+            tooltip_element: Tooltip element to extract content from.
         """
         try:
             html_content = tooltip_element.get_attribute('innerHTML')
@@ -659,10 +850,11 @@ class NVDDataExtractor:
             logging.error(f"Failed to get tooltip content: {str(e)}")
 
 
-
 def main() -> None:
-    """
-    Main function to read the input CSV, extract data from NVD pages, and save the enriched DataFrame.
+    """Main function for testing the NVD Data Extractor.
+
+    Reads input CSV, extracts data from NVD pages, and saves the enriched DataFrame.
+    This function serves as an example of how to use the NVDDataExtractor class.
     """
     input_csv_path = r"C:\Users\emili\Downloads\Master_CVE_Information_Table_July-October_2024.csv"
     if not os.path.exists(input_csv_path):
@@ -686,26 +878,33 @@ def main() -> None:
             'availability',
             'nvd_published_date',
             'description',
-            'vector_element'
+            'vector_element',
         ],
         max_records=3,
     )
     NVDDataExtractor.get_all_possible_columns()
     # Process the DataFrame with batch size of 100 (you can adjust this)
     enriched_df = extractor.augment_dataframe(
-        df=df,
-        url_column='CVE ID',
-        batch_size=100
+        df=df, url_column='CVE ID', batch_size=100
     )
 
-    output_csv_path = r"C:\Users\emili\Downloads\test_enriched_vulnerabilities.csv"
+    output_csv_path = (
+        r"C:\Users\emili\Downloads\test_enriched_vulnerabilities.csv"
+    )
     enriched_df.to_csv(output_csv_path, index=False)
 
-    processed_records = min(len(df), extractor.max_records) if extractor.max_records else len(df)
-    summary = f"\nProcessing Summary:\n- Total rows processed: {processed_records}\n"
+    processed_records = (
+        min(len(df), extractor.max_records)
+        if extractor.max_records
+        else len(df)
+    )
+    summary = (
+        f"\nProcessing Summary:\n- Total rows processed: {processed_records}\n"
+    )
     logging.info(summary)
 
     extractor.cleanup()
+
 
 if __name__ == "__main__":
     main()
