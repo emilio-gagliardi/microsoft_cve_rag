@@ -276,8 +276,6 @@ def extract_kb_articles(
     db_name = "report_docstore"
     collection_name = "microsoft_kb_articles"
 
-    db_name = "report_docstore"
-    collection_name = "microsoft_kb_articles"
     # equals null is for windows kb articles
     query = {
         "published": {"$gte": start_date, "$lt": end_date},
@@ -288,17 +286,18 @@ def extract_kb_articles(
     sort = [
         ("kb_id", ASCENDING),
     ]
-    kb_article_docs_windows = extract_from_mongo(
+    kb_article_docs_windows_results = extract_from_mongo(
         db_name, collection_name, query, max_records, sort, projection
-    )["results"]
-
-    if kb_article_docs_windows:
+    )
+    print(f"windows kb articles count: {kb_article_docs_windows_results['total_count']}")
+    if kb_article_docs_windows_results["results"]:
         # extract windows 10 and windows 11 docs from docstore to match with docs from microsoft_kb_articles.
         # This is to extract the text and title from the docstore docs and pass them to the microsoft_kb_articles docs.
         # get the unique 'kb_id's for windows-based KB articles
         unique_kb_ids_windows = set(
-            kb_article["kb_id"] for kb_article in kb_article_docs_windows
+            kb_article["kb_id"] for kb_article in kb_article_docs_windows_results["results"]
         )
+        print(f"windows unique kb ids:\n{', '.join(['kb' + kb_id for kb_id in unique_kb_ids_windows])}")
         collection_name = "docstore"
         query = {
             "$or": [
@@ -320,7 +319,7 @@ def extract_kb_articles(
             "results"
         ]
 
-        for kb_article in kb_article_docs_windows:
+        for kb_article in kb_article_docs_windows_results["results"]:
             kb_id = kb_article["kb_id"]
             for doc in windows_docs:
                 if kb_id in doc["metadata"]["post_id"]:
@@ -534,7 +533,7 @@ def extract_kb_articles(
         kb_article_docs_edge_stable + kb_article_docs_edge_security
     )
 
-    return kb_article_docs_windows, kb_article_docs_edge_combined
+    return kb_article_docs_windows_results["results"], kb_article_docs_edge_combined
 
 
 # get update_packages

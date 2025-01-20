@@ -459,7 +459,11 @@ def transform_product_builds(product_builds: List[Dict[str, Any]]) -> pd.DataFra
     return None
 
 
-async def async_generate_summary(text: str) -> str:
+async def async_generate_summary(text: str) -> Optional[str]:
+    # Handle None, empty string, and pandas NA values
+    if pd.isna(text) or text is None or str(text).strip() == "":
+        return None
+
     marvin_summary_prompt = """
         Generate a highly technical summary of the following Microsoft KB Article text. This summary is intended for advanced system administrators and IT professionals specializing in modern device management with Intune MDM, Entra ID, Windows 365, and Azure.
 
@@ -597,7 +601,7 @@ def transform_kb_articles(
     # Process Windows KB articles
     if kb_articles_windows:
         df_windows = pd.DataFrame(
-            kb_articles_windows, columns=list(kb_articles_windows[0].keys())
+            kb_articles_windows, columns=master_columns
         )
         # Filter out duplicates before other operations
         df_windows = df_windows.drop_duplicates(subset=["kb_id"], keep="first")
@@ -636,10 +640,12 @@ def transform_kb_articles(
 
         # Split into docs with and without summaries
         df_windows_has_summary = df_windows[
-            (df_windows["summary"].notna()) & (df_windows["summary"].str.strip() != "")
+            df_windows["summary"].notna() &
+            df_windows["summary"].fillna("").astype(str).str.strip().ne("")
         ].copy()
         df_windows_no_summary = df_windows[
-            (df_windows["summary"].isna()) | (df_windows["summary"].str.strip() == "")
+            df_windows["summary"].isna() |
+            df_windows["summary"].fillna("").astype(str).str.strip().eq("")
         ].copy()
 
         logging.info(f"Windows-based KBs with no summaries: {df_windows_no_summary.shape[0]}")
