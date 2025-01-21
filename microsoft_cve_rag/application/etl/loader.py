@@ -81,7 +81,7 @@ def custom_json_serializer(obj):
     raise TypeError(f"Type {type(obj)} not serializable")
 
 
-async def lookup_thread_emails(thread_id):
+async def lookup_thread_emails(thread_id) -> List[Dict[str, Any]]:
     """
     Retrieves emails associated with a given thread ID.
 
@@ -99,7 +99,7 @@ async def lookup_thread_emails(thread_id):
     ]
 
 
-async def determine_email_sequence(all_emails):
+async def determine_email_sequence(all_emails) -> List[Dict[str, Any]]:
     """
     Determines the sequence of emails based on their received date and time.
 
@@ -138,7 +138,10 @@ async def determine_email_sequence(all_emails):
     return updates
 
 
-async def update_email_sequence(updates, patch_posts_service):
+async def update_email_sequence(
+    updates: List[Dict[str, Any]],
+    patch_posts_service: PatchManagementPostService,
+) -> None:
     """
     Updates the sequence of patch posts in the graph database.
 

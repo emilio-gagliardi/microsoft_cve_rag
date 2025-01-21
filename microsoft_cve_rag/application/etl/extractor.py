@@ -7,12 +7,10 @@ import json
 import logging
 
 # import uuid
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
-
 from application.services.document_service import DocumentService
-from bson import ObjectId
-from pymongo import ASCENDING, DESCENDING
+from pymongo import ASCENDING
 
 
 def extract_from_mongo(
