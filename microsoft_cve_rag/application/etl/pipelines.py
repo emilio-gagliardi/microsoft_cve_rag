@@ -1033,9 +1033,6 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
         base_msg = f"- source: {source_id} - {node_type} - {issue_type}"
         return f"{base_msg} - {message}" if message else base_msg
 
-    print("\nExtraction and Loading Results:")
-    print("=" * 80)
-
     # Process MSRC Posts
     msrc_issues = []
     # Add failed extractions
