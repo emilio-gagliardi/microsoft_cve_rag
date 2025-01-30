@@ -2210,8 +2210,16 @@ async def match_product(source_node, target_node) -> bool:
         # Windows logic (e.g., windows_10_21H2_x64)
         if parts[0].lower() == "windows":
             product_name = f"windows_{parts[1]}"  # e.g., windows_10
-            product_version = parts[2] if len(parts) > 2 else None
-            product_architecture = parts[3] if len(parts) > 3 else None
+            # Check if the last part is an architecture
+            if len(parts) > 2 and parts[-1].lower() in ["x86", "x64"]:
+                product_architecture = parts[-1].lower()
+                # Version is everything between product name and architecture (if any)
+                product_version = "_".join(parts[2:-1]) if len(parts) > 3 else None
+            else:
+                # No architecture specified
+                product_architecture = None
+                # Version is everything after product name (if any)
+                product_version = "_".join(parts[2:]) if len(parts) > 2 else None
 
             # Check the target product for an exact product_name match first
             if target_node.product_name == product_name:

@@ -1435,6 +1435,27 @@ async def extract_entities_relationships(
                 )
             ):
                 extracted_entity['severity_type'] = 'moderate'
+            # check if reliability is a float
+            if 'reliability' in extracted_entity:
+                try:
+                    # Case a: already a float
+                    if isinstance(extracted_entity['reliability'], float):
+                        reliability_value = extracted_entity['reliability']
+                    else:
+                        # Case b: string or integer that can be converted to float
+                        reliability_value = float(str(extracted_entity['reliability']).strip())
+
+                    # If value is between 0-100, convert to 0-1 scale
+                    if reliability_value > 1:
+                        reliability_value = reliability_value / 100.0
+
+                    # Ensure the value is between 0 and 1
+                    extracted_entity['reliability'] = max(0.0, min(1.0, reliability_value))
+                except (ValueError, TypeError):
+                    # Case c: cannot be converted to float
+                    extracted_entity['reliability'] = 0.25
+            else:
+                extracted_entity['reliability'] = 0.25
 
             # Special handling for Tool entities
             if entity_type == "Tool":
@@ -2707,7 +2728,7 @@ class LlamaIndexVectorService:
 
         Raises:
             Exception: Logs an error if any component initialization fails, with the specific error
-                    logged before re-raising
+                      logged before re-raising
         """
         try:
             # Ensure collection exists
@@ -2865,24 +2886,46 @@ class LlamaIndexVectorService:
                     f"Found {len(existing_docs)} existing documents in tracker"
                 )
                 # Use a single deletion operation for all matching documents
-                await self.vector_db_service.async_client.delete(
-                    collection_name=self.vector_db_service.collection,
-                    points_selector=FilterSelector(
-                        filter=Filter(
-                            should=[
-                                FieldCondition(
-                                    key="metadata.source_id",
-                                    match=MatchAny(any=existing_docs),
-                                ),
-                                FieldCondition(
-                                    key="doc_id",
-                                    match=MatchAny(any=existing_docs),
-                                ),
-                            ]
-                        )
-                    ),
-                    wait=True,
-                )
+                try:
+                    logging.info(
+                        f"Attempting to delete {len(existing_docs)} documents from Qdrant"
+                    )
+                    await self.vector_db_service.async_client.delete(
+                        collection_name=self.vector_db_service.collection,
+                        points_selector=FilterSelector(
+                            filter=Filter(
+                                should=[
+                                    FieldCondition(
+                                        key="metadata.source_id",
+                                        match=MatchAny(any=existing_docs),
+                                    ),
+                                    FieldCondition(
+                                        key="doc_id",
+                                        match=MatchAny(any=existing_docs),
+                                    ),
+                                ]
+                            )
+                        ),
+                        wait=True,
+                    )
+                except ValueError as ve:
+                    logging.error(f"Value error in delete operation: {ve}")
+                    logging.error(f"Existing docs: {existing_docs}")
+                    raise
+                except TypeError as te:
+                    logging.error(f"Type error in delete operation: {te}")
+                    logging.error(f"Existing docs types: {[type(doc) for doc in existing_docs]}")
+                    raise
+                except AttributeError as ae:
+                    logging.error(f"Attribute error in delete operation: {ae}")
+                    logging.error(f"Vector DB service state: {self.vector_db_service.__dict__}")
+                    raise
+                except Exception as e:
+                    logging.error(f"Unexpected error in delete operation: {str(e)}")
+                    logging.error(f"Error type: {type(e)}")
+                    logging.error(f"Collection name: {self.vector_db_service.collection}")
+                    logging.error(f"Existing docs: {existing_docs}")
+                    raise
 
             # Convert documents to nodes using sentence window parser
             all_nodes = []

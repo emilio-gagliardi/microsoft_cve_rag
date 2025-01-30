@@ -25,7 +25,7 @@ from application.services.llama_index_service import (
 )
 from application.etl.MongoPipelineLoader import MongoPipelineLoader
 from application.app_utils import get_app_config
-import tqdm
+from tqdm import tqdm
 import numpy as np
 
 settings = get_app_config()
