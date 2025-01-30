@@ -196,9 +196,9 @@ If the text context is incomplete but suggests a potential Fix:
 
 3. **Adjust Reliability**:
    - Reduce the `reliability` score based on the degree of synthesis:
-     - High (0.7-1.0): Minimal synthesis, largely based on explicit context.
-     - Moderate (0.4-0.7): Partial synthesis, significant context inference.
-     - Low (0.0-0.4): Mostly synthesized, very limited explicit context.
+     - (0.7-1.0): Minimal synthesis, largely based on explicit context.
+     - (0.4-0.7): Partial synthesis, significant context inference.
+     - (0.0-0.4): Mostly synthesized, very limited explicit context.
 
 ### Formatting for Human Readability:
 To make the Fix description easier to read:
@@ -380,9 +380,9 @@ Get-Content -Path "C:\\Windows\\Logs\\WindowsUpdate\\WU.log" | Select-String -Pa
 
 3. **Adjust Reliability**:
    - Reduce the `reliability` score based on the degree of synthesis:
-     - High (0.7-1.0): Minimal synthesis, largely based on explicit context.
-     - Moderate (0.4-0.7): Partial synthesis, significant context inference.
-     - Low (0.0-0.4): Mostly synthesized, very limited explicit context.
+     - (0.7-1.0): Minimal synthesis, largely based on explicit context.
+     - (0.4-0.7): Partial synthesis, significant context inference.
+     - (0.0-0.4): Mostly synthesized, very limited explicit context.
 
 4. **Use URLs to Strengthen Plausibility**:
    - If a URL is mentioned in the text, assume it is relevant to the tool and use it to inform the synthesized description.
@@ -649,9 +649,9 @@ If the text context is incomplete but suggests a potential Fix:
 
 3. **Adjust Reliability**:
    - Reduce the `reliability` score based on the degree of synthesis:
-     - High (0.7-1.0): Minimal synthesis, largely based on explicit context.
-     - Moderate (0.4-0.7): Partial synthesis, significant context inference.
-     - Low (0.0-0.4): Mostly synthesized, very limited explicit context.
+     - (0.7-1.0): Minimal synthesis, largely based on explicit context.
+     - (0.4-0.7): Partial synthesis, significant context inference.
+     - (0.0-0.4): Mostly synthesized, very limited explicit context.
 
 ### Formatting for Human Readability:
 To make the Fix description easier to read:
@@ -834,9 +834,9 @@ Get-Content -Path "C:\\Windows\\Logs\\WindowsUpdate\\WU.log" | Select-String -Pa
 
 3. **Adjust Reliability**:
    - Reduce the `reliability` score based on the degree of synthesis:
-     - High (0.7-1.0): Minimal synthesis, largely based on explicit context.
-     - Moderate (0.4-0.7): Partial synthesis, significant context inference.
-     - Low (0.0-0.4): Mostly synthesized, very limited explicit context.
+     - (0.7-1.0): Minimal synthesis, largely based on explicit context.
+     - (0.4-0.7): Partial synthesis, significant context inference.
+     - (0.0-0.4): Mostly synthesized, very limited explicit context.
 
 4. **Use URLs to Strengthen Plausibility**:
    - If a URL is mentioned in the text, assume it is relevant to the tool and use it to inform the synthesized description.

@@ -2,15 +2,15 @@
 # Inputs: Source configurations
 # Outputs: Raw data
 # Dependencies: None
-from typing import Any, Dict, Optional, List, Tuple
-from application.services.document_service import DocumentService
-from pymongo import ASCENDING, DESCENDING
-from bson import ObjectId
-# import uuid
-from datetime import datetime, timedelta, timezone
 import hashlib
 import json
 import logging
+
+# import uuid
+from datetime import datetime, timezone
+from typing import Any, Dict, List, Optional, Tuple
+from application.services.document_service import DocumentService
+from pymongo import ASCENDING
 
 
 def extract_from_mongo(
@@ -38,7 +38,6 @@ def extract_from_mongo(
            - total_count: The total number of documents matching the query.
            - limit: The maximum number of documents returned.
     """
-
     document_service = DocumentService(db_name, collection_name)
 
     return document_service.query_documents(
@@ -47,15 +46,22 @@ def extract_from_mongo(
 
 
 def patch_fe_extractor(
-    start_date: datetime,
-    end_date: datetime,
-    max_records: int = 10
+    start_date: datetime, end_date: datetime, max_records: int = 10
 ) -> List[Dict[str, Any]]:
-    """
-    Extracts patch management documents for feature engineering,
-    ignoring thread/link logic. This is separate from the main pipeline extractor.
-    """
+    """Extract patch management documents for feature engineering.
 
+    This extractor ignores thread/link logic and is separate from the main pipeline
+    extractor.
+
+    Args:
+        start_date (datetime): The start date of the time range to extract documents.
+        end_date (datetime): The end date of the time range to extract documents.
+        max_records (int, optional): Maximum number of records to extract.
+            Defaults to 10.
+
+    Returns:
+        List[Dict[str, Any]]: List of extracted patch management documents.
+    """
     db_name = "report_docstore"
     collection_name = "docstore"
 
@@ -102,27 +108,28 @@ def patch_fe_extractor(
 
 # get products
 def extract_products(max_records: int = 10) -> List[Dict[str, Any]]:
-    """
-    DO NOT MODIFY
+    """Extract Microsoft product documents.
+
     Extracts Microsoft product documents from the "report_docstore" MongoDB database.
 
+    Note:
+        DO NOT MODIFY this function.
+
     Args:
-        max_records (int, optional): The maximum number of records to return. Defaults to 10.
+        max_records (int, optional): Maximum number of records to extract.
+            Defaults to 10.
 
     Returns:
-        List[Dict[str, Any]]: A list of product documents.
-
-    Notes:
-        - Product documents are filtered based on product_name, product_version, and product_architecture.
-        - The resulting documents are sorted by product_name, product_architecture, and product_version.
-        - The projection excludes the "_id" and "hash" fields.
+        List[Dict[str, Any]]: List of extracted product documents.
     """
     db_name = "report_docstore"
     collection_name = "microsoft_products"
     query = {
         "product_name": {"$nin": ["edge_ext"]},
         "product_version": {"$in": ["21H2", "22H2", "23H2", "24H2", ""]},
-        "product_architecture": {"$in": ["32-bit_systems", "x64-based_systems", ""]},
+        "product_architecture": {
+            "$in": ["32-bit_systems", "x64-based_systems", ""]
+        },
     }
     max_records = max_records
     sort = [
@@ -148,29 +155,31 @@ def extract_product_builds(
     end_date: datetime,
     max_records: int = 10,
 ) -> List[Dict[str, Any]]:
-    """
-    DO NOT MODIFY
-    Extracts Microsoft product build documents from the "report_docstore" MongoDB database.
+    """Extract Microsoft product build documents.
+
+    Extracts Microsoft product build documents from the "report_docstore" MongoDB
+    database.
+
+    Note:
+        DO NOT MODIFY this function.
 
     Args:
         start_date (datetime): The start date of the time range to extract documents.
         end_date (datetime): The end date of the time range to extract documents.
-        max_records (int, optional): The maximum number of records to return. Defaults to 10.
+        max_records (int, optional): Maximum number of records to extract.
+            Defaults to 10.
 
     Returns:
-        List[Dict[str, Any]]: A list of product build documents.
-
-    Notes:
-        - Product build documents are filtered based on product_name, product_version, product_architecture, and published.
-        - The resulting documents are sorted by product_name, product_architecture, product_version, and cve_id.
-        - The projection excludes the "_id", "hash", "summary", "article_url", and "cve_url" fields.
+        List[Dict[str, Any]]: List of extracted product build documents.
     """
     db_name = "report_docstore"
     collection_name = "microsoft_product_builds"
     query = {
         "published": {"$gte": start_date, "$lt": end_date},
         "product_version": {"$in": ["21H2", "22H2", "23H2", "24H2", ""]},
-        "product_architecture": {"$in": ["32-bit_systems", "x64-based_systems", ""]},
+        "product_architecture": {
+            "$in": ["32-bit_systems", "x64-based_systems", ""]
+        },
         "product_name": {
             "$in": [
                 "windows_10",
@@ -202,6 +211,17 @@ def extract_product_builds(
 
 
 def generate_kb_id(document):
+    """Generate a unique KB ID for a document.
+
+    Creates a SHA-256 hash of the document's JSON representation. The hash is then
+    truncated and formatted to resemble a UUID.
+
+    Args:
+        document: The document to generate an ID for.
+
+    Returns:
+        str: The generated KB ID.
+    """
     # Convert the document to a JSON string
     document_json = json.dumps(document, sort_keys=True, default=str)
 
@@ -219,6 +239,20 @@ def generate_kb_id(document):
 
 
 def process_kb_article(article):
+    """
+    Process a single KB article document.
+
+    Args:
+        article (dict): The KB article document to process.
+
+    Returns:
+        dict: The processed KB article document with a new "build_number" field and an "id" field if it did not exist.
+
+    Notes:
+        - If the "kb_id" field is None, the "build_number" field is set to an empty tuple.
+        - If the "kb_id" field is not None, the "build_number" field is set to a tuple of integers parsed from the "kb_id" string.
+        - If the "id" field does not exist, it is generated using the `generate_kb_id` function.
+    """
     if article["kb_id"] is None:
         article["build_number"] = ()
     else:
@@ -229,11 +263,39 @@ def process_kb_article(article):
 
 
 def convert_build_number(article):
+    """
+    Convert the build number from a tuple of integers to a list of integers.
+
+    Args:
+        article (dict): The KB article document to process.
+
+    Returns:
+        dict: The processed KB article document with a new "build_number" field.
+
+    Notes:
+        - The "build_number" field is a tuple of integers parsed from the "kb_id" string.
+        - The "build_number" field is converted to a list of integers.
+    """
     article["build_number"] = list(article["build_number"])
     return article
 
 
 def process_kb_articles(articles):
+    """
+    Process a list of KB article documents.
+
+    Args:
+        articles (list): A list of KB article documents to process.
+
+    Returns:
+        list: A list of processed KB article documents.
+
+    Notes:
+        - The function processes each article in the list by calling the `process_kb_article` function.
+        - The function creates tuples from the original data and generates new ID hashes.
+        - The function sorts the list by the new tupled build_number.
+        - The function converts the tuple back to a list of ints.
+    """
     # Step 1: Create tuples from the original data and generate new ID hash
     articles = list(map(process_kb_article, articles))
 
@@ -247,18 +309,20 @@ def process_kb_articles(articles):
 
 
 def extract_kb_articles(
-    start_date: datetime,
-    end_date: datetime,
-    max_records: int = 10
+    start_date: datetime, end_date: datetime, max_records: int = 10
 ) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
-    """
-    DO NOT MODIFY
+    """Extract Microsoft KB articles.
+
     Extracts Microsoft KB articles from the "report_docstore" MongoDB database.
+
+    Note:
+        DO NOT MODIFY this function.
 
     Args:
         start_date (datetime): The start date of the time range to extract documents.
         end_date (datetime): The end date of the time range to extract documents.
-        max_records (int, optional): The maximum number of records to return. Defaults to 10.
+        max_records (int, optional): Maximum number of records to extract.
+            Defaults to 10.
 
     Returns:
         Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]: A tuple of two lists, the first containing Windows-based KB articles and the second containing Edge-based KB articles.
@@ -276,8 +340,6 @@ def extract_kb_articles(
     db_name = "report_docstore"
     collection_name = "microsoft_kb_articles"
 
-    db_name = "report_docstore"
-    collection_name = "microsoft_kb_articles"
     # equals null is for windows kb articles
     query = {
         "published": {"$gte": start_date, "$lt": end_date},
@@ -288,16 +350,24 @@ def extract_kb_articles(
     sort = [
         ("kb_id", ASCENDING),
     ]
-    kb_article_docs_windows = extract_from_mongo(
+    kb_article_docs_windows_results = extract_from_mongo(
         db_name, collection_name, query, max_records, sort, projection
-    )["results"]
-
-    if kb_article_docs_windows:
+    )
+    print(
+        "windows kb articles count:"
+        f" {kb_article_docs_windows_results['total_count']}"
+    )
+    if kb_article_docs_windows_results["results"]:
         # extract windows 10 and windows 11 docs from docstore to match with docs from microsoft_kb_articles.
         # This is to extract the text and title from the docstore docs and pass them to the microsoft_kb_articles docs.
         # get the unique 'kb_id's for windows-based KB articles
         unique_kb_ids_windows = set(
-            kb_article["kb_id"] for kb_article in kb_article_docs_windows
+            kb_article["kb_id"]
+            for kb_article in kb_article_docs_windows_results["results"]
+        )
+        print(
+            "windows unique kb"
+            f" ids:\n{', '.join(['kb' + kb_id for kb_id in unique_kb_ids_windows])}"
         )
         collection_name = "docstore"
         query = {
@@ -316,11 +386,11 @@ def extract_kb_articles(
             "class_name": 0,
         }
         max_records = None  # we want all matching documents
-        windows_docs = extract_from_mongo(db_name, collection_name, query, max_records)[
-            "results"
-        ]
+        windows_docs = extract_from_mongo(
+            db_name, collection_name, query, max_records
+        )["results"]
 
-        for kb_article in kb_article_docs_windows:
+        for kb_article in kb_article_docs_windows_results["results"]:
             kb_id = kb_article["kb_id"]
             for doc in windows_docs:
                 if kb_id in doc["metadata"]["post_id"]:
@@ -349,7 +419,13 @@ def extract_kb_articles(
                             "in": {
                                 "$concat": [
                                     "$$value",
-                                    {"$cond": [{"$eq": ["$$value", ""]}, "", "."]},
+                                    {
+                                        "$cond": [
+                                            {"$eq": ["$$value", ""]},
+                                            "",
+                                            ".",
+                                        ]
+                                    },
                                     {"$toString": "$$this"},
                                 ]
                             },
@@ -397,13 +473,29 @@ def extract_kb_articles(
                 "kb_id": {
                     "$first": {
                         "$concat": [
-                            {"$toString": {"$arrayElemAt": ["$build_number", 0]}},
+                            {
+                                "$toString": {
+                                    "$arrayElemAt": ["$build_number", 0]
+                                }
+                            },
                             ".",
-                            {"$toString": {"$arrayElemAt": ["$build_number", 1]}},
+                            {
+                                "$toString": {
+                                    "$arrayElemAt": ["$build_number", 1]
+                                }
+                            },
                             ".",
-                            {"$toString": {"$arrayElemAt": ["$build_number", 2]}},
+                            {
+                                "$toString": {
+                                    "$arrayElemAt": ["$build_number", 2]
+                                }
+                            },
                             ".",
-                            {"$toString": {"$arrayElemAt": ["$build_number", 3]}},
+                            {
+                                "$toString": {
+                                    "$arrayElemAt": ["$build_number", 3]
+                                }
+                            },
                         ]
                     }
                 },
@@ -440,7 +532,13 @@ def extract_kb_articles(
                             "in": {
                                 "$concat": [
                                     "$$value",
-                                    {"$cond": [{"$eq": ["$$value", ""]}, "", "."]},
+                                    {
+                                        "$cond": [
+                                            {"$eq": ["$$value", ""]},
+                                            "",
+                                            ".",
+                                        ]
+                                    },
                                     {"$toString": "$$this"},
                                 ]
                             },
@@ -488,13 +586,29 @@ def extract_kb_articles(
                 "kb_id": {
                     "$first": {
                         "$concat": [
-                            {"$toString": {"$arrayElemAt": ["$build_number", 0]}},
+                            {
+                                "$toString": {
+                                    "$arrayElemAt": ["$build_number", 0]
+                                }
+                            },
                             ".",
-                            {"$toString": {"$arrayElemAt": ["$build_number", 1]}},
+                            {
+                                "$toString": {
+                                    "$arrayElemAt": ["$build_number", 1]
+                                }
+                            },
                             ".",
-                            {"$toString": {"$arrayElemAt": ["$build_number", 2]}},
+                            {
+                                "$toString": {
+                                    "$arrayElemAt": ["$build_number", 2]
+                                }
+                            },
                             ".",
-                            {"$toString": {"$arrayElemAt": ["$build_number", 3]}},
+                            {
+                                "$toString": {
+                                    "$arrayElemAt": ["$build_number", 3]
+                                }
+                            },
                         ]
                     }
                 },
@@ -524,7 +638,9 @@ def extract_kb_articles(
 
     # documents_with_ids = map(lambda doc: {**doc, 'id': generate_unique_id(doc)}, documents)
     if kb_article_docs_edge_stable:
-        kb_article_docs_edge_stable = process_kb_articles(kb_article_docs_edge_stable)
+        kb_article_docs_edge_stable = process_kb_articles(
+            kb_article_docs_edge_stable
+        )
     if kb_article_docs_edge_security:
         kb_article_docs_edge_security = process_kb_articles(
             kb_article_docs_edge_security
@@ -534,23 +650,29 @@ def extract_kb_articles(
         kb_article_docs_edge_stable + kb_article_docs_edge_security
     )
 
-    return kb_article_docs_windows, kb_article_docs_edge_combined
+    return (
+        kb_article_docs_windows_results["results"],
+        kb_article_docs_edge_combined,
+    )
 
 
 # get update_packages
 def extract_update_packages(
-    start_date: datetime,
-    end_date: datetime,
-    max_records: int = 10
+    start_date: datetime, end_date: datetime, max_records: int = 10
 ) -> List[Dict[str, Any]]:
-    """
-    DO NOT MODIFY
-    Extracts Microsoft update package documents from the "report_docstore" MongoDB database.
+    """Extract Microsoft update package documents.
+
+    Extracts Microsoft update package documents from the "report_docstore" MongoDB
+    database.
+
+    Note:
+        DO NOT MODIFY this function.
 
     Args:
         start_date (datetime): The start date of the time range to extract documents.
         end_date (datetime): The end date of the time range to extract documents.
-        max_records (int, optional): The maximum number of records to return. Defaults to 10.
+        max_records (int, optional): Maximum number of records to extract.
+            Defaults to 10.
 
     Returns:
         List[Dict[str, Any]]: A list of update package documents.
@@ -637,18 +759,20 @@ def extract_update_packages(
 
 
 def extract_msrc_posts(
-    start_date: datetime,
-    end_date: datetime,
-    max_records: Optional[int] = None
+    start_date: datetime, end_date: datetime, max_records: Optional[int] = None
 ) -> List[Dict[str, Any]]:
-    """
-    DO NOT MODIFY
+    """Extract MSRC post documents.
+
     Extracts MSRC post documents from the "report_docstore" MongoDB database.
+
+    Note:
+        DO NOT MODIFY this function.
 
     Args:
         start_date (datetime): The start date of the time range to extract documents.
         end_date (datetime): The end date of the time range to extract documents.
-        max_records (int, optional): The maximum number of records to return. Defaults to None.
+        max_records (Optional[int], optional): Maximum number of records to extract.
+            Defaults to None.
 
     Returns:
         List[Dict[str, Any]]: A list of MSRC post documents.
@@ -691,20 +815,33 @@ def extract_msrc_posts(
 
 
 def convert_received_date_time(doc):
+    """Convert the received date time from a string to a datetime object.
+
+    Args:
+        doc (dict): The document to process.
+
+    Returns:
+        dict: The processed document with the converted received date time.
+    """
     try:
         received_date_time = doc["metadata"]["receivedDateTime"]
 
         if isinstance(received_date_time, datetime):
             # Ensure timezone awareness
             if received_date_time.tzinfo is None:
-                received_date_time = received_date_time.replace(tzinfo=timezone.utc)
+                received_date_time = received_date_time.replace(
+                    tzinfo=timezone.utc
+                )
             doc["metadata"]["receivedDateTime"] = received_date_time
             return doc
 
         doc["metadata"]["receivedDateTime"] = datetime.fromisoformat(
             str(received_date_time).rstrip('Z')
         ).replace(tzinfo=timezone.utc)
-        logging.debug(f"Converted receivedDateTime to: {doc['metadata']['receivedDateTime']}")
+        logging.debug(
+            "Converted receivedDateTime to:"
+            f" {doc['metadata']['receivedDateTime']}"
+        )
     except KeyError:
         logging.warning("receivedDateTime missing in metadata")
         pass

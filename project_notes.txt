@@ -139,3 +139,63 @@ LlamaIndex Vector Index
 - Validate thread linking behavior with historical documents
 - Monitor performance of synchronous patch post transformation
 - Consider adding metrics for thread linking success rate
+
+## VSCode Settings Configuration
+Place the following in `.vscode/settings.json` to ensure consistent code formatting and linting:
+
+```json
+{
+    "diffEditor.experimental.showMoves": true,
+    "editor.minimap.maxColumn": 105,
+    "editor.inlineSuggest.syntaxHighlightingEnabled": true,
+    "editor.quickSuggestions": {
+        "comments": "on"
+    },
+    "editor.quickSuggestionsDelay": 3,
+    "files.autoSave": "off",
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "workbench.externalBrowser": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+    "workbench.list.horizontalScrolling": true,
+    "workbench.editor.highlightModifiedTabs": true,
+    "workbench.editor.labelFormat": "short",
+    "workbench.editor.pinnedTabsOnSeparateRow": true,
+    "workbench.editor.titleScrollbarSizing": "large",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
+    "black-formatter.args": [
+        "--line-length",
+        "79",
+        "--skip-string-normalization",
+        "--preview"
+    ],
+    "isort.args": [
+        "--profile",
+        "black",
+        "--line-length",
+        "79"
+    ],
+    "flake8.args": [
+        "--max-line-length=79",
+        "--extend-ignore=W503",
+        "--per-file-ignores=__init__.py:F401"
+    ],
+    "autoDocstring.startOnNewLine": false,
+    "autoDocstring.docstringFormat": "google"
+}
+```
+
+This configuration:
+1. Sets up Black as the default Python formatter with 79 character line length
+2. Configures isort to match Black's style for import organization
+3. Aligns Flake8 with our .flake8 configuration
+4. Sets up proper docstring formatting rules
+5. Enables format on save and format on type for better code consistency
+
+After updating settings.json, restart VSCode for changes to take effect.

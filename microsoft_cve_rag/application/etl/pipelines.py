@@ -1,68 +1,32 @@
 import os
 import logging
 import time
-from datetime import datetime
-from typing import Dict, Any, List, Tuple
+from datetime import datetime, timedelta, timezone
+from typing import Dict, Any
+import asyncio
+import re
+import json
 import pandas as pd
 from application.etl import extractor
 from application.etl import transformer
 from application.etl import loader
 from application.etl import neo4j_migrator
 from application.services.graph_db_service import (
-    BaseService,
-    KBArticleService,
-    UpdatePackageService,
-    MSRCPostService,
-    PatchManagementPostService,
-    SymptomService,
-    CauseService,
-    FixService,
-    ToolService,
-)
-from application.services.graph_db_service import (
-    build_relationships,
     build_relationships_in_batches,
-    ProductService,
-    ProductBuildService,
-    MSRCPostService,
-    KBArticleService,
-    UpdatePackageService,
-    PatchManagementPostService,
-    SymptomService,
-    CauseService,
-    FixService,
-    ToolService,
-    GraphDatabaseManager,
 )
 from application.services.document_service import DocumentService
 from application.services.vector_db_service import VectorDBService
-from application.services.embedding_service import (
-    EmbeddingService,
-    LlamaIndexEmbeddingAdapter,
-    )
 from application.core.models.basic_models import Document, DocumentMetadata
 from application.services.llama_index_service import (
     extract_entities_relationships,
     LlamaIndexVectorService,
     CustomDocumentTracker,
     track_dataframe_documents,
-    generate_cost_report,
 )
 from application.etl.MongoPipelineLoader import MongoPipelineLoader
 from application.app_utils import get_app_config
-from llama_index.core import Document as LlamaDocument
-from neomodel.async_.core import AsyncDatabase
-from typing import Dict, Any
-import time
-import asyncio
-import re
-import json
-from datetime import datetime, timedelta, timezone
-import pandas as pd
-import numpy as np
-from fuzzywuzzy import fuzz
-import logging
 from tqdm import tqdm
+import numpy as np
 
 settings = get_app_config()
 
@@ -1033,9 +997,6 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
         base_msg = f"- source: {source_id} - {node_type} - {issue_type}"
         return f"{base_msg} - {message}" if message else base_msg
 
-    print("\nExtraction and Loading Results:")
-    print("=" * 80)
-
     # Process MSRC Posts
     msrc_issues = []
     # Add failed extractions
@@ -1098,8 +1059,8 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
 
     # Check if there are any issues to report
     has_issues = bool(msrc_issues or patch_issues or
-                     any(items for items in msrc_empty_extractions.values()) or
-                     any(items for items in patch_empty_extractions.values()))
+                      any(items for items in msrc_empty_extractions.values()) or
+                      any(items for items in patch_empty_extractions.values()))
 
     print("\nExtraction and Loading Results:")
     print("=" * 80)
@@ -1674,12 +1635,12 @@ def sort_by_build_number(item):
     return tuple(item["build_number"])
 
 
-def validate_pipeline(pipeline):
-    for stage in pipeline:
-        for key, value in stage.items():
-            if not isinstance(key, str):
-                raise ValueError(f"Invalid key type in pipeline stage: {type(key)}")
-    return pipeline
+# def validate_pipeline(pipeline):
+#     for stage in pipeline:
+#         for key, value in stage.items():
+#             if not isinstance(key, str):
+#                 raise ValueError(f"Invalid key type in pipeline stage: {type(key)}")
+#     return pipeline
 
 
 async def extract_all_documents(start_date, end_date):

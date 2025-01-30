@@ -1,29 +1,24 @@
-from neomodel import (
-    AsyncStructuredNode,
-    StringProperty,
+import json
+import uuid
+from datetime import datetime
+
+from neomodel import (  # AsyncRelationship,; AsyncCardinality,
+    AliasProperty,
     ArrayProperty,
+    AsyncStructuredNode,
     BooleanProperty,
-    DateTimeProperty,
     DateTimeFormatProperty,
-    DateTimeNeo4jFormatProperty,
-    JSONProperty,
+    DateTimeProperty,
     FloatProperty,
     IntegerProperty,
-    AliasProperty,
-    install_all_labels,
-    # AsyncRelationship,
-    # AsyncCardinality,
+    JSONProperty,
+    StringProperty,
 )
 from neomodel.async_.relationship import AsyncStructuredRel
 from neomodel.async_.relationship_manager import (
     AsyncRelationshipFrom,
     AsyncRelationshipTo,
 )
-
-import json
-import uuid
-from datetime import datetime
-
 
 # =============== BGEIN Relationship Classes
 
@@ -103,9 +98,17 @@ class AsyncOneToOneRel(AsyncStructuredRel):
 
 class AsyncSymptomRel(AsyncZeroToManyRel):
     """Relationship class for symptoms with severity and confidence validation."""
+
     __type__ = "HAS_SYMPTOM"
     severity = StringProperty(
-        choices={"low": "low", "medium": "medium", "high": "high", "important": "important", "nst": "nst", "NST": "NST"},
+        choices={
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "important": "important",
+            "nst": "nst",
+            "NST": "NST",
+        },
         index=True,
         default="medium",
     )
@@ -123,9 +126,17 @@ class AsyncSymptomRel(AsyncZeroToManyRel):
 
 class AsyncCauseRel(AsyncZeroToManyRel):
     """Relationship class for causes with severity and confidence validation."""
+
     __type__ = "HAS_CAUSE"
     severity = StringProperty(
-        choices={"low": "low", "medium": "medium", "high": "high", "important": "important", "nst": "nst", "NST": "NST"},
+        choices={
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "important": "important",
+            "nst": "nst",
+            "NST": "NST",
+        },
         index=True,
         default="medium",
     )
@@ -143,9 +154,17 @@ class AsyncCauseRel(AsyncZeroToManyRel):
 
 class AsyncFixRel(AsyncZeroToManyRel):
     """Relationship class for fixes with severity and confidence validation."""
+
     __type__ = "HAS_FIX"
     severity = StringProperty(
-        choices={"low": "low", "medium": "medium", "high": "high", "important": "important", "nst": "nst", "NST": "NST"},
+        choices={
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "important": "important",
+            "nst": "nst",
+            "NST": "NST",
+        },
         index=True,
         default="medium",
     )
@@ -163,6 +182,7 @@ class AsyncFixRel(AsyncZeroToManyRel):
 
 class AsyncToolRel(AsyncZeroToManyRel):
     """Relationship class for tools with severity and confidence validation."""
+
     __type__ = "HAS_TOOL"
     confidence = IntegerProperty(default=50)  # 0-100%
     description = StringProperty()
@@ -181,12 +201,22 @@ class AsyncAffectsProductRel(AsyncZeroToManyRel):
 
     __type__ = "AFFECTS_PRODUCT"
     impact_rating = StringProperty(
-        choices={"low": "low", "medium": "medium", "high": "high", "critical": "critical"},
-        index=True
+        choices={
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "critical": "critical",
+        },
+        index=True,
     )
     severity = StringProperty(
-        choices={"low": "low", "medium": "medium", "high": "high", "critical": "critical"},
-        index=True
+        choices={
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "critical": "critical",
+        },
+        index=True,
     )
     affected_versions = ArrayProperty(StringProperty(), default=[])
     patched_in_version = StringProperty()
@@ -265,13 +295,44 @@ class AsyncReferencesRel(AsyncZeroToManyRel):
 
 # =============== BEGIN Node Classes ======================
 verification_choices = {
-        "unverified": "Unverified",
-        "verified_valid": "Verified and Valid",
-        "verified_invalid": "Verified and Invalid",
-        "corrected": "Corrected",
-    }
+    "unverified": "Unverified",
+    "verified_valid": "Verified and Valid",
+    "verified_invalid": "Verified and Invalid",
+    "corrected": "Corrected",
+}
+
 
 class Product(AsyncStructuredNode):
+    """
+    Represents a Microsoft product.
+
+    Attributes:
+        product_name (str): The name of the product. Choices are defined in `name_choices`.
+        product_architecture (str): The architecture of the product. Choices are defined in `archi_choices`.
+        product_version (str): The version of the product. Choices are defined in `product_versions`.
+        node_id (str): A unique identifier for the product.
+        product_id (str): An alias for `node_id`.
+        description (str): A description of the product.
+        node_label (str): A label for the product.
+        build_numbers (list): A list of build numbers for the product.
+        product_build_ids (list): A list of IDs of product builds for the product.
+        cve_ids (list): A list of CVE IDs that the product is affected by.
+        kb_ids (list): A list of KB IDs that the product is affected by.
+        published (datetime): The date and time when the product was published.
+        created_on (datetime): The date and time when the product was created.
+
+    Relationships:
+        symptoms_affect (list): A list of symptoms that the product is affected by.
+        has_builds (list): A list of product builds that the product has.
+
+    Methods:
+        set_build_numbers (list): Serialize and set the build numbers as a JSON string.
+        get_build_numbers (): Deserialize and return the build numbers as a list of lists.
+
+    Meta:
+        unique_together (list): A list of tuples that define the uniqueness constraints for the model.
+    """
+
     name_choices = {
         "windows_10": "Windows 10",
         "windows_11": "Windows 11",
@@ -316,14 +377,26 @@ class Product(AsyncStructuredNode):
     )
 
     class Meta:
-        unique_together = [("product_name", "product_version", "product_architecture")]
+        """
+        Meta class for Product model.
+
+        Defines uniqueness constraints for the model.
+
+        The uniqueness constraint is a combination of product_name, product_version, and product_architecture.
+        """
+
+        unique_together = [
+            ("product_name", "product_version", "product_architecture")
+        ]
 
     def set_build_numbers(self, build_numbers_list):
         """Serialize and set the build numbers as a JSON string."""
         if not build_numbers_list:
             self.build_numbers = []
         else:
-            self.build_numbers = [json.dumps(sublist) for sublist in build_numbers_list]
+            self.build_numbers = [
+                json.dumps(sublist) for sublist in build_numbers_list
+            ]
 
     def get_build_numbers(self):
         """Deserialize and return the build numbers as a list of lists."""
@@ -335,6 +408,21 @@ class Product(AsyncStructuredNode):
 
 
 class ProductBuild(AsyncStructuredNode):
+    """
+    Node model for ProductBuild.
+
+    Represents a product build with associated information about the build.
+
+    The uniqueness constraint is a combination of:
+    - product_name
+    - product_version
+    - product_architecture
+    - cve_id
+    - product_build_id
+
+    This ensures that there is only one instance of a product build with a given CVE ID and product build ID.
+    """
+
     name_choices = {
         "windows_10": "Windows 10",
         "windows_11": "Windows 11",
@@ -398,7 +486,9 @@ class ProductBuild(AsyncStructuredNode):
     build_number = ArrayProperty(IntegerProperty())
     cve_id = StringProperty()
     kb_id = StringProperty()
-    node_id = StringProperty(default=lambda: str(uuid.uuid4()), unique_index=True)
+    node_id = StringProperty(
+        default=lambda: str(uuid.uuid4()), unique_index=True
+    )
     product_build_id = StringProperty(required=True)
 
     published = DateTimeProperty()
@@ -423,18 +513,70 @@ class ProductBuild(AsyncStructuredNode):
     )
 
     class Meta:
-        unique_together = [
-            (
-                "product_name",
-                "product_version",
-                "product_architecture",
-                "cve_id",
-                "product_build_id",
-            )
-        ]
+        """
+        Meta class for ProductBuild model.
+
+        Defines uniqueness constraints for the model.
+
+        The uniqueness constraint is a combination of:
+        - product_name
+        - product_version
+        - product_architecture
+        - cve_id
+        - product_build_id
+
+        This ensures that there is only one instance of a product build with a given CVE ID and product build ID.
+        """
+
+        unique_together = [(
+            "product_name",
+            "product_version",
+            "product_architecture",
+            "cve_id",
+            "product_build_id",
+        )]
 
 
 class MSRCPost(AsyncStructuredNode):
+    """
+    Node class representing a Microsoft Security Response Center (MSRC) post.
+
+    An MSRC post is a bulletin or advisory published by Microsoft that
+    provides information about vulnerabilities in Microsoft products.
+
+    Properties:
+        node_id: unique identifier for the node
+        msrc_id: alias for the node_id
+        post_id: identifier for the post, used to link to other posts
+        revision: version number of the post
+        text: content of the post
+        title: title of the post
+        description: summary of the post
+        summary: short summary of the post
+        metadata: additional metadata about the post
+        embedding: vector representation of the post
+        post_type: type of post (e.g. security bulletin, security advisory)
+        source_url: URL of the post
+        node_label: label for the node
+        verification_status: status of the post (e.g. verified, unverified)
+        last_verified_on: date and time the post was last verified
+        published: date and time the post was published
+        created_on: date and time the post was created
+        nvd_published_date: date and time the post was published in the NVD
+        nvd_description: description of the post in the NVD
+
+    Relationships:
+        has_symptoms: relationship to Symptoms
+        has_causes: relationship to Causes
+        has_fixes: relationship to Fixes
+        has_faqs: relationship to FAQs
+        has_tools: relationship to Tools
+        has_kb_articles: relationship to KB Articles
+        has_update_packages: relationship to Update Packages
+        previous_version_has: relationship to previous versions of the post
+        affects_products: relationship to Products affected by the post
+    """
+
     cve_category_choices = {
         "tampering": "Tampering",
         "spoofing": "Spoofing",
@@ -460,7 +602,7 @@ class MSRCPost(AsyncStructuredNode):
         "NST": "No Severity Type",
         "nst": "No Severity Type",
         "none": "None",
-        "None": "None"
+        "None": "None",
     }
 
     attack_complexity_choices = {
@@ -492,7 +634,7 @@ class MSRCPost(AsyncStructuredNode):
         "critical": "Critical",
         "high": "High",
         "medium": "Medium",
-        "low": "Low"
+        "low": "Low",
     }
     cvss_attack_complexity_choices = {
         "low": "Low",
@@ -587,7 +729,9 @@ class MSRCPost(AsyncStructuredNode):
     previous_version_id = StringProperty(default="")
 
     # NIST CVSS Properties
-    nist_attack_complexity = StringProperty(choices=cvss_attack_complexity_choices)
+    nist_attack_complexity = StringProperty(
+        choices=cvss_attack_complexity_choices
+    )
     nist_attack_vector = StringProperty(choices=cvss_attack_vector_choices)
     nist_availability = StringProperty(choices=cvss_impact_choices)
     nist_base_score_num = FloatProperty()
@@ -596,13 +740,19 @@ class MSRCPost(AsyncStructuredNode):
     nist_exploitability_score = FloatProperty()
     nist_impact_score = FloatProperty()
     nist_integrity = StringProperty(choices=cvss_impact_choices)
-    nist_privileges_required = StringProperty(choices=cvss_privileges_required_choices)
+    nist_privileges_required = StringProperty(
+        choices=cvss_privileges_required_choices
+    )
     nist_scope = StringProperty(choices=cvss_scope_choices)
-    nist_user_interaction = StringProperty(choices=cvss_user_interaction_choices)
+    nist_user_interaction = StringProperty(
+        choices=cvss_user_interaction_choices
+    )
     nist_vector = StringProperty()
 
     # CNA CVSS Properties
-    cna_attack_complexity = StringProperty(choices=cvss_attack_complexity_choices)
+    cna_attack_complexity = StringProperty(
+        choices=cvss_attack_complexity_choices
+    )
     cna_attack_vector = StringProperty(choices=cvss_attack_vector_choices)
     cna_availability = StringProperty(choices=cvss_impact_choices)
     cna_base_score_num = FloatProperty()
@@ -611,13 +761,19 @@ class MSRCPost(AsyncStructuredNode):
     cna_exploitability_score = FloatProperty()
     cna_impact_score = FloatProperty()
     cna_integrity = StringProperty(choices=cvss_impact_choices)
-    cna_privileges_required = StringProperty(choices=cvss_privileges_required_choices)
+    cna_privileges_required = StringProperty(
+        choices=cvss_privileges_required_choices
+    )
     cna_scope = StringProperty(choices=cvss_scope_choices)
-    cna_user_interaction = StringProperty(choices=cvss_user_interaction_choices)
+    cna_user_interaction = StringProperty(
+        choices=cvss_user_interaction_choices
+    )
     cna_vector = StringProperty()
 
     # ADP CVSS Properties
-    adp_attack_complexity = StringProperty(choices=cvss_attack_complexity_choices)
+    adp_attack_complexity = StringProperty(
+        choices=cvss_attack_complexity_choices
+    )
     adp_attack_vector = StringProperty(choices=cvss_attack_vector_choices)
     adp_availability = StringProperty(choices=cvss_impact_choices)
     adp_base_score_num = FloatProperty()
@@ -626,9 +782,13 @@ class MSRCPost(AsyncStructuredNode):
     adp_exploitability_score = FloatProperty()
     adp_impact_score = FloatProperty()
     adp_integrity = StringProperty(choices=cvss_impact_choices)
-    adp_privileges_required = StringProperty(choices=cvss_privileges_required_choices)
+    adp_privileges_required = StringProperty(
+        choices=cvss_privileges_required_choices
+    )
     adp_scope = StringProperty(choices=cvss_scope_choices)
-    adp_user_interaction = StringProperty(choices=cvss_user_interaction_choices)
+    adp_user_interaction = StringProperty(
+        choices=cvss_user_interaction_choices
+    )
     adp_vector = StringProperty()
 
     # CWE Properties
@@ -642,7 +802,9 @@ class MSRCPost(AsyncStructuredNode):
         if not build_numbers_list:
             self.build_numbers = []
         else:
-            self.build_numbers = [json.dumps(sublist) for sublist in build_numbers_list]
+            self.build_numbers = [
+                json.dumps(sublist) for sublist in build_numbers_list
+            ]
 
     def get_build_numbers(self):
         """Deserialize and return the build numbers as a list of lists."""
@@ -656,18 +818,10 @@ class MSRCPost(AsyncStructuredNode):
     has_symptoms = AsyncRelationshipTo(
         "Symptom", "HAS_SYMPTOM", model=AsyncSymptomRel
     )
-    has_causes = AsyncRelationshipTo(
-        "Cause", "HAS_CAUSE", model=AsyncCauseRel
-    )
-    has_fixes = AsyncRelationshipTo(
-        "Fix", "HAS_FIX", model=AsyncFixRel
-    )
-    has_faqs = AsyncRelationshipTo(
-        "FAQ", "HAS_FAQ", model=AsyncZeroToManyRel
-    )
-    has_tools = AsyncRelationshipTo(
-        "Tool", "HAS_TOOL", model=AsyncToolRel
-    )
+    has_causes = AsyncRelationshipTo("Cause", "HAS_CAUSE", model=AsyncCauseRel)
+    has_fixes = AsyncRelationshipTo("Fix", "HAS_FIX", model=AsyncFixRel)
+    has_faqs = AsyncRelationshipTo("FAQ", "HAS_FAQ", model=AsyncZeroToManyRel)
+    has_tools = AsyncRelationshipTo("Tool", "HAS_TOOL", model=AsyncToolRel)
     has_kb_articles = AsyncRelationshipTo(
         "KBArticle", "HAS_KB", model=AsyncZeroToManyRel
     )
@@ -833,6 +987,8 @@ class Fix(AsyncStructuredNode):
 
 
 class FAQ(AsyncStructuredNode):
+    """Node class representing a frequently asked question with relationship tracking."""
+
     node_id = StringProperty(unique_index=True, default=uuid.uuid4)
     faq_id = AliasProperty(to="node_id")
     node_label = StringProperty()
@@ -973,15 +1129,9 @@ class KBArticle(AsyncStructuredNode):
     has_symptoms = AsyncRelationshipTo(
         "Symptom", "HAS_SYMPTOM", model=AsyncSymptomRel
     )
-    has_causes = AsyncRelationshipTo(
-        "Cause", "HAS_CAUSE", model=AsyncCauseRel
-    )
-    has_fixes = AsyncRelationshipTo(
-        "Fix", "HAS_FIX", model=AsyncFixRel
-    )
-    has_tools = AsyncRelationshipTo(
-        "Tool", "HAS_TOOL", model=AsyncToolRel
-    )
+    has_causes = AsyncRelationshipTo("Cause", "HAS_CAUSE", model=AsyncCauseRel)
+    has_fixes = AsyncRelationshipTo("Fix", "HAS_FIX", model=AsyncFixRel)
+    has_tools = AsyncRelationshipTo("Tool", "HAS_TOOL", model=AsyncToolRel)
     has_update_packages = AsyncRelationshipTo(
         "UpdatePackage", "HAS_UPDATE_PACKAGE", model=AsyncHasUpdatePackageRel
     )
@@ -1036,15 +1186,17 @@ class UpdatePackage(AsyncStructuredNode):
         :param packages_list: List of dictionaries containing package information
         """
         serialized_packages = [
-            json.dumps(package, default=json_serial) for package in packages_list
+            json.dumps(package, default=json_serial)
+            for package in packages_list
         ]
         self.downloadable_packages = serialized_packages
 
     def get_downloadable_packages(self):
-        """
-        Deserialize and return the downloadable_packages as a list of dictionaries.
-        """
-        return [json.loads(package_str) for package_str in self.downloadable_packages]
+        """Deserialize and return the downloadable_packages as a list of dictionaries."""
+        return [
+            json.loads(package_str)
+            for package_str in self.downloadable_packages
+        ]
 
 
 class PatchManagementPost(AsyncStructuredNode):
@@ -1098,20 +1250,16 @@ class PatchManagementPost(AsyncStructuredNode):
     has_symptoms = AsyncRelationshipTo(
         "Symptom", "HAS_SYMPTOM", model=AsyncSymptomRel
     )
-    has_causes = AsyncRelationshipTo(
-        "Cause", "HAS_CAUSE", model=AsyncCauseRel
-    )
-    has_fixes = AsyncRelationshipTo(
-        "Fix", "HAS_FIX", model=AsyncFixRel
-    )
+    has_causes = AsyncRelationshipTo("Cause", "HAS_CAUSE", model=AsyncCauseRel)
+    has_fixes = AsyncRelationshipTo("Fix", "HAS_FIX", model=AsyncFixRel)
     references_kbs = AsyncRelationshipTo(
         "KBArticle", "REFERENCES", model=AsyncReferencesRel
     )
-    has_tools = AsyncRelationshipTo(
-        "Tool", "HAS_TOOL", model=AsyncToolRel
-    )
+    has_tools = AsyncRelationshipTo("Tool", "HAS_TOOL", model=AsyncToolRel)
     previous_message_has = AsyncRelationshipTo(
-        "PatchManagementPost", "PREVIOUS_MESSAGE", model=AsyncPreviousMessageRel
+        "PatchManagementPost",
+        "PREVIOUS_MESSAGE",
+        model=AsyncPreviousMessageRel,
     )
     references_msrcs = AsyncRelationshipTo(
         "MSRCPost", "REFERENCES", model=AsyncReferencesRel
@@ -1125,7 +1273,9 @@ class PatchManagementPost(AsyncStructuredNode):
         if not build_numbers_list:
             self.build_numbers = []
         else:
-            self.build_numbers = [json.dumps(sublist) for sublist in build_numbers_list]
+            self.build_numbers = [
+                json.dumps(sublist) for sublist in build_numbers_list
+            ]
 
     def get_build_numbers(self):
         """Deserialize and return the build numbers as a list of lists."""
@@ -1137,6 +1287,8 @@ class PatchManagementPost(AsyncStructuredNode):
 
 
 class Technology(AsyncStructuredNode):
+    """Node class representing a technology with relationship tracking."""
+
     node_id = StringProperty(required=True, unique_index=True)
     name = StringProperty(required=True)
     version = StringProperty()
@@ -1182,7 +1334,11 @@ RELATIONSHIP_MAPPING = {
             "HAS_UPDATE_PACKAGE",
             AsyncHasUpdatePackageRel,
         ),
-        "affects_products": ("Product", "AFFECTS_PRODUCT", AsyncAffectsProductRel),
+        "affects_products": (
+            "Product",
+            "AFFECTS_PRODUCT",
+            AsyncAffectsProductRel,
+        ),
         "previous_version_has": (
             "MSRCPost",
             "PREVIOUS_VERSION",
@@ -1190,16 +1346,28 @@ RELATIONSHIP_MAPPING = {
         ),
     },
     "Symptom": {
-        "affects_products": ("Product", "AFFECTS_PRODUCT", AsyncAffectsProductRel),
+        "affects_products": (
+            "Product",
+            "AFFECTS_PRODUCT",
+            AsyncAffectsProductRel,
+        ),
     },
     "Cause": {},
     "Fix": {
-        "references_kb_articles": ("KBArticle", "REFERENCES", AsyncReferencesRel),
+        "references_kb_articles": (
+            "KBArticle",
+            "REFERENCES",
+            AsyncReferencesRel,
+        ),
     },
     "FAQ": {},
     "Tool": {},
     "KBArticle": {
-        "affects_product": ("Product", "AFFECTS_PRODUCT", AsyncAffectsProductRel),
+        "affects_product": (
+            "Product",
+            "AFFECTS_PRODUCT",
+            AsyncAffectsProductRel,
+        ),
         "has_symptoms": ("Symptom", "HAS_SYMPTOM", AsyncSymptomRel),
         "has_causes": ("Cause", "HAS_CAUSE", AsyncCauseRel),
         "has_fixes": ("Fix", "HAS_FIX", AsyncFixRel),
@@ -1223,7 +1391,11 @@ RELATIONSHIP_MAPPING = {
         "references_kbs": ("KBArticle", "REFERENCES", AsyncReferencesRel),
         "has_tools": ("Tool", "HAS_TOOL", AsyncToolRel),
         "references_msrcs": ("MSRCPost", "REFERENCES", AsyncReferencesRel),
-        "affects_products": ("Product", "AFFECTS_PRODUCT", AsyncAffectsProductRel),
+        "affects_products": (
+            "Product",
+            "AFFECTS_PRODUCT",
+            AsyncAffectsProductRel,
+        ),
     },
     "Product": {
         "has_builds": ("ProductBuild", "HAS_BUILD", AsyncZeroToManyRel),
