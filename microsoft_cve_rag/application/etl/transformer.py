@@ -16,7 +16,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Union
 
 import marvin
-
+from openai import AuthenticationError, APIConnectionError
 # from neomodel import AsyncStructuredNode
 import numpy as np
 import pandas as pd
@@ -836,11 +836,36 @@ async def async_generate_summary(text: str) -> Optional[str]:
         {kb_article_text}
         """
     model_kwargs = {"max_tokens": 1150, "temperature": 0.87}
-    response = await generate_llm_response(
-        marvin_summary_prompt.format(kb_article_text=text),
-        model_kwargs=model_kwargs,
-    )
-    return response.response.choices[0].message.content
+    try:
+        # Ensure the OpenAI API key is set
+        api_key = os.getenv('OPENAI_API_KEY')
+        if not api_key:
+            raise EnvironmentError("OPENAI_API_KEY environment variable is not set.")
+
+        # Attempt to generate the LLM response
+        response = await generate_llm_response(
+            marvin_summary_prompt.format(kb_article_text=text),
+            model_kwargs=model_kwargs,
+        )
+        return response.response.choices[0].message.content
+
+    except EnvironmentError as env_err:
+        logging.error(f"Marvin Environment error: {env_err}")
+        # Handle missing environment variable or other environment-related issues
+        raise env_err
+    except AuthenticationError as auth_err:
+        logging.error(f"Marvin Authentication error: {auth_err}")
+        # Handle issues related to API authentication
+        raise auth_err
+    except APIConnectionError as conn_err:
+        logging.error(f"Marvin API connection error: {conn_err}")
+        # Handle issues related to network connectivity or API server availability
+        raise conn_err
+
+    except Exception as e:
+        logging.error(f"A Marvin error occurred: {e}")
+        # Handle any other unforeseen exceptions
+        raise e
 
 
 # Wrapper to handle async calls in apply

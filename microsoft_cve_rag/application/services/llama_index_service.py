@@ -3153,7 +3153,7 @@ class LlamaIndexVectorService:
             )
 
             # Remove from document tracker
-            self.doc_tracker.remove_document(doc_id)
+            await self.doc_tracker.remove_document(doc_id)
 
             logging.debug(f"Successfully deleted document {doc_id}")
         except Exception as e:

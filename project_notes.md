@@ -199,3 +199,59 @@ This configuration:
 5. Enables format on save and format on type for better code consistency
 
 After updating settings.json, restart VSCode for changes to take effect.
+
+# Lessons Learned
+
+## Docker and Container Issues
+
+### Docker Container Log Corruption Causing Vector Database Unavailability
+
+**Issue Date:** January 30, 2025
+
+**Problem:**
+- Docker container for Qdrant vector database became unavailable due to log file corruption
+- Log file contained invalid characters (`\x00`) causing errors in log processing
+- Python application received `qdrant_client.http.exceptions.ResponseHandlingException`
+- Error occurred in `qdrant_client.http.api_client.py` during request handling
+
+**Impact:**
+- Vector database became inaccessible
+- ETL pipeline processing was blocked
+- Application unable to perform vector operations
+
+**Root Cause:**
+- Log file corruption with null characters (`\x00`)
+- Invalid character sequence in Docker container logs preventing proper log processing
+
+**Resolution Steps:**
+1. Map WSL Docker data directory to local drive:
+   ```powershell
+   net use Z: \\wsl$\docker-desktop-data
+   ```
+
+2. Navigate to container logs directory:
+   ```powershell
+   cd /d Z:\data\docker\containers\[container_id]
+   ```
+
+3. Open logs in VSCode:
+   ```powershell
+   code .
+   ```
+
+4. Use VSCode regex search to locate corrupted lines:
+   - Search pattern: `\x00`
+   - Delete affected lines from log file
+
+5. Restart Docker container to resume normal operations
+
+**Prevention:**
+- Monitor Docker container logs for corruption
+- Consider implementing log rotation to prevent large log files
+- Add error handling in application code for vector database connection issues
+
+**Related Components:**
+- Qdrant Vector Database
+- Docker Container Logs
+- WSL2 Integration
+- ETL Pipeline

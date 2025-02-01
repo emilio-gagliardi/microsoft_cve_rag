@@ -1002,10 +1002,10 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     # Add failed extractions
     for entity in msrc_failed_extractions:
         msrc_issues.append(format_extraction_issue(
-            entity.get('source_id', 'unknown'),
-            entity.get('node_type', 'unknown'),
+            getattr(entity, 'source_id', 'unknown'),
+            getattr(entity, 'node_label', 'unknown'),
             'Failed Extraction',
-            entity.get('error', '')
+            getattr(entity, 'error', '')
         ))
     # Add empty extractions
     for node_type, items in msrc_empty_extractions.items():
@@ -1032,10 +1032,10 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     # Add failed extractions
     for entity in patch_failed_extractions:
         patch_issues.append(format_extraction_issue(
-            entity.get('source_id', 'unknown'),
-            entity.get('node_type', 'unknown'),
+            getattr(entity, 'source_id', 'unknown'),
+            getattr(entity, 'node_label', 'unknown'),
             'Failed Extraction',
-            entity.get('error', '')
+            getattr(entity, 'error', '')
         ))
     # Add empty extractions
     for node_type, items in patch_empty_extractions.items():
