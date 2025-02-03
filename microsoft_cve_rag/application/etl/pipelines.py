@@ -733,7 +733,6 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
         'product_build_ids',
         'build_number',
         'kb_id',
-        'cve_ids',
         'published',
         'article_url',
         'embedding'

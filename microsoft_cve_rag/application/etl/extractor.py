@@ -343,7 +343,7 @@ def extract_kb_articles(
     # equals null is for windows kb articles
     query = {
         "published": {"$gte": start_date, "$lt": end_date},
-        "cve_id": {"$eq": None},
+        "kb_id": {"$regex": "^[0-9]+$", "$options": "i"}
     }
     projection = {"_id": 0, "cve_id": 0}
     max_records = max_records
@@ -404,8 +404,8 @@ def extract_kb_articles(
     pipeline_stable_channel = [
         {
             "$match": {
-                "cve_id": {"$ne": None},
                 "published": {"$gte": start_date, "$lte": end_date},
+                "kb_id": {"$not": {"$regex": "^[0-9]+$", "$options": "i"}}
             }
         },
         {

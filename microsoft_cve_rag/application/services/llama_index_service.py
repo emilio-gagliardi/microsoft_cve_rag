@@ -6,6 +6,8 @@ import datetime
 import hashlib
 import json
 import logging
+from fastapi import HTTPException
+
 
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 # print(sys.path)
@@ -56,8 +58,7 @@ from openai import AsyncOpenAI
 from qdrant_client.http.models import (
     FieldCondition,
     Filter,
-    FilterSelector,
-    MatchAny,
+    UpdateStatus,
     MatchValue,
 )
 from tqdm import tqdm
@@ -812,7 +813,9 @@ def extract_data_patch_management(
         for match in kb_matches:
             kb_id = match.group(1)
             # Skip if it's part of a build number pattern
-            if not re.search(rf"\b\d+\.\d+\.\d+\.{kb_id}\b", line):
+            if not re.search(
+                rf"\b\d+\.\d+\.\d+\.{kb_id}\b", line
+            ):
                 kb_id = f"KB{kb_id}"
                 if kb_id not in kb_ids:
                     kb_ids.append(kb_id)
@@ -2788,58 +2791,119 @@ class LlamaIndexVectorService:
             is_source: If True, delete points where doc_id matches source_id in metadata
                       If False, delete points where doc_id matches the point's doc_id
         """
-        max_retries = 3
-        retry_count = 0
+        try:
+            # Determine which metadata field to filter on
+            filter_field = "metadata.source_id" if is_source else "metadata.doc_id"
 
-        while retry_count < max_retries:
-            try:
-                logging.info(
-                    f"Deleting Points for document {doc_id} (attempt"
-                    f" {retry_count + 1})"
-                )
-
-                # Build filter condition based on is_source flag
-                field_key = "metadata.source_id" if is_source else "doc_id"
-                filter_condition = Filter(
+            # Get all points associated with the document
+            points = await self.vector_db_service.async_client.scroll(
+                collection_name=self.vector_db_service.collection,
+                scroll_filter=Filter(
                     must=[
                         FieldCondition(
-                            key=field_key, match=MatchValue(value=doc_id)
+                            key=filter_field,
+                            match=MatchValue(value=doc_id),
                         )
                     ]
-                )
+                ),
+                limit=10000,  # Adjust based on your needs
+                with_payload=False,
+                with_vectors=False,
+            )
 
-                # Delete points
-                await self.vector_db_service.async_client.delete(
-                    collection_name=self.vector_db_service.collection,
-                    points_selector=FilterSelector(filter=filter_condition),
-                    wait=True,
+            if not points or not points[0]:
+                logging.debug(
+                    f"No points found for document {doc_id} "
+                    f"using field {filter_field}"
                 )
+                return
 
-                # Verify deletion using our new count method
-                count = await self._count_points_for_document(
-                    doc_id, is_source
+            # Extract point IDs for deletion
+            point_ids = [point.id for point in points[0]]
+
+            if not point_ids:
+                logging.debug(
+                    f"No point IDs found for document {doc_id} "
+                    f"using field {filter_field}"
                 )
-                if count == 0:
-                    break
-                logging.warning(
-                    f"Deletion verification failed for {doc_id},"
-                    f" {count} points remain"
-                )
+                return
 
-            except Exception as e:
-                logging.error(
-                    f"Error deleting points for document {doc_id} (attempt"
-                    f" {retry_count + 1}): {e}"
-                )
+            # Delete points in bulk
+            result = await self.vector_db_service.async_client.delete(
+                collection_name=self.vector_db_service.collection,
+                points_selector=point_ids,
+                wait=True
+            )
 
-            retry_count += 1
-            if retry_count < max_retries:
-                await asyncio.sleep(1)  # Wait before retry
+            if not result.status == UpdateStatus.COMPLETED:
+                raise Exception(f"Delete operation failed with status: {result.status}")
 
-        if retry_count == max_retries:
-            raise Exception(
-                f"Failed to delete points for document {doc_id} after"
-                f" {max_retries} attempts"
+            logging.debug(
+                f"Successfully deleted {len(point_ids)} points for document "
+                f"{doc_id} using field {filter_field}"
+            )
+
+        except Exception as e:
+            error_msg = (
+                f"Error deleting points for document {doc_id} "
+                f"using field {filter_field}: {str(e)}"
+            )
+            logging.error(error_msg)
+            raise
+
+    async def delete_document(self, doc_id: str):
+        """Delete a specific document from both Qdrant and tracking."""
+        try:
+            # First get all points associated with the document
+            points = await self.vector_db_service.async_client.scroll(
+                collection_name=self.vector_db_service.collection,
+                scroll_filter=Filter(
+                    must=[
+                        FieldCondition(
+                            key="metadata.source_id",
+                            match=MatchValue(value=doc_id),
+                        )
+                    ]
+                ),
+                limit=10000,  # Adjust based on your needs
+                with_payload=False,
+                with_vectors=False
+            )
+
+            if not points or not points[0]:
+                logging.warning(f"No points found for document {doc_id}")
+                await self.doc_tracker.remove_document(doc_id)
+                return
+
+            # Extract point IDs for deletion
+            point_ids = [point.id for point in points[0]]
+
+            if not point_ids:
+                logging.warning(f"No point IDs found for document {doc_id}")
+                await self.doc_tracker.remove_document(doc_id)
+                return
+
+            # Delete points in bulk
+            result = await self.vector_db_service.async_client.delete(
+                collection_name=self.vector_db_service.collection,
+                points_selector=point_ids,
+                wait=True
+            )
+
+            if not result.status == UpdateStatus.COMPLETED:
+                raise Exception(f"Delete operation failed with status: {result.status}")
+
+            # Remove from document tracker only after successful deletion
+            await self.doc_tracker.remove_document(doc_id)
+
+            logging.info(f"Successfully deleted document {doc_id} with {len(point_ids)} points")
+
+        except Exception as e:
+            error_msg = f"Error deleting document {doc_id}: {str(e)}"
+            logging.error(error_msg)
+            raise HTTPException(
+                status_code=500,
+                detail=error_msg
             )
 
     async def upsert_documents(
@@ -2892,21 +2956,8 @@ class LlamaIndexVectorService:
                     )
                     await self.vector_db_service.async_client.delete(
                         collection_name=self.vector_db_service.collection,
-                        points_selector=FilterSelector(
-                            filter=Filter(
-                                should=[
-                                    FieldCondition(
-                                        key="metadata.source_id",
-                                        match=MatchAny(any=existing_docs),
-                                    ),
-                                    FieldCondition(
-                                        key="doc_id",
-                                        match=MatchAny(any=existing_docs),
-                                    ),
-                                ]
-                            )
-                        ),
-                        wait=True,
+                        points_selector=existing_docs,
+                        wait=True
                     )
                 except ValueError as ve:
                     logging.error(f"Value error in delete operation: {ve}")
@@ -3132,33 +3183,6 @@ class LlamaIndexVectorService:
         except Exception as e:
             logging.error(f"Error verifying upsert: {e}")
             return False
-
-    async def delete_document(self, doc_id: str):
-        """Delete a specific document from both Qdrant and tracking."""
-        try:
-            # Delete from Qdrant
-            await self.vector_db_service.async_client.delete(
-                collection_name=self.vector_db_service.collection,
-                points_selector=FilterSelector(
-                    filter=Filter(
-                        must=[
-                            FieldCondition(
-                                key="metadata.source_id",
-                                match=MatchValue(value=doc_id),
-                            )
-                        ]
-                    )
-                ),
-                wait=True,
-            )
-
-            # Remove from document tracker
-            await self.doc_tracker.remove_document(doc_id)
-
-            logging.debug(f"Successfully deleted document {doc_id}")
-        except Exception as e:
-            logging.error(f"Error deleting document {doc_id}: {e}")
-            raise
 
     async def _get_collection_point_count(self) -> int:
         """Get the current number of points in the collection."""

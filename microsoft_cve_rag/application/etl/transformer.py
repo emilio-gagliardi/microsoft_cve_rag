@@ -918,6 +918,11 @@ def transform_kb_articles(
     if kb_articles_windows:
         df_windows = pd.DataFrame(kb_articles_windows, columns=master_columns)
         # Filter out duplicates before other operations
+
+        df_windows = df_windows.sort_values(
+            by="cve_ids",
+            key=lambda s, _=None: s.isna()
+        )
         df_windows = df_windows.drop_duplicates(subset=["kb_id"], keep="first")
 
         df_windows["kb_id"] = df_windows["kb_id"].apply(normalize_mongo_kb_id)
@@ -1005,7 +1010,10 @@ def transform_kb_articles(
         df_edge["kb_id"] = df_edge["kb_id"].apply(
             lambda x: x[0] if isinstance(x, list) and len(x) == 1 else ""
         )
-
+        df_edge = df_edge.sort_values(
+            by="cve_ids",
+            key=lambda s, _=None: s.isna()
+        )
         df_edge = df_edge.drop_duplicates(subset=["kb_id"], keep="first")
         df_edge = validate_and_adjust_columns(df_edge, master_columns)
         df_edge["node_label"] = "KBArticle"
