@@ -30,6 +30,7 @@ data/
 !microsoft_cve_rag/application/data/debug/
 !microsoft_cve_rag/application/data/debug/patch_nov-3-4-2023.json
 !microsoft_cve_rag/application/data/debug/patch_posts_debug.json
+!microsoft_cve_rag/application/data/templates/weekly_kb_report/kb_report_project_details.md
 package docs/
 
 # windsurf rules
