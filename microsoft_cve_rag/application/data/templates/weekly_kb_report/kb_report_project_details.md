@@ -4,6 +4,49 @@
 
 This project involves developing a static report generation system using Python and Jinja2. The generated reports will incorporate modern HTML, CSS, and JavaScript best practices, drawing inspiration from shadcn and Tailwind CSS for functionality and styling—without relying on frameworks such as React or Node.js.
 
+## Technical Specifications
+
+### 1. Core Dependencies
+- Python 3.11+
+- Jinja2 3.0+
+- TailwindCSS 3.4+
+- Alpine.js 3.x (for interactive components)
+- WeasyPrint (for PDF generation)
+
+### 2. Template Architecture
+- **Base Template Structure:**
+  ```jinja2
+  base_report.html.j2      # Core layout and includes
+  ├── components/          # Reusable UI components
+  │   ├── cards.html.j2
+  │   ├── tables.html.j2
+  │   └── popups.html.j2
+  ├── layouts/            # Page layout variations
+  │   └── default.html.j2
+  └── partials/          # Common sections
+      ├── header.html.j2
+      └── footer.html.j2
+  ```
+
+### 3. Data Structure
+```python
+class ReportContext(BaseModel):
+    """Report data structure with validation."""
+    title: str
+    generated_at: datetime
+    kb_articles: List[KBArticle]
+    cve_data: Dict[str, CVEInfo]
+    metadata: Dict[str, Any]
+
+class KBArticle(BaseModel):
+    """KB Article structure."""
+    id: str
+    title: str
+    description: str
+    severity: str
+    cves: List[str]
+```
+
 ## Objectives
 
 - **Static HTML Generation:** Create a Jinja2 template to produce static HTML files for deployment on a web server.
@@ -21,6 +64,13 @@ This project involves developing a static report generation system using Python 
 ## UI/UX Components
 
 - **CVE Popup Component:**
+  - Trigger: Data attribute based click handlers
+  - Animation: CSS transitions (300ms ease-in-out)
+  - Backdrop: rgba(0, 0, 0, 0.5) with blur
+  - Z-index management for proper layering
+
+### 1. Core Components
+- **CVE Popup Component:**
   - Each record will include a button that, when clicked, triggers a popup displaying all related CVEs.
   - **Implementation Options:**
     - **Dynamic Data Structure:** Store all CVE data in a JavaScript-accessible data structure that the popup script can reference.
@@ -32,6 +82,27 @@ This project involves developing a static report generation system using Python 
 - **Inspiration:** The visual design and interactive elements should take cues from shadcn and Tailwind CSS, focusing on clean, modular styling without using React or Node.js.
 - **Centralized Styles:** Define all core style information in a single location (or file) to act as the theme source, ensuring consistent application of styles across the entire report.
 - **Responsiveness:** Utilize responsive design techniques to guarantee that elements stack properly and adjust in size based on the device or viewport dimensions.
+
+### 2. Styling & Theme Configuration
+```yaml
+theme:
+  colors:
+    primary: "#0284c7"
+    secondary: "#7c3aed"
+    background: "#ffffff"
+    text: "#1f2937"
+  typography:
+    base_size: "16px"
+    scale: 1.25
+    font_family: "Inter var, system-ui"
+  spacing:
+    base_unit: "0.25rem"
+    container_padding: "2rem"
+  breakpoints:
+    sm: "640px"
+    md: "768px"
+    lg: "1024px"
+```
 
 ## Development Guidelines
 
@@ -51,18 +122,71 @@ This project involves developing a static report generation system using Python 
    - Utilize the annotated mockup images as a visual and functional guide.
    - **Important:** The red annotations on the mockups are for guidance only and should not be included in the final rendered template.
 
-5. Folder structure:
-If a folder does not exist, create it.
-   - **`data`**: Contains the data files for the entire project.
-   - **`data/templates/weekly_kb_report`**: Holds the Jinja2 templates for this project.
-   - **`data/reports/weekly_kb_report/html`**: Contains the rendered HTML files for the report.
-   - **`data/reports/weekly_kb_report/md`**: Contains the rendered Markdown files for the report.
-   - **`data/reports/weekly_kb_report/pdf`**: Contains the rendered PDF files for the report.
-   - **`data/reports/weekly_kb_report/assets`**: Contains static assets like CSS, JS.
-   - **`data/reports/weekly_kb_report/media`**: Contains media files like images and charts.
+### 1. Code Organization
+- Follow PEP-8 and project style guidelines
+- Type hints required for all Python functions
+- Document all functions with docstrings
+- Separate concerns: template logic vs. data processing
+
+### 2. Performance Requirements
+- First Contentful Paint < 1.5s
+- Largest Contentful Paint < 2.5s
+- Total Blocking Time < 300ms
+- Cumulative Layout Shift < 0.1
+
+### 3. Accessibility Standards
+- WCAG 2.1 Level AA compliance
+- Semantic HTML structure
+- ARIA labels for interactive elements
+- Keyboard navigation support
+- Color contrast ratio ≥ 4.5:1
+
+### 4. Security Measures
+- Content Security Policy headers
+- XSS protection via input sanitization
+- CSRF protection for any forms
+- Secure content embedding
+
+## Folder Structure
+```
+microsoft_cve_rag/
+└── application/
+    └── data/
+        ├── templates/
+        │   └── weekly_kb_report/
+        │       ├── base.html.j2
+        │       ├── components/
+        │       └── layouts/
+        └── reports/
+            └── weekly_kb_report/
+                ├── html/
+                ├── md/
+                ├── pdf/
+                ├── assets/
+                └── media/
+```
+
+## Implementation Workflow
+
+1. **Setup Phase**
+   - Initialize project structure
+   - Configure TailwindCSS
+   - Set up template inheritance
+
+2. **Development Phase**
+   - Implement base templates
+   - Build component library
+   - Create data models
+   - Develop rendering pipeline
+
+3. **Testing & Validation**
+   - Unit tests for Python code
+   - Visual regression testing
+   - Accessibility testing
+   - Performance benchmarking
 
 ## Final Notes
 
-This document outlines the core requirements and considerations for developing a modern, responsive static report template using Python, Jinja2, and standard web technologies. The approach balances functionality, scalability, and maintainability while staying true to contemporary best practices.
+This document outlines the technical specifications and implementation details for developing a modern, responsive static report template. The approach emphasizes maintainability, performance, and adherence to web standards while providing a rich user experience.
 
-Feel free to ask if you need further clarification or additional details. This is a solid foundation, and I think it’s a great idea to move forward with this plan. Happy coding!
+For implementation questions or clarifications, refer to the technical specifications sections above. All code should follow the project's established patterns and guidelines.
