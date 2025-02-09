@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_11_notifications_do_not_stay_visible",
+  "description": "Users on Windows 11 version 22H2 and later experience issues with notifications not remaining in the notification area after briefly appearing. This behavior mimics the situation of having the 'Show notifications in notification center' option unchecked, even when it is checked. Consequently, important messages such as restart reminders can be missed, as users can only see the notifications for a few seconds before they disappear. This issue has been observed with various applications, including those associated with Microsoft accounts. The notifications display momentarily but are not retained, leading to potential disruptions in user workflow as they may overlook critical alerts.",
+  "source_id": "59525d3d-f3fb-fd3b-2c15-3b3d1c7ad033",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "59525d3d-f3fb-fd3b-2c15-3b3d1c7ad033"
+  ],
+  "tags": [
+    "windows_11",
+    "notifications",
+    "user_experience",
+    "restart_reminders"
+  ],
+  "node_id": "a015feb6-8717-444a-96c4-c03f23211269",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

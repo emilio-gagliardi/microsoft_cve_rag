@@ -1,0 +1,21 @@
+{
+  "description": "A use after free error in the Windows Win32 kernel subsystem that can lead to elevation of privilege, enabling an attacker to gain system privileges through local access or user interaction.",
+  "cause_label": "windows_win32_kernel_use_after_free_elevation",
+  "source_id": "2cca1c4c-278b-83f1-acd9-aa0d7a4e1a8c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2cca1c4c-278b-83f1-acd9-aa0d7a4e1a8c"
+  ],
+  "tags": [
+    "CVE-2024-38252",
+    "Windows",
+    "Elevation of Privilege",
+    "Kernel"
+  ],
+  "node_id": "db9c3dc5-276b-4056-8c2f-40aacfa6b462",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "curl_command_line_tool_crashes_due_to_error",
+  "description": "After users interact with the curl command line tool on affected systems, they may experience crashes or abrupt termination of the application. This issue is linked to the libcurl's asn1 parser, which, under specific conditions, can trigger a memory management error during the parsing process. The underlying cause is a failure in the memory handling that leads to an invalid memory access, resulting in an application crash. This behavior is significant for users running Windows 11 versions 24H2, 23H2, 22H2, and 21H2, as indicated by KB articles KB5044284, KB5044285, KB5044280, and KB5044273, impacting builds 10.0.26100.2033, 10.0.22631.4317, and others. Affected users should monitor their curl tool performance to identify and address any potential crashes occurring due to this quality issue.",
+  "source_id": "d4167603-6eae-16d7-2cff-67e84a0d8636",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d4167603-6eae-16d7-2cff-67e84a0d8636"
+  ],
+  "tags": [
+    "curl",
+    "libcurl",
+    "Windows",
+    "command-line",
+    "crash"
+  ],
+  "node_id": "03f54491-8d1f-481c-83c8-9d48fd22d363",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

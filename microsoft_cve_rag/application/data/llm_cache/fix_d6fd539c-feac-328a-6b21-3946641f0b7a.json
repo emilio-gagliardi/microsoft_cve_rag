@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the security vulnerabilities in Windows Server 2016/2019:\n\n1. Download the latest Windows Safe OS Dynamic Update from the Microsoft Update Catalog.\n2. Apply the WinRE update as outlined in the documentation.\n3. To streamline the process, consider using the provided sample script for automating the WinRE partition update from the running Windows OS.\n4. For detailed guidance, refer to KB-5034957 regarding updating the WinRE partition to mitigate CVE-2024-20666 vulnerabilities.\n\n**Details**:\n- This method helps secure your Windows Server installations by ensuring that the recovery environment is updated and safeguarded against known vulnerabilities. (LLM Synthesized)",
+  "source_id": "d6fd539c-feac-328a-6b21-3946641f0b7a",
+  "source_type": "PatchManagementPost",
+  "fix_label": "UpdateWinRESecurityForServer20162019",
+  "tags": [
+    "CVE-2024-20666",
+    "KB-5034957",
+    "WindowsServer2016",
+    "WindowsServer2019"
+  ],
+  "node_id": "90671c33-013b-46cc-aa3a-af294bd5fee8",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_storage_management_service_denies_access",
+  "description": "Users may experience denial of service, where access to Windows standards-based storage services is completely unavailable, rendering users unable to perform necessary storage operations. This issue affects systems running Windows Server 2012 R2, 2016, 2019, and 2022, specifically those listed under build numbers 10.0.20348.2340, 10.0.14393.6796, and 10.0.17763.5576, among others. The observed behavior can lead to significant disruptions in normal operations as access is prevented due to the vulnerability. Critical tasks related to storage management will be hindered, negatively affecting productivity and system reliability. KB articles relevant to this issue include KB-5035959, KB-5035857, KB-5035849, and KB-5035855, which provide further guidance on remediation.",
+  "source_id": "8599061f-1b75-2c54-a2b4-890049069a71",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8599061f-1b75-2c54-a2b4-890049069a71"
+  ],
+  "tags": [
+    "Windows Server",
+    "Storage Management",
+    "Denial of Service",
+    "IT Operations"
+  ],
+  "node_id": "b29434bb-3db3-455c-afce-f04c4a185c98",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

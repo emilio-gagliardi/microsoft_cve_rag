@@ -1,0 +1,23 @@
+{
+  "tool_label": "microsoft_defender_for_endpoint_mssense_sensor",
+  "description": "**Tool Overview**:\n\nMicrosoft Defender for Endpoint is a comprehensive security solution designed to protect endpoints from various threats. The mssense.exe sensor is a crucial component of this platform, providing real-time monitoring and response to security incidents. \n\n**Details**:\n\nThis tool helps organizations detect, investigate, and respond to advanced threats and vulnerabilities effectively. Key functionalities include:\n1. Continuous monitoring of endpoint activities to identify potential security risks.\n2. Integration with threat intelligence to enhance detection capabilities.\n3. Automated response mechanisms to mitigate emerging threats.\n4. Detailed reporting and analytics for security insights and compliance.\n5. Support for deployment in enterprise environments with Windows 11 devices, ensuring that security measures are up-to-date and effective against the latest threats.\n\nBy updating and maintaining the mssense.exe sensor, organizations can significantly improve their security posture against sophisticated attacks.",
+  "source_id": "28b89399-d8ca-941a-173b-269f479be888",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "28b89399-d8ca-941a-173b-269f479be888"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em223705bc-fe26-451a-b686-0a63c43d6e09%4020d0e93c.com",
+  "tool_url": "",
+  "tags": [
+    "Microsoft Defender",
+    "Endpoint Security",
+    "Windows 11",
+    "Real-time Monitoring"
+  ],
+  "node_id": "356e4983-9a08-4d8c-8542-a1cc16c8a853",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

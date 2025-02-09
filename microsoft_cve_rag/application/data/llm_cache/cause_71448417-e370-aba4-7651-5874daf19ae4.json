@@ -1,0 +1,21 @@
+{
+  "description": "The vulnerability is caused by a buffer over-read in the Windows Cloud Files mini filter driver, allowing for the potential disclosure of sensitive information, including kernel memory contents, when accessed by local processes or users with basic privileges.",
+  "cause_label": "windows_cloud_files_mini_filter_driver_buffer_over_read",
+  "source_id": "71448417-e370-aba4-7651-5874daf19ae4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "71448417-e370-aba4-7651-5874daf19ae4"
+  ],
+  "tags": [
+    "Information Disclosure",
+    "Windows",
+    "CVE-2024-26160",
+    "Buffer Over-read",
+    "Kernel Memory"
+  ],
+  "node_id": "ce7d2518-d2a5-4dcd-8f13-266cf616c4a0",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

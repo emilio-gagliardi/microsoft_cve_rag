@@ -1,0 +1,16 @@
+{
+  "description": "The underlying technical condition of CVE-2023-35644 is linked to a flaw in the Windows SysMain service, which allows for local elevation of privilege. Specifically, the vulnerability stems from inadequate restrictions on user permissions that enable an attacker to gain system-level privileges by exploiting this service. Such a flaw may be further exacerbated by the attack vector, which does not necessitate user interaction, making the exploitation easier for an attacker with local access. Notable affected products include Windows 11 versions 23H2, 22H2, and 21H2, as well as various Windows 10 versions, with the respective build numbers including 10.0.22631.2861, 10.0.19045.3803, and 10.0.22000.2652. Important KB articles related to this issue include KB-5033375, KB-5033372, and KB-5033369, which provide guidance for remediation efforts.",
+  "cause_label": "WindowsSysMainServiceFlawEnablesPrivilegeEscalation",
+  "source_id": "e364869b-ee64-c303-8c91-e8c778c6376c",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE",
+    "sysmain",
+    "elevation_of_privilege"
+  ],
+  "node_id": "e237a36f-55e8-4d1d-b2b3-d4f24b723fde",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

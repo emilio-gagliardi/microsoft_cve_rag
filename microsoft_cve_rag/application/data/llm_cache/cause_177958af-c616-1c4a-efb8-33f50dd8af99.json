@@ -1,0 +1,21 @@
+{
+  "description": "Use after free vulnerability in Chromium's handling of passwords potentially allows remote attackers to exploit heap corruption, affecting Microsoft Edge (Chromium-based) through the ingestion of Chromium open source software. This issue arises in versions prior to 128.0.6613.84.",
+  "cause_label": "chromium_use_after_free_in_passwords_heap_corruption",
+  "source_id": "177958af-c616-1c4a-efb8-33f50dd8af99",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "177958af-c616-1c4a-efb8-33f50dd8af99"
+  ],
+  "tags": [
+    "CVE",
+    "Chromium",
+    "Use After Free",
+    "Heap Corruption"
+  ],
+  "node_id": "9bc10a9a-22a7-4886-a8c1-9f5444c693f6",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

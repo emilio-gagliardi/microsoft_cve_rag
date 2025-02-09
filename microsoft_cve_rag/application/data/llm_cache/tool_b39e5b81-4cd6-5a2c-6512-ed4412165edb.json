@@ -1,0 +1,22 @@
+{
+  "tool_label": "group_policy_settings_for_domain_join",
+  "description": "**Tool Overview**:\n\nThis tool involves the Group Policy settings related to domain joining changes, specifically highlighted in the Microsoft KB Article KB-5020276.\n\n**Details**:\n\nThe approach is to navigate to the 'Take Action' section of the KB article, which details specific Group Policy settings that need to be applied. Administrators should create an Active Directory (AD) group and explicitly list this group in the relevant policy settings. This configuration allows designated users to reuse computer objects in the AD, even if those users did not initially create them. However, the users must have the requisite rights to join computers to the AD to perform these actions effectively. This tool is crucial for implementing domain join hardening changes as described in the document.\n",
+  "source_id": "b39e5b81-4cd6-5a2c-6512-ed4412165edb",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "b39e5b81-4cd6-5a2c-6512-ed4412165edb"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAEuHzznK5dOtdv102JPg-tAo%3DmZ65S6jmuXou%3DEFkiVSyw8J%2BQ%40mail.gmail.com",
+  "tool_url": "https://support.microsoft.com/en-au/topic/kb5020276-netjoin-domain-join-hardening-changes-2b65a0f3-1f4c-42ef-ac0f-1caaf421baf8",
+  "tags": [
+    "Group Policy",
+    "Active Directory",
+    "domain join",
+    "Policy Configuration"
+  ],
+  "node_id": "776e8144-7f2c-44a2-a6e5-b077ae55aa46",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

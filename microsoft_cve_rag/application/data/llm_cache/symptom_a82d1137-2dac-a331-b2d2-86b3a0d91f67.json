@@ -1,0 +1,21 @@
+{
+  "symptom_label": "laptops_require_complete_reinstall_due_to_updates",
+  "description": "The observed symptom involves the necessity to completely reinstall three laptops after applying new updates. The issue persisted despite attempts to remove the latest updates, indicating a potential problem with the update process or the updates themselves. System administrators may find that similar cases arise where laptops fail to operate correctly post-update application. This could suggest underlying challenges in the compatibility of recent updates with existing hardware or software configurations. It is essential to monitor the impact of new updates on system stability, especially for environments with multiple devices affected, as seen in this case.",
+  "source_id": "a82d1137-2dac-a331-b2d2-86b3a0d91f67",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "a82d1137-2dac-a331-b2d2-86b3a0d91f67"
+  ],
+  "tags": [
+    "laptop_reinstallation",
+    "update_issues",
+    "patch_management",
+    "system_stability"
+  ],
+  "node_id": "eb585bcd-4a2a-4527-a546-924c564ff74e",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

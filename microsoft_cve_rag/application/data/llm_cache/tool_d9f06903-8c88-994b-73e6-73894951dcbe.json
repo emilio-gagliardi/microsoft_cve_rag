@@ -1,0 +1,22 @@
+{
+  "tool_label": "microsoft_activex_data_objects_remote_code_execution_tool",
+  "description": "**Tool Overview**:\n\nThe Microsoft ActiveX Data Objects tool relates to addressing the remote code execution vulnerability presented by CVE-2024-21349. This vulnerability can be exploited through network vectors, affecting users of Windows 10 and Windows 11. Users should utilize tools designed for ActiveX control management and security configuration to mitigate risks associated with this vulnerability. \n\n**Details**:\nThis tool may involve scripts or specific configurations that help assess and secure systems impacted by the ActiveX Data Objects framework. Steps could include:\n1. Conducting a thorough review of ActiveX controls in use.\n2. Applying security configurations recommended by Microsoft.\n3. Monitoring logs for any unauthorized access attempts.\n4. Ensuring that your systems are patched according to the latest KB articles addressing this vulnerability.\n\nDue to the remote execution nature of the vulnerability, tools may also necessitate network monitoring solutions to detect unusual activities.\n",
+  "source_id": "d9f06903-8c88-994b-73e6-73894951dcbe",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d9f06903-8c88-994b-73e6-73894951dcbe"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-21349",
+  "tool_url": "",
+  "tags": [
+    "ActiveX",
+    "remote code execution",
+    "vulnerability",
+    "CVE-2024-21349"
+  ],
+  "node_id": "67505c0a-1f38-4597-bc93-0293cfa254b0",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

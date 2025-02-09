@@ -1,0 +1,22 @@
+{
+  "symptom_label": "kerberos_authentication_leads_to_information_disclosure",
+  "description": "End users or system administrators may observe unintentional access to sensitive information as a result of a Windows Kerberos authentication flaw. This vulnerability allows unauthorized parties to potentially read kernel memory, which may contain confidential data, including user credentials or other critical information. Users on systems affected by this issue, including Windows Server 2012 R2 (build 6.3.9600.22221), Windows 11 Version 24H2 (build 10.0.26100.2033), and related builds, may find that their kernel memory is exposed to external threats. The knowledge base articles associated with this issue, like KB-5044285 and KB-5044284, detail the impacts and necessary patches. The criticality of the vulnerability is classified as important, highlighting the need for immediate remedial actions to prevent potential information leaks.",
+  "source_id": "8f6f4620-e14b-fe15-0668-62ed7cf59967",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8f6f4620-e14b-fe15-0668-62ed7cf59967"
+  ],
+  "tags": [
+    "Kerberos",
+    "Information Disclosure",
+    "Windows",
+    "Authentication",
+    "Kernel Memory"
+  ],
+  "node_id": "f603216a-c042-4889-bdac-c4fc72d9e7bc",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

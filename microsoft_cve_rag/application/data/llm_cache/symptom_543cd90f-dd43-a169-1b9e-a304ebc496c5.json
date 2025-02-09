@@ -1,0 +1,16 @@
+{
+  "symptom_label": "WindowsExperiencesElevationOfPrivilegeIssues",
+  "description": "Users may experience issues that indicate potential elevation of privilege problems on their systems. Symptoms include unauthorized access to sensitive resources, unexpected changes to system settings, or applications behaving inappropriately. Affected products include Windows 11 version 23H2 (10.0.22631.2861) and Windows 11 version 21H2 for both x64 (10.0.22000.2652) and arm64 systems. Relevant KB Articles are KB5033375 for 23H2 and KB5033369 for 21H2. More details can be found at the Microsoft Update Guide: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-35631.",
+  "source_id": "543cd90f-dd43-a169-1b9e-a304ebc496c5",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "c3f0af15-7ce3-47a2-b500-67fe1e8ce264",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

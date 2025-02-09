@@ -1,0 +1,17 @@
+{
+  "tool_label": "RegistryModificationForWindowsUpgradeControl",
+  "description": "A method using registry modifications to set a target version of Windows 10, thereby preventing unwanted upgrades to Windows 11. This involves adding specific DWORD and string values to the Windows Update policies in the registry.",
+  "source_id": "022a987e-f54d-657a-308f-2f512b5cefdf",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/01e101da07b0%24d9e8c480%248dba4d80%24%40verizon.net",
+  "tags": [
+    "registry",
+    "Windows 10",
+    "macOS upgrade control"
+  ],
+  "node_id": "48f9ada7-eac0-490b-a75f-a30eb0405f5a",
+  "node_label": "Tool",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

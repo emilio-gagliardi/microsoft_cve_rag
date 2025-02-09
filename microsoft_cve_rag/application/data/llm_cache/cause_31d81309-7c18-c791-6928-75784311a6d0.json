@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause relates to the rollout of a new feature in Windows 10, specifically the Copilot experience aimed at enhancing user interaction on new devices. This progressive update is designed to create a more app-like behavior for the Copilot app, allowing users to resize, move, and snap the window for increased usability. However, this feature is restricted to new Windows 10 PCs and those destined for the European Economic Area, which may lead to inconsistencies in availability. Furthermore, as highlighted, there are pressing security concerns, including an active exploit affecting Hyper-V, which impacts the overall reliability of the update process. It's important to note the contextual mention of the 138 new CVEs from Microsoft, indicating ongoing vulnerabilities that require immediate attention.",
+  "source_id": "31d81309-7c18-c791-6928-75784311a6d0",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "31d81309-7c18-c791-6928-75784311a6d0"
+  ],
+  "cause_label": "new_feature_rollout_impacting_user_experience",
+  "tags": [
+    "windows 10",
+    "copilot experience",
+    "european economic area",
+    "active exploit"
+  ],
+  "node_id": "fd66a4cc-c8de-431e-b110-63254ef4220b",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo configure the Active Directory (AD) group policy settings for domain join hardening changes, follow these steps:\n\n1. Access the Microsoft support page for KB-5020276 to view the applicable Group Policy setting.\n2. Create an Active Directory group.\n3. List that group in the applicable Group Policy setting.\n4. Add trusted users to the newly created AD group.\n\n**Details**:\n- These changes permit listed users to reuse computer objects in Active Directory, even if they did not create them, as long as they possess the necessary rights to join computers to AD.\n- Ensure that these configurations are applied in the Domain Controllers GPO or any GPO linked to the Domain Controllers GPO.\n",
+  "source_id": "b39e5b81-4cd6-5a2c-6512-ed4412165edb",
+  "source_type": "PatchManagementPost",
+  "fix_label": "configure_ad_group_policy_for_domain_join",
+  "tags": [
+    "KB5020276",
+    "GroupPolicy",
+    "ActiveDirectory",
+    "DomainJoin"
+  ],
+  "node_id": "4499ff48-0dd7-4f1a-823a-fc539efa9791",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b39e5b81-4cd6-5a2c-6512-ed4412165edb"
+  ]
+}

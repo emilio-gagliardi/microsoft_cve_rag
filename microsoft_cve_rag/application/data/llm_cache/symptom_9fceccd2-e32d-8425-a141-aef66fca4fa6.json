@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_rndismp6_sys_remotely_exploitable_issue",
+  "description": "After installing the updates associated with KB-5036925, KB-5036909, KB-5036899, KB-5036896, KB-5036894, KB-5036893, and KB-5036892 on systems with build numbers 10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, 10.0.22621.3447, and 10.0.10240.20596, users may notice instability in network connections. Specifically, there may be intermittent connectivity issues, which lead to performance degradation and unresponsive network applications. This impact is particularly evident in environments relying heavily on the RNDISMP6.sys driver, affecting remote access and management tasks. Administrators should monitor network performance closely following these updates to ensure continued functionality.",
+  "source_id": "9fceccd2-e32d-8425-a141-aef66fca4fa6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "9fceccd2-e32d-8425-a141-aef66fca4fa6"
+  ],
+  "tags": [
+    "network",
+    "windows",
+    "rndismp6",
+    "connectivity",
+    "performance"
+  ],
+  "node_id": "1a2bd901-4bb7-4e5d-918e-a446fc77b713",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

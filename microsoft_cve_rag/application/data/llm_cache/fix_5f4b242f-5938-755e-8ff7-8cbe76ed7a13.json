@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address critical vulnerabilities related to VMware sandbox escape bugs affecting ESXi, Workstation, Fusion, and Cloud Foundation:\n\n1. Apply the latest patches provided by VMware for all affected products, including those that are no longer supported.\n2. Ensure that all instances of VMware products are updated to mitigate the risk of exploitation by malicious actors.\n\n**Details**:\n- Patches are crucial for maintaining the integrity of the sandbox and hypervisor protections.\n- Regularly check VMware's official site for updates and security advisories. (LLM Synthesized)\n\n**Preconditions**:\n- Verify that you have the administrative privileges to apply updates.\n- Backup existing configurations before proceeding with the patch application.",
+  "source_id": "5f4b242f-5938-755e-8ff7-8cbe76ed7a13",
+  "source_type": "PatchManagementPost",
+  "fix_label": "apply_vmware_patches_sandbox_escape_vulnerabilities",
+  "tags": [
+    "VMwareESXi",
+    "VMwareWorkstation",
+    "VMwareFusion",
+    "VMwareCloudFoundation"
+  ],
+  "node_id": "061448b9-ac5b-4fb5-8659-cff574a81645",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "critical",
+  "entity_type": "Fix",
+  "source_ids": [
+    "5f4b242f-5938-755e-8ff7-8cbe76ed7a13"
+  ]
+}

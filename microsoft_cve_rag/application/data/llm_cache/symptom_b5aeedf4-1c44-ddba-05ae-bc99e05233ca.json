@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_server_backup_elevation_of_privilege_issue",
+  "description": "After applying the security updates referenced in KB5040442, KB5040431, and KB5040427 for Windows Server Backup, administrators may notice that users can unexpectedly gain elevated privileges, allowing them to perform actions that should be restricted. This may manifest as unauthorized access to system files or the ability to delete important data without proper authentication, primarily affecting systems running builds 10.0.22631.3880, 10.0.22621.3880, 10.0.19045.4651, and 10.0.19044.4651. Compromised privilege levels can lead to serious operational disruptions as user roles are unintentionally bypassed. As a result, system stability and data integrity are at risk, requiring immediate attention to enforce stringent access controls until an appropriate patch is applied.",
+  "source_id": "b5aeedf4-1c44-ddba-05ae-bc99e05233ca",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b5aeedf4-1c44-ddba-05ae-bc99e05233ca"
+  ],
+  "tags": [
+    "Windows Server Backup",
+    "Privilege Escalation",
+    "Windows Updates"
+  ],
+  "node_id": "39af5145-e8a2-4d7c-92c8-c7bfa12b8509",
+  "node_label": "Symptom",
+  "reliability": 0.08,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

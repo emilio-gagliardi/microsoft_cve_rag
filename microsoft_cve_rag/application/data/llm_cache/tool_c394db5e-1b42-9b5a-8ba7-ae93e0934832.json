@@ -1,0 +1,22 @@
+{
+  "tool_label": "windows_server_update_services_import_updates",
+  "description": "**Tool Overview**:\n\nWindows Server Update Services (WSUS) is a tool that enables IT administrators to manage the distribution of updates released through Microsoft Update to computers in a corporate environment.\n\n**Details**:\n\n1. WSUS provides the ability to manage updates and hotfixes that are released for Microsoft products.\n2. Administrators can control the installation of updates based on specific criteria, ensuring the stability of their server environments.\n3. The tool allows for the manual import of out-of-band updates, ensuring that critical updates can be deployed without waiting for the next scheduled distribution.\n4. To use this feature, you'll need to review and follow the appropriate steps for importing updates from the Microsoft Update Catalog.\n5. Detailed guidance can typically be found in the WSUS product documentation and configuration manager resources.\n\nBy effectively utilizing WSUS, organizations can improve their patch management processes and enhance the security posture of their environments.",
+  "source_id": "c394db5e-1b42-9b5a-8ba7-ae93e0934832",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "c394db5e-1b42-9b5a-8ba7-ae93e0934832"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em67cbfeda-608b-4885-bccc-b1c18265ec96%408723aa7e.com",
+  "tool_url": "",
+  "tags": [
+    "WSUS",
+    "update management",
+    "patching",
+    "server administration"
+  ],
+  "node_id": "69df363e-f293-4624-adfe-8cbb99ae310e",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

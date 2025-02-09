@@ -1,0 +1,16 @@
+{
+  "symptom_label": "BluetoothConnectionIssuesAfterSecurityUpdate",
+  "description": "After applying the security updates for vulnerabilities associated with Bluetooth, users may experience significant disruptions in Bluetooth connectivity across various Windows operating systems. This is particularly noted in Windows 10 versions 21H2 and 22H2 (build numbers 10.0.19041.3693 and 10.0.19045.3693) and Windows 11 versions 21H2 and 23H2 (build numbers 10.0.22000.2600 and 10.0.22621.2715) as indicated in KB articles KB5032189, KB5032190, and KB5032196. Such symptoms include sporadic disconnections from Bluetooth devices, which can hinder productivity and user experience when using wireless peripherals.",
+  "source_id": "957de05f-19ea-e33d-eb80-f10ca14dc907",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "2da70fba-6acf-4de6-a739-780875dc6269",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

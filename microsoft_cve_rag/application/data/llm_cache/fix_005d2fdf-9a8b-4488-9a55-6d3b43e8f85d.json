@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the elevation of privilege vulnerability (CVE-2024-43625) in Microsoft Windows VMSwitch:\n\n1. Download and apply the appropriate KB updates based on your Windows version from the links provided below.\n2. Restart your system to finalize the installation and ensure all updates take effect.\n\n**Details**:\n- The updates address a critical vulnerability linked to a use after free condition, which could potentially be exploited to gain elevated privileges on affected systems.\n- Ensure your system is running one of the affected Windows builds listed below before proceeding with the update.\n\n**Update Packages**:\n- For Windows 11 Version 24H2: [KB5046617](https://catalog.update.microsoft.com/Search.aspx?q=KB5046617)\n- For Windows 11 Version 23H2: [KB5046633](https://catalog.update.microsoft.com/Search.aspx?q=KB5046633)\n- For Windows 11 Version 22H2: [KB5046633](https://catalog.update.microsoft.com/Search.aspx?q=KB5046633)\n\n**Preconditions**:\n- Ensure you are running one of the specified Windows builds:\n  - Windows 11 Version 24H2: 10.0.26100.2314\n  - Windows 11 Version 23H2: 10.0.22631.4460\n  - Windows 11 Version 22H2: 10.0.22621.4460\n- Backup critical data before proceeding with the updates.",
+  "source_id": "005d2fdf-9a8b-4488-9a55-6d3b43e8f85d",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_elevation_of_privilege_vmswitch_cve202443625",
+  "tags": [
+    "KB5046617",
+    "KB5046633",
+    "Windows11",
+    "UseAfterFree"
+  ],
+  "node_id": "e46f3707-e6a6-4c4c-a873-1cc454a490fd",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix",
+  "source_ids": [
+    "005d2fdf-9a8b-4488-9a55-6d3b43e8f85d"
+  ],
+  "verification_status": "unverified"
+}

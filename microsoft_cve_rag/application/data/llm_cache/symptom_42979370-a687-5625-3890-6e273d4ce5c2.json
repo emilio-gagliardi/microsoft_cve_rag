@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_server_2022_update_installation_failure",
+  "description": "The Microsoft Windows Server 2022 installations are experiencing errors during the update process. Administrators report encountering common issues, resulting in installation failures via both the GUI and PowerShell commands. Specifically, one server reportedly failed to install the update and remains on an older OS build of 2655, despite the System Update Status indicating that the update appeared to be successful. This situation drives users into routine troubleshooting steps like running the System File Checker (sfc) and Deployment Image Service and Management (dism) tools, which have not resolved the core issue. Troubleshooting resources related to KB-5041580 can be sought for further guidance on addressing these update challenges.",
+  "source_id": "42979370-a687-5625-3890-6e273d4ce5c2",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "42979370-a687-5625-3890-6e273d4ce5c2"
+  ],
+  "tags": [
+    "2022 server",
+    "update failure",
+    "patch management",
+    "configuration issues"
+  ],
+  "node_id": "19269e14-21cd-4c69-b93e-ff9df9762a91",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

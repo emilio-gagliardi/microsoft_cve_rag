@@ -1,0 +1,22 @@
+{
+  "description": "A use after free flaw in audio within Chromium prior to build 126.0.6478.54, allowing potential exploitation via crafted PDF files. This impacts Microsoft Edge which consumes this version of Chromium, highlighting the need for updates to maintain security.",
+  "cause_label": "chromium_use_after_free_in_audio_heap_corruption",
+  "source_id": "40d11084-0931-6a80-8213-1177fcd5cb10",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "40d11084-0931-6a80-8213-1177fcd5cb10"
+  ],
+  "tags": [
+    "Chromium",
+    "Microsoft Edge",
+    "Use After Free",
+    "Heap Corruption",
+    "CVE-2024-5845"
+  ],
+  "node_id": "718346b0-ad6d-4acf-acfb-f8f5306d7627",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

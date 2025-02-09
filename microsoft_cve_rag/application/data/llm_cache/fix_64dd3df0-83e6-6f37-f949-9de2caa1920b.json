@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address potential issues with Chrome 131 related to the use of Post-Quantum Key Agreement, follow the steps below to adjust the Chrome configuration.\n\n1. Set the software policy for Google Chrome to disable Post-Quantum Key Agreement by applying the following policy:\n\n```plaintext\nsoftware\\policies\\google\\chrome\\postquantumkeyagreementenabled = 0\n```\n\n2. Restart Chrome for the changes to take effect.\n\n**Details**:\nThis workaround is necessary as enabling Post-Quantum Key Agreement may conflict with certain TLS middleboxes, leading to operational issues. Disabling this setting helps maintain a stable connection through these middleboxes. Ensure you verify the compatibility of the configurations with your organization\u2019s policies before implementation.",
+  "source_id": "64dd3df0-83e6-6f37-f949-9de2caa1920b",
+  "source_type": "PatchManagementPost",
+  "fix_label": "disable_postquantumkeyagreement_chrome_issues",
+  "tags": [
+    "Chrome131",
+    "PostQuantumKeyAgreement",
+    "TLSIssues"
+  ],
+  "node_id": "0fe336a9-0826-412a-bc96-920cee57f3c7",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "64dd3df0-83e6-6f37-f949-9de2caa1920b"
+  ],
+  "verification_status": "unverified"
+}

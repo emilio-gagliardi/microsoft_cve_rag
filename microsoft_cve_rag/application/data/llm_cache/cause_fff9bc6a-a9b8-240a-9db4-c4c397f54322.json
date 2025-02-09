@@ -1,0 +1,18 @@
+{
+  "description": "The underlying issue is an information disclosure flaw in the Windows CoreMessaging system, specifically affecting multiple Windows builds. This vulnerability arises from improper handling of memory, allowing unauthorized local access to sensitive data residing in the stack. This condition can be exploited either through direct access to the system or by tricking a legitimate user into executing actions that lead to information exposure. The vulnerable component fails to adequately restrict access to critical data, thus, a successful attack compromises the confidentiality of system resources managed by the same security authority. The vulnerability impacts various versions of Windows, including Windows 10 and Windows 11, hence a detailed patching strategy based on associated KB articles is essential for resolution.",
+  "cause_label": "InformationDisclosureInCoreMessagingSystem",
+  "source_id": "fff9bc6a-a9b8-240a-9db4-c4c397f54322",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Windows",
+    "CoreMessaging",
+    "InformationDisclosure",
+    "StackMemory",
+    "Vulnerability"
+  ],
+  "node_id": "f306551b-2b63-4ed3-885d-93e5d931b27c",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

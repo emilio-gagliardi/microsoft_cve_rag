@@ -1,0 +1,20 @@
+{
+  "symptom_label": "dlink_nas_exploit_due_to_backdoor_access",
+  "description": "The D-Link NAS device is vulnerable due to two main issues: the presence of a backdoor facilitated by hardcoded credentials and a command injection vulnerability. These vulnerabilities are critical as they allow unauthorized access to the system and potential execution of arbitrary commands. Since the affected products are listed as end-of-life (EOL), they will not receive any patches or updates from the manufacturer to mitigate these issues. System administrators should be aware that these vulnerabilities pose significant risks for data integrity and security within their environments. Immediate action should be taken to either mitigate exposure or replace affected devices to prevent potential exploitation.",
+  "source_id": "3e6c327e-ff4f-a497-f7f5-eadeb8272e9f",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "3e6c327e-ff4f-a497-f7f5-eadeb8272e9f"
+  ],
+  "tags": [
+    "backdoor",
+    "command_injection",
+    "D-Link",
+    "EOL_device"
+  ],
+  "node_id": "62710074-1845-4e68-b392-97aff589d191",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

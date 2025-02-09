@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the Microsoft Local Security Authority (LSA) Server information disclosure vulnerability (CVE-2024-38118), it is essential to apply the relevant updates depending on your current Windows version:\n\n1. Identify your Windows version and build number.\n2. Download the appropriate update package from the links provided below.\n3. Install the update and restart your system to apply the changes.\n\n**Details**:\n- For Windows 11 Version 24H2, install KB5041571.\n- For Windows 11 Version 23H2, install KB5041585.\n- For Windows 10, install KB5041782 (x64/32-bit).\n- Ensure that your system's build number corresponds with the update.\n- Backup critical data before proceeding with the installation.\n\n**Update Packages**:\n- [KB5041782](https://catalog.update.microsoft.com/Search.aspx?q=KB5041782)\n- [KB5041585](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585)\n- [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n- [KB5041592](https://catalog.update.microsoft.com/Search.aspx?q=KB5041592)\n- [KB5041571](https://catalog.update.microsoft.com/Search.aspx?q=KB5041571)",
+  "source_id": "88792494-40b3-6e9a-1aa8-bc8b3b9a7547",
+  "source_type": "MSRCPost",
+  "fix_label": "address_lsa_information_disclosure_cve202438118",
+  "tags": [
+    "KB5041592",
+    "KB5041585",
+    "KB5041580",
+    "KB5041571"
+  ],
+  "node_id": "5cb582e5-adaf-4505-8075-1d7342299b65",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "88792494-40b3-6e9a-1aa8-bc8b3b9a7547"
+  ],
+  "verification_status": "unverified"
+}

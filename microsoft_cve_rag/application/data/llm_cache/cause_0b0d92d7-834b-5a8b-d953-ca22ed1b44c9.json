@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause of the issues with the rollout of Copilot in Windows 10 seemingly arises from the incompatibility of the software with multimonitor configurations. Users reported experiencing unexpected movement of desktop icons and alignment problems when attempting to use Copilot with multiple monitors. Specifically, the taskbar's vertical positioning also appears to exacerbate these issues by not being supported in this setup. To mitigate these problems, Copilot in Windows (in preview) is currently advised against usage on devices set up with a multimonitor configuration. This behavior has triggered a response from the support team, which is actively working on a resolution to improve compatibility in future releases. Reference to a potential operational impediment is documented under KB29601.",
+  "source_id": "0b0d92d7-834b-5a8b-d953-ca22ed1b44c9",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "0b0d92d7-834b-5a8b-d953-ca22ed1b44c9"
+  ],
+  "cause_label": "incompatibility_with_multimonitor_configuration",
+  "tags": [
+    "Copilot",
+    "Windows 10",
+    "multimonitor",
+    "desktop icons",
+    "update issue"
+  ],
+  "node_id": "e9c6b63f-41ea-457b-be64-13ece62a4973",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

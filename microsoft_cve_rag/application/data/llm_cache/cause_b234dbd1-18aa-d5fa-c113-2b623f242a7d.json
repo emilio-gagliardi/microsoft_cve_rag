@@ -1,0 +1,22 @@
+{
+  "description": "The underlying cause of the shared calendar access issues in Outlook was linked to a known service interruption associated with Exchange Online, identified by issue ID ex800425. This incident started affecting users' ability to update or cancel calendar items from June 10, 2024, with considerable reports increasing around June 17 and 18. Microsoft categorized this disruption as a health alert, which indicated that the problem was more widespread than initially communicated. After an extended monitoring period, the service was deemed restored by July 12, 2024, mitigating the intermittent access issues that users experienced. There will be continued observation to ensure ongoing stability and address any future impacts as they arise.",
+  "source_id": "b234dbd1-18aa-d5fa-c113-2b623f242a7d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "b234dbd1-18aa-d5fa-c113-2b623f242a7d"
+  ],
+  "cause_label": "intermittent_shared_calendar_access_due_to_outage",
+  "tags": [
+    "Outlook",
+    "Exchange Online",
+    "shared calendars",
+    "service interruption",
+    "health alert"
+  ],
+  "node_id": "adab9d78-9bde-4d4b-8bf4-9c3e7a9eb5b3",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

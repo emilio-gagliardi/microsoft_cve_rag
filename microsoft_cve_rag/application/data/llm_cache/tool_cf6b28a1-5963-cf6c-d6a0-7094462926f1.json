@@ -1,0 +1,23 @@
+{
+  "tool_label": "complete_susdb_maintenance",
+  "description": "**Tool Overview**:\n\nThis process involves performing a complete maintenance task on the Software Update Services Database (SUSDB) used by Windows Server Update Services (WSUS).\n\n**Details**:\n\nThis maintenance task is crucial for ensuring the proper function of the WSUS reporting web service. The process typically includes the following steps:\n1. **Database Cleanup**: This addresses any inconsistencies or errors within the database that may prevent the service from operating correctly.\n2. **Restarting WSUS Pool**: After performing the maintenance, it is necessary to restart the WSUS application pool in Internet Information Services (IIS) to apply the changes.\n3. **Regular Monitoring**: Keeping track of the WSUS reporting service's performance helps in anticipating future issues.\n\nBy executing these maintenance routines, administrators can effectively restore functionality to the reporting services and ensure that updates are tracked accurately.",
+  "source_id": "cf6b28a1-5963-cf6c-d6a0-7094462926f1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "cf6b28a1-5963-cf6c-d6a0-7094462926f1"
+  ],
+  "source_url": "N/A",
+  "tool_url": "N/A",
+  "tags": [
+    "WSUS",
+    "SUSDB",
+    "maintenance",
+    "reporting"
+  ],
+  "node_id": "770c1037-1ec1-4c9a-be1e-c36f1ec293fa",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

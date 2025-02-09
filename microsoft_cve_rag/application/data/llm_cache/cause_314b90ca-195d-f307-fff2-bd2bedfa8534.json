@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause of the issue stems from the separation of development and technology between the VPN product and the patching solutions. Specifically, the VPN product was developed by Pulse, while the patching technology comes from the Shavlik brand. This architectural distinction leads to potential discrepancies in patch application and compatibility, as each product follows its own code base and development timelines. Consequently, users might experience challenges in aligning patch updates between the two systems, emphasizing the importance of segregated management strategies for each component. Moreover, as highlighted in the latest CISA directives and Ivanti advisories, any existing vulnerabilities must be addressed in light of the distinctions in development processes represented by the different products, such as those documented in KB282024.",
+  "source_id": "314b90ca-195d-f307-fff2-bd2bedfa8534",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "314b90ca-195d-f307-fff2-bd2bedfa8534"
+  ],
+  "cause_label": "separate_code_base_challenges_in_patch_management",
+  "tags": [
+    "VPN",
+    "Patch Management",
+    "Shavlik",
+    "Ivanti",
+    "Pulse"
+  ],
+  "node_id": "c8c99cf9-6162-41b3-bf1f-f0850e373124",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

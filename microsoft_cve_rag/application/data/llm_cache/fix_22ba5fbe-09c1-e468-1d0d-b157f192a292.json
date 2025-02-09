@@ -1,0 +1,16 @@
+{
+  "description": "To resolve issues with Windows Update, first stop the Windows Update service (wuauserv) and the Background Intelligent Transfer Service (BITS). If necessary, temporarily set the Windows Update service to disabled to prevent it from restarting automatically. Next, delete the contents of the 'C:\\Windows\\SoftwareDistribution\\Download' folder and also remove the 'C:\\$Windows.~BT' folder. After cleanup, restart the Windows Update service. Finally, verify the update status by executing the command 'usoclient startscan'. This process can help reinitialize the update mechanism and address problems with stalled updates.",
+  "source_id": "22ba5fbe-09c1-e468-1d0d-b157f192a292",
+  "source_type": "PatchManagementPost",
+  "fix_label": "ResetWindowsUpdateServiceAndClearDownloadFolder",
+  "tags": [
+    "Windows Update",
+    "Service Management",
+    "System Maintenance"
+  ],
+  "node_id": "44f7620c-6f6c-47a7-82c9-7c89716ea2b2",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

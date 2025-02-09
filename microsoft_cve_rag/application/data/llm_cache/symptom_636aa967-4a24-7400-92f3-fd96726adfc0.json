@@ -1,0 +1,21 @@
+{
+  "symptom_label": "attacker_gains_access_via_vulnerability_chaining",
+  "description": "A vulnerability chaining scenario has been identified in vulnerable Windows systems, particularly involving CVE-2024-21302 and CVE-2024-38202. An attacker with system access can exploit these vulnerabilities in tandem, thereby complicating their attack and potentially allowing for system file reversion or replacement. This may lead to system-wide regressions or the circumvention of virtualization-based security (VBS) features. The exploitation of this vulnerability chain poses significant risks, especially in high-stakes environments where system integrity is paramount. Microsoft is advising customers to review the provided mitigation guidance to protect against these risks effectively.",
+  "source_id": "636aa967-4a24-7400-92f3-fd96726adfc0",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "636aa967-4a24-7400-92f3-fd96726adfc0"
+  ],
+  "tags": [
+    "vulnerability chaining",
+    "CVE-2024-21302",
+    "CVE-2024-38202",
+    "Windows Systems"
+  ],
+  "node_id": "7bbef5ff-4db2-4a16-b4c1-b070a7e6be63",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

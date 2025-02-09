@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the elevation of privilege vulnerability in the Windows DWM core library (CVE-2024-38150), apply the relevant security updates for your Windows version:\n\n1. Identify your current Windows version and build number.\n\n2. Download and install the appropriate update package from the Microsoft Update Catalog:\n   - [KB5041571](https://catalog.update.microsoft.com/Search.aspx?q=KB5041571) for Windows 11 Version 21H2.\n   - [KB5041585](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585) for Windows 11 Versions 22H2, 23H2.\n   - [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580) for Windows 10 Version 21H2 and 22H2.\n\n3. Restart your system after installation to ensure the updates take effect.\n\n**Details**:\n- This patch mitigates a use after free vulnerability that could allow an attacker to elevate privileges. \n- Ensure you are running a compatible version of Windows 10 or 11 based on the compliance list provided.\n- Backup your data before proceeding with the updates to prevent data loss.\n",
+  "source_id": "cd9d98af-3161-e625-dba7-f2e683f920d0",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_security_updates_for_elevation_privilege_cve202438150",
+  "tags": [
+    "KB5041571",
+    "Windows11",
+    "DWM",
+    "CVE202438150"
+  ],
+  "node_id": "6f89603d-fdcb-491c-ab62-afdc90d01120",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "cd9d98af-3161-e625-dba7-f2e683f920d0"
+  ],
+  "verification_status": "unverified"
+}

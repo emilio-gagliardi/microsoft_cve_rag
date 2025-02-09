@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows themes denial of service vulnerability (CVE-2024-30065), it is essential to apply the appropriate updates available for your version of Windows:\n\n1. Identify the version of Windows you are running (Windows 10 or Windows 11).\n2. Download the relevant update package from the links provided below based on your system build number.\n3. Install the update and restart your system to ensure changes take effect.\n\n**Details**:\n- This Fix addresses improper link resolution issues before file access, mitigating the denial of service risk associated with this vulnerability.\n- For detailed information on the update, visit the Microsoft Update Catalog.\n\n**Update Packages**:\n- For Windows 10 Version 22H2: [KB5039211](https://catalog.update.microsoft.com/Search.aspx?q=KB5039211)\n- For Windows 10 for x64-based Systems: [KB5039225](https://catalog.update.microsoft.com/Search.aspx?q=KB5039225)\n- For Windows 11 Version 22H2: [KB5039212](https://catalog.update.microsoft.com/Search.aspx?q=KB5039212)\n- For Windows 11 Version 21H2: [KB5039213](https://catalog.update.microsoft.com/Search.aspx?q=KB5039213)\n\n**Preconditions**:\n- Ensure you have administrative privileges to apply the update.\n- Backup critical data before proceeding.",
+  "source_id": "d7003f77-21d7-e877-8250-c3043d58ad7c",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_for_windows_themes_dos_cve202430065",
+  "tags": [
+    "KB5039211",
+    "Windows10",
+    "Windows11",
+    "DenialOfService"
+  ],
+  "node_id": "ca924ecc-4a7f-4b08-af06-84212e412200",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "d7003f77-21d7-e877-8250-c3043d58ad7c"
+  ],
+  "verification_status": "unverified"
+}

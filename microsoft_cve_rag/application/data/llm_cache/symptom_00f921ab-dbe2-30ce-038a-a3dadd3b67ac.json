@@ -1,0 +1,21 @@
+{
+  "symptom_label": "authentication_required_for_remote_code_execution",
+  "description": "Users may encounter issues connecting to SQL databases when required to authenticate, as a successful connection can lead to remote code execution. When connected to a malicious SQL database, specially crafted replies may be sent to the user\u2019s SQL client application, enabling the execution of arbitrary code within that context. This behavior can disrupt normal operations and cause concerns about data integrity and security, particularly for those using Windows 10 (builds 10.0.19045.4046, 10.0.19044.4046) and various Windows Server versions indicated in KB5034763. Administrators should monitor for unauthorized connections and unexpected behavior within SQL client applications following security updates.",
+  "source_id": "00f921ab-dbe2-30ce-038a-a3dadd3b67ac",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "00f921ab-dbe2-30ce-038a-a3dadd3b67ac"
+  ],
+  "tags": [
+    "remote code execution",
+    "Windows 10",
+    "SQL Server",
+    "authentication",
+    "security update"
+  ],
+  "node_id": "a17eb316-85e5-4ad1-935f-1e81b46dbcd2",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

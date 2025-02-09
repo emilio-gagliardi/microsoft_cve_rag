@@ -1,0 +1,19 @@
+{
+  "symptom_label": "secure_boot_feature_may_be_bypassed_on_systems",
+  "description": "Users of Windows builds 19045.4291, 19044.4291, 22631.3447, 22000.2899, and 22621.3447 may experience issues related to the secure boot feature. The bypass of this important security feature means that users could find themselves exposed to potential risks where unauthorized modifications to the boot process may occur. This can lead to a heightened risk of malware or other threats exploiting the system during startup. Users may notice that their systems operate as they normally would, but the overall security posture has been compromised, and any reliance on secure boot functionality should be reassessed. Immediate attention to installing the recommended updates from KB-5036925, KB-5036894, KB-5036893, and KB-5036892 is advised to mitigate these risks.",
+  "source_id": "94c5f6fd-e983-8a00-e0ca-25b7dbdf2532",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "94c5f6fd-e983-8a00-e0ca-25b7dbdf2532"
+  ],
+  "tags": [
+    "secure_boot",
+    "system_security",
+    "windows_updates"
+  ],
+  "node_id": "874aa0e1-5121-4be5-9b9e-d6d5bc34eaa3",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

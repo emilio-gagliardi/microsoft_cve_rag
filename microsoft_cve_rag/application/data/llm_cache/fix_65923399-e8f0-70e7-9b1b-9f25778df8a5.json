@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the specific vulnerability detailed in CVE-2024-1284 affecting Microsoft Edge, it is recommended to update to the latest version.\n\n1. Navigate to the Microsoft Edge settings page.\n2. Click on 'About Microsoft Edge' to automatically check for updates and install the recommended version.\n\n**Details**:\n- Ensure you are using Microsoft Edge version 121.0.2277.113 or later to mitigate the identified vulnerabilities.\n- The build number associated with the recommended update is 121.0.2277.113, aligning with KB article ID KB-121.0.2277.113.\n- Regular updates will help in maintaining security and improving overall browser performance.",
+  "source_id": "65923399-e8f0-70e7-9b1b-9f25778df8a5",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_121_0_2277_113",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20241284",
+    "KB121",
+    "ChromiumBased"
+  ],
+  "node_id": "3adcdfc9-eb33-4f03-bc49-97165ac6fa3c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "65923399-e8f0-70e7-9b1b-9f25778df8a5"
+  ]
+}

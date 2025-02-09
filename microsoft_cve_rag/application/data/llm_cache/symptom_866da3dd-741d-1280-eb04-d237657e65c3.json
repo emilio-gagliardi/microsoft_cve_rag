@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_crashes_after_chromium_update",
+  "description": "After updating to Microsoft Edge version 130.0.2849.56, users may experience unexpected crashes or instability in the browser. This issue arises from a prior focus on addressing type confusion in the underlying Chromium component, which is critical for the safe rendering of web pages. Users might notice that their browser closes without warning when accessing certain websites or performing specific actions, which can lead to frustration and interruptions in their workflow. This behavior emphasizes the importance of ensuring that all system components are running the latest, secure versions, as failure to do so could leave users vulnerable to further issues. Administrators should ensure that all Edge installations are updated as per KB-130.0.2849.56 to mitigate these impacts.",
+  "source_id": "866da3dd-741d-1280-eb04-d237657e65c3",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "866da3dd-741d-1280-eb04-d237657e65c3"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Browser Crashes",
+    "Type Confusion",
+    "Update Required"
+  ],
+  "node_id": "4c989f3a-9a53-4639-bb40-d136730292fd",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

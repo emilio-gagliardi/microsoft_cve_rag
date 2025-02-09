@@ -1,0 +1,22 @@
+{
+  "description": "Weak authentication mechanisms in Microsoft Dynamics 365 Business Central lead to elevation of privilege vulnerabilities. This issue allows unauthorized attackers to gain access and escalate privileges by exploiting flaws in the authentication process, potentially impacting users and system integrity. The vulnerability is confirmed across multiple application builds.",
+  "cause_label": "dynamics_365_weak_authentication_elevation_privilege",
+  "source_id": "6f0d3bf4-53d1-3ee7-bf60-677f9f93c5d9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "6f0d3bf4-53d1-3ee7-bf60-677f9f93c5d9"
+  ],
+  "tags": [
+    "Microsoft",
+    "Dynamics 365",
+    "elevation of privilege",
+    "weak authentication",
+    "CVE-2024-35248"
+  ],
+  "node_id": "25c6fc2d-671a-4d75-8896-a2197034555e",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

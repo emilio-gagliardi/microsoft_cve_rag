@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo ensure that unexpected privileges are properly managed in Active Directory:\n\n1. If using audit mode, monitor for unexpected privileges for a sufficient duration.\n2. If no issues are detected, switch to enforcement mode to prevent negative outcomes.\n3. For any unexpected results, report them to Microsoft via a premier or unified support case or use the feedback hub.\n\n**Details**:\n- Note that enforcement mode will be enabled by default in an upcoming update scheduled for January 9, 2024.\n- Always ensure that your system is backed up before making changes to configuration settings. (LLM Synthesized)",
+  "source_id": "5149bf75-6fad-efb3-80f5-bb87378fa65f",
+  "source_type": "PatchManagementPost",
+  "fix_label": "ChangeToEnforcementModeActiveDirectoryCVE202142291",
+  "tags": [
+    "KB-5008383",
+    "ActiveDirectory",
+    "EnforcementMode",
+    "LLM Synthesized"
+  ],
+  "node_id": "80e6c8ef-b51a-44af-9958-3fae351315ba",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

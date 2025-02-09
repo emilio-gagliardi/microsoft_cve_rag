@@ -1,0 +1,20 @@
+{
+  "description": "Heap-based buffer overflow in Windows Remote Access Connection Manager leading to elevation of privilege.",
+  "cause_label": "windows_remote_access_connection_manager_heap_buffer_overflow",
+  "source_id": "1d8631da-4a54-7e28-27ba-80bcafb5cd23",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "1d8631da-4a54-7e28-27ba-80bcafb5cd23"
+  ],
+  "tags": [
+    "buffer overflow",
+    "elevation of privilege",
+    "Windows",
+    "CVE-2024-26211"
+  ],
+  "node_id": "433f77c0-8426-4a49-a304-49ad8bd9ae9c",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

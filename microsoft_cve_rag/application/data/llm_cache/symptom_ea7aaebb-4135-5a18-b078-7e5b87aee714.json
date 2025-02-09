@@ -1,0 +1,22 @@
+{
+  "symptom_label": "user_code_execution_due_to_malicious_request",
+  "description": "Users may experience arbitrary code execution on their Windows systems as a direct result of the vulnerability in the Windows Telephony Service. This occurs when a user is tricked into sending a request to a malicious server, which then returns harmful data. The potential products affected include various builds of Windows 10 and Windows 11, specifically those listed with build numbers such as 10.0.26100.2314, 10.0.22631.4460, and 10.0.22621.4460. These builds correspond to KB articles KB5046696, KB5046633, KB5046617, and KB5046613, detailing the updates related to this issue. Users may notice unexpected system behavior, unauthorized access to resources, or a loss of control over their devices as hostile actions could compromise their systems.",
+  "source_id": "ea7aaebb-4135-5a18-b078-7e5b87aee714",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ea7aaebb-4135-5a18-b078-7e5b87aee714"
+  ],
+  "tags": [
+    "Windows Telephony Service",
+    "Remote Code Execution",
+    "User Impact",
+    "Windows 10",
+    "Windows 11"
+  ],
+  "node_id": "9b4e525e-4105-4d1e-b828-133018ea9bdb",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

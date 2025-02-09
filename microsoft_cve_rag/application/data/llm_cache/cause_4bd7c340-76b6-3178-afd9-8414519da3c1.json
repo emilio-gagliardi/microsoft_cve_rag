@@ -1,0 +1,17 @@
+{
+  "description": "The underlying issue is a flaw in the Windows kernel that allows for elevation of privileges, giving an attacker with basic user access the ability to execute higher-level system commands. This vulnerability exists due to improper validation of input in specific kernel components, enabling local elevation of privileges either through direct access to the affected system or via malicious document exploitation. It affects multiple Windows 10 and Windows 11 builds, requiring user interaction only in the case of document exploitation. The vulnerability may lead to significant security impacts such as unauthorized resource access and modifications, requiring specific patches as indicated in multiple KB Articles for remediation.",
+  "cause_label": "FlawInWindowsKernelEnablesPrivilegeEscalation",
+  "source_id": "4bd7c340-76b6-3178-afd9-8414519da3c1",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Windows",
+    "Privilege Escalation",
+    "Kernel",
+    "CVE-2024-20698"
+  ],
+  "node_id": "f57b5db8-f45e-4754-b4b5-94cb712ea4ec",
+  "node_label": "Cause",
+  "reliability": 9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

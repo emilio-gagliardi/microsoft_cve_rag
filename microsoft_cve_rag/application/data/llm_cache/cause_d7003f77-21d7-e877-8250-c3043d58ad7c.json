@@ -1,0 +1,22 @@
+{
+  "description": "Improper link resolution before file access leads to denial of service, allowing an attacker to manipulate system resources via local or remote access with low privileges, resulting in complete denial of availability for affected components.",
+  "cause_label": "windows_themes_improper_link_resolution_race_condition",
+  "source_id": "d7003f77-21d7-e877-8250-c3043d58ad7c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d7003f77-21d7-e877-8250-c3043d58ad7c"
+  ],
+  "tags": [
+    "CVE-2024-30065",
+    "Windows",
+    "Denial of Service",
+    "Improper Link Resolution",
+    "CWE-59"
+  ],
+  "node_id": "a5474317-5390-4f1c-97d9-c147df758803",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

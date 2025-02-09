@@ -1,0 +1,21 @@
+{
+  "description": "The root cause of the issue stems from Windows 11's requirement for a Trusted Platform Module (TPM) chip. This necessitates a virtual TPM (vTPM) when creating Windows 11 test virtual machines (VMs) in vSphere environments. Without properly configured vTPMs, the VMs may fail to deploy or operate correctly, leading to operational disruptions. This underlying need for hardware support can often be overlooked during initial setup phases, especially in test environments. Ensuring that all prerequisites, such as the TPM requirement, are met is critical for smooth installation and functionality of Windows 11 in virtualized settings.",
+  "source_id": "5e97da6d-81b0-60e1-c252-3a82f29a0dbe",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "5e97da6d-81b0-60e1-c252-3a82f29a0dbe"
+  ],
+  "cause_label": "missing_tpm_configuration_for_win11_vms",
+  "tags": [
+    "Windows 11",
+    "TPM",
+    "vTPM",
+    "Vmware",
+    "vSphere"
+  ],
+  "node_id": "d82ae77c-9bae-42b4-9699-6f9385ec83af",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

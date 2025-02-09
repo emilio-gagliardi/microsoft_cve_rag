@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows Cryptographic Services remote code execution vulnerability (CVE-2024-29050), ensure that your systems are updated with the latest patches:\n\n1. Update to the latest security patches listed below:\n   - KB-5036925\n   - KB-5036909\n   - KB-5036899\n   - KB-5036896\n   - KB-5036894\n   - KB-5036893\n   - KB-5036892\n\n2. Restart your systems after the updates to apply changes effectively.\n\n**Details**:\nThese patches address the numeric truncation error allowing remote code execution through compromised cryptographic services. Ensure that your systems are running the specified build numbers: \n- [10, 0, 19045, 4291] \n- [10, 0, 19044, 4291] \n- [10, 0, 22631, 3447] \n- [10, 0, 22000, 2899] \n- [10, 0, 22621, 3447] \n- [10, 0, 10240, 20596].\n\n**Preconditions**:\n- Ensure your system meets the build requirements specified.\n- Backup critical data before proceeding with the updates.\n",
+  "source_id": "bed01069-48b9-0e2b-f856-6bd89b3d0f00",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_cryptographic_services_rce_cve202429050",
+  "tags": [
+    "KB5036925",
+    "KB5036909",
+    "CryptoServices",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "2816d3c6-4b7b-45b4-8774-55f7ad9dd0ff",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "bed01069-48b9-0e2b-f856-6bd89b3d0f00"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "symptom_label": "TcpIpInformationDisclosureRisk",
+  "description": "End users may notice that sensitive information is at risk of being exposed due to an underlying issue in the Windows TCP/IP stack. The vulnerability, identified as CVE-2024-21313, potentially allows unauthorized access to unencrypted contents of IPsec packets from other sessions on the affected system. This issue pertains particularly to systems running Windows Server 2012, Server 2012 R2, and various Windows 10 and Windows 11 builds, specifically builds 10.0.19044.3930, 10.0.19045.3930, and 10.0.22631.3007. The impact of this vulnerability is classified as 'information disclosure' and has a severity type of 'important', which can significantly compromise the confidentiality of data managed by the affected instances. For detailed mitigation strategies, administrators are encouraged to review KB Articles like KB-5034134, KB-5034121, and others listed in the post for proper guidance.",
+  "source_id": "564baed8-eeea-7f28-7eb9-7deeb10b9c81",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Windows",
+    "TCP/IP",
+    "Information Disclosure",
+    "Network Security",
+    "Confidentiality Risk"
+  ],
+  "node_id": "ce3fb053-1b11-4c6e-8395-338c04b1177a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

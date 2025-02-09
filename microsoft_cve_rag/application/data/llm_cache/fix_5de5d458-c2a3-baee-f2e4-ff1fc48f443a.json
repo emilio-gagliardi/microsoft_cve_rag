@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the black screen issue encountered by Azure Virtual Desktop users after installing recent Windows updates:\n\n1. Ensure your device is updated with the latest updates released on or after October 22, 2024. This includes resolving the known issues linked to the black screen symptom.\n2. If using an update older than October 22, 2024, install the necessary updates, and configure the special group policy as detailed in the relevant KB articles.\n3. Verify that your application event log does not indicate persistent errors after following the above steps.\n\n**Details**:\n- The black screen issue was caused by a fault with the application \u2018svchost.exe_appxsvc\u2019. Resolving it requires specific updates or policy configurations.\n- Windows 10 Education and Home editions are less likely to experience this issue due to different deployment of Azure Virtual Desktop in enterprise environments.\n\n**Preconditions**:\n- Ensure you are on a Windows version that supports Azure Virtual Desktop.\n- Check the current state of your Windows updates to confirm you are using an appropriate version.",
+  "source_id": "5de5d458-c2a3-baee-f2e4-ff1fc48f443a",
+  "source_type": "PatchManagementPost",
+  "fix_label": "resolve_black_screen_azure_virtual_desktop_issue",
+  "tags": [
+    "KB5040525",
+    "KB5045594",
+    "AzureVirtualDesktop",
+    "Windows10"
+  ],
+  "node_id": "5d2cb058-dc7d-4b16-92dd-e7b5b036abff",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "5de5d458-c2a3-baee-f2e4-ff1fc48f443a"
+  ],
+  "verification_status": "unverified"
+}

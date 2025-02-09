@@ -1,0 +1,23 @@
+{
+  "tool_label": "microsoft_dynamics_365_security_vulnerability_info",
+  "description": "**Tool Overview**:\n\nThis post discusses the Microsoft Dynamics 365 (on-premises) information disclosure vulnerability identified by CVE-2024-35263, released on June 11, 2024. It presents a critical insight into the exposure of sensitive information to unauthorized actors, classified under the weakness of CWE-200. The details provided include severity metrics and the nature of the vulnerabilities that could affect users' information security. \n\n**Details**:\n1. The vulnerability has a maximum severity rating of important and is remotely exploitable due to its association with the network stack. \n2. The exposure can potentially involve sensitive data accessible from the internet, indicating a broad attack surface. \n3. Users should be aware of updates and security patches relevant to Dynamics 365 to mitigate risks associated with this vulnerability.\n4. Continuous monitoring for CVE levels is advised to enhance security posture against potential threats.\n5. Always validate your application configurations and security settings to prevent unauthorized information exposure.\n",
+  "source_id": "f2606464-049f-e2d4-2adf-6362b57e1d0e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f2606464-049f-e2d4-2adf-6362b57e1d0e"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-35263",
+  "tool_url": "",
+  "tags": [
+    "CVE",
+    "Microsoft Dynamics 365",
+    "information disclosure",
+    "security vulnerability"
+  ],
+  "node_id": "b477dc1d-ea31-46c4-ad69-fad89fe7083e",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

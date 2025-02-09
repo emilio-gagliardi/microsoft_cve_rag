@@ -1,0 +1,23 @@
+{
+  "tool_label": "bitlocker_full_bypass_method",
+  "description": "**Tool Overview**:\n\nThis method provides a way to achieve full bypass of BitLocker encryption on Windows systems, which is particularly useful for data recovery and system access in specific scenarios.\n\n**Details**:\n\n1. The method requires a password to log on, which serves as a critical security caveat.\n2. It has been tested by professionals, ensuring reliability within the outlined parameters.\n3. The approach is suitable for systems with BitLocker enabled, needing special attention due to its nature of bypassing security features.\n4. Administrators must carefully evaluate the implications of using such a method, considering the associated risks.\n5. This technique is intended for use by system administrators with a clear understanding of BitLocker functionality and security policies.",
+  "source_id": "a6c05620-2dab-0998-d083-9a1da2b9bffe",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "a6c05620-2dab-0998-d083-9a1da2b9bffe"
+  ],
+  "source_url": "N/A",
+  "tool_url": "N/A",
+  "tags": [
+    "BitLocker",
+    "encryption",
+    "bypass",
+    "LLM Synthesized"
+  ],
+  "node_id": "4c89c157-70f3-4a96-a72c-e4727c0beef9",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

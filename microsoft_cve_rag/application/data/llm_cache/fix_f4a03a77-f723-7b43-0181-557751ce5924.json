@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the SMB elevation of privilege vulnerability identified in CVE-2024-26245:\n\n1. Download and apply the KB-5036925 update from the official Microsoft Update Guide.\n2. Restart your system to ensure that the security changes take effect.\n\n**Details**:\n- This update addresses the important security risk associated with out-of-bounds read vulnerabilities that could allow an attacker to gain elevated privileges.\n- For details specific to manual installation, refer to the Microsoft Update Guide at: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-26245.\n\n**Preconditions**:\n- Ensure the system is running the build numbers specified: 10.0.10240.20596 or compatible.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "f4a03a77-f723-7b43-0181-557751ce5924",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_smb_elevation_privilege_cve202426245",
+  "tags": [
+    "KB5036925",
+    "SMB",
+    "ElevationOfPrivilege",
+    "CVE-2024-26245"
+  ],
+  "node_id": "972dc2d5-530e-455d-9f77-e1405ee8abaf",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "f4a03a77-f723-7b43-0181-557751ce5924"
+  ]
+}

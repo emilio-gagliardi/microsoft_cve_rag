@@ -1,0 +1,21 @@
+{
+  "description": "A heap-based buffer overflow due to improper memory access in the Xbox remote code execution context, allowing unauthenticated attackers to execute arbitrary code through specially crafted network packets sent to adjacent systems.",
+  "cause_label": "xbox_heap_based_buffer_overflow_in_remote_execution",
+  "source_id": "b6428eaf-8702-5fc2-c53a-6ddf1581acb7",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b6428eaf-8702-5fc2-c53a-6ddf1581acb7"
+  ],
+  "tags": [
+    "Xbox",
+    "Remote Code Execution",
+    "Heap Overflow",
+    "CVE-2024-38032"
+  ],
+  "node_id": "7f821cbe-c3b1-4dd1-893b-6809785d0f81",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

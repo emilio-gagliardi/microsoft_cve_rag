@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause related to KB-5036899 involves issues with the CBS (Component-Based Servicing) logs during the installation process. Users have reported that a failure to install certain updates can occur when the DISM (Deployment Imaging Service and Management Tool) command is not utilized effectively. This misstep can lead to changes not being applied correctly and can ultimately cause system instability. Focusing on the CBS logs can help identify the specific reasons for the installation failures, thereby providing insight into required corrective actions. Properly leveraging the DISM command serves as a critical measure to ensure that updates are processed without encountering installation errors.",
+  "source_id": "aa3a90c3-ed9c-e53e-fc5d-c9803a9fe3cc",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "aa3a90c3-ed9c-e53e-fc5d-c9803a9fe3cc"
+  ],
+  "cause_label": "dism_command_inadequacy_causing_update_failures",
+  "tags": [
+    "DISM",
+    "CBS logs",
+    "update installation",
+    "KB-5036899"
+  ],
+  "node_id": "17b84a46-5899-4815-9d4f-e4c3dd9530e7",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

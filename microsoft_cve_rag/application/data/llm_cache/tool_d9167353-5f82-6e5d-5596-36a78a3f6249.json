@@ -1,0 +1,23 @@
+{
+  "tool_label": "veeam_backup_enterprise_manager",
+  "description": "**Tool Overview**:\n\nVeeam Backup Enterprise Manager is a tool designed to manage backups efficiently and securely in enterprise environments. It provides a centralized management interface that allows users to oversee backup jobs, restore points, and ensure data protection across various virtual and physical platforms.\n\n**Details**:\n1. Enables centralized management for backup operations across multiple sites.\n2. Provides reporting and job monitoring to ensure backups are completed successfully.\n3. Includes features for data recovery, allowing users to restore data quickly in the event of a failure.\n4. Regular updates help mitigate newly discovered vulnerabilities and improve performance.\n5. Compliance and security features are built-in to protect sensitive data throughout the backup process.",
+  "source_id": "d9167353-5f82-6e5d-5596-36a78a3f6249",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d9167353-5f82-6e5d-5596-36a78a3f6249"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAGaCHK5rG-EGxNgBFvf8Y4%2Bi4VgzkE%3D-YoBdsqBXFhKdN4_R9w%40mail.gmail.com",
+  "tool_url": "https://www.veeam.com/backup-enterprise-manager-overview.html",
+  "tags": [
+    "backup",
+    "Veeam",
+    "enterprise",
+    "data_protection"
+  ],
+  "node_id": "920c575c-b370-4af9-b7ae-8496cbe9fd57",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

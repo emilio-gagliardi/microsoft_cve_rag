@@ -1,0 +1,19 @@
+{
+  "tool_label": "CheckUpdateStatusUsingUsoclientCommand",
+  "description": "The Usoclient command is used to initiate a scan for Windows updates. By executing 'usoclient startscan' in the command prompt, users can prompt their Windows system to search for available updates, thereby assisting in maintaining up-to-date software environments.",
+  "source_id": "22ba5fbe-09c1-e468-1d0d-b157f192a292",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/BN8PR05MB6242915DDC346E3243E725CDFFDEA%40BN8PR05MB6242.namprd05.prod.outlook.com",
+  "tags": [
+    "update",
+    "windows",
+    "usoclient",
+    "command",
+    "status"
+  ],
+  "node_id": "0c705a0c-fd98-4b74-83c9-fd19892f8fef",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

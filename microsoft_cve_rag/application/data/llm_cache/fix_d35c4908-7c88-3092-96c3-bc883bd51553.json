@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the secure boot security feature bypass vulnerability described in CVE-2024-28923:\n\n1. Download and apply the updates identified in the KB articles below.\n2. Verify your system's build number matches one of the specified build numbers.\n3. Restart your system after installation to ensure the changes take effect.\n\n**Details**:\n- The updates resolve issues related to integer overflow or wraparound vulnerabilities, which could potentially allow unauthorized access to the secure boot feature.\n- Ensure to download the appropriate update packages from the official Microsoft Update Catalog related to your specific build.\n\nKB Articles:\n- KB-5036925\n- KB-5036910\n- KB-5036909\n- KB-5036899\n- KB-5036896\n- KB-5036894\n- KB-5036893\n- KB-5036892\n\n**Preconditions**:\n- Verify your system is running one of the following builds: [10, 0, 19045, 4291], [10, 0, 19044, 4291], [10, 0, 22631, 3447], [10, 0, 22000, 2899], [10, 0, 22621, 3447], [10, 0, 10240, 20596].\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "d35c4908-7c88-3092-96c3-bc883bd51553",
+  "source_type": "MSRCPost",
+  "fix_label": "address_secure_boot_bypass_vulnerability_cve202428923",
+  "tags": [
+    "CVE202428923",
+    "KB5036925",
+    "SecureBoot",
+    "IntegerOverflow"
+  ],
+  "node_id": "9cfe07aa-8518-496e-84ef-798a37c033c9",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "d35c4908-7c88-3092-96c3-bc883bd51553"
+  ]
+}

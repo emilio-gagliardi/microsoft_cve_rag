@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the elevation of privilege vulnerability in Wix Toolset bundles:\n\n1. Upgrade to Wix Toolset version 3.14.1 or 4.0.5.\n2. After upgrading, verify that the application is no longer utilizing insecure directories for dropping and loading binaries.\n\n**Details**:\n- This fix addresses the improper permission assignment for critical resources and secures the handling of the binaries during the installation process. \n- Ensure that all existing applications using Wix are updated accordingly to prevent exploitation.\n\n**Preconditions**:\n- Backup any critical installation files before proceeding with the upgrade.\n",
+  "source_id": "054bceb7-e11e-64d1-4de5-7b90c25f4733",
+  "source_type": "MSRCPost",
+  "fix_label": "upgrade_wix_toolset_to_3_14_1_or_4_0_5",
+  "tags": [
+    "WixToolset",
+    "CVE202429187",
+    "ElevationOfPrivilege",
+    "Update"
+  ],
+  "node_id": "e3e45bfd-43f9-4582-b8ab-6e72806e23cc",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "054bceb7-e11e-64d1-4de5-7b90c25f4733"
+  ],
+  "verification_status": "unverified"
+}

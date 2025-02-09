@@ -1,0 +1,21 @@
+{
+  "symptom_label": "message_queuing_remote_code_execution_attempts",
+  "description": "After installing related security updates for Microsoft Message Queuing (MSMQ) on Windows builds 10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, 10.0.22621.3447, and 10.0.10240.20596, users might experience unexpected application behavior due to remote code execution attempts that target outdated configurations of MSMQ. This can lead to applications behaving erratically, prompting frequent error messages related to message delivery or processing failures. In particular, administrators may observe increased frequency of service failures or crashes within messaging environments. The successful exploitation of this issue may result in unauthorized code execution, which could manifest as inconsistencies in the expected functionality of message-driven applications. Ensure that KB-5036925, KB-5036909, KB-5036899, KB-5036896, KB-5036894, KB-5036893, and KB-5036892 are applied to mitigate these concerns.",
+  "source_id": "673cec44-b6fd-7256-9a64-2acbb5e509d7",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "673cec44-b6fd-7256-9a64-2acbb5e509d7"
+  ],
+  "tags": [
+    "MSMQ",
+    "remote code execution",
+    "Windows",
+    "security patch",
+    "system behavior"
+  ],
+  "node_id": "2ee9cd89-b8db-499b-aa5e-139b0ea2da60",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

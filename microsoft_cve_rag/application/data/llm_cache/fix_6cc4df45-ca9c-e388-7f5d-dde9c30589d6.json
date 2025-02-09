@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo secure LDAP connections for your services (especially firewalls) by enabling TLS, follow these steps:\n\n1. Locate the LDAP configuration section within the service settings where you want to enable TLS.\n2. Enable the checkbox for 'Enable TLS'.\n3. Configure the Active Directory (AD) side accordingly to comply with the TLS requirements. You may need to refer to the relevant AD security and support guidelines for updating your certificate configuration. \n4. Ensure that your AD infrastructure supports LDAP over SSL by validating the certificate settings and bindings.\n\n**Details**:\n- For comprehensive instructions on the required AD configurations and certificate management, it is recommended to consult the following KB Article: [KB-4520412](https://support.microsoft.com/en-us/topic/2020-2023-and-2024-ldap-channel-binding-and-ldap-signing-requirements-for-windows-kb4520412-ef185fb8-00f7-167d-744c-f299a66fc00a). This resource provides further guidance on the necessary security upgrades for LDAP.\n- Backup any configuration settings before applying changes to avoid service interruptions.  (LLM Synthesized)",
+  "source_id": "6cc4df45-ca9c-e388-7f5d-dde9c30589d6",
+  "source_type": "PatchManagementPost",
+  "fix_label": "secure_ldap_connections_enable_tls_kb4520412",
+  "tags": [
+    "KB4520412",
+    "LDAP",
+    "TLS",
+    "ActiveDirectory"
+  ],
+  "node_id": "8738bdd5-2637-4a2d-a6c1-9326d13d09f0",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "6cc4df45-ca9c-e388-7f5d-dde9c30589d6"
+  ]
+}

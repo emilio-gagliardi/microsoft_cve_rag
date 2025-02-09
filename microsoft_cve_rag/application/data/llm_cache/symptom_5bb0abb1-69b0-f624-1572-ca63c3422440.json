@@ -1,0 +1,17 @@
+{
+  "symptom_label": "SystemPrivilegesElevatedPostPatchInstallation",
+  "description": "After applying the updates associated with KB5034134, KB5034123, KB5034122, and KB5034121, users on Windows 10 and Windows 11 systems may observe unexpected behavior where certain user permissions are inadvertently elevated. This can result in unauthorized access to sensitive resources, as users find themselves able to perform actions that were previously restricted. The impacted builds include Windows 10 19044.3930, 19045.3930, and various versions of Windows 11 such as 22000.2713 and 22631.3007. This elevation of privileges can lead to issues such as unintentional alteration or exposure of critical files, impacting the integrity and confidentiality of user data. System administrators will need to manage access controls carefully as these changes could affect compliance with organizational policies.",
+  "source_id": "5bb0abb1-69b0-f624-1572-ca63c3422440",
+  "source_type": "MSRCPost",
+  "tags": [
+    "elevation of privilege",
+    "Windows update",
+    "user access",
+    "system management"
+  ],
+  "node_id": "66c288a8-6abd-41c1-9905-044a9213a585",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

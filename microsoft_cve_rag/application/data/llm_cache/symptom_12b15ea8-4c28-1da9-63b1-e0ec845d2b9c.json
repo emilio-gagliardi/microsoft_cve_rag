@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_11_requires_vtpm_and_secure_boot",
+  "description": "The upgrade to Windows 11 necessitates that the virtual machine (VM) is configured with Virtual Trusted Platform Module (vTPM) and UEFI Secure Boot settings. If a VMware VM does not have these settings enabled, users may experience issues during the upgrade, resulting in a failure to meet system requirements for Windows 11. This can also affect the performance and features that depend on these security enhancements, such as virtualization-based security (VBS). The post emphasizes confirming that TPM 2.0 is physically enabled and instructs the use of mbr2gpt for legacy boot conversions. Proper configurations are essential for ensuring a smooth transition from Windows 10 to Windows 11 in virtualized environments.",
+  "source_id": "12b15ea8-4c28-1da9-63b1-e0ec845d2b9c",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "12b15ea8-4c28-1da9-63b1-e0ec845d2b9c"
+  ],
+  "tags": [
+    "Windows 11",
+    "vTPM",
+    "Secure Boot",
+    "VMware"
+  ],
+  "node_id": "e24678dc-d5c4-4979-a080-1df2bbb7407b",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

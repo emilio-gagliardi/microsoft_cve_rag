@@ -1,0 +1,24 @@
+{
+  "tool_label": "visual_studio_2022_release_notes",
+  "description": "**Tool Overview**:\n\nThe Visual Studio 2022 release notes provide detailed information about the features, improvements, and bug fixes in various release versions, including version 17.10.3.\n\n**Details**:\nThis tool serves as a comprehensive guide for users to understand what changes have been made in each version of Visual Studio 2022. It includes lists of new features, enhancements to existing functionalities, and fixes for previously known issues. By accessing the release notes, developers can get insights into the latest development environment features and how these changes can impact their workflows. The information is hosted on the Microsoft Learn platform, ensuring it is kept up to date with the latest releases.",
+  "source_id": "499ca442-ef73-89b1-2264-5e6bebb9a354",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "499ca442-ef73-89b1-2264-5e6bebb9a354"
+  ],
+  "source_url": "https://learn.microsoft.com/en-us/visualstudio/releases/2022/release-notes#17.10.3",
+  "tool_url": "https://learn.microsoft.com/en-us/visualstudio/releases/2022/release-notes#17.10.3",
+  "tags": [
+    "Visual Studio",
+    "release notes",
+    "documentation",
+    "development",
+    "updates"
+  ],
+  "node_id": "3a4e12ae-9ffd-42ba-80d5-d5f59446fc43",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

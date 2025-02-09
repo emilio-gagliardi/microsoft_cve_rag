@@ -1,0 +1,21 @@
+{
+  "description": "An out-of-bounds read vulnerability in the WebTransport feature of Chromium prior to version 127.0.6533.88, allowing memory access via a crafted HTML page, affecting Microsoft Edge (Chromium-based) due to its dependence on Chromium's open source components.",
+  "cause_label": "chromium_out_of_bounds_read_in_webtransport",
+  "source_id": "94967bbd-d0b7-61b0-c452-1763e413cc07",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "94967bbd-d0b7-61b0-c452-1763e413cc07"
+  ],
+  "tags": [
+    "WebTransport",
+    "Chromium",
+    "Out-of-bounds Read",
+    "Microsoft Edge"
+  ],
+  "node_id": "f569bb45-bca6-4ea9-b8fc-1492b402ee9d",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo manage Windows 11 updates in remote sites effectively, follow these steps:\n\n1. Create a new Active Directory Organizational Unit (OU) for Windows 11 in each remote site.\n2. Move all Windows 11 machines into their respective OUs.\n3. Set up a new WSUS Group Policy Object (GPO) that designates the WSUS computer group for Windows 11.\n4. Approve only the Windows 11 WSUS updates for this new group.\n\n**Details**:\nThis approach provides structured management of Windows 11 updates by ensuring that only designated machines receive relevant updates. While it may require significant initial setup and ongoing management, this method aligns with best practices for handling system updates in a diverse network environment.",
+  "source_id": "6f5584e3-92f2-647f-20bf-2d8ee12b5faf",
+  "source_type": "PatchManagementPost",
+  "fix_label": "manage_windows_11_updates_via_ad_ou_and_wsus_gpo",
+  "tags": [
+    "Windows11",
+    "WSUS",
+    "ActiveDirectory",
+    "PatchManagement"
+  ],
+  "node_id": "060a5b65-c5b1-436c-bd8c-61cf3cb48696",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "6f5584e3-92f2-647f-20bf-2d8ee12b5faf"
+  ],
+  "verification_status": "unverified"
+}

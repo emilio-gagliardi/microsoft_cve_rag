@@ -1,0 +1,22 @@
+{
+  "description": "The Microsoft Edge (Chromium-based) spoofing vulnerability arises from user interface misrepresentation of critical information, allowing attackers to craft URLs that lead users to click malicious links. This exploitation relies on the network-bound component and specifically targets visual elements within the UI, which can be modified to display misleading information without altering the data integrity in a significant manner.",
+  "cause_label": "edge_chromium_ui_misrepresentation_vulnerability",
+  "source_id": "96655248-8bd4-c8eb-7eba-d40d1e85e974",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "96655248-8bd4-c8eb-7eba-d40d1e85e974"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "spoofing",
+    "CVE-2024-38093",
+    "KBA-126.0.2592.68"
+  ],
+  "node_id": "807b952b-7ec0-4084-ad8d-73709bdad1fa",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

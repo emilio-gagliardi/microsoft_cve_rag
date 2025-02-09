@@ -1,0 +1,22 @@
+{
+  "description": "Insufficient policy enforcement in data transfer allows remote data leakage via crafted HTML in Chromium prior to version 128.0.6613.84.",
+  "cause_label": "chromium_insufficient_policy_enforcement_data_transfer",
+  "source_id": "7e635a62-301d-6041-5e26-c673b519364e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7e635a62-301d-6041-5e26-c673b519364e"
+  ],
+  "tags": [
+    "Chromium",
+    "Data Transfer",
+    "Policy Enforcement",
+    "Remote Access",
+    "HTML"
+  ],
+  "node_id": "8da896ab-0f8f-494e-9394-04c4dcbb0b10",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

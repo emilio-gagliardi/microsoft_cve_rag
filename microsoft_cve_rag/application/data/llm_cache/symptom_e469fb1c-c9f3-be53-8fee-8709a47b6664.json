@@ -1,0 +1,22 @@
+{
+  "symptom_label": "chrome_heaps_corruption_causes_unexpected_crashes",
+  "description": "Users experiencing issues with Google Chrome versions prior to 126.0.6478.114 may notice unexpected crashes while browsing. This behavior is the result of a use-after-free vulnerability that can lead to heap corruption. As users interact with crafted HTML pages, the crashes become observable, disrupting the browsing experience. Those using affected build numbers, such as 126.0.2592.68, should be aware of these crashes which negatively impact productivity and system reliability. For more information and updates, users are encouraged to check the Microsoft Knowledge Base Article KB-126.0.2592.68.",
+  "source_id": "e469fb1c-c9f3-be53-8fee-8709a47b6664",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e469fb1c-c9f3-be53-8fee-8709a47b6664"
+  ],
+  "tags": [
+    "Google Chrome",
+    "heap corruption",
+    "use after free",
+    "system crashes",
+    "browser issues"
+  ],
+  "node_id": "86a1d989-7e3e-4d1b-ac14-ac5b78856515",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

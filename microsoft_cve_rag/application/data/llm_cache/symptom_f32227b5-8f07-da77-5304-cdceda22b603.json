@@ -1,0 +1,21 @@
+{
+  "symptom_label": "remote_desktop_client_experiences_code_execution_risk",
+  "description": "Following the installation of KB-5044285, KB-5044284, KB-5044280, and KB-5044273, end users may observe heightened risk while using the Remote Desktop Client on various Windows 10 and Windows 11 builds. Users connecting to remote servers could experience unexpected system behavior or erratic responsiveness, particularly when interacting with applications hosted on vulnerable machines. This scenario arises due to the underlying remote code execution vulnerability (CVE-2024-43599) that stems from a use-after-free condition in the remote desktop client. Users should be particularly cautious as the functionality of the Remote Desktop Client becomes critical for their operations, and any abnormal connectivity or unauthorized access poses significant risks. These issues could manifest through unauthorized access or unexpected application crashes, impacting user productivity and confidence in remote connectivity.",
+  "source_id": "f32227b5-8f07-da77-5304-cdceda22b603",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f32227b5-8f07-da77-5304-cdceda22b603"
+  ],
+  "tags": [
+    "Remote Desktop",
+    "Windows Security",
+    "User Impact",
+    "Code Execution"
+  ],
+  "node_id": "a192cc6a-f7c8-4724-a099-14bbbf89dfcd",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

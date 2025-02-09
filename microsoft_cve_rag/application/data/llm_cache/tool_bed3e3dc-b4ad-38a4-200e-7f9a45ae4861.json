@@ -1,0 +1,23 @@
+{
+  "tool_label": "ms_store_app_download_link_generator",
+  "description": "**Tool Overview**:\n\nThis tool allows users to download Microsoft Store applications directly by using their MS link. By pasting the MS Store link into a designated search area, the tool retrieves various versions and formats of the specified application, alongside any necessary prerequisites for installation.\n\n**Details**:\n1. To use this tool, simply copy the Microsoft Store link for the application you wish to download.\n2. Paste the link into the tool\u2019s search bar, which will initiate a search for the application.\n3. The tool returns multiple versions of the app with appropriate architecture suggestions.\n4. It also enables you to download prerequisite components required for the app to function correctly.\n5. Proper usage ensures you obtain compatible applications, such as the correct architecture for .NET native runtime and other related libraries.\n\nThis approach is beneficial for managing Microsoft Store apps without needing direct store access, making updates and installations efficient for system administrators.\n",
+  "source_id": "bed3e3dc-b4ad-38a4-200e-7f9a45ae4861",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "bed3e3dc-b4ad-38a4-200e-7f9a45ae4861"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/653f59d99c434e8089459779ba935124%40centralbank.ie",
+  "tool_url": "",
+  "tags": [
+    "Microsoft Store",
+    "app downloader",
+    "application management",
+    "LLM Synthesized"
+  ],
+  "node_id": "5ef5486d-6bf0-43e8-8d9f-959a231474a8",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

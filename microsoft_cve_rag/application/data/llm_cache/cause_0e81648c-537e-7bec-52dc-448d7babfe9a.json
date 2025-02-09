@@ -1,0 +1,16 @@
+{
+  "description": "Existing .RCT files from virtual machine backups can prevent the virtual machines from starting. When these files are present, the virtual machines may encounter conflicts during the boot process, leading to failures in initialization. It is essential to manage these files properly, either by deleting or renaming them, to resolve the startup issues. This situation is particularly significant in high availability environments where seamless operations are critical. As a recommended practice, administrators should routinely verify and clean up these backup artifacts to ensure optimal virtual machine performance.",
+  "source_id": "0e81648c-537e-7bec-52dc-448d7babfe9a",
+  "source_type": "PatchManagementPost",
+  "cause_label": "ExistingRCTFilesPreventVirtualMachineStartup",
+  "tags": [
+    "virtual machine",
+    "RCT files",
+    "backup management"
+  ],
+  "node_id": "17c39535-ed48-49d6-8f55-1257da5e5276",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

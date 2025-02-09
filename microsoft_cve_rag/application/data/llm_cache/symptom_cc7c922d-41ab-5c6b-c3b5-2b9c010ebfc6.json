@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_failure_to_protect_content_security",
+  "description": "Users of Microsoft Edge (Chromium-based) versions prior to 122.0.2365.52 may experience issues related to content security policy enforcement when browsing. Specifically, these users could observe an inability to adequately protect against certain remote attacks, which could result in potential security risks during web interactions. With the recent update to build 122.0.2365.52, which addresses CVE-2024-1672, those utilizing older versions may have noted a lack of appropriate protection mechanisms, leading to possible data exposure. After updating to the fixed version, users will find that their browser operates securely, aligning with the latest security standards outlined in KB-122.0.2365.52, thereby mitigating earlier risks that were experienced. Ensuring that all users are on this latest build is crucial for maintaining a secure browsing environment.",
+  "source_id": "cc7c922d-41ab-5c6b-c3b5-2b9c010ebfc6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "cc7c922d-41ab-5c6b-c3b5-2b9c010ebfc6"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "CVE-2024-1672",
+    "Security Update",
+    "Browser Security"
+  ],
+  "node_id": "fff85809-b55b-4046-869c-a9321ae9a8e6",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

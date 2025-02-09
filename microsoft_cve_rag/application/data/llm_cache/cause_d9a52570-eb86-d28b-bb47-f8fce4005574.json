@@ -1,0 +1,20 @@
+{
+  "description": "The cause of the issues during the domain join operation stems from restrictive policies preventing the computer account's joining process. When a privilege action is initiated by a local account, policies that may restrict the creation of computer objects can halt the operation, creating complications in the join status. If the policy set allows this operation but the account is restricted in AD, the join will fail to complete successfully. This situation implies misconfigurations in Active Directory settings concerning domain join permissions and account setups, leading to operational stall regardless of user account validation. It's essential to ensure that domain policies adequately allow the creation and management of computer objects for seamless domain joining, as highlighted in the domain join operation details provided above.",
+  "source_id": "d9a52570-eb86-d28b-bb47-f8fce4005574",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d9a52570-eb86-d28b-bb47-f8fce4005574"
+  ],
+  "cause_label": "restrictive_policy_prevents_domain_join_operation",
+  "tags": [
+    "domain join",
+    "Active Directory",
+    "computer account",
+    "policy configuration"
+  ],
+  "node_id": "3a854617-8a06-4b4c-b812-2f81191a3aee",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

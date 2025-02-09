@@ -1,0 +1,18 @@
+{
+  "description": "The cause of CVE-2022-35737 arises from an array-bounds overflow condition within the SQLite library. This flaw manifests when the system attempts to access an element beyond the allocated size of an array, leading to potential memory corruption. Located within the SQLite implementation in several Windows operating systems, the overflow can be exploited under specific circumstances, enabling remote code execution. Impacted Windows versions include 10 (building 19044 and 19045) and Windows Server 2022, among others. The corresponding Microsoft knowledge base article, KB-5034122, provides further insights into the necessary updates and mitigations for this vulnerability.",
+  "cause_label": "ArrayBoundsOverflowInSQLiteLibrary",
+  "source_id": "4104d98b-9ec9-b6c1-4183-bcb117e972bf",
+  "source_type": "MSRCPost",
+  "tags": [
+    "SQLite",
+    "RemoteCodeExecution",
+    "WindowsUpdates",
+    "ArrayOverflow",
+    "MemoryCorruption"
+  ],
+  "node_id": "cae78d3b-c7ac-4513-8f0a-a0b3ac6a9573",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

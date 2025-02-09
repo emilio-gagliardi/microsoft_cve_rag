@@ -1,0 +1,23 @@
+{
+  "tool_label": "safelinks_protection_outlook",
+  "description": "**Tool Overview**:\n\nThe Safelinks protection tool is a web-based resource provided by Microsoft to enhance email security. It actively checks URLs within received emails to ensure they do not lead to phishing sites or other malicious content. This tool works seamlessly with Outlook and other Microsoft email services to provide an extra layer of security for users when clicking on links.\n\n**Functionality**:\n1. Scans and rewrites URLs in emails to ensure safety.\n2. Provides real-time assessments of linked content.\n3. Protects users from common email threats.\n\nBy integrating Safelinks, organizations can maintain higher security standards and reduce the risk of successful phishing attempts or accidental exposure to harmful websites.\n\n**Usage**:\nTo utilize Safelinks protection effectively, ensure your organization's email settings are configured to enable it. Users should be trained to recognize the visual indicators provided by Safelinks when links are scanned.\n",
+  "source_id": "afccab06-3d3c-9a56-f39e-1ccbd755ceb9",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "afccab06-3d3c-9a56-f39e-1ccbd755ceb9"
+  ],
+  "source_url": "https://blogs.windows.com/windowsexperience/2024/09/27/update-on-recall-security-and-privacy-architecture/",
+  "tool_url": "https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/safe-links?view=o365-worldwide",
+  "tags": [
+    "email",
+    "security",
+    "phishing",
+    "Safelinks"
+  ],
+  "node_id": "b2d1ba83-b553-4418-987a-0295eff05a9e",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

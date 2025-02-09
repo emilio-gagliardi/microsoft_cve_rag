@@ -1,0 +1,20 @@
+{
+  "symptom_label": "driver_issue_causes_win_10_11_instability",
+  "description": "System administrators may encounter instability in Windows 10 and 11 environments when using drivers not sourced directly from the respective OEM support sites. Specifically, Dell users should ensure they utilize the latest version available on the Dell support site using the machine service tag to avoid potential system issues. Although reinstalling the latest driver may temporarily resolve the problem, it is crucial to verify the driver version to ensure compatibility and stability. This symptom can impact system performance and user productivity as unresolved driver issues may lead to crashes or degraded functionality. Always cross-reference the proper driver version with OEM listings to maintain system integrity.",
+  "source_id": "6a22a2ed-5496-4d93-4e2a-f8ef3047cabc",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "6a22a2ed-5496-4d93-4e2a-f8ef3047cabc"
+  ],
+  "tags": [
+    "driver_installation",
+    "windows_10",
+    "windows_11",
+    "Dell_support"
+  ],
+  "node_id": "188e4b50-6b56-4830-a63f-9b39182e0cab",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

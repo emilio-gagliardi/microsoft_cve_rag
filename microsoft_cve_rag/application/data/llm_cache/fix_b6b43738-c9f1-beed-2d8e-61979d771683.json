@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Kerberos elevation of privilege vulnerability (CVE-2024-29995):\n\n1. Ensure your Windows 10 system is up to date.\n2. Download and apply the KB5041580 update from the official Microsoft Update Catalog.\n3. Restart your system to complete the installation process.\n\n**Details**:\n- The KB5041580 update resolves issues related to observable timing discrepancies in the Kerberos authentication system, which are crucial for preventing elevation of privilege exploits.\n- For manual installation, you can download the update package from: https://catalog.update.microsoft.com/Search.aspx?q=KB5041580.\n- For more information about this vulnerability, refer to the Microsoft Security Response Center.\n\n**Preconditions**:\n- Ensure that your system is running one of the affected Windows 10 versions.\n- It is recommended to backup critical data before proceeding with the update installation.",
+  "source_id": "b6b43738-c9f1-beed-2d8e-61979d771683",
+  "source_type": "MSRCPost",
+  "fix_label": "address_windows_kerberos_elevation_privilege_cve202429995",
+  "tags": [
+    "KB5041580",
+    "Windows10",
+    "Kerberos",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "55e1e1d4-575e-430f-83fe-36da94c7defa",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b6b43738-c9f1-beed-2d8e-61979d771683"
+  ],
+  "verification_status": "unverified"
+}

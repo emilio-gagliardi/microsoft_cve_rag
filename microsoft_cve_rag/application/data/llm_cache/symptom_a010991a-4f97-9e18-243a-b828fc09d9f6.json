@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_defender_credential_guard_elevation_issue",
+  "description": "After applying the updates referenced in KB-5036894, KB-5036893, and KB-5036892, users may experience unexpected behavior in Windows Defender Credential Guard. Specifically, there could be a failure in properly elevating privileges, which affects the security posture of Windows environments. This issue is observed across multiple builds, including 10.0.19045.4291 and others listed in the update guide. Users might find that certain administrative tasks require repeated attempts, leading to frustration and productivity loss. Since Credential Guard is crucial for security, any interference with its operation can be alarming and may necessitate immediate attention from administrators to mitigate potential risks.",
+  "source_id": "a010991a-4f97-9e18-243a-b828fc09d9f6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a010991a-4f97-9e18-243a-b828fc09d9f6"
+  ],
+  "tags": [
+    "Windows",
+    "Credential Guard",
+    "elevation of privilege",
+    "update issues"
+  ],
+  "node_id": "c661cb7c-4d0f-4e70-a77f-ed2181562fb8",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

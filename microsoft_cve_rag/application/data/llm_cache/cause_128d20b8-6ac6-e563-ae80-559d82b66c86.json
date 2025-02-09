@@ -1,0 +1,22 @@
+{
+  "description": "Improper validation of the quantity in input handling allows local attackers to modify the boot manager in Lenovo preloaded Windows systems, leading to privilege escalation.",
+  "cause_label": "improper_validation_of_input_quantity_in_bootloader",
+  "source_id": "128d20b8-6ac6-e563-ae80-559d82b66c86",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "128d20b8-6ac6-e563-ae80-559d82b66c86"
+  ],
+  "tags": [
+    "CVE",
+    "MSRC",
+    "Windows",
+    "Lenovo",
+    "Privilege Escalation",
+    "Bootloader"
+  ],
+  "node_id": "0f3b333a-3cad-461c-ac93-88514752f721",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the secure boot security feature bypass vulnerability (CVE-2024-29062), the following updates should be applied:\n\n1. Download and install the latest updates from the Microsoft update catalog, specifically the KB articles:\n   - KB-5036925\n   - KB-5036910\n   - KB-5036909\n   - KB-5036899\n   - KB-5036896\n   - KB-5036894\n   - KB-5036893\n   - KB-5036892\n\n2. Ensure your system matches one of the following build numbers before applying updates:\n   - 10.0.19045.4291\n   - 10.0.19044.4291\n   - 10.0.22631.3447\n   - 10.0.22000.2899\n   - 10.0.22621.3447\n   - 10.0.10240.20596\n\n**Details**:\n- These updates address a Time-of-check Time-of-use (TOCTOU) race condition which may allow for bypassing secure boot.\n- For manual installation, ensure you follow company protocols to validate the updates.\n\n**Preconditions**:\n- Ensure the system is on a supported build version before proceeding with the installation.\n- Backup critical system settings and data prior to applying updates.\n",
+  "source_id": "a0c587b0-d967-cda4-60cd-179c33b9c5f5",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_for_secure_boot_bypass_cve20242962",
+  "tags": [
+    "KB5036925",
+    "CVE20242962",
+    "SecureBoot",
+    "TOCTOURaceCondition"
+  ],
+  "node_id": "927e3a71-4eac-4985-a00c-047d90a73cb4",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "a0c587b0-d967-cda4-60cd-179c33b9c5f5"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "tool_label": "microsoft_edge_chromium_update",
+  "description": "**Tool Overview**:\n\nThis tool refers to the latest update for Microsoft Edge (Chromium-based), which addresses security vulnerabilities, specifically CVE-2024-5494. **Details**:\n\nThe update resolves a use-after-free vulnerability within the Chromium open source software, which is integral to the functioning of Microsoft Edge. Users are encouraged to ensure they are running the most current version of Microsoft Edge to protect against potential attacks that could exploit this vulnerability. Administrators can check for updates either through the browser\u2019s settings or by using enterprise management tools to deploy the latest version across organizational devices. Keeping the browser updated not only addresses known vulnerabilities but also enhances overall security posture and performance.\n\n**Usage**:\n1. Navigate to Microsoft Edge settings.\n2. Click on 'About Microsoft Edge' to automatically check for updates.\n3. Follow the prompts to install any available updates.",
+  "source_id": "a0a566fc-4116-2cac-41a4-bbeadc175fbc",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a0a566fc-4116-2cac-41a4-bbeadc175fbc"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-5494",
+  "tool_url": "",
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "update",
+    "security"
+  ],
+  "node_id": "5ce94c46-2a00-4e7b-8c97-62ed18d780b8",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

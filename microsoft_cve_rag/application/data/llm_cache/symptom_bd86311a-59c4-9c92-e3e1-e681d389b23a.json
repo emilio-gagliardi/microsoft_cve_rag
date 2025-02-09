@@ -1,0 +1,20 @@
+{
+  "symptom_label": "ad_sync_version_mismatch_causes_confusion",
+  "description": "The system is experiencing a version mismatch with the AD Sync server, where an unexpected upgrade to version 2.3.6.0 has occurred, instead of the planned upgrade to version 2.3.2.0. This discrepancy has resulted in confusion, as version 2.3.6.0 is not documented on the version history page, leading to uncertainty about its stability and functionality. The server was originally running on version 2.2.1.0 and is now believed to have updated itself automatically, a feature that was set up, raising questions about the update process and its implications. The affected product is the Azure AD Sync (ADSync) server, and the user is seeking clarification regarding the legitimacy and purpose of this undocumented version. This situation could lead to potential compatibility issues with existing systems that rely on the expected version.",
+  "source_id": "bd86311a-59c4-9c92-e3e1-e681d389b23a",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "bd86311a-59c4-9c92-e3e1-e681d389b23a"
+  ],
+  "tags": [
+    "ad_sync",
+    "version_mismatch",
+    "automatic_update",
+    "upgrade_confusion"
+  ],
+  "node_id": "5ecd518a-d1a3-4264-970e-7df43b485d5d",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

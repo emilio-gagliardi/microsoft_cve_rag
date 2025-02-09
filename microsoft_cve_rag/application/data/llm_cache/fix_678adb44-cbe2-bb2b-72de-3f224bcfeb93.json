@@ -1,0 +1,16 @@
+{
+  "description": "To address the issue described in CVE-2023-44487, it is imperative to install the relevant security updates as soon as possible. The recommended updates are KB5031358 for Windows 11 Version 21H2 (10.0.22000.2538), KB5031356 for Windows 10 Version 22H2 (10.0.19045.3570), and KB5031354 for Windows 11 Version 22H2 (10.0.22621.2428). These updates can be found at the following links: [KB5031358](https://catalog.update.microsoft.com/Search.aspx?q=KB5031358), [KB5031356](https://catalog.update.microsoft.com/Search.aspx?q=KB5031356), [KB5031354](https://catalog.update.microsoft.com/Search.aspx?q=KB5031354). Additionally, disabling the HTTP/2 protocol on affected web servers can be performed by editing the registry: set the DWORD values 'enablehttp2tls' and 'enablehttp2cleartext' to 0. Always restart the computer after making these changes to ensure they take effect.",
+  "source_id": "678adb44-cbe2-bb2b-72de-3f224bcfeb93",
+  "source_type": "MSRCPost",
+  "fix_label": "InstallSecurityUpdatesToMitigateAttackSurface",
+  "tags": [
+    "update",
+    "windows",
+    "http2"
+  ],
+  "node_id": "d70cb2bb-35b1-490d-9156-610d15423c8d",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

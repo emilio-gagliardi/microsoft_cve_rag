@@ -1,0 +1,16 @@
+{
+  "description": "The root cause of CVE-2023-24023 is a flaw within the Bluetooth stack in Windows operating systems, which enables spoofing attacks. This issue arises from improper validation during Bluetooth communication, potentially allowing an attacker to impersonate a legitimate Bluetooth device. The affected products include various builds of Windows 10 and Windows 11, specifically builds: 10.0.19041.3693, 10.0.19045.3693, 10.0.22621.2715, 10.0.22000.2600, 10.0.17763.5122, and 10.0.20348.2113. The updates addressing this vulnerability are documented under KB-5032189, KB-5032190, and KB-5032192. This vulnerability is particularly important given its potential impact on user security due to the widespread use of Bluetooth devices for connectivity.",
+  "cause_label": "BluetoothStackFlawEnablesSpoofingAttacks",
+  "source_id": "957de05f-19ea-e33d-eb80-f10ca14dc907",
+  "source_type": "MSRCPost",
+  "tags": [
+    "bluetooth",
+    "spoofing",
+    "CVE-2023-24023"
+  ],
+  "node_id": "6509ef6e-0451-4398-8bd2-313ccd261ce7",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

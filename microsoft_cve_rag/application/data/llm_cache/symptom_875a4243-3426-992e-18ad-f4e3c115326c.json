@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_11_build_122_0_2365_63_not_available",
+  "description": "Windows 11 build 122.0.2365.63 is not being offered to users, leading to potential concerns regarding the availability of critical updates for Microsoft Edge. Users observing that build 122.0.2365.59 reports 'Microsoft Edge is up to date' may find that the latest features or security enhancements of version 122.0.2365.63 are absent. This issue might suggest that the newer build has been pulled from Microsoft's servers for unknown reasons, preventing administrators from deploying the expected version. The discrepancy between available builds can lead to confusion among end users and administrators regarding the current state of their software. Both identified builds correspond to known KB articles KB-122.0.2365.63 and KB-122.0.2365.59 which should be referenced for further insight into the situation.",
+  "source_id": "875a4243-3426-992e-18ad-f4e3c115326c",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "875a4243-3426-992e-18ad-f4e3c115326c"
+  ],
+  "tags": [
+    "Windows 11",
+    "Microsoft Edge",
+    "build discrepancy",
+    "patch availability"
+  ],
+  "node_id": "e68f31e4-c4e9-440d-a05c-69938719262c",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

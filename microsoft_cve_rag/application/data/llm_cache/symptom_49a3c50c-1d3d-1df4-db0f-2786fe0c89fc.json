@@ -1,0 +1,21 @@
+{
+  "symptom_label": "missing_reg_key_on_windows_11_systems",
+  "description": "There is an observed issue where the expected registry key is not present on many Windows 11 machines. This key appears to be available consistently on Windows 10 and Server 2022 systems, indicating a potential inconsistency or oversight in the Windows 11 implementation. The missing key might impact the functionality associated with the Windows Recovery Environment as referenced in KB5046398. This can lead to difficulties in recovery options for users or administrators trying to resolve issues related to system recovery on Windows 11. The implications of the disparity between these operating systems could lead to confusion or outages if not addressed systematically.",
+  "source_id": "49a3c50c-1d3d-1df4-db0f-2786fe0c89fc",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "49a3c50c-1d3d-1df4-db0f-2786fe0c89fc"
+  ],
+  "tags": [
+    "windows_11",
+    "registry_issue",
+    "windows_10",
+    "server_2022"
+  ],
+  "node_id": "d6a36713-c888-476d-a131-b0aa105f4199",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "description": "**Fix Overview**:\n\nTo enhance the user experience on Windows 10, particularly for users in the European Economic Area (EEA), significant updates are being introduced concerning the Copilot application.\n\n1. The Copilot app will now be pinned to the taskbar, simulating the functionality of a standard desktop application.\n2. Users will benefit from typical app features such as resizing, moving, and snapping windows, which is intended to improve workflow and accessibility.\n\n**Details**:\n- This change is specifically targeted at new Windows 10 PCs and Copilot-enabled systems shipping to the EEA.\n- Existing Windows 10 PCs may not receive this change simultaneously, as availability will be rolled out gradually.\n- Keep in mind that not all users will have immediate access due to this staggered rollout method. (LLM Synthesized)",
+  "source_id": "31d81309-7c18-c791-6928-75784311a6d0",
+  "source_type": "PatchManagementPost",
+  "fix_label": "enhance_copilot_experience_windows10_eea",
+  "tags": [
+    "Windows10",
+    "Copilot",
+    "EEA",
+    "UserExperience",
+    "LLM Synthesized"
+  ],
+  "node_id": "c4332754-2ac9-4cad-a90e-5028821444ad",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "31d81309-7c18-c791-6928-75784311a6d0"
+  ],
+  "verification_status": "unverified"
+}

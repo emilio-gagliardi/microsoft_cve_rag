@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**: \n\nTo address the Use After Free vulnerability in the media router associated with CVE-2024-8637, it is crucial to keep Microsoft Edge (Chromium-based) updated. \n\n1. Check the current version of your Microsoft Edge browser by clicking on the three dots (...) in the upper-right corner.  \n2. Navigate to 'Help and feedback' and select 'About Microsoft Edge.'  \n3. Ensure your version is updated to at least 128.0.2739.79, which mitigates this vulnerability. If your version is lower, download the latest version from the official Microsoft Edge site.  \n\n**Details**:  \n- Updating ensures that your browser contains all the necessary security patches.  \n- The version that addresses this issue specifically is 128.0.2739.79, released on September 12, 2024.  \n- Ensure to maintain regular updates for your browser to protect against potential exploits.  \n\n**Preconditions**:  \n- You must be using Microsoft Edge (Chromium-based).  \n- Backup important data and settings prior to updating.",
+  "source_id": "39c54966-8408-008c-2aa5-db01f9a8d4f9",
+  "source_type": "MSRCPost",
+  "fix_label": "update_edge_to_version_128_0_2739_79_for_cve_2024_8637",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20248637",
+    "Chromium",
+    "LLM Synthesized"
+  ],
+  "node_id": "c3d9ed75-c6f4-4a9d-9975-5ab5db5cd98b",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "39c54966-8408-008c-2aa5-db01f9a8d4f9"
+  ],
+  "verification_status": "unverified"
+}

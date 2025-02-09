@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the use after free vulnerability in Microsoft Edge (Chromium-based) caused by CVE-2024-11112:\n\n1. Update your Microsoft Edge browser to version 131.0.2903.48 or later by accessing the official Microsoft Edge release page.\n2. Confirm that your installation is updated by checking the version in Edge. Navigate to the three dots (...) at the top right corner, select 'Help and feedback', then 'About Microsoft Edge'.\n\n**Details**:\n- This update resolves the use after free vulnerability in the Media component of Chromium, thereby preventing potential heap corruption caused by crafted HTML pages.\n- Ensure you are running on a compatible system that supports the latest version. Basic connectivity to the internet is required to download updates.\n- Microsoft Edge versions prior to 131.0.6778.69 are impacted by this vulnerability and must be updated to maintain security. \n",
+  "source_id": "f15faf16-365a-f72f-6a34-5ae30ce408c1",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_131_0_2903_48",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE202411112",
+    "Chromium",
+    "HeapCorruption"
+  ],
+  "node_id": "92a1b55e-c824-4139-b361-eed7f6a1c705",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "f15faf16-365a-f72f-6a34-5ae30ce408c1"
+  ],
+  "verification_status": "unverified"
+}

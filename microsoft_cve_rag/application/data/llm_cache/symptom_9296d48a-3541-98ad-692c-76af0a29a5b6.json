@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_installs_malicious_applications",
+  "description": "Users may experience unintended actions in Microsoft Edge, as an inappropriate implementation during web application installs could allow an attacker to persuade users into installing a malicious application. This leads to user interface spoofing via crafted HTML pages, wherein users cannot differentiate between genuine and spoofed interfaces. Such behavior can severely undermine user trust in the browser and can result in potential data breaches due to inadvertently granting permissions to malicious applications. This symptom is notable in builds prior to version 128.0.6613.84 and is specifically relevant to environments running Microsoft Edge based on Chromium, impacted by the CVE-2024-8033 reported through KB-128.0.2739.42.",
+  "source_id": "9296d48a-3541-98ad-692c-76af0a29a5b6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "9296d48a-3541-98ad-692c-76af0a29a5b6"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "CVE-2024-8033",
+    "user interface",
+    "malicious application",
+    "browser vulnerability"
+  ],
+  "node_id": "509b6f3e-3b0b-41dd-901e-cd430106acf3",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

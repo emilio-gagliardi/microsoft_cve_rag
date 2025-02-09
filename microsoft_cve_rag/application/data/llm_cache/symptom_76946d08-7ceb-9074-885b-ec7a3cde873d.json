@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_installation_fails_due_to_missing_tpm",
+  "description": "The installation of Windows fails when the device does not have a Trusted Platform Module (TPM) present. During the operating system setup, the absence of a TPM is checked, and if it is not available, the installation cannot proceed, leading to the need for a complete reset of the machine. In such instances, system administrators may need to decommission the current machine and procure a new one equipped with TPM. This situation can cause delays in deployment timelines and can affect user access to necessary applications and services if not managed promptly. The reliance on TPM is essential for features like BitLocker and secure boot processes in Windows environments.",
+  "source_id": "76946d08-7ceb-9074-885b-ec7a3cde873d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "76946d08-7ceb-9074-885b-ec7a3cde873d"
+  ],
+  "tags": [
+    "Windows installation",
+    "TPM",
+    "system deployment",
+    "hardware requirements"
+  ],
+  "node_id": "6768bbfd-325c-4a1d-8018-37d6e36ffa29",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

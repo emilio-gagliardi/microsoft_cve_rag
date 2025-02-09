@@ -1,0 +1,16 @@
+{
+  "description": "To prevent Windows 11 from being offered on your machine, you can disable the TPM chip in the BIOS settings if it is not being utilized. By taking this step, your system will be marked as incompatible with Windows 11, thereby blocking any upgrade prompts. Once you are ready to transition to Windows 11, you can simply re-enable the TPM chip in the BIOS settings. This method offers a simple way to control the upgrade process based on hardware compatibility. It is particularly useful for administrators managing multiple machines with varying hardware specifications.",
+  "source_id": "aab95f90-1268-ed1e-deaf-001999553c8d",
+  "source_type": "PatchManagementPost",
+  "fix_label": "DisableTpmChipToStopWindows11Upgrade",
+  "tags": [
+    "TPM",
+    "BIOS",
+    "Windows 11"
+  ],
+  "node_id": "fbcb22e4-088b-47a4-be3d-b5f14035c5ce",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Fix"
+}

@@ -1,0 +1,17 @@
+{
+  "symptom_label": "EmailPreviewPaneMayTriggerCodeExecutionVulnerability",
+  "description": "End users might experience unauthorized remote code execution simply by viewing emails in the Outlook client without any interaction required. If a malicious link is embedded in an email, it could lead to the execution of the attacker's code before the user even interacts with the email. This issue is particularly pertinent for systems running specific Windows builds, including versions 10.0.22000.2652 and 10.0.19045.3803, and is addressed in KB5033375 and related updates, urging administrators to ensure compliance with the latest patches and updates for affected systems as outlined in the provided Microsoft security guidance.",
+  "source_id": "022c448c-2082-2b86-8eb4-ce287272b325",
+  "source_type": "MSRCPost",
+  "tags": [
+    "email",
+    "security",
+    "code execution",
+    "Outlook"
+  ],
+  "node_id": "84742fc5-3a52-4783-8872-eccde37ff08e",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

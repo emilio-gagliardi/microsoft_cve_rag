@@ -1,0 +1,22 @@
+{
+  "symptom_label": "remote_code_execution_on_windows_hyperv_systems",
+  "description": "Following the installation of the security updates, users may experience issues with remote code execution on their Windows Hyper-V systems. This observable behavior indicates that malicious actors could potentially exploit vulnerabilities within Hyper-V functionalities, notably affecting environments deployed on Windows Server 2016, Windows 10, and Windows 11 across various build numbers. Administrators might notice unusual activity or unauthorized processes being initiated remotely, particularly on systems running build numbers such as 10.0.14393.6981, 10.0.22631.3593, and 10.0.22000.2960. The corresponding KB articles (KB-5037788, KB-5037771, KB-5037770, KB-5037768) provide further clarification on the updates needed to resolve these issues. It is crucial for system administrators to remain vigilant for any signs of remote execution attempts post-update to ensure system integrity and security.",
+  "source_id": "1ef5c9ea-6886-b075-5911-e07e352c71ba",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "1ef5c9ea-6886-b075-5911-e07e352c71ba"
+  ],
+  "tags": [
+    "Hyper-V",
+    "Remote Code Execution",
+    "Windows Server",
+    "Windows 10",
+    "Windows 11"
+  ],
+  "node_id": "7d773e09-989d-4e6e-94d7-81dbf1352187",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

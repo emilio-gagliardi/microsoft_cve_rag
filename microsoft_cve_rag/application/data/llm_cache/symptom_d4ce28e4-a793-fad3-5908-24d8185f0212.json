@@ -1,0 +1,17 @@
+{
+  "symptom_label": "PrintingJobsSentToWrongQueueOnWin10",
+  "description": "Users experiencing issues with printing on Windows 10 Pro (version 22H2) may find that print jobs are being directed to the wrong printer queue despite having the correct default printer set. This behavior can result in functional disruptions for users, particularly when attempting to print documents, as jobs do not reach the intended printer. The resolution involved removing HP Smart to resolve the issue, indicating a potential conflict arising from that software, and highlights a necessity for vigilance regarding future installations that may mimic this behavior.",
+  "source_id": "d4ce28e4-a793-fad3-5908-24d8185f0212",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows10",
+    "PrinterManagement",
+    "HP",
+    "Troubleshooting"
+  ],
+  "node_id": "a8127385-533c-459d-8cbb-e13405105343",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "wi_fi_driver_causes_remote_code_execution_issues",
+  "description": "After applying the security update referenced in KB5039212, users running Windows 10 builds (10.0.19043.4529, 10.0.22631.3737, 10.0.22621.3737, and 10.0.22000.3019) may experience issues related to remote code execution via the Wi-Fi driver. The observed behavior includes unresponsive applications when connected to networks utilizing the affected Wi-Fi components, leading to potential system instability. In environments where adjacent network access is possible, system administrators may receive notifications indicating abnormal access attempts that could suggest vulnerabilities in the driver. Users may also find themselves confronted with unexpected behavior in network-oriented tasks, which may require additional troubleshooting steps. Furthermore, this situation suggests a need for closer monitoring of network traffic to mitigate risks associated with unauthorized access attempts, critically affecting end-user experience and operational feelings of security.",
+  "source_id": "557cd0f2-b818-7aa4-c938-da336aa27be1",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "557cd0f2-b818-7aa4-c938-da336aa27be1"
+  ],
+  "tags": [
+    "Windows",
+    "Wi-Fi",
+    "Remote Code Execution",
+    "KB5039212",
+    "Network Stability"
+  ],
+  "node_id": "6e1847a2-883f-4903-94f7-a46094215854",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

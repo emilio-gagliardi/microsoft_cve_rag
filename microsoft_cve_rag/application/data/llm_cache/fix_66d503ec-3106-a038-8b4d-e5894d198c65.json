@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the remote code execution vulnerability in Microsoft Edge (Chromium-based) identified by CVE-2024-49023, it is essential to apply the latest update as provided:\n\n1. Download the update package for Microsoft Edge (Chromium-based) from the official Microsoft Update Catalog using the following link: https://catalog.update.microsoft.com/Search.aspx?q=KB49023.\n2. Install the update, following any prompts that may appear during the installation process.\n3. Restart your browser to ensure all changes take effect.\n\n**Details**:\n- This update addresses the use after free vulnerability, which could potentially allow attackers to execute arbitrary code remotely if exploited.\n- For full implementation, ensure the environment is using Microsoft Edge version 130.0.2849.46 or later.\n- Always backup critical data before applying system updates to avoid any data loss if issues arise. \n",
+  "source_id": "66d503ec-3106-a038-8b4d-e5894d198c65",
+  "source_type": "MSRCPost",
+  "fix_label": "address_remote_code_execution_in_edge_cve202449023",
+  "tags": [
+    "KB49023",
+    "EdgeChromium",
+    "RemoteCodeExecution",
+    "CVE-2024-49023"
+  ],
+  "node_id": "6a0ba100-e316-4db1-98e4-f961972c0554",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "66d503ec-3106-a038-8b4d-e5894d198c65"
+  ],
+  "verification_status": "unverified"
+}

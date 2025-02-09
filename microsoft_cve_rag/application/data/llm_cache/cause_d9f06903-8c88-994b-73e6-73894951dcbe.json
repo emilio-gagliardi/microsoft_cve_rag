@@ -1,0 +1,21 @@
+{
+  "description": "A heap-based buffer overflow in Microsoft ActiveX Data Objects allows attackers to exploit a crafted SQL server response, potentially executing arbitrary code on the victim's SQL client application.",
+  "cause_label": "activex_heap_buffer_overflow_in_sql_client",
+  "source_id": "d9f06903-8c88-994b-73e6-73894951dcbe",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d9f06903-8c88-994b-73e6-73894951dcbe"
+  ],
+  "tags": [
+    "remote code execution",
+    "ActiveX",
+    "buffer overflow",
+    "SQL client",
+    "Microsoft"
+  ],
+  "node_id": "08a418ce-5c5c-4610-9912-ac00afdc918a",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "The issue arises from a use after free condition in the Windows Shell, which allows for remote code execution through local exploitation methods. An attacker must persuade a user to open a malicious input file, which triggers the flaw and could result in arbitrary code execution on the system. This flaw is present in specified Windows 11 builds and requires minimal privileges to exploit.",
+  "cause_label": "windows_shell_use_after_free_remote_code_execution",
+  "source_id": "ba8ffd73-3bae-8750-b714-86f9107d7dfa",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ba8ffd73-3bae-8750-b714-86f9107d7dfa"
+  ],
+  "tags": [
+    "Windows",
+    "Windows Shell",
+    "Remote Code Execution",
+    "CVE-2024-43552"
+  ],
+  "node_id": "9e990b2f-35f8-4167-957e-d2f1b3d12fff",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

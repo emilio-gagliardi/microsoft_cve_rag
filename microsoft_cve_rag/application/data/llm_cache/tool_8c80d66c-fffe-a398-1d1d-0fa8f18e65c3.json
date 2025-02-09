@@ -1,0 +1,23 @@
+{
+  "tool_label": "electron_js_framework",
+  "description": "**Tool Overview**: \nElectron is an open-source framework that enables developers to create cross-platform desktop applications using web technologies like JavaScript, HTML, and CSS. \n\n**Details**: \nElectron combines the Chromium rendering engine and the Node.js runtime, allowing for seamless integration of web technologies into desktop applications. It simplifies the development process by providing a single codebase for multiple operating systems, including Windows, macOS, and Linux. Electron also supports native APIs, which can be accessed through JavaScript, providing full access to system functionalities. Developers can use Electron to build applications that have access to local file systems, run scripts, and integrate with other installed software, enhancing the application's capabilities. \n\nMore information about Electron and its capabilities can be explored in its official documentation.",
+  "source_id": "8c80d66c-fffe-a398-1d1d-0fa8f18e65c3",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "8c80d66c-fffe-a398-1d1d-0fa8f18e65c3"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CADy1Ce7_asHSvgpzfH73ZD_rZUyfFgFU_-akkg7BbTk_DfrApw%40mail.gmail.com",
+  "tool_url": "https://www.electronjs.org/",
+  "tags": [
+    "JavaScript",
+    "cross-platform",
+    "desktop application",
+    "Electron"
+  ],
+  "node_id": "21e15bdb-0886-411c-bc56-8b3da589563e",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

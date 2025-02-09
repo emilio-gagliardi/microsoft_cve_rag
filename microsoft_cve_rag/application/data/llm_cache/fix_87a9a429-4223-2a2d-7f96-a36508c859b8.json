@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the branchcache denial of service vulnerability (CVE-2024-38149):\n\n1. Download and apply the appropriate KB updates for your Windows version from the official Microsoft Update Catalog.\n2. Restart your systems after the installation of the updates to ensure the changes take effect.\n\n**Details**:\n- The following update packages are available to address the vulnerability:\n  - [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285): For Windows 11 Version 23H2 for x64-based Systems.\n  - [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284): For Windows 11 Version 24H2 for x64-based Systems.\n  - [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280): For Windows 11 Version 21H2 for x64-based Systems.\n  - [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273): For Windows 10 Version 22H2 for x64-based Systems and Windows 10 for 32-bit Systems.\n\n**Preconditions**:\n- Make sure the system matches the specified Windows version associated with the KB article.\n- Backup critical information before proceeding with the update installation.",
+  "source_id": "87a9a429-4223-2a2d-7f96-a36508c859b8",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_branchcache_denial_of_service_cve202438149",
+  "tags": [
+    "KB5044285",
+    "CVE202438149",
+    "Windows11",
+    "DenialOfService"
+  ],
+  "node_id": "df856930-fef9-4fcf-b482-911560d61b6e",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "87a9a429-4223-2a2d-7f96-a36508c859b8"
+  ],
+  "verification_status": "unverified"
+}

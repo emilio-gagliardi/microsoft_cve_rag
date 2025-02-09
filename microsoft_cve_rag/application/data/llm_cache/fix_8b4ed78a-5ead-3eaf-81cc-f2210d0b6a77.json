@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo install specific drivers for your Surface device on Windows 10:\n\n1. Visit the Windows 10 update page and click on \"Update Now\" to see if the update can be installed through the download page.\n2. Navigate to the Microsoft Surface driver download page: https://support.microsoft.com/en-us/surface/download-drivers-and-firmware-for-surface-09bb2e09-2a4b-cb69-0951-078a7739e120.\n3. Look for the specific drivers applicable to your Surface model.\n4. Follow the prompts to download and install the drivers accordingly.\n\n**Details**:\nThe above steps ensure that you are obtaining the correct and latest drivers necessary for optimal functionality of your Surface device. Always verify you are downloading from the official Microsoft support site to avoid compatibility issues.",
+  "source_id": "8b4ed78a-5ead-3eaf-81cc-f2210d0b6a77",
+  "source_type": "PatchManagementPost",
+  "fix_label": "install_specific_surface_drivers_windows10",
+  "tags": [
+    "Windows10",
+    "Surface",
+    "DriverInstallation"
+  ],
+  "node_id": "ccae9ca3-3b8e-400c-b46d-192df4f9811a",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "8b4ed78a-5ead-3eaf-81cc-f2210d0b6a77"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_crashes_after_security_update",
+  "description": "After installing the security update for Microsoft Edge (Chromium-based) version 131.0.2903.48, users may experience application crashes or unexpected behavior when navigating certain web pages. This can manifest as the browser closing unexpectedly during UI interactions, which might be traced back to insufficient policy enforcement in navigation handled by the Chromium engine. Such crashes limit user productivity and hinder access to web applications. Additionally, the update address vulnerabilities that could lead to privilege escalation, thus making it essential for users to keep their browsers up to date to ensure smooth and secure browsing. For reference, this is linked to CVE-2024-11115 as documented in the KB Article IDs.",
+  "source_id": "7f6251e1-c383-563b-2084-6e496ddfea81",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7f6251e1-c383-563b-2084-6e496ddfea81"
+  ],
+  "tags": [
+    "microsoft_edge",
+    "crash",
+    "update",
+    "chromium"
+  ],
+  "node_id": "e1db881a-b276-42fd-9e56-2eb7027143ac",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

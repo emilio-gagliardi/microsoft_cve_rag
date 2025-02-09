@@ -1,0 +1,22 @@
+{
+  "description": "The underlying cause of this issue stems from an incorrect installation process related to the Microsoft Edge updates, specifically version 123.0.2420.65, released on March 28, 2024. These updates inadvertently resulted in the installation of a new package, known as the 'Microsoft Copilot Chat Provider', on various Windows devices. This scenario was noted across multiple versions of Windows, including Windows 11 (versions 21h2, 22h2, and 23h2) and Windows 10 (version 22h2). The component did not execute any code or data transmissions but mistakenly appeared in the settings menu under installed applications. Microsoft has acknowledged this misconfiguration and is working on a resolution to remove the Copilot Chat Provider from devices where it is not intended to be installed, particularly on Windows Server systems, as indicated in the KB Article IDs wi778873 through wi778877.",
+  "source_id": "69725533-984b-bef0-da5c-032c619a10b7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "69725533-984b-bef0-da5c-032c619a10b7"
+  ],
+  "cause_label": "incorrect_installation_due_edge_updates",
+  "tags": [
+    "Microsoft Edge",
+    "Microsoft Copilot",
+    "Windows 11",
+    "Windows 10",
+    "build 123.0.2420.65",
+    "patch management"
+  ],
+  "node_id": "1d458057-3265-4826-a55a-e756caba8e72",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause"
+}

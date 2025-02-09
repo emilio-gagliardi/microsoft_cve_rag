@@ -1,0 +1,21 @@
+{
+  "symptom_label": "office_365_updates_fail_due_to_cert_errors",
+  "description": "The Office 365 updates are consistently failing during the synchronization process managed by Configuration Manager across both live and pre-production sites. The issue surfaces specifically after Patch Tuesday when three Automatic Deployment Rules (ADRs) do not successfully complete for Windows Client and Server Servicing Stack Updates. The log files reveal two distinct errors indicating a failure related to the update authentication process, with error codes 800b0004 and 80073633. The log analysis suggests that while the download completes, the system fails to validate the certificate signatures, leading to the interference with the update process. This problem does not occur with all updates, but only a select few, thereby complicating the deployment and patching strategy.",
+  "source_id": "84cf17e0-31c7-4308-63af-323b9794cfb7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "84cf17e0-31c7-4308-63af-323b9794cfb7"
+  ],
+  "tags": [
+    "office 365",
+    "config manager",
+    "failed updates",
+    "certificate errors"
+  ],
+  "node_id": "7a4ab918-1916-4212-a7f8-fecaecee85fb",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

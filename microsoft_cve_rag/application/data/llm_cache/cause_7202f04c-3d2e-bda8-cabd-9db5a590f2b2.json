@@ -1,0 +1,19 @@
+{
+  "description": "The issue is caused by an out-of-bounds read in the Windows Remote Access Connection Manager, leading to potential information disclosure.",
+  "cause_label": "windows_remote_access_connection_manager_out_of_bounds_read",
+  "source_id": "7202f04c-3d2e-bda8-cabd-9db5a590f2b2",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7202f04c-3d2e-bda8-cabd-9db5a590f2b2"
+  ],
+  "tags": [
+    "Windows",
+    "Information Disclosure",
+    "Out-of-bounds Read"
+  ],
+  "node_id": "275b95be-189b-4b05-be8f-3841c3984ab3",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,22 @@
+{
+  "tool_label": "get_wmiobject_win32_computersystem",
+  "description": "**Tool Overview**:\n\nA PowerShell command used to retrieve information about the computer system using Windows Management Instrumentation (WMI).\n\n**Details**:\n\nThis tool utilizes the `Get-WmiObject` cmdlet to query the `win32_computersystem` class, extracting properties such as manufacturer and model. It is particularly useful for obtaining device specifications in a scriptable manner.\n\n1. The command interfaces with the WMI repository.\n2. It selects specific attributes (manufacturer and model) for streamlined output.\n3. Often employed in system administration tasks to gather hardware information programmatically.\n4. Can be extended to include additional properties as needed.\n5. Ideal for automation scripting within larger deployment or management tasks.\n\n**Example Usage**:\n```powershell\nGet-WmiObject win32_computersystem | Select-Object Manufacturer, Model\n```",
+  "source_id": "bfd926d7-efc6-f8d7-f12c-94bf66b750e2",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "bfd926d7-efc6-f8d7-f12c-94bf66b750e2"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-wmiobject",
+  "tags": [
+    "PowerShell",
+    "WMI",
+    "computer_system",
+    "hardware_info"
+  ],
+  "node_id": "08897f8d-adee-4408-85a3-8e1c709d33eb",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

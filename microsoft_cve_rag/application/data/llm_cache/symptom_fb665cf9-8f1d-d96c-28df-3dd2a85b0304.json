@@ -1,0 +1,17 @@
+{
+  "symptom_label": "RecoveryPartitionNeedsMinimum250MBFreeSpace",
+  "description": "The installation process may encounter an error related to the recovery partition if there isn't a minimum of 250MB of free space available. This configuration issue arises particularly when the recovery partition is not positioned correctly to the right of the main operating system partition. Such misalignment can lead to installation failures, specifically with error code 0x80070643, which indicates an inability to proceed due to insufficient partition space.",
+  "source_id": "fb665cf9-8f1d-d96c-28df-3dd2a85b0304",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "recovery partition",
+    "disk management",
+    "installation error",
+    "Windows"
+  ],
+  "node_id": "6b1b67b6-ef1c-4917-82e8-fb42df467794",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

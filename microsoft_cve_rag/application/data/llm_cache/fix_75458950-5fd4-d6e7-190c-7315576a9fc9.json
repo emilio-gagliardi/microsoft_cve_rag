@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the vulnerability identified by CVE-2024-6993 in Chromium, it is essential to update Microsoft Edge to the latest version.\n\n1. Open your Microsoft Edge browser.\n2. Click on the three dots (...) located at the top right corner of the window.\n3. Navigate to 'Help and feedback'.\n4. Select 'About Microsoft Edge'. The browser will automatically check for updates and install version 127.0.2651.74, which addresses this vulnerability.\n\n**Details**:\n- The update contains security patches to make Microsoft Edge (Chromium-based) secure against CVE-2024-6993.\n- Ensure your current version is below 127.0.2651.74 to apply the update successfully.\n\n**Preconditions**:\n- Make sure you have a stable internet connection to download the update.\n- Restart the browser after the update is applied for the changes to take effect.\n",
+  "source_id": "75458950-5fd4-d6e7-190c-7315576a9fc9",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_127_0_2651_74",
+  "tags": [
+    "CVE-2024-6993",
+    "MicrosoftEdge",
+    "Chromium",
+    "KB127.0.2651.74"
+  ],
+  "node_id": "783f232c-e3bd-4946-8167-f68cdb75d4d7",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix",
+  "source_ids": [
+    "75458950-5fd4-d6e7-190c-7315576a9fc9"
+  ],
+  "verification_status": "unverified"
+}

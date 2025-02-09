@@ -1,0 +1,17 @@
+{
+  "symptom_label": "Error0x80070643DuringUpdateInstallation",
+  "description": "When attempting to apply KB5034441 on Windows 10 devices that lack a recovery partition, an error with the code 0x80070643 is encountered, indicating an install failure. This often results in the update being unsuccessful and raises concerns for system administrators trying to ensure they have the latest security and feature updates. However, if the recovery partition is absent, this error can be safely ignored, as the update is not critical for the functionality of the device in this scenario.",
+  "source_id": "cf61458f-739c-c1f4-52b5-39994827f5b1",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "WindowsUpdate",
+    "ErrorCode",
+    "PatchManagement",
+    "KB5034441"
+  ],
+  "node_id": "0fc38c0a-c482-4a55-aacc-4d301adeb452",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

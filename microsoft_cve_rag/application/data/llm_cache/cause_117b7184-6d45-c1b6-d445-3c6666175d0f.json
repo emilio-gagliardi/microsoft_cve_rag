@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause of the install failure related to the January 2024 update (KB5034441) appears to be attributed to insufficient space on the Recovery (WinRE) partition. Users have reported varying issues regarding the partition size being inadequate or located incorrectly. The discussion notes that many devices can resize their C: drives to allow for a larger WinRE partition, yet some older devices struggle with this functionality, contributing to failed installations. Additionally, the updates to WinRE that were to take effect with the monthly updates in June 2023 have not been executed effectively, leading to outdated system builds. The situation is complicated by the existence of multiple recovery partitions on some devices that may confuse the update process, suggesting a consistent misconfiguration regarding partition management and WinRE updates.",
+  "source_id": "117b7184-6d45-c1b6-d445-3c6666175d0f",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "117b7184-6d45-c1b6-d445-3c6666175d0f"
+  ],
+  "cause_label": "insufficient_winre_partition_size_contributes_to_failures",
+  "tags": [
+    "win11",
+    "install failure",
+    "recovery partition",
+    "KB5034441",
+    "resizing issues"
+  ],
+  "node_id": "64698129-2619-4cf3-9318-4a4199353b3a",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,38 @@
+{
+  "node_id": "5ce94c46-2a00-4e7b-8c97-62ed18d780b8",
+  "source_id": "a0a566fc-4116-2cac-41a4-bbeadc175fbc",
+  "entity_type": "Tool",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "84aed990-a041-cd1d-9b5f-4aecd5ca3a55",
+    "3fd9aca7-4eb6-1e4a-fbe5-ee50f18f213b",
+    "49932fee-7758-424b-c3e7-b61536cb73ab",
+    "27fe5b3c-9c7a-393e-7440-872b009b91cc",
+    "785824d8-fb97-7d21-8feb-2b4a34df7f3c",
+    "c3a929ed-9831-bc1a-d259-30de1f0ff33b",
+    "8a05b26e-6477-7818-5137-223f9481424a",
+    "382e6f9a-fc05-04f5-1e3f-821c80ce9418",
+    "6460a2d3-f2fd-6a8a-358d-47bd9e7b8537",
+    "a0a566fc-4116-2cac-41a4-bbeadc175fbc",
+    "143b506c-c9dc-cced-e9f5-d521a01e8ad4",
+    "63e540de-0d15-9140-643a-a4e6f5a8c08b",
+    "1c1bc2ad-2086-b7c4-83aa-87c462caf0dc",
+    "c4b7ccdf-d692-ed4b-3648-63b6a1c36861",
+    "9531603d-3b7e-bffb-78e6-9fb0632b7471",
+    "44b93183-b774-16fd-7dde-108ef7f31aa4",
+    "dd04a984-ef35-764c-7789-02e243c39732",
+    "ffacb297-cfd2-9cf6-ad5e-cf6fe0341fc2"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-5494",
+  "tool_url": "",
+  "verification_status": "unverified",
+  "tool_label": "microsoft_edge_chromium_update",
+  "description": "**Tool Overview**:\n\nThis tool refers to the latest update for Microsoft Edge (Chromium-based), which addresses security vulnerabilities, specifically CVE-2024-5494. **Details**:\n\nThe update resolves a use-after-free vulnerability within the Chromium open source software, which is integral to the functioning of Microsoft Edge. Users are encouraged to ensure they are running the most current version of Microsoft Edge to protect against potential attacks that could exploit this vulnerability. Administrators can check for updates either through the browser\u2019s settings or by using enterprise management tools to deploy the latest version across organizational devices. Keeping the browser updated not only addresses known vulnerabilities but also enhances overall security posture and performance.\n\n**Usage**:\n1. Navigate to Microsoft Edge settings.\n2. Click on 'About Microsoft Edge' to automatically check for updates.\n3. Follow the prompts to install any available updates.",
+  "reliability": 0.8,
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "update",
+    "security"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the policy bypass vulnerability in Chromium (CVE-2024-5840), ensure that you are running the latest version of Microsoft Edge based on the Chromium engine:\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) on the top right.\n3. Select 'Help and feedback'.\n4. Click on 'About Microsoft Edge' to view your current version.\n5. Update to version 126.0.6478.57 or later, if necessary.\n\n**Details**:\n- The vulnerability existed in Chromium prior to version 126.0.6478.54, which could allow remote attackers to bypass discretionary access control via crafted HTML.\n- Microsoft Edge has integrated the fix in the latest release. For further updates, check the official Chrome releases.\n\n**Preconditions**:\n- Ensure that Microsoft Edge is installed.\n- Regularly check for updates to keep your browser secure.",
+  "source_id": "e2e6ef2d-af47-2dc2-3ca3-b2a0b22165d5",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_resolve_chromium_cve20245840",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20245840",
+    "Chromium",
+    "BrowserUpdate"
+  ],
+  "node_id": "8a6e6840-7045-491b-8802-fc5e6fb4580e",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e2e6ef2d-af47-2dc2-3ca3-b2a0b22165d5"
+  ],
+  "verification_status": "unverified"
+}

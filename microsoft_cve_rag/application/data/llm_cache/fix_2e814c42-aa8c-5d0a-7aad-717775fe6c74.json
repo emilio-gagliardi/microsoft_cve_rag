@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows Network Address Translation (NAT) denial of service vulnerability (CVE-2024-43562), apply the relevant KB updates provided below to ensure system security.\n\n1. Identify your Windows version and architecture (32-bit or 64-bit).\n2. Download and install the appropriate update package from the links below:\n   - For Windows 11 Version 24H2: [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n   - For Windows 11 Version 23H2: [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - For Windows 10 Version 22H2: [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n   - For Windows 10 Version 21H2: [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280)\n3. Restart your system after the installation.\n\n**Details**:\nThese updates address the out-of-bounds read vulnerability within the NAT service, potentially preventing denial of service scenarios. Ensure the device builds are compatible before initiating the update process.\n",
+  "source_id": "2e814c42-aa8c-5d0a-7aad-717775fe6c74",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_nat_denial_of_service_cve202443562",
+  "tags": [
+    "KB5044284",
+    "KB5044285",
+    "Windows10",
+    "Windows11"
+  ],
+  "node_id": "6a7409d2-561e-474c-b7ac-4bcf7e146a61",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "2e814c42-aa8c-5d0a-7aad-717775fe6c74"
+  ],
+  "verification_status": "unverified"
+}

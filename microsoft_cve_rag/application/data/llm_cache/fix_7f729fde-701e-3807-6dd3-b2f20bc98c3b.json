@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the security feature bypass vulnerability in Windows security zone mapping (CVE-2024-30073):\n\n1. Identify the correct KB Article update relevant to your Windows build.\n2. Download the update package from the provided links.\n3. Install the update by following the on-screen instructions, ensuring the system is properly configured for installations.\n4. Restart your system after the installation is complete to apply the updates.\n\n**Details**:\n- The updates provide necessary security enhancements to limit the impact of the vulnerability.\n- Ensure that your system is running the appropriate version from the listed build numbers to apply the correct updates. For more details on your specific case, refer to the update guidance from Microsoft. \n- Backup critical data before proceeding with the installation.\n\n**Update Packages**:\n- For Windows 11 Version 24H2 for x64-based Systems: KB5043080 - [Download](https://catalog.update.microsoft.com/Search.aspx?q=KB5043080)\n- For Windows 11 Version 23H2 for x64-based Systems: KB5043076 - [Download](https://catalog.update.microsoft.com/Search.aspx?q=KB5043076)\n- Additional KB articles can be found and downloaded from the links provided above.",
+  "source_id": "7f729fde-701e-3807-6dd3-b2f20bc98c3b",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_security_zone_mapping_bypass_cve202430073",
+  "tags": [
+    "KB5043080",
+    "Windows11",
+    "SecurityBypass",
+    "CVE202430073"
+  ],
+  "node_id": "783607f3-e174-4711-80e5-d24ffbf88a52",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "7f729fde-701e-3807-6dd3-b2f20bc98c3b"
+  ],
+  "verification_status": "unverified"
+}

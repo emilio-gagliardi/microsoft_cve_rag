@@ -1,0 +1,21 @@
+{
+  "symptom_label": "antivirus_drivers_prevent_system_from_booting",
+  "description": "The issue arises when antivirus software interacts negatively with certain drivers, potentially rendering the system unbootable. A poorly executed update or conflicting driver management can lead to this problem, akin to the adverse effects of a bad update. Administrators may notice that systems fail to complete the boot process, appearing as non-responsive or completely down. This situation can escalate rapidly, making regular systems vulnerable to becoming inoperable, often referred to as 'bricking' the computer. Ultimately, ensuring compatibility between antivirus definitions and drivers is crucial to maintaining operational integrity.",
+  "source_id": "e4debf14-cb4b-2bc0-b509-3ad8ffab36f3",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e4debf14-cb4b-2bc0-b509-3ad8ffab36f3"
+  ],
+  "tags": [
+    "antivirus",
+    "drivers",
+    "boot issue",
+    "update problem"
+  ],
+  "node_id": "b89e859a-05fa-41e8-ab73-548ecb665f29",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "symptom_label": "audio_jack_detection_function_not_working_properly",
+  "description": "The audio jack detection and notification function in Windows is malfunctioning, leading to an inability to detect when a device is plugged into the audio jack. This issue may be observed in systems where only the Realtek audio driver is installed without the accompanying Realtek application, which is often necessary for full functionality. Users experience confusion and frustration as they attempt to plug in audio devices but receive no feedback from the system. It appears that the user believes this detection feature should be inherent to the Windows operating system, complicating troubleshooting efforts further. This symptom could impact various versions of Windows, especially in systems using Dell hardware, where specific drivers and applications may be available to ensure correct audio functionality.",
+  "source_id": "04fd6df8-47be-ae1e-d978-2137b42efe75",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "04fd6df8-47be-ae1e-d978-2137b42efe75"
+  ],
+  "tags": [
+    "audio detection",
+    "Realtek driver",
+    "Windows notification",
+    "Dell hardware"
+  ],
+  "node_id": "9fbac9cf-cf76-45a7-951c-c5b89fd3db0c",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

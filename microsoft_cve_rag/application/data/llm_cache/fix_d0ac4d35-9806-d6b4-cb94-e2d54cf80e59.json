@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the issue of failing downloads for the March 2024 security update on devices running Windows Server 2019 and LSTC editions of Windows 10 (version 1809):\n\n1. Access the Microsoft Update Catalog to manually download the update.\n2. Alternatively, utilize Windows Server Update Services (WSUS) to pull the update if you have the WSUS infrastructure in place.\n\n**Details**:\n- The error code '0xd000034' signifies a download failure which can often be circumvented with manual downloads from the mentioned sources. Regularly check for updates as a resolution from Microsoft is in progress. \n- Make sure to adhere to your organization\u2019s update procedures when implementing any downloaded updates. \n",
+  "source_id": "d0ac4d35-9806-d6b4-cb94-e2d54cf80e59",
+  "source_type": "PatchManagementPost",
+  "fix_label": "bypass_error_0xd000034_march_2024_update_download",
+  "tags": [
+    "WindowsServer2019",
+    "Windows10",
+    "March2024Update",
+    "UpdateFailure"
+  ],
+  "node_id": "ea2be5aa-0702-4e8c-a0f5-9323dc49c783",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "d0ac4d35-9806-d6b4-cb94-e2d54cf80e59"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "symptom_label": "RemoteCodeExecutionFromMaliciousServerAccess",
+  "description": "Users may experience the threat of remote code execution when accessing specially crafted servers or websites. This occurs in Windows 10 and 11 systems following the deployment of affected build numbers such as 10.0.22621.2715 for Windows 11 and 10.0.19045.3693 for Windows 10. The related KB Articles include KB5032190, KB5032199, and others as listed in the Microsoft Security Response Center's guidance, highlighting the need for awareness and caution during routine web access.",
+  "source_id": "c629b845-62e3-6454-cee5-38ac81f56832",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "6d04ea4b-d629-46dc-a61b-150423f4691b",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

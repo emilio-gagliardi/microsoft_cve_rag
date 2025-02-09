@@ -1,0 +1,16 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the vulnerability CVE-2023-6350 affecting Microsoft Edge (Chromium-based), upgrade to the latest version of the browser:\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) on the top right corner of the window.\n3. Select 'Help and feedback'.\n4. Click on 'About Microsoft Edge' to check for updates and install the latest build.\n\n**Details**:\n- Upgrade to Microsoft Edge (Chromium-based) version 119.0.2151.97, released on November 29, 2023, to resolve the out-of-bounds memory access vulnerability associated with libavif.\n- Build numbers affected: 118.0.5993.159, 119.0.6045.199.\n\n**Preconditions**:\n- Ensure that you have administrative rights to update the browser.\n- Backup critical data and settings before proceeding with the update.",
+  "source_id": "f8ea18b0-15fb-0e13-41f3-3ffb0e490b9d",
+  "source_type": "MSRCPost",
+  "fix_label": "UpgradeMicrosoftEdgeToVersion1190215197",
+  "tags": [
+    "CVE-2023-6350",
+    "MicrosoftEdge",
+    "SecurityUpdate"
+  ],
+  "node_id": "9bfa58a9-963d-4452-9e04-02385df0f2cd",
+  "node_label": "Fix",
+  "reliability": "0.9",
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

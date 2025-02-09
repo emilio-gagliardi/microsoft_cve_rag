@@ -1,0 +1,17 @@
+{
+  "description": "The cause of the denial of service vulnerability CVE-2023-35635 stems from a flaw in the Windows kernel that allows an attacker to exploit this vulnerability by having an authenticated user interact with a specially crafted file, either locally or over a network share. Specifically, when the user opens or browses this malicious file on an unpatched version of Windows, it can lead to a crash of the operating system, severely impacting its availability. This issue affects Windows 11 Version 23H2 for x64-based Systems (Build 10.0.22631.2861) and Windows 11 Version 22H2 for x64-based Systems (Build 10.0.22621.2861), as documented in KB-5033375.",
+  "cause_label": "WindowsKernelFileInteractionDenialService",
+  "source_id": "70027a0b-c7db-df0a-8ab3-66dec2607d57",
+  "source_type": "MSRCPost",
+  "tags": [
+    "vulnerability",
+    "denial_of_service",
+    "Windows",
+    "kernel"
+  ],
+  "node_id": "a6dea4c0-b07a-4d5b-ab20-3abaeeb2d1f3",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

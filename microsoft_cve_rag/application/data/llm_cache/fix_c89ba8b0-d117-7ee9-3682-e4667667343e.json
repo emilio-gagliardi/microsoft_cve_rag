@@ -1,0 +1,16 @@
+{
+  "description": "**Fix Overview**:\n\nTo address CVE-2023-6348, a type confusion vulnerability in the spellcheck component of Chromium:\n\n1. Ensure that Microsoft Edge (Chromium-based) is updated to the stable version 119.0.2151.97 or later.\n2. Verify the browser version by clicking on the three dots (...) in the upper right-hand corner, navigating to Help and Feedback, and selecting About Microsoft Edge.\n\n**Details**:\n- This fix mitigates vulnerabilities present in earlier versions of Microsoft Edge that utilized outdated Chromium components.\n- For more information on updates related to this CVE, see the [Google Chrome releases](https://chromereleases.googleblog.com/2023).\n\n**Product Version Information**:\n- Microsoft Edge (Chromium-based) Version: 119.0.2151.97\n- Extended Stable Version: 118.0.2088.122, 119.0.2151.97 (released on November 29, 2023).\n\n**Preconditions**:\n- Ensure that your Microsoft Edge version aligns with the stable or extended stable releases mentioned above.\n- Backup critical data and ensure that your environment supports the latest browser update.",
+  "source_id": "c89ba8b0-d117-7ee9-3682-e4667667343e",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeToMitigateCVE20236348",
+  "tags": [
+    "CVE-2023-6348",
+    "MicrosoftEdge",
+    "ChromiumVulnerability"
+  ],
+  "node_id": "53555e07-1240-4df2-be4f-5b4c6987bd69",
+  "node_label": "Fix",
+  "reliability": "0.9",
+  "severity_type": "critical",
+  "entity_type": "Fix"
+}

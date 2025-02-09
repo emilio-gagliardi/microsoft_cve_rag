@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the vulnerability described in CVE-2024-8035 related to an inappropriate implementation in extensions of Google Chrome, ensure your Microsoft Edge (Chromium-based) browser is updated to the latest version.\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) at the top right corner of the window.\n3. Navigate to **Help and feedback**.\n4. Click on **About Microsoft Edge** to check for the latest version.\n5. If your version is below **128.0.2739.42**, update to this version or later.\n\n**Details**:\n- The latest version **128.0.2739.42** is based on Chromium version **128.0.6613.84**, released on August 22, 2024, ensuring it is no longer vulnerable to this specific issue.\n- For further updates and release notes, refer to the official Microsoft documentation.\n\n**Preconditions**:\n- Ensure that you are using Microsoft Edge (Chromium-based).\n- Backup important data before proceeding with any updates.",
+  "source_id": "faf90bac-2a51-f62e-8051-9599345289e5",
+  "source_type": "MSRCPost",
+  "fix_label": "update_edge_chromium_to_mitigate_cve20248035",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20248035",
+    "Chromium",
+    "Update"
+  ],
+  "node_id": "4dd5b0a6-3a85-4b58-9a57-1ad902b2a143",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Fix",
+  "source_ids": [
+    "faf90bac-2a51-f62e-8051-9599345289e5"
+  ],
+  "verification_status": "unverified"
+}

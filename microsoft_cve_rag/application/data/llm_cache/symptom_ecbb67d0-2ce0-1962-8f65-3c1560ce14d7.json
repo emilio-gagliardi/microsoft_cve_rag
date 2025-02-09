@@ -1,0 +1,21 @@
+{
+  "symptom_label": "word_application_shows_unexpected_enable_editing_warning",
+  "description": "Users of Microsoft Word are encountering an unexpected notification on their taskbar prompting them to explore the option of using Word for free. Upon clicking the 'Explore Now' button, users are redirected to a Word document that triggers an alert requiring them to enable editing. This behavior is likely due to the document being opened from an internet source, which raises security concerns regarding editing capabilities. This notification and subsequent prompt may disrupt user workflows and may need administrative attention for potential configurations or policy adjustments. It indicates a need for clarity in Microsoft Office's handling of files deemed unsafe or from untrusted origins.",
+  "source_id": "ecbb67d0-2ce0-1962-8f65-3c1560ce14d7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "ecbb67d0-2ce0-1962-8f65-3c1560ce14d7"
+  ],
+  "tags": [
+    "Microsoft Word",
+    "Taskbar Notification",
+    "Enable Editing",
+    "User Experience"
+  ],
+  "node_id": "1ad9173d-632a-4f1d-89c2-942b7bdcad76",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,17 @@
+{
+  "symptom_label": "InformationDisclosedFromWindowsMessageQueuing",
+  "description": "End users may experience unexpected data exposure due to information disclosure associated with the Windows Message Queuing Client (MSMQC). When utilizing affected products such as Windows Server versions referenced in KB Articles 5034134, 5034123, 5034122, and 5034121, users might observe unauthorized access to sensitive information. This could manifest as sensitive data being inadvertently revealed during normal operations, creating potential security vulnerabilities within the environment. Systems running on build numbers including 10.0.19044.3930, 10.0.19045.3930, 10.0.22000.2713, 10.0.22631.3007, and others listed are particularly at risk. In summary, users should be vigilant about the integrity of their information, as this issue could compromise data confidentiality significantly.",
+  "source_id": "7d242c5d-19ba-15ba-412e-e113d0fe3d10",
+  "source_type": "MSRCPost",
+  "tags": [
+    "information disclosure",
+    "Windows Server",
+    "MSMQC",
+    "data exposure"
+  ],
+  "node_id": "7a319cbd-bcb2-4bbb-9b6d-0fd39c58cb4a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

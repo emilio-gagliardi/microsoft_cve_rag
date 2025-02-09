@@ -1,0 +1,22 @@
+{
+  "tool_label": "microsoft_copilot_chat_provider_package",
+  "description": "**Tool Overview**:\n\nThe Microsoft Copilot Chat Provider package is a component that may be installed inadvertently through Edge browser updates. While it appears within the installed apps section on Windows devices, its primary purpose is to prepare the device for future integration of Windows Copilot. \n\n**Details**:\n\n1. This MSIX package is not designed for all devices and does not execute any code or processes. \n2. It does not gather, analyze, or transmit any data from the device or its environment. \n3. The appearance of the Microsoft Copilot app in the settings is a byproduct of this package installation, not an indication that Copilot is fully enabled.\n4. The package is associated with Edge browser version 123.0.2420.65 or later, released on March 28, 2024.\n5. Admins should note that the Copilot Chat Provider is essential for future Windows Copilot enablement yet is intended for specific platforms and client versions only.\n\n",
+  "source_id": "69725533-984b-bef0-da5c-032c619a10b7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "69725533-984b-bef0-da5c-032c619a10b7"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/emb7c1fdb7-fd6f-4c96-a3f1-8328395a6e95%402eb410ea.com",
+  "tool_url": "",
+  "tags": [
+    "windows",
+    "microsoft_copilot",
+    "edge_updates",
+    "msix"
+  ],
+  "node_id": "e5f22841-2d6f-4cfa-8a19-e5c5fefd8554",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

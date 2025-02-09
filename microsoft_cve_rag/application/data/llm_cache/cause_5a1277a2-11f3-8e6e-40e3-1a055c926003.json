@@ -1,0 +1,21 @@
+{
+  "description": "A buffer over-read in the Windows Resilient File System (Refs) that can lead to elevation of privilege, allowing attackers with low privileges to gain system-level access resulting from improper memory handling where data is accessed beyond its intended boundaries.",
+  "cause_label": "windows_refs_elevation_of_privilege_buffer_over_read",
+  "source_id": "5a1277a2-11f3-8e6e-40e3-1a055c926003",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5a1277a2-11f3-8e6e-40e3-1a055c926003"
+  ],
+  "tags": [
+    "Windows",
+    "Elevation of Privilege",
+    "Buffer Over-read",
+    "CVE-2024-38135"
+  ],
+  "node_id": "28a6f3be-e659-4cd3-8a43-c5720595d0b7",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

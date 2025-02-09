@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the secure boot security feature bypass vulnerability associated with CVE-2024-26189:\n\n1. Apply the relevant updates as listed in the KB articles: KB-5036925, KB-5036894, KB-5036893, and KB-5036892.\n2. Ensure your system is running one of the supported build numbers: 10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, 10.0.22621.3447, or 10.0.10240.20596.\n3. Restart your system following the installation of each update to apply the changes.\n\n**Details**:\n- These updates address various issues related to improper input validation, thus mitigating the vulnerability.\n- Ensure you have proper backups before proceeding with any updates to avoid data loss.\n\nFor further information, check the update guide at: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-26189.",
+  "source_id": "a9cc3b6f-c6c6-d5a0-1102-5a6ca498a540",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb5036925_and_kb5036894_to_address_secure_boot_bypass",
+  "tags": [
+    "KB5036925",
+    "SecureBoot",
+    "CVE202426189",
+    "InputValidation"
+  ],
+  "node_id": "fdd086a5-9e79-40cc-be5c-88452a2379b6",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "a9cc3b6f-c6c6-d5a0-1102-5a6ca498a540"
+  ]
+}

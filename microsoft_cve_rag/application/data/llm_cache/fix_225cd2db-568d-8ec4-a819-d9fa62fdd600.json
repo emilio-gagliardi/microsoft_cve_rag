@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:  \n\nTo mitigate remote desktop connectivity issues caused by Windows security updates released on July 9, 2024, you can follow these two options:  \n\n1. **Disallow connections over pipe and RPC proxy**:  \n   - Configure your firewall to block connections over the port `3388` and pipe `rpcproxy`. Consult your firewall documentation for specific instructions.  \n\n2. **Edit the registry on client devices**:  \n   - Open the Windows Registry Editor (regedit).  \n   - Navigate to `HKEY_CURRENT_USER\\Software\\Microsoft\\Terminal Server Client\\rdgclienttransport`.  \n   - Locate the `dword` registry key, double-click it, and set the value data field to `0x0`.  \n\n**Details**:  \n- These methods help prevent interruptions in remote desktop connections that may occur every 30 minutes due to issues with the TSGateway service.  \n- Be cautious when editing the registry and ensure that you backup your registry settings beforehand.  \n- These adjustments are meant to be temporary until Microsoft releases a definitive update to resolve the issue.",
+  "source_id": "225cd2db-568d-8ec4-a819-d9fa62fdd600",
+  "source_type": "PatchManagementPost",
+  "fix_label": "mitigate_remote_desktop_connectivity_issue_july_update",
+  "tags": [
+    "RemoteDesktop",
+    "WindowsServer",
+    "RegistryEdit",
+    "FirewallConfiguration"
+  ],
+  "node_id": "ef0fddcd-d211-404b-a08b-7aa82c88372b",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "225cd2db-568d-8ec4-a819-d9fa62fdd600"
+  ],
+  "verification_status": "unverified"
+}

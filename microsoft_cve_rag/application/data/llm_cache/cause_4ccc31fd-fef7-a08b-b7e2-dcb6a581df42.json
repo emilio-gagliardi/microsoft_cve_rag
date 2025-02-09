@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause of the issue is the vulnerabilities found within the ScreenConnect software, which impacts both server and client components. These vulnerabilities allow attackers to leverage the software to deploy malware on affected systems, including servers and workstations that have the client software installed. Research conducted by Huntress and supported by findings from Sophos indicate that these vulnerabilities are actively being exploited, with evidence of malware delivery targeting both servers and client machines. Given the ongoing nature of these attacks, it highlights the critical importance of implementing timely patches and security measures to protect against such threats. Organizations using ScreenConnect should prioritize reviewing applied updates and assessing their systems for any signs of exploitation.",
+  "source_id": "4ccc31fd-fef7-a08b-b7e2-dcb6a581df42",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "4ccc31fd-fef7-a08b-b7e2-dcb6a581df42"
+  ],
+  "cause_label": "screenconnect_vulnerabilities_enable_malware_deployment",
+  "tags": [
+    "screenconnect",
+    "malware",
+    "vulnerability",
+    "sophos",
+    "huntress"
+  ],
+  "node_id": "ee02f7d6-bdc4-45a7-9079-53bf766db04c",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

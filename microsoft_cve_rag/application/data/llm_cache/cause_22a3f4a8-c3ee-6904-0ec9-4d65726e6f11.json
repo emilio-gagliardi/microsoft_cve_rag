@@ -1,0 +1,21 @@
+{
+  "description": "The Windows kernel contains a Use After Free flaw that allows for elevation of privilege through improper memory management, specifically enabling an attacker on the local system to execute arbitrary code at a higher privilege level than intended.",
+  "cause_label": "windows_kernel_use_after_free_elevation_of_privilege",
+  "source_id": "22a3f4a8-c3ee-6904-0ec9-4d65726e6f11",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "22a3f4a8-c3ee-6904-0ec9-4d65726e6f11"
+  ],
+  "tags": [
+    "elevation of privilege",
+    "Windows kernel",
+    "Use After Free",
+    "CVE-2024-43570"
+  ],
+  "node_id": "bf94c7bf-c429-4561-9e28-564a0ddab1dd",
+  "node_label": "Cause",
+  "reliability": 1.0,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

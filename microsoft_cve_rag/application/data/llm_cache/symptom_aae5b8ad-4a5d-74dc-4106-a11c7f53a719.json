@@ -1,0 +1,20 @@
+{
+  "symptom_label": "dc_holds_ad_ds_and_dns_in_security_risk",
+  "description": "Hosting Active Directory Domain Services (AD DS) and DNS on a domain controller can expose the system to security risks. Running unnecessary software on a DC increases the attack surface, making it susceptible to exploits. If DHCP is installed on the DC, there is a potential for unauthorized access if a service account with insufficient delegated permissions is used. It is recommended to migrate the DHCP service to a separate server or a layer-3 device to enhance security and reduce the operational hassle. This precaution is crucial to maintaining the integrity and stability of the domain controller environment.",
+  "source_id": "aae5b8ad-4a5d-74dc-4106-a11c7f53a719",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "aae5b8ad-4a5d-74dc-4106-a11c7f53a719"
+  ],
+  "tags": [
+    "Active Directory",
+    "Domain Controller",
+    "DHCP Security",
+    "Security Best Practices"
+  ],
+  "node_id": "5d4dc4a9-8930-4a45-9951-3d8a7ef1e435",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

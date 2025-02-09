@@ -1,0 +1,20 @@
+{
+  "symptom_label": "intermittent_audio_output_with_headphones_connected",
+  "description": "The laptop exhibits an intermittent audio output issue where sound can be heard from the headphones when plugged in, but the system defaults back to speakers after the headphones are unplugged and reinserted. This behavior culminates in a lack of consistent audio routing, causing frustration for users who rely on audio for communication or media consumption. Attempts to resolve the issue through physical troubleshooting, such as gentle wiggling of the headphone jack, have yielded no positive results, indicating that the problem may not be isolated to a simple connection failure. Documented cases suggest that previous hardware repairs, including jack and motherboard replacements, did not rectify the audio output malfunction, further complicating the repair process. Users are advised to explore additional troubleshooting methods or software settings adjustments to address this audio routing issue effectively.",
+  "source_id": "37972c52-4961-b464-af86-9b2e636419e5",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "37972c52-4961-b464-af86-9b2e636419e5"
+  ],
+  "tags": [
+    "audio_issue",
+    "laptop_sound",
+    "headphone_problem",
+    "hardware_repair"
+  ],
+  "node_id": "5af4ae28-60aa-46cf-9ea7-7305740582de",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

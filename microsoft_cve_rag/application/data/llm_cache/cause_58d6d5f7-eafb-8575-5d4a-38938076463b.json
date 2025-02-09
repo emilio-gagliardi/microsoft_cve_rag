@@ -1,0 +1,20 @@
+{
+  "description": "A denial of service condition stemming from uncontrolled resource consumption in the DHCP server service, allowing attackers to exploit network vulnerabilities remotely. This leads to total loss of availability for affected systems without prior user interaction.",
+  "cause_label": "dhcp_server_service_uncontrolled_resource_consumption",
+  "source_id": "58d6d5f7-eafb-8575-5d4a-38938076463b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "58d6d5f7-eafb-8575-5d4a-38938076463b"
+  ],
+  "tags": [
+    "DHCP",
+    "Denial of Service",
+    "Resource Consumption",
+    "Network Security"
+  ],
+  "node_id": "f0351046-1684-43cb-982a-7169878f3376",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

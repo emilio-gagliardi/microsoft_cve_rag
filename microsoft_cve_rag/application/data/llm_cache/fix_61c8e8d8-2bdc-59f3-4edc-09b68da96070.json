@@ -1,0 +1,16 @@
+{
+  "description": "The Windows 11 23H2 enablement package is available for offline environments that are not connected to WSUS or Windows Update. Users can run this package directly from a designated location, often referred to as the 'super-secret' location. This approach allows system administrators to deploy updates in scenarios where traditional update channels are unavailable, ensuring that systems can be updated in isolated networks. It is crucial to verify the integrity of the package before deployment to prevent issues. Administrators should also document the location and method of installation for future reference.",
+  "source_id": "61c8e8d8-2bdc-59f3-4edc-09b68da96070",
+  "source_type": "PatchManagementPost",
+  "fix_label": "RunWindows11EnablementPackageForOfflineUse",
+  "tags": [
+    "windows 11",
+    "enablement package",
+    "offline deployment"
+  ],
+  "node_id": "ed31461a-f64c-4d4c-b457-2e30a0b7576e",
+  "node_label": "Fix",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

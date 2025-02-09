@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability in Microsoft WDAC OLE DB Provider for SQL Server (CVE-2024-21375), follow these steps to apply the necessary updates:\n\n1. Identify your Windows version and build number from the list below:\n   - Windows 11 Version 23H2 for x64-based Systems: 10.0.22631.3155\n   - Windows 11 Version 22H2 for x64-based Systems: 10.0.22621.3155\n   - Windows 11 Version 21H2 for x64-based Systems: 10.0.22000.2777\n   - Windows 10 for x64-based Systems: 10.0.10240.20469\n   - Windows 10 Version 22H2 for x64-based Systems: 10.0.19045.4046\n   - Windows 10 Version 21H2 for x64-based Systems: 10.0.19044.4046\n\n2. Download the appropriate KB update for your system:\n   - For versions related to KB5034765:\n     [Download KB5034765](https://catalog.update.microsoft.com/Search.aspx?q=KB5034765)\n   - For versions related to KB5034766:\n     [Download KB5034766](https://catalog.update.microsoft.com/Search.aspx?q=KB5034766)\n   - For versions related to KB5034774:\n     [Download KB5034774](https://catalog.update.microsoft.com/Search.aspx?q=KB5034774)\n   - For versions related to KB5034763:\n     [Download KB5034763](https://catalog.update.microsoft.com/Search.aspx?q=KB5034763)\n\n3. Apply the update package to your system.\n\n**Details**:\n- The updates address the vulnerabilities causing potential remote code execution. \n- Ensure to verify the successful application of the updates by checking the system settings or update history. \n\n**Preconditions**:\n- Ensure that your system is compatible with the respective KB updates before installation.\n- Backup important data before applying the updates.",
+  "source_id": "27fbcc79-8833-70fc-afef-5d4915bec5a2",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_sql_server_cve202421375",
+  "tags": [
+    "KB5034765",
+    "KB5034766",
+    "SQLServer",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "bee70d36-bb84-4ac4-acd8-e288247ff769",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "27fbcc79-8833-70fc-afef-5d4915bec5a2"
+  ]
+}

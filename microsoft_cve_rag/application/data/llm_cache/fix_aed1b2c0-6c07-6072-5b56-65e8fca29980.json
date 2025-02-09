@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the use after free vulnerability in FedCM for Google Chrome that affects Microsoft Edge (Chromium-based), it is essential to update your browser to the latest version.\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) in the upper right corner.\n3. Select 'Help and feedback'.\n4. Click on 'About Microsoft Edge' to check for updates.\n5. If an update is available, follow the prompts to download and install it.\n\n**Details**:\n- The affected version was prior to 122.0.6261.111.\n- Make sure to restart your browser after applying the update to ensure all changes take effect. This update resolves the security issue associated with CVE-2024-2176. Updates are crucial to mitigate potential risks from remote attacks.\n- Be sure to regularly check for updates to keep your browser secure.",
+  "source_id": "aed1b2c0-6c07-6072-5b56-65e8fca29980",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_122.0.2365.80",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20242176",
+    "Chrome",
+    "Chromium"
+  ],
+  "node_id": "2921e2ab-f31f-4623-a44c-8cf1c98bba53",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "aed1b2c0-6c07-6072-5b56-65e8fca29980"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "symptom_label": "auto_update_fails_due_to_missing_dotnet_framework",
+  "description": "When a server is lacking the .NET 4.7.1 framework, it can lead to failures in the automatic update process of software applications dependent on this version. Administrators may notice that updates do not install as expected if this prerequisite component is absent. This situation can lead to frustration as users might be unaware of the requirement, potentially resulting in outdated software and vulnerabilities. Understanding the relationship between the .NET framework version and auto updates is crucial for maintaining system integrity. The absence of the required .NET framework should prompt an immediate review of server configurations and installed components to ensure compliance with application requirements.",
+  "source_id": "22e1da4d-0112-738e-ab7b-45acdab461ad",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "22e1da4d-0112-738e-ab7b-45acdab461ad"
+  ],
+  "tags": [
+    "dotnet",
+    "auto_update",
+    "software_incompatibility",
+    "server_management"
+  ],
+  "node_id": "6a4389f7-7ae2-44b5-aee0-36303be94871",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

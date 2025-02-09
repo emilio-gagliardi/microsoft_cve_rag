@@ -1,0 +1,21 @@
+{
+  "symptom_label": "internet_connection_sharing_denial_of_service",
+  "description": "Users may experience a total loss of internet connectivity when utilizing Internet Connection Sharing (ICS) due to a denial-of-service condition. This occurs across various Windows builds, specifically affecting Windows 10 (builds 10.0.10240.20469, 10.0.19044.4046) and Windows 11 (builds 10.0.22631.3155). The denial of service prevents new connections from being established, leading to frustration and disruption in network services. Affected users may notice that their ability to share connections is entirely interrupted, which can significantly impact productivity and system functionality. The issue is tied to KB5034763 and requires attention by system administrators to ensure continued network access.",
+  "source_id": "dab5aab5-dd3f-2fba-9d46-319f18eeae7b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "dab5aab5-dd3f-2fba-9d46-319f18eeae7b"
+  ],
+  "tags": [
+    "Internet Connection Sharing",
+    "Denial of Service",
+    "Windows 10",
+    "Windows 11",
+    "Network Issues"
+  ],
+  "node_id": "bd9b4631-e870-493d-88fa-7618b1984dc1",
+  "node_label": "Symptom",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,22 @@
+{
+  "description": "The vulnerability in Microsoft PlugScheduler arises from improper link resolution before file access, enabling local attackers to exploit scheduled task configurations, potentially leading to elevated privileges without user interaction.",
+  "cause_label": "microsoft_plugscheduler_improper_link_resolution",
+  "source_id": "2828ea49-abed-323f-25d8-a53f5cba8521",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2828ea49-abed-323f-25d8-a53f5cba8521"
+  ],
+  "tags": [
+    "CVE",
+    "Microsoft",
+    "Plugscheduler",
+    "Elevation of Privilege",
+    "Windows"
+  ],
+  "node_id": "47de70eb-f08c-4880-a456-1658a491d068",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

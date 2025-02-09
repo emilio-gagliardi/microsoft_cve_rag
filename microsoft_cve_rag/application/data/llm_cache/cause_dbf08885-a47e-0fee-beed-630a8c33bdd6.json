@@ -1,0 +1,23 @@
+{
+  "description": "An out-of-bounds read in the NTFS file system allows local attackers to escalate privileges, gaining unauthorized access to system resources and potentially compromising the integrity and confidentiality of the affected system components. The issue arises from improper handling of buffer boundaries, resulting in excessive memory access without appropriate checks.",
+  "cause_label": "ntfs_out_of_bounds_read_elevation_of_privilege",
+  "source_id": "dbf08885-a47e-0fee-beed-630a8c33bdd6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "dbf08885-a47e-0fee-beed-630a8c33bdd6"
+  ],
+  "tags": [
+    "NTFS",
+    "Out-of-bounds Read",
+    "Elevation of Privilege",
+    "CVE-2024-38117",
+    "Windows",
+    "Security"
+  ],
+  "node_id": "fed89b3c-a31b-46a0-9465-7b3e1736b45f",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

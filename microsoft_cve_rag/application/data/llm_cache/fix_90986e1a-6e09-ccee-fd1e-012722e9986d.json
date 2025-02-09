@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows DNS client denial of service vulnerability (CVE-2024-21342):\n\n1. Download and apply the KB5034765 update from the official Windows Update catalog.\n2. Restart your system after the update is applied to ensure the changes take effect.\n\n**Details**:\n- This update resolves the denial of service vulnerability affecting Windows DNS Client, thus improving its availability.\n- For manual installation, download the update package from: https://catalog.update.microsoft.com/Search.aspx?q=KB5034765.\n\n**Preconditions**:\n- Ensure your system is running Windows 11 Version 23H2 (10.0.22631.3155) or Version 22H2 (10.0.22621.3155).\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "90986e1a-6e09-ccee-fd1e-012722e9986d",
+  "source_type": "MSRCPost",
+  "fix_label": "resolve_windows_dns_client_dos_vulnerability_cve202421342",
+  "tags": [
+    "KB5034765",
+    "Windows11",
+    "DoS",
+    "CVE202421342"
+  ],
+  "node_id": "24594855-ccb4-412e-8c41-dd8859b3b24e",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "90986e1a-6e09-ccee-fd1e-012722e9986d"
+  ]
+}

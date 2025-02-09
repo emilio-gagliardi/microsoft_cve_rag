@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_crashes_with_previous_chromium_versions",
+  "description": "Users may experience crashes or unexpected terminations of the Microsoft Edge (Chromium-based) browser if they are running a version prior to 128.0.6613.119. This issue is observed particularly when accessing web pages that contain elements potentially containing heap corruption, which can lead to an unstable browsing experience. This behavioral problem manifests particularly for those utilizing Edge on Windows systems, where intermittent browser failures could impede productivity and overall user satisfaction. The latest update, KB-128.0.2739.63, addresses these issues and ensures users are protected against vulnerabilities that could affect system stability and security. It is crucial for administrators to ensure that users are informed about updating their browser to avoid these symptoms.",
+  "source_id": "10443541-6e15-edea-321a-734ba64af313",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "10443541-6e15-edea-321a-734ba64af313"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Browser Crashes",
+    "Heap Corruption",
+    "Update issues"
+  ],
+  "node_id": "89714b7b-93b6-4238-8b6b-804d95e2c79d",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

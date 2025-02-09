@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo correct printer issues for all users in an enterprise environment, the following steps should be performed using the appropriate administrative access:\n\n1. Click Start, type `cmd`, right-click on Command Prompt, and select Run as administrator.\n\n2. In the opened Command Prompt, type `cd /d [path_to_downloaded_tool]` and press Enter.\n\n3. Type the name of the executable for your device (e.g., `printmetadatatroubleshooterx86.exe`) and press Enter.\n\nThis method ensures that the tool runs with the necessary permissions to address printer problems effectively.\n\n**Preconditions**:\n- Ensure that you have administrative access or run the command as the local system account using tools like PsExec or Windows Task Scheduler.\n\n- It is crucial to double-check the path to the downloaded tool before executing the commands.",
+  "source_id": "8b422938-8c57-df55-561a-04e3bfee1a27",
+  "source_type": "PatchManagementPost",
+  "fix_label": "ExecutePrintTroubleshooterAsAdmin",
+  "tags": [
+    "PrintManagement",
+    "LocalSystemAccount",
+    "AdministrativeCredentials",
+    "WindowsTaskScheduler"
+  ],
+  "node_id": "3a8f2419-d023-4607-828c-716a14d0df44",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

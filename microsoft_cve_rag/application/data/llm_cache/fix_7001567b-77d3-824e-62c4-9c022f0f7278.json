@@ -1,0 +1,16 @@
+{
+  "description": "To address the curl 8.4.0 vulnerability associated with CVE-2023-38545, it is recommended to install the Windows security updates released on November 14, 2023. These updates include the updated version of curl.exe across several supported Windows builds. Specifically, you should ensure that your system is updated to the Windows 10 and 11 build numbers: 10.0.22631.2715, 10.0.22621.2715, and 10.0.19044.3693, among others, as listed under the KB articles. The relevant KB Articles for these updates are KB5032192, KB5032190, and KB5032196. You can find the update packages at the following links: [KB5032192](https://catalog.update.microsoft.com/Search.aspx?q=KB5032192), [KB5032196](https://catalog.update.microsoft.com/Search.aspx?q=KB5032196), and [KB5032190](https://catalog.update.microsoft.com/Search.aspx?q=KB5032190). Ensure automatic updates are enabled for seamless integration of the latest security features.",
+  "source_id": "7001567b-77d3-824e-62c4-9c022f0f7278",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplyCurlUpdateForCveSecurityVulnerability",
+  "tags": [
+    "curl",
+    "windows updates",
+    "CVE-2023-38545"
+  ],
+  "node_id": "45578dd7-9eef-452e-a770-1b50eafe33cf",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

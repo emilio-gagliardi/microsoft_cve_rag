@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the SmartScreen prompt security feature bypass vulnerability (CVE-2024-29988):\n\n1. Ensure your system is updated to include the KB-5036910, KB-5036894, KB-5036893, KB-5036892 updates.\n2. Verify the system build numbers are one of the following: [10, 0, 19045, 4291], [10, 0, 19044, 4291], [10, 0, 22631, 3447], [10, 0, 22000, 2899], or [10, 0, 22621, 3447].\n\n**Details**:\n- It is essential that the aforementioned updates are applied as they address the protection mechanism failure identified.\n- Confirm installation through the Windows Update settings or manually via the official update catalog.\n\nFor additional guidance, you can consult the relevant KB articles linked above to understand the changes implemented by these updates. ",
+  "source_id": "de0331c0-c8a8-aeda-0ab5-42f536b16797",
+  "source_type": "MSRCPost",
+  "fix_label": "address_smartscreen_security_bypass_cve202429988",
+  "tags": [
+    "KB5036910",
+    "SmartScreen",
+    "CVE202429988",
+    "ProtectionMechanism"
+  ],
+  "node_id": "9de927ff-cc51-4dd1-b984-97e96a456730",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "de0331c0-c8a8-aeda-0ab5-42f536b16797"
+  ]
+}

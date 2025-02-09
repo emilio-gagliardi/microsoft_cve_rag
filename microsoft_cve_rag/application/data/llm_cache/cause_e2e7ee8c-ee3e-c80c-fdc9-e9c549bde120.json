@@ -1,0 +1,21 @@
+{
+  "description": "An integer overflow in the Windows Mobile Broadband driver allows remote code execution via a physically connected malicious USB device, potentially compromising system confidentiality and integrity.",
+  "cause_label": "windows_mobile_broadband_driver_integer_overflow_exploit",
+  "source_id": "e2e7ee8c-ee3e-c80c-fdc9-e9c549bde120",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e2e7ee8c-ee3e-c80c-fdc9-e9c549bde120"
+  ],
+  "tags": [
+    "Windows",
+    "Remote Code Execution",
+    "Driver",
+    "Integer Overflow"
+  ],
+  "node_id": "e9b5cf1a-72f6-41c8-8c37-213719876dac",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

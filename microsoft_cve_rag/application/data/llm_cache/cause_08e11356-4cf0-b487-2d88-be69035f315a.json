@@ -1,0 +1,18 @@
+{
+  "description": "The underlying cause of the issue described in CVE-2023-36025 is a flaw in the Windows SmartScreen security feature that allows for a security feature bypass. Specifically, the design of the security feature involves interactions with internet shortcuts that, if crafted maliciously, can allow an attacker to bypass SmartScreen checks. This vulnerability may be exploited remotely over the network, without requiring prior authorization. The affected products include various Windows Server and client build versions, notably those with build numbers such as 10.0.22631.2715 and 10.0.19043.3693. The related KB article IDs include KB-5032199, KB-5032192, KB-5032190, and KB-5032189, which provide updates that address this issue.",
+  "cause_label": "WindowsSmartScreenBypassAllowsRemoteExploitation",
+  "source_id": "08e11356-4cf0-b487-2d88-be69035f315a",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE",
+    "Windows",
+    "SmartScreen",
+    "security",
+    "bypass"
+  ],
+  "node_id": "16addedb-eb38-4718-a488-64efe56e269c",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

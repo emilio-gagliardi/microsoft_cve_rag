@@ -1,0 +1,19 @@
+{
+  "description": "The root cause of CVE-2023-5483 is an inappropriate implementation in intents within the Chromium open-source software, which is utilized by the Microsoft Edge (Chromium-based) browser. This specific issue can lead to various security implications, as Chromium serves as the foundational codebase for Edge. The affected build numbers for Microsoft Edge are 118.0.2088.46, and it is crucial for users to update to this version or later to mitigate the risk associated with this vulnerability. Additionally, this CVE was documented to highlight that the latest versions of Edge are no longer affected, ensuring better protection for end users. The corresponding KB article for further details is KB-118.0.2088.46.",
+  "cause_label": "InappropriateImplementationInIntentsWithinChromium",
+  "source_id": "7291d842-9d2d-571b-6af9-97f9b8966dcb",
+  "source_type": "MSRCPost",
+  "tags": [
+    "security",
+    "CVE",
+    "Microsoft Edge",
+    "Chromium",
+    "vulnerability",
+    "patch management"
+  ],
+  "node_id": "36965493-10b3-4161-9d05-c9cae94180fd",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

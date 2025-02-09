@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the 'Use After Free' vulnerability in Chromium (CVE-2024-7000), ensure that your Microsoft Edge (Chromium-based) browser is updated to the latest version available:\n\n1. Open your Microsoft Edge browser.\n2. Click on the three dots (...), located on the right-hand side of the window.\n3. Select 'Help and feedback', then click on 'About Microsoft Edge'.\n4. If your version is older than 127.0.6533.72, update your browser to version 127.0.2651.74 or later.\n\n**Details**:\n- This update addresses a use after free vulnerability that could allow a remote attacker to exploit heap corruption via crafted HTML content. It is particularly important for organizations leveraging Microsoft Edge in their environment.\n- Ensure to regularly check for updates to maintain security posture.\n- Refer to the Google Chrome release notes for more information on the underlining Chromium vulnerability that has been remediated.\n\n**Preconditions**:\n- Verify that administrative privileges are available for performing updates.\n- Regularly back up critical data before conducting software updates. \n\nFor more information, see the update guide at: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-7000.",
+  "source_id": "5b9a49fe-90bf-8e93-13b6-d5fd771a404d",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_address_cve20247000",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20247000",
+    "Chromium",
+    "Update"
+  ],
+  "node_id": "9b657108-5c6f-4ef7-aad6-cb19000dc8ac",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "5b9a49fe-90bf-8e93-13b6-d5fd771a404d"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "bitlocker_unlock_required_to_access_drive",
+  "description": "In scenarios where a drive is protected by BitLocker, system administrators may find themselves unable to access the data stored on the drive without unlocking it first. This can occur in environments utilizing SCCM boot media (WinPE) that are not properly configured to manage BitLocker. The symptom may manifest as an inability to view or manipulate files on the drive unless the BitLocker encryption is removed or the drive is unlocked. The process typically necessitates utilizing a bootable WinPE medium to facilitate the unlocking of the BitLocker-encrypted drive, which highlights operational challenges for administrators seeking to retrieve or modify locked files. Resolving this issue requires familiarity with BitLocker management and potentially, access to the encryption keys or recovery options.",
+  "source_id": "d4bdeb94-e26f-880b-bc1e-d58dc4eab878",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d4bdeb94-e26f-880b-bc1e-d58dc4eab878"
+  ],
+  "tags": [
+    "BitLocker",
+    "SCCM",
+    "WinPE",
+    "drive access"
+  ],
+  "node_id": "b7ebba36-9c06-4ba5-b5eb-763bf6207726",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

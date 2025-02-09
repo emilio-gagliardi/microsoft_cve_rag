@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the memory leak issue in the Local Security Authority Subsystem Service (LSASS) affecting domain controllers, it is crucial to apply the out-of-band updates as listed below.\n\n1. Identify the resolved KBs: KB-5037426, KB-5037423, KB-5037422, KB-5035885, KB-5035857, and KB-5035855.\n\n2. Search for these KBs in the Microsoft Update Catalog.\n\n3. Download the updates manually since they are not available through Windows Update.\n\n4. Import the updates into Windows Server Update Services (WSUS) and Configuration Manager if applicable.\n\n5. Ensure to **not** apply the March 2024 security update on the domain controllers; instead, use the out-of-band updates.\n\n**Details**:\n- This resolution is necessary to prevent extreme memory leaks that may lead to unscheduled reboots of the domain controllers.\n- The updates address issues specifically observed on on-premises and cloud-based Active Directory Domain Controllers handling Kerberos authentication requests.\n- Remember to review guidance on importing updates from the Microsoft Update Catalog in Configuration Manager. (LLM Synthesized)",
+  "source_id": "c2881e87-935e-9bc1-c79a-567b62b700ee",
+  "source_type": "PatchManagementPost",
+  "fix_label": "apply_resolved_kb_updates_lsass_memory_leak",
+  "tags": [
+    "KB5037426",
+    "WindowsServer",
+    "LSASS",
+    "MemoryLeak"
+  ],
+  "node_id": "66a3251c-7c3a-4819-9674-ce2fef304938",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c2881e87-935e-9bc1-c79a-567b62b700ee"
+  ]
+}

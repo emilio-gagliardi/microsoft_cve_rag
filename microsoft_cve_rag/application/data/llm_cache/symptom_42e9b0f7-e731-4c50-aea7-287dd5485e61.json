@@ -1,0 +1,20 @@
+{
+  "symptom_label": "HidingFirstRunExperienceInMicrosoftEdge",
+  "description": "The Microsoft Edge browser may present a first run experience that can be undesirable for users. To mitigate this, system administrators can adjust the registry setting located at HKLM:\\ SOFTWARE\\Policies\\Microsoft\\Edge and set the HideFirstRunExperience property to a DWORD value. Implementing this configuration may improve user acceptance and streamline the initial setup process for Edge across various enterprise environments.",
+  "source_id": "42e9b0f7-e731-4c50-aea7-287dd5485e61",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "42e9b0f7-e731-4c50-aea7-287dd5485e61"
+  ],
+  "tags": [
+    "MicrosoftEdge",
+    "RegistryKey",
+    "UserExperience",
+    "ConfigurationManagement"
+  ],
+  "node_id": "23333657-8d18-4573-91ea-b5dd4a3f7aa8",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

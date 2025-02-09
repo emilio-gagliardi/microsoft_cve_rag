@@ -1,0 +1,21 @@
+{
+  "symptom_label": "audio_playback_disruption_in_chromium_based_edge",
+  "description": "Users may experience audio playback disruptions in Microsoft Edge (Chromium-based) version 126.0.2592.56 and earlier due to a use-after-free vulnerability identified as CVE-2024-5845. This could manifest as unexpected silence or audio garbling while media is being played back, causing frustration for users during video conferencing, streaming, or general media consumption. The issue arises specifically from a flaw related to audio processing within the Chromium engine utilized by Edge, leading to intermittent audio failures when accessing various media files, particularly crafted PDF files. It is critical to ensure that the Edge browser is updated to version 126.0.6478.57 or later, as these versions address the noted vulnerability, thus restoring normal audio functionality and user experience. This update is documented in KB-126.0.2592.56, which should be referenced for details on the security fix and its implementation.",
+  "source_id": "40d11084-0931-6a80-8213-1177fcd5cb10",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "40d11084-0931-6a80-8213-1177fcd5cb10"
+  ],
+  "tags": [
+    "audio",
+    "Microsoft Edge",
+    "Chromium",
+    "media playback"
+  ],
+  "node_id": "06c068ec-53dd-4919-ba0c-2fdde63907ed",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

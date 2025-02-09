@@ -1,0 +1,20 @@
+{
+  "symptom_label": "unable_to_find_kb_articles_in_update_catalogue",
+  "description": "The user is experiencing difficulty locating specific KB articles within the update catalogue for Windows Server 2022. This issue manifests when users search by KB number or article name but are unable to retrieve relevant results. Such challenges indicate a potential problem with the update catalogue services or indexing, which can lead to delays in accessing critical updates. As a technical analyst, the user is likely impacted in their ability to manage and maintain servers effectively. This symptom can hinder timely patch management, thereby leaving systems vulnerable to known issues that could otherwise be mitigated by applying necessary updates.",
+  "source_id": "6bb3d599-72c9-dffa-25be-d68e38be45bf",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "6bb3d599-72c9-dffa-25be-d68e38be45bf"
+  ],
+  "tags": [
+    "update catalogue",
+    "KB articles",
+    "Windows Server 2022",
+    "patch management"
+  ],
+  "node_id": "c72d9e45-e228-4eff-afb0-a99ff5820e5e",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

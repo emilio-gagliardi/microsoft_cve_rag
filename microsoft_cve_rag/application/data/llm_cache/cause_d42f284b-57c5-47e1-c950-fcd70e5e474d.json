@@ -1,0 +1,20 @@
+{
+  "description": "The cause identified in this post pertains to misconfigurations within ADMX management for Microsoft Edge. When configuring policies using ADMX templates, incorrect naming conventions and folder structures can lead to unexpected behavior within the application. The use of the EvergreenADMX PowerShell script is suggested to alleviate these issues by ensuring that the templates are correctly applied. The post highlights that proper adherence to naming and structuring guidelines is critical in preventing conflicts and functional anomalies in Microsoft Edge. The KB article referenced (KB2119259) provides further guidance on addressing this issue and implementing best practices for ADMX management.",
+  "source_id": "d42f284b-57c5-47e1-c950-fcd70e5e474d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d42f284b-57c5-47e1-c950-fcd70e5e474d"
+  ],
+  "cause_label": "incorrect_admx_management_yields_configuration_issues",
+  "tags": [
+    "ADMX management",
+    "EvergreenADMX PowerShell",
+    "Microsoft Edge",
+    "policy configuration"
+  ],
+  "node_id": "7ae6426d-fb44-4ef0-b7ea-c482c5926a23",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Cause"
+}

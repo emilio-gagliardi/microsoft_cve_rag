@@ -1,0 +1,16 @@
+{
+  "description": "The core issue arises from the incorrect identification of printers as HP models within Windows 10 and Windows 11, which has been observed following a recent update. This erroneous classification triggers the installation of the 'HP Smart' app from the Microsoft Store, under the false assumption that an HP printer is connected. The misidentification primarily stems from the alterations made to the manufacturer and model information in the system registry, leading to disruptions in printer functionality and user experience. Users report that non-HP printers are mistakenly recognized as HP models, creating confusion and inefficiencies in device management. Monitoring the impact of this issue is critical, especially in environments with diverse printer brands and models, to avoid unintentional disruptions to business operations.",
+  "source_id": "41b6bcd8-59e2-cdb8-eb4a-df11ea280793",
+  "source_type": "PatchManagementPost",
+  "cause_label": "IncorrectPrinterIdentificationLeadsToAppInstall",
+  "tags": [
+    "printer management",
+    "windows update",
+    "device identification"
+  ],
+  "node_id": "21bfaab0-271a-4e84-91f6-136a0d74c491",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

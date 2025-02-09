@@ -1,0 +1,21 @@
+{
+  "symptom_label": "azure_virtual_desktop_black_screens_on_login",
+  "description": "Users are experiencing black screens when logging into Azure Virtual Desktop (AVD) running Windows 10, version 22H2. This issue has been ongoing since at least July 23, impacting the ability of system administrators to effectively manage user sessions. The black screen symptoms may indicate problems with FSLogix profiles or configuration settings in Azure. The ongoing nature of this issue suggests systemic configuration challenges or bugs in the AVD service. No specific KB Article ID has been provided, implying that a more detailed investigation may be necessary to identify and resolve the root cause of the login issues.",
+  "source_id": "d2a87548-d091-a9c4-fbd8-d08a08168b8b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d2a87548-d091-a9c4-fbd8-d08a08168b8b"
+  ],
+  "tags": [
+    "azure virtual desktop",
+    "black screens",
+    "login issue",
+    "fslogix"
+  ],
+  "node_id": "062b8875-8e3b-4bdb-97dd-c8cb722dde8d",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

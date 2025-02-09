@@ -1,0 +1,19 @@
+{
+  "description": "The root cause of the activation failure for Windows 10 and 11, after upgrading from Windows 7, 8, or 8.1, is due to a change in digital licensing policies enacted as of September 26, 2023. Previously, users could upgrade and retain their digital license; however, the new policy eliminates the ability to grant a new digital license upon activation using legacy product keys. This sudden shift affects users attempting to move to newer operating systems from older genuine Windows versions without a correct licensing path. As a result, users may find themselves unable to authenticate their systems, leading to potential compliance issues and frustrating user experiences. The lack of clarity regarding these policy changes places additional burdens on administrators tasked with managing system upgrades and license verifications.",
+  "source_id": "41948ae2-57cf-9b96-0625-c90784b0ff80",
+  "source_type": "PatchManagementPost",
+  "cause_label": "DigitalLicensePolicyChangeAffectsUpgrades",
+  "tags": [
+    "activation",
+    "license",
+    "windows10",
+    "windows11",
+    "upgrade",
+    "policy"
+  ],
+  "node_id": "9254a1d3-fb36-44d0-acce-118525f31dd2",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

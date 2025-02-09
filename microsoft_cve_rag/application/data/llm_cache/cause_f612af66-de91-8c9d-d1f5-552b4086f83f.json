@@ -1,0 +1,21 @@
+{
+  "description": "A heap-based buffer overflow in the Microsoft WDAC OLE DB Provider for SQL Server allows attackers to execute arbitrary code through specially crafted database replies, triggered when an authenticated victim connects to a malicious SQL database.",
+  "cause_label": "wdac_ole_db_provider_heap_based_buffer_overflow",
+  "source_id": "f612af66-de91-8c9d-d1f5-552b4086f83f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f612af66-de91-8c9d-d1f5-552b4086f83f"
+  ],
+  "tags": [
+    "CVE-2024-21359",
+    "remote code execution",
+    "Microsoft WDAC",
+    "OLE DB Provider",
+    "SQL Server"
+  ],
+  "node_id": "c0bb0eb7-df89-4b21-9954-37e49e7bc53d",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

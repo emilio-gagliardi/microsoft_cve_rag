@@ -1,0 +1,21 @@
+{
+  "description": "The cause of this vulnerability lies in the Wix Toolset's handling of installer bundles that run as the system user. Specifically, the use of the GetTempPathW function directs output to an insecure directory (C:\\Windows\\Temp), allowing standard users to drop malicious binaries in the path before the application can load them, leading to elevation of privileges.",
+  "cause_label": "wix_toolset_insecure_temp_directory_binary_hijack",
+  "source_id": "054bceb7-e11e-64d1-4de5-7b90c25f4733",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "054bceb7-e11e-64d1-4de5-7b90c25f4733"
+  ],
+  "tags": [
+    "Wix Toolset",
+    "Elevation of Privilege",
+    "Installer Vulnerability",
+    "Binary Hijacking"
+  ],
+  "node_id": "e8e6868e-c7e1-4575-aaad-2801e634807b",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

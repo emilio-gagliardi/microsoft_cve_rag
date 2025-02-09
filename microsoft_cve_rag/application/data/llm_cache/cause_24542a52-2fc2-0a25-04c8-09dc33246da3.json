@@ -1,0 +1,16 @@
+{
+  "description": "The elevation of privilege issue identified as CVE-2023-36033 is caused by a flaw within the Windows DWM core library, which permits attackers to gain higher system privileges than intended. This vulnerability arises when the exploit occurs through local access, enabling unauthorized manipulation of system resources. The root cause typically involves insufficient validation of user permissions when accessing sensitive system components. The flaw exists in the Windows 10 and 11 builds specified, including versions 10.0.22621.2715, 10.0.19045.3693, and others linked to KB articles KB-5032190, KB-5032192, and KB-5032189. The attacker can leverage this vulnerability to execute arbitrary code, thereby compromising system integrity and demonstrating a significant risk for affected systems.",
+  "cause_label": "DWMCoreLibraryFlawEnablesPrivilegeEscalation",
+  "source_id": "24542a52-2fc2-0a25-04c8-09dc33246da3",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE",
+    "elevation of privilege",
+    "Windows vulnerability"
+  ],
+  "node_id": "4fdd59b2-48f3-45af-a319-ca180b610ae0",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

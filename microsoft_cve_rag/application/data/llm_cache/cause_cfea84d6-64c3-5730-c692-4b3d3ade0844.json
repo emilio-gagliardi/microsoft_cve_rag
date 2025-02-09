@@ -1,0 +1,21 @@
+{
+  "description": "Type confusion in the V8 JavaScript engine in Chromium allows for heap corruption, potentially exploitable via crafted HTML, affecting Microsoft Edge through its dependency on Chromium.",
+  "cause_label": "v8_type_confusion_in_chromium_heap_corruption",
+  "source_id": "cfea84d6-64c3-5730-c692-4b3d3ade0844",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "cfea84d6-64c3-5730-c692-4b3d3ade0844"
+  ],
+  "tags": [
+    "Chromium",
+    "Microsoft Edge",
+    "V8 Engine",
+    "Heap Corruption",
+    "Type Confusion"
+  ],
+  "node_id": "3989dd3d-040f-4b7e-9f51-bedeb5eed37a",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

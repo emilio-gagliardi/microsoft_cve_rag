@@ -1,0 +1,17 @@
+{
+  "symptom_label": "WindowsUpdateRequiresManualCheckForUpdates",
+  "description": "Windows Update is not automatically notifying users that updates are available, requiring manual checks by the user. This symptom has been noted on devices running Windows 10 version 22H2, particularly on older hardware like the Surface 3, leading to prolonged searches for updates that can take 15 to 20 minutes. While feature updates fail to install automatically, users have reported success when manually installing them through the ISO method, indicating a potential issue with the Windows Update service on this specific build.",
+  "source_id": "2f2dda74-410f-1c1b-f799-c541e3ef20e5",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "WindowsUpdate",
+    "FeatureUpdates",
+    "ManualCheck",
+    "UpdateIssues"
+  ],
+  "node_id": "010686c1-4add-4b21-a098-3323d52a5255",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

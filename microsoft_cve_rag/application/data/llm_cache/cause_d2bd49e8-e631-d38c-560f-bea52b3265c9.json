@@ -1,0 +1,21 @@
+{
+  "description": "The issue is driven by an untrusted search path vulnerability (CWE-426) in Microsoft SharePoint Server, allowing local execution of arbitrary code due to insufficient validation of file paths or dependencies, necessitating user interaction for exploitation.",
+  "cause_label": "sharepoint_untrusted_search_path_local_code_execution",
+  "source_id": "d2bd49e8-e631-d38c-560f-bea52b3265c9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d2bd49e8-e631-d38c-560f-bea52b3265c9"
+  ],
+  "tags": [
+    "SharePoint",
+    "Local Code Execution",
+    "CWE-426",
+    "Remote Code Execution"
+  ],
+  "node_id": "dd7d164f-efc9-4d47-a48b-5ba231a5e73f",
+  "node_label": "Cause",
+  "reliability": 85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

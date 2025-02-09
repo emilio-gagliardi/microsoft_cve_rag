@@ -1,0 +1,21 @@
+{
+  "description": "The issue arises from the misconfiguration allowing normal users the ability to add machines to the domain. By default, such permissions could lead to unauthorized or incorrect machine joins, potentially compromising domain integrity. The proactive measure of disabling this ability and requiring a domain admin account mitigates potential misuse of domain resources. This highlights the importance of stringent user permissions in domain management processes. Without such configurations, standard users could unintentionally or maliciously manipulate domain joins, potentially leading to security lapses.",
+  "source_id": "3611583d-b4c2-9a91-8fd6-f1b731f57788",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "3611583d-b4c2-9a91-8fd6-f1b731f57788"
+  ],
+  "cause_label": "misconfiguration_allowing_normal_user_domain_additions",
+  "tags": [
+    "domain",
+    "user permissions",
+    "administrative control",
+    "machine addition",
+    "configuration management"
+  ],
+  "node_id": "c0bed9dd-2a54-4970-a315-fd3b08a0843b",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,22 @@
+{
+  "tool_label": "mhimkens_patch_winre_script",
+  "description": "**Tool Overview**:\n\nMHimken's Patch-WinRE is a PowerShell script developed to assist in managing and manipulating the recovery partition size within Windows environments.\n\n**Details**:\n\nThis script specifically aims to optimize recovery partition configurations for several thousand computers, ensuring that system recovery processes remain effective and efficient. It can be particularly useful during large-scale deployments or when significant changes are made to the system image. The functionality includes resizing the recovery partition, verifying necessary resources, and potentially automating the process to minimize errors during updates or deployments. System administrators can employ this script as part of their routine maintenance or during specific update cycles to ensure systems remain recoverable without manual interventions.\n\n**Example Usage**:\nA simple command to execute the script would look as follows:\n```powershell\n# Execute the Patch-WinRE script\n.\\Patch-WinRE.ps1\n```\nThis command runs the script located in the current directory.\n",
+  "source_id": "e5e58d9f-d8b2-bb2b-e107-2894ec887512",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e5e58d9f-d8b2-bb2b-e107-2894ec887512"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/PH0PR01MB7349CD85D81826C9A986DAA9B72A2%40PH0PR01MB7349.prod.exchangelabs.com",
+  "tool_url": "",
+  "tags": [
+    "PowerShell",
+    "Windows",
+    "Recovery",
+    "Optimization"
+  ],
+  "node_id": "3d99331b-576b-415c-9e0c-68294b8e4fb2",
+  "node_label": "Tool",
+  "reliability": 0.75,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

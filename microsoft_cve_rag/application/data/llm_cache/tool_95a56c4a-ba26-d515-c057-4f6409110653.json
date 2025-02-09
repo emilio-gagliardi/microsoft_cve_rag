@@ -1,0 +1,23 @@
+{
+  "tool_label": "azure_virtual_desktops",
+  "description": "**Tool Overview**:\n\nAzure Virtual Desktops (formerly known as Windows Virtual Desktop) is a Microsoft-managed desktop virtualization environment that enables users to run virtualized Windows desktops and applications in the cloud.\n\n**Details**:\n1. Azure Virtual Desktops allows organizations to provide their employees with remote access to Windows 10 or Windows 11 desktops from virtually anywhere with an internet connection.\n2. Users can leverage existing Microsoft 365 licenses, simplifying deployment and management of virtual desktops.\n3. Administrators can use Azure to configure virtual machines, networking, and security settings for optimal performance and compliance.\n4. The service supports various scenarios, including full desktop virtualization and application streaming, catering to different user needs.\n5. Deployment can be managed through the Azure portal, PowerShell, or ARM templates, providing flexibility and scalability to meet organizational requirements.\n\n**Use Cases**:\n- Supporting remote work environments.\n- Providing access to applications that require high-end resource capabilities.\n- Ensuring secure access to sensitive data through controlled environments.",
+  "source_id": "95a56c4a-ba26-d515-c057-4f6409110653",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "95a56c4a-ba26-d515-c057-4f6409110653"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CH0P221MB041252213CC4A279A1F8F16DC9632%40CH0P221MB0412.NAMP221.PROD.OUTLOOK.COM",
+  "tool_url": "https://azure.microsoft.com/en-us/services/virtual-desktop/",
+  "tags": [
+    "Azure",
+    "Virtual Desktops",
+    "cloud",
+    "desktop virtualization"
+  ],
+  "node_id": "5250c426-cd80-4bb4-bc12-867ab1846c5a",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

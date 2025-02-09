@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the inability to resize the C: partition in situations where the WinRE partition is adjacent:\n\n1. Backup or create an image of the device to ensure data safety.\n2. Delete all existing system restore points.\n3. Disable system restore on the Windows partition (usually C:).\n4. Run Disk Cleanup in administrative mode and select all available items, then initiate the process and do not interrupt it.\n5. Restart the device once all cleanup is complete.\n6. Proceed to resize the C: partition as needed. If there is a requirement to adjust the WinRE partition size, consider deleting the existing WinRE and creating a new one post-C: resize.\n7. Take into account the current size and free space of the WinRE partition when resizing to maintain proper functionality (i.e., increase WinRE size to a suitable amount based on available free space).\n\n**Details**:\n- To determine the size of the WinRE partition, you can utilize PowerShell administrative commands like `get-volume` or `fsutil volume diskfree \\\\?\\globalroot\\device\\harddisk1\\partition4\\recovery\\windowsre`.\n- Additionally, `reagentc /info` can help ascertain the appropriate hard disk and partition numbers. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure you have administrative privileges and backup data before proceeding with the method.",
+  "source_id": "e0764359-f601-b2e7-2a63-eaf06ae961c4",
+  "source_type": "PatchManagementPost",
+  "fix_label": "resize_winre_partition_c_drive_method",
+  "tags": [
+    "PartitionResize",
+    "WindowsRecoveryEnvironment",
+    "DiskCleanup",
+    "LLM Synthesized"
+  ],
+  "node_id": "64044d82-b495-4df7-b822-69bc082fc44b",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e0764359-f601-b2e7-2a63-eaf06ae961c4"
+  ]
+}

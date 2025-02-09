@@ -1,0 +1,22 @@
+{
+  "tool_label": "powershell_module_for_bios_version_check",
+  "description": "**Tool Overview**:\n\nThis PowerShell module allows administrators to check the latest BIOS version available for Lenovo devices.\n\n**Details**:\n\nThe module simplifies the process of ensuring that systems are running the most up-to-date BIOS firmware, which is crucial for system stability and performance. It addresses concerns raised by security professionals regarding firmware vulnerabilities and offers a straightforward method to verify BIOS versions.\n\n1. The module can be easily integrated into routine system checks.\n2. Users can execute the script to receive information regarding the current BIOS version and compare it with the latest version provided by Lenovo.\n3. The module also facilitates automation within larger deployment scripts, enabling mass checks across device fleets.\n\nThis tool garnered positive feedback from various communities for its effectiveness and ease of use in administrative contexts.",
+  "source_id": "8ea81bbf-3316-bbf5-36a8-251715014904",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "8ea81bbf-3316-bbf5-36a8-251715014904"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAKjXc8apkq_wPu1_%2BCvmR9kWsyALfAC_czx1JfftQnYPKYRp3g%40mail.gmail.com",
+  "tool_url": "",
+  "tags": [
+    "PowerShell",
+    "BIOS",
+    "Lenovo",
+    "device management"
+  ],
+  "node_id": "d8e460d5-7c4a-4fc3-8611-cda1c4c2f5c6",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

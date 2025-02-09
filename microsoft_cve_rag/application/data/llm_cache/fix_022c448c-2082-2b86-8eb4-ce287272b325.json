@@ -1,0 +1,16 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the MSHTML platform remote code execution vulnerability (CVE-2023-35628), follow these steps:\n\n1. Identify the correct KB updates applicable to your system:\n   - For Windows 11: KB5033383, KB5033371, KB5033373, KB5033420, etc.\n   - For Windows 10: KB5033371, KB5033372, KB5033375, etc.\n\n2. Download the relevant update packages from the Microsoft Update Catalog:\n   - [KB5033118](https://catalog.update.microsoft.com/Search.aspx?q=KB5033118)\n   - [KB5033373](https://catalog.update.microsoft.com/Search.aspx?q=KB5033373)\n   - [KB5033379](https://catalog.update.microsoft.com/Search.aspx?q=KB5033379)\n   - [KB5033369](https://catalog.update.microsoft.com/Search.aspx?q=KB5033369)\n\n3. Install the updates as per standard procedures for your operating system.\n\n4. Restart your system to ensure all updates apply correctly.\n\n**Details**:\n- This fix addresses a critical remote code execution vulnerability that could allow an attacker to execute arbitrary code if a user opens a specially crafted document or visits an affected website.\n- Ensure that your system builds are compatible with the respective KB articles mentioned.\n\n**Preconditions**:\n- Administrative privileges are required to install Windows updates.\n- Backup critical data before installation to prevent data loss.",
+  "source_id": "022c448c-2082-2b86-8eb4-ce287272b325",
+  "source_type": "MSRCPost",
+  "fix_label": "InstallSecurityUpdatesForCVE202335628",
+  "tags": [
+    "CVE-2023-35628",
+    "MSHTML",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "891ddac7-acf9-4f29-aa50-d02e8637c21a",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix"
+}

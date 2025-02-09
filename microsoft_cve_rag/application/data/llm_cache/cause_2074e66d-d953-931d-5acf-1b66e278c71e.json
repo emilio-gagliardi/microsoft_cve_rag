@@ -1,0 +1,19 @@
+{
+  "description": "Improper input validation in secure boot feature allows bypassing security mechanisms.",
+  "cause_label": "secure_boot_improper_input_validation_bypass",
+  "source_id": "2074e66d-d953-931d-5acf-1b66e278c71e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2074e66d-d953-931d-5acf-1b66e278c71e"
+  ],
+  "tags": [
+    "CVE-2024-26240",
+    "Input Validation",
+    "Secure Boot"
+  ],
+  "node_id": "0d7ddbba-d3bb-4fe7-8125-898b2b4ae88b",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

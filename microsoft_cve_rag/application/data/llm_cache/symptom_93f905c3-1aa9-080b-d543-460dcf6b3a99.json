@@ -1,0 +1,16 @@
+{
+  "symptom_label": "VirtualMachinesFailedToStartAfterPatch",
+  "description": "After patching one host node in a Server 2022 Hyper-V and StarWind two-node cluster, virtual machines failed to start. The issue was identified when a replicated Cluster Shared Volume (CSV) was incorrectly reported as Master Boot Record (MBR) instead of GUID Partition Table (GPT) in Disk Management. This situation necessitated re-creating the corrupt CSV and restoring the lost virtual machine from backup, highlighting the risk of patching similar clusters without proper precautions, especially in production environments.",
+  "source_id": "93f905c3-1aa9-080b-d543-460dcf6b3a99",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Hyper-V",
+    "StarWind",
+    "ClusterManagement"
+  ],
+  "node_id": "d58388bc-0df6-42b5-8bfa-cbb793a3a4bb",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

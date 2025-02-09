@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo manage the upgrade process for Windows 11 machines without user prompts:\n\n1. Create a secondary WSUS group specifically for Windows 11 machines.\n2. Approve only the Windows 11 updates for that group to ensure smooth upgrades.\n\n**Details**:\nThis configuration allows you to control the upgrade path for compatible hardware without causing unnecessary user interruptions. Users in the secondary WSUS group will be upgraded to Windows 11 seamlessly without prompts appearing during the update process. This approach helps in maintaining a more organized upgrade strategy while minimizing disruption to end users.\n",
+  "source_id": "b051ee7e-8ad8-913a-9a61-46685e183429",
+  "source_type": "PatchManagementPost",
+  "fix_label": "manage_windows_11_upgrade_process_wsus_group",
+  "tags": [
+    "Windows11",
+    "WSUS",
+    "UpgradeManagement",
+    "UserExperience"
+  ],
+  "node_id": "117d5db7-a718-44f1-924e-16dc47ca1a6b",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b051ee7e-8ad8-913a-9a61-46685e183429"
+  ],
+  "verification_status": "unverified"
+}

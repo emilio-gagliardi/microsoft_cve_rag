@@ -1,0 +1,16 @@
+{
+  "symptom_label": "ServerSideRequestForgedViaOWAAttachment",
+  "description": "The described symptom involves a Server-Side Request Forgery (SSRF) vulnerability associated with the CreateAttachmentFromURI functionality in Outlook Web App (OWA). An authenticated attacker can exploit this vulnerability by crafting a new draft message and invoking the CreateAttachmentFromURI method, which results in the SSRF response being appended to the email as an attachment. This allows the attacker to download and access potentially sensitive response content, impacting the integrity and confidentiality of the Exchange environment.",
+  "source_id": "76fcd96d-3e81-34e0-5ae6-15c963320e68",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "OWA",
+    "SSRF",
+    "Exchange"
+  ],
+  "node_id": "c81334d2-dca1-4a3e-be8f-422f775d6122",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,23 @@
+{
+  "tool_label": "oracle_security_alerts_cpu_october_2024",
+  "description": "**Tool Overview**:\n\nThe Oracle Security Alerts page provides critical updates and alert information for vulnerabilities identified in Oracle products. It serves as a resource for system administrators and security professionals seeking to stay informed about the latest security issues and their mitigations.\n\n**Details**:\n1. Access the page to view detailed descriptions of vulnerabilities and the necessary updates.\n2. Stay up-to-date with security patches and ensure compliance with Oracle\u2019s guidelines.\n3. The alerts often reference specific CVEs and their resolutions, making it easier to prioritize patching efforts.\n4. This centralized resource aids in risk management and proactive measures against potential threats.\n5. Regular consultation of this page is recommended for maintaining security best practices in an Oracle environment.",
+  "source_id": "17369ab0-f6f6-d564-efd2-1ccabf5ffa58",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "17369ab0-f6f6-d564-efd2-1ccabf5ffa58"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAGN5iaid0B_BmnkRZdj86uTjsp%2BGZJKH_ahmyqfs%2BYYWc_2KVg%40mail.gmail.com",
+  "tool_url": "https://www.oracle.com/security-alerts/cpuoct2024.html",
+  "tags": [
+    "Oracle",
+    "security",
+    "alerts",
+    "patch management"
+  ],
+  "node_id": "ed89e861-d367-4560-8f73-a850e72772ef",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

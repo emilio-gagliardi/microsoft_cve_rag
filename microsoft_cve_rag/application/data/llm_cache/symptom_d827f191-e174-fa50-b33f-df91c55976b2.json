@@ -1,0 +1,19 @@
+{
+  "symptom_label": "SystemFailsToExecuteCodeViaLibarchive",
+  "description": "End users may experience issues executing code in systems utilizing the Windows Libarchive component due to a recognized security update. The observed behavior can include failed attempts to process files, resulting in application errors or crashes specifically when the vulnerable builds are operating, such as Windows 10 Version 22H2 (Build 19045.3930) and Windows 11 (Build 22631.3007). The associated KB Articles, including KB-5034123, KB-5034122, and KB-5034121, highlight the crucial nature of these updates, emphasizing the importance of patching for systems experiencing functional difficulties. Additionally, when this vulnerability impacts systems, end users might notice a significant drop in application responsiveness or, in worst-case scenarios, the unavailability of the service reliant on Libarchive. Given the nature of this issue, it is essential for system administrators to monitor their environments closely post-implementation of the security updates to ensure stability.",
+  "source_id": "d827f191-e174-fa50-b33f-df91c55976b2",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Windows",
+    "Libarchive",
+    "CodeExecution",
+    "KB5034123",
+    "KB5034122",
+    "KB5034121"
+  ],
+  "node_id": "37ca529f-5849-4b39-a9d5-2279852d9748",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

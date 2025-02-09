@@ -1,0 +1,19 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the necessity of updating enforcement measures regarding software usage on organization devices:\n\n1. Access Group Policy Management Console.\n2. Navigate to the relevant Software Restriction Policies.\n3. Review and update the policies to enhance control over software execution.\n4. Apply the changes and ensure they are deployed during regular business hours to minimize disruption.\n\n**Details**:\n- Updating Software Restriction Policies helps mitigate the risk of unauthorized software and potential vulnerabilities.\n- Ensure changes comply with organizational policies and are tested in a controlled environment before full deployment.\n",
+  "source_id": "9560cfa9-5eb1-dcb7-9bdc-592f8b885541",
+  "source_type": "PatchManagementPost",
+  "fix_label": "update_software_restriction_policies_group_policy",
+  "tags": [
+    "GroupPolicy",
+    "SoftwareRestrictionPolicies",
+    "LLM Synthesized"
+  ],
+  "node_id": "6fa94e68-3719-4fa7-972d-9943070d113f",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "9560cfa9-5eb1-dcb7-9bdc-592f8b885541"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_10_fails_install_due_to_cbs_source_missing",
+  "description": "Windows 10 installations may fail due to a missing CBS source, leading to an inability to repair or upgrade the system effectively. Users have reported these issues despite the release health page not listing Windows 10 as affected, highlighting a gap in Microsoft's communication on known issues. Attempts to remedy the failures, such as using Windows Update for repairs, may also be unsuccessful, resulting in extended downtime. As an alternative solution, utilizing the ISO file in conjunction with setup.exe for an in-place upgrade has proven effective in resolving these problems. This symptom underscores the importance of proactive upgrades and awareness of available repair options for system administrators managing Windows 10 systems.",
+  "source_id": "39e6c4e0-956e-f4fc-56dd-2b73b6957bb7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "39e6c4e0-956e-f4fc-56dd-2b73b6957bb7"
+  ],
+  "tags": [
+    "windows_10",
+    "installation_issue",
+    "CBS_source",
+    "in_place_upgrade"
+  ],
+  "node_id": "ba3dbc7c-4abd-4ef7-abba-dd5c0c09e3a7",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

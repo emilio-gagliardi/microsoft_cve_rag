@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the heap buffer overflow vulnerability identified in CVE-2024-5835 affecting Microsoft Edge (Chromium-based):\n\n1. Update your Microsoft Edge browser to the latest version.\n2. Confirm the update by navigating to: **Settings > Help and feedback > About Microsoft Edge**, which will automatically check for updates.\n\n**Details**:\n- The latest version to remediate this vulnerability is **126.0.2592.56**, released on **June 13, 2024**. This version ensures that your browser is no longer vulnerable to the heap-based buffer overflow that may lead to exploitation through crafted HTML pages.\n- For more details, refer to the Google Chrome release notes linked in the Microsoft guidance. \n\n**Preconditions**:\n- Ensure you are connected to the internet to download the update.\n- Back up any important browser data before updating in case issues arise during installation.",
+  "source_id": "8b9be79e-3b87-b25c-ac7c-6bf7eb329a03",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_126.0.2592.56_for_cve20245835",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20245835",
+    "HeapBufferOverflow",
+    "Chromium"
+  ],
+  "node_id": "b6ba069f-badf-4f7b-9aa4-b0eb99d42477",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "8b9be79e-3b87-b25c-ac7c-6bf7eb329a03"
+  ],
+  "verification_status": "unverified"
+}

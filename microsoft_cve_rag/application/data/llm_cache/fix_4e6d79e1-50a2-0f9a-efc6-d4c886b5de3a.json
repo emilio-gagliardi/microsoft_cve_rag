@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability in the Windows Mobile Broadband Driver associated with CVE-2024-30001, you should apply the relevant updates provided by Microsoft:\n\n1. Identify your system version using the build numbers listed below.\n2. Depending on your version, download and install the appropriate KB Article:\n   - For Windows 11 Version 23H2 for x64-based Systems, apply: [KB5037771](https://catalog.update.microsoft.com/Search.aspx?q=KB5037771)\n   - For Windows 11 Version 22H2 for x64-based Systems, apply: [KB5037771](https://catalog.update.microsoft.com/Search.aspx?q=KB5037771)\n   - For Windows 11 Version 21H2 for x64-based Systems, apply: [KB5037770](https://catalog.update.microsoft.com/Search.aspx?q=KB5037770)\n   - For Windows 10 Version 22H2 for x64-based Systems, apply: [KB5037768](https://catalog.update.microsoft.com/Search.aspx?q=KB5037768)\n   - For Windows 10 Version 21H2 for x64-based Systems, apply: [KB5037768](https://catalog.update.microsoft.com/Search.aspx?q=KB5037768)\n   - For Windows 10 Version 22H2 for 32-bit Systems, apply: [KB5037768](https://catalog.update.microsoft.com/Search.aspx?q=KB5037768)\n   - For Windows 10 Version 21H2 for 32-bit Systems, apply: [KB5037768](https://catalog.update.microsoft.com/Search.aspx?q=KB5037768)\n\n**Details**:\n- This is an important update that resolves an integer overflow vulnerability. Applying it is critical to maintaining the security of your system.\n- Make sure to restart your device after installation to apply the changes effectively.\n- Always ensure your data is backed up before making system changes.\n\n**Build Numbers**:\n- Windows 11 Version 23H2: 10.0.22631.3593\n- Windows 11 Version 22H2: 10.0.22621.3593\n- Windows 11 Version 21H2: 10.0.22000.2960\n- Windows 10 Version 22H2: 10.0.19045.4412\n- Windows 10 Version 21H2: 10.0.19044.4412\n\n**Preconditions**:\n- Verify that you are using an affected version before attempting installation.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "4e6d79e1-50a2-0f9a-efc6-d4c886b5de3a",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_windows_mobile_broadband_driver_updates_cve202430001",
+  "tags": [
+    "KB5037771",
+    "KB5037770",
+    "KB5037768",
+    "CVE202430001"
+  ],
+  "node_id": "45b9f609-1b07-406f-9fd3-bea07e6b3af6",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "4e6d79e1-50a2-0f9a-efc6-d4c886b5de3a"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "A heap-based buffer overflow in the Internet Connection Sharing (ICS) component could lead to a denial of service, allowing attackers to disrupt network connectivity. The vulnerability is exploitable remotely over the network, necessitating no prior access or user interaction. This condition arises from improper handling of memory, thus invoking CWE-122.",
+  "cause_label": "internet_connection_sharing_heap_buffer_overflow",
+  "source_id": "dab5aab5-dd3f-2fba-9d46-319f18eeae7b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "dab5aab5-dd3f-2fba-9d46-319f18eeae7b"
+  ],
+  "tags": [
+    "CVE-2024-21348",
+    "ICS",
+    "Network Security",
+    "Denial of Service",
+    "Heap Overflow"
+  ],
+  "node_id": "3bc2f8c1-8b40-4766-bf82-e1038479735f",
+  "node_label": "Cause",
+  "reliability": 9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

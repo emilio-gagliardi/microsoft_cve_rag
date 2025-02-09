@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_mobility_driver_causes_remote_code_execution",
+  "description": "Users may experience unexpected behavior with their Windows devices, particularly when utilizing the mobile broadband driver. Specifically, there is a significant risk of remote code execution, which could manifest as unanticipated system actions or software behavior when the device is exposed to malicious physical interactions. This may lead to unauthorized access, unauthorized modifications to files, or other concerning activities conducted without user consent. Affected products include Windows 10 (build 10.0.19045.4412 and others) and Windows 11 (build 10.0.22631.3593 and others) as outlined in KB articles KB5037771, KB5037770, and KB5037768. Users should be aware that this encompasses various system configurations that rely on the mobile broadband driver, indicating a need for administrators to closely monitor user reports and update their systems accordingly.",
+  "source_id": "4e6d79e1-50a2-0f9a-efc6-d4c886b5de3a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4e6d79e1-50a2-0f9a-efc6-d4c886b5de3a"
+  ],
+  "tags": [
+    "remote_code_execution",
+    "windows_driver",
+    "user_impact",
+    "system_behavior"
+  ],
+  "node_id": "7e6bc11f-d0f7-4652-8529-4990160de3d4",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

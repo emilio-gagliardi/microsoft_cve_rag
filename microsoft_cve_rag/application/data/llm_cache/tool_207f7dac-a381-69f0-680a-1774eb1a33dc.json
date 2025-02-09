@@ -1,0 +1,39 @@
+{
+  "node_id": "77128c0a-540c-4ec3-921e-83217c44a619",
+  "source_id": "91387ad0-5d6d-9e5d-c410-2d67261620f9",
+  "entity_type": "Tool",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "071211aa-fb82-3c77-cb61-2d1eb2f5a358",
+    "312e043d-7c78-4825-550d-fd76d6782315",
+    "b540b27f-8311-a400-301c-6f2810639869",
+    "b04d240e-d0c0-2d2d-2101-b8f69759ef0d",
+    "2383488f-5d18-90f9-223b-a17e97393c4e",
+    "3cc20140-cd19-5089-5ba7-dfa30504a18a",
+    "265ff006-5aaa-ac9c-2079-eb4280e74026",
+    "91387ad0-5d6d-9e5d-c410-2d67261620f9",
+    "476cfc36-5ce0-d4f1-4798-5c595ff26140",
+    "69872f9e-2f51-9902-8f3e-de3113bb893c",
+    "207f7dac-a381-69f0-680a-1774eb1a33dc",
+    "e1af4124-225f-285d-c6bb-a1a3aebf83ed",
+    "6b062857-5a59-860b-4d3e-f68875ce0b4b",
+    "c76e3029-6129-bf95-8e6a-e7620915b47c",
+    "f08aed22-0925-837e-acfa-abd107e54817",
+    "07c76864-fdbc-d834-cbff-eef59d0435fd",
+    "c89ba8b0-d117-7ee9-3682-e4667667343e",
+    "f8ea18b0-15fb-0e13-41f3-3ffb0e490b9d",
+    "7cd0c11e-222f-8016-a4bd-2c40255d95ba",
+    "0639d08b-472a-7ede-5698-3f465fb83e08"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-7024",
+  "tool_url": "",
+  "verification_status": "unverified",
+  "tool_label": "check_microsoft_edge_version",
+  "description": "**Tool Overview**:\nTo determine the version of your Microsoft Edge browser, follow this simple procedure. **Steps to Check**:\n1. Open your Microsoft Edge browser.\n2. Click on the three dots `(...)` located on the far right-hand side of the window.\n3. From the dropdown menu, select `Help and feedback`.\n4. Click on `About Microsoft Edge`. This will display the version information of your browser.\n\nThis procedure allows users to quickly verify the current version of Microsoft Edge they are using, ensuring they stay updated with the latest security improvements.\n\nFor more information, users can visit the official Microsoft documentation for Microsoft Edge.",
+  "reliability": 0.8,
+  "tags": [
+    "Microsoft Edge",
+    "browser",
+    "version check"
+  ]
+}

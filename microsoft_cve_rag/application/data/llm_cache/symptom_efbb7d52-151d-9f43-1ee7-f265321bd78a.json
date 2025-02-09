@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_10_devices_not_upgrading_to_windows_11",
+  "description": "Windows 10 devices are not upgrading to Windows 11 due to discrepancies between cumulative updates and feature updates. Specifically, the June 2024 cumulative update for Windows 11 version 23H2 (KB5039212) does not handle the upgrade for Windows 10 systems, while the corresponding feature update facilitates this process. This inconsistency in naming conventions between the Windows 10 and Windows 11 feature updates causes confusion in device management, particularly regarding the use of Delivery Optimization (DO) and User-initiated Upgrading Processes (UUP). Proper documentation and clarity on these updates are lacking, leading to challenges for system administrators managing upgrades. The situation reflects a broader issue with update clarity that can impact deployment strategies for enterprise environments.",
+  "source_id": "efbb7d52-151d-9f43-1ee7-f265321bd78a",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "efbb7d52-151d-9f43-1ee7-f265321bd78a"
+  ],
+  "tags": [
+    "windows_11_upgrade",
+    "cumulative_update",
+    "feature_update",
+    "uup_changes"
+  ],
+  "node_id": "792b4475-50df-4235-b903-e23969febc00",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

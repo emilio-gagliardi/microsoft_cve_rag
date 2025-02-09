@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows DNS information disclosure vulnerability (CVE-2024-21377), it is critical to apply the appropriate update for your Windows build:\n\n1. Identify your Windows version and build number using 'winver' command.\n2. Download and install the relevant KB update from the links provided below:\n   - For Windows 11 Version 23H2 for x64-based Systems: [KB5034765](https://catalog.update.microsoft.com/Search.aspx?q=KB5034765)\n   - For Windows 10 Version 22H2 for x64-based Systems: [KB5034763](https://catalog.update.microsoft.com/Search.aspx?q=KB5034763)\n   - For Windows 10 Version 21H2 for x64-based Systems: [KB5034763](https://catalog.update.microsoft.com/Search.aspx?q=KB5034763)\n   - For windows 10 for 32-bit Systems: [KB5034774](https://catalog.update.microsoft.com/Search.aspx?q=KB5034774)\n\n**Details**:\nThe updates provided will mitigate the risk of information disclosure associated with the Windows DNS server. Ensure your system is fully updated to protect against this issue. \n\n**Preconditions**:\n- Ensure that you have administrative privileges.\n- Backup your data before proceeding with the installation to avoid any data loss in case of unforeseen circumstances.",
+  "source_id": "894fd376-d23d-e681-6395-305760d54a29",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_dns_information_disclosure_cve202421377",
+  "tags": [
+    "KB5034765",
+    "Windows11",
+    "KB5034763",
+    "CVE202421377"
+  ],
+  "node_id": "73d7a4a0-0df3-4fa7-a9e0-b53ea5a7e119",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "894fd376-d23d-e681-6395-305760d54a29"
+  ]
+}

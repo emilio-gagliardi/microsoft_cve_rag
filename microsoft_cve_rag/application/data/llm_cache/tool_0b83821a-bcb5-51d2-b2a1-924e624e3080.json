@@ -1,0 +1,23 @@
+{
+  "tool_label": "anonymous_survey_for_ad_management",
+  "description": "**Tool Overview**:\n\nAn anonymous survey aimed at gathering feedback from active directory admins, decision makers, consultants, and architects regarding the management of Active Directory (AD).\n\n**Purpose**:\nThe survey seeks to collect insights and experiences of professionals in order to inform future planning and prioritization of AD management tasks and innovations.\n\n**Usage**:\n1. Participants can access the survey from the link provided.\n2. Completion of the survey is anonymous, ensuring candid responses.\n3. The feedback gathered will be used to help shape future tool development and strategies related to AD management.\n\n**Details**:\n- It is encouraged to share the survey broadly among peers to maximize response rates.\n- The feedback will be pivotal in understanding the current landscape and challenges faced in managing Active Directory.\n\n**Link to the Survey**: [Access Survey Here](https://forms.office.com/pages/responsepage.aspx?id=v4j5cvggr0grqy)",
+  "source_id": "0b83821a-bcb5-51d2-b2a1-924e624e3080",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "0b83821a-bcb5-51d2-b2a1-924e624e3080"
+  ],
+  "source_url": "https://forms.office.com/pages/responsepage.aspx?id=v4j5cvggr0grqy",
+  "tool_url": "https://forms.office.com/pages/responsepage.aspx?id=v4j5cvggr0grqy",
+  "tags": [
+    "Active Directory",
+    "survey",
+    "feedback",
+    "AD management",
+    "anonymous"
+  ],
+  "node_id": "1623d739-7a2b-4af2-831e-8510071d6349",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Tool"
+}

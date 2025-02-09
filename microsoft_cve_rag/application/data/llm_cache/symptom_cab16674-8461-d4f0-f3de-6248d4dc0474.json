@@ -1,0 +1,22 @@
+{
+  "symptom_label": "mshtml_bypass_leads_to_code_execution",
+  "description": "Users may notice abnormal behavior when interacting with documents, potentially including prompts to handle suspicious files. The security feature bypass in the MSHTML platform allows malicious code execution if a user inadvertently opens a specially crafted file, often enticed by email or instant messaging. This can result in unauthorized access to resources, unintended actions being performed on the system, and heightened vulnerability to further attacks. Affected systems include Windows 10 and Windows 11, specifically builds 10.0.10240.20651, 10.0.19045.4412, 10.0.22000.2960, 10.0.22621.3593, and 10.0.22631.3593, with relevant updates documented in KB articles KB-5037788, KB-5037770, and KB-5037771, among others.",
+  "source_id": "cab16674-8461-d4f0-f3de-6248d4dc0474",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "cab16674-8461-d4f0-f3de-6248d4dc0474"
+  ],
+  "tags": [
+    "MSHTML",
+    "Windows 10",
+    "Windows 11",
+    "Code Execution",
+    "Important"
+  ],
+  "node_id": "e7c13862-d785-4943-ab36-af6e5c8263cb",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

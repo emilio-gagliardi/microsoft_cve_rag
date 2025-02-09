@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve issues with instant reboots caused by Credential Guard during Windows 11 upgrades, the following steps should be taken:\n\n1. Export the critical registry key from a clean Windows 11 installation without Credential Guard. \n2. Import the exported key into the affected system experiencing the reboot issue.\n\n**Details**:\nThe specific registry key to export is: \n- `HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\LSA\\MSV1_0`\n\nThe entries you should ensure are included in the export are:\n- `\"auth132\" = \"iissuba\"`\n- `\"ntlmminclientsec\" = dword:20000000`\n- `\"ntlmminserversec\" = dword:20000000`\n\nThis modification allows `lsass.exe` to write the `isolatedcredentialsrootsecret` registry value, potentially mitigating the reboot issue when cached credentials fail to work.",
+  "source_id": "c74dc2ad-bc88-2200-2085-42635ebbc5eb",
+  "source_type": "PatchManagementPost",
+  "fix_label": "restore_critical_registry_key_windows11_upgrade",
+  "tags": [
+    "Windows11",
+    "CredentialGuard",
+    "RegistryModification"
+  ],
+  "node_id": "e649a131-f293-42a9-93ae-5db7079481a2",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c74dc2ad-bc88-2200-2085-42635ebbc5eb"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve issues with game startups relating to the third-party DRM component after installing updates KB-5046613 and KB-5044384:\n\n1. Install the patch KB-5044384, which makes specific changes to support games impacted by the incompatible DRM component.\n2. Ensure that you monitor game developers' updates regarding compatibility with the new patch and apply those updates as necessary.\n\n**Details**:\n- This update addresses the symptom where some games fail to start or may stop responding due to the DRM issue.\n- Users may also need to run applications such as Quick Assist, Microsoft Teams, and Windows Narrator as an administrator if they encounter startup problems. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure the system has the latest updates installed before trying to run any games.\n",
+  "source_id": "e88dae04-f8c5-fad8-245f-eaa5088cbde2",
+  "source_type": "PatchManagementPost",
+  "fix_label": "support_games_startup_with_drm_update_kb5044384",
+  "tags": [
+    "KB5044384",
+    "Games",
+    "DRMCompatibility",
+    "LLM Synthesized"
+  ],
+  "node_id": "f86baeed-19ab-4ee6-b9ce-97e0ed7b66b6",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e88dae04-f8c5-fad8-245f-eaa5088cbde2"
+  ],
+  "verification_status": "unverified"
+}

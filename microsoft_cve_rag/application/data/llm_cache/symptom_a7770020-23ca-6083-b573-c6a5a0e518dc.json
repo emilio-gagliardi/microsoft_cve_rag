@@ -1,0 +1,16 @@
+{
+  "symptom_label": "Windows2022VmTemplateMissingSubsequentCuGains",
+  "description": "The Windows 2022 VM template is encountering an issue where a previously removed annoyance does not reappear after installing a subsequent cumulative update (CU), specifically the November CU. This suggests there may have been a condition tied to the previous CU that could potentially impact the stability or performance of the VM environment. End users or administrators may not experience the expected behaviors associated with this feature, indicating a discrepancy in baseline configuration post-update installation.",
+  "source_id": "a7770020-23ca-6083-b573-c6a5a0e518dc",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows2022",
+    "cumulativeUpdate",
+    "VMtemplate"
+  ],
+  "node_id": "7cbfde24-3473-4a6a-887e-745c67d91149",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

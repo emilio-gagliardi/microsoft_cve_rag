@@ -1,0 +1,21 @@
+{
+  "description": "The vulnerability stems from an untrusted pointer dereference in Windows Secure Kernel resulting in elevation of privilege. The attacker can exploit this flaw locally or remotely without user interaction, gaining unauthorized system privileges due to insufficient validation of input pointers within secure processes.",
+  "cause_label": "windows_secure_kernel_untrusted_pointer_dereference",
+  "source_id": "47245f8a-542e-b1ad-1cb5-749c784439b8",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "47245f8a-542e-b1ad-1cb5-749c784439b8"
+  ],
+  "tags": [
+    "CVE",
+    "elevation of privilege",
+    "Windows",
+    "kernel mode"
+  ],
+  "node_id": "2d35ec75-d4b8-4d4a-be6a-b84f053c8829",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

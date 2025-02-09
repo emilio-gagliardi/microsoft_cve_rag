@@ -1,0 +1,21 @@
+{
+  "description": "Inappropriate implementation in V8 of Chromium prior to build 129.0.6668.70 allows potential out-of-bounds memory access through crafted HTML, particularly affecting remote attackers exploiting this flaw.",
+  "cause_label": "chromium_inappropriate_implementation_in_v8_out_of_bounds",
+  "source_id": "143b506c-c9dc-cced-e9f5-d521a01e8ad4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "143b506c-c9dc-cced-e9f5-d521a01e8ad4"
+  ],
+  "tags": [
+    "CVE-2024-9121",
+    "Chromium",
+    "Microsoft Edge",
+    "V8"
+  ],
+  "node_id": "8837465f-6f4d-40ed-95a5-fe7232b56bb7",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

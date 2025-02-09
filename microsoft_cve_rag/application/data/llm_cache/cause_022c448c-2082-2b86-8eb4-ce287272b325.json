@@ -1,0 +1,17 @@
+{
+  "description": "The underlying cause of CVE-2023-35628 stems from a remote code execution vulnerability within the Microsoft MSHTML platform. The flaw is attributed to how the component interacts with the network stack, enabling attackers to execute malicious code via specially crafted emails without user interaction. Specifically, the exploit can be triggered when a victim accesses an email that automatically processes and retrieves content, potentially leveraging complex memory shaping techniques. The affected components include various build numbers of Windows 10 and Windows 11 systems such as 10.0.10240.20345 and 10.0.22621.2861. The vulnerability is cataloged in several KB articles including KB-5033379 and KB-5033369, allowing for remediation through official patches.",
+  "cause_label": "RemoteCodeExecutionInMSHTMLPlatform",
+  "source_id": "022c448c-2082-2b86-8eb4-ce287272b325",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE",
+    "MSHTML",
+    "RCE",
+    "vulnerability"
+  ],
+  "node_id": "af93bd22-53a2-442c-a4fc-14a73eb71890",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

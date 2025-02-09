@@ -1,0 +1,23 @@
+{
+  "tool_label": "sans_article_explaining_driver_issues",
+  "description": "**Tool Overview**:\nA resource from SANS that provides a comprehensive explanation regarding current driver usage and management of boot processes.\n\n**Details**:\nThis article is intended for system administrators and security professionals dealing with boot issues possibly caused by outdated or improperly installed drivers. It covers the following topics:\n1. Current installation practices for drivers and implications of using older certificates.\n2. Strategies for ensuring that the latest driver versions are utilized effectively during the boot process.\n3. Risk assessments relating to driver updates and their potential impact on system stability.\n\nThis informative piece offers methods for troubleshooting and optimizing driver usage, ensuring that administrators can mitigate risks associated with boot problems.\n",
+  "source_id": "aafa12e5-1df9-2026-dccf-73f1e3b5d590",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "aafa12e5-1df9-2026-dccf-73f1e3b5d590"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAGaCHK5_vsEMpTQ8OBqVLnVxy2VRhNkSiUL3Adz1XH61Gfyhig%40mail.gmail.com",
+  "tool_url": "https://www.sans.org/article/driver-issues",
+  "tags": [
+    "drivers",
+    "boot process",
+    "management",
+    "SANS"
+  ],
+  "node_id": "ec173355-6387-44fe-90eb-886f15e6828a",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

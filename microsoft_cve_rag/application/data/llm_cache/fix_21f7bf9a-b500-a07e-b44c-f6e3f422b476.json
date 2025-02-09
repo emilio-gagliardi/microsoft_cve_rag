@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows setup and deployment elevation of privilege vulnerability (CVE-2024-43457):\n\n1. Download and apply the KB5043080 update from the official Windows Update catalog.\n2. Restart your system to ensure the changes take effect.\n\n**Details**:\n- This update resolves issues related to unquoted search path elements that could allow for elevation of privilege.\n- For manual installation, download the update package from: https://catalog.update.microsoft.com/Search.aspx?q=KB5043080.\n\n**Preconditions**:\n- Ensure your system is running Windows 11 Version 24H2.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "21f7bf9a-b500-a07e-b44c-f6e3f422b476",
+  "source_type": "MSRCPost",
+  "fix_label": "resolve_windows_setup_deployment_privilege_elevation_cve202443457",
+  "tags": [
+    "KB5043080",
+    "Windows11",
+    "PrivilegeElevation",
+    "CVE20244357"
+  ],
+  "node_id": "dd395252-dd9f-4d86-b3e9-4f59149182e8",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "21f7bf9a-b500-a07e-b44c-f6e3f422b476"
+  ],
+  "verification_status": "unverified"
+}

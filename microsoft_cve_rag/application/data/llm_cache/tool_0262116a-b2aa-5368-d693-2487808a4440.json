@@ -1,0 +1,17 @@
+{
+  "tool_label": "UpdateWindowsUsingMicrosoftUpdateCatalog",
+  "description": "The Microsoft Update Catalog allows users to manually download and install updates for Windows operating systems including Windows 10 and Windows 11. It provides a searchable database of updates, which can be filtered by product, update type, and release date. End-users can access this tool by visiting the Microsoft Update Catalog website and entering relevant search terms for the updates they need.",
+  "source_id": "0262116a-b2aa-5368-d693-2487808a4440",
+  "source_type": "MSRCPost",
+  "source_url": "https://www.catalog.update.microsoft.com/Home.aspx",
+  "tags": [
+    "update",
+    "windows",
+    "catalog"
+  ],
+  "node_id": "c738460d-1c3c-4583-a45f-b9576eb2a321",
+  "node_label": "Tool",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

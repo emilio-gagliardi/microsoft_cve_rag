@@ -1,0 +1,22 @@
+{
+  "symptom_label": "information_disclosure_in_windows_dwm_library",
+  "description": "The Windows DWM core library has been affected by an information disclosure issue identified under CVE-2024-30008. As a result, users may experience situations where sensitive data held within memory can be viewable by unauthorized processes. Specifically, an attacker could, upon successful exploitation, access heap memory of a privileged process running on the server. This can lead to the unintentional sharing of confidential information across different processes, potentially allowing unintended access to data. Notably, this issue impacts various Windows builds, including Windows 10 versions 22H2 for x64-based systems (KB5037768) and Windows 11 versions 23H2 for x64-based systems (KB5037771). The impact is classified as 'important', requiring system administrators to apply the necessary updates promptly to mitigate potential data risks.",
+  "source_id": "26d3d4b4-169b-befe-d607-d10e152eed54",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "26d3d4b4-169b-befe-d607-d10e152eed54"
+  ],
+  "tags": [
+    "Windows DWM",
+    "Information Disclosure",
+    "CVE-2024-30008",
+    "Update Required",
+    "System Administration"
+  ],
+  "node_id": "2683bdd9-0fdf-4ba7-9822-1f9846383ec3",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

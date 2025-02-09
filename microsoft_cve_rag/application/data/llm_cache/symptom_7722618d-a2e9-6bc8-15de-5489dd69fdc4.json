@@ -1,0 +1,16 @@
+{
+  "symptom_label": "InformationDisclosureWithLocalizedMemoryAccess",
+  "description": "Users may experience unintentional disclosure of potentially sensitive information due to the vulnerability in the Microsoft Local Security Authority Subsystem Service. This occurs with systems running Windows 10, build numbers 10.0.22631.2715, 10.0.19043.3693, and others affected as documented in KB articles KB-5032199, KB-5032192, KB-5032190, and KB-5032189. The issue may manifest as the exposure of uninitialized or initialized memory from the process heap, leading to concerns about system integrity and data confidentiality.",
+  "source_id": "7722618d-a2e9-6bc8-15de-5489dd69fdc4",
+  "source_type": "MSRCPost",
+  "tags": [
+    "information disclosure",
+    "memory access",
+    "security impact"
+  ],
+  "node_id": "2753bf3d-4df8-40e3-994f-8811845e0d48",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the inappropriate implementation in site isolation within Microsoft Edge (Chromium-based), follow these steps:\n\n1. Ensure your Microsoft Edge browser is updated to the latest version by navigating to:\n   - Click on the three dots (...) on the right-hand side of the window.\n   - Select 'Help and feedback'.\n   - Click on 'About Microsoft Edge' to check for updates and install the latest version.\n\n2. Verify that the version is at least 122.0.2365.52, which includes the necessary updates to mitigate the vulnerability related to CVE-2024-1671.\n\n**Details**:\n- This update addresses a security loophole that could allow a remote attacker to bypass content security policy. For further information, please refer to the Google Chrome release notes: [Google Chrome Releases](https://chromereleases.googleblog.com/2024).\n- Ensure you are on the latest version of Microsoft Edge to maintain your protections. \n- Regularly check for updates to keep your software secure.\n",
+  "source_id": "200b1e46-0a00-8f72-0c72-329854c60040",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_122_0_2365_52",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20241671",
+    "SiteIsolation",
+    "Chromium"
+  ],
+  "node_id": "87165477-bd66-4102-8602-2303ed68a0ed",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "200b1e46-0a00-8f72-0c72-329854c60040"
+  ]
+}

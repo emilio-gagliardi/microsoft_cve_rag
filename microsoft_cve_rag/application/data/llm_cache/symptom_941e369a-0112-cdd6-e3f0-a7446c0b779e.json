@@ -1,0 +1,21 @@
+{
+  "symptom_label": "chrome_download_ui_spoofing_causes_user_confusion",
+  "description": "Users of Microsoft Edge (Chromium-based) version 129.0.2792.52 and earlier may experience confusion when downloading files due to an incorrect security user interface. This issue allows a remote attacker to perform user interface spoofing, which can mislead users into believing a download is secure when it may not be. The behavior manifests when users engage in specific UI gestures on crafted HTML pages, leading them to make potentially unsafe decisions concerning the files being downloaded. This symptom raises concerns regarding the trustworthiness of download prompts and could lead to unintended exposure to malicious content as users misinterpret the security status of their downloads. The fix is found in the newer version 129.0.6668.58 as documented in KB-129.0.2792.52.",
+  "source_id": "941e369a-0112-cdd6-e3f0-a7446c0b779e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "941e369a-0112-cdd6-e3f0-a7446c0b779e"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chrome",
+    "Download",
+    "Spoofing"
+  ],
+  "node_id": "44cdf3ce-fdd4-40fd-8d39-591ee6106a89",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

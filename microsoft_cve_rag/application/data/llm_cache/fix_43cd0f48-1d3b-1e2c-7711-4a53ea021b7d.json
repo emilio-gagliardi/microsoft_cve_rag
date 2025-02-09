@@ -1,0 +1,16 @@
+{
+  "description": "To resolve the issue related to CVE-2023-38171 involving Microsoft QUIC denial of service, administrators should apply the appropriate security updates for the affected products. For PowerShell 7.3, install the security update (KB5031901) to address the issue. Windows 11, specifically version 22H2 for x64-based systems, requires the installation of KB5031354, while version 21H2 for x64-based systems and ARM64 requires KB5031358. It is critical to ensure that the updates are applied to all impacted systems to maintain service availability. The updates can be found at the following links: KB5031901 - https://catalog.update.microsoft.com/Search.aspx?q=KB5031901, KB5031354 - https://catalog.update.microsoft.com/Search.aspx?q=KB5031354, and KB5031358 - https://catalog.update.microsoft.com/Search.aspx?q=KB5031358.",
+  "source_id": "43cd0f48-1d3b-1e2c-7711-4a53ea021b7d",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplySecurityUpdatesForQuicDenialService",
+  "tags": [
+    "quic",
+    "denial of service",
+    "security update"
+  ],
+  "node_id": "3783f952-cabb-4216-92e1-ab597194cd34",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

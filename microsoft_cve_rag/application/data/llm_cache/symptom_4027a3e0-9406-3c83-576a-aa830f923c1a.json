@@ -1,0 +1,21 @@
+{
+  "symptom_label": "unauthenticated_attacker_enables_remote_code_execution",
+  "description": "An unauthenticated attacker can exploit a vulnerability in the TCP/IP stack of Windows by sending specially crafted IPv6 packets to the target machine. This vulnerability, CVE-2024-38063, can enable remote code execution (RCE), allowing the attacker to potentially execute arbitrary code or commands on the compromised device. This can result in a denial of service (DoS) condition, affecting the availability of the system. Microsoft has released security updates to address this issue, as outlined in KB38063, and recommends users apply these updates immediately to mitigate the risks. Disabling IPv6 on affected devices serves as an additional protective measure until the updates are applied.",
+  "source_id": "4027a3e0-9406-3c83-576a-aa830f923c1a",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "4027a3e0-9406-3c83-576a-aa830f923c1a"
+  ],
+  "tags": [
+    "RCE",
+    "TCP/IP",
+    "Windows",
+    "patch management"
+  ],
+  "node_id": "8356c63e-bffb-4db6-8456-5acaba58ba2a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

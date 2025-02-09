@@ -1,0 +1,18 @@
+{
+  "description": "The core Cause of the failed updates when ESU licenses are not present stems from the lack of proper licensing for extended security updates. Without a valid ESU key, attempts to install updates will lead to failures, preventing necessary patches from being applied. This situation is comparable to Windows 7 ESU where missing a key results in similar failures. Organizations that do not allocate budget for ESU licenses find themselves at risk, as they cannot install updates that may address critical vulnerabilities. Consequently, it's essential for system administrators to ensure that ESU licenses are acquired and managed properly to maintain patch compliance and security hygiene in their environments.",
+  "source_id": "5d0eee21-19eb-2950-1da4-e7c01c63cb57",
+  "source_type": "PatchManagementPost",
+  "cause_label": "MissingESULicensesCausingUpdateFailures",
+  "tags": [
+    "ESU",
+    "Windows 7",
+    "patch management",
+    "update failure",
+    "licensing"
+  ],
+  "node_id": "5edfbfcf-6c99-4bff-9c52-535c8f2c9817",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

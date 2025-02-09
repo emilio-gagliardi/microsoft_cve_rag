@@ -1,0 +1,23 @@
+{
+  "tool_label": "microsoft_365_message_center",
+  "description": "**Tool Overview**:\n\nThe Microsoft 365 Message Center is a communication tool that provides alerts and notifications related to updates, features, and health of Microsoft 365 services.\n\n**Details**:\n\nThis tool is used by system administrators and IT professionals to stay informed about changes and updates within Microsoft 365. It includes:\n\n1. Regular updates about new features and functionalities.\n2. Alerts on service health and incidents that may affect user experience.\n3. Access to important information and guidelines about upcoming changes.\n4. A centralized location for all Microsoft 365 communication, making it easier to manage updates and inform users.\n5. Integration with other Microsoft services to ensure a cohesive management experience.\n\nSystem administrators can check the Message Center regularly to ensure they are aware of and can respond to changes that might impact their organization's use of Microsoft 365.\n",
+  "source_id": "0fac6670-6f73-26b7-8e5a-e2d4853704bc",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "0fac6670-6f73-26b7-8e5a-e2d4853704bc"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em1024aafc-30f8-4e34-986e-85699463b6cb%40e059d545.com",
+  "tool_url": "https://admin.microsoft.com/microsoft-365/message-center",
+  "tags": [
+    "Microsoft 365",
+    "administration",
+    "communication",
+    "updates"
+  ],
+  "node_id": "5d53d451-7f45-46ab-8223-aff7b12c16b3",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

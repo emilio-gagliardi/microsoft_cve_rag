@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_24h2_system_logon_issue_off_domain",
+  "description": "Users may encounter difficulties logging onto a Windows 24H2 system when it is disconnected from the domain network. This issue has been reported after upgrading the system, suggesting a possible correlation between the upgrade process and logon failures. Despite no recent changes to the Active Directory (AD) account or its password, the inability to authenticate can impede productivity and access to resources. It is essential for system administrators to investigate whether this behavior is due to any underlying issues with the upgrade process or domain policies. This symptom may relate to various configurations and settings within the domain infrastructure that warrant examination following system upgrades.",
+  "source_id": "ce0c1341-54c0-7bb9-7195-6db1c43a5293",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "ce0c1341-54c0-7bb9-7195-6db1c43a5293"
+  ],
+  "tags": [
+    "Windows",
+    "24H2",
+    "logon_issue",
+    "AD_account"
+  ],
+  "node_id": "b06c2dc9-8259-4771-94f8-7c3f81ace879",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

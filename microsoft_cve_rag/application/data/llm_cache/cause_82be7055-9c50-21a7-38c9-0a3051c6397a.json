@@ -1,0 +1,22 @@
+{
+  "description": "Inappropriate implementation in navigations in Chromium prior to build 130.0.6723.58 allows attackers to bypass content security policy through crafted HTML pages.",
+  "cause_label": "chromium_inappropriate_implementation_in_navigations",
+  "source_id": "82be7055-9c50-21a7-38c9-0a3051c6397a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "82be7055-9c50-21a7-38c9-0a3051c6397a"
+  ],
+  "tags": [
+    "CVE",
+    "Chromium",
+    "Microsoft Edge",
+    "content security policy",
+    "navigation"
+  ],
+  "node_id": "cc7ee8f3-84c8-44d9-9f89-ddac82776836",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "low",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

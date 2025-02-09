@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the elevation of privilege vulnerability in the Windows graphics component (CVE-2024-43509):\n\n1. Identify the relevant KB updates for your Windows version from the list below.\n2. Download and apply the corresponding KB update package from the provided URLs.\n3. Restart your system to ensure that the changes take effect.\n\n**Details**:\n- This vulnerability allows an attacker to gain elevated privileges by exploiting a useAfterFree flaw in the graphics component.\n- The following KB articles provide the necessary updates:\n  - For Windows 11 Version 24H2: [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n  - For Windows 11 Version 23H2: [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n  - For Windows 10 Version 22H2: [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n  - For Windows 10 Version 21H2: [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280)\n\n**Preconditions**:\n- Ensure the system is from the specified Windows build numbers.\n- Backup critical data before applying updates.",
+  "source_id": "2e8dc650-e1de-cf15-acd9-fb5665bedab0",
+  "source_type": "MSRCPost",
+  "fix_label": "address_windows_graphics_elevation_privilege_cve202443509",
+  "tags": [
+    "KB5044285",
+    "Windows11",
+    "GraphicsComponent",
+    "CVE202443509"
+  ],
+  "node_id": "67428e43-2fd9-402e-bcf5-e3c6ecc9b4a7",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "2e8dc650-e1de-cf15-acd9-fb5665bedab0"
+  ],
+  "verification_status": "unverified"
+}

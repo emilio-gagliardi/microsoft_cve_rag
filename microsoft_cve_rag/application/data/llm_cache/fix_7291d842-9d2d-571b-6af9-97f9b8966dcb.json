@@ -1,0 +1,16 @@
+{
+  "description": "To address CVE-2023-5483, users should update to the latest version of Microsoft Edge (Chromium-based) identified by build 118.0.2088.46, which was released on October 13, 2023. This version ingests the appropriate updates from Chromium to mitigate the associated issues. Users can confirm their current version by navigating to the menu in Microsoft Edge, selecting 'Help and feedback,' and then clicking 'About Microsoft Edge.' Keeping this browser updated is crucial for maintaining security and functionality. For further details, refer to the source documentation available at Microsoft\u2019s security update guide.",
+  "source_id": "7291d842-9d2d-571b-6af9-97f9b8966dcb",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateToLatestVersionOfMicrosoftEdge",
+  "tags": [
+    "browser",
+    "update",
+    "CVE"
+  ],
+  "node_id": "d31a8ec3-d04f-4b56-9c98-6b605a99013b",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

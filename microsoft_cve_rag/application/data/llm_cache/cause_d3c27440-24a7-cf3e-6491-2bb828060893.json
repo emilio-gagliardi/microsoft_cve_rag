@@ -1,0 +1,22 @@
+{
+  "description": "Use of uninitialized memory in Windows kernel-mode driver leading to possibility of information disclosure via local exploitation, allowing an attacker to access sensitive heap memory regions.",
+  "cause_label": "windows_kernel_uninitialized_memory_information_disclosure",
+  "source_id": "d3c27440-24a7-cf3e-6491-2bb828060893",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d3c27440-24a7-cf3e-6491-2bb828060893"
+  ],
+  "tags": [
+    "CVE-2024-38256",
+    "Windows",
+    "kernel-mode",
+    "information disclosure",
+    "CWE-908"
+  ],
+  "node_id": "a8892ab5-2b1d-4ffb-85b2-f94d179996e1",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

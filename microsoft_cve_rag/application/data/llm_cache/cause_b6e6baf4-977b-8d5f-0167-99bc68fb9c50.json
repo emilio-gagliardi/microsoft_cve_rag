@@ -1,0 +1,18 @@
+{
+  "description": "The issue arises from a flaw in the Windows Common Log File System Driver, which allows an attacker to exploit an elevation of privilege vulnerability. This flaw permits local attackers to gain higher levels of access than intended, as the component is not secured against unauthorized read, write, or execute operations. The attacker is able to leverage basic user privileges to manipulate the system or access sensitive information, all without needing additional user interaction. The build numbers affected include 10.0.22631.2715, 10.0.19043.3693, 10.0.10240.20308, and 10.0.22000.2600, among others. Relevant KB Articles are KB-5032199, KB-5032192, KB-5032190, and KB-5032189.",
+  "cause_label": "WindowsCommonLogFileSystemDriverFlaw",
+  "source_id": "b6e6baf4-977b-8d5f-0167-99bc68fb9c50",
+  "source_type": "MSRCPost",
+  "tags": [
+    "elevation",
+    "privilege",
+    "vulnerability",
+    "Windows",
+    "driver"
+  ],
+  "node_id": "f4acb3fe-8538-48a9-a1dc-a79f256b5e76",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

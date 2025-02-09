@@ -1,0 +1,22 @@
+{
+  "description": "The issue is caused by an out-of-bounds write in the Microsoft Edge (Chromium-based) renderer process, which allows attackers to exploit this vulnerability by crafting a malicious link that, when clicked by a user, leads to remote code execution. This flaw occurs due to improper handling of memory operations, allowing data to be written outside the allocated boundaries.",
+  "cause_label": "microsoft_edge_renderer_out_of_bounds_write",
+  "source_id": "444ed573-732e-d91b-1912-e2b1ef65e28c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "444ed573-732e-d91b-1912-e2b1ef65e28c"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "CVE-2024-43496",
+    "Remote Code Execution",
+    "Out-of-bounds Write",
+    "Chromium"
+  ],
+  "node_id": "ad7478e1-6e8e-4760-9a2f-a9e4674a7844",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

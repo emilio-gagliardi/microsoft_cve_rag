@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the type confusion vulnerability in the V8 engine affecting Microsoft Edge (Chromium-based):\n\n1. Update your Microsoft Edge browser to the latest version (126.0.2592.56 or later).\n2. Restart your browser to ensure the changes take effect.\n\n**Details**:\nThis update addresses CVE-2024-5833, which could allow remote attackers to perform out of bounds memory access via a crafted HTML page. Updating to version 126.0.2592.56 or later will protect against this high-severity vulnerability.\n\nFor detailed version information, go to the Microsoft Edge menu, select 'Help and Feedback', and then 'About Microsoft Edge'.\n\n**Preconditions**:\n- Ensure you are running Microsoft Edge (Chromium-based).\n- Backup settings if necessary before proceeding with the update.",
+  "source_id": "a0f31411-25ed-f35b-d9bb-5961f07253ce",
+  "source_type": "MSRCPost",
+  "fix_label": "upgrade_microsoft_edge_to_126_0_2592_56",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-5833",
+    "Chromium",
+    "TypeConfusion"
+  ],
+  "node_id": "152ee599-11c7-4aa5-a43b-1d9290139bd8",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix",
+  "source_ids": [
+    "a0f31411-25ed-f35b-d9bb-5961f07253ce"
+  ],
+  "verification_status": "unverified"
+}

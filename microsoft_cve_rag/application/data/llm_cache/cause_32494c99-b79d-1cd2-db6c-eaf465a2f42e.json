@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause of the vulnerability is an improper certificate validation in the Windows Cryptographic Services, which can lead to a remote code execution via a heap-based buffer overflow. This allows an attacker to exploit the vulnerability by importing a malicious certificate into the system, potentially enabling the attacker to execute arbitrary code with the same privileges as the user running the affected application.",
+  "cause_label": "improper_certificate_validation_heap_buffer_overflow",
+  "source_id": "32494c99-b79d-1cd2-db6c-eaf465a2f42e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "32494c99-b79d-1cd2-db6c-eaf465a2f42e"
+  ],
+  "tags": [
+    "CVE",
+    "RCE",
+    "Cryptographic Services",
+    "Buffer Overflow"
+  ],
+  "node_id": "0eece09e-beb3-447e-b926-77be365d8991",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the vulnerability CVE-2024-8908 in Microsoft Edge (Chromium-based):\n\n1. Ensure you are using the latest version of Microsoft Edge, which is 129.0.6668.58 or later, released on September 19, 2024.\n2. Update your browser by clicking on the three dots (...) on the far right side of the window, selecting 'Help and feedback', and then 'About Microsoft Edge'. This will automatically check for updates and install the latest version if available.\n\n**Details**:\n- This update resolves an inappropriate implementation in the autofill feature, correcting potential UI spoofing that could be exploited by remote attackers.\n- Users are encouraged to regularly check and update their browsers to maintain security. \n- Refer to Google Chrome releases for more detailed version information and vulnerabilities addressed in each release.",
+  "source_id": "92424de4-08e4-c8cc-05d2-69171ea41b0d",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_remove_chromium_cve_20248908",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-8908",
+    "Chromium",
+    "UIspoofing"
+  ],
+  "node_id": "207743fd-9813-4576-abca-497b58d94792",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Fix",
+  "source_ids": [
+    "92424de4-08e4-c8cc-05d2-69171ea41b0d"
+  ],
+  "verification_status": "unverified"
+}

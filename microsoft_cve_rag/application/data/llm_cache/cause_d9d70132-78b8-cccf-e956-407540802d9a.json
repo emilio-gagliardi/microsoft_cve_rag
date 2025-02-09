@@ -1,0 +1,20 @@
+{
+  "description": "Elevation of privilege due to improper input validation in the Win32k component, allowing local and remote attackers to exploit the flaw through read/write/execute capabilities, leveraging user actions or directly accessing the system.",
+  "cause_label": "win32k_elevation_of_privilege_improper_input_validation",
+  "source_id": "d9d70132-78b8-cccf-e956-407540802d9a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d9d70132-78b8-cccf-e956-407540802d9a"
+  ],
+  "tags": [
+    "CVE-2024-30087",
+    "Windows",
+    "Privilege Escalation"
+  ],
+  "node_id": "2e26509c-a343-4ff6-8b9f-016b6e5cb401",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nThe updates released to address CVE-2024-26230 focus on mitigating the Windows Telephony Server elevation of privilege vulnerability, which arises from a use-after-free condition in memory management.\n\n1. Ensure your system is running one of the following builds: 19045.4291, 19044.4291, 22631.3447, 22000.2899, 22621.3447, or 10240.20596.\n\n2. Apply the available updates by referencing the following KB articles: KB-5036925, KB-5036910, KB-5036909, KB-5036899, KB-5036896, KB-5036894, KB-5036893, KB-5036892.\n\n3. After installation, restart your system to complete the update process and ensure all changes take effect.\n\n**Details**:\n- The updates contain fixes that resolve the identified use-after-free vulnerabilities, enhancing the overall security posture against potential privilege escalations.\n- Verify that you have backups and understand any preconditions before proceeding with the installation.",
+  "source_id": "7a9167ab-9efc-14c4-317a-33db05945a07",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_telephony_server_elevation_privilege_cve202426230",
+  "tags": [
+    "KB5036925",
+    "TelephonyServer",
+    "ElevationOfPrivilege",
+    "CVE202426230"
+  ],
+  "node_id": "8466f407-7ce9-4802-8c81-a585baf8e837",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "7a9167ab-9efc-14c4-317a-33db05945a07"
+  ]
+}

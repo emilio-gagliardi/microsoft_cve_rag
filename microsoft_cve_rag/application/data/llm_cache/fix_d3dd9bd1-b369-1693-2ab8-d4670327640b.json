@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the NTFS elevation of privilege vulnerability CVE-2024-30027:\n\n1. Download the relevant KB update for your Windows version from the Microsoft Update Catalog using the links below.\n2. Install the update to mitigate the risk.\n3. Restart your system after the installation to ensure the changes take effect.\n\n**Details**:\nInstalling the following updates will resolve the double free vulnerability:\n- KB5037788 for Windows 10 and 32-bit systems: [Download Here](https://catalog.update.microsoft.com/Search.aspx?q=KB5037788)\n- KB5037770 for Windows 11 Version 21H2: [Download Here](https://catalog.update.microsoft.com/Search.aspx?q=KB5037770)\n- KB5037768 for Windows 10 Version 22H2: [Download Here](https://catalog.update.microsoft.com/Search.aspx?q=KB5037768)\n- KB5037771 for Windows 11 versions: [Download Here](https://catalog.update.microsoft.com/Search.aspx?q=KB5037771)\n\n**Preconditions**:\n- Ensure that your system is compatible with the respective Windows version.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "d3dd9bd1-b369-1693-2ab8-d4670327640b",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_ntfs_elevation_of_privilege_cve202430027",
+  "tags": [
+    "KB5037788",
+    "KB5037771",
+    "CVE202430027",
+    "DoubleFree"
+  ],
+  "node_id": "5f395482-c50c-46e5-b9c0-f6cc484b41c9",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "d3dd9bd1-b369-1693-2ab8-d4670327640b"
+  ],
+  "verification_status": "unverified"
+}

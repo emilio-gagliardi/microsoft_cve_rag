@@ -1,0 +1,20 @@
+{
+  "symptom_label": "audio_device_not_detected_in_windows_11",
+  "description": "Users may experience issues where their audio device is not detected in Windows 11 after a patch or driver update. This can often occur following updates to relevant drivers, such as those provided by Dell for their Latitude series of laptops. The symptom may manifest as the system failing to recognize the audio output device or audio being completely absent despite the device being connected. In such cases, it is advisable to try the latest Dell driver to resolve the issue. The recommendation of using the Dell driver suggests that the driver may have compatibility improvements or bug fixes related to sound detection.",
+  "source_id": "0808f857-f4c5-8aa0-856c-3b8e8689b4ad",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "0808f857-f4c5-8aa0-856c-3b8e8689b4ad"
+  ],
+  "tags": [
+    "audio issue",
+    "driver update",
+    "Windows 11",
+    "Dell support"
+  ],
+  "node_id": "3899d975-4e5d-41a7-81c1-6141edbe70d5",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

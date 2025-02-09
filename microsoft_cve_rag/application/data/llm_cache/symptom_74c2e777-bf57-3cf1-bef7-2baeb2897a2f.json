@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_usb_driver_causes_remote_code_execution",
+  "description": "When using specific builds of Windows, such as Windows Server 2008 R2 and Windows 10, users may experience unintended behaviors that lead to remote code execution. This can manifest as unexpected or unauthorized actions occurring on the system, potentially allowing attackers to execute arbitrary code. End users might notice symptoms like system instability, unplanned application behavior, or performance degradation when interacting with hardware connected through the affected USB drivers. Administrators should be vigilant for increased system warnings or alerts indicating unauthorized access attempts. Relevant updates associated with this issue can be found in KB articles including KB-5035845 through KB-5035888, covering various Windows versions and their respective patches.",
+  "source_id": "74c2e777-bf57-3cf1-bef7-2baeb2897a2f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "74c2e777-bf57-3cf1-bef7-2baeb2897a2f"
+  ],
+  "tags": [
+    "Windows",
+    "USB Driver",
+    "Remote Code Execution",
+    "Windows Server",
+    "System Administration"
+  ],
+  "node_id": "e1b2fecc-009b-4fff-8678-58a396069842",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

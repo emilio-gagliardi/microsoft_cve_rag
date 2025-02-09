@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the kernel streaming wow thunk service driver elevation of privilege vulnerability:\n\n1. Ensure your system runs a supported version of Windows 10 or Windows 11.\n2. Download and install the appropriate KB update from the links below:\n   - For Windows 11 Version 24H2: [KB5043080](https://catalog.update.microsoft.com/Search.aspx?q=KB5043080)\n   - For Windows 11 Version 23H2: [KB5043076](https://catalog.update.microsoft.com/Search.aspx?q=KB5043076)\n   - For Windows 10 Version 22H2 (x64): [KB5043064](https://catalog.update.microsoft.com/Search.aspx?q=KB5043064)\n   - For Windows 10 Version 21H2 (x64): [KB5043067](https://catalog.update.microsoft.com/Search.aspx?q=KB5043067)\n3. Restart your system after installation to ensure the updates take effect.\n\n**Details**:\n- This update addresses the heap-based buffer overflow vulnerability in the kernel streaming service, which could allow an elevation of privilege. \n- Ensure all system backups are completed before proceeding with updates to avoid any data loss.\n",
+  "source_id": "cbfb7d66-5f99-39be-7c1d-200f54d0db26",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_kernel_streaming_elevation_privilege_cve202438237",
+  "tags": [
+    "KB5043080",
+    "KB5043076",
+    "Windows11",
+    "KernelStreaming"
+  ],
+  "node_id": "7060fec7-7379-4521-82f6-b8fc07d0f3ed",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "cbfb7d66-5f99-39be-7c1d-200f54d0db26"
+  ],
+  "verification_status": "unverified"
+}

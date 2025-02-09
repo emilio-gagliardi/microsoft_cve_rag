@@ -1,0 +1,20 @@
+{
+  "symptom_label": "hyper_v_vms_fail_to_start_due_to_vbs_disabled",
+  "description": "After the installation of cumulative update 2024-02, instances of Windows Server 2025 Preview and Windows 11 Preview 23H2 are experiencing significant issues in security management. Although Secure Boot remains active, Virtualization-Based Security (VBS) is reported to be disabled, impacting the functionality of Hyper-V virtual machines. The inability to start Hyper-V VMs can lead to disruptions in operations, especially in environments relying on these virtual instances for testing or production workloads. This issue is not linked to any Active Directory or local group policies, indicating the systems are unmanaged. Users encountering this problem should explore the relationship with the manual secure boot patch procedure for potential resolutions.",
+  "source_id": "950203f7-f05b-0b77-cb7b-841d98a3a057",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "950203f7-f05b-0b77-cb7b-841d98a3a057"
+  ],
+  "tags": [
+    "Windows Server 2025",
+    "Hyper-V",
+    "VBS",
+    "Secure Boot"
+  ],
+  "node_id": "bae82b21-6712-49a9-8516-10370b4711e0",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

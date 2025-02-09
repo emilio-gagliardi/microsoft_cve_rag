@@ -1,0 +1,22 @@
+{
+  "description": "Inappropriate implementation in the autofill mechanism of Chromium, allowing remote UI spoofing via crafted HTML content, affecting Microsoft Edge based on Chromium version.",
+  "cause_label": "chromium_inappropriate_autofill_implementation_vulnerability",
+  "source_id": "92424de4-08e4-c8cc-05d2-69171ea41b0d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "92424de4-08e4-c8cc-05d2-69171ea41b0d"
+  ],
+  "tags": [
+    "Chromium",
+    "Microsoft Edge",
+    "Autofill",
+    "UI Spoofing",
+    "Vulnerability"
+  ],
+  "node_id": "ea56b483-0ecb-49ad-b5dd-b6e75bfa71d9",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

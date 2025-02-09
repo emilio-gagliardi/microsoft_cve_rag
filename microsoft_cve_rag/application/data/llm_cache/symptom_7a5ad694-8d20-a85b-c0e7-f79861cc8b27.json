@@ -1,0 +1,21 @@
+{
+  "symptom_label": "may_2019_patch_failed_to_install_on_2019_servers",
+  "description": "The May 2019 patch, identified by KB-5037765, failed to install on Windows Server 2019 systems despite being reported as compliant. System administrators did not receive any error messages during the update process, nor could they verify successful installation through the control update or view update history features. While manually downloading and installing the update worked seamlessly, this inconsistency indicates potential problems with the automated deployment process for Windows Server 2019. It is crucial to assess the status of deployments to ensure that environments remain up-to-date and secure, as the same issue was not observed on Windows Server 2016 and 2022 installations.",
+  "source_id": "7a5ad694-8d20-a85b-c0e7-f79861cc8b27",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "7a5ad694-8d20-a85b-c0e7-f79861cc8b27"
+  ],
+  "tags": [
+    "may 2019 patch",
+    "kb5037765",
+    "update deployment issue",
+    "windows server 2019"
+  ],
+  "node_id": "a3d435dd-1bc5-4311-8670-f8914dc8ea52",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

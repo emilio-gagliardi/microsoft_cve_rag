@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate potential data leaks from Microsoft Copilot in your environment, consider disabling the following components:\n\n1. Use Group Policy to disable the standalone app, the module within Windows Search, and the Microsoft Edge browser hubs sidebar module that includes Bing Chat/Copilot/ChatGPT.\n\n2. Ensure that you have the most recent Administrative Templates (ADMX/ADML) for Windows 10 22H2 and Windows 11 23H2, as well as for Microsoft Edge. This is critical for having the necessary policies to manage these features.\n\n**Details**:\n- If you lack the appropriate MS 365 licensing (E3, E5, A3, Business Standard, or Business Premium), the risk of accidental leakage of intellectual property/confidential company data is significantly heightened. \n- Updating the Administrative Templates can be done by visiting the official Microsoft download links.\n\nFor the Windows 11 23H2 templates, refer to this link: [Download Windows 11 Templates](https://www.microsoft.com/en-us/download/details.aspx?id=105667).\n\nFor the MS Edge for Business templates, use this link: [Download Edge Business Templates](https://www.microsoft.com/en-us/edge/business/download?form=ma13fj). (LLM Synthesized)",
+  "source_id": "3c566012-180b-a3bf-4f82-1ebcbd6081ed",
+  "source_type": "PatchManagementPost",
+  "fix_label": "disable_microsoft_copilot_to_secure_data",
+  "tags": [
+    "Windows10",
+    "Windows11",
+    "GroupPolicy",
+    "MicrosoftEdge"
+  ],
+  "node_id": "955f0705-31a3-4aa0-8112-b92b41aa1f0b",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "3c566012-180b-a3bf-4f82-1ebcbd6081ed"
+  ]
+}

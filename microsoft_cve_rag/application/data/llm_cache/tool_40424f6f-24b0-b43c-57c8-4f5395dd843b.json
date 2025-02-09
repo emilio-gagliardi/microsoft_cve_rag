@@ -1,0 +1,24 @@
+{
+  "tool_label": "ldapenforcechannelbinding_registry_key",
+  "description": "**Tool Overview**:\n\nThe `ldapenforcechannelbinding` registry key is a security configuration setting used to enhance the security of LDAP authentication over SSL/TLS in Windows Server systems. \n\n**Details**:\n\nThis registry key ensures that channel binding is enforced for LDAP connections, which mitigates certain attack vectors associated with the LDAP protocol. The presence and proper configuration of this key are critical for systems that handle sensitive information over LDAP. To apply any changes, administrators must navigate to the Windows Registry Editor and modify the appropriate settings. Regular audits and status checks should be performed to ensure this key is present on Windows 2016 servers, particularly when vulnerabilities are flagged by security scanners like Tenable.\n\n1. **Registry Path**: `HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa`\n2. **Default Value**: Set to `1` to enforce.\n3. **Reboot Required**: Yes, to apply changes.\n\nThis tool is particularly relevant for administrators ensuring their environment meets security compliance standards against CVE-2017-8563 and similar vulnerabilities.",
+  "source_id": "40424f6f-24b0-b43c-57c8-4f5395dd843b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "40424f6f-24b0-b43c-57c8-4f5395dd843b"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CO6PR16MB422683CC831D47AB2A2431F794682%40CO6PR16MB4226.namprd16.prod.outlook.com",
+  "tool_url": "https://support.microsoft.com/en-us/topic/kb4034879-use-the-ldapenforcechannelbinding-registry-entry-to-make-ldap-authentication-over-ssl-tls-more-secure-e9ecfa27-5e57-8519-6ba3-d2c06b21812e",
+  "tags": [
+    "Windows",
+    "LDAP",
+    "Registry",
+    "Security",
+    "CVE-2017-8563"
+  ],
+  "node_id": "a019013a-0649-4888-a348-5ada25029415",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "The root cause of the change in update schedules for Windows 11, version 22H2 is related to user feedback indicating a need for extended timelines for non-security updates. The changed end date of June 24, 2025, for editions such as Enterprise, Education, IoT Enterprise, and Enterprise multi-session editions, along with an earlier end date of June 26, 2024, for versions like Home and Pro, reflects an adjustment in communication strategy based on customer needs. Users require more time to benefit from continuous innovations, prompting Microsoft to revise their initial deadlines. This change includes provisions for cumulative monthly security updates to continue post-deadline. The relevant KB Article ID mentioned in the post is KB-5034765, with implications for builds KB22621 and KB22631.",
+  "source_id": "2a0ab27a-063c-edbc-038a-15f9a099815a",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "2a0ab27a-063c-edbc-038a-15f9a099815a"
+  ],
+  "cause_label": "user_feedback_prompts_update_schedule_change",
+  "tags": [
+    "Windows 11",
+    "patch management",
+    "update schedule",
+    "user feedback",
+    "KB-5034765"
+  ],
+  "node_id": "8f49b3dc-6a41-4192-817e-9cf1d6d0d378",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

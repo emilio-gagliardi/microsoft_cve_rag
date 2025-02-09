@@ -1,0 +1,22 @@
+{
+  "symptom_label": "azure_monitor_agent_observes_data_deletion_on_host",
+  "description": "After the Azure Monitor Agent is installed, system administrators may notice unexpected data deletion on the host where the agent is active. This behavior is a result of an elevation of privilege vulnerability that allows authenticated attackers with read access to perform arbitrary file and folder deletions. Administrators may observe missing files or folders that could be critical for monitoring activities, leading to a degradation in system availability. There is no loss of confidentiality; however, the impact on integrity and availability is significant, potentially leading to disruptions in service. The issue stems from the need to update to the latest version of the Azure Monitor Agent to mitigate this vulnerability (KB-1.26.0).",
+  "source_id": "785446f9-06d6-8157-0f07-3b733743c8dd",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "785446f9-06d6-8157-0f07-3b733743c8dd"
+  ],
+  "tags": [
+    "Azure Monitor Agent",
+    "data deletion",
+    "elevation of privilege",
+    "integrity",
+    "availability"
+  ],
+  "node_id": "3efb4c39-00c1-4ef7-8f10-d143ad5655af",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

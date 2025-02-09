@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability in the Microsoft Windows Performance Data Helper Library (CVE-2024-38025), apply the relevant updates for your operating system version. Follow these steps:\n\n1. Identify your Windows version and architecture (32-bit or 64-bit).\n2. Download the appropriate KB update from the Microsoft Update Catalog.\n3. Install the update and restart your system to apply changes.\n\n**Details**:\n- KB articles for your reference:\n  - Windows 11 Version 23H2: [KB5040442](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442)\n  - Windows 10 Version 22H2 for x64-based Systems: [KB5040427](https://catalog.update.microsoft.com/Search.aspx?q=KB5040427)\n  - For additional versions, refer to the provided download links.\n\n**Preconditions**:\n- Ensure your system is backed up before updating.\n- Confirm administrative rights to perform installations.",
+  "source_id": "4f6abaa3-7d50-dcfc-a18f-a15294cc0f39",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_for_cve202438025_remote_code_execution",
+  "tags": [
+    "KB5040442",
+    "CVE202438025",
+    "WindowsUpdates",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "91228e2b-4b35-4438-9c2c-54f52f95782b",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "4f6abaa3-7d50-dcfc-a18f-a15294cc0f39"
+  ],
+  "verification_status": "unverified"
+}

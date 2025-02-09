@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the out-of-bounds memory access vulnerability in Chrome that also affects Microsoft Edge (chromium-based), it is essential to ensure that your browser is updated to the latest version:\n\n1. Open your Microsoft Edge browser.\n2. Click on the three dots (...) in the top right corner.\n3. Go to 'Help and feedback'.\n4. Select 'About Microsoft Edge' to check for updates. The version should be 122.0.2365.80 or later, released on March 7, 2024.\n\n**Details**:\n- This update addresses the CVE-2024-2173 vulnerability that allows a remote attacker to perform out-of-bounds memory access via a crafted HTML page in Google Chrome prior to version 122.0.6261.111. Note that Microsoft Edge (Chromium-based) is based on an open-source version of Chromium that includes this fix. \n- It is essential to keep your browser updated to mitigate potential exploits. \n\n**Preconditions**:\n- Ensure your system is connected to the internet to check for and download updates.\n- Run the browser as a regular user; administrative access is not required for this update.",
+  "source_id": "aec17056-0b21-a633-7635-5c1327ce40b6",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_chrome_version_122.0.2365.80",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-2173",
+    "Chromium",
+    "OutOfBoundsWrite"
+  ],
+  "node_id": "628f7750-a55e-4adb-bc37-ac2aabc82a3c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "aec17056-0b21-a633-7635-5c1327ce40b6"
+  ]
+}

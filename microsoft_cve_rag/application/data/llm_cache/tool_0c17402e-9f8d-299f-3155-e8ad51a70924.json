@@ -1,0 +1,21 @@
+{
+  "tool_label": "WindowsBluetoothDriverVulnerabilityMitigation",
+  "description": "**Tool Overview**:\n\nThe Windows Bluetooth Driver Vulnerability Mitigation is a guidance resource aimed at addressing the remote code execution vulnerability identified in CVE-2023-35634. The detailed explanation for this Tool is provided in the Fix description. **Details**:\n\nThis mitigation approach includes updates and configurations necessary to secure Windows 10 and Windows 11 against vulnerabilities in Bluetooth drivers. Administrators are encouraged to apply the recommended patches and ensure that Bluetooth configurations are compliant with security practices. Since the vulnerability can be exploited without user interaction and requires low privileges, timely deployment of the patch associated with this CVE is critical to maintaining operational security.\n\n1. Regularly check for updates specific to Bluetooth drivers.\n2. Ensure that security policies are enforced regarding Bluetooth connectivity.\n3. Monitor systems for abnormal behavior as an additional precaution.",
+  "source_id": "0c17402e-9f8d-299f-3155-e8ad51a70924",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-35634",
+  "tool_url": "",
+  "tags": [
+    "Windows 10",
+    "Windows 11",
+    "Bluetooth",
+    "CVE-2023-35634",
+    "vulnerability",
+    "remote code execution"
+  ],
+  "node_id": "a85d4c1e-9716-4e80-bc4c-9d25d264e29a",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

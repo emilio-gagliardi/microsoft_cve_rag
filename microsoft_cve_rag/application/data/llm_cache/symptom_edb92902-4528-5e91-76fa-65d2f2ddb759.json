@@ -1,0 +1,16 @@
+{
+  "symptom_label": "AdobeApplicationInstallationsNotAppearingInRegistry",
+  "description": "This symptom highlights an issue where the installed Adobe applications are not detected in the Windows registry after executing a PowerShell script. The script checks for both 64-bit and 32-bit installations of Adobe software on systems, but if it fails to find any instances, it may indicate improper installation, registry misconfigurations, or potential conflicts with the operating system's architecture settings. This issue may affect systems running various Windows builds where Adobe applications are expected to be listed under the appropriate registry paths.",
+  "source_id": "edb92902-4528-5e91-76fa-65d2f2ddb759",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Adobe",
+    "PowerShell",
+    "registry"
+  ],
+  "node_id": "0b46dd09-29c9-446e-8375-f3fef0c65e4d",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the Windows TCP/IP information disclosure vulnerability (CVE-2024-21313):\n\n1. Download and install the applicable security updates from the Microsoft Update Catalog for your version of Windows.\n2. Ensure your system is updated to at least the specified build numbers listed below:\n   - Windows 11 for x64-based Systems: 10.0.22631.3007 (KB5034123)\n   - Windows 10 for x64-based Systems: 10.0.19045.3930 (KB5034122)\n   - Windows Server 2016: 10.0.14393.6614 (KB5034119)\n   - And others as specified in the update details provided.\n3. Restart your system after the installation to apply all changes.\n\n**Details**:\n- These updates address vulnerabilities that allow unauthorized access to sensitive information over the network.\n- Download the updates from the following links:\n  - [KB5034134](https://catalog.update.microsoft.com/Search.aspx?q=KB5034134)\n  - [KB5034123](https://catalog.update.microsoft.com/Search.aspx?q=KB5034123)\n  - [KB5034184](https://catalog.update.microsoft.com/Search.aspx?q=KB5034184)\n  - Other relevant KB articles as listed in the context.\n\n**Preconditions**:\n- Backup critical data before proceeding with any updates.\n- Ensure that your current version of Windows is compatible with the updates being applied.",
+  "source_id": "564baed8-eeea-7f28-7eb9-7deeb10b9c81",
+  "source_type": "MSRCPost",
+  "fix_label": "MitigateTcpIpInformationDisclosureCVE202421313",
+  "tags": [
+    "KB5034123",
+    "Windows11",
+    "TCPIP",
+    "InformationDisclosure"
+  ],
+  "node_id": "d0aab5b2-4a13-4ac3-b2a3-347f301dacaa",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

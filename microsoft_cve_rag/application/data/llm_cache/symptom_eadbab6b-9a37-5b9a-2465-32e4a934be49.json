@@ -1,0 +1,22 @@
+{
+  "symptom_label": "secure_boot_bypass_leads_to_system_vulnerability",
+  "description": "After the installation of security updates related to KB5040448, KB5040442, KB5040431, and KB5040427 on affected Windows builds, users may experience a critical situation where the secure boot feature is bypassed. This vulnerability manifests as an observable weakness wherein the system's boot integrity can no longer be guaranteed, allowing unauthorized access to system components. Specifically, builds such as 10.0.22631.3880, 10.0.22621.3880, and 10.0.22000.3079 may exhibit unexpected behavior, prompting system administrators to monitor for unauthorized changes to the operating environment. End users may also note increased security alerts or compliance warnings as a result of this insecurity, leading to potential disruptions in typical security protocols. Given that this issue allows heightened risk of modification and access, prompt remediation is warranted to restore proper system security and functionality.",
+  "source_id": "eadbab6b-9a37-5b9a-2465-32e4a934be49",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "eadbab6b-9a37-5b9a-2465-32e4a934be49"
+  ],
+  "tags": [
+    "secure boot",
+    "system vulnerability",
+    "Windows updates",
+    "user experience",
+    "system integrity"
+  ],
+  "node_id": "17f6e057-7589-420b-815f-f81642a071d5",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

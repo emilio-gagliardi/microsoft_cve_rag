@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve issues with the Reporting Web Service not functioning properly, perform the following steps:\n\n1. Execute a complete maintenance of the Software Update Services Database (SUSDB).\n2. Restart the WSUS pool to reinitialize the reporting services.\n\n**Details**:\nThis maintenance process effectively clears any inconsistencies and refreshes the reporting mechanisms of WSUS, restoring functionality. Ensure that all updates are fully synchronized with the WSUS server prior to performing these steps to avoid potential data conflicts.",
+  "source_id": "cf6b28a1-5963-cf6c-d6a0-7094462926f1",
+  "source_type": "PatchManagementPost",
+  "fix_label": "restore_reporting_service_functionality_wsus",
+  "tags": [
+    "WSUS",
+    "SUSDBMaintenance",
+    "ReportingIssue",
+    "ServerManagement"
+  ],
+  "node_id": "45865869-8e04-4bf2-b266-5a391a24f7b6",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "cf6b28a1-5963-cf6c-d6a0-7094462926f1"
+  ],
+  "verification_status": "unverified"
+}

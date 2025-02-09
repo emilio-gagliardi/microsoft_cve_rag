@@ -1,0 +1,16 @@
+{
+  "description": "To address issues regarding the deployment of the Windows Malicious Software Removal Tool in an enterprise environment, you need to check the exit code of the .exe. This ensures that the process has completed successfully or if any errors have occurred during the execution. The exit codes are documented extensively, and they provide insights into any potential issues you may encounter while running the tool. Refer to the KB-891716 article for detailed information about expected exit codes and their meanings. Proper understanding and monitoring of these codes will facilitate smoother deployments and troubleshooting.",
+  "source_id": "133144a9-0c8f-503a-c4ed-30795bb97a86",
+  "source_type": "PatchManagementPost",
+  "fix_label": "CheckExitCodeToEnsureSuccessfulExecution",
+  "tags": [
+    "exit code",
+    "malware removal",
+    "deployment"
+  ],
+  "node_id": "acc5578b-1c7e-4b01-9986-3b487e2459ce",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

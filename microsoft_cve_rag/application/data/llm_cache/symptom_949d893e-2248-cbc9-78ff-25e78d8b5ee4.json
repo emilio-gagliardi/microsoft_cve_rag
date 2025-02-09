@@ -1,0 +1,17 @@
+{
+  "symptom_label": "DeliveryOptimizationForTeamsUpdatesEnforced",
+  "description": "The automatic updates for Microsoft Teams are now enforced via Delivery Optimization (DO), which may cause unexpected network behavior for system administrators managing bandwidth. Users may experience delayed updates if their settings do not comply with the mandatory configuration set by Microsoft. Additionally, users still relying on download mode 100 (bypass) will be adversely affected, as this mode is no longer supported under the current servicing agreement, potentially leading to outdated software versions and associated issues.",
+  "source_id": "949d893e-2248-cbc9-78ff-25e78d8b5ee4",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "MicrosoftTeams",
+    "DeliveryOptimization",
+    "AutomaticUpdates",
+    "NetworkConfiguration"
+  ],
+  "node_id": "8f42d237-00f2-4990-9873-55a9853a23fd",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

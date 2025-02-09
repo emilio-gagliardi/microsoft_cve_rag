@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_routing_management_snapin_remote_code_execution",
+  "description": "The Windows IP Routing Management Snap-in may allow arbitrary code execution, leading to potentially severe consequences for end users. Administrators might observe sudden unexpected behaviors or crashes when interacting with the affected component. This could manifest as application freezes, or a total system failure upon attempted routing management tasks. End users may also experience unauthorized system actions initiated from maliciously crafted requests, which could expose sensitive information or compromise system integrity. The impact is particularly significant in Windows 11 Version 24H2 and its associated build numbers, subject to updates referenced in KB-5041571, KB-5041585, and others.",
+  "source_id": "798bad74-c8e3-6785-796a-5f32af5c8af6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "798bad74-c8e3-6785-796a-5f32af5c8af6"
+  ],
+  "tags": [
+    "Windows",
+    "Routing Management",
+    "Remote Code Execution",
+    "Windows 11",
+    "System Behavior"
+  ],
+  "node_id": "77f814ec-0a86-4e82-901c-ed9285433814",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

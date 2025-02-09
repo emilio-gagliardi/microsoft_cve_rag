@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the use after free vulnerability in Microsoft Edge (Chromium-based), ensure that your browser is updated to the latest version.\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) in the upper right corner.\n3. Navigate to Help and Feedback > About Microsoft Edge.\n4. Verify that the version is 122.0.2365.52 or higher, as this version addresses the identified vulnerability.\n\n**Details**:\n- The vulnerability was introduced in previous Chrome versions but has been resolved in version 122.0.6261.57 of Google Chrome, which is consumed by Microsoft Edge.\n- Users running older versions may be susceptible to potential attacks exploiting this vulnerability. \n- For further details on Chrome releases, visit: https://chromereleases.googleblog.com/2024.\n\n**Preconditions**:\n- Ensure internet connectivity to download the latest browser version.\n- Backup any data that may be affected by the update process (e.g., saved passwords, open tabs).\n",
+  "source_id": "ae10fdfe-1015-f1bd-2215-d0386c2ef587",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_122_0_2365_52",
+  "tags": [
+    "Edge",
+    "CVE-2024-1673",
+    "Chromium",
+    "KB122.0.2365.52"
+  ],
+  "node_id": "2334463f-8355-488b-974c-2a1469a3a57b",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "ae10fdfe-1015-f1bd-2215-d0386c2ef587"
+  ]
+}

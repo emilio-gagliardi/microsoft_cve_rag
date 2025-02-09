@@ -1,0 +1,18 @@
+{
+  "description": "The underlying cause of the issue described relates to the misconfiguration of the recovery partition on UEFI systems. Specifically, the recovery partition is improperly positioned at the beginning of the disk rather than at the recommended end. According to the Github article referenced, automated handling of the recovery partition's location is only feasible when the disk is formatted correctly for UEFI specifications. Such a misconfiguration can lead to complications during system recovery processes, as the recovery tools may not function as intended. Addressing this misconfiguration ensures that the recovery partition is accessible and minimizes risks during recovery operations, thereby improving the reliability of the system recovery process.",
+  "source_id": "4030d07b-6731-297b-01e0-c6f8f5624d14",
+  "source_type": "PatchManagementPost",
+  "cause_label": "ImproperRecoveryPartitionLocationOnUEFIDisk",
+  "tags": [
+    "Recovery Partition",
+    "UEFI",
+    "Disk Configuration",
+    "Automated Recovery",
+    "Microsoft Systems"
+  ],
+  "node_id": "3b422f18-84a7-40b8-be27-8837e3a5d633",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

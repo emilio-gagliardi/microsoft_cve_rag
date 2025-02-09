@@ -1,0 +1,18 @@
+{
+  "description": "The underlying technical condition responsible for the remote code execution symptom associated with CVE-2024-20700 is a race condition that can be exploited when an attacker has access to an adjacent network. This condition requires the attacker to carefully time their actions to successfully manipulate the affected Hyper-V component. Given that the attack vector is constrained to a logically adjacent topology, an attacker must initiate their attack from the same local network or within a restricted administrative domain. This high attack complexity entails that the attacker must possess a significant understanding of the environment to execute an effective exploit, as it relies on timing and specific conditions that are beyond their immediate control. Therefore, addressing this vulnerability requires comprehensive security measures, particularly in network segmentation and access controls to minimize the potential for exploitation.",
+  "cause_label": "RaceConditionRequiresAdjacentNetworkAccess",
+  "source_id": "22c7d039-7127-2472-8983-32c092cb0fb7",
+  "source_type": "MSRCPost",
+  "tags": [
+    "remote code execution",
+    "Hyper-V",
+    "race condition",
+    "network security",
+    "Windows vulnerability"
+  ],
+  "node_id": "d9f1b9dd-aa70-4438-91de-44a9fec2eaba",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

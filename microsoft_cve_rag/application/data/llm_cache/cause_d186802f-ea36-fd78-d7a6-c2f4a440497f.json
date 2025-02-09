@@ -1,0 +1,20 @@
+{
+  "description": "The vulnerability arises from external control of file names or paths in the Windows Distributed Transaction Coordinator, allowing for remote code execution due to improper handling of untrusted data.",
+  "cause_label": "windows_distributed_transaction_coordinator_external_control",
+  "source_id": "d186802f-ea36-fd78-d7a6-c2f4a440497f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d186802f-ea36-fd78-d7a6-c2f4a440497f"
+  ],
+  "tags": [
+    "Windows",
+    "Remote Code Execution",
+    "Distributed Transaction Coordinator"
+  ],
+  "node_id": "7fec8c39-6214-476c-ae2b-721021179770",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

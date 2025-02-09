@@ -1,0 +1,18 @@
+{
+  "tool_label": "CheckMicrosoftEdgeVersionUsingBrowserMenu",
+  "description": "This tool allows users to easily check the version of Microsoft Edge they are using. By clicking on the three dots in the upper-right corner of the browser, users can navigate to 'Help and Feedback' and then select 'About Microsoft Edge' to view the current version information. Keeping the browser updated is essential for addressing vulnerabilities like CVE-2023-5476.",
+  "source_id": "a3d6cb0b-6bce-3c3a-9fb8-d44239c1e687",
+  "source_type": "MSRCPost",
+  "source_url": "https://chromereleases.googleblog.com/2023",
+  "tags": [
+    "version",
+    "navigation",
+    "browser",
+    "Edge"
+  ],
+  "node_id": "6e824305-14b2-45ef-8c47-c13f765d084f",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

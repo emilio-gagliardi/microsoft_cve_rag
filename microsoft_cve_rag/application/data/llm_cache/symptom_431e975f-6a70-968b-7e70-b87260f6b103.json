@@ -1,0 +1,22 @@
+{
+  "symptom_label": "users_experience_elevation_of_privilege_risks",
+  "description": "Users may experience unexpected and unauthorized access to higher privileges on their systems after installing updates related to Windows kernel-mode drivers. This could manifest as certain applications gaining broader permissions than intended, leading to the potential for unauthorized changes to system settings or files. Additionally, system administrators might observe that typical security measures are being bypassed, heightening the risk of data integrity and confidentiality issues. This symptom is particularly relevant for systems running Windows 10 and Windows 11, specifically build numbers 10.0.22631.3880, 10.0.22621.3880, and others listed in the KB Articles (KB5040442, KB5040431, KB5040427), which outline the necessary updates for mitigation. Administrators should be vigilant for behaviors indicating potential privilege elevation which could result from these vulnerabilities.",
+  "source_id": "431e975f-6a70-968b-7e70-b87260f6b103",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "431e975f-6a70-968b-7e70-b87260f6b103"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Privilege_Elevation",
+    "User_Impact",
+    "Update"
+  ],
+  "node_id": "585cd5d7-25b1-4e1a-afbf-1593af86f988",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

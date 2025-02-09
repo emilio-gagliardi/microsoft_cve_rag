@@ -1,0 +1,23 @@
+{
+  "tool_label": "adobe_pdf_viewer_remote_code_execution_vulnerability",
+  "description": "**Tool Overview**:\n\nThis describes an Adobe product vulnerability related to remote code execution that affects Adobe Acrobat Reader versions 127.0.2651.105 and earlier. The vulnerability, identified as CVE-2024-41879, allows arbitrary code execution in the context of the current user upon exploitation, requiring user interaction to open a malicious file. **Potential Impact**:\n - Affects Adobe Acrobat Reader.\n - Exploitation may lead to unauthorized actions on the user's system.\n - Requires user engagement to exploit, limited to files opened by the user.\n\n**Recommendations**:\n - Upgrade to the latest version of Adobe Acrobat Reader to ensure vulnerabilities are patched.\n - Stay informed about related security updates.",
+  "source_id": "34c12b7b-00c0-0152-3f30-3573e34d4165",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "34c12b7b-00c0-0152-3f30-3573e34d4165"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-41879",
+  "tool_url": "",
+  "tags": [
+    "Adobe",
+    "remote code execution",
+    "vulnerability",
+    "moderate"
+  ],
+  "node_id": "a3a2565a-deb4-49fd-a868-e2c43bdf34e3",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

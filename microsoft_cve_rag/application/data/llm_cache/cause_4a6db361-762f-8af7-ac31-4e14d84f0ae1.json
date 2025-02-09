@@ -1,0 +1,21 @@
+{
+  "description": "The issue arises from improper link resolution before file access, allowing an attacker to exploit the Windows storage component locally or remotely with minimal privileges after user interaction. The flaw permits elevation of privilege through manipulated file paths, undermining system integrity within the affected Windows versions and builds.",
+  "cause_label": "windows_storage_improper_link_resolution_file_access",
+  "source_id": "4a6db361-762f-8af7-ac31-4e14d84f0ae1",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4a6db361-762f-8af7-ac31-4e14d84f0ae1"
+  ],
+  "tags": [
+    "Windows",
+    "CVE-2024-30093",
+    "Elevation of Privilege",
+    "CWE-59"
+  ],
+  "node_id": "1f8a0c67-e80d-49d1-a141-8575e9af659a",
+  "node_label": "Cause",
+  "reliability": 9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

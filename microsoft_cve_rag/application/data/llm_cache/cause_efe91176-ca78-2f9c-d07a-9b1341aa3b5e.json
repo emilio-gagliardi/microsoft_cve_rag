@@ -1,0 +1,20 @@
+{
+  "description": "Heap-based buffer overflow in Windows graphics component leading to remote code execution via local access, allowing an attacker to exploit through crafted files and user interaction.",
+  "cause_label": "windows_graphics_component_heap_buffer_overflow",
+  "source_id": "efe91176-ca78-2f9c-d07a-9b1341aa3b5e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "efe91176-ca78-2f9c-d07a-9b1341aa3b5e"
+  ],
+  "tags": [
+    "CVE-2024-38051",
+    "remote code execution",
+    "heap buffer overflow"
+  ],
+  "node_id": "ad39781b-c2ec-4ad5-a059-9ed7b4b27195",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

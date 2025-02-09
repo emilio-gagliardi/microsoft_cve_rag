@@ -1,0 +1,23 @@
+{
+  "tool_label": "bitlocker_recovery_resource",
+  "description": "**Tool Overview**:\n\nThis resource provides guidance and tools for IT teams struggling to recover BitLocker encrypted systems and get their infrastructure back online.\n\n**Details**:\n\nThe tool focuses on assisting users with the following tasks:\n1. **Recovering access** to systems that prompt for BitLocker recovery keys due to issues like hardware changes or other triggering events.\n2. **Providing resources** that have been proven to aid in the recovery process, making it easier for IT teams to troubleshoot and restore access.\n3. **Supporting infrastructure recovery** with documented steps on dealing with locked drives, ensuring continuity in operations and reduced downtime.\n4. **Linking to knowledge bases or scripts** that automate or simplify recovery tasks, improving efficiency for IT staff.\n5. **Offering insights** into best practices around handling BitLocker encryption effectively across environments.\n\nIt's an indispensable resource for system administrators dealing with critical infrastructure issues.",
+  "source_id": "9da93d54-030b-14c7-6eea-0a3246d6e8f3",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "9da93d54-030b-14c7-6eea-0a3246d6e8f3"
+  ],
+  "source_url": "N/A",
+  "tool_url": "N/A",
+  "tags": [
+    "BitLocker",
+    "recovery",
+    "infrastructure",
+    "LLM Synthesized"
+  ],
+  "node_id": "2b45f3d2-59de-4a7c-9d05-e95c64659a88",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

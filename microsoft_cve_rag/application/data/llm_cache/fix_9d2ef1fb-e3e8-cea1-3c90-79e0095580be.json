@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the Windows Mobile Broadband Driver Denial of Service vulnerability (CVE-2024-43561):\n\n1. Review the build numbers to confirm compatibility with your system.\n2. Download and apply the necessary updates corresponding to your Windows version from the Microsoft Update Catalog.\n   - For Windows 11 Version 24H2 for x64-based Systems, use KB5044284: [Link](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n   - For Windows 11 Version 23H2 for x64-based Systems, use KB5044285: [Link](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - For Windows 10 Version 22H2 for x64-based Systems, use KB5044273: [Link](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n3. Restart your system to apply the updates.\n\n**Details**:\nThis update addresses a denial of service vulnerability due to improper input validation and out-of-bounds read issues within the driver. Ensure your system is fully backed up before applying any updates to avoid data loss.\n\n**Preconditions**:\n- The system must match the specified build numbers for successful installation of the patches.\n- Backup critical data before proceeding with the update installations.",
+  "source_id": "9d2ef1fb-e3e8-cea1-3c90-79e0095580be",
+  "source_type": "MSRCPost",
+  "fix_label": "resolve_windows_mobile_broadband_driver_dos_cve202443561",
+  "tags": [
+    "KB5044283",
+    "WindowsMobileBroadband",
+    "CVE202443561",
+    "DenialOfService"
+  ],
+  "node_id": "88df222d-6b9c-4118-a0d4-188f224c6f75",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "9d2ef1fb-e3e8-cea1-3c90-79e0095580be"
+  ],
+  "verification_status": "unverified"
+}

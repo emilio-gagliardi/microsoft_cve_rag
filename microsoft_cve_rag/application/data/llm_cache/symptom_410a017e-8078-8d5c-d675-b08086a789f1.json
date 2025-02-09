@@ -1,0 +1,21 @@
+{
+  "symptom_label": "app_installed_but_no_resources_available",
+  "description": "Users may encounter a scenario where they install an application integrated with Microsoft 365 or Entra but receive a message indicating that their system administrator has not set up any resources. This message can be particularly frustrating, as it advises users to choose a different account or to try again later. The underlying issue often stems from the administrative configuration within the environment, implying that the app requires certain settings and permissions that have not yet been established. This symptom may affect productivity and user experience, leading to confusion among those who expect a seamless integration with their organization's resources. It's crucial for system administrators to ensure that applications are properly configured and accessible to users to prevent these interruptions.",
+  "source_id": "410a017e-8078-8d5c-d675-b08086a789f1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "410a017e-8078-8d5c-d675-b08086a789f1"
+  ],
+  "tags": [
+    "Microsoft365",
+    "Entra",
+    "application_setup",
+    "system_administration"
+  ],
+  "node_id": "dc282e17-e24f-45c9-8f59-e9e6b5cc70b3",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

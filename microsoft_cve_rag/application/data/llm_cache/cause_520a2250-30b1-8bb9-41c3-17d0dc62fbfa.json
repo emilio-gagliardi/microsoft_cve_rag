@@ -1,0 +1,20 @@
+{
+  "description": "Information exposure through microarchitectural state after transient execution in certain Intel Atom processors may enable authenticated users to disclose sensitive information via local access.",
+  "cause_label": "intel_atom_processor_information_exposure_via_rfds",
+  "source_id": "520a2250-30b1-8bb9-41c3-17d0dc62fbfa",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "520a2250-30b1-8bb9-41c3-17d0dc62fbfa"
+  ],
+  "tags": [
+    "CVE-2023-28746",
+    "Intel",
+    "Information Disclosure",
+    "Microarchitectural State"
+  ],
+  "node_id": "496372a7-71a5-4b9f-a3da-e12e65f2a927",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

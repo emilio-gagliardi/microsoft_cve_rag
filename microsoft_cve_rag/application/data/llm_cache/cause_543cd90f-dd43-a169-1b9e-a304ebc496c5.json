@@ -1,0 +1,16 @@
+{
+  "description": "The elevation of privilege vulnerability identified in CVE-2023-35631 arises from a flaw in the win32k component of Windows that allows local attackers to exploit vulnerabilities by leveraging their read/write/execute capabilities. This vulnerability is present in specific builds of Windows, notably 10.0.25398.584, 10.0.22631.2861, 10.0.22621.2861, and 10.0.22000.2652. Attackers can take advantage of this flaw by directly accessing the system, either locally through console access or by tricking a legitimate user into executing malicious code through social engineering tactics. Once exploited, an attacker can gain elevated system privileges, enabling them to fully control critical resources, leading to significant breaches in confidentiality, integrity, and availability. Relevant KB Article IDs linked with the vulnerability include KB5033375 and KB5033369, which provide guidance for remediation and patch deployment to affected systems.",
+  "cause_label": "Win32kComponentFlawEnablesPrivilegeEscalation",
+  "source_id": "543cd90f-dd43-a169-1b9e-a304ebc496c5",
+  "source_type": "MSRCPost",
+  "tags": [
+    "elevation of privilege",
+    "win32k",
+    "CVE-2023-35631"
+  ],
+  "node_id": "8934ae90-73f1-4f2b-927c-0da47eb9b745",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

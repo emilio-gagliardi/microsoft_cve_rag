@@ -1,0 +1,21 @@
+{
+  "description": "Inappropriate implementation in web authentication within Chromium allowed privilege escalation through a crafted HTML page in versions prior to 130.0.6723.58.",
+  "cause_label": "chromium_inappropriate_implementation_in_webauthentication",
+  "source_id": "7d1a8760-dae0-1f35-5e20-89bb535d0967",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7d1a8760-dae0-1f35-5e20-89bb535d0967"
+  ],
+  "tags": [
+    "Chromium",
+    "Microsoft Edge",
+    "Web Authentication",
+    "Privilege Escalation"
+  ],
+  "node_id": "a5dd1004-1201-4a17-adf6-6b2154e3a2ca",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

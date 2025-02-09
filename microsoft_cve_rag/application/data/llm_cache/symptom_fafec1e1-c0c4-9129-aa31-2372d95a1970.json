@@ -1,0 +1,17 @@
+{
+  "symptom_label": "WindowsReWimPatchCheckFailsWithCveAlerts",
+  "description": "The symptom arises when a system administrator is unable to verify if the winre.wim file is properly patched against known vulnerabilities, specifically CVE-2022-4109 and CVE-2024-20666. This can lead to potential exploitation of these vulnerabilities, particularly affecting Windows 10 and Windows Server 2022 environments. Ensuring that the winload.exe file and BootMenuUX.dll are up-to-date is critical, as they are addressed through cumulative Safe OS updates, which may not be easily checked using standard tools like dism.exe.",
+  "source_id": "fafec1e1-c0c4-9129-aa31-2372d95a1970",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "WindowsPatchManagement",
+    "CVE20224109",
+    "CVE20242066",
+    "PowerShellFunction"
+  ],
+  "node_id": "0f2ef7e7-f0e6-4677-836e-703495fd426a",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

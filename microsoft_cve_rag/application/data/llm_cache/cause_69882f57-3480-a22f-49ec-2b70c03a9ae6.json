@@ -1,0 +1,21 @@
+{
+  "description": "Uncontrolled Resource Consumption in Microsoft QUIC due to insufficient handling of incoming requests, leading to denial of service. The vulnerability allows attackers to overwhelm network resources, causing system availability issues.",
+  "cause_label": "microsoft_quic_uncontrolled_resource_consumption",
+  "source_id": "69882f57-3480-a22f-49ec-2b70c03a9ae6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "69882f57-3480-a22f-49ec-2b70c03a9ae6"
+  ],
+  "tags": [
+    "CVE",
+    "Microsoft",
+    "QUIC",
+    "Denial of Service",
+    "Resource Management"
+  ],
+  "node_id": "717740b3-fe52-439b-9c14-5690d5cfcbea",
+  "node_label": "Cause",
+  "reliability": 8,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

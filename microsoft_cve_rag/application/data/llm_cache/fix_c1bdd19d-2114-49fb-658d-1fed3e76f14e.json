@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the vulnerability in Chromium utilized by Microsoft Edge (Chromium-based):\n\n1. Ensure your Microsoft Edge browser is updated to version 129.0.2792.79 or later.\n2. To check your browser version, click on the three dots (...) at the top right of the window, then navigate to Help and feedback > About Microsoft Edge.\n3. Follow the prompts to update your browser if you are running an outdated version.\n\n**Details**:\n- This fix resolves the security vulnerability denoted by CVE-2024-9370, which was addressed in the release of the specified Edge version.\n- For additional details, refer to the latest updates on Google Chrome releases, as the vulnerability affects the Chromium open-source software that Edge integrates. \n\nThe update is crucial to ensure protection against potential security threats associated with the identified CVE. \n",
+  "source_id": "c1bdd19d-2114-49fb-658d-1fed3e76f14e",
+  "source_type": "MSRCPost",
+  "fix_label": "upgrade_microsoft_edge_to_version_1290_2792_79",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20249370",
+    "ChromiumUpdate",
+    "KB12902792"
+  ],
+  "node_id": "6868a43f-951b-4b77-9fef-f4c093f7790e",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c1bdd19d-2114-49fb-658d-1fed3e76f14e"
+  ],
+  "verification_status": "unverified"
+}

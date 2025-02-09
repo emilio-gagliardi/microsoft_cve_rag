@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_ui_spoofing_issue_due_to_chromium",
+  "description": "Users of Microsoft Edge (Chromium-based) version 130.0.2849.46 may experience an issue related to user interface spoofing due to an inappropriate implementation in permissions, as indicated by the recent CVE-2024-9962. This issue allows a remote attacker to manipulate UI elements through specific user interactions on crafted HTML pages. Consequently, users could encounter misleading visual cues that could compromise their trust in the browser environment, making them more susceptible to phishing attacks or other malicious activities. This symptom is particularly concerning as it directly affects user experience and can lead to security breaches if users are misled by the altered UI. The resolution entails users updating to the latest version of Microsoft Edge (at least version 130.0.6723.59) to mitigate this risk, as outlined in KB-130.0.2849.46.",
+  "source_id": "0d5af76b-92ee-c5d0-4747-9562757fd544",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0d5af76b-92ee-c5d0-4747-9562757fd544"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "CVE-2024-9962",
+    "user interface",
+    "permission issues",
+    "Chromium"
+  ],
+  "node_id": "f18d813b-b5fc-4260-a5fc-60a4ad429bea",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

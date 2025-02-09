@@ -1,0 +1,21 @@
+{
+  "symptom_label": "blue_screen_error_with_signed_wdac_policies",
+  "description": "The installation of KB-5040427 causes devices to experience a blue screen error (error code 0xc0000001) when signed Windows Defender Application Control (WDAC) policies are in effect. End users report that after applying this update, the systems fail to boot properly, entering a recovery or repair screen. This behavior is reproducible when reverting to signed policies after successful booting with unsigned ones, suggesting that the update relates directly to the WDAC settings rather than other configurations. The incident highlights the critical interaction between KB-5040427 and signed WDAC policies, where the former disrupts system stability, thus affecting operational continuity for organizations relying on reinforced security models via WDAC.",
+  "source_id": "b9f43e00-4214-b53c-bf6a-4ddab960f94b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "b9f43e00-4214-b53c-bf6a-4ddab960f94b"
+  ],
+  "tags": [
+    "blue_screen",
+    "wdac",
+    "patch_management",
+    "kb5040427"
+  ],
+  "node_id": "e9b90c2d-aa86-4e8b-8151-4a6aae3e5db8",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "A stack-based buffer overflow occurs when a user input exceeding the allocated buffer size overwrites adjacent memory, leading to potential code execution. This vulnerability affects the secure boot feature, allowing unauthorized modifications that bypass its security mechanisms.",
+  "cause_label": "secure_boot_stack_based_buffer_overflow",
+  "source_id": "704eee58-7738-960a-6b7e-41a1e24f633f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "704eee58-7738-960a-6b7e-41a1e24f633f"
+  ],
+  "tags": [
+    "CVE-2024-28924",
+    "buffer overflow",
+    "secure boot",
+    "CWE-121"
+  ],
+  "node_id": "3a655b8c-1238-46da-b96a-98bf1a5e8787",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

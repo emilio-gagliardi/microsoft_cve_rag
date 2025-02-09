@@ -1,0 +1,16 @@
+{
+  "symptom_label": "MicrosoftEdgeExperiencesUseAfterFreeErrors",
+  "description": "After applying the security update to Microsoft Edge (Chromium-based) version 119.0.2151.97, users may notice browser instability, including unexpected crashes or abrupt halts while handling specific content. This symptom arises from underlying issues in the handling of AVIF image formats, which could lead to use-after-free errors, affecting user experience. The update available under KB-119.0.2151.97 addresses this concern, enhancing system reliability during web browsing.",
+  "source_id": "15af050b-f78d-7a6b-6d7d-45e1fa4c5545",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "7d01667c-feeb-4266-a71a-b7ff9390a974",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

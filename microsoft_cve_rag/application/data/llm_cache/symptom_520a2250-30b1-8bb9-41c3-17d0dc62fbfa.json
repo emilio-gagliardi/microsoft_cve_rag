@@ -1,0 +1,21 @@
+{
+  "symptom_label": "information_disclosure_vulnerability_in_intel_processors",
+  "description": "End users may experience potential information disclosure risks due to an identified vulnerability in specific Intel Atom processor models. This flaw can expose sensitive data via local access, especially following firmware updates that are required for mitigation. Systems running Windows 10 (various builds), Windows 11, and multiple versions of Windows Server are likely affected, with corresponding security updates (KB5035853, KB5035845, and others) made available as of March 12, 2024. The observable symptom may involve concerns around data security, particularly when specific updates have not been applied, heightening the risk of information leakage. This emphasizes the importance of applying both firmware and related updates promptly to safeguard against potential exploits.",
+  "source_id": "520a2250-30b1-8bb9-41c3-17d0dc62fbfa",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "520a2250-30b1-8bb9-41c3-17d0dc62fbfa"
+  ],
+  "tags": [
+    "Information Disclosure",
+    "Intel",
+    "Windows Update",
+    "Security",
+    "Firmware Update"
+  ],
+  "node_id": "c2559145-b457-4a07-99dd-7e5a725aa3de",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

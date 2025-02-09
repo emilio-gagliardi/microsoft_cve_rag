@@ -1,0 +1,21 @@
+{
+  "description": "The vulnerability is caused by a use after free condition in the Windows graphics component, potentially allowing attackers to elevate privileges on affected systems through local or social engineering attacks. This flaw can be exploited when the graphics component fails to properly manage memory after it is released, leading to unauthorized access or control over system resources.",
+  "cause_label": "windows_graphics_component_use_after_free_condition",
+  "source_id": "2e8dc650-e1de-cf15-acd9-fb5665bedab0",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2e8dc650-e1de-cf15-acd9-fb5665bedab0"
+  ],
+  "tags": [
+    "elevation of privilege",
+    "Windows graphics",
+    "use after free",
+    "CVE-2024-43509"
+  ],
+  "node_id": "77d50ab2-211d-4c35-893e-830d765bdfa7",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

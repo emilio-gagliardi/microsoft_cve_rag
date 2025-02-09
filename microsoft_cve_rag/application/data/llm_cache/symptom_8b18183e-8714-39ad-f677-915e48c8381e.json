@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_crashes_after_security_update",
+  "description": "After installing the security update for Microsoft Edge (Chromium-based) version 127.0.2651.74, users may experience crashes or instability within the browser. This behavior manifests as the browser unexpectedly closing or freezing during normal operations. Such instability can lead to data loss as users may also experience difficulties in reopening tabs or sessions that were active during the crash. This symptom is particularly concerning for those relying on the browser for productivity tasks or secure transactions. It is important to ensure that users update to the latest version to mitigate these issues, as noted in KB-127.0.2651.74.",
+  "source_id": "8b18183e-8714-39ad-f677-915e48c8381e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8b18183e-8714-39ad-f677-915e48c8381e"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Browser Stability",
+    "User Experience",
+    "Security Update"
+  ],
+  "node_id": "964a698f-b121-4212-b59f-a4759251d047",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

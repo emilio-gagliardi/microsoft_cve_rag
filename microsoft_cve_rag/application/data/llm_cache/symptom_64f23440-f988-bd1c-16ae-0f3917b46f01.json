@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_experiences_crashes_after_update",
+  "description": "After implementing the latest security update KB-125.0.2535.85 for Microsoft Edge (Chromium-based), users may encounter frequent crashes when opening certain web pages. This is particularly noticeable when interacting with media sessions, which triggers the underlying vulnerability related to CVE-2024-5496. Users may also experience unexpected behavior such as browser freezes and high resource consumption that impacts the overall browsing experience. System administrators should verify that users have upgraded to version 125.0.6422.141 to mitigate these issues and ensure a stable environment. Observations suggest that without the update, users may inadvertently attempt to access applications that could expose them to security risks.",
+  "source_id": "64f23440-f988-bd1c-16ae-0f3917b46f01",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "64f23440-f988-bd1c-16ae-0f3917b46f01"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "chromium",
+    "security update",
+    "browser crashes",
+    "CVE-2024-5496"
+  ],
+  "node_id": "36938b33-d564-4f27-91f4-804a19b17806",
+  "node_label": "Symptom",
+  "reliability": 9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

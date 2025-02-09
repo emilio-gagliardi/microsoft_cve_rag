@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Microsoft Streaming Service elevation of privilege vulnerability (CVE-2024-30090):\n\n1. Download and apply the appropriate KB update based on your system's build version from the links below.\n2. Restart your system after installation to ensure that all changes are effectively applied.\n\n**Details**:\n- This vulnerability could allow an attacker to gain elevated privileges, thus potentially compromising system integrity.\n- Ensure you apply the correct update for your version:\n  - For Windows 11 Version 23H2: [KB5039212](https://catalog.update.microsoft.com/Search.aspx?q=KB5039212)\n  - For Windows 10 Version 22H2: [KB5039211](https://catalog.update.microsoft.com/Search.aspx?q=KB5039211)\n  - For Windows 10 Version 21H2: [KB5039211](https://catalog.update.microsoft.com/Search.aspx?q=KB5039211)\n  - For Windows 10 for x64-based Systems: [KB5039225](https://catalog.update.microsoft.com/Search.aspx?q=KB5039225)\n\n**Preconditions**:\n- Ensure the system matches the build number requirements before applying the updates.\n- Backup critical data prior to installing the updates to prevent data loss.\n",
+  "source_id": "856cdd81-0c83-a5e2-5dbc-b52455d18174",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb5039211_kb5039212_to_mitigate_elevation_privilege",
+  "tags": [
+    "KB5039211",
+    "KB5039212",
+    "CVE202430090",
+    "Windows10Windows11"
+  ],
+  "node_id": "b150ae65-7d84-4483-948b-6ccfd94bd1ec",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "856cdd81-0c83-a5e2-5dbc-b52455d18174"
+  ],
+  "verification_status": "unverified"
+}

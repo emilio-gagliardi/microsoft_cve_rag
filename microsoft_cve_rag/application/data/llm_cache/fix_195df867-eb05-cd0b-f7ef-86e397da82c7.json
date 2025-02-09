@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows secure kernel mode elevation of privilege vulnerability (CVE-2024-43631):\n\n1. Download and install the relevant KB updates from the Microsoft Update Catalog:\n   - KB5046617 for Windows 11 Version 24H2\n   - KB5046633 for Windows 11 Version 23H2 and 22H2\n   - KB5046613 for Windows 10 Version 22H2 and 21H2\n\n2. Ensure that your system is running a supported build:\n   - Windows 11 Version 24H2 (10.0.26100.2314)\n   - Windows 11 Version 23H2 (10.0.22631.4460)\n   - Windows 11 Version 22H2 (10.0.22621.4460)\n   - Windows 10 Versions 22H2 and 21H2 (10.0.19045.5131)\n\n**Details**:\nThese updates correct vulnerabilities associated with untrusted pointer dereference, which could allow an attacker to gain elevated privileges on affected systems. For more information on the updates, reference their respective links:\n- [KB5046617](https://catalog.update.microsoft.com/Search.aspx?q=KB5046617)\n- [KB5046633](https://catalog.update.microsoft.com/Search.aspx?q=KB5046633)\n- [KB5046613](https://catalog.update.microsoft.com/Search.aspx?q=KB5046613)\n\n**Preconditions**:\n- Ensure the system is running the specified build version for the updates.\n- Backup critical data before proceeding with installation to mitigate any potential system issues.",
+  "source_id": "195df867-eb05-cd0b-f7ef-86e397da82c7",
+  "source_type": "MSRCPost",
+  "fix_label": "address_elevation_of_privilege_issue_cve202443631",
+  "tags": [
+    "KB5046617",
+    "Windows11",
+    "CWE822",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "36d30b1a-3839-451d-90a6-c5ef739cbbfd",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "195df867-eb05-cd0b-f7ef-86e397da82c7"
+  ],
+  "verification_status": "unverified"
+}

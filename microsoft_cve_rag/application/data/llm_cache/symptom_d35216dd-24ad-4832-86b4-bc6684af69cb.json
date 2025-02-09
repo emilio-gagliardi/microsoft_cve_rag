@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_networking_intermittent_denial_of_service",
+  "description": "After the installation of the security updates associated with KB5043080, KB5043076, KB5043067, and KB5043064, users may experience intermittent denial of service on their Windows systems. Specifically, the affected build numbers 10.0.22621.4169, 10.0.22000.3197, 10.0.22631.4169, and 10.0.26100.1742 could result in complete unavailability of network resources, especially when operating within a network using adjacent topology protocols. This condition can lead to significant disruptions as users are unable to connect to shared resources, and administrative users may be hindered in managing the affected systems properly. The reports indicate that these issues stem from improper input validation within the networking components of Windows, necessitating immediate action from system administrators to mitigate these effects.",
+  "source_id": "d35216dd-24ad-4832-86b4-bc6684af69cb",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d35216dd-24ad-4832-86b4-bc6684af69cb"
+  ],
+  "tags": [
+    "Windows",
+    "networking",
+    "denial of service",
+    "administration"
+  ],
+  "node_id": "1c41f73f-0f4d-4efd-85e0-9834928f6a23",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

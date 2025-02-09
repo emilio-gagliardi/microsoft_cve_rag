@@ -1,0 +1,16 @@
+{
+  "symptom_label": "Windows10UpgradeFailsWithoutValidDigitalLicense",
+  "description": "Starting from September 26, 2023, users attempting to upgrade to Windows 10 or 11 from Windows 7, 8, or 8.1 may experience failures in activating their digital license. This issue arises specifically for those who rely on hardware ID activation or genuine Windows keys from earlier versions. Without a valid digital license, the upgrade process does not complete successfully, preventing users from utilizing the new operating systems on the same hardware.",
+  "source_id": "41948ae2-57cf-9b96-0625-c90784b0ff80",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "upgrade",
+    "activation",
+    "Windows10"
+  ],
+  "node_id": "7a85d2f0-04ee-4746-a312-a5718eda8eb9",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

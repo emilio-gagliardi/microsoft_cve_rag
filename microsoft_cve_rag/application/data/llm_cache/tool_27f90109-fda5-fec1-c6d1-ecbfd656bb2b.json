@@ -1,0 +1,22 @@
+{
+  "tool_label": "robocopy_gui_visual_interface",
+  "description": "**Tool Overview**:\n\nRoboCopy GUI is a visual interface designed to enhance user experience when working with the RoboCopy command-line utility. It simplifies the process of job configuration and management by providing a graphical representation of the various options and switches available in RoboCopy.\n\n**Details**:\n\nRoboCopy, or Robust File Copy, is a powerful tool included with Windows that allows for efficient file and folder replication. The GUI version allows users to:\n\n1. Easily configure source and destination paths through a user-friendly interface.\n2. Utilize drag-and-drop functionality to select files and folders directly.\n3. Monitor job progress visually and receive notifications upon completion.\n4. Set up various job parameters, including options for retries, logging, and job queuing.\n\nWith RoboCopy GUI, file management becomes much more intuitive, reducing the potential for errors that may occur when using command-line syntax alone.",
+  "source_id": "27f90109-fda5-fec1-c6d1-ecbfd656bb2b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "27f90109-fda5-fec1-c6d1-ecbfd656bb2b"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/ae93a936-9f55-4509-9461-6497ecadc550n%40googlegroups.com",
+  "tool_url": "",
+  "tags": [
+    "GUI",
+    "file management",
+    "RoboCopy",
+    "job monitoring"
+  ],
+  "node_id": "266b6ec9-b340-4390-84db-878e2cf74705",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

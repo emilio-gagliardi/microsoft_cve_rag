@@ -1,0 +1,22 @@
+{
+  "symptom_label": "secure_boot_feature_bypass_leads_to_exploit",
+  "description": "The system may display unexpected behaviors when secure boot is bypassed, potentially allowing unauthorized access to resources. Users may experience the inability to boot securely into the operating system, resulting in a direct impact on system integrity. This security feature bypass can lead to unauthorized changes to files and settings that should be protected under the secure boot policy. Users on affected systems such as Windows 11 Version 23H2 (10.0.22631.3880), Windows 10 Version 22H2 (10.0.19045.4651), and various Server Editions may face issues indicated by unusual error messages or system instability post-exploitation. For more details on the affected builds and recommended patches, refer to KB5040442, KB5040427, and other related updates.",
+  "source_id": "50a28561-6870-092a-1cee-f1e17db794bd",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "50a28561-6870-092a-1cee-f1e17db794bd"
+  ],
+  "tags": [
+    "Windows 10",
+    "Windows 11",
+    "Secure Boot",
+    "Security Feature Bypass",
+    "Patch Management"
+  ],
+  "node_id": "357a8489-7b11-43c3-ad10-479013deba13",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

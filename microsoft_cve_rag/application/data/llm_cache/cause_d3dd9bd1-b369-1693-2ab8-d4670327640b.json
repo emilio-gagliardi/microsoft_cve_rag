@@ -1,0 +1,21 @@
+{
+  "description": "A double free condition in the NTFS component leads to an elevation of privilege vulnerability, enabling unauthorized access to system privileges. This flaw arises from improper memory management where memory is freed twice, creating exploitable conditions that could be leveraged by an attacker to execute arbitrary code within the context of the application.",
+  "cause_label": "ntfs_double_free_condition_leads_to_elevation_privilege",
+  "source_id": "d3dd9bd1-b369-1693-2ab8-d4670327640b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d3dd9bd1-b369-1693-2ab8-d4670327640b"
+  ],
+  "tags": [
+    "NTFS",
+    "elevation of privilege",
+    "double free",
+    "CVE-2024-30027"
+  ],
+  "node_id": "dec9f8c9-1ba9-44bf-964d-035cf2c3d5ee",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

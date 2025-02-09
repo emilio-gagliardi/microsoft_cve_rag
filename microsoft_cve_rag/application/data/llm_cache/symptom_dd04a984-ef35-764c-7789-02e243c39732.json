@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_crashes_after_chromium_patch",
+  "description": "After applying security update KB-129.0.2792.52 which addresses CVE-2024-8904, users of Microsoft Edge (Chromium-based) versions 129.0.2792.52 and 129.0.6668.58 may experience instances of the browser crashing unexpectedly. This symptom can manifest during normal browsing activities, leading to potential data loss or interrupted workflows. Users might notice that the browser becomes unresponsive before terminating unexpectedly, disrupting their online sessions. Such behavior is critical for system administrators to monitor, as it can point to underlying issues related to the newly integrated chromium security fixes. It is essential to assess user experiences post-update to ensure system stability.",
+  "source_id": "dd04a984-ef35-764c-7789-02e243c39732",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "dd04a984-ef35-764c-7789-02e243c39732"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Browser Crash",
+    "CVE-2024-8904",
+    "KB-129.0.2792.52"
+  ],
+  "node_id": "cdd18e02-b11b-4c3e-b951-d66f3493fc4b",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

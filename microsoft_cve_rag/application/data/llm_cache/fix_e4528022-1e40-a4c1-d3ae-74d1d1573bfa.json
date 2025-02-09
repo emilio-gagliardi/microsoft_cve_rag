@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the spoofing vulnerability in Microsoft Edge (Chromium-based) WebView2 (CVE-2024-29049), ensure your system is updated with the latest security patches:\n\n1. Download and install the updates related to Microsoft Edge (Chromium-based) from the official catalog.\n2. Ensure that you are running one of the following build numbers: 123.0.2420.81 or 122.0.2365.120.\n3. Restart your browser to apply the changes.\n\n**Details**:\n- The updates address improper neutralization of input during web page generation, which can lead to cross-site scripting (XSS) attacks.\n- For more information and to download the appropriate updates, visit: https://catalog.update.microsoft.com/Search.aspx?q=KB29049.\n**Preconditions**:\n- Ensure you have administrative privileges for the installation.\n- Backup critical data before proceeding with updates.",
+  "source_id": "e4528022-1e40-a4c1-d3ae-74d1d1573bfa",
+  "source_type": "MSRCPost",
+  "fix_label": "address_webview2_spoofing_cve202429049",
+  "tags": [
+    "WebView2",
+    "CVE-2024-29049",
+    "KB29049",
+    "CrossSiteScripting"
+  ],
+  "node_id": "fc2119e1-efbe-4e42-8ab0-5a7931771c4f",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e4528022-1e40-a4c1-d3ae-74d1d1573bfa"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "description": "The underlying cause of CVE-2024-20692 is an information disclosure vulnerability in the Microsoft Local Security Authority Subsystem Service (LSASS). This vulnerability is primarily due to improper handling of sensitive data during domain controller interactions, where an attacker can monitor network traffic and exploit user connections to retrieve sensitive data in plaintext. The vulnerability exists across various builds of Windows, particularly affecting versions 10 and 11, allowing attackers with low privileges to gain unauthorized access to information. Successful exploitation requires user interaction, such as connecting to an Active Directory domain controller, where network secrets can be captured. The vulnerability severity is classified as important, highlighting the necessity for immediate attention and remediation through the issuance of patches, as documented in the associated KB articles.",
+  "cause_label": "ImproperDataHandlingInLsassService",
+  "source_id": "312080b8-8a9d-be93-a87f-9cd470519dd6",
+  "source_type": "MSRCPost",
+  "tags": [
+    "information disclosure",
+    "LSASS",
+    "Windows",
+    "network security",
+    "exploit",
+    "patch management"
+  ],
+  "node_id": "b1a0cbf2-eb73-45a8-8db8-625e3688b703",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

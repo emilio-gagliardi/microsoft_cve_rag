@@ -1,0 +1,21 @@
+{
+  "description": "The root of the issue stems from Microsoft's decision to remove support for the 'NetJoinLegacyAccountReuse' registry setting in a future Windows update, scheduled around August 13, 2024. This change is aimed at enhancing security during domain join operations. The removal reflects a commitment to strengthening protocols and reducing potential avenues for misconfiguration. As organizations update their systems post-August 2024, failure to adapt to this new configuration may contribute to unexpected behaviors or failures during domain joins. For further details, refer to KB5020276 regarding netjoin domain join hardening changes.",
+  "source_id": "a019b40c-d413-5d94-7b82-199738a52b00",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "a019b40c-d413-5d94-7b82-199738a52b00"
+  ],
+  "cause_label": "removal_of_netjoinlegacyaccountreuse_setting",
+  "tags": [
+    "NetJoin",
+    "registry settings",
+    "Windows update",
+    "domain join",
+    "hardening changes"
+  ],
+  "node_id": "e7b88ebb-9ba3-4762-8533-c3820f4dfa9a",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

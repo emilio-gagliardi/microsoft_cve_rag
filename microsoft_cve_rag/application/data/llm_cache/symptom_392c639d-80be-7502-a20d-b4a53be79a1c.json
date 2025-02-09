@@ -1,0 +1,20 @@
+{
+  "symptom_label": "outlook_cached_mode_search_functionality_not_working",
+  "description": "After the installation of a recent update in March 2024, the server-assisted search feature is not functioning in Outlook's cached mode. This impacts users who rely on efficient search capabilities within Outlook to quickly locate emails and other items. The registry adjustments proposed as a workaround involve setting specific values under 'HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\16.0\\Outlook\\Search'. Changes include setting 'disableserverassistedsearch' and 'disableserverassistedsuggestions' to a value of 1, which effectively disables the fast search functionality as a temporary fix. Users experiencing this issue should note that the problem arose following the most recent update, indicating that other system functionalities may also require examination for full resolution. More information and documentation can be found in KB381195.",
+  "source_id": "392c639d-80be-7502-a20d-b4a53be79a1c",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "392c639d-80be-7502-a20d-b4a53be79a1c"
+  ],
+  "tags": [
+    "Outlook",
+    "cached mode",
+    "server-assisted search",
+    "registry fix"
+  ],
+  "node_id": "5458bc19-d786-45b2-9509-1687ffbc4834",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

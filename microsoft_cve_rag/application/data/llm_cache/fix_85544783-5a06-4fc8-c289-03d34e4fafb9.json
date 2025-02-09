@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve partition issues during the installation of Windows recovery on an ESXi 7 virtual machine:\n\n1. Follow the instructions outlined in KB5028997 to manually resize the recovery partition.\n2. Ensure that the recovery partition is not greater than 512 MB to meet the installation requirements.\n3. If necessary, delete the existing recovery partition to facilitate the new installation without complications.\n\n**Details**:\n- This fix focuses on optimizing the partition settings in a VM environment, specifically tailored for ESXi 7 installations. \n- It's crucial to ensure that any existing data on the recovery partition is backed up before making changes. (LLM Synthesized)",
+  "source_id": "85544783-5a06-4fc8-c289-03d34e4fafb9",
+  "source_type": "PatchManagementPost",
+  "fix_label": "resize_recovery_partition_esxi_installation",
+  "tags": [
+    "KB5028997",
+    "ESXi7",
+    "RecoveryPartition",
+    "ManualResize"
+  ],
+  "node_id": "07addd93-0725-4c91-b088-086974256c19",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "85544783-5a06-4fc8-c289-03d34e4fafb9"
+  ]
+}

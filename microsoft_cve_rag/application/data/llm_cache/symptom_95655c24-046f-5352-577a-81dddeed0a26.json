@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_layer_2_bridge_driver_denial_of_service",
+  "description": "The Windows Layer-2 Bridge network driver may experience a denial of service, causing total loss of availability for services reliant on that network stack. Users may notice that they are unable to connect to network resources, and existing connections may become disrupted or completely unavailable. This symptom is pervasive across various builds, including Windows 10 versions 21H2 (10.0.19044.4651) and 22H2, as well as Windows 11 and Server 2022 editions. The incident is tied to security updates detailed in the KB articles KB-5040442, KB-5040431, and KB-5040427, emphasizing the importance of applying the recommended patches to ensure network stability and service availability.",
+  "source_id": "95655c24-046f-5352-577a-81dddeed0a26",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "95655c24-046f-5352-577a-81dddeed0a26"
+  ],
+  "tags": [
+    "networks",
+    "windows",
+    "driver",
+    "denial_of_service",
+    "availability"
+  ],
+  "node_id": "8f8fc0e7-cb56-45b5-b19d-e9176c19525c",
+  "node_label": "Symptom",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

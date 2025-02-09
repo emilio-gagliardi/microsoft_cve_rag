@@ -1,0 +1,18 @@
+{
+  "description": "The underlying issue relates to unexpected privileges that may not be detected during the 'Audit mode' operation of Active Directory permissions. If the audit mode fails to identify these unexpected privileges for a certain period, it creates a potential risk, leading to an incorrect configuration in permission settings. This can result in wider access than intended, hence affecting the security posture of the organization. The problem is specifically addressed in the context of KB Article KB-5008383, which provides guidance on transitioning to 'Enforcement mode'. The 'Enforcement mode' is set to be enabled by default in a future update after January 9, 2024, emphasizing the need for administrators to manage permissions closely and report anomalies through support channels.",
+  "source_id": "5149bf75-6fad-efb3-80f5-bb87378fa65f",
+  "source_type": "PatchManagementPost",
+  "cause_label": "UnexpectedPrivilegesInAuditMode",
+  "tags": [
+    "Active Directory",
+    "Audit mode",
+    "Enforcement mode",
+    "Permissions",
+    "KB-5008383"
+  ],
+  "node_id": "59b2f905-9221-4ffb-af30-0bb9f8a3d7a7",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

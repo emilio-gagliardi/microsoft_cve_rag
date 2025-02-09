@@ -1,0 +1,21 @@
+{
+  "description": "Type confusion in the V8 engine of Chromium, which allows a remote attacker to execute arbitrary code within a sandboxed environment via a specially crafted HTML page.",
+  "cause_label": "chromium_type_confusion_in_v8_engine",
+  "source_id": "c18bd943-4552-fc13-fb0f-4cb44f648cb1",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c18bd943-4552-fc13-fb0f-4cb44f648cb1"
+  ],
+  "tags": [
+    "CVE-2024-5274",
+    "Edge",
+    "Chromium",
+    "Browser Vulnerability"
+  ],
+  "node_id": "861bc7ec-10fe-4c5f-9cea-afd1b7a1877b",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

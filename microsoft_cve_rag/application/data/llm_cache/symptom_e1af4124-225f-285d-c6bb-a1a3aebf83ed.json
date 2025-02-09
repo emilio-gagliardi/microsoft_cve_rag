@@ -1,0 +1,18 @@
+{
+  "symptom_label": "MicrosoftEdgeChromiumUpdatedToFixIssues",
+  "description": "After applying the update for Microsoft Edge (Chromium-based) version 120.0.2210.144, users may notice that the browser is now functioning without the previous vulnerabilities associated with CVE-2024-0517. This update addresses an out-of-bounds write in the V8 engine which may have led to potential misuse or crashing scenarios experienced by users prior to the update. Consequently, users can expect enhanced stability and security while browsing, and any previously reported crashes or unexpected behaviors should be alleviated. Users can verify that they are running the updated version of the browser by navigating to the 'About Microsoft Edge' section as described in the post. This update is highlighted in the security update guide to ensure that all users are aware of the resolution to the vulnerabilities that could affect their browsing experience.",
+  "source_id": "e1af4124-225f-285d-c6bb-a1a3aebf83ed",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Browser Update",
+    "CVE-2024-0517",
+    "Security"
+  ],
+  "node_id": "ecd05f2d-d563-4a7e-a717-c98c35a019f2",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

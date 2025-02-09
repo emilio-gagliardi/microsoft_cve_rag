@@ -1,0 +1,16 @@
+{
+  "description": "To prevent the triggering of a reconfiguration for all MSI-based products when querying the Win32_Product class, it is advisable to avoid using this method altogether. This issue has been recognized as a longstanding concern by Microsoft. Instead of using the Win32_Product class, consider alternative methods for managing installed applications. Detailed guidance regarding this issue and recommended practices can be found in the provided Microsoft link. Abiding by these recommendations can save time and prevent unnecessary changes to installed applications.",
+  "source_id": "efebafe4-94da-5bae-b8c1-789e9d93325a",
+  "source_type": "PatchManagementPost",
+  "fix_label": "AvoidQueryingWin32ProductToPreventReconfigurations",
+  "tags": [
+    "Win32_Product",
+    "MSI",
+    "application management"
+  ],
+  "node_id": "8651f45f-2ff4-4ca3-a4aa-19df5a53cf85",
+  "node_label": "Fix",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

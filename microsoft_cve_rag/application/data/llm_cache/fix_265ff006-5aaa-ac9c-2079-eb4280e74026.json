@@ -1,0 +1,16 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the vulnerability associated with CVE-2023-6346 in Chromium which affects Microsoft Edge (Chromium-based), update your browser to the latest version:\n\n1. Ensure that your Microsoft Edge browser is running version 119.0.2151.97 or later.\n2. Check for updates by clicking the three dots (...) in the top-right corner of your Edge browser.\n3. Navigate to Help and Feedback > About Microsoft Edge to initiate the update.\n\n**Details**:\n- This fix addresses a use-after-free vulnerability in the WebAudio component of the Chromium engine used by Microsoft Edge.\n- The latest version was released on November 29, 2023, and ensures that Microsoft Edge is no longer vulnerable to this CVE.\n- For manual updates, ensure you are using the following build numbers: 119.0.2151.97 for stable channel and 119.0.6045.199 for newer builds.\n\n**Preconditions**:\n- Ensure you are using a compatible version of Microsoft Edge (Chromium-based).\n- Backup any important data before proceeding with the update.",
+  "source_id": "265ff006-5aaa-ac9c-2079-eb4280e74026",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeToFixCVE20236346",
+  "tags": [
+    "CVE-2023-6346",
+    "MicrosoftEdge",
+    "WebAudio"
+  ],
+  "node_id": "1c602ef3-8cbe-4e61-82d4-1903693f4342",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

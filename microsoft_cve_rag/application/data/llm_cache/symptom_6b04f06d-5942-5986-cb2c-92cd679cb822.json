@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_mobile_broadband_denial_of_service",
+  "description": "Users may experience total denial of service when utilizing the Windows Mobile Broadband driver due to vulnerabilities identified in several Windows and Windows Server builds. Specifically, this condition results in loss of network connectivity, rendering the affected systems unable to connect to mobile broadband networks. This symptom is noticeable across multiple versions including Windows 10 (22H2 and 21H2) and Windows 11 (21H2, 22H2, 23H2, and 24H2), identified by build numbers like 10.0.26100.2033 and documented in associated KB Articles (KB5044284, KB5044273). The impact is significant, as users cannot establish new connections, leading to operational disruptions in environments relying on mobile broadband for connectivity.",
+  "source_id": "6b04f06d-5942-5986-cb2c-92cd679cb822",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "6b04f06d-5942-5986-cb2c-92cd679cb822"
+  ],
+  "tags": [
+    "Windows",
+    "Mobile Broadband",
+    "Denial of Service",
+    "Connectivity Issue"
+  ],
+  "node_id": "d8c4029e-7463-429e-ae74-0c415c1aad45",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

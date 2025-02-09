@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the vulnerability found in Chromium, which could lead to potential heap corruption, it is essential to update Microsoft Edge (Chromium-based) to the latest version.\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) in the upper right corner.\n3. Navigate to Help and Feedback.\n4. Click on About Microsoft Edge to check for the current version.\n5. Ensure that your Edge version is at least 122.0.6261.111 or higher.\n6. If update is available, Edge will automatically download and install it.\n\n**Details**:\n- This fix ensures that the browser is no longer vulnerable to the previously mentioned issue.\n- Microsoft's release of Edge version 122.0.2365.80 includes necessary updates derived from the latest Chromium version for improved security.\n\n**Preconditions**:\n- Ensure that your device is connected to the internet during the update process.\n- Close all Microsoft Edge instances to complete the update successfully.",
+  "source_id": "c845d67d-d02c-bfc5-4d82-c917605540bb",
+  "source_type": "MSRCPost",
+  "fix_label": "update_edge_to_version_122_0_6261_111_or_higher",
+  "tags": [
+    "MicrosoftEdge",
+    "Chromium",
+    "CVE20242174",
+    "LLM Synthesized"
+  ],
+  "node_id": "f32fe389-719c-4870-8040-9558aeb00e72",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c845d67d-d02c-bfc5-4d82-c917605540bb"
+  ]
+}

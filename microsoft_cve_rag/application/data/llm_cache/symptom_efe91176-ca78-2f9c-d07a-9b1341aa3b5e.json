@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_graphics_component_remote_code_execution_risk",
+  "description": "Users may experience unexpected behavior when interacting with graphics-related applications on systems affected by this vulnerability, which exists in certain Windows builds including 10.0.22631.3880, 10.0.22621.3880, 10.0.19045.4651, and others. Instances such as application crashes or unresponsive systems can occur when running programs that utilize the Windows graphics component. Additionally, users might experience loss of data integrity when files are unexpectedly modified as a result of a successful exploit. To mitigate these risks, Microsoft recommends applying the security updates detailed in KB5040442, KB5040431, and KB5040427. This issue has been categorized as having an important severity level, prompting administrators to take immediate action to protect their environments.",
+  "source_id": "efe91176-ca78-2f9c-d07a-9b1341aa3b5e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "efe91176-ca78-2f9c-d07a-9b1341aa3b5e"
+  ],
+  "tags": [
+    "Windows",
+    "Graphics",
+    "Remote Code Execution",
+    "Windows 10",
+    "Windows 11"
+  ],
+  "node_id": "72df6a0c-a120-4542-95c0-c60eefbe2ca0",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

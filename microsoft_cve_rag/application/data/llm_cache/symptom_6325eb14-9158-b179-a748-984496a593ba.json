@@ -1,0 +1,20 @@
+{
+  "symptom_label": "PrintingNightmareAffectsProductionNetworkSecurity",
+  "description": "The described symptom involves a critical disruption in production networks caused by inadequate printing security measures, often referred to as the 'printing nightmare'. Systems configured with SMB1 enabled are particularly vulnerable, as attackers may use these to gain unauthorized printing access and exploit vulnerabilities associated with print spooling services. Admins are advised to disable SMB1 and spooler services to mitigate these risks and ensure secure networking environments.",
+  "source_id": "6325eb14-9158-b179-a748-984496a593ba",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "6325eb14-9158-b179-a748-984496a593ba"
+  ],
+  "tags": [
+    "printing",
+    "network security",
+    "SMB1",
+    "spooler services"
+  ],
+  "node_id": "30b1e02d-99ea-469f-be31-2febc8579c10",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

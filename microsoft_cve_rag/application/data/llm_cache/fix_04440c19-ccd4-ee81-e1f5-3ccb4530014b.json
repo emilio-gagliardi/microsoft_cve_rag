@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability in the Windows IP Routing Management Snap-in (CVE-2024-38115):\n\n1. Identify the Windows operating system version and architecture (32-bit or x64).\n2. Download and apply the appropriate update package:\n   - For Windows 11 Version 24H2 (x64): KB5041571\n   - For Windows 11 Version 23H2 (x64): KB5041585\n   - For Windows 10 (x64): KB5041782\n3. Restart the system after installation to ensure all changes take effect.\n\n**Details**:\nThese updates address a heap-based buffer overflow vulnerability that may allow remote code execution if exploited. Ensure the system meets the necessary preconditions, such as backing up critical data before applying system updates.\n\nFor additional information, visit the Microsoft Security Response Center at: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38115.\n\n**Preconditions**:\n- Ensure the operating system is supported and running the specified build numbers.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "04440c19-ccd4-ee81-e1f5-3ccb4530014b",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_windows_ip_routing_cve202438115",
+  "tags": [
+    "KB5041571",
+    "WindowsIPRouting",
+    "RemoteCodeExecution",
+    "CVE202438115"
+  ],
+  "node_id": "0a390055-6392-4fae-93e8-2912b95c09c5",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "04440c19-ccd4-ee81-e1f5-3ccb4530014b"
+  ],
+  "verification_status": "unverified"
+}

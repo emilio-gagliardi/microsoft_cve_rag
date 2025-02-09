@@ -1,0 +1,21 @@
+{
+  "description": "The underlying issue stems from a critical vulnerability in the ConnectWise ScreenConnect server, allowing a trivial hack to result in full remote execution (RCE) and control over the server. Malicious actors can exploit this flaw to create a super-admin account without needing login credentials, posing a severe risk to managed service providers (MSPs) and their clients. Reports indicated that many servers remained unpatched, with Huntress identifying approximately 1000 unpatched servers across their clients despite outreach efforts to update them. The situation escalated to the point where Huntress proactively implemented hot fixes on affected servers due to the immediate threat. This vulnerability highlights the importance of diligent patch management, particularly in environments relying heavily on remote management software.",
+  "source_id": "83af80d0-65da-44ab-9b94-64b89b6d8622",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "83af80d0-65da-44ab-9b94-64b89b6d8622"
+  ],
+  "cause_label": "critical_vulnerability_in_connectwise_screenconnect",
+  "tags": [
+    "connectwise",
+    "screenconnect",
+    "remote_execution",
+    "patch_management",
+    "vulnerability"
+  ],
+  "node_id": "ddbf5b6e-986e-40b6-a172-8b9af341c364",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

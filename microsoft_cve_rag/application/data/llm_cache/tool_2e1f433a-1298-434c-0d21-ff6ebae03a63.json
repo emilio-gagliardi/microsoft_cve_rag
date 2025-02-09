@@ -1,0 +1,17 @@
+{
+  "tool_label": "ListOfAppsImpactedForCVE20234863",
+  "description": "A collection of applications impacted by CVE-2023-4863, providing users with details necessary to mitigate risks associated with the vulnerability.",
+  "source_id": "2e1f433a-1298-434c-0d21-ff6ebae03a63",
+  "source_type": "PatchManagementPost",
+  "source_url": "https://groups.google.com/d/msgid/patchmanagement/829E9851-F331-4B5D-BAA0-FCBA936EC3B0%40me.com",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "57eceb64-d159-4080-b21c-ff7edbe682a7",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "critical",
+  "entity_type": "Tool"
+}

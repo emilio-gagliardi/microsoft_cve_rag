@@ -1,0 +1,22 @@
+{
+  "description": "The underpinning cause of CVE-2024-30015 is a numeric truncation error in the Windows Routing and Remote Access Service (RRAS). This error arises when data is improperly handled, potentially leading to remote code execution. It means that the application does not properly account for data size, which can allow an attacker to exploit this weakness at the protocol level over a network, requiring specific conditions and user interaction to succeed.",
+  "cause_label": "windows_rras_numeric_truncation_error",
+  "source_id": "f928b8f0-6d31-d7d1-5e82-0565aff2460b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f928b8f0-6d31-d7d1-5e82-0565aff2460b"
+  ],
+  "tags": [
+    "CVE",
+    "RRAS",
+    "numeric truncation",
+    "remote code execution",
+    "Windows"
+  ],
+  "node_id": "4ca8c3bc-ff02-4694-a066-f9d878d53de0",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

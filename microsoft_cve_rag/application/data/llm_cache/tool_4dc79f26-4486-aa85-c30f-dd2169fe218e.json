@@ -1,0 +1,19 @@
+{
+  "tool_label": "SamplePowerShellScript",
+  "description": "**Tool Overview**:\n\nA PowerShell script included to facilitate the updating of the WinRE partition on deployed devices. \n\n**Details**\n\nThis PowerShell script is aimed at addressing security vulnerabilities associated with CVE-2024-20666. It automates the process of updating the Windows Recovery Environment (WinRE) on devices that have been deployed within an organizational infrastructure. Specifically, the script modifies relevant partitions to ensure they are in line with the patch requirements outlined in the associated KB article. It is crucial for system administrators looking to maintain the security posture of their deployed devices, providing a streamlined method for applying necessary updates with minimal manual intervention.\n\n**Note**: The detailed explanation for this Tool is provided in the Fix description.",
+  "source_id": "4dc79f26-4486-aa85-c30f-dd2169fe218e",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em56d5862a-2b69-49fe-baf7-023e8bd86702%40506bb204.com",
+  "tool_url": "https://support.microsoft.com/en-us/topic/kb5034957-updating-the-winre-partition-on-deployed-devices-to-address-security-vulnerabilities-in-cve-2024-20666-0190331b-1ca3-42d8-8a55-7fc406910c10",
+  "tags": [
+    "PowerShell",
+    "WinRE",
+    "SecurityPatch",
+    "CVE-2024-20666"
+  ],
+  "node_id": "25bca1a3-f5e1-4ddb-82c4-e2b026ad9f9a",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Tool"
+}

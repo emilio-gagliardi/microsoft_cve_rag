@@ -1,0 +1,16 @@
+{
+  "symptom_label": "WindowsVulnerabilitiesSummaryIncorrectCorrectionNeeded",
+  "description": "The provided patch management summary inaccurately states the number of vulnerabilities affecting Windows systems. It highlights 34 vulnerabilities, of which four are critical, but lacks clarity on zero-day vulnerabilities. This miscommunication can lead to confusion among system administrators as they assess the urgency and actions needed for their patch management processes.",
+  "source_id": "6d6f3ccc-0505-80f2-eedf-36cf15a2b8da",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "vulnerabilities",
+    "Windows",
+    "patch management"
+  ],
+  "node_id": "db3c8541-fdeb-4a01-a4bf-899a1f1d278d",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

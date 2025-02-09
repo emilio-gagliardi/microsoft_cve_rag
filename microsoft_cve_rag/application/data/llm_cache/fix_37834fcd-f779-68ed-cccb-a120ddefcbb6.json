@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Microsoft Speech Application Programming Interface (SAPI) remote code execution vulnerability (CVE-2024-43574):\n\n1. Identify and verify the version of Windows you are running.\n2. Download and apply the appropriate update package(s) using the links below:\n   - [Windows 11 Version 24H2](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n   - [Windows 11 Version 23H2](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - [Windows 11 Version 22H2](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - [Windows 11 Version 21H2](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280)\n   - [Windows 10 Version 22H2](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n   - [Windows 10 Version 21H2](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n\n**Details**:\nThis fix addresses a vulnerability where an attacker could exploit a use after free flaw, potentially allowing remote code execution. Applying the updates corresponds to various Windows builds outlined below.\n\n**Preconditions**:\n- Ensure your system is compatible with the listed update packages.\n- Backup critical data before proceeding with the installation of the updates.",
+  "source_id": "37834fcd-f779-68ed-cccb-a120ddefcbb6",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_cve202443574_sapi",
+  "tags": [
+    "KB5044284",
+    "KB5044285",
+    "SAPI",
+    "CVE202443574"
+  ],
+  "node_id": "509dd39e-c3df-4b4c-a2c1-91ee42ccb748",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "37834fcd-f779-68ed-cccb-a120ddefcbb6"
+  ],
+  "verification_status": "unverified"
+}

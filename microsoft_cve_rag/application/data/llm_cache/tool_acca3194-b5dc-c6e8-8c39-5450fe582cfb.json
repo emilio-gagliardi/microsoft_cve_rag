@@ -1,0 +1,19 @@
+{
+  "tool_label": "LogFileSystemVulnerabilityMitigation",
+  "description": "**Tool Overview**:\n\nThis tool serves to aid administrators in mitigating the Microsoft Common Log File System Elevation of Privilege Vulnerability (CVE-2024-20653) identified in Windows 10 and Windows 11. **Functionality**:\n\n1. Provides scripts and commands to help secure the affected systems by limiting read/write/execute capabilities on the vulnerable component.\n2. Assists in detecting if the system is impacted by this vulnerability by performing checks and balances that ensure proper user permissions are in place.\n3. Supports local and remote access configurations, establishing protocols to reduce user interaction risks when prompted to open potentially harmful documents.\n4. The detailed explanation for this Tool is provided in the Fix description. \n\nThe tool is essential for maintaining system security until the issue is fully resolved through a patch.\n\n***Details***:\n\nThis tool must be run in a secure environment to confirm the presence of the vulnerability and harden the system against potential exploits. The best practices for its usage include regularly reviewing log files and user permissions, particularly focusing on any suspicious activities that could indicate an attempted exploit.\n\nIt is recommended that system administrators apply mitigations in conjunction with software updates to effectively minimize security risks.",
+  "source_id": "acca3194-b5dc-c6e8-8c39-5450fe582cfb",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-20653",
+  "tool_url": "",
+  "tags": [
+    "Windows",
+    "elevation of privilege",
+    "security",
+    "CVE-2024-20653"
+  ],
+  "node_id": "07a52c87-3940-46d4-bdf6-07e2042a8f64",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

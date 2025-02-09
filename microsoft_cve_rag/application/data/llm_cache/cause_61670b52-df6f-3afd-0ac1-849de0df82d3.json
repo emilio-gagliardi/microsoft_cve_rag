@@ -1,0 +1,21 @@
+{
+  "description": "An out-of-bounds read vulnerability in the Windows Network Driver Interface Specification (NDIS), allowing attackers on a logically adjacent network to exploit services causing denial of service. This is largely due to improper handling of network protocols, leading to potential service disruptions.",
+  "cause_label": "ndis_out_of_bounds_read_in_network_stack",
+  "source_id": "61670b52-df6f-3afd-0ac1-849de0df82d3",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "61670b52-df6f-3afd-0ac1-849de0df82d3"
+  ],
+  "tags": [
+    "NDIS",
+    "denial of service",
+    "out-of-bounds read",
+    "network vulnerability"
+  ],
+  "node_id": "64bbab75-98b6-46ae-8d2c-a75ff5ffdf98",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

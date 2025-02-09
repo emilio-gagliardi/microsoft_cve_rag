@@ -1,0 +1,22 @@
+{
+  "description": "**Fix Overview**:\n\nTo effectively manage your Exchange Server environment and ensure it is on a supported platform:\n\n1. Migrate your existing Exchange 20xx installation to Exchange 2019 using the Windows Server 2022 Core installation option. \n2. Ensure that your Exchange Server remains updated to take advantage of the latest features and security improvements. \n3. Consider migrating to Exchange Online as a long-term solution to reduce infrastructure overhead and associated costs.\n\n**Details**:\n- Leveraging Windows Server 2022's Core installation can improve performance and reduce maintenance efforts associated with a GUI-intensive environment.\n- Migrating to Exchange Online simplifies management while allowing for continued access to essential email and collaboration tools. (LLM Synthesized)",
+  "source_id": "f1b1cf4f-45fa-6f51-19cc-1b2cbb01880a",
+  "source_type": "PatchManagementPost",
+  "fix_label": "migrate_exchange_20xx_to_2019_windows_server_2022",
+  "tags": [
+    "ExchangeServer",
+    "WindowsServer2022",
+    "Migration",
+    "ExchangeOnline",
+    "LLM Synthesized"
+  ],
+  "node_id": "1a0a38a0-5e07-4784-a754-022799f9f529",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "f1b1cf4f-45fa-6f51-19cc-1b2cbb01880a"
+  ],
+  "verification_status": "unverified"
+}

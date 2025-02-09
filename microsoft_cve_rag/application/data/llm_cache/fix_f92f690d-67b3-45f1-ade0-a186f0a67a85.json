@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the elevation of privilege issue in Tencent RapidJSON due to integer underflow:\n\n1. Download and apply the appropriate KB updates from the official Microsoft Update Catalog.\n2. Ensure your system meets the following build requirements:\n   - Windows 11 Version 23H2 for x64-based Systems: 10.0.22631.3880\n   - Windows 11 Version 22H2 for x64-based Systems: 10.0.22621.3880\n   - Windows 11 Version 21H2 for x64-based Systems: 10.0.22000.3079\n   - Windows 10 Version 22H2 for x64-based Systems: 10.0.19045.4651\n   - Windows 10 Version 21H2 for x64-based Systems: 10.0.19044.4651\n   - Ensure to review the installation notes associated with each KB.\n   \n**Details**:\n- This update addresses CVE-2024-38517 which involves an integer underflow causing potential privilege escalation when parsing JSON files. It is crucial to keep your system updated to mitigate these risks.\n- For manual installation, download the update packages from:\n   - [KB5040442](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442)\n   - [KB5040431](https://catalog.update.microsoft.com/Search.aspx?q=KB5040431)\n   - [KB5040427](https://catalog.update.microsoft.com/Search.aspx?q=KB5040427)\n\n**Preconditions**:\n- Ensure the system is running a compatible version as listed above.\n- Backup critical data before proceeding with the updates.",
+  "source_id": "f92f690d-67b3-45f1-ade0-a186f0a67a85",
+  "source_type": "MSRCPost",
+  "fix_label": "address_elevation_of_privilege_tencent_rapidjson_cve202438517",
+  "tags": [
+    "KB5040442",
+    "CVE202438517",
+    "TencentRapidJSON",
+    "PrivilegeEscalation"
+  ],
+  "node_id": "9daaf5bb-6e83-44e0-a06d-9d099c185045",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "f92f690d-67b3-45f1-ade0-a186f0a67a85"
+  ],
+  "verification_status": "unverified"
+}

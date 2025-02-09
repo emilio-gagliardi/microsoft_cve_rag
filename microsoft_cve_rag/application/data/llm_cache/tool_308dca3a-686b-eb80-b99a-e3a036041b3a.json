@@ -1,0 +1,19 @@
+{
+  "tool_label": "ReplaceImageOnDriveTool",
+  "description": "A mitigation tool aimed at addressing vulnerabilities in UEFI boot processes for Windows and Linux devices. The tool provides guidance to replace malicious logo images found on vulnerable firmware. It ensures that image parsers used in UEFI environments from major IBVs are appropriately updated to close roughly a dozen critical vulnerabilities identified. Users must follow instructions to create a safe boot image to restore device integrity and security. The detailed explanation for this Tool is provided in the Fix description.",
+  "source_id": "308dca3a-686b-eb80-b99a-e3a036041b3a",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/...",
+  "tool_url": "https://www.reddit.com/r/SCCM/comments/...",
+  "tags": [
+    "UEFI",
+    "firmware",
+    "vulnerability",
+    "mitigation"
+  ],
+  "node_id": "2990f1a3-af56-49c7-8cdc-b5f1e0a815e6",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "critical",
+  "entity_type": "Tool"
+}

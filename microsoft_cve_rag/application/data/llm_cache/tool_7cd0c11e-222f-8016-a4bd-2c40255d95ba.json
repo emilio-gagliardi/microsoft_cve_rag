@@ -1,0 +1,18 @@
+{
+  "tool_label": "CheckMicrosoftEdgeVersion",
+  "description": "The Check Microsoft Edge Version tool provides users with a straightforward method to verify which version of Microsoft Edge (Chromium-based) is currently installed on their system. This tool is crucial for ensuring the browser is up-to-date and protected against known vulnerabilities, such as CVE-2023-6508. To use this tool, open your Microsoft Edge browser and click on the menu indicated by three dots in the upper right corner. From there, select 'Help and feedback', followed by 'About Microsoft Edge'. The tool then displays the current version information, allowing users to confirm if they are running the latest release that addresses specific security vulnerabilities.",
+  "source_id": "7cd0c11e-222f-8016-a4bd-2c40255d95ba",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-6508",
+  "tool_url": "https://support.microsoft.com/en-us/microsoft-edge/learn-how-to-manage-your-microsoft-edge-settings-12c7ae8b-2f26-b82b-1c1c-d3ef51e251bb",
+  "tags": [
+    "Microsoft Edge",
+    "version check",
+    "security updates"
+  ],
+  "node_id": "758fd2f8-ef2b-4f2f-9e07-0577d682b53c",
+  "node_label": "Tool",
+  "reliability": "0.9",
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

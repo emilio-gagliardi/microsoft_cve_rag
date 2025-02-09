@@ -1,0 +1,22 @@
+{
+  "tool_label": "adobe_security_updates_recommendations",
+  "description": "**Tool Overview**:\n\nThis notification lists security updates available for various Adobe products, highlighting the importance of maintaining software security. The updates cover major Adobe applications such as Photoshop, After Effects, and InDesign, addressing potential vulnerabilities.\n\n**Details**:\n\nUsers of Adobe software should regularly check for updates to ensure they have the latest security patches applied. This particular update stream from April 2024 includes several security updates with specific build numbers that may resolve critical vulnerabilities. It is crucial for system administrators to monitor these updates and apply them promptly to mitigate any security risks associated with outdated software versions.\n\n1. Keep track of Adobe's security bulletin through their [official help page](https://helpx.adobe.com/security.html).\n2. Follow the instructions for downloading and applying each security update.\n3. Stay informed of any additional updates or bulletins released by Adobe.\n\nThis proactive approach to managing software updates is essential for maintaining the integrity and security of systems reliant on Adobe products.",
+  "source_id": "e48b0d8c-2a0c-396f-a09c-a7749b57767f",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e48b0d8c-2a0c-396f-a09c-a7749b57767f"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAGN5iagriQ0bdC0Zt4qC5NuA0QMXHU8dptd4WPibrSd%2BLz4b%2Bw%40mail.gmail.com",
+  "tool_url": "https://helpx.adobe.com/security.html",
+  "tags": [
+    "security",
+    "updates",
+    "Adobe",
+    "Patch Management"
+  ],
+  "node_id": "06172f39-39b3-43d1-8c6a-b917079b8566",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

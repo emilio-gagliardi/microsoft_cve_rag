@@ -1,0 +1,16 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Internet Connection Sharing (ICS) remote code execution vulnerability (CVE-2023-35630):\n\n1. Identify the appropriate KB article corresponding to your OS version from the list below.\n2. Download the necessary update package from the official Microsoft Update Catalog.\n3. Install the update on affected systems.\n4. Restart your system to apply the changes.\n\n**Details**:  \nThis update resolves the vulnerability that could allow an attacker to execute arbitrary code on affected installations of Windows. It is crucial to stay updated to mitigate potential security risks. Ensure that you are running a supported version of Windows and check the respective KB articles for your build:  \n- **Windows 11 for x64-based Systems**: KB5033375, KB5033369\n- **Windows 10 for x64-based Systems**: KB5033379, KB5033375  \n- For manual installation, download the update package from: https://catalog.update.microsoft.com/Search.aspx?q=KB5033375.\n\n**Preconditions**:  \n- Ensure your system meets the build requirements for the applied KB articles.  \n- Backup critical data before proceeding with the installation.",
+  "source_id": "62003da4-98eb-9728-7fdf-53b44a513a33",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplyKb5033375ForCVE202335630",
+  "tags": [
+    "CVE202335630",
+    "WindowsUpdate",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "c81f2763-68ca-49a1-94b7-2074e3c7c957",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix"
+}

@@ -1,0 +1,23 @@
+{
+  "tool_label": "trust_center_privacy_settings",
+  "description": "**Tool Overview**:\n\nThe Trust Center privacy settings in Microsoft Office applications allow users to configure various privacy options, including data collection and content management. \n\n**How to Access**:\n1. Open your Office application.\n2. Navigate to `File > Options > Trust Center`.\n3. Click on `Trust Center Settings`, where you can adjust your privacy options, ensuring security and compliance with organizational demands.\n\n**Details**:\nThis tool helps administrators and users customize privacy controls, enabling or disabling features like automatic data collection. Configurations here can help ensure that personal information is handled according to company policies. It provides a comprehensive environment for managing privacy settings across Office products, allowing organizations to mitigate risks associated with data exposure. Regular review of these settings is recommended as part of a robust security posture.",
+  "source_id": "1d1d6787-1476-7f78-f08d-7e1c8054bb21",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "1d1d6787-1476-7f78-f08d-7e1c8054bb21"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CH3PR10MB73312A160602E0E53965ED779EFF2%40CH3PR10MB7331.namprd10.prod.outlook.com",
+  "tool_url": "",
+  "tags": [
+    "Trust Center",
+    "privacy settings",
+    "Office",
+    "administration"
+  ],
+  "node_id": "c2176903-388c-4bc5-9ab5-61b031808b58",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

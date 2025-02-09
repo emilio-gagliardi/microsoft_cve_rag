@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause identified in this scenario is the practice of installing unnecessary software on domain controllers (DCs). This misconfiguration can introduce potential exploits due to expanded attack surfaces on critical infrastructure components. It is highly recommended to restrict DCs to hosting only Active Directory Domain Services (AD DS) and DNS, particularly for enhanced security and simplified updates. The text also emphasizes the need for careful resource management, particularly when dealing with services like DHCP. A safer option is to migrate DHCP to a different machine or a layer-3 device, lowering the risk of vulnerabilities associated with service installations on DCs.",
+  "source_id": "aae5b8ad-4a5d-74dc-4106-a11c7f53a719",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "aae5b8ad-4a5d-74dc-4106-a11c7f53a719"
+  ],
+  "cause_label": "unnecessary_software_on_dc_increases_exploits",
+  "tags": [
+    "Active Directory",
+    "DNS",
+    "DHCP",
+    "misconfiguration",
+    "best practices"
+  ],
+  "node_id": "fa46b567-48a7-4a9a-98a9-7f668d55d5ca",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

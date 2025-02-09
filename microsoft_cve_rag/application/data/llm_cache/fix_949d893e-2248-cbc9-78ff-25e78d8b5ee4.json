@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo ensure that Teams updates are applied correctly and efficiently using Delivery Optimization:\n\n1. Configure Delivery Optimization by accessing the Windows Update settings in your organization.\n2. Adjust the settings to enable automatic updates for Teams, ensuring compliance with the servicing agreement.\n3. Set the download mode appropriately, keeping in mind that bypass mode (100) is not supported.\n\n**Details**:\nDelivery Optimization helps to streamline updates by allowing the distribution of updates over peer-to-peer connections, minimizing bandwidth use while ensuring that all systems are up to date. Proper configuration is essential for optimal functionality. (LLM Synthesized)\n",
+  "source_id": "949d893e-2248-cbc9-78ff-25e78d8b5ee4",
+  "source_type": "PatchManagementPost",
+  "fix_label": "ConfigureTeamsDeliveryOptimizationForUpdates",
+  "tags": [
+    "TeamsUpdates",
+    "DeliveryOptimization",
+    "WindowsUpdate",
+    "LLM Synthesized"
+  ],
+  "node_id": "555d2be7-331e-4de6-b1e1-2f1bd5c273c1",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "A use after free condition in the Chromium engine allows a crafted HTML page to exploit heap corruption, affecting Microsoft Edge due to its reliance on Chromium's codebase.",
+  "cause_label": "chromium_use_after_free_in_tabs",
+  "source_id": "8f9a350a-997f-380b-8ffb-cef7848acb37",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8f9a350a-997f-380b-8ffb-cef7848acb37"
+  ],
+  "tags": [
+    "chromium",
+    "edge",
+    "use after free",
+    "heap corruption"
+  ],
+  "node_id": "6da610b0-410d-4203-bc9a-c41357f4328e",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

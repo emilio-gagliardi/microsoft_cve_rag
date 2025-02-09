@@ -1,0 +1,21 @@
+{
+  "description": "A use after free flaw in the media router component of Chromium prior to version 128.0.6613.137 allowed for potential heap corruption, exploitable via crafted HTML pages.",
+  "cause_label": "chromium_use_after_free_in_media_router_heap_corruption",
+  "source_id": "6460a2d3-f2fd-6a8a-358d-47bd9e7b8537",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "6460a2d3-f2fd-6a8a-358d-47bd9e7b8537"
+  ],
+  "tags": [
+    "Chromium",
+    "Microsoft Edge",
+    "Heap Corruption",
+    "Use After Free"
+  ],
+  "node_id": "7b007cab-4273-409d-a2ac-f86f764164b4",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

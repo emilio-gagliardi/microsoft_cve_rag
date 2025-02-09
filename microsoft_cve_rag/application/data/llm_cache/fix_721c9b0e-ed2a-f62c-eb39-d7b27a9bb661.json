@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Win32k elevation of privilege vulnerability (CVE-2024-20683), the following updates should be applied:\n\n1. Download and install the relevant security updates for your system from the Microsoft Update Catalog.\n   - KB-5034123: Windows 11 version 23H2 for x64-based systems\n   - KB-5034134: Windows 10 for x64-based systems\n   - KB-5034119: Windows Server 2016\n   - Other applicable KBs based on your operating system version.\n\n2. After installation, restart your system to enforce the updates.\n\n**Details**:\n- The updates mitigate the risk of elevation of privilege by addressing vulnerabilities in the Win32k component. \n- For manual installation, download the corresponding update packages from the following links:\n   - [KB-5034123](https://catalog.update.microsoft.com/Search.aspx?q=KB5034123)\n   - [KB-5034134](https://catalog.update.microsoft.com/Search.aspx?q=KB5034134)\n   - [KB-5034119](https://catalog.update.microsoft.com/Search.aspx?q=KB5034119)\n\n**Preconditions**:\n- Ensure your system is running one of the supported versions outlined in the post.\n- Backup critical data before proceeding with the update installations.\n",
+  "source_id": "721c9b0e-ed2a-f62c-eb39-d7b27a9bb661",
+  "source_type": "MSRCPost",
+  "fix_label": "MitigateWin32kElevationOfPrivilegeCVE202420683",
+  "tags": [
+    "KB5034123",
+    "KB5034134",
+    "Win32k",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "13708145-4fdf-4997-9699-6f84a70c3c99",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

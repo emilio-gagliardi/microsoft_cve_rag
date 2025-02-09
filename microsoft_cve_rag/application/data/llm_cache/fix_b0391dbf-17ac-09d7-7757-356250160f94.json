@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the information disclosure vulnerability in Windows Remote Access Connection Manager (CVE-2024-28900):\n\n1. Apply the latest updates via Windows Update or manually download the necessary KB articles.\n2. Ensure the system is updated to one of the specified build versions.\n\n**Details**:\n- This vulnerability could result in information disclosure, so timely updates are crucial to mitigate risk.\n- For detailed instructions on how to apply updates, refer to the update guide for CVE-2024-28900 available at: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-28900.\n- Make sure to restart your system as required after the installation is complete.\n\n**Preconditions**:\n- Ensure the system is running on the specified builds listed for KB updates.\n- Backup critical data before proceeding with installation.",
+  "source_id": "b0391dbf-17ac-09d7-7757-356250160f94",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_updates_for_windows_remote_access_cve202428900",
+  "tags": [
+    "KB5037788",
+    "KB5037771",
+    "InformationDisclosure",
+    "WindowsRemoteAccess"
+  ],
+  "node_id": "c7680a1d-2332-4de3-8710-e58caee53d47",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b0391dbf-17ac-09d7-7757-356250160f94"
+  ]
+}

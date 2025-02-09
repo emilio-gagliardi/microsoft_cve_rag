@@ -1,0 +1,16 @@
+{
+  "description": "To mitigate the information disclosure associated with CVE-2023-36404, users are advised to apply the relevant security updates for their Windows systems. This includes updates for Windows Server 2016 (KB5032197), Windows 10 versions 22H2 (KB5032189) and 21H2 (KB5032196), and Windows 11 versions 23H2 (KB5032190) and 22H2 (KB5032190). The following update packages are available for download: https://catalog.update.microsoft.com/Search.aspx?q=KB5032197, https://catalog.update.microsoft.com/Search.aspx?q=KB5032189, https://catalog.update.microsoft.com/Search.aspx?q=KB5032196, and https://catalog.update.microsoft.com/Search.aspx?q=KB5032190. Ensure that your systems are running the specified build numbers to guarantee compatibility with the patches. After downloading, install the updates to prevent unauthorized access to sensitive information, including registry keys.",
+  "source_id": "41027221-101b-b53c-7beb-538937fc2c9b",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplySecurityUpdateToMitigateInformationDisclosure",
+  "tags": [
+    "Microsoft",
+    "CVE-2023-36404",
+    "WindowsUpdates"
+  ],
+  "node_id": "75d977cf-f0c3-4151-9f2a-bac8e2af7e42",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

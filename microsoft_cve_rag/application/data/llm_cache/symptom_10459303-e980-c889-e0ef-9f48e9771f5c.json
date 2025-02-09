@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_routing_service_access_denied_error",
+  "description": "After installing the updates related to KB-5037788, KB-5037771, KB-5037770, and KB-5037768, users may notice that their systems experience intermittent access issues with the Windows Routing and Remote Access Service (RRAS). This can manifest as error messages indicating access is denied when attempting to connect remotely, leading to disruptions in expected connectivity. Administrators may observe that established sessions become unstable or are unexpectedly terminated, which can hinder remote management capabilities. Such symptoms may be particularly pronounced on systems affected by builds like 10.0.19045.4412 and 10.0.22631.3593. This reflects the important severity level and indicates significant operational impacts that administrators should be aware of during routine operations.",
+  "source_id": "10459303-e980-c889-e0ef-9f48e9771f5c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "10459303-e980-c889-e0ef-9f48e9771f5c"
+  ],
+  "tags": [
+    "Windows",
+    "RRAS",
+    "Remote Access",
+    "Error",
+    "Connectivity"
+  ],
+  "node_id": "937ba428-1cf9-4fb5-80d0-0921c0f5ff85",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

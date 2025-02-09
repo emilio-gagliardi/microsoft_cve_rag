@@ -1,0 +1,20 @@
+{
+  "symptom_label": "screenconnect_version_upgrade_required_for_vulnerabilities",
+  "description": "ConnectWise has released version 23.9.10.8817 of ScreenConnect, which includes critical fixes intended to enhance the user experience. Prior versions, specifically 23.9.8, are noted as the minimum required version to address reported vulnerabilities. Users operating on outdated versions face risks related to these vulnerabilities, making it essential for them to upgrade to the recommended version promptly. The removal of license restrictions allows partners whose licenses are no longer maintained to also upgrade to the latest version, further aiding in overall security compliance and performance enhancement. Consistent updates are encouraged to secure the environment against potential threats.",
+  "source_id": "e93d91bf-3d46-bb41-5ba4-5abe84debad0",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e93d91bf-3d46-bb41-5ba4-5abe84debad0"
+  ],
+  "tags": [
+    "ScreenConnect",
+    "patch management",
+    "version upgrade",
+    "ConnectWise"
+  ],
+  "node_id": "946c8575-c7c3-467a-9b63-e7474c750da2",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

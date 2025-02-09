@@ -1,0 +1,21 @@
+{
+  "symptom_label": "unauthenticated_access_bypass_secure_boot_feature",
+  "description": "Users may experience unexpected behavior where a system's secure boot feature can be bypassed, potentially leading to unauthorized access to secure components of the operating system. This can manifest as an inability to trust the system boot process, prompting users to face security warnings or be unable to manage sensitive resources effectively. The issue affects multiple Windows 11 versions (21H2, 22H2, 23H2) and Windows Server 2022, including builds like 10.0.22631.3880, 10.0.22621.3880, and 10.0.22000.3079 as outlined in KB articles KB5040442 and KB5040431. Users may notice alterations in standard operating procedures, such as modifications to access controls or other protective measures that are expected to be intact as per secure boot policies.",
+  "source_id": "c4b81307-cfef-4855-63ff-e606cf190460",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c4b81307-cfef-4855-63ff-e606cf190460"
+  ],
+  "tags": [
+    "Secure Boot",
+    "Unauthorized Access",
+    "Windows 11",
+    "Windows Server 2022"
+  ],
+  "node_id": "f62621b2-5aa6-4471-ba77-741e9eec641f",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

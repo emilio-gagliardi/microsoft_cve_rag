@@ -1,0 +1,16 @@
+{
+  "symptom_label": "WindowsElevationOfPrivilegeVulnerabilitiesIdentified",
+  "description": "Multiple elevation of privilege vulnerabilities have been identified in Microsoft Windows, notably CVE-2023-36036 and CVE-2023-36033, both assigned critical zero-day status due to their ability to allow attackers to gain system-level privileges with low complexity and no high-level privileges needed. These vulnerabilities affect Microsoft Windows 10 and later, as well as Windows Server 2008 and onwards. The exploitation of these vulnerabilities can occur after initial access, making them significant threats that require immediate remediation to prevent unauthorized privilege elevation, especially considering their active exploitation in the wild.",
+  "source_id": "1b3db500-2ab7-67d6-8759-06e934b3b208",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "elevation",
+    "privilege",
+    "vulnerability"
+  ],
+  "node_id": "8aebdd43-e61b-46e4-8d4f-b3ffe85e2135",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Microsoft Edge (Chromium-based) information disclosure vulnerability (CVE-2024-26192), follow these steps:\n\n1. Download and apply the KB26192 update from the official Windows Update catalog.\n2. Restart your Microsoft Edge browser after installation to ensure the changes take effect.\n\n**Details**:\n- This update resolves an issue related to the exposure of private personal information to unauthorized actors.\n- For manual installation, download the update package from: https://catalog.update.microsoft.com/Search.aspx?q=KB26192.\n\n**Preconditions**:\n- Ensure that you are running Microsoft Edge (Chromium-based) version 122.0.2365.52.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "b1f9aa62-9c95-ff4e-d62f-61edc68c700c",
+  "source_type": "MSRCPost",
+  "fix_label": "address_information_disclosure_vulnerability_cve202426192",
+  "tags": [
+    "KB26192",
+    "MicrosoftEdge",
+    "InformationDisclosure",
+    "CVE202426192"
+  ],
+  "node_id": "48745120-f1f4-4877-80d5-2c505751867f",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b1f9aa62-9c95-ff4e-d62f-61edc68c700c"
+  ]
+}

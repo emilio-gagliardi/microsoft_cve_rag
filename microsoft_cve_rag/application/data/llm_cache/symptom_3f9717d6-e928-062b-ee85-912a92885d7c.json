@@ -1,0 +1,17 @@
+{
+  "symptom_label": "EsuKeyIssuesWithVARProvidingIncorrectKey",
+  "description": "Users are experiencing problems with the Extended Security Updates (ESU) activation due to receiving a standard MAK key instead of the correct ESU key from their Value-Added Reseller (VAR). This misconfiguration results in an inability to apply necessary patches and security updates effectively on products that rely on the ESU program. System administrators need to coordinate with their VARs to obtain the appropriate key to ensure compliance and maintain the security posture of Windows Server 2012 R2.",
+  "source_id": "3f9717d6-e928-062b-ee85-912a92885d7c",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "ESU",
+    "KeyManagement",
+    "WindowsServer2012R2",
+    "PatchManagement"
+  ],
+  "node_id": "fcd3187c-7c66-4a7b-8f6b-717c26513572",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "hybrid_joined_device_still_uses_microsoft_update",
+  "description": "In environments with hybrid-joined devices, despite having standard WSUS settings configured via Group Policy, some Windows machines default to Microsoft Update instead of the intended WSUS. This behavior occurs when the registry key HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\UseWUServer is set to 1, indicating WSUS should be utilized. However, using the Get-WUServiceManager command reveals discrepancies, showing WSUS as managed while Microsoft Update is marked as the default. This inconsistency can lead to potential issues with patch management and updates, as devices may not receive the updates specifically approved through WSUS. Administrators need to ensure that settings applied through Group Policy effectively enforce the use of WSUS.",
+  "source_id": "3772f859-08cf-3256-1c36-17118d933fcd",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "3772f859-08cf-3256-1c36-17118d933fcd"
+  ],
+  "tags": [
+    "WSUS",
+    "hybrid join",
+    "patch management",
+    "Microsoft Update"
+  ],
+  "node_id": "ec5a80fa-ef36-4a82-87b8-65920408f714",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "remote_code_execution_via_sql_client_connection",
+  "description": "Users may experience the execution of arbitrary code within their SQL client application after connecting to a malicious SQL database. This situation occurs when an authenticated user is tricked into interacting with the malicious database, where specially crafted replies exploit the vulnerability. The affected products include various builds of Windows Server and SQL Server components, specifically build numbers such as 10.0.19045.4046 and 10.0.22631.3155 with associated KB Article IDs like KB-5034763. The impact is significant, as unauthorized code execution can lead to a total compromise of the user's session and data integrity. Therefore, administrators must be aware of potential user interactions that lead to this condition.",
+  "source_id": "80597639-2941-e48c-c257-61a7f8c6f0f9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "80597639-2941-e48c-c257-61a7f8c6f0f9"
+  ],
+  "tags": [
+    "remote code execution",
+    "SQL Server",
+    "Windows Server",
+    "vulnerability",
+    "administration"
+  ],
+  "node_id": "d1a656e3-3130-4541-a248-339a88cea484",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

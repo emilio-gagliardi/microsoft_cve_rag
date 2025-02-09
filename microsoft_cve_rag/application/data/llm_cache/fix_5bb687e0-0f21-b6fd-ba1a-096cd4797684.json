@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the use after free vulnerability identified as CVE-2024-9960 in Microsoft Edge (Chromium-based), users should ensure that they are running the latest version of the browser. The fix is included in the latest security update which addresses this issue.\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) in the upper right corner.\n3. Navigate to 'Help and feedback'.\n4. Click on 'About Microsoft Edge' to check your current version.\n5. Ensure that the version is updated to at least 130.0.6723.59 or later, as of the release date October 17, 2024.\n\n**Details**:\n- The vulnerability, which allows a potential attacker to exploit heap corruption via a crafted HTML page, has been resolved in the Chromium source consumed by Microsoft Edge.\n- Running the updated version of the browser ensures protection against this type of security threat.\n\n**Preconditions**:\n- Check for the latest updates regularly and ensure your version is 130.0.6723.59 or later.\n- Backup data before conducting any updates, to prevent data loss during the process.",
+  "source_id": "5bb687e0-0f21-b6fd-ba1a-096cd4797684",
+  "source_type": "MSRCPost",
+  "fix_label": "update_edge_to_mitigate_use_after_free_cve20249960",
+  "tags": [
+    "Edge",
+    "CVE20249960",
+    "Chromium",
+    "Update"
+  ],
+  "node_id": "68903a86-d041-4261-bd47-72559977973e",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "5bb687e0-0f21-b6fd-ba1a-096cd4797684"
+  ],
+  "verification_status": "unverified"
+}

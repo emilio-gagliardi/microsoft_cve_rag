@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_services_unresponsive_after_alljoyn_api_patch",
+  "description": "Following the application of the security update for the Microsoft AllJoyn API, users might experience a total loss of availability with the affected services across multiple Windows builds. Notably, systems such as Windows Server 2016 (10.0.14393.6796), Windows 10 version 1607 for x64-based systems, and Windows 11 may exhibit situations where key services fail to respond or become completely unresponsive. This behavior can lead to significant disruption, hampering user workflows and preventing access to necessary system resources. The issue stems from the CVE-2024-21438 vulnerability addressed in several updates, causing services linked to the AllJoyn API to be vulnerable to denial of service, hence impacting the overall system operability. System administrators are advised to monitor their environments closely following the update installation.",
+  "source_id": "02905a5f-a130-7562-d869-c2bbd2b43a74",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "02905a5f-a130-7562-d869-c2bbd2b43a74"
+  ],
+  "tags": [
+    "Windows Server",
+    "Windows 10",
+    "Windows 11",
+    "AllJoyn API",
+    "Denial of Service"
+  ],
+  "node_id": "9398be9d-162a-4a08-82b6-88be7cb938f1",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "boot_process_interrupted_due_to_linux_boot_loaders",
+  "description": "After applying the security update provided in KB5041571 for Windows 11, version 24H2, users may experience issues with booting older Linux distributions. The update implements Secure Boot Advanced Targeting (SBAT), which blocks unpatched Linux boot loaders to enhance the security of the Windows operating environment. As a result, users attempting to boot their systems with these outdated Linux loaders may find that the boot process fails, leading to an inability to access their Linux OS. This issue can affect dual-boot configurations; however, it is specifically noted that the SBAT update does not apply to such systems. Therefore, affected users may need to reach out to their Linux vendor for updated boot solutions to restore their normal dual-boot capabilities.",
+  "source_id": "a807c8c6-7b8f-c3e4-3c7f-d7139865a848",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a807c8c6-7b8f-c3e4-3c7f-d7139865a848"
+  ],
+  "tags": [
+    "Windows 11",
+    "Linux",
+    "Boot Issues",
+    "Security Update"
+  ],
+  "node_id": "6429e946-65a9-4eca-a0d5-512aad4dbbcc",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

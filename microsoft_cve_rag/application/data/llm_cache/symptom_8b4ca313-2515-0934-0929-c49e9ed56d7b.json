@@ -1,0 +1,16 @@
+{
+  "symptom_label": "InformationDisclosureOnWindowsServerAndClient",
+  "description": "Users may experience potential information disclosure vulnerabilities across various Windows operating systems, particularly with the listed builds. Specific impacts can arise during normal operations, leading to sensitive data being inadvertently exposed. Systems affected include Windows 10 (builds 10.0.10240.20345, 10.0.19045.3803) and Windows 11 (builds 10.0.22631.2861) among others, and associated KB articles such as KB5033379 and KB5033375 provide essential updates to mitigate these issues.",
+  "source_id": "8b4ca313-2515-0934-0929-c49e9ed56d7b",
+  "source_type": "MSRCPost",
+  "tags": [
+    "symptom",
+    "information disclosure",
+    "windows updates"
+  ],
+  "node_id": "4b80bf0e-7dde-4c92-907a-be938e539c5d",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

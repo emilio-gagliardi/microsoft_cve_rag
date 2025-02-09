@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_hyper_v_remote_code_execution_issue",
+  "description": "End users may experience unauthorized remote code execution capabilities on their Windows Hyper-V environment as a result of this issue. This can lead to unanticipated behavior in virtual machines, including the potential for unauthorized access to sensitive data or control over the host system. Administrators managing Windows Server 2012, 2016, and Windows 10 systems may notice warnings or alerts corresponding to unauthorized operations being attempted by guest virtual machines. This critical issue is associated with build numbers 10.0.14393.6796, 10.0.10240.20526, and recent updates as outlined in KB articles 5035858, 5035854, 5035853, and 5035845. Immediate remediation is advised to prevent exploitation and maintain system integrity.",
+  "source_id": "4cefc2e4-bd25-f89b-7ff3-a263aa889fad",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4cefc2e4-bd25-f89b-7ff3-a263aa889fad"
+  ],
+  "tags": [
+    "Hyper-V",
+    "Windows Server",
+    "Remote Code Execution",
+    "System Integrity"
+  ],
+  "node_id": "26109e60-3c04-4fd7-9e06-a3a7e3eba539",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,20 @@
+{
+  "symptom_label": "lsass_memory_leak_due_to_kerberos_requests",
+  "description": "Following the installation of the March 2024 security updates (KB-5035885, KB-5035857, KB-5035855, KB-5035849), a critical issue has been identified in which Local Security Authority Subsystem Service (LSASS) on domain controllers may experience extreme memory leaks. This condition arises during the processing of Kerberos authentication requests on both on-premises and cloud-based Active Directory Domain Controllers. The abnormal memory consumption can lead to unpredictable crashes of LSASS, potentially resulting in unscheduled reboots of the underlying domain controllers. This issue is specifically noted to affect Windows Server platforms, including Windows Server 2022, 2019, 2016, and 2012 R2, and is not observed on home devices. Immediate attention to this matter is advised for organizations relying on these server configurations, as the root cause has been confirmed and a resolution is expected in the near future.",
+  "source_id": "f2e5f84c-b7af-13c2-1f59-1ed1838c06f2",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "f2e5f84c-b7af-13c2-1f59-1ed1838c06f2"
+  ],
+  "tags": [
+    "LSASS",
+    "memory leak",
+    "Kerberos",
+    "domain controller"
+  ],
+  "node_id": "48188d73-8fec-4cd3-a19f-1a17cdce2700",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

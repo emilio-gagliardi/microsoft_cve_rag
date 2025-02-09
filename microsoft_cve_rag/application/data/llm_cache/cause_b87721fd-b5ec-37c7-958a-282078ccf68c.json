@@ -1,0 +1,22 @@
+{
+  "description": "A use after free condition in PDFium within Google Chrome prior to build 126.0.6478.54, which could lead to potential heap corruption when handling crafted PDF files.",
+  "cause_label": "chromium_use_after_free_in_pdfium_heap_corruption",
+  "source_id": "b87721fd-b5ec-37c7-958a-282078ccf68c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b87721fd-b5ec-37c7-958a-282078ccf68c"
+  ],
+  "tags": [
+    "CVE",
+    "PDFium",
+    "Chrome",
+    "Microsoft Edge",
+    "Heap Corruption"
+  ],
+  "node_id": "d18246c3-8a79-4c3e-9862-fde3a7738233",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

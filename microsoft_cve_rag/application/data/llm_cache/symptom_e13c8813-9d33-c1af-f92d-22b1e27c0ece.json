@@ -1,0 +1,21 @@
+{
+  "symptom_label": "system_may_fail_to_secure_boot_after_updates",
+  "description": "Users may experience issues with the secure boot functionality on systems running specific versions of Windows after implementing the updates. This can lead to failures in booting the operating system correctly, resulting in an inability to start the system or access important files. The affected builds include Windows 10 (builds 19045.4291, 19044.4291, 22631.3447, 22000.2899, and 22621.3447) that were intended to resolve various security concerns while maintaining system integrity. This problem may manifest as error messages related to the boot process, leaving end users unable to utilize their devices effectively. These boot failures could result in operational disruptions and increased troubleshooting time for system administrators.",
+  "source_id": "e13c8813-9d33-c1af-f92d-22b1e27c0ece",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e13c8813-9d33-c1af-f92d-22b1e27c0ece"
+  ],
+  "tags": [
+    "secure_boot",
+    "windows_updates",
+    "boot_failure",
+    "user_experience",
+    "end_user_impact"
+  ],
+  "node_id": "40257bfa-0f65-4fe9-ab64-f5a91db96e19",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

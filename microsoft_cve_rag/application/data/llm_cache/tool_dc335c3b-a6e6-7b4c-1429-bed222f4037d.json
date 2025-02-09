@@ -1,0 +1,22 @@
+{
+  "tool_label": "veeam_kb4575_patch_update",
+  "description": "**Tool Overview**:\n\nThe Veeam KB4575 patch is a critical software update aimed at resolving known vulnerabilities and improving the overall security posture of Veeam products. It is essential for system administrators and users of Veeam software to apply this patch to mitigate risks associated with vulnerabilities.\n\n**Details**:\n\n1. The patch specifically addresses issues identified in Veeam software, ensuring systems are secure and running optimally.\n2. It is recommended to review the update documentation to understand what specific vulnerabilities are being addressed.\n3. Administrators should verify compatibility with their Veeam deployment before installation to prevent any operational disruptions.\n4. Installation steps typically involve downloading the patch from the official Veeam website and applying it according to best practices.\n5. Users are encouraged to stay updated with Veeam's support resources for any recent developments or additional patches.\n\nMore information about this update can be found in the Veeam knowledge base.",
+  "source_id": "dc335c3b-a6e6-7b4c-1429-bed222f4037d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "dc335c3b-a6e6-7b4c-1429-bed222f4037d"
+  ],
+  "source_url": "https://www.veeam.com/kb4575",
+  "tool_url": "https://www.veeam.com/kb4575",
+  "tags": [
+    "Veeam",
+    "patch management",
+    "KB article"
+  ],
+  "node_id": "59797496-fb32-4c5e-8031-17665aab4f19",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_uses_older_chromium_version",
+  "description": "Users may experience instability and performance issues when utilizing Microsoft Edge (Chromium-based) version 130.0.2849.46, as it is affected by a use-after-free vulnerability documented in CVE-2024-9954. These issues could manifest as unexpected crashes, slow response times, or erroneous behavior when navigating web pages that utilize advanced AI features. It is imperative for users to update their browsers to version 130.0.6723.59, which rectifies this vulnerability and restores proper functionality. The publication of KB-130.0.2849.46 serves as a critical reminder for system administrators to monitor and implement this update across all affected devices to ensure system integrity and user experience.",
+  "source_id": "1b8f0787-c32b-ead7-fc30-e68c28d4f97f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "1b8f0787-c32b-ead7-fc30-e68c28d4f97f"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "CVE-2024-9954",
+    "performance issue",
+    "browser instability"
+  ],
+  "node_id": "0f2c65fa-9af6-4a30-9781-1a7f3630f420",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

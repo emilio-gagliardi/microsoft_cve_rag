@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows Shell remote code execution vulnerability (CVE-2024-43552):\n\n1. Download and apply the relevant KB updates for your version of Windows 11 from the official Microsoft Update Catalog.\n2. Restart your system after the installation to ensure all changes are effective.\n\n**Details**:\nThese updates address the use after free vulnerability affecting Windows Shell, which can lead to remote code execution. Ensure you are using the correct KB updates corresponding to your system's version:\n- For Windows 11 Version 24H2: KB5044284\n- For Windows 11 Version 23H2: KB5044285\n- For Windows 11 Version 22H2: KB5044285\n\n**Preconditions**:\n- Ensure your system meets the specified build numbers:\n  - Windows 11 Version 24H2: 10.0.26100.2033\n  - Windows 11 Version 23H2: 10.0.22631.4317\n  - Windows 11 Version 22H2: 10.0.22621.4317\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "ba8ffd73-3bae-8750-b714-86f9107d7dfa",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_shell_remote_code_execution_cve202443552",
+  "tags": [
+    "KB5044284",
+    "Windows11",
+    "RemoteCodeExecution",
+    "CWE416"
+  ],
+  "node_id": "81ee4a30-0b5c-4730-a653-7011367ba47d",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "ba8ffd73-3bae-8750-b714-86f9107d7dfa"
+  ],
+  "verification_status": "unverified"
+}

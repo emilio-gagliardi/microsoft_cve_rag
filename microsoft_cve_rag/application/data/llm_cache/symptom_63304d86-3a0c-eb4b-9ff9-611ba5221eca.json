@@ -1,0 +1,22 @@
+{
+  "symptom_label": "ntlm_hash_disclosure_leads_to_authentication_risk",
+  "description": "The exploitation of the ntlm hash disclosure vulnerability can result in an end user being tricked into interacting with a malicious file, which ultimately leads to their ntlmv2 hash being disclosed. This disclosure gives attackers the ability to authenticate as the affected user, significantly compromising user accounts. Users may notice unusual authentication failures or unauthorized access attempts in their accounts as a direct result of this vulnerability. This issue affects multiple Windows versions, including Windows 10 (various builds) and Windows Server installations, as indicated by KB articles such as KB-5046617, KB-5046696, and others cited in the context. The incident may also lead to concerns about data confidentiality and security integrity across organizational networks.",
+  "source_id": "63304d86-3a0c-eb4b-9ff9-611ba5221eca",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "63304d86-3a0c-eb4b-9ff9-611ba5221eca"
+  ],
+  "tags": [
+    "NTLM",
+    "authentication",
+    "hash disclosure",
+    "Windows",
+    "security risk"
+  ],
+  "node_id": "ee4068c2-9355-46a3-9233-3712b725a9d1",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

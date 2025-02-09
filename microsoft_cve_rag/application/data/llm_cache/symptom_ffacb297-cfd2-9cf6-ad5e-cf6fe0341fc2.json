@@ -1,0 +1,16 @@
+{
+  "symptom_label": "microsoft_edge_no_longer_vulnerable_in_version",
+  "description": "After updating to Microsoft Edge version 128.0.2739.42, end users will observe that the browser is no longer susceptible to the vulnerabilities outlined in CVE-2024-7977. This means that users will experience improved security as the weaknesses related to insufficient data validation in the installer for the Chromium engine have been addressed. Users may feel a sense of reassurance and stability, knowing that their online activities are less prone to risks related to privilege escalation that were possible in earlier versions. No error messages or disturbances in functionality should occur post-update, indicating a seamless transition to the more secure state. Users can verify the update's success by following steps in the browser settings to check version details.",
+  "source_id": "ffacb297-cfd2-9cf6-ad5e-cf6fe0341fc2",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ffacb297-cfd2-9cf6-ad5e-cf6fe0341fc2"
+  ],
+  "tags": [],
+  "node_id": "901109eb-c408-4086-9af4-30cb4eadb20b",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

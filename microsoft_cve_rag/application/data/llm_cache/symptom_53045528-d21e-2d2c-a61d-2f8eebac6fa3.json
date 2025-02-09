@@ -1,0 +1,16 @@
+{
+  "symptom_label": "Windows10SupportEndsWithoutSecurityUpdates",
+  "description": "As of October 14, 2025, Windows 10 will reach its end of support, resulting in the cessation of receiving critical updates, security updates, and technical support. Users continuing to utilize Windows 10 beyond this date will do so without vital updates, exposing them to potential vulnerabilities. To address this, Microsoft has proposed the Extended Security Updates (ESU) program, which allows for continued access to critical and important security updates for an annual fee, aiding in maintaining a more secure operating environment even after the official support period ends.",
+  "source_id": "53045528-d21e-2d2c-a61d-2f8eebac6fa3",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "windows10",
+    "extendedupdates",
+    "endofsupport"
+  ],
+  "node_id": "b011196f-f5bd-4c36-bae3-72da9131203b",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

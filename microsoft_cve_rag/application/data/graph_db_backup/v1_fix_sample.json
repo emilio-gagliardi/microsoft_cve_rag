@@ -1,0 +1,15 @@
+﻿[
+  {
+    "n": {
+      "identity": 22,
+      "labels": [
+        "Fix"
+      ],
+      "properties": {
+        "description": "To mitigate this issue in Microsoft Intune, you can set the 'Enforce drive encryption type on operating system drives' or 'Enforce drive encryption on fixed drives' policies to not configured.",
+        "id": "fix_ca7d2239-1194-f1f6-fd31-33839ca71d40_1"
+      },
+      "elementId": "4:a88df59f-847f-4b99-bff0-53420b2dfe18:22"
+    }
+  }
+]

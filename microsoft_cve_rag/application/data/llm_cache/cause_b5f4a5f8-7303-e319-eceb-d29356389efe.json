@@ -1,0 +1,21 @@
+{
+  "description": "The vulnerability arises from an out-of-bounds read condition in Windows Remote Access Connection Manager, allowing unauthorized elevation of privileges and impacting user data confidentiality and integrity.",
+  "cause_label": "windows_remote_access_connection_manager_out_of_bounds_read",
+  "source_id": "b5f4a5f8-7303-e319-eceb-d29356389efe",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b5f4a5f8-7303-e319-eceb-d29356389efe"
+  ],
+  "tags": [
+    "Windows",
+    "Remote Access",
+    "Out-of-Bounds Read",
+    "CVE-2024-38240"
+  ],
+  "node_id": "3b09dff5-fdd7-4128-a7c5-7b24859e89a1",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

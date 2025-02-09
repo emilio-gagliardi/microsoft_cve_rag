@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_crashes_due_to_heap_corruption",
+  "description": "End users may experience unexpected crashes or instability in the Microsoft Edge (Chromium-based) browser version 126.0.2592.56 and earlier, due to a heap corruption issue stemming from a use after free vulnerability in the Chromium engine. This behavior can result in error messages, such as 'Microsoft Edge has stopped working,' and may manifest when navigating to certain webpages or interacting with web applications. Users may also notice significantly slower performance prior to crashes as the browser attempts to handle corrupted memory. To mitigate this issue, it is recommended to update Microsoft Edge to version 126.0.6478.57 or later, as provided in the security update KB-126.0.2592.56 published on June 13, 2024.",
+  "source_id": "56e8dea9-c4f3-2f73-9793-963bae2fcd21",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "56e8dea9-c4f3-2f73-9793-963bae2fcd21"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "heap corruption",
+    "use after free",
+    "crash"
+  ],
+  "node_id": "ad2dd736-50c7-4fea-8608-025e511eb86a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the secure boot security feature bypass vulnerability (CVE-2024-28920), you need to apply the relevant updates.\n\n1. Download and install the updates corresponding to your Windows build from the Microsoft Update Catalog:\n   - KB-5036894\n   - KB-5036893\n   - KB-5036892\n2. Ensure your systems are running one of the following Windows builds:\n   - 10.0.19045.4291\n   - 10.0.19044.4291\n   - 10.0.22631.3447\n   - 10.0.22000.2899\n   - 10.0.22621.3447\n\n**Details**:\nThese updates address a crucial exposure related to protection mechanism failure. It is important to ensure all updates are applied as required to maintain system integrity against potential security threats. \n\nCheck the official Microsoft [Update Guide](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-28920) for additional instructions and details regarding installation. \n\n**Preconditions**:\n- Verify that you are running one of the specific builds mentioned.\n- Backup critical data before proceeding with the updates.\n",
+  "source_id": "e13c8813-9d33-c1af-f92d-22b1e27c0ece",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_secure_boot_bypass_cve202428920",
+  "tags": [
+    "KB5036894",
+    "KB5036893",
+    "KB5036892",
+    "CVE202428920"
+  ],
+  "node_id": "dcad79ef-166a-48c5-8ccf-dc7a27df53c1",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e13c8813-9d33-c1af-f92d-22b1e27c0ece"
+  ]
+}

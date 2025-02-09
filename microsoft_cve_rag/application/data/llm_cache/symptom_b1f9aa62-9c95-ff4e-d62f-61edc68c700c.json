@@ -1,0 +1,19 @@
+{
+  "symptom_label": "microsoft_edge_experiences_information_disclosure",
+  "description": "Users of Microsoft Edge version 122.0.2365.52 may experience information disclosure where sensitive data is unintentionally revealed to unauthorized actors. This behavior can manifest when users navigate to specially crafted websites designed to exploit the browser vulnerability originally identified in CVE-2024-26192. As a consequence, users might notice that their private information is being disclosed, impacting their overall security posture. Additionally, there may be variations in performance leading to interruptions, although users will not face complete denial of service. The issue is primarily noted in builds since February 23, 2024, and is documented in KB-122.0.2365.52.",
+  "source_id": "b1f9aa62-9c95-ff4e-d62f-61edc68c700c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b1f9aa62-9c95-ff4e-d62f-61edc68c700c"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Information Disclosure",
+    "Browser Vulnerability"
+  ],
+  "node_id": "d26d709b-2977-45d7-895c-7f6c0effedb4",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

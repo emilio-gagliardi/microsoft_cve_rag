@@ -1,0 +1,21 @@
+{
+  "description": "A heap-based buffer overflow in Microsoft Edge (Chromium-based) versions up to 130.0.2849.46 allows attackers to leverage crafted network content to execute arbitrary code on the user's device, requiring user interaction to exploit.",
+  "cause_label": "chromium_heap_buffer_overflow_in_edge_renderer",
+  "source_id": "23367a73-7645-8452-c275-5ce861aa8240",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "23367a73-7645-8452-c275-5ce861aa8240"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Remote Code Execution",
+    "Heap Buffer Overflow"
+  ],
+  "node_id": "21836f48-513e-4920-9df1-1286aa5c817b",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "authentication_dialog_box_not_displaying_on_outlook",
+  "description": "Users may experience an issue where the password authentication dialog box does not appear when attempting to sign in to Outlook via Office 365. After clicking the connect button and entering their email address, a brief visual 'blip' occurs, but the password dialog box fails to persist, preventing users from completing the sign-in process. This behavior suggests a timing issue within the user interface, particularly noted in instances involving specific video configurations. A workaround has been identified whereby pressing any key after clicking the connect button successfully triggers the display of the password dialog box, allowing users to authenticate. This workaround is provisional, pending a potential fix from Microsoft.",
+  "source_id": "adb97890-0f3e-549c-4ce5-e664c71dad4c",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "adb97890-0f3e-549c-4ce5-e664c71dad4c"
+  ],
+  "tags": [
+    "Outlook",
+    "authentication",
+    "Office 365",
+    "timing issue"
+  ],
+  "node_id": "11b1a614-6bb5-4347-8211-6582df7a719d",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,19 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Kernel elevation of privilege vulnerability (CVE-2024-26178):\n\n1. Download and apply the relevant KB update corresponding to your Windows version from the official Microsoft Update Catalog.\n   - For Windows 11 Version 23H2 (x64): KB5035853 - [Download Here](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)\n   - For Windows 10 (x64): KB5035858 - [Download Here](https://catalog.update.microsoft.com/Search.aspx?q=KB5035858)\n\n2. Restart your system after the installation to ensure that the updates take effect.\n\n**Details**:\n- This update resolves a heap-based buffer overflow vulnerability in the Windows kernel, mitigating potential elevation of privilege attacks.\n- Ensure that your system matches one of the specified build numbers for compatibility with the updates.\n- Backup critical data before proceeding with the installation to prevent any loss during the update process.",
+  "source_id": "17511528-1634-80f6-6fcd-8903cfc8b7cd",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_kernel_elevation_of_privilege_cve202426178",
+  "tags": [
+    "KB5035853",
+    "WindowsKernel",
+    "HeapOverflow"
+  ],
+  "node_id": "3fce2317-02c5-4497-bbe6-37b81e061b7c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "17511528-1634-80f6-6fcd-8903cfc8b7cd"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "symptom_label": "Server2012R2UpgradeChallengesFaced",
+  "description": "System administrators may encounter issues when attempting to upgrade Server 2012 R2. The challenges may involve compatibility with existing hardware or software. Users should refer to the Microsoft documentation on performing in-place upgrades for best practices and guidance.",
+  "source_id": "375b00d7-eb7c-4bea-ca3f-dbb3a639fdcb",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "375b00d7-eb7c-4bea-ca3f-dbb3a639fdcb"
+  ],
+  "tags": [
+    "Server2012R2",
+    "UpgradeChallenges",
+    "InPlaceUpgrade",
+    "TechnicalIssues"
+  ],
+  "node_id": "2ff90701-0c5d-4b63-adba-825e1f9d84f3",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

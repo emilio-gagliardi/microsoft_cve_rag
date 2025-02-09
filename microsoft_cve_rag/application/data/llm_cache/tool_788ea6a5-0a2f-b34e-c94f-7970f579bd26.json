@@ -1,0 +1,23 @@
+{
+  "tool_label": "broadcom_support_vmware_patches_link",
+  "description": "**Tool Overview**:\n\nThis is a link provided by Broadcom support for accessing specific patches related to VMware vSphere. It serves as a resource for obtaining the latest updates and support materials connected to VMware products.\n\n**Details**:\n\n1. The link is designed to guide users directly to the patch files necessary for maintaining VMware deployments.\n2. It includes parameters such as release version and service pack to ensure that users access relevant files.\n3. Users can benefit from the documentation and patch instructions provided within the link to help resolve their specific issues.\n4. It connects to Broadcom support resources, which are crucial for effective patch management in enterprise environments.\n5. Maintaining updated access to these resources is crucial for security compliance and operational continuity.",
+  "source_id": "788ea6a5-0a2f-b34e-c94f-7970f579bd26",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "788ea6a5-0a2f-b34e-c94f-7970f579bd26"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/IA1PR19MB6395DF0FD064714127E9E10888C62%40IA1PR19MB6395.namprd19.prod.outlook.com",
+  "tool_url": "https://support.broadcom.com/group/ecx/productfiles?displaygroup=vmware%20vsphere%20-%20enterprise%20plus&release=8.0&os=&servicepk=202628&language=en&groupid=204419",
+  "tags": [
+    "Broadcom",
+    "VMware",
+    "patches",
+    "support"
+  ],
+  "node_id": "69bddc9c-e704-4fc6-b116-655e24b60349",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

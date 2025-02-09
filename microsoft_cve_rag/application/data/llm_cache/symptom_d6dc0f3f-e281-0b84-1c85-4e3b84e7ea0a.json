@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_kernel_mode_driver_privilege_elevation",
+  "description": "After the installation of the security update detailed in KB5039212, users may experience a significant risk of privilege escalation that could lead to unauthorized system access. Affected systems include Windows 10 builds 10.0.19043.4529, 10.0.22631.3737, and 10.0.22000.3019, as well as Windows Server versions 2012 and 2008 R2. Administrators may observe unexpected behavior such as elevated permissions granted to local users, potentially allowing them to manipulate critical system settings or access secured data without proper authorization. This could lead to loss of data integrity or unauthorized data access, compromising system operations and security. Prompt application of the patch is advised to mitigate these issues.",
+  "source_id": "d6dc0f3f-e281-0b84-1c85-4e3b84e7ea0a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d6dc0f3f-e281-0b84-1c85-4e3b84e7ea0a"
+  ],
+  "tags": [
+    "windows",
+    "elevation of privilege",
+    "security update",
+    "KB5039212"
+  ],
+  "node_id": "dc317b26-6c2e-48d1-9b15-3947f1192673",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

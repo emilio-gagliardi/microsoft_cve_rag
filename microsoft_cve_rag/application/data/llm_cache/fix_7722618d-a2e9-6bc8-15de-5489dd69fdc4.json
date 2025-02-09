@@ -1,0 +1,16 @@
+{
+  "description": "To address the issue outlined in CVE-2023-36428, systems must apply the relevant updates as listed. The following patches are available: KB5032199, KB5032192, KB5032190, and KB5032189. These updates are applicable to various Windows Server versions including Windows Server 2012 R2 and Windows Server 2008 R2. It is recommended to download and install these updates from the Microsoft Update Catalog via the provided links: https://catalog.update.microsoft.com/Search.aspx?q=KB5032199, https://catalog.update.microsoft.com/Search.aspx?q=KB5032192, https://catalog.update.microsoft.com/Search.aspx?q=KB5032190, and https://catalog.update.microsoft.com/Search.aspx?q=KB5032189. Ensure that the updates are installed on affected systems running supported build numbers to mitigate the information disclosure risk.",
+  "source_id": "7722618d-a2e9-6bc8-15de-5489dd69fdc4",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplyRequiredUpdatesForMemoryDisclosureIssue",
+  "tags": [
+    "update",
+    "windows",
+    "patch"
+  ],
+  "node_id": "ef04526e-6d20-4ffe-9c02-4e411a19cf82",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

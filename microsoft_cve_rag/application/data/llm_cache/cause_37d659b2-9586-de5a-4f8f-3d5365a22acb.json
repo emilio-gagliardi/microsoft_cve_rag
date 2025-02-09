@@ -1,0 +1,20 @@
+{
+  "description": "The vulnerability arises from sensitive data being stored in improperly locked memory within the Microsoft Message Queuing (MSMQ) service, leading to potential elevation of privilege. This allows an attacker with low privileges to gain system privileges by exploiting this flaw.",
+  "cause_label": "msmq_improperly_locked_memory_sensitivity",
+  "source_id": "37d659b2-9586-de5a-4f8f-3d5365a22acb",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "37d659b2-9586-de5a-4f8f-3d5365a22acb"
+  ],
+  "tags": [
+    "elevation of privilege",
+    "MSMQ",
+    "CVE-2024-21355",
+    "memory management"
+  ],
+  "node_id": "bcaf87a3-7534-4332-bba8-83f6f4a3056d",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

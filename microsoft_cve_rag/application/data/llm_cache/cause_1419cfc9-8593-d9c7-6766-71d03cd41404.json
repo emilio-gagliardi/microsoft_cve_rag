@@ -1,0 +1,22 @@
+{
+  "description": "The underlying issue with the client PC's Outlook was linked to complications arising from the use of Cached Mode. The user initially faced several Outlook problems, which were exacerbated when switching to the 'New Outlook' interface. It was discovered that creating appointments through Outlook on the Web (OWA) successfully retained the appointments, indicating that the local client settings were likely misconfigured. Removing Cached Mode resolved the immediate problem but created difficulties as Cached Mode is essential for displaying Microsoft 365 groups. Following multiple uninstallations and reinstallations of Office, the issues improved, suggesting a deeper integration hiccup with the local installation of Outlook and Cached Mode settings.",
+  "source_id": "1419cfc9-8593-d9c7-6766-71d03cd41404",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "1419cfc9-8593-d9c7-6766-71d03cd41404"
+  ],
+  "cause_label": "cached_mode_configuration_issues_in_outlook",
+  "tags": [
+    "Outlook",
+    "Cached Mode",
+    "Microsoft 365",
+    "OWA",
+    "Office Reinstallation"
+  ],
+  "node_id": "34372d42-4699-4b57-bdaf-6a26e88d9aba",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

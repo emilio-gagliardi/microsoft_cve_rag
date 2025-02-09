@@ -1,0 +1,42 @@
+{
+  "node_id": "6482b2e4-dbfc-43ff-9d4f-2503899ee5aa",
+  "source_id": "cfea84d6-64c3-5730-c692-4b3d3ade0844",
+  "entity_type": "Tool",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "abe5f396-bacc-a702-fc6d-d7d2fdc94eab",
+    "0ec20665-a029-38ae-d5c8-b987323b0270",
+    "53024482-1dfe-c25b-9643-f8f391bdbe78",
+    "8246de92-7486-2fc4-0422-d77040f390d3",
+    "08a5f006-af33-e8f1-dca8-5400847b259a",
+    "65c070d4-aebf-f0d1-313c-1c02244a92d5",
+    "a0f31411-25ed-f35b-d9bb-5961f07253ce",
+    "a958ba4f-e2b6-63a1-0e2a-483cb18ae812",
+    "56e8dea9-c4f3-2f73-9793-963bae2fcd21",
+    "286e675b-b5c5-2130-7dd8-7b6c398ce7cc",
+    "99eff815-83df-22a0-3e28-96c25115b72c",
+    "56b4779f-2140-2f6b-32ec-77e7dfc8b82c",
+    "e2e6ef2d-af47-2dc2-3ca3-b2a0b22165d5",
+    "b87721fd-b5ec-37c7-958a-282078ccf68c",
+    "5b9a49fe-90bf-8e93-13b6-d5fd771a404d",
+    "a0a4fdd5-86bb-1459-3bee-bea39a496b31",
+    "aed1b2c0-6c07-6072-5b56-65e8fca29980",
+    "cfea84d6-64c3-5730-c692-4b3d3ade0844",
+    "ef144901-63ca-d96c-99ca-0270064783c3",
+    "c2521fe7-ab8d-d396-119d-f84c547cc099",
+    "a0a566fc-4116-2cac-41a4-bbeadc175fbc",
+    "d6186f09-3076-a113-95a3-1aa25d81ffcf"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-1939",
+  "tool_url": "https://chromereleases.googleblog.com/2024",
+  "verification_status": "unverified",
+  "tool_label": "microsoft_edge_chromium_security_update",
+  "description": "**Tool Overview**: This security update addresses vulnerabilities related to Microsoft Edge (Chromium-based), which incorporates updates from the Chromium project. **Details**: This update is derived from the Google Chrome releases and is crucial for users of Microsoft Edge to maintain a secure browsing experience. It addresses vulnerabilities identified in Chromium that could lead to security risks such as type confusion. To protect users, it is essential to apply updates as they are released. Users are encouraged to monitor for updates from Google Chrome releases for any critical information pertaining to these vulnerabilities.",
+  "reliability": 0.9,
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Security Update",
+    "Browser"
+  ]
+}

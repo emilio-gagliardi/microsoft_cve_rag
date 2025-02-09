@@ -1,0 +1,20 @@
+{
+  "description": "The issue is caused by improper input validation in the secure boot feature, allowing security feature bypass in affected Windows builds.",
+  "cause_label": "secure_boot_improper_input_validation_bypass",
+  "source_id": "edda3f27-b403-5ba6-9b51-baa6cca9fde0",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "edda3f27-b403-5ba6-9b51-baa6cca9fde0"
+  ],
+  "tags": [
+    "CVE-2024-28897",
+    "Windows",
+    "Input Validation",
+    "Secure Boot"
+  ],
+  "node_id": "fab040fb-2c0b-429c-9840-84298b209ad1",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

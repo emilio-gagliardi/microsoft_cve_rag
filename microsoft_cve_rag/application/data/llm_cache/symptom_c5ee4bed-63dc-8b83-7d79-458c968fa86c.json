@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_authentication_elevation_of_privilege_issue",
+  "description": "End users may notice unauthorized access or escalated privileges within their environments due to the Windows authentication elevation of privilege vulnerability identified as CVE-2024-29056. This issue impacts multiple Windows Server builds, including Server 2019 (KB-5036896), Server 2012 R2, Server 2016, and Server 2022. The affected systems might unexpectedly allow users from cross-organization trusts to gain access to sensitive information normally restricted to specific users, raising serious security concerns. Such incidents may not trigger immediate alerts but could lead to significant data breaches if exploited. System administrators should monitor for any unusual access patterns following the release of updates on April 9, 2024.",
+  "source_id": "c5ee4bed-63dc-8b83-7d79-458c968fa86c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c5ee4bed-63dc-8b83-7d79-458c968fa86c"
+  ],
+  "tags": [
+    "Windows Server",
+    "Authentication",
+    "Privilege Escalation",
+    "CVE-2024-29056"
+  ],
+  "node_id": "a9d02a59-f60e-4b99-b1b5-9ca9296665b3",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

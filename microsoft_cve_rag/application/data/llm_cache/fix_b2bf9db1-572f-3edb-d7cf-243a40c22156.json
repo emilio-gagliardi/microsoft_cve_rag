@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Microsoft WDAC OLE DB provider for SQL Server remote code execution vulnerability (CVE-2024-21444):\n\n1. Download and apply the relevant KB updates from the Microsoft Update Catalog listed below based on your system architecture and version.\n\n2. Restart your system after the installation to ensure that all changes take effect.\n\n**Details**:\n- This update addresses an Integer Overflow or Wraparound vulnerability that could lead to remote code execution.\n- For manual installation, download the update packages from:  \n  - [KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845)  \n  - [KB5035858](https://catalog.update.microsoft.com/Search.aspx?q=KB5035858)  \n  - [KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)  \n  - [KB5035854](https://catalog.update.microsoft.com/Search.aspx?q=KB5035854).\n\n**Preconditions**:\n- Ensure the system is running a supported version of Windows 10 or Windows 11.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "b2bf9db1-572f-3edb-d7cf-243a40c22156",
+  "source_type": "MSRCPost",
+  "fix_label": "address_remote_code_execution_vulnerability_cve202421444",
+  "tags": [
+    "KB5035845",
+    "KB5035858",
+    "OLEDB",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "83e76255-0924-40cc-a512-ac5f70aff37a",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b2bf9db1-572f-3edb-d7cf-243a40c22156"
+  ]
+}

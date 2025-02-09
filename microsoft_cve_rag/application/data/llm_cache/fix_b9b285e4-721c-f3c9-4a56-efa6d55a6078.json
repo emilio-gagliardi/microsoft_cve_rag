@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the LDAP denial of service vulnerability (CVE-2024-21356):\n\n1. Download and apply the respective update package based on your Windows version from the official Microsoft Update catalog.\n2. Restart your system after the installation to ensure all changes take effect.\n\n**Details**:\n- Relevant KB Articles: \n  - For Windows 11 Version 23H2, use KB5034765.\n  - For Windows 10 Version 22H2, use KB5034763.\n- Update package links:\n  - Windows 11: [KB5034765](https://catalog.update.microsoft.com/Search.aspx?q=KB5034766)\n  - Windows 10: [KB5034774](https://catalog.update.microsoft.com/Search.aspx?q=KB5034774)\n- Ensure your system version matches the established build numbers provided, ranging from versions 21H2 to 23H2.\n\n**Preconditions**:\n- Make sure to backup your critical data before proceeding with the update installation. The updates are crucial for protecting against denial of service attacks via the LDAP protocol.\n",
+  "source_id": "b9b285e4-721c-f3c9-4a56-efa6d55a6078",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_ldap_denial_of_service_cve202421356",
+  "tags": [
+    "KB5034765",
+    "Windows11",
+    "CVE202421356",
+    "LDAP"
+  ],
+  "node_id": "5c6c7997-364e-4a7c-9897-6548ed8e2dea",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b9b285e4-721c-f3c9-4a56-efa6d55a6078"
+  ]
+}

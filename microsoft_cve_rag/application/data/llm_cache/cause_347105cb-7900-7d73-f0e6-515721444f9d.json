@@ -1,0 +1,17 @@
+{
+  "description": "The underlying cause of CVE-2023-36397 is a flaw related to the Windows Pragmatic General Multicast (PGM) implementation within the Windows operating system. This vulnerability allows for remote code execution when the Windows Message Queuing service is enabled, as it is essentially bound to the network stack. Attackers can exploit this flaw by sending crafted messages over the network, leveraging the remote execution capabilities without any user interaction. The affected builds include Windows 10 (various builds such as 10.0.22621.2715, 10.0.19045.3693) and Windows Server editions (e.g., 6.3.9600.21668), and are documented under KB Article IDs KB-5032199, KB-5032192, KB-5032190, and KB-5032189. The severity of this issue is classified as critical due to the high potential impact on confidentiality, integrity, and availability of the impacted systems.",
+  "cause_label": "RemoteCodeExecutionInPGMService",
+  "source_id": "347105cb-7900-7d73-f0e6-515721444f9d",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE",
+    "Windows",
+    "RemoteExecution",
+    "Vulnerability"
+  ],
+  "node_id": "0875a545-5c6d-4aff-a793-52ea2c50fab8",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

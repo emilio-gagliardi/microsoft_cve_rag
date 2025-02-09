@@ -1,0 +1,21 @@
+{
+  "symptom_label": "gpprefs_user_in_group_grayed_out_on_computer_side",
+  "description": "The issue manifests when attempting to edit Group Policy Preferences (GPPrefs) where the 'user in group' option is grayed out on the computer side. This behavior is linked to KB-041578, indicating that while existing policies remain unaffected, new policy creation and existing policy editing face challenges. Workarounds include duplicating an item that is already functional and editing its content or manually editing the underlying XML, which requires advanced skills. The complexity of this issue could impede administrative tasks in a Windows environment where permissions and user configurations are critical. Administrators should be aware that only these specific actions are hindered, which may lead to configuration discrepancies across devices.",
+  "source_id": "cead8099-cc65-66f3-099a-e9cae983794f",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "cead8099-cc65-66f3-099a-e9cae983794f"
+  ],
+  "tags": [
+    "GPPrefs",
+    "PolicyPak",
+    "user group",
+    "Group Policy"
+  ],
+  "node_id": "4b454fce-f582-4390-8e10-30fabda7b249",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

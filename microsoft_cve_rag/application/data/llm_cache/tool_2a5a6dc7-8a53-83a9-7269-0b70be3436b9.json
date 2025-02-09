@@ -1,0 +1,22 @@
+{
+  "tool_label": "windows_feedback_app_submission",
+  "description": "**Tool Overview**:\n\nThe Windows Feedback app allows users to submit suggestions or report issues directly to Microsoft. It provides a streamlined method to capture feedback about the Windows experience, including specific categories like Windows Update. This tool ensures that feedback is organized and can be addressed effectively by the Microsoft team.\n\n**Usage Instructions:**\n1. Open the Feedback app after signing in with a Microsoft account.\n2. In the left-hand navigation bar, click on 'Feedback'.\n3. You can choose to 'Give new feedback' or select an existing item from the provided options.\n4. Utilize the filter option to narrow down topics to find relevant feedback items for Windows Updates or other areas.\n5. Your feedback can then be submitted where it might contribute to future updates or enhancements.\n\n**Details**:\nThe Feedback app is a crucial tool for interacting with the Windows ecosystem, allowing users to voice their experiences and suggestions. By categorizing feedback effectively, users ensure their input is heard and can lead to improvements within the Microsoft ecosystem. This app plays an essential role in the ongoing enhancement of Windows products and services.",
+  "source_id": "2a5a6dc7-8a53-83a9-7269-0b70be3436b9",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "2a5a6dc7-8a53-83a9-7269-0b70be3436b9"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://support.microsoft.com/en-us/windows/submit-feedback-in-windows-10-2c660c76-28ec-372b-4c89-1b060b621341",
+  "tags": [
+    "Windows",
+    "Feedback",
+    "User Interaction",
+    "LLM Synthesized"
+  ],
+  "node_id": "42b97d24-34e7-43b6-9a54-6188f3486422",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

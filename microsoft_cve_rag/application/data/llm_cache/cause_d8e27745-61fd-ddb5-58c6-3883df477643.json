@@ -1,0 +1,22 @@
+{
+  "description": "The underlying cause identified in the patch management scenario relates to the failure of utilizing the Windows Installation Assistant effectively for upgrading Windows 11. Users have reported challenges when incorporating built-in command-line options from the upgrade assistant, as indicated in the experience shared by the author. The reference to specific command-line options from KB3932100 highlights that while the tools and methods are available, the execution may not function as intended without proper customization and utilization of scripts. Users often revert to using a highly customized script from their Remote Monitoring and Management (RMM) solutions, suggesting inadequate default scripts may exist to meet individual organizational needs. The mention of downloading a pre-staged ISO from a controlled site further indicates that manual intervention is often necessary, highlighting the misalignment between available resources and practical user execution.",
+  "source_id": "d8e27745-61fd-ddb5-58c6-3883df477643",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d8e27745-61fd-ddb5-58c6-3883df477643"
+  ],
+  "cause_label": "ineffective_use_of_upgrade_assistant_script",
+  "tags": [
+    "Windows 11",
+    "upgrade",
+    "Installation Assistant",
+    "command line",
+    "customization"
+  ],
+  "node_id": "9c104978-be4c-4440-acbb-d66a749b310e",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

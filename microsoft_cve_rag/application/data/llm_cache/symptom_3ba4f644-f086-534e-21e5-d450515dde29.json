@@ -1,0 +1,21 @@
+{
+  "symptom_label": "local_security_authority_disclosure_information",
+  "description": "End users may experience information leakage involving sensitive data handled by the Local Security Authority Subsystem Service (LSASS) due to the vulnerability identified in CVE-2024-26209. This behavior can manifest as unintentional exposure of user credentials, tokens, or other sensitive information critical for security. Affected builds, specifically those including Windows 10 versions 19045.4291, 19044.4291, 22631.3447, 22000.2899, 22621.3447, and 10240.20596, should be monitored closely for any signs of this issue. Users may also notice unusual system behaviors, such as increased resource consumption or application crashes in systems that leverage LSASS for authentication and access management. For details and potential mitigation, refer to associated KB articles KB-5036925, KB-5036894, KB-5036893, and KB-5036892.",
+  "source_id": "3ba4f644-f086-534e-21e5-d450515dde29",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "3ba4f644-f086-534e-21e5-d450515dde29"
+  ],
+  "tags": [
+    "information disclosure",
+    "LSASS",
+    "user credentials",
+    "Windows 10",
+    "security update"
+  ],
+  "node_id": "170d613c-1878-4259-854f-21f3c8066b0b",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

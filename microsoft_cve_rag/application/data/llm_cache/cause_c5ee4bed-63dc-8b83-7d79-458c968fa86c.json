@@ -1,0 +1,20 @@
+{
+  "description": "The issue arises from the use of a broken or risky cryptographic algorithm in Windows authentication, allowing elevation of privilege under certain network conditions.",
+  "cause_label": "windows_authentication_risky_cryptographic_algorithm",
+  "source_id": "c5ee4bed-63dc-8b83-7d79-458c968fa86c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c5ee4bed-63dc-8b83-7d79-458c968fa86c"
+  ],
+  "tags": [
+    "Windows",
+    "Authentication",
+    "Cryptography",
+    "Privilege Elevation"
+  ],
+  "node_id": "3723a024-5012-4a97-a495-6034ddf79aa2",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,18 @@
+{
+  "tool_label": "UpdateWindowsRegistryToSupportNewPACSignatures",
+  "description": "This tool involves updating Windows registry entries to adapt to the new PAC signatures required for authentication, particularly after deploying the October 2023 update. It is critical for ensuring compliance with the updated authentication protocols as older subkeys and configurations are no longer supported.",
+  "source_id": "14dfcca5-a770-fa45-bcf9-dfa78adfef3c",
+  "source_type": "PatchManagementPost",
+  "source_url": "",
+  "tags": [
+    "patch management",
+    "windows updates",
+    "authentication",
+    "registry"
+  ],
+  "node_id": "58200c2e-70ef-4325-9b70-e466f8ac2476",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

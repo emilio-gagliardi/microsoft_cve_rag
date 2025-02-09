@@ -1,0 +1,22 @@
+{
+  "description": "A use after free condition in Chromium's AI component allows heap corruption via a crafted HTML page, enabling potential remote exploitation. This issue affects Microsoft Edge (Chromium-based) as it relies on the Chromium open-source codebase, leading to the need for updates to address the flaw found in versions prior to 130.0.6723.58.",
+  "cause_label": "chromium_use_after_free_in_ai_component",
+  "source_id": "1b8f0787-c32b-ead7-fc30-e68c28d4f97f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "1b8f0787-c32b-ead7-fc30-e68c28d4f97f"
+  ],
+  "tags": [
+    "CVE-2024-9954",
+    "Microsoft Edge",
+    "Chromium",
+    "Heap Corruption",
+    "Use After Free"
+  ],
+  "node_id": "f76388f7-db8a-42fa-96a3-32d83c871859",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

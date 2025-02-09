@@ -1,0 +1,20 @@
+{
+  "symptom_label": "secure_boot_feature_bypass_on_windows_systems",
+  "description": "After applying the security updates identified in KB-5036925, KB-5036894, KB-5036893, and KB-5036892, users may observe that the Secure Boot feature, crucial for protecting the integrity of the system during the boot process, is compromised. This can lead to an inability to ensure that unauthorized code has not been executed during startup. Systems running Windows builds 10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, 10.0.22621.3447, and 10.0.10240.20596 may experience this issue, evoking concerns about system security and data integrity. The inability to rely on the Secure Boot functionality can expose users to elevated risks, where malicious actors might exploit this vulnerability to manipulate system environments prior to the operating system\u2019s full launch. As a result, it is critical for administrators to verify that all relevant updates are applied promptly to restore the expected security posture of their Windows systems.",
+  "source_id": "2bbc0438-d730-e4c6-e494-687eaa025d27",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2bbc0438-d730-e4c6-e494-687eaa025d27"
+  ],
+  "tags": [
+    "secure boot",
+    "windows 10",
+    "update",
+    "patch management"
+  ],
+  "node_id": "de6662eb-af2c-472f-a094-4ebe463ba074",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

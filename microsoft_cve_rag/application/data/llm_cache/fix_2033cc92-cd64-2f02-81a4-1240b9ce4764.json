@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo successfully boot from a USB drive when using Windows PE, ensure the thumb drive is updated with the proper boot configuration before attempting to use it on devices with different mitigation states.\n\n1. From a device with the necessary mitigations installed, run the following commands to copy the boot configuration from the EFI directory:\n   ```\ncop d:\boot\boot\bcdef d:\boot\boot\bcdbak\nbcdboot c:\build /f uefi /s d:\bootex\ncopy d:\boot\boot\bcdbak d:\boot\boot\bcd\n```  \n2. Use the updated USB stick to boot only devices that also have the mitigations installed to avoid boot failures.\n\n**Details**:\n- It is advisable to maintain two separate USB drives: one configured for systems without mitigations and another for systems that have them, ensuring compatibility across devices. (LLM Synthesized)\n",
+  "source_id": "2033cc92-cd64-2f02-81a4-1240b9ce4764",
+  "source_type": "PatchManagementPost",
+  "fix_label": "boot_usb_drive_with_mitigation_requirements",
+  "tags": [
+    "WindowsPE",
+    "BootConfiguration",
+    "Mitigation",
+    "USBUpdate"
+  ],
+  "node_id": "6999000b-8473-4b44-9284-87ecd11531c1",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "2033cc92-cd64-2f02-81a4-1240b9ce4764"
+  ],
+  "verification_status": "unverified"
+}

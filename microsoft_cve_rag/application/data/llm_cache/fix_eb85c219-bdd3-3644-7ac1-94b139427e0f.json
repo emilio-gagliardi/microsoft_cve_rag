@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability identified by CVE-2024-26161 related to the Microsoft WDAC OLE DB provider for SQL Server:\n\n1. Download and apply the relevant security updates from the Microsoft Update Catalog based on your operating system version. \n   - For Windows 11 (23H2): KB5035853. \n   - For Windows 10 Version 22H2: KB5035845. \n   - For Windows Server 2016: KB5035855. \n   - Ensure that you are running a supported build number as listed below:\n     - Windows 11 Version 23H2: 10.0.22631.3296\n     - Windows 10 Version 22H2: 10.0.19045.4170\n\n2. Restart your system after installation to ensure that the updates take effect.\n\n**Preconditions**:\n- Ensure your system is on a supported build and OS version as per the update listed above.\n- Backup critical data before proceeding with the update installation.\n\n**Update Packages**:\n- You can find the updates at the following URLs:\n   - [KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845) \n   - [KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853) \n   - [KB5035855](https://catalog.update.microsoft.com/Search.aspx?q=KB5035855)\n\nThis update addresses the vulnerability that could allow an attacker to execute arbitrary code on the client through a malicious SQL Server connection.",
+  "source_id": "eb85c219-bdd3-3644-7ac1-94b139427e0f",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_cve202426161",
+  "tags": [
+    "Windows11",
+    "RemoteCodeExecution",
+    "CVE202426161",
+    "PatchManagement"
+  ],
+  "node_id": "a542b6b4-bbe6-4711-8b8f-84fba32007a7",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "eb85c219-bdd3-3644-7ac1-94b139427e0f"
+  ]
+}

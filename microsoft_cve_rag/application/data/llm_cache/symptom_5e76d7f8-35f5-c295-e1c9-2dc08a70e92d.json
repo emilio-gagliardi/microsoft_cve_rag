@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_elevation_of_privilege_issue_on_win32k",
+  "description": "Following the application of security updates identified in KB5040427, users may experience unexpected system behavior related to privilege escalations on Windows versions including 10.0.19044.4651 and 10.0.19045.4651. These updates address an elevation of privilege vulnerability in the Windows win32k module, which can lead to unauthorized access to sensitive system functions or data. As a direct consequence, users might observe unusual access errors when trying to perform administrative tasks, potential application crashes when running specific processes that require elevated permissions, or erratic behavior in system operations. This situation emphasizes the importance of monitoring system logs for signs of privilege misuse, as unauthorized modifications may occur without prior notification.",
+  "source_id": "5e76d7f8-35f5-c295-e1c9-2dc08a70e92d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5e76d7f8-35f5-c295-e1c9-2dc08a70e92d"
+  ],
+  "tags": [
+    "Windows",
+    "Win32k",
+    "Elevation of Privilege",
+    "KB5040427"
+  ],
+  "node_id": "16c2ce21-edd8-44d7-9083-938883352b3e",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

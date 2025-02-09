@@ -1,0 +1,20 @@
+{
+  "description": "The issue arises from a use after free flaw in the Windows Hyper-V component, allowing an attacker on a guest VM to send crafted file operation requests to hardware resources, potentially leading to remote code execution on the host server.",
+  "cause_label": "windows_hyper_v_use_after_free_remote_code_execution",
+  "source_id": "4cefc2e4-bd25-f89b-7ff3-a263aa889fad",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4cefc2e4-bd25-f89b-7ff3-a263aa889fad"
+  ],
+  "tags": [
+    "Windows",
+    "Hyper-V",
+    "Remote Code Execution",
+    "CVE-2024-21407"
+  ],
+  "node_id": "a97adf90-09dd-4e11-9da0-6084880fd46e",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

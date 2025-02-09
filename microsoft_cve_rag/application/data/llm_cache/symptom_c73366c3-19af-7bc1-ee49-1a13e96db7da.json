@@ -1,0 +1,21 @@
+{
+  "symptom_label": "esxi_shell_service_exploit_not_described_in_documentation",
+  "description": "The issue pertains to the absence of information regarding a vulnerability in the ESXi shell service, which can lead to a potential exploit scenario. This lack of documentation raises concerns among system administrators, who rely on official communications to assess the security posture of their VMware ESXi environments. The vulnerability is significant as it can allow unauthorized actions on the ESXi host if left unaddressed. The situation is exacerbated by no corresponding KB Article providing critical updates or mitigations, leaving administrators without essential guidance. Therefore, vigilance and proactive assessment of the ESXi configurations are imperative in the absence of acknowledgment of such vulnerabilities.",
+  "source_id": "c73366c3-19af-7bc1-ee49-1a13e96db7da",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "c73366c3-19af-7bc1-ee49-1a13e96db7da"
+  ],
+  "tags": [
+    "esxi",
+    "vulnerability",
+    "shell_service",
+    "documentation"
+  ],
+  "node_id": "a521b963-e831-4bc8-8bc3-48a2c3de1b7f",
+  "node_label": "Symptom",
+  "reliability": 0.75,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "EdgePerformanceReducedDueToPrivilegeEscalation",
+  "description": "Users may experience an observable decline in the performance of Microsoft Edge (Chromium-based) after the installation of the security update identified in KB-120.0.2210.133. This reduction in performance can manifest as slower page load times, increased latency when interacting with web pages, and possible intermittent freezing of the application. Users might also encounter occasional errors or disruptions while trying to execute normal browsing activities, which could be tied to the elevation of privilege vulnerability referenced in CVE-2024-21337. These behaviors underscore the importance of applying available patches to maintain optimal functionality and security within the Microsoft Edge environment, particularly for build version 120.0.2210.133.",
+  "source_id": "095ca19b-e6af-1c87-2679-445e27af738f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "095ca19b-e6af-1c87-2679-445e27af738f"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "performance",
+    "update",
+    "KB21337",
+    "privilege escalation"
+  ],
+  "node_id": "bc77cfe7-b84e-491c-95c3-9b4d177e9f77",
+  "node_label": "Symptom",
+  "reliability": 1,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

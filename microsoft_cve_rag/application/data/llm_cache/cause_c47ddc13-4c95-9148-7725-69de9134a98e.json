@@ -1,0 +1,20 @@
+{
+  "description": "An improper input validation issue in the Trusted Compute Base that allows local elevation of privileges. The flaw exists due to insufficient checks on user inputs, leading to potential exploitation via read/write/execute capabilities. This vulnerability impacts various Windows builds, including 10.0.19045.4046 and 10.0.22631.3155, and is associated with CWE-20.",
+  "cause_label": "trusted_compute_base_improper_input_validation",
+  "source_id": "c47ddc13-4c95-9148-7725-69de9134a98e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c47ddc13-4c95-9148-7725-69de9134a98e"
+  ],
+  "tags": [
+    "CVE-2024-21304",
+    "TrustCompute",
+    "ElevationOfPrivilege",
+    "ImproperInputValidation"
+  ],
+  "node_id": "fda54cd4-54b1-4e70-90b9-8350e33ae44d",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

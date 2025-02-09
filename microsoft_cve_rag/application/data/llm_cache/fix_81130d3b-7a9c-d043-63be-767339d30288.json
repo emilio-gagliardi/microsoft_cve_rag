@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Microsoft Edge (Chromium-based) information disclosure vulnerability (CVE-2024-21423), it is recommended to update to the latest version of Microsoft Edge.\n\n1. Visit the Microsoft Update Catalog at the following link: [Update Catalog](https://catalog.update.microsoft.com/Search.aspx?q=KB21423).\n\n2. Download the update package for Microsoft Edge (Chromium-based) version 122.0.2365.52.\n\n3. Follow the installation instructions provided with the update package to complete the installation.\n\n**Details**:\n- This update resolves information disclosure vulnerabilities, ensuring that your browser can protect against unauthorized access to restricted information. \n\n**Preconditions**:\n- Ensure that your current installation of Microsoft Edge is from the Chromium-based family. \n- Backup critical data before proceeding with the update installation.",
+  "source_id": "81130d3b-7a9c-d043-63be-767339d30288",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_chromium_cve202421423",
+  "tags": [
+    "KB21423",
+    "MicrosoftEdge",
+    "InformationDisclosure",
+    "CVE202421423"
+  ],
+  "node_id": "564066de-ea78-47ee-b107-379f0b8523d8",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Fix",
+  "source_ids": [
+    "81130d3b-7a9c-d043-63be-767339d30288"
+  ]
+}

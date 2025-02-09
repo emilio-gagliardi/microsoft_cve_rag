@@ -1,0 +1,16 @@
+{
+  "description": "To address the privilege escalation issue outlined in CVE-2023-36408, apply the appropriate security updates for affected systems. Specifically, Windows 10 (various versions) and Windows 11 require updates KB5032192, KB5032190, and KB5032189. The links to download these updates are provided here: https://catalog.update.microsoft.com/Search.aspx?q=KB5032197 for KB5032197, https://catalog.update.microsoft.com/Search.aspx?q=KB5032190 for KB5032190, and https://catalog.update.microsoft.com/Search.aspx?q=KB5032189 for KB5032189. Ensure installation on the respective builds: Windows 11 Version 23H2 (10.0.22621.2715) with KB5032190, Windows 10 Version 22H2 (10.0.19045.3693) with KB5032189, as well as relevant updates for Windows Server editions backed by KB5032192. A system restart may be necessary to fully apply these updates and mitigate the impact of the identified issue.",
+  "source_id": "1d2e35b7-54a4-6681-6181-bf0ce4160668",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplySecurityUpdatesForElevationPrivileges",
+  "tags": [
+    "CVE-2023-36408",
+    "WindowsUpdate",
+    "PrivilegeEscalation"
+  ],
+  "node_id": "5be64cff-df65-4843-9bcc-564e54af22ad",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

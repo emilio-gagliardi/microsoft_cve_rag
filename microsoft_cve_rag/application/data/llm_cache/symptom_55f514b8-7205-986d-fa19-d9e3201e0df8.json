@@ -1,0 +1,20 @@
+{
+  "symptom_label": "internet_shortcut_bypasses_security_feature_checks",
+  "description": "Users may be at risk of security compromises when interacting with internet shortcut files, which could be manipulated to bypass expected security checks. This behavior could lead to unauthorized access to user information or files if the attacker manages to convince the user to open a malicious shortcut. The issue affects various builds of Windows, including Windows 10 versions 21H2 and 22H2 and Windows 11 versions 21H2 and 23H2. The relevant KB Article IDs are KB5034763 for Windows 10 and KB5034765 for Windows 11, specifying the security risk across platforms. This security feature bypass, classified as an important severity, necessitates user interaction to exploit, significantly elevating the risk in environments with unaware users.",
+  "source_id": "55f514b8-7205-986d-fa19-d9e3201e0df8",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "55f514b8-7205-986d-fa19-d9e3201e0df8"
+  ],
+  "tags": [
+    "Windows",
+    "Security",
+    "Shortcut Files",
+    "Bypass"
+  ],
+  "node_id": "2688b165-d6b1-432e-8388-bbccd84571b8",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

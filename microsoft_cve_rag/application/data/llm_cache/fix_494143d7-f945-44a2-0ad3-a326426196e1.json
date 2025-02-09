@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows client-side caching elevation of privilege vulnerability (CVE-2024-43644), you should apply the relevant updates for your system. Follow these steps:\n\n1. Identify your Windows version using the build numbers listed below.\n2. Download and install the applicable update from the Microsoft Update Catalog.\n3. Restart your system to ensure all changes are applied.\n\n**Details**:\n- This update addresses an out-of-bounds read vulnerability that could allow elevation of privilege.\n- Ensure you are using Windows 10 or Windows 11 as noted in the build numbers.\n\n**Preconditions**:\n- Backup critical data before proceeding to update.\n- Verify system compatibility with the updates from the links provided below.\n\n**Update Packages**:\n- [KB5046613](https://catalog.update.microsoft.com/Search.aspx?q=KB5046613)\n- [KB5046617](https://catalog.update.microsoft.com/Search.aspx?q=KB5046617)\n- [KB5046633](https://catalog.update.microsoft.com/Search.aspx?q=KB5046633)\n- [KB5046665](https://catalog.update.microsoft.com/Search.aspx?q=KB5046665)\n\n**Build Numbers**:\n- Windows 11 Version 24H2: 10.0.26100.2314\n- Windows 11 Version 23H2: 10.0.22631.4460\n- Windows 11 Version 22H2: 10.0.22621.4460\n- Windows 10 Versions: 10.0.19044.5131, 10.0.19045.5131, 10.0.10240.20826.\n(Note: Make sure to match your system architecture (x64 or 32-bit) with the corresponding updates.)",
+  "source_id": "494143d7-f945-44a2-0ad3-a326426196e1",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_client_side_caching_elevation_of_privilege_cve_2024_43644",
+  "tags": [
+    "KB5046613",
+    "KB5046617",
+    "KB5046633",
+    "OutOfBoundsRead"
+  ],
+  "node_id": "f0cfde6c-f1a3-43d4-97af-85cba8236616",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "494143d7-f945-44a2-0ad3-a326426196e1"
+  ],
+  "verification_status": "unverified"
+}

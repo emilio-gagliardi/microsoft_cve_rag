@@ -1,0 +1,20 @@
+{
+  "description": "The issue arises from improper input validation in the kernel streaming service driver, leading to potential elevation of privilege vulnerabilities. Attackers can exploit this flaw locally or through indirect user interactions, allowing unauthorized access with system privileges.",
+  "cause_label": "kernel_streaming_service_driver_improper_input_validation",
+  "source_id": "eb7c4b22-c8a6-6277-9c59-0469d74c4c3e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "eb7c4b22-c8a6-6277-9c59-0469d74c4c3e"
+  ],
+  "tags": [
+    "elevation of privilege",
+    "input validation",
+    "kernel streaming"
+  ],
+  "node_id": "f0f72600-bab5-494d-a5e3-8a746cc27705",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the elevation of privilege vulnerability in the Windows Resource Manager PSM service, apply the relevant updates for your Windows version:\n\n1. Download and install the following updates from the Microsoft Update Catalog based on your system version:\n   - KB5041571 for Windows 11 Version 24H2\n   - KB5041585 for Windows 11 Version 23H2 and 22H2\n   - KB5041592 for Windows 11 Version 21H2\n   - KB5041580 for Windows 10 Version 22H2 and 21H2 (both x64 and 32-bit)\n\n2. Restart your system after the installations to ensure the updates are fully integrated.\n\n**Details**:\n- The updates address the vulnerability identified by CVE-2024-38136 which could allow an attacker to elevate privileges.\n- For manual installation, you can find the update packages at:\n   - [KB5041571](https://catalog.update.microsoft.com/Search.aspx?q=KB5041571)\n   - [KB5041585](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585)\n   - [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n   - [KB5041592](https://catalog.update.microsoft.com/Search.aspx?q=KB5041592)\n\n**Preconditions**:\n- Verify the version of Windows you are using to download the correct updates.\n- Backup important data before proceeding with any updates.\n",
+  "source_id": "7c6649c6-5d1c-8422-97fc-421c14e77de3",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_elevation_privilege_vulnerability_cve202438136",
+  "tags": [
+    "KB5041571",
+    "KB5041585",
+    "KB5041580",
+    "KB5041592"
+  ],
+  "node_id": "f1f9a7ed-7374-4148-a7ee-4d3b396a1e62",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "7c6649c6-5d1c-8422-97fc-421c14e77de3"
+  ],
+  "verification_status": "unverified"
+}

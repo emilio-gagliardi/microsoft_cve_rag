@@ -1,0 +1,22 @@
+{
+  "description": "An out-of-bounds write vulnerability in the V8 engine of Chromium allowed attackers to exploit heap corruption through crafted HTML content, affecting Microsoft Edge (Chromium-based) versions prior to 128.0.6613.119.",
+  "cause_label": "chromium_heap_corruption_due_to_out_of_bounds_write",
+  "source_id": "10443541-6e15-edea-321a-734ba64af313",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "10443541-6e15-edea-321a-734ba64af313"
+  ],
+  "tags": [
+    "CVE-2024-7970",
+    "Chromium",
+    "Microsoft Edge",
+    "Out-of-bounds Write",
+    "Heap Corruption"
+  ],
+  "node_id": "2244e371-bb91-41ea-90ef-19352ac4efaa",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

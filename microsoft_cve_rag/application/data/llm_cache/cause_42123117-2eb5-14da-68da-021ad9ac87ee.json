@@ -1,0 +1,18 @@
+{
+  "description": "The cause of the elevation of privilege vulnerability in the Windows Group Policy is rooted in a race condition that occurs during the processing of Group Policy applications. A race condition allows an attacker who has low-level access to exploit the timing of operations to gain higher privileges than intended. This flaw exists because the vulnerable component handling Group Policy permissions does not properly manage concurrent operations, creating a scenario where an attacker could execute their actions while a legitimate policy application is underway. The affected environments include specific Windows builds, where the nature of this vulnerability allows for low-privilege users to manipulate system settings without proper authorization. Due to the lack of safeguards in this context, the vulnerability poses significant risks if not addressed promptly, as it could lead to unauthorized system modifications or access.",
+  "cause_label": "RaceConditionInGroupPolicyProcessing",
+  "source_id": "42123117-2eb5-14da-68da-021ad9ac87ee",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Windows",
+    "Group Policy",
+    "Privilege Escalation",
+    "Race Condition",
+    "CVE-2024-20657"
+  ],
+  "node_id": "4be03732-c32b-441c-8dbc-a02d1c17380a",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

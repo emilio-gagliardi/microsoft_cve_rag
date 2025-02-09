@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the information disclosure vulnerability in the Windows Resilient File System (Refs) associated with CVE-2024-43500:\n\n1. Download and apply the appropriate KB update based on your system build:\n   - For Windows 11 Version 24H2 (Build 10.0.26100.2033), apply [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284).\n   - For Windows 11 Version 23H2 (Build 10.0.22631.4317), apply [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285).\n   - For Windows 11 Version 22H2 (Build 10.0.22621.4317), also apply [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285).\n\n2. Restart your system after installation to ensure the changes take effect.\n\n**Details**:\n- This update addresses a critical information disclosure issue that could lead to unauthorized access to sensitive data.\n- Ensure you are on the correct Windows 11 version before applying the updates.\n- Backup your system data prior to installation to prevent any data loss during the update process.",
+  "source_id": "f1c00a87-36fe-32df-16e6-3384f1b72e0b",
+  "source_type": "MSRCPost",
+  "fix_label": "address_windows_resilient_file_system_info_disclosure",
+  "tags": [
+    "Windows11",
+    "KB5044284",
+    "KB5044285",
+    "CVE202443500"
+  ],
+  "node_id": "a03caa5d-bf3c-46c3-84a4-7a4b769ae674",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "f1c00a87-36fe-32df-16e6-3384f1b72e0b"
+  ],
+  "verification_status": "unverified"
+}

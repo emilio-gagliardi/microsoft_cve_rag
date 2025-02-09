@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_telephony_service_exploits_remote_execution",
+  "description": "Users may notice unexpected behaviors on their systems, such as sudden application crashes or unresponsiveness after connecting to potentially malicious servers. This can occur when the Windows Telephony Service on affected builds, including Windows 11 versions 24H2 (10.0.26100.2314) and 23H2 (10.0.22631.4460), is compromised. As the system processes requests from untrusted sources, remote code execution may lead to unauthorized access and manipulation of user data. Furthermore, administrators might observe increased network traffic or unauthorized commands interpreted by the system, prompting concerns about security and system integrity. KB Articles associated with this issue include KB5046617, KB5046633, and others that outline corrective measures.",
+  "source_id": "7dbf7330-86ce-170e-4faf-1c7f0938ef2e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7dbf7330-86ce-170e-4faf-1c7f0938ef2e"
+  ],
+  "tags": [
+    "Windows",
+    "Remote Execution",
+    "Telephony Service",
+    "Security Update"
+  ],
+  "node_id": "36851f44-4c05-4d7d-ac1a-e5991d12fe2b",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

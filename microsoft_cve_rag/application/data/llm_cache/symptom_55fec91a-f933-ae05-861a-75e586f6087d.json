@@ -1,0 +1,19 @@
+{
+  "symptom_label": "MicrosoftEdgeElevationOfPrivilegeExecutionFail",
+  "description": "Users may encounter failures when attempting to execute certain commands or tasks within Microsoft Edge (Chromium-based). This behavior is linked to the elevation of privilege security vulnerability outlined in CVE-2023-35618, specifically affecting Microsoft Edge version 120.0.2210.61. The vulnerability may require user interaction to be exploited, leading to unexpected application behavior or even potential denial of access to specific features within the browser due to its sandbox environment. For further updates, refer to KB-120.0.2210.61.",
+  "source_id": "55fec91a-f933-ae05-861a-75e586f6087d",
+  "source_type": "MSRCPost",
+  "tags": [
+    "browser",
+    "edge",
+    "execution",
+    "privilege",
+    "CVE",
+    "failure"
+  ],
+  "node_id": "e8c8fa96-ebc0-47d2-b429-3d462923de05",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

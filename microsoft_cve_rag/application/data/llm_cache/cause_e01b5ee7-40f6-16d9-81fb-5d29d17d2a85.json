@@ -1,0 +1,20 @@
+{
+  "description": "The use after free vulnerability in the Windows DNS Server allows an attacker with privileges to query the DNS to exploit memory management issues, enabling remote code execution.",
+  "cause_label": "windows_dns_server_use_after_free_memory_management",
+  "source_id": "e01b5ee7-40f6-16d9-81fb-5d29d17d2a85",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e01b5ee7-40f6-16d9-81fb-5d29d17d2a85"
+  ],
+  "tags": [
+    "Windows Server",
+    "DNS Server",
+    "Remote Code Execution",
+    "Memory Management"
+  ],
+  "node_id": "bde62ca1-44d8-44ba-8b71-a4466cf7b82a",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

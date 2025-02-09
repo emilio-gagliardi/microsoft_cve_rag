@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the security vulnerability associated with CVE-2024-8907 in Microsoft Edge (Chromium-based):\n\n1. Ensure you are running the latest version of Microsoft Edge (129.0.2792.52 or later).\n2. Navigate to the Microsoft Edge settings menu by clicking the three dots (...).\n3. Go to 'Help and feedback' and click on 'About Microsoft Edge' to check your current version.\n4. If your version is earlier than 129.0.2792.52, update your browser immediately.\n\n**Details**:\nThis update addresses a cross-site scripting (XSS) vulnerability due to insufficient data validation in the omnibox that could allow for arbitrary script injections. This is crucial for maintaining the security of web applications accessed through Microsoft Edge. For further information on the update, please refer to the Microsoft Security Update Guide at [source link](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-8907).\n\n**Preconditions**:\n- Ensure that all active user sessions are terminated before updating.\n- Backup any important browser data, such as bookmarks or saved passwords, before proceeding.",
+  "source_id": "f8f1903e-0ae3-1878-1b82-35394e4da119",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_cve20248907_insufficient_data_validation_edge",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20248907",
+    "XSS",
+    "Chromium"
+  ],
+  "node_id": "cdf4f596-432c-4101-b8e6-909338784d79",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "f8f1903e-0ae3-1878-1b82-35394e4da119"
+  ],
+  "verification_status": "unverified"
+}

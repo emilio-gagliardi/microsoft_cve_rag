@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the hypervisor-protected code integrity (HVCI) security feature bypass vulnerability (CVE-2024-21431), apply the following updates:\n\n1. Visit the Microsoft Update Catalog using the links provided.\n2. Download and install the relevant KB articles for your version of Windows:\n   - For Windows 11 Version 23H2: [KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)\n   - For Windows 11 Version 22H2: [KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)\n   - For Windows 11 Version 21H2: [KB5035854](https://catalog.update.microsoft.com/Search.aspx?q=KB5035854)\n   - For Windows 10 Version 22H2: [KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845)\n   - For Windows 10 Version 21H2: [KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845)\n   - For 32-bit systems of Windows 10 Version 22H2 and 21H2, use [KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845).\n3. Restart your system after installation to ensure that the updates take effect.\n\n**Details**:\nThis series of updates addresses the bypass issue related to the hypervisor-protected code integrity feature, ensuring that system integrity is maintained. It is crucial to perform these updates to protect against this important security concern.\n**Preconditions**:\n- Ensure the system is running an affected version of Windows as listed in the update references.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "08ce6bcc-422a-0efd-ead1-09dd77b5ee25",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_hypervisor_code_integrity_bypass_cve202421431",
+  "tags": [
+    "KB5035853",
+    "KB5035854",
+    "KB5035845",
+    "HVCIBypass"
+  ],
+  "node_id": "7f36e3ea-f261-41db-aee1-e3dfb77c6826",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "08ce6bcc-422a-0efd-ead1-09dd77b5ee25"
+  ]
+}

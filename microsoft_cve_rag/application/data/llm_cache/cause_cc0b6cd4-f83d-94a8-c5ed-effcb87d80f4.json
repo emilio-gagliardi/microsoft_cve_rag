@@ -1,0 +1,21 @@
+{
+  "description": "The vulnerability in the Windows mobile broadband driver arises from improper input validation leading to a heap-based buffer overflow. This flaw enables remote code execution capabilities if an attacker gains physical access to the targeted system, permitting them to manipulate memory management improperly and execute arbitrary code.",
+  "cause_label": "windows_mobile_broadband_driver_heap_buffer_overflow",
+  "source_id": "cc0b6cd4-f83d-94a8-c5ed-effcb87d80f4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "cc0b6cd4-f83d-94a8-c5ed-effcb87d80f4"
+  ],
+  "tags": [
+    "CVE-2024-43526",
+    "remote code execution",
+    "input validation",
+    "buffer overflow"
+  ],
+  "node_id": "7e169081-7114-482f-bbd3-0162dd286e63",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

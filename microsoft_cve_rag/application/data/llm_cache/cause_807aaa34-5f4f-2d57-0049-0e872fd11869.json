@@ -1,0 +1,18 @@
+{
+  "description": "The underlying technical condition driving the issue described in CVE-2024-20690 relates to a spoofing vulnerability present in the Windows Nearby Sharing feature. This vulnerability allows a malicious actor to present a device with a spoofed name that matches the name of a legitimate device that a user is attempting to connect to. It exploits the way Nearby Sharing identifies and validates devices over the network. The vulnerability can be triggered when the user interacts with the spoofed device, necessitating user action to facilitate the attack. The affected components fall under the Windows platform, specifically versions identified by build numbers such as 10.0.22631.3007, 10.0.19045.3930, and 10.0.17763.5329, documented in KB articles KB-5034123, KB-5034122, and KB-5034127. An official fix is available to address this vulnerability, ensuring that users can be safeguarded from unauthorized device recognition and potential data compromise.",
+  "cause_label": "SpoofingAttackOnNearbySharingFunctionality",
+  "source_id": "807aaa34-5f4f-2d57-0049-0e872fd11869",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Windows",
+    "Nearby Sharing",
+    "Spoofing",
+    "Vulnerability",
+    "CVE-2024-20690"
+  ],
+  "node_id": "4e04b711-bf4d-48e6-8645-933e8d679129",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

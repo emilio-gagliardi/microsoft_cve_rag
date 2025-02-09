@@ -1,0 +1,24 @@
+{
+  "tool_label": "windows_hyper_v_security_feature_bypass_tool",
+  "description": "**Tool Overview**:\n\nThis tool addresses the Windows Hyper-V security feature bypass vulnerability identified as CVE-2024-20659. It aims to validate input to ensure security integrity is maintained within the Hyper-V environment. **Functionality**:\n\n1. Checks for improper input validation scenarios within the Hyper-V setup.\n2. Provides a report on potential security feature bypass risks.\n3. Suggests remediation steps based on the identified issues.\n4. Can be integrated with existing security monitoring suites to enhance overall system protection.\n5. Regularly updated to address new vulnerabilities as they are discovered. \n\n**Details**:\nImplementing this tool requires administrative access to the Hyper-V server. Usage typically involves running a command or script that evaluates the current Hyper-V configuration against established security best practices. An understanding of Hyper-V management would be beneficial for effective utilization.",
+  "source_id": "5007a095-206a-82d4-9421-d530ba0c38a1",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5007a095-206a-82d4-9421-d530ba0c38a1"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-20659",
+  "tool_url": "",
+  "tags": [
+    "Hyper-V",
+    "security",
+    "bypass",
+    "CVE-2024-20659",
+    "input validation"
+  ],
+  "node_id": "682dda8c-9fe3-4e5d-bab1-a1201cc1401d",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "tool_label": "enablement_package_for_windows_11_23h2",
+  "description": "**Tool Overview**:\n\nThe enablement package is a method for transitioning Windows 11 systems from version 22H2 to 23H2 by installing the latest cumulative update (LCU) required for the upgrade.\n\n**Details**:\n1. The enablement package modifies system components, ensuring the current version aligns with the newest features.\n2. It is particularly useful for systems currently running the 22H2 version of Windows 11.\n3. Upon installing the LCU alongside the enablement package, a system reboot is required to finalize the upgrade.\n4. This streamlined approach reduces the time and resources needed for the upgrade process compared to traditional methods.\n5. It allows administrators to efficiently manage version upgrades in enterprise environments without extensive downtime.\n",
+  "source_id": "2009ec6d-0dca-3b10-4372-39302f4d75d0",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "2009ec6d-0dca-3b10-4372-39302f4d75d0"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/2a01e46c-a2ae-4db6-bd59-8919f0c6bbc4n%40googlegroups.com",
+  "tool_url": "",
+  "tags": [
+    "Windows 11",
+    "enablement package",
+    "upgrade",
+    "LCU"
+  ],
+  "node_id": "135cb07a-3f28-49b8-9cbc-1267b6e88c6e",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

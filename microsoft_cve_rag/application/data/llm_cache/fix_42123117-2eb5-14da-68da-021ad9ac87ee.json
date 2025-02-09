@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows Group Policy elevation of privilege vulnerability (CVE-2024-20657), you should apply the relevant security updates available from Microsoft. This will resolve the vulnerability and strengthen your system against potential exploitation.\n\n1. Identify your system version and corresponding KB article numbers associated with this vulnerability.\n2. Download the appropriate updates from the Microsoft Update Catalog using the links provided.\n3. Install the updates following your organization's patch management procedures.\n4. Restart your system if required to ensure the updates take effect.\n\n**Details**:\n- The following update packages are recommended:\n  - [KB5034134](https://catalog.update.microsoft.com/Search.aspx?q=KB5034134)\n  - [KB5034123](https://catalog.update.microsoft.com/Search.aspx?q=KB5034123)\n  - [KB5034122](https://catalog.update.microsoft.com/Search.aspx?q=KB5034122)\n  - [KB5034121](https://catalog.update.microsoft.com/Search.aspx?q=KB5034121)\n\n**Preconditions**:\n- Ensure your system is compatible with the relevant updates listed.\n- Backup critical data before proceeding with the installation of updates.\n",
+  "source_id": "42123117-2eb5-14da-68da-021ad9ac87ee",
+  "source_type": "MSRCPost",
+  "fix_label": "MitigateWindowsGroupPolicyPrivilegeEscalationCVE202420657",
+  "tags": [
+    "KB5034134",
+    "Windows10",
+    "Windows11",
+    "GroupPolicy"
+  ],
+  "node_id": "380ecfe4-8392-4b9f-bcc1-2f66fa21179c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

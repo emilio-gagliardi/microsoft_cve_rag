@@ -1,0 +1,23 @@
+{
+  "tool_label": "microsoft_openssh_remote_code_execution",
+  "description": "**Tool Overview**:\n\nMicrosoft OpenSSH is an implementation of the SSH (Secure Shell) protocol that provides a secure means of communication over a network. The tool addresses vulnerabilities in remote command execution that can arise if not properly configured. You can leverage OpenSSH to establish secure tunnels and connections between devices and prevent unauthorized access to your systems.\n\n**Details**:\n\nThis tool is primarily used for remote access and management of Windows systems. When configuring or troubleshooting the tool, it is essential to ensure that file name and path controls are set correctly to mitigate external control risks. It involves the following steps:\n\n1. Install and configure Microsoft OpenSSH server on your Windows system.\n2. Regularly update the OpenSSH version to safeguard against vulnerabilities.\n3. Audit SSH configuration files for any risks associated with file path handling, as per CWE-73.\n\nUtilizing OpenSSH effectively can help minimize the risks associated with malicious remote access attempts.",
+  "source_id": "b17d6702-8276-9a51-209e-6bf651671476",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b17d6702-8276-9a51-209e-6bf651671476"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43615",
+  "tool_url": "",
+  "tags": [
+    "SSH",
+    "remote access",
+    "Microsoft",
+    "vulnerability management"
+  ],
+  "node_id": "5040c3b4-a500-469d-8b4b-5e9c5115fc12",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

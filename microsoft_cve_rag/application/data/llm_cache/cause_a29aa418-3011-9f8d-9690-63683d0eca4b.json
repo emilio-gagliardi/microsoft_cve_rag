@@ -1,0 +1,16 @@
+{
+  "description": "The cause of the issue described in the post relates to the 'Microsoft-Windows-TS-OptionalComponents-Package' feature not being enabled by default in Windows. This may prevent users from accessing specific remote desktop features and functionalities necessary for their workflow. The underlying problem lies in the configuration of the Windows Features settings, which can lead to inefficiency when users attempt to activate these features without knowledge of the optional components available. Therefore, the inability to locate and enable this feature may hinder productivity in environments where remote desktop services are crucial. The instructions provided help users to navigate through the Start menu to enable this missing optional feature, ensuring that the necessary components for remote desktop operations are correctly set up and active.",
+  "source_id": "a29aa418-3011-9f8d-9690-63683d0eca4b",
+  "source_type": "PatchManagementPost",
+  "cause_label": "MicrosoftTSOptionalComponentsNotEnabled",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "1d892f25-48b6-4e73-b5e0-4d4d5d05798d",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

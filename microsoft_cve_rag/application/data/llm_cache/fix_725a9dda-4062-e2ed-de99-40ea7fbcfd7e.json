@@ -1,0 +1,16 @@
+{
+  "description": "To address CVE-2023-36400, it is critical to apply the appropriate patches depending on the affected systems. Users should verify their current build numbers, and necessary updates can be obtained from the Microsoft Update Catalog. Specifically, the updates KB5032190, KB5032192, KB5032196, KB5032197, KB5032198, and KB5032189 cover a range of builds including Windows 11 (10.0.22621.2715 for version 22H2) and various Windows 10 versions. The update packages can be found at the following links: [KB5032197](https://catalog.update.microsoft.com/Search.aspx?q=KB5032197), [KB5032192](https://catalog.update.microsoft.com/Search.aspx?q=KB5032192), [KB5032199](https://catalog.update.microsoft.com/Search.aspx?q=KB5032199), [KB5032196](https://catalog.update.microsoft.com/Search.aspx?q=KB5032196), [KB5032198](https://catalog.update.microsoft.com/Search.aspx?q=KB5032198), [KB5032202](https://catalog.update.microsoft.com/Search.aspx?q=KB5032202), [KB5032189](https://catalog.update.microsoft.com/Search.aspx?q=KB5032189). It is recommended to ensure all respective patches are installed to mitigate the elevation of privilege risk associated with this vulnerability.",
+  "source_id": "725a9dda-4062-e2ed-de99-40ea7fbcfd7e",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplyPatchesToMitigateKeyDerivationIssue",
+  "tags": [
+    "patch",
+    "update",
+    "Windows"
+  ],
+  "node_id": "de74ffa6-2e7c-48c3-a6d8-cfd96e8e5141",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix"
+}

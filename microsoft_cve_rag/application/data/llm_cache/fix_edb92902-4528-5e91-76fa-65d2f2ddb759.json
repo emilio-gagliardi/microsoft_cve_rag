@@ -1,0 +1,16 @@
+{
+  "description": "Execute the provided PowerShell script to detect the presence of Adobe applications on both 64-bit and 32-bit Windows operating systems. The script first checks if the OS is 64-bit and lists Adobe applications installed under the 64-bit registry path. If no 64-bit installations are found, it then checks the 32-bit registry path for Adobe applications. For a 32-bit operating system, it directly checks only the 32-bit registry. This code allows system administrators to quickly verify the installation of required Adobe applications across different environments, facilitating compliance and management tasks.",
+  "source_id": "edb92902-4528-5e91-76fa-65d2f2ddb759",
+  "source_type": "PatchManagementPost",
+  "fix_label": "CheckAdobeInstallationsUsingPowerShellScript",
+  "tags": [
+    "PowerShell",
+    "Adobe",
+    "ApplicationDetection"
+  ],
+  "node_id": "7814379b-e78e-4cf4-9221-f538b4f7ab65",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the spoofing vulnerability in Microsoft Edge (Chromium-based) identified as CVE-2024-38093:\n\n1. Download and apply the update KB38093 from the official Windows Update catalog.\n2. Restart your browser to ensure that the changes take effect.\n\n**Details**:\nThis update addresses a security vulnerability that could allow an attacker to misrepresent critical information through the user interface of Microsoft Edge. Ensure that you are using the Microsoft Edge (Chromium-based) build 126.0.2592.68 for proper application of this update. \n\n**Preconditions**:\n- Ensure that your system is running the specified version of Microsoft Edge before applying the update.\n- Backup any critical information before proceeding with the installation.\n\nFor manual installation, visit: https://catalog.update.microsoft.com/Search.aspx?q=KB38093.",
+  "source_id": "96655248-8bd4-c8eb-7eba-d40d1e85e974",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_chromium_based_edge_spoofing_cve202438093",
+  "tags": [
+    "KB38093",
+    "MicrosoftEdge",
+    "Chromium",
+    "Spoofing"
+  ],
+  "node_id": "0e4fe995-d9d8-4702-8f2e-f63a69ecc180",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "96655248-8bd4-c8eb-7eba-d40d1e85e974"
+  ],
+  "verification_status": "unverified"
+}

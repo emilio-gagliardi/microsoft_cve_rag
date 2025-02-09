@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause identified is the insufficient size of the recovery partition on several Windows devices managed through Intune. This issue impacts system recovery operations, forcing the reliance on manual scripts such as MHimken's patch - winre to address the problem. Microsoft has opted not to automate the fix, which necessitates manual intervention. The recovery partition is crucial for restoring or recovering the operating system; hence, the lack of appropriate size can hinder recovery processes effectively. Without automation or intervention, many organizations may face difficulties in managing recovery tasks across thousands of machines efficiently.",
+  "source_id": "149fabb1-1640-0d41-4e49-f9fe223f78e9",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "149fabb1-1640-0d41-4e49-f9fe223f78e9"
+  ],
+  "cause_label": "insufficient_recovery_partition_size_impacts_recovery",
+  "tags": [
+    "Windows",
+    "Recovery",
+    "Intune",
+    "PowerShell",
+    "SCCM"
+  ],
+  "node_id": "fa97d65f-1194-4020-9f3b-52de28f5300f",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

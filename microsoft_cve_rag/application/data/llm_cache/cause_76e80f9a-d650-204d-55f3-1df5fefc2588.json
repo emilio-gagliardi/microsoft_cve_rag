@@ -1,0 +1,19 @@
+{
+  "description": "The underlying cause of the issue is attributed to the cloud-based activation key generated during the initial upgrade from Windows 7 to Windows 10. This key allows for seamless activation of Windows 10 when reinstalling on the same hardware without requiring the user to enter a product key manually each time. As long as the upgrade procedure is properly followed and completed, the activation will persist across system reinstalls. This is particularly beneficial for system administrators managing multiple devices, as it eliminates the need for repetitive activation processes after upgrades. However, if the cloud-based activation key is lost or if the hardware changes significantly, issues could arise during the activation process.",
+  "source_id": "76e80f9a-d650-204d-55f3-1df5fefc2588",
+  "source_type": "PatchManagementPost",
+  "cause_label": "CloudBasedActivationKeyEnablesSeamlessReinstallation",
+  "tags": [
+    "activation",
+    "Windows 10",
+    "Windows 7",
+    "upgrading",
+    "cloud",
+    "system"
+  ],
+  "node_id": "ef734b7e-5d28-4df0-aa84-494cf2043791",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

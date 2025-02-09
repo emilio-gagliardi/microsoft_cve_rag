@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_message_queuing_elevation_of_privilege",
+  "description": "End users may experience a critical security flaw when using Microsoft Message Queuing (MSMQ), leading to unexpected elevation of privilege. This issue is particularly notable on affected systems using builds such as Windows Server 2012 (various releases), Windows 10 (builds 19044, 19045, 22621, and 22631), and Windows 11. The underlying problem manifests as unauthorized access to or manipulation of system resources, compromising overall system integrity and user data. As an immediate consequence, administrators may notice unusual user activities or altered access permissions within their environments. Users should refer to KB-5034763 for detailed information and remediation steps for their specific build numbers.",
+  "source_id": "ef3b562f-945e-9390-2412-4f4172c66403",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ef3b562f-945e-9390-2412-4f4172c66403"
+  ],
+  "tags": [
+    "MSMQ",
+    "elevation of privilege",
+    "Windows 10",
+    "Windows 11",
+    "Windows Server"
+  ],
+  "node_id": "817d7709-990f-4103-95b2-07eab829b7d3",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the secure boot security feature bypass vulnerability described in CVE-2024-28925:\n\n1. Install the applicable updates from Microsoft\u2019s Knowledge Base article links provided below.\n2. Ensure your system is running one of the specified build numbers to apply the updates successfully.\n3. Restart your system after installation to ensure the changes take effect.\n\n**Details**:\n- The following KB Articles are available that provide necessary updates:\n  - KB-5036925\n  - KB-5036894\n  - KB-5036893\n  - KB-5036892\n- Supported build numbers for these updates include: 10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, and others.\n- It\u2019s crucial to apply these updates to mitigate the stack-based buffer overflow vulnerability that can lead to critical security implications.\n\n**Preconditions**:\n- Verify that the system matches one of the supported build numbers.\n- Backup critical data before applying updates to avoid potential data loss.",
+  "source_id": "52c7a834-0467-8f21-5c4c-ca6ba91065bb",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_secure_boot_bypass_cve202428925",
+  "tags": [
+    "KB5036925",
+    "KB5036894",
+    "CVE202428925",
+    "BufferOverflow"
+  ],
+  "node_id": "9ac9bf0a-52a3-4757-8017-a9472e853a20",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "52c7a834-0467-8f21-5c4c-ca6ba91065bb"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the memory allocator security vulnerability addressed in CVE-2024-5839:\n\n1. Ensure that you are running the latest version of Microsoft Edge (Chromium-based).\n2. Check for updates by clicking on the three dots (...) in the upper right-hand corner of your Microsoft Edge browser.\n3. Navigate to 'Help and feedback' > 'About Microsoft Edge' to see if an update to version 126.0.6478.57 or newer is available and install it.\n\n**Details**:\n- This fix specifically addresses an inappropriate implementation in the memory allocator of Google Chrome prior to version 126.0.6478.54, which could allow for heap corruption via a crafted HTML page. Users are encouraged to stay updated with browser releases to mitigate this issue.\n\n**Preconditions**:\n- Ensure your current version of Microsoft Edge is below the version addressing the vulnerability.\n- Network connectivity may be required to download the latest update.",
+  "source_id": "0ec20665-a029-38ae-d5c8-b987323b0270",
+  "source_type": "MSRCPost",
+  "fix_label": "update_edge_to_resolve_chrome_cve20245839",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20245839",
+    "Chromium",
+    "KB12602592"
+  ],
+  "node_id": "b6708114-1336-4e73-8d51-c7a0c76245f1",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "0ec20665-a029-38ae-d5c8-b987323b0270"
+  ],
+  "verification_status": "unverified"
+}

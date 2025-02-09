@@ -1,0 +1,16 @@
+{
+  "description": "To address the security feature bypass seen in CVE-2023-36025, it is essential to apply the relevant updates as laid out in Microsoft\u2019s guidelines. For Windows 10, update packages KB5032199 and KB5032189 are available and should be implemented to remediate the vulnerabilities across build numbers 10.0.22631.2715, 10.0.19043.3693, among others. Additionally, Windows 11 and server installations should utilize KB5032249 to fortify their defenses against similar exploits. These updates can be downloaded using the following links: https://catalog.update.microsoft.com/Search.aspx?q=KB5032190, https://catalog.update.microsoft.com/Search.aspx?q=KB5032189, and https://catalog.update.microsoft.com/Search.aspx?q=KB5032249. Regularly ensure systems are updated to the latest patches to maintain security integrity and system stability.",
+  "source_id": "08e11356-4cf0-b487-2d88-be69035f315a",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplyKbUpdateForFeatureBypassMitigation",
+  "tags": [
+    "Windows",
+    "Update",
+    "Mitigation"
+  ],
+  "node_id": "699eef2e-87f6-4381-a3da-492c1d423410",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

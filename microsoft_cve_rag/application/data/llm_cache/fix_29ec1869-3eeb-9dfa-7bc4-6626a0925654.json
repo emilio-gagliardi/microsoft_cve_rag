@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the blue screen and crash issues experienced by some ASUS commercial models after a driver update:\n\n1. Identify the problematic driver update that caused the issues, if known.\n2. Download and install the latest fix released by the technical team, as indicated in their communication.\n\n**Details**:\nThis fix addresses the compatibility issues introduced by the driver update that occurred between July 17 and July 23, 2024. Make sure to check the official ASUS support page for the specific driver and fix details. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure that you have backup data and restore points ready before updating drivers.",
+  "source_id": "29ec1869-3eeb-9dfa-7bc4-6626a0925654",
+  "source_type": "PatchManagementPost",
+  "fix_label": "resolve_asus_blue_screen_driver_update_issues",
+  "tags": [
+    "ASUS",
+    "BlueScreen",
+    "DriverUpdate",
+    "LLM Synthesized"
+  ],
+  "node_id": "559fcc92-96b8-498c-b072-a0f52cff458c",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "29ec1869-3eeb-9dfa-7bc4-6626a0925654"
+  ],
+  "verification_status": "unverified"
+}

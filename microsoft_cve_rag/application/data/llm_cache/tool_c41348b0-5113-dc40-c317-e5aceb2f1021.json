@@ -1,0 +1,21 @@
+{
+  "tool_label": "powershell_command_find_recovery_partition_space",
+  "description": "**Tool Overview**:\n\nThe PowerShell command mentioned in the context allows system administrators to retrieve information about the free space available in the recovery partition.\n\n**Details**:\n\nThis command can be utilized for system management and verification tasks related to partition sizes, particularly focusing on the recovery partition which may require available space considerations. By executing the appropriate PowerShell command in an elevated environment, users can gather essential metrics about storage allocation. This is particularly useful for troubleshooting system recovery scenarios or planning for maintenance tasks. To run this command, open PowerShell in admin mode and input the relevant command to return the information about free space.\n\n**Example Command**:\n```powershell\nGet-PSDrive -Name 'Recovery'\n```",
+  "source_id": "c41348b0-5113-dc40-c317-e5aceb2f1021",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "c41348b0-5113-dc40-c317-e5aceb2f1021"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/DS0PR10MB7341BD266F415CC598AB095C9E542%40DS0PR10MB7341.namprd10.prod.outlook.com",
+  "tool_url": "",
+  "tags": [
+    "PowerShell",
+    "disk management",
+    "recovery partition"
+  ],
+  "node_id": "5e73f5c4-3b44-445e-9cc3-c1616f4530e8",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

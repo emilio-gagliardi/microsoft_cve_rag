@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the vulnerabilities in Microsoft Edge (Chromium-based) build 120.0.2210.133:\n\n1. Ensure that your Microsoft Edge installation is at least version 120.0.2210.133 or higher.\n2. Regularly check for updates using the built-in Microsoft Edge update feature or visit the official Microsoft Edge update page.\n\n**Details**:\n- This update mitigates certain issues that could affect the security and functionality of the browser.\n- For more information, view the update on the Microsoft website: [MSRC CVE-2024-0333](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-0333).\n\n**Preconditions**:\n- Ensure administrative privileges are available for system updates.\n- Backup critical user data before performing updates to prevent data loss.",
+  "source_id": "ac453bab-523e-20b3-1c71-b5b30c875735",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeToBuild12002210133",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20240333",
+    "Build12002210133",
+    "UpdateManagement"
+  ],
+  "node_id": "89d10f3e-ff62-419b-bf88-39e12d5a9869",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

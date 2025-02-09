@@ -1,0 +1,16 @@
+{
+  "description": "To mitigate the elevation of privilege vulnerability associated with CVE-2023-36027, it is essential to update Microsoft Edge (Chromium-based) to the latest version. This includes the stable version 119.0.2151.58 and extended stable version 118.0.2088.102, both released on November 10, 2023. This update addresses security issues that could allow an attacker to execute malicious code. Ensure that your systems running Windows 11 (builds 118.0.5993.136 and 119.0.6045.123) are updated accordingly. For more details, refer to the Microsoft knowledge base articles linked from the MSRC page: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-36027.",
+  "source_id": "d66f5963-68c7-12c6-6b0a-3dd42fe95b60",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateEdgeToResolveElevatedPrivileges",
+  "tags": [
+    "patch",
+    "Microsoft Edge",
+    "elevation of privilege"
+  ],
+  "node_id": "a05d559b-a843-4756-8f15-e55f03f9fac7",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

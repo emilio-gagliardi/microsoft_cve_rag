@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the winlogon elevation of privilege vulnerability (CVE-2024-30066), apply the relevant update package for your Windows version:\n\n1. Identify your Windows version from the list below:\n   - Windows 11 Version 23H2: KB5039212\n   - Windows 11 Version 22H2: KB5039212\n   - Windows 11 Version 21H2: KB5039213\n   - Windows 10 Version 22H2 (x64): KB5039211\n   - Windows 10 Version 21H2 (x64 and 32-bit): KB5039211\n   - Windows 10 (x64 and 32-bit) for earlier versions: KB5039225\n\n2. Download the corresponding update package from the following links:\n   - [KB5039211](https://catalog.update.microsoft.com/Search.aspx?q=KB5039211)\n   - [KB5039212](https://catalog.update.microsoft.com/Search.aspx?q=KB5039212)\n   - [KB5039213](https://catalog.update.microsoft.com/Search.aspx?q=KB5039213)\n   - [KB5039225](https://catalog.update.microsoft.com/Search.aspx?q=KB5039225)\n\n3. Install the update and restart your device to ensure the changes take effect.\n\n**Preconditions**:\n- Ensure your system is running one of the affected versions.\n- Backup important data before proceeding with the installation.\n\n**Details**:\nThis update addresses a heap-based buffer overflow vulnerability that could allow elevation of privilege. For more specific information regarding the applicability of this fix, refer to the respective KB articles for your version.",
+  "source_id": "9b66423f-2595-e4c7-5aa9-29596b990177",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb5039211_kb5039212_and_kb5039213_for_winlogon_vulnerability",
+  "tags": [
+    "KB5039211",
+    "KB5039212",
+    "Winlogon",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "3a9ead78-ae43-4b7e-90d0-d7579574e543",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "9b66423f-2595-e4c7-5aa9-29596b990177"
+  ],
+  "verification_status": "unverified"
+}

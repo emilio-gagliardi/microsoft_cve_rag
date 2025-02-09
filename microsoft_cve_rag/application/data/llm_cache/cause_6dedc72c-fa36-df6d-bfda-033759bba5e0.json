@@ -1,0 +1,22 @@
+{
+  "description": "An out-of-bounds read issue in the Windows graphics component that allows potential information disclosure by accessing memory locations that the program should not have access to, enabling an attacker to read small portions of heap memory.",
+  "cause_label": "windows_graphics_out_of_bounds_read_memory_leak",
+  "source_id": "6dedc72c-fa36-df6d-bfda-033759bba5e0",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "6dedc72c-fa36-df6d-bfda-033759bba5e0"
+  ],
+  "tags": [
+    "CVE-2024-43508",
+    "Windows",
+    "information disclosure",
+    "out-of-bounds read",
+    "graphics component"
+  ],
+  "node_id": "bf2384ec-554f-4c04-8196-4fc497267dcd",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

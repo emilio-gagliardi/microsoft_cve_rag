@@ -1,0 +1,23 @@
+{
+  "tool_label": "group_policy_setting_for_teams_configuration",
+  "description": "**Tool Overview**:\n\nThe Group Policy setting used to configure Microsoft Teams installations through 365 ADMX templates.\n\n**Details**:\n\nThis tool allows system administrators to manage the deployment and configuration of Microsoft Teams by using the appropriate Group Policy settings. By enabling the policy settings prior to installation, IT admins ensure that all configurations are applied as Teams is being deployed. This can help streamline the management of Microsoft Teams across multiple devices in an enterprise environment. Additionally, the use of 365 ADMX templates simplifies the application of group policies, allowing for easier adjustments as organizational needs change.\n\n**Usage Example**:\n1. Open the Group Policy Management Console.\n2. Locate the policy for Microsoft Teams.\n3. Enable the requisite settings found in the 365 ADMX templates.\n4. Apply the policy to the desired organizational unit (OU).",
+  "source_id": "16c8016a-dede-dcda-ce02-766345425bea",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "16c8016a-dede-dcda-ce02-766345425bea"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/9d588172-cf05-48ef-9feb-136139ae99d1n%40googlegroups.com",
+  "tool_url": "",
+  "tags": [
+    "Group Policy",
+    "Microsoft Teams",
+    "Configuration",
+    "ADMX Templates"
+  ],
+  "node_id": "43f34432-ecad-4dc3-ab0a-021ce3aed2c8",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

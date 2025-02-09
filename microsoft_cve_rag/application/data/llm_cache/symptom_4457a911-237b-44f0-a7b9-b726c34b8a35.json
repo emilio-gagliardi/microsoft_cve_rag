@@ -1,0 +1,20 @@
+{
+  "symptom_label": "hp_devices_require_latest_firmware_for_secure_boot",
+  "description": "HP devices with Sure Start Security experience issues if they do not have the latest firmware updates installed. The firmware must be updated to successfully install secure boot updates, as detailed in KB-5025885. Failure to update firmware could result in boot management complications, particularly when changes are associated with CVE-2023-24932. The mix of outdated firmware and the requirements for secure boot can lead to critical system boot failures. System administrators should refer to the HP support page for the updates to ensure compatibility and security measures are active.",
+  "source_id": "4457a911-237b-44f0-a7b9-b726c34b8a35",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "4457a911-237b-44f0-a7b9-b726c34b8a35"
+  ],
+  "tags": [
+    "HP",
+    "firmware update",
+    "secure boot",
+    "Sure Start Security"
+  ],
+  "node_id": "ffd944d3-4f3e-4cf2-8d1c-2436556ea26a",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

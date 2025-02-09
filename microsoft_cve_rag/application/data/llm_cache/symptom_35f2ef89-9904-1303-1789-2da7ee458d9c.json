@@ -1,0 +1,21 @@
+{
+  "symptom_label": "unable_to_locate_vmware_patch_downloads",
+  "description": "System administrators are experiencing difficulty locating the patches that follow the ISO and bundled releases of VMware versions 8.0 U2C and 7.0 U3N. The relevant downloads for these patches are not accessible or easily found, despite the availability of the ISO and previous bundled releases of version 8.0 U2B. This implies that additional patches that address critical updates or fixes may not be straightforwardly retrievable from the standard channels. The mention of the specific release date of 5/21/2024 for version 8.0 U2C indicates that these patches are anticipated for deployment, but the lack of clear instructions leads to confusion in the update process. Therefore, users are left unable to efficiently manage their VMware patching needs, complicating their maintenance and potentially exposing systems to unresolved issues.",
+  "source_id": "35f2ef89-9904-1303-1789-2da7ee458d9c",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "35f2ef89-9904-1303-1789-2da7ee458d9c"
+  ],
+  "tags": [
+    "vmware",
+    "patch_management",
+    "download_issues",
+    "version_updates"
+  ],
+  "node_id": "a1e9650a-c201-476a-b642-36226e21ad11",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

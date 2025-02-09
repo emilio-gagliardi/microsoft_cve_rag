@@ -1,0 +1,21 @@
+{
+  "symptom_label": "msmq_elevation_of_privilege_causes_data_leak",
+  "description": "Users may experience unauthorized access to sensitive information within Microsoft Message Queuing (MSMQ) due to an elevation of privilege vulnerability. This could manifest as unexpected disclosures of message data, compromising data integrity and confidentiality. Users may notice abnormal behavior while sending or receiving messages, with potential loss of critical information or functions being interrupted. This issue is particularly significant on systems running Windows 10 and Windows Server 2012 as outlined in KB5034763. The impact on users includes risks of data exposure that could lead to serious compliance or security implications, especially in environments handling sensitive transactions.",
+  "source_id": "37d659b2-9586-de5a-4f8f-3d5365a22acb",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "37d659b2-9586-de5a-4f8f-3d5365a22acb"
+  ],
+  "tags": [
+    "MSMQ",
+    "elevation of privilege",
+    "data breach",
+    "Windows 10",
+    "Windows Server 2012"
+  ],
+  "node_id": "fccc822b-ebea-452a-ad05-e72d4be1fbcd",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

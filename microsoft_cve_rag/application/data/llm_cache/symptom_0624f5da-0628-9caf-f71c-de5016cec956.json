@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_installer_may_allow_elevation_of_privilege",
+  "description": "System administrators may observe that unauthorized users could gain elevated privileges on affected systems after specific security updates are installed. This symptom is particularly notable in Windows 10 and Windows 11 versions listed under the build numbers 10.0.26100.1742, 10.0.22631.4169, 10.0.22621.4169, and 10.0.22000.3197, where the unintended escalation of user rights can compromise system integrity. Users may experience unexpected access to restricted features or settings, which can lead to configuration changes or unauthorized data access. Administrators should reference the relevant KB Article IDs such as KB-5043080 and KB-5043064 to ensure proper application of patches to mitigate this risk and secure their environments. Close monitoring of user permissions is advised during this period to catch any anomalies in user behavior post-update.",
+  "source_id": "0624f5da-0628-9caf-f71c-de5016cec956",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0624f5da-0628-9caf-f71c-de5016cec956"
+  ],
+  "tags": [
+    "Windows 10",
+    "Windows 11",
+    "Privilege Escalation",
+    "Update Management"
+  ],
+  "node_id": "c7598d51-5128-4521-8c41-a5863a0a457d",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

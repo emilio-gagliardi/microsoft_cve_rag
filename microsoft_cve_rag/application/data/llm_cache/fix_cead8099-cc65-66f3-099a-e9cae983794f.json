@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the issue with the 'user in group' appearing grayed out on the computer side when editing GPPrefs through PolicyPak:\n\n1. Use an existing item with an 'ILT' already in it and copy it for further editing, ensuring that you do not edit the 'ILT' itself.\n\n2. Alternatively, for those with advanced skills, you can hand-edit the 'ILT' directly from the XML file. This method allows you to maintain control over the specifics while resolving the issue.\n\n**Details**:\n- Existing policies are not affected by this issue; it only impacts the creation and editing of new policies.\n- Ensure to have a solid understanding of XML if choosing to hand-edit, as improper edits can lead to configuration errors. (LLM Synthesized)\n",
+  "source_id": "cead8099-cc65-66f3-099a-e9cae983794f",
+  "source_type": "PatchManagementPost",
+  "fix_label": "resolve_gpprefs_editing_issues_via_policyPak",
+  "tags": [
+    "KB-041578",
+    "PolicyPak",
+    "GPPrefs",
+    "XMLEditing"
+  ],
+  "node_id": "da723216-3eb8-4924-9c59-128ed40d6e86",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "cead8099-cc65-66f3-099a-e9cae983794f"
+  ],
+  "verification_status": "unverified"
+}

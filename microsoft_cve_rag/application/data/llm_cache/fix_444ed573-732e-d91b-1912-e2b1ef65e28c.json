@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the remote code execution vulnerability in Microsoft Edge (Chromium-based) CVE-2024-43496:\n\n1. Update Microsoft Edge to the latest version (129.0.2792.52 or higher).\n2. Ensure the system has the latest security configurations applied.\n3. Restart your browser to ensure all updates take effect.\n\n**Details**:\nThis update resolves a vulnerability that could allow remote code execution if a user opens a specially crafted webpage. The issue arises from an out-of-bounds write, making it critical for users to apply this patch promptly.\nTo download the update, visit the official update catalog here: [Microsoft Update Catalog](https://catalog.update.microsoft.com/Search.aspx?q=KB43496).\n\n**Preconditions**:\n- Ensure Microsoft Edge is installed and fully operational on your system.\n- Backup any critical data before applying updates to avoid unexpected issues.\n",
+  "source_id": "444ed573-732e-d91b-1912-e2b1ef65e28c",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_fix_remote_code_execution_cve202443496",
+  "tags": [
+    "KB43496",
+    "MicrosoftEdge",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "73abc17a-429d-4b91-9ef9-2ff3dfb958a6",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "444ed573-732e-d91b-1912-e2b1ef65e28c"
+  ],
+  "verification_status": "unverified"
+}

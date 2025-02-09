@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_authentication_elevation_privilege_error",
+  "description": "After applying updates corresponding to KB-5036910, KB-5036909, KB-5036894, KB-5036893, and KB-5036892, users may experience consquential authentication issues, where specific user accounts inadvertently gain unauthorized privileges. This can lead to unexpected access to sensitive areas within the Windows environment, as evidenced by logs showing escalated permissions without a legitimate cause. Affected builds include 10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, and 10.0.22621.3447. System administrators should monitor for any discrepancies in user account permissions following these updates to prevent unauthorized access and maintain system integrity.",
+  "source_id": "3043a04e-db1d-0118-db8e-b67b3bb9cc29",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "3043a04e-db1d-0118-db8e-b67b3bb9cc29"
+  ],
+  "tags": [
+    "Windows",
+    "Authentication",
+    "Privilege Escalation",
+    "System Update"
+  ],
+  "node_id": "b2d9b120-0625-4c40-ac64-e3c7a0b4380c",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

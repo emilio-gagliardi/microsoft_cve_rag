@@ -1245,7 +1245,7 @@ async def update_email_records(emails_df, document_service):
                 id_=document_id,
                 product_mentions=row["product_mentions"],
                 build_numbers=row["build_numbers"],
-                kb_mentions=row["kb_mentions"],
+                kb_mentions=row["kb_ids"],
                 metadata={"id": document_id},
             )
 

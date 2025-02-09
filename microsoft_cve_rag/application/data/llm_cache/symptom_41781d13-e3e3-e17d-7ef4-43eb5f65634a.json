@@ -1,0 +1,17 @@
+{
+  "symptom_label": "UpdateNotIncludedForWindowsVersionV2004",
+  "description": "This symptom indicates that the update related to CVE-2024-20666 is not being provided for Windows 10 Version 2004. This could lead to unpatched systems potentially vulnerable to security risks, thereby exposing Windows 10 users on this version to potential exploits. Relevant builds not receiving this update are Windows 11 Version 21H2, 22H2, and 23H2, alongside various Windows 10 versions up to 23H2, as documented in the Microsoft KB20666.",
+  "source_id": "41781d13-e3e3-e17d-7ef4-43eb5f65634a",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "CVE-2024-20666",
+    "WindowsUpdate",
+    "PatchManagement",
+    "Vulnerability"
+  ],
+  "node_id": "c56370fc-4765-48a0-a94b-0cd3fb4c727f",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

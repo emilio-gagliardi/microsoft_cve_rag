@@ -1,0 +1,18 @@
+{
+  "description": "The underlying cause of Windows 11 22H2 clients not receiving updates was a misconfiguration in the WSUS deployment. Specifically, the issue arose from the lack of enabling the 'scan source policies' within the Group Policy settings, which is essential for correct update detection. Without this configuration, clients defaulted to a 'dual scan' method that prevented them from receiving updates properly. After enabling 'scan source policies', the clients began to effectively pick up updates approved on the WSUS. This indicates that proper configuration within Group Policy is critical to ensure that Windows 11 devices can successfully connect to and receive updates from WSUS as intended.",
+  "source_id": "ede057a0-dd10-feb8-c5e1-d391dcea99db",
+  "source_type": "PatchManagementPost",
+  "cause_label": "MisconfiguredScanSourcePoliciesInWSUSDeployment",
+  "tags": [
+    "windows 11",
+    "wsus",
+    "updates",
+    "group policy",
+    "patch management"
+  ],
+  "node_id": "7f44e669-11b2-4105-992f-edfc585db8ec",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

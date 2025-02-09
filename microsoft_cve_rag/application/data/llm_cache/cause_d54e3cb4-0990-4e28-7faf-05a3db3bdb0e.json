@@ -1,0 +1,23 @@
+{
+  "description": "The underlying issue is a stack-based buffer overflow in the secure boot process, which allows an attacker with local access to bypass security features by exploiting this flaw. The vulnerability is related to how the system processes boot files, specifically allowing a malicious WIM file to be executed without proper validation.",
+  "cause_label": "secure_boot_stack_based_buffer_overflow_exploit",
+  "source_id": "d54e3cb4-0990-4e28-7faf-05a3db3bdb0e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d54e3cb4-0990-4e28-7faf-05a3db3bdb0e"
+  ],
+  "tags": [
+    "CVE-2024-28899",
+    "secure boot",
+    "buffer overflow",
+    "Windows 11",
+    "Windows 10",
+    "Windows Server"
+  ],
+  "node_id": "bb8e84ee-099b-4ab9-912d-aff082f5ea31",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

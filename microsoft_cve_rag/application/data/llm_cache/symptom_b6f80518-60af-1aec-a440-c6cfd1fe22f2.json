@@ -1,0 +1,16 @@
+{
+  "symptom_label": "ChromeUpdatesAreHardToManageWithoutEnterprise",
+  "description": "When using Chrome without the Chrome Enterprise management solution, updates can become difficult to manage across multiple endpoints. This increases the risk that user machines may be running outdated versions of the browser, potentially exposing them to vulnerabilities. In environments where strict update compliance is necessary, failing to centrally manage Chrome updates can lead to severe operational disruptions and increased administrative overhead.",
+  "source_id": "b6f80518-60af-1aec-a440-c6cfd1fe22f2",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "chrome",
+    "updates",
+    "enterprise management"
+  ],
+  "node_id": "0a20a0a5-0d8d-4ad5-bb6d-5c31c5c494cb",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

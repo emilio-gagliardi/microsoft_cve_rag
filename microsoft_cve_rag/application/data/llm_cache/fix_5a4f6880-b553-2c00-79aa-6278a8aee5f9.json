@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows kernel-mode driver elevation of privilege vulnerability (CVE-2024-30084):\n\n1. Identify the appropriate KB article for your system build from the list below.\n2. Download the relevant update package from the official Microsoft Update Catalog.\n3. Install the update following standard procedures for your system.\n4. Restart your system to ensure all changes take effect.\n\n**Details**:\n- For Windows 11 devices, the update KB articles are:\n  - Windows 11 Version 23H2 for x64-based Systems: KB5039212\n  - Windows 11 Version 22H2 for x64-based Systems: KB5039212\n  - Windows 11 Version 21H2 for x64-based Systems: KB5039213\n- For Windows 10 devices, the update KB articles are:\n  - Windows 10 for x64-based Systems: KB5039225\n  - Windows 10 Version 22H2 for x64-based Systems: KB5039211\n\nUpdate packages can be found at the following links:\n- [KB5039211](https://catalog.update.microsoft.com/Search.aspx?q=KB5039211)\n- [KB5039212](https://catalog.update.microsoft.com/Search.aspx?q=KB5039212)\n- [KB5039213](https://catalog.update.microsoft.com/Search.aspx?q=KB5039213)\n- [KB5039225](https://catalog.update.microsoft.com/Search.aspx?q=KB5039225)\n\n**Preconditions**:\n- Ensure that your system\u2019s build matches the KB article specified.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "5a4f6880-b553-2c00-79aa-6278a8aee5f9",
+  "source_type": "MSRCPost",
+  "fix_label": "address_kernel_mode_driver_elevation_privilege_cve202430084",
+  "tags": [
+    "KB5039212",
+    "Windows11",
+    "ElevationOfPrivilege",
+    "CVE202430084"
+  ],
+  "node_id": "f7b0efff-2471-405f-b1ce-cf01feaaf9dc",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "5a4f6880-b553-2c00-79aa-6278a8aee5f9"
+  ],
+  "verification_status": "unverified"
+}

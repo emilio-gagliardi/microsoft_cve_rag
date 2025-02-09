@@ -1,0 +1,22 @@
+{
+  "description": "The issue arises from a heap-based buffer overflow in the Windows OLE component that allows remote code execution when local user interaction occurs. Specifically, this occurs due to improper validation of input data which can be exploited by an attacker through specially crafted files or applications.",
+  "cause_label": "windows_ole_heap_buffer_overflow_exploitability",
+  "source_id": "e25bdf60-cbbc-501f-c3c5-a914c80162f9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e25bdf60-cbbc-501f-c3c5-a914c80162f9"
+  ],
+  "tags": [
+    "Windows",
+    "OLE",
+    "Buffer Overflow",
+    "Remote Code Execution",
+    "CVE-2024-38152"
+  ],
+  "node_id": "e1c39c01-f5a4-4b6d-8f6d-4edffef24765",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

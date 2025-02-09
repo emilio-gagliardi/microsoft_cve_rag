@@ -1,0 +1,21 @@
+{
+  "description": "The underlying issue stems from a misconfiguration related to the V4 drivers used with Rioch copiers when utilizing the companion app. This misalignment prompts failures in printing tasks and can lead to disruptions in the workflow. The specific build numbers that exhibit these issues may not be explicitly stated, which complicates troubleshooting efforts. Additionally, the KB article ID mentioned, KB07059, provides further insights and guidelines on addressing this issue. To mitigate the problem, users should ensure that the drivers are correctly installed and configured, paying close attention to the compatibility of the software involved.",
+  "source_id": "eef2ca80-22d9-250e-f91b-8cebf7009528",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "eef2ca80-22d9-250e-f91b-8cebf7009528"
+  ],
+  "cause_label": "MisconfigurationOfV4DriversWithCopiers",
+  "tags": [
+    "V4 drivers",
+    "Rioch copiers",
+    "companion app",
+    "misconfiguration",
+    "KB07059"
+  ],
+  "node_id": "092d9c82-affa-4f78-bef9-8a3d3b0633a9",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

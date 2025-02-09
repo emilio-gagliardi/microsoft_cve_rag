@@ -1,0 +1,20 @@
+{
+  "description": "The cause of the issue described is related to the configuration of the autoplay notifications for audio devices, specifically concerning how the pop-up notifications behave upon connection of devices. The dialogue that appears when audio devices such as microphones, headphones, and speakers are connected may be suppressed due to settings in the audio manager installed software. Specifically, if users have chosen the option to 'remember my selection and not show this dialog next time', the expected behavior of notifications may not occur even in the presence of Windows notifications. This misconfiguration can lead to confusion for users expecting prompts for device connections. Further clarity on the dependency of this notification behavior on the 'audio manager' implies a need for proper setup and management of audio settings within the operating system.",
+  "source_id": "49431fb4-359d-3055-0e7d-a733b9bcb461",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "49431fb4-359d-3055-0e7d-a733b9bcb461"
+  ],
+  "cause_label": "audiomgr_configuration_disables_device_notifications",
+  "tags": [
+    "audio",
+    "autoplay",
+    "notifications",
+    "Windows 11"
+  ],
+  "node_id": "07109d3d-2dc2-4367-b6f5-74336d7ca093",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_upgrade_changes_os_display_language",
+  "description": "After upgrading from Windows 10 22H2 to Windows 11 23H2 during the June update, users experienced an unexpected change in the operating system's display language. Specifically, the OS, typically set to English, reverted to Swedish, despite prior configurations allowing for English as the preferred display language. This behavior necessitated that users manually re-add English as a language option, resulting in a disruption of expected functionality and a poor user experience. Such issues can lead to confusion and inefficiency, particularly in environments where multiple languages are in use. System administrators must be aware of this behavior when planning upgrades to ensure seamless transitions for users and mitigate any operational impacts.",
+  "source_id": "5346483e-d455-9864-7922-50c14c5ac2ad",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "5346483e-d455-9864-7922-50c14c5ac2ad"
+  ],
+  "tags": [
+    "windows_11",
+    "language_change",
+    "upgrade_issue",
+    "user_experience"
+  ],
+  "node_id": "3326a700-0907-432a-a0d4-1c1d0072a39a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

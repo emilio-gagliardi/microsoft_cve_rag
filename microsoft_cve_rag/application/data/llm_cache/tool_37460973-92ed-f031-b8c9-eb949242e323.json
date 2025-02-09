@@ -1,0 +1,20 @@
+{
+  "tool_label": "ReagentCCommand",
+  "description": "**Tool Overview**:\n\nThe ReagentC command is a built-in Windows utility used to manage the Windows Recovery Environment (WinRE). It can be utilized to set, disable, or enable the recovery image of Windows on a specified partition. This command is particularly useful in scenarios where you need to patch the winre.wim image from an ISO, allowing for restoration after a failure. To set a new recovery image, you would use the command `reagentc /setreimage` followed by the path to the custom recovery image. In security contexts, disabling WinRE can also minimize exposure to vulnerabilities linked to recovery features.\n\n***Usage Example***:\n\n```cmd\nreagentc /setreimage /path C:\newRecoveryImage\n```\nThis command sets the path for the recovery image to a new location, thus allowing customization of the recovery options.\n\nOverall, this Tool aids in configuring the recovery environment appropriately while addressing potential security concerns by managing recovery features efficiently.",
+  "tool_url": "https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/reAgentC-commands",
+  "source_url": "N/A",
+  "source_id": "37460973-92ed-f031-b8c9-eb949242e323",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows",
+    "Recovery",
+    "Command-Line Utility",
+    "ReagentC",
+    "Security"
+  ],
+  "node_id": "c1adf236-d26c-455c-8213-deb737201148",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

@@ -1,0 +1,17 @@
+{
+  "symptom_label": "WsusNotSyncingRecentWindowsUpdate",
+  "description": "The recent security update KB-5034441 for Windows Recovery Environment, applicable to Windows 10 versions 21H2 and 22H2, may not appear in the WSUS (Windows Server Update Services) update catalog unless the correct products and classifications are synced. This can lead to administrators missing critical updates that are essential for system recovery capabilities. The necessary configuration requires the product to be set as 'Windows 10, version 1903 and later' with the classification set to 'updates' to ensure visibility and synchronization status within WSUS.",
+  "source_id": "628d2b87-e3b6-7fe3-e3c7-52267c14b4eb",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "WSUS",
+    "WindowsUpdate",
+    "ConfigurationManager",
+    "PatchManagement"
+  ],
+  "node_id": "583ea13b-e9c8-475c-8326-171f89585b52",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

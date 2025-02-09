@@ -1,0 +1,21 @@
+{
+  "symptom_label": "remote_code_execution_vulnerability_affects_network_functionality",
+  "description": "Users may experience unexpected execution of code within their systems due to a flaw in the Windows Link Layer Topology Discovery Protocol. Specifically, when running network map functionalities over a Wi-Fi adapter, users could notice unusual behavior or performance issues. This behavior may manifest as erratic network connectivity, application crashes, or system slowdowns, caused by the malicious networking packets being sent to adjacent systems. Affected systems include Windows Server 2008 and its various editions with build numbers 6.1.7601.27170 and 6.0.6003.22720, following the updates in KB-5039266 and KB-5039245. Users should be particularly vigilant about remote code execution incidents that may disrupt system integrity and availability.",
+  "source_id": "f6e9369a-8adb-e217-c380-a03e769b7d02",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f6e9369a-8adb-e217-c380-a03e769b7d02"
+  ],
+  "tags": [
+    "Windows",
+    "Remote Code Execution",
+    "Network Issues",
+    "Windows Server 2008"
+  ],
+  "node_id": "d1917d2b-1c0b-4edf-961e-9d927a4d0bb8",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

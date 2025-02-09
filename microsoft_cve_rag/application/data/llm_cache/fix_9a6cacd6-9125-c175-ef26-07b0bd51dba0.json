@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo reinstall Windows 10 on your Surface Pro, follow these steps:\n\n1. Create a USB recovery drive using the official Microsoft documentation.\n2. Boot your Surface Pro from the specially created USB drive.\n3. Use the recovery options to remove the existing Windows installation and reinstall a fresh copy onto the Surface Pro\u2019s hard drive.\n\n**Details**:\n- This process effectively resets the operating system, solving issues related to updates or system corruption. \n- It is crucial to ensure that you have all necessary data backed up before proceeding with the reinstallation.\n",
+  "source_id": "9a6cacd6-9125-c175-ef26-07b0bd51dba0",
+  "source_type": "PatchManagementPost",
+  "fix_label": "reinstall_windows_10_surface_pro_usb_recovery",
+  "tags": [
+    "Windows10",
+    "SurfacePro",
+    "USBRecoveryDrive"
+  ],
+  "node_id": "8635a3c8-8395-44af-9caa-5b6648b1a62c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "9a6cacd6-9125-c175-ef26-07b0bd51dba0"
+  ],
+  "verification_status": "unverified"
+}

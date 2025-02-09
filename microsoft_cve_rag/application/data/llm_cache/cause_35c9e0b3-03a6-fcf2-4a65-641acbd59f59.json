@@ -1,0 +1,17 @@
+{
+  "description": "The underlying cause of CVE-2023-35639 is a flaw in the Microsoft ODBC Driver, which is exploited through specially crafted packets sent to the client after an authenticated user connects to a malicious SQL server. This vulnerability allows remote code execution in the context of the user's SQL client application. The exploitable conditions are tied to certain build numbers, including 10.0.10240.20345 and 10.0.22000.2652. It affects systems with Windows Server 2008, Windows Server 2012, and various builds of Windows 10 and 11, as detailed in KB articles KB-5033379, KB-5033375, KB-5033372, and KB-5033369.",
+  "cause_label": "MaliciousSqlPacketEnablesRemoteCodeExecution",
+  "source_id": "35c9e0b3-03a6-fcf2-4a65-641acbd59f59",
+  "source_type": "MSRCPost",
+  "tags": [
+    "ODBC",
+    "Remote Code Execution",
+    "SQL Server",
+    "Vulnerabilities"
+  ],
+  "node_id": "1ef7aaf5-170d-45e1-b35e-27dd51c446c1",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

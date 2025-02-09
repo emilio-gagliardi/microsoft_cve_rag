@@ -1,0 +1,21 @@
+{
+  "symptom_label": "elevation_of_privilege_on_windows_kernel_mode",
+  "description": "Following the installation of the security updates identified by KB5040442, KB5040431, and KB5040427, users on affected builds (10.0.22631.3880, 10.0.22621.3880, 10.0.19045.4651, and 10.0.19044.4651) may experience issues related to potential elevation of privilege. Specifically, the system could allow unauthorized access, enabling standard users to perform actions typically reserved for administrators. Administrators may notice unintentional changes to system settings or increased access levels on restricted resources, which could compromise system integrity and confidentiality. This behavior could manifest as users successfully running scripts or executing actions that should only be available to higher privileged accounts without proper authentication. Overall, the update aims to mitigate these risks, but users should remain vigilant post-deployment for any occurrences of unauthorized system access.",
+  "source_id": "6ad7372c-a136-8bb5-70f4-cfb191cdbfc6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "6ad7372c-a136-8bb5-70f4-cfb191cdbfc6"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Privilege Escalation",
+    "Security Update"
+  ],
+  "node_id": "81d08cde-b46c-4610-be63-deb083b0227f",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

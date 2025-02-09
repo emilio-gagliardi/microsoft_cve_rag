@@ -1,0 +1,17 @@
+{
+  "symptom_label": "WifiSixInterfaceFailsToConnectAfterUpdate",
+  "description": "After applying a recent Windows Update that affects the WiFi 6 interface, users may experience connectivity issues with their wireless networks. This issue manifests as the WiFi 6 interface becoming unresponsive or unable to connect to known networks. As a result, end users need to restart their devices to find partial solutions, though detailed documentation or fix is currently scarce.",
+  "source_id": "755959c4-d794-5bd0-21f0-df3d76a6c756",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "WindowsUpdate",
+    "WiFi6Issues",
+    "ConnectivityProblem",
+    "InterfaceUpdate"
+  ],
+  "node_id": "0e64ab86-8856-4149-a941-f31501bb91e6",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

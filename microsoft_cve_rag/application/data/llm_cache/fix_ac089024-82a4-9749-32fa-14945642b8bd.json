@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Out-of-bounds Write vulnerability in the Streams API affecting Microsoft Edge (Chromium-based):\n\n1. Ensure your Microsoft Edge browser is updated to version 125.0.6422.141 or later.\n2. Go to the Microsoft Edge browser, click on the three dots (...) on the upper right side.\n3. Navigate to Help and Feedback, then click on About Microsoft Edge to verify your current version.\n\n**Details**:\n- This security vulnerability allows remote attackers to execute arbitrary code within a sandbox environment via a crafted HTML page.\n- The fix is included in the updated build of Microsoft Edge released on June 3, 2024.\n- For further information, refer to the official release notes provided by Google for more details on the Chromium update.\n\n**Preconditions**:\n- Ensure you have administrative rights to perform the browser update.\n- Backup your browser data as a precaution before updating.",
+  "source_id": "ac089024-82a4-9749-32fa-14945642b8bd",
+  "source_type": "MSRCPost",
+  "fix_label": "update_edge_chromium_for_cve20245499_address",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20245499",
+    "OutOfBoundsWrite",
+    "Chromium"
+  ],
+  "node_id": "f77cb701-5f54-48c0-9120-224563f8b9de",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "ac089024-82a4-9749-32fa-14945642b8bd"
+  ],
+  "verification_status": "unverified"
+}

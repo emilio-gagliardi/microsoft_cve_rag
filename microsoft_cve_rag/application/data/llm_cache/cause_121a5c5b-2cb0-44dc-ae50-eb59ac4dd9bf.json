@@ -1,0 +1,22 @@
+{
+  "description": "The identified cause relates to issues with Outlook authentication, particularly when using conditional access policies that can impede sign-in processes. There is an observation that user sign-in attempts, especially on Server 2019, are redirected to unexpected geographic locations, such as the UK instead of the US, which may indicate misconfigured network settings or policies. Additionally, if SSL decryption or MITM (Man-in-the-Middle) is employed, it can lead to misleading 404 errors which could misrepresent the actual cause of authentication failures. Furthermore, unattended log checks are essential to uncover these potential issues, as they may hold critical indicators that are not visible in regular diagnostic approaches. It is imperative to ensure that conditional access settings and SSL decryption configurations do not inadvertently block legitimate access attempts.",
+  "source_id": "121a5c5b-2cb0-44dc-ae50-eb59ac4dd9bf",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "121a5c5b-2cb0-44dc-ae50-eb59ac4dd9bf"
+  ],
+  "cause_label": "outlook_authentication_conditional_access_issue",
+  "tags": [
+    "Outlook",
+    "authentication",
+    "conditional_access",
+    "Server_2019",
+    "SSL_decrypt"
+  ],
+  "node_id": "5e00000e-05f7-4aaf-a9bd-a654f8421435",
+  "node_label": "Cause",
+  "reliability": 0.75,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

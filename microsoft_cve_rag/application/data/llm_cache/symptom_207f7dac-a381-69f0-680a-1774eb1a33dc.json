@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_performance_issues_after_update",
+  "description": "After updating to Microsoft Edge (Chromium-based) version 126.0.2592.8, users may experience performance issues such as lagging, freezing, or unresponsiveness during web browsing. The impact from the update can be attributed to the previous version's vulnerabilities addressed by the security patch, which include heap corruption issues associated with previous builds. Users running Edge versions prior to the update may notice increased crashes or errors when accessing specific websites. Additionally, rolling back to an earlier version post-update may not remedy these symptoms entirely, as the browser continues to be influenced by underlying architecture changes made during the update process. Relevant KB Article ID documenting these updates is KB-126.0.2592.8.",
+  "source_id": "207f7dac-a381-69f0-680a-1774eb1a33dc",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "207f7dac-a381-69f0-680a-1774eb1a33dc"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "performance",
+    "update issues",
+    "browser"
+  ],
+  "node_id": "f3ce1dae-83e0-4646-945b-1c021a311356",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

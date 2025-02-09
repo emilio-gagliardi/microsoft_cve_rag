@@ -1,0 +1,22 @@
+{
+  "description": "The elevation of privilege vulnerability in Azure Identity Libraries and Microsoft Authentication Library is due to a race condition where concurrent execution accesses shared resources without proper synchronization. This flaw allows an attacker with low privileges to elevate their access rights to read sensitive files on the system, thereby compromising the confidentiality of the affected components.",
+  "cause_label": "azure_identity_library_race_condition_privilege_escalation",
+  "source_id": "306efe90-2a1d-754e-d505-1e605f89bbfe",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "306efe90-2a1d-754e-d505-1e605f89bbfe"
+  ],
+  "tags": [
+    "Azure",
+    "Identity Libraries",
+    "Authentication",
+    "Privilege Escalation",
+    "CWE-362"
+  ],
+  "node_id": "86c9ac7c-9d70-417d-a288-f318c2bb5cfe",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

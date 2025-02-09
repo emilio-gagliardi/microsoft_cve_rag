@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_telephony_service_experiences_remote_code_execution",
+  "description": "End users may experience a series of disruptions resulting from a remote code execution vulnerability in the Windows Telephony Service, particularly in various builds of Windows 10 and Windows Server. After applying security updates KB-5046617 and KB-5046696, there is a potential for malicious servers to exploit this vulnerability, leading to unexpected behaviors such as unauthorized code execution on client systems. This can trigger an abrupt halt of service, increased latency, or even system crashes, severely impacting user experience. With affected builds ranging from 10.0.19044.5131 to 10.0.26100.2314, all organizations using these versions must be vigilant for signs of exploitation. System administrators should monitor the systems for unusual activity or unauthorized commands that may indicate a breach.",
+  "source_id": "53538a56-1726-d5a1-da08-ef25e64935f5",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "53538a56-1726-d5a1-da08-ef25e64935f5"
+  ],
+  "tags": [
+    "Windows",
+    "Telephony Service",
+    "Remote Code Execution",
+    "Update KB-5046617",
+    "Update KB-5046696"
+  ],
+  "node_id": "9109fb76-59c4-452e-a4be-04087eae5628",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

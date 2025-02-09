@@ -1,0 +1,22 @@
+{
+  "tool_label": "manageengine_endpoint_central_for_25_endpoints",
+  "description": "**Tool Overview**:\n\nManageEngine Endpoint Central is a comprehensive endpoint management solution that allows organizations to manage up to 25 endpoints for free. It provides features such as patch management, software deployment, and remote desktop support, streamlining IT management tasks.\n\n**Details**:\n\n1. **Endpoint Management**: ManageEngine Endpoint Central allows administrators to monitor and manage their endpoints efficiently, ensuring they are secure and compliant with company policies.\n2. **Patch Management**: This tool simplifies the process of discovering, deploying, and managing patches across various operating systems, reducing vulnerabilities in the environment.\n3. **Software Deployment**: Administrators can easily deploy software applications to multiple endpoints simultaneously, saving time and effort in manual installations.\n4. **Remote Support**: The tool includes capabilities for remote desktop assistance, enabling technicians to resolve user issues without physical presence.\n5. **Ease of Use**: It provides a user-friendly interface, making it accessible for IT teams of any size, especially beneficial for small to medium-sized organizations.\n\n**Note**: The offer of free management for up to 25 endpoints makes it a suitable choice for smaller enterprises looking to improve their IT operations without extensive investment.",
+  "source_id": "85cc75aa-2be5-751f-f7a0-d9709385b5ab",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "85cc75aa-2be5-751f-f7a0-d9709385b5ab"
+  ],
+  "source_url": "https://can01.safelinks.protection.outlook.com/?url=https%3A%2F%2F",
+  "tool_url": "https://www.manageengine.com/products/endpoint-central/",
+  "tags": [
+    "endpoint management",
+    "patch management",
+    "software deployment",
+    "remote support"
+  ],
+  "node_id": "e5b12a0e-38fe-4775-b530-544419fad8b0",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

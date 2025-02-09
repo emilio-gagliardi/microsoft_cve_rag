@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the use after free vulnerability in Chromium that affects Microsoft Edge:\n\n1. Update your Microsoft Edge browser to version 128.0.2739.42 or later.\n2. Verify the installed version by clicking on the three dots (...) in the top right corner, navigating to 'Help and feedback', and then 'About Microsoft Edge'.\n\n**Details**:\n- This update resolves the use after free vulnerability that would allow a remote attacker to exploit heap corruption via a crafted HTML page. \n- It's essential to ensure that you are running the latest version to mitigate any potential exploit risks.\n\nFor any further details, refer to the update guide available at: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-7964.",
+  "source_id": "177958af-c616-1c4a-efb8-33f50dd8af99",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_resolve_chromium_cve20247964",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-7964",
+    "Chromium",
+    "KB1280273942"
+  ],
+  "node_id": "fa95227d-6ed2-42ff-818d-a911f351faa6",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "177958af-c616-1c4a-efb8-33f50dd8af99"
+  ],
+  "verification_status": "unverified"
+}

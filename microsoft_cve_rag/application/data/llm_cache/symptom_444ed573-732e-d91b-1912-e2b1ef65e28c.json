@@ -1,0 +1,21 @@
+{
+  "symptom_label": "remote_code_execution_requires_user_interaction",
+  "description": "Users experience the need to click on specially crafted URLs to enable remote code execution on their systems when using Microsoft Edge (Chromium-based) versions 129.0.2792.52 and 129.0.6668.58. This specific behavior is an observable impact that arises due to a vulnerability identified by CVE-2024-43496 and can lead to serious security risks. The requirement of user interaction can also lead to scenarios where users might inadvertently compromise their systems, highlighting the importance of awareness and caution while navigating links. The related KB article for this update is KB-129.0.2792.52, which outlines the necessary steps for remediation and the security updates available since the release date on September 19, 2024.",
+  "source_id": "444ed573-732e-d91b-1912-e2b1ef65e28c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "444ed573-732e-d91b-1912-e2b1ef65e28c"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Remote Code Execution",
+    "User Interaction",
+    "Malicious Links"
+  ],
+  "node_id": "a8512d8d-bce4-4a25-9ec2-f35de312a357",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

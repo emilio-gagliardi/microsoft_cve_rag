@@ -1,0 +1,19 @@
+{
+  "description": "**Fix Overview**:\n\nTo enhance security during the domain join process:\n\n1. Disable the capability for normal users to add machines to the domain.\n2. Ensure that only accounts with domain admin privileges are able to perform this action. \n\n**Details**:\nBy restricting machine additions to those with domain admin accounts, the security posture of the domain is strengthened, minimizing the risk of unauthorized devices joining the network. Implement this security measure to maintain control over domain resources.",
+  "source_id": "3611583d-b4c2-9a91-8fd6-f1b731f57788",
+  "source_type": "PatchManagementPost",
+  "fix_label": "restrict_machine_addition_domain_admin_only",
+  "tags": [
+    "DomainSecurity",
+    "AdminPrivileges",
+    "ActiveDirectory"
+  ],
+  "node_id": "1c9933d0-f1de-4944-b69f-452ca12191d8",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "3611583d-b4c2-9a91-8fd6-f1b731f57788"
+  ]
+}

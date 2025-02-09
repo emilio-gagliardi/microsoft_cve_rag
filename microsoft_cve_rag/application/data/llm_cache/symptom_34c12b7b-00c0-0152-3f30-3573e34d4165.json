@@ -1,0 +1,21 @@
+{
+  "symptom_label": "adobe_reader_opens_malicious_file_leads_to_rc_execution",
+  "description": "When using Adobe Reader versions 127.0.2651.105 and earlier, users may encounter an observable behavior where opening a malicious PDF file results in unexpected application behavior. This could potentially allow arbitrary code execution in the context of the current user, impacting all systems running the affected versions. System administrators will notice that users may report that Adobe Reader seems to behave erratically or crashes upon attempting to open certain files. This issue is specifically relevant for Microsoft Edge (Chromium-based) version 128.0.2739.42, as the software depends on the Adobe platform to render PDF files. To mitigate this, it is crucial to ensure users are updated to the latest versions of both Adobe Reader and Microsoft Edge, as outlined in KB-128.0.2739.42.",
+  "source_id": "34c12b7b-00c0-0152-3f30-3573e34d4165",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "34c12b7b-00c0-0152-3f30-3573e34d4165"
+  ],
+  "tags": [
+    "Adobe Reader",
+    "Microsoft Edge",
+    "Remote Code Execution",
+    "Security Update"
+  ],
+  "node_id": "575dff95-51f9-4005-a0f6-fecc50362d23",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

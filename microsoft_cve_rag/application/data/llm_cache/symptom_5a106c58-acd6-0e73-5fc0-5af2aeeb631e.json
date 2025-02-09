@@ -1,0 +1,16 @@
+{
+  "symptom_label": "PerformanceReducedAndIntermittentNetworkAccess",
+  "description": "Users may experience performance degradation and intermittent lapses in network access after applying update package KB-119.0.2151.72 for Microsoft Edge (Chromium-based). Specifically, these issues can occur on systems running the builds 119.0.2151.72 and 118.0.2088.109. The impact on overall system performance can lead to frustration as connectivity issues affect daily operations.",
+  "source_id": "5a106c58-acd6-0e73-5fc0-5af2aeeb631e",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "ee537d98-29c4-4255-ac88-815774e944fc",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

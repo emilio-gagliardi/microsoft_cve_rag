@@ -1,0 +1,22 @@
+{
+  "description": "The underlying cause of the issue was a malfunction in the ReportingWebService, which disrupted its functionality. This was resolved by performing a complete maintenance on the SUSDB and subsequently restarting the WSUS pool. The maintenance and restart actions restored the reporting capabilities that had previously failed to operate. This issue had not been encountered before, suggesting that it may have been a one-time misconfiguration or a transient state within the reporting service. Regular maintenance of the WSUS database can prevent similar disruptions in the future.",
+  "source_id": "cf6b28a1-5963-cf6c-d6a0-7094462926f1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "cf6b28a1-5963-cf6c-d6a0-7094462926f1"
+  ],
+  "cause_label": "reporting_service_failure_due_to_db_maintenance",
+  "tags": [
+    "WSUS",
+    "ReportingWebService",
+    "SUSDB",
+    "maintenance",
+    "issue_resolution"
+  ],
+  "node_id": "f7d9d35e-8564-4924-8e94-9dee622150a8",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

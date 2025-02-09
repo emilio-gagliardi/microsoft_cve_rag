@@ -1,0 +1,16 @@
+{
+  "description": "To accurately detect whether Adobe Acrobat or Acrobat Reader is installed on a system, you can check the presence of specific executable files. Look for 'acrobat.exe' in the directories 'C:\\Program Files (x86)\\Adobe' or 'C:\\Program Files\\Adobe'. If 'acrobat.exe' is found in conjunction with 'acrord32.exe', both applications are installed. If 'acrord32.exe' is present without 'acrobat.exe', only Acrobat Reader is installed. For enhanced detection capabilities, perform a search for all folders containing 'acrord32.exe' to determine the presence of both applications accurately.",
+  "source_id": "8f31f1e6-761d-268c-467f-25a14f3a603b",
+  "source_type": "PatchManagementPost",
+  "fix_label": "DetectAdobeApplicationsUsingExecutableSearch",
+  "tags": [
+    "detection",
+    "Adobe",
+    "registry"
+  ],
+  "node_id": "58f4ef1c-a0b9-426f-8a72-c50c4554f5da",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Fix"
+}

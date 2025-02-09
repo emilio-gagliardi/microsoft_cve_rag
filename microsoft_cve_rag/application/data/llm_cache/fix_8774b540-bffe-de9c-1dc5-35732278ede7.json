@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows Distributed File System (DFS) Remote Code Execution Vulnerability (CVE-2024-30063), follow these steps:\n\n1. Download and install the security update KB5039212 specific to your Windows version. Ensure you are using the appropriate build number as detailed below:\n   - Windows 11 Version 23H2: 10.0.22631.3737\n   - Windows 11 Version 22H2: 10.0.22621.3737\n   - Windows 10 Version 21H2: 10.0.19043.4529\n   - Windows 10 for 32-bit Systems: 10.0.10240.20680\n\n2. For manual installations, visit the Microsoft Update Catalog and download the package from the links below:\n   - [KB5039211](https://catalog.update.microsoft.com/Search.aspx?q=KB5039211)\n   - [KB5039212](https://catalog.update.microsoft.com/Search.aspx?q=KB5039212)\n   - [KB5039213](https://catalog.update.microsoft.com/Search.aspx?q=KB5039213)\n   - [KB5039225](https://catalog.update.microsoft.com/Search.aspx?q=KB5039225)\n\n3. Restart your system after the installation to ensure new configurations take effect.\n\n**Details**:\n- This update addresses improper restriction of names for files and other resources, leading to possible remote code execution vulnerabilities. Please ensure a backup of critical data is made prior to installation.\n\n**Preconditions**:\n- Appropriate build version must be verified before patching. \n",
+  "source_id": "8774b540-bffe-de9c-1dc5-35732278ede7",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_dfs_cve202430063",
+  "tags": [
+    "KB5039212",
+    "Windows10",
+    "Windows11",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "89389d73-a4e9-4005-b888-c003daffbdaa",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "8774b540-bffe-de9c-1dc5-35732278ede7"
+  ],
+  "verification_status": "unverified"
+}

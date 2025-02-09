@@ -1,0 +1,21 @@
+{
+  "description": "The vulnerability is caused by an out-of-bounds read in the Windows Common Log File System driver, which may allow an attacker to elevate their privileges. This technical condition arises when the driver incorrectly handles memory access operations, potentially exposing sensitive data or allowing unauthorized control over system resources. The susceptibility is heightened by the software being network-bound, enabling remote exploitation without requiring user interaction.",
+  "cause_label": "windows_common_log_file_system_driver_out_of_bounds_read",
+  "source_id": "b2c8a1de-8cfa-fb1b-332d-0907845756f1",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b2c8a1de-8cfa-fb1b-332d-0907845756f1"
+  ],
+  "tags": [
+    "CVE-2024-30037",
+    "Windows",
+    "Elevation of Privilege",
+    "Out-of-bounds Read"
+  ],
+  "node_id": "40b89d24-e4c1-4552-a80d-6d08522c2594",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

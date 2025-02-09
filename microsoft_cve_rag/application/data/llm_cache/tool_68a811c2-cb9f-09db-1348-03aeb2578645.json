@@ -1,0 +1,17 @@
+{
+  "tool_label": "MicrosoftEdgeUpgradeToLatestVersion",
+  "description": "This tool is aimed at upgrading Microsoft Edge to the latest version to mitigate the elevation of privilege vulnerability identified in CVE-2023-36024. Users can typically find this tool as part of the Windows Update process, which automatically checks for the latest Microsoft Edge updates. To manually update Edge, users can navigate to the Edge settings, select 'About Microsoft Edge' to initiate the update process.",
+  "source_id": "68a811c2-cb9f-09db-1348-03aeb2578645",
+  "source_type": "MSRCPost",
+  "source_url": "https://www.microsoft.com/en-us/edge/business/download",
+  "tags": [
+    "update",
+    "browser",
+    "security"
+  ],
+  "node_id": "da5a47e2-4ee3-4459-87a4-29742d86f995",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

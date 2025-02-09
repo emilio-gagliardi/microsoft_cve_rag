@@ -1,0 +1,23 @@
+{
+  "tool_label": "ninjaone_patch_management_tool",
+  "description": "**Tool Overview**:\n\nNinjaOne is a flexible and robust patch management tool designed to streamline the process of scripting and scheduling updates. It provides features that allow system administrators to monitor and manage updates effectively across various platforms and devices. \n\n**Details**:\n1. **Flexibility**: The tool can adapt to different environments and configurations, making it suitable for small to large-scale deployments.\n2. **Robustness**: It ensures reliable patching and can handle multiple update scenarios, reducing the risk of missed patches.\n3. **Scheduling**: Administrators can easily schedule updates to occur during off-peak hours, minimizing disruption to users.\n4. **Monitoring**: The tool provides insights into the status of updates, allowing for proactive management of system vulnerabilities.\n5. **Integration**: NinjaOne works well with existing IT infrastructure, allowing for seamless integration with other IT management tools.\n\n",
+  "source_id": "6cc9cb64-f350-5014-664f-8f6e59e2e0d9",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "6cc9cb64-f350-5014-664f-8f6e59e2e0d9"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CA%2BXSBZv%2ByzZCMi%3D2uy8GJaqoGAt%3DUacP9AyxEO%2BgbpfJC_z7Ww%40mail.gmail.com",
+  "tool_url": "",
+  "tags": [
+    "patch management",
+    "NinjaOne",
+    "automation",
+    "scripting",
+    "scheduling"
+  ],
+  "node_id": "57336b94-05a1-4741-8dda-a95ccababe60",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

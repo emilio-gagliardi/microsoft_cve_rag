@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability in the Windows Routing and Remote Access Service (RRAS) as identified by CVE-2024-30015:\n\n1. Download and apply the relevant KB updates based on your operating system build from the official Windows Update catalog.\n2. Restart your system post-installation to ensure the updates are effectively applied.\n\n**Details**:\n- The applicable KB updates include: KB5037788, KB5037771, KB5037770, and KB5037768.\n- For manual installation, you can find the update packages here:\n   - [KB5037788](https://catalog.update.microsoft.com/Search.aspx?q=KB5037788)\n   - [KB5037771](https://catalog.update.microsoft.com/Search.aspx?q=KB5037771)\n   - [KB5037770](https://catalog.update.microsoft.com/Search.aspx?q=KB5037770)\n   - [KB5037768](https://catalog.update.microsoft.com/Search.aspx?q=KB5037768)\n\n**Preconditions**:\n- Ensure your system is updated to one of the following builds: 10.0.22631.3593, 10.0.22621.3593, 10.0.22000.2960, 10.0.10240.20651.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "f928b8f0-6d31-d7d1-5e82-0565aff2460b",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_windows_rras_cve202430015",
+  "tags": [
+    "KB5037788",
+    "KB5037771",
+    "WindowsRRAS",
+    "CVE202430015"
+  ],
+  "node_id": "8198d9b6-13cf-4522-af88-364851c80113",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "f928b8f0-6d31-d7d1-5e82-0565aff2460b"
+  ],
+  "verification_status": "unverified"
+}

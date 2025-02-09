@@ -1,0 +1,21 @@
+{
+  "description": "The issue arises from a NULL pointer dereference in the Windows Lightweight Directory Access Protocol (LDAP), leading to denial of service conditions. This flaw permits an attacker to exploit the system remotely, potentially resulting in complete denial of access to directory services. The vulnerability is linked to specific build numbers of Windows and is classified with an important severity level.",
+  "cause_label": "ldap_null_pointer_dereference_denial_of_service",
+  "source_id": "b9b285e4-721c-f3c9-4a56-efa6d55a6078",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b9b285e4-721c-f3c9-4a56-efa6d55a6078"
+  ],
+  "tags": [
+    "CVE-2024-21356",
+    "Windows LDAP",
+    "Denial of Service",
+    "NULL Pointer Dereference",
+    "Important Severity"
+  ],
+  "node_id": "8ea71372-130e-4edb-847d-884cda587922",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,22 @@
+{
+  "description": "Heap buffer overflow in Skia graphics library allows remote attackers to exploit memory corruption, affecting Microsoft Edge (Chromium-based) prior to version 128.0.2739.79.",
+  "cause_label": "chromium_heap_buffer_overflow_in_skia_graphics",
+  "source_id": "5eb02e0d-fd93-5c68-aed0-2b7aef4278ea",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5eb02e0d-fd93-5c68-aed0-2b7aef4278ea"
+  ],
+  "tags": [
+    "CVE-2024-8636",
+    "Microsoft Edge",
+    "Skia",
+    "heap buffer overflow",
+    "memory corruption"
+  ],
+  "node_id": "e0882f3e-5206-4003-8ed8-67895be86224",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

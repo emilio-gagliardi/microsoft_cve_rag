@@ -1,0 +1,20 @@
+{
+  "symptom_label": "updated_admx_templates_affect_edge_policy_settings",
+  "description": "The recent updates to ADMX templates for Microsoft Edge may lead to discrepancies in local or group policy configurations. Administrators may notice that Edge settings are not applying correctly as expected due to these changes. This could result in unexpected behavior in the browser environment, affecting user experience and compliance with organizational policies. If the updated templates are not correctly integrated into the Group Policy Objects (GPOs), it may lead to confusion and mismanagement of Edge settings across devices. It's critical for system admins to ensure that their environment reflects the latest template changes to avoid potential disruptions.",
+  "source_id": "e971767d-4633-54e0-3e22-5fa6935b4572",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e971767d-4633-54e0-3e22-5fa6935b4572"
+  ],
+  "tags": [
+    "ADMX",
+    "Group Policy",
+    "Microsoft Edge",
+    "Policy Management"
+  ],
+  "node_id": "d5408569-9b5e-45b9-a7e5-ce8a39e2e35d",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,20 @@
+{
+  "symptom_label": "insecure_ldap_connections_due_to_missing_tls",
+  "description": "Insecure LDAP connections can lead to significant vulnerabilities within Active Directory environments, particularly for services such as firewalls that fail to implement proper encryption. When TLS is not enabled, sensitive information transmitted over LDAP is at risk of being intercepted. This issue is highlighted in KB-4520412, which outlines the specifications and requirements for LDAP channel binding and signing in Windows. It is essential for system administrators to ensure all LDAP configurations include options to enforce TLS to protect user authentication and directory access. Regular audits should be conducted to identify services using insecure LDAP and to confirm adherence to Microsoft\u2019s updated encryption guidelines.",
+  "source_id": "6cc4df45-ca9c-e388-7f5d-dde9c30589d6",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "6cc4df45-ca9c-e388-7f5d-dde9c30589d6"
+  ],
+  "tags": [
+    "ldap",
+    "tls",
+    "active_directory",
+    "encryption"
+  ],
+  "node_id": "98e1ad80-9925-41c0-845e-7dcc3195b893",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

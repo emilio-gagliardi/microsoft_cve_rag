@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo properly implement LDAP over TLS with a domain controller:\n\n1. Connect using either port 389 for STARTTLS or port 636 for LDAPS targeting your domain (e.g., contoso.local).\n2. Verify the TLS connection by using the OpenSSL tool to check which certificate is presented during the connection.\n3. Compare the presented certificate with your domain controller's certificates to ensure they match and are valid.\n\n**Details**:\n- Using the actual domain for connection ensures that the server certificate's SAN (Subject Alternative Name) matches correctly, which is crucial for TLS encryption.\n- Successful implementation can vary based on the connection method employed, with using the domain name usually yielding the best results.\n- The OpenSSL tool mentioned is free and can assist in troubleshooting certificate issues by providing insight into the negotiation process during the TLS connection. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure that OpenSSL is installed and available on your system. \n- Validate that your domain controller's certificates are correctly configured and trusted by your client systems.",
+  "source_id": "a5948fc4-ea9b-3d25-1a70-42d0b8701e92",
+  "source_type": "PatchManagementPost",
+  "fix_label": "implement_ldaps_tls_with_openssl_verification",
+  "tags": [
+    "OpenSSL",
+    "LDAP",
+    "TLS",
+    "LDAPS"
+  ],
+  "node_id": "7ac88877-b4b1-453a-8b57-5845d0cd9981",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "a5948fc4-ea9b-3d25-1a70-42d0b8701e92"
+  ]
+}

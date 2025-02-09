@@ -1,0 +1,16 @@
+{
+  "symptom_label": "ElevationOfPrivilegeInCommonLogFileSystem",
+  "description": "End users may experience unexpected behavior due to elevated privileges within the Windows Common Log File System Driver, which can result in unauthorized access or modification of files. This symptom is particularly relevant for build numbers including 10.0.22631.2715, 10.0.19043.3693, and 10.0.10240.20308 across various Windows 10 and Windows 11 versions. For detailed remediation steps and additional information, refer to KB articles KB5032199, KB5032192, KB5032190, and KB5032189, as well as the update package links provided by Microsoft.",
+  "source_id": "b6e6baf4-977b-8d5f-0167-99bc68fb9c50",
+  "source_type": "MSRCPost",
+  "tags": [
+    "elevation of privilege",
+    "windows drivers",
+    "common log"
+  ],
+  "node_id": "e5d68668-2450-4040-ba49-341e24f0972a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

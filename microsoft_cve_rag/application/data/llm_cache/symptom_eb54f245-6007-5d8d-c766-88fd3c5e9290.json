@@ -1,0 +1,16 @@
+{
+  "symptom_label": "Windows10ActivationFailsAfterUpgradeFromWindows7",
+  "description": "Some devices previously running Windows 7 or 8 and upgraded to Windows 10 are experiencing activation issues, particularly after upgrading to versions V1607 or V22H2. These issues have arisen specifically for devices that did not previously undergo the free upgrade before the enforcement of new policies in September. This situation has led some users to invest in new hardware rather than resolving the activation problems on their older machines.",
+  "source_id": "eb54f245-6007-5d8d-c766-88fd3c5e9290",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows 10",
+    "Activation Issue",
+    "Upgrade Problems"
+  ],
+  "node_id": "ac14398f-40fe-48cb-a875-c9025cac3c59",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

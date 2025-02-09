@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Network Address Translation (NAT) Denial of Service vulnerability (CVE-2024-21344):\n\n1. Download the appropriate update package for your Windows version from the official Microsoft update catalog using the links provided below.\n2. Install the updates relevant to your system build.\n3. Restart your system to complete the installation process and ensure the changes take effect.\n\n**Details**:\n- The update resolves issues related to denial of service that could arise from an out-of-bounds read vulnerability in the NAT service.\n- Ensure that your system is running one of the affected builds mentioned to apply the updates.\n\n**Update Packages Links**:\n- For Windows 10 Version 22H2: [KB5034763](https://catalog.update.microsoft.com/Search.aspx?q=KB5034763)\n- For Windows 10 Version 21H2: [KB5034763](https://catalog.update.microsoft.com/Search.aspx?q=KB5034763)\n- For Windows 11 Version 22H2: [KB5034765](https://catalog.update.microsoft.com/Search.aspx?q=KB5034765)\n- For Windows 11 Version 21H2: [KB5034766](https://catalog.update.microsoft.com/Search.aspx?q=KB5034766)\n- For Windows 10 for x64-based Systems: [KB5034774](https://catalog.update.microsoft.com/Search.aspx?q=KB5034774)\n\n**Preconditions**:\n- Ensure your system backups are in place before proceeding with the updates.\n\n",
+  "source_id": "5165af76-9ba2-01d4-2ebe-f082255b5e81",
+  "source_type": "MSRCPost",
+  "fix_label": "address_national_address_translation_nat_dos_cve202421344",
+  "tags": [
+    "KB5034763",
+    "Windows10",
+    "Windows11",
+    "CVE202421344"
+  ],
+  "node_id": "5fc8f3de-689a-4b15-84bc-8fa3709e35da",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "5165af76-9ba2-01d4-2ebe-f082255b5e81"
+  ]
+}

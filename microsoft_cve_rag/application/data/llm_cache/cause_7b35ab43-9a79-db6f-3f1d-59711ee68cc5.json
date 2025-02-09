@@ -1,0 +1,22 @@
+{
+  "description": "The underlying cause of the performance issues experienced in the new version of Outlook appears to be linked to a bug that was identified and resolved shortly after being reported. This issue not only affected Outlook but also had symptoms related to Bing search functionality, indicating that there may have been broader systemic issues at play during the time of the incident. The confirmation from Microsoft underscores the recognition of the problem and the subsequent efforts to address it effectively, providing a timely resolution. Although no specific KB Article IDs or build numbers were mentioned in the post, the prompt response from Microsoft likely leveraged their internal processes to rapidly diagnose and correct the issues encountered in the affected components. System administrators should remain vigilant for similar patterns in user feedback, as they can indicate transient issues that may impact productivity and require immediate attention.",
+  "source_id": "7b35ab43-9a79-db6f-3f1d-59711ee68cc5",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "7b35ab43-9a79-db6f-3f1d-59711ee68cc5"
+  ],
+  "cause_label": "performance_issue_due_to_undefined_bug",
+  "tags": [
+    "Outlook",
+    "performance",
+    "Microsoft",
+    "bug",
+    "issue"
+  ],
+  "node_id": "ef804c51-04dd-4079-9edb-56516ecdbe74",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "The Windows kernel contains an untrusted search path flaw that allows elevation of privilege, enabling malicious users to exploit this condition to gain unauthorized access or control within the system.",
+  "cause_label": "windows_kernel_untrusted_search_path_elevation",
+  "source_id": "ab87ee91-51a9-4689-a362-ebea9c41d63e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ab87ee91-51a9-4689-a362-ebea9c41d63e"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Privilege Escalation",
+    "CVE-2024-20693"
+  ],
+  "node_id": "6b04e61e-849f-45c6-86b7-8c2740ba6322",
+  "node_label": "Cause",
+  "reliability": 85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

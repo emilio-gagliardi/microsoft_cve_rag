@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the issue of the password dialog box not appearing during sign-in:\n\n1. After entering your email address and clicking the connect button, press any key on the keyboard immediately after the initial ",
+  "blip": "\n2. This will prompt the password dialog box to display normally, allowing for successful sign-in.\n\n**Details**:\nThis workaround seems to mitigate a timing issue where the password dialog does not appear as expected. Continuously pressing a key may help stabilize the interaction, especially in certain video configurations. (LLM Synthesized)\n",
+  "source_id": "adb97890-0f3e-549c-4ce5-e664c71dad4c",
+  "source_type": "PatchManagementPost",
+  "fix_label": "workaround_password_dialog_issue_sign_in",
+  "tags": [
+    "Office365",
+    "AuthenticationIssues",
+    "LLM Synthesized"
+  ],
+  "node_id": "2fed1fe5-43fb-4508-9777-02966088e059",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "adb97890-0f3e-549c-4ce5-e664c71dad4c"
+  ],
+  "verification_status": "unverified"
+}

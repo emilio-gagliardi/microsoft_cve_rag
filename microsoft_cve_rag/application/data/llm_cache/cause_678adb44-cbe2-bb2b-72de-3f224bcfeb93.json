@@ -1,0 +1,17 @@
+{
+  "description": "The root cause of CVE-2023-44487 is a flaw in how the HTTP/2 protocol is implemented in certain Windows operating systems, specifically those listed in the context. It allows for a rapid reset attack, which can lead to a denial of service by exploiting the manner in which connections are handled through TCP. This vulnerability was found in Windows 10 (various builds including 10.0.19044.3570, 10.0.22000.2538) and Windows 11 (notably build 10.0.22621.2428). The suggested mitigation involves disabling the HTTP/2 protocol on affected systems through registry modifications, which indicates a flaw that can be traced back to the HTTP service configurations on these systems. Understanding this underlying configuration issue is essential for effective remediation and prevention of the denial of service described.",
+  "cause_label": "HTTP2ProtocolImplementationFlawEnablesDoSAttack",
+  "source_id": "678adb44-cbe2-bb2b-72de-3f224bcfeb93",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE-2023-44487",
+    "HTTP/2",
+    "Denial of Service",
+    "Windows"
+  ],
+  "node_id": "8d8f35a5-239e-4ddb-919f-d7f126103acd",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

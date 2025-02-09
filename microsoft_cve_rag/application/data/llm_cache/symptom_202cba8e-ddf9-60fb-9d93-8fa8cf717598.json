@@ -1,0 +1,17 @@
+{
+  "symptom_label": "OlderOEMsEncounterUpdateInstallPartitionIssues",
+  "description": "Older OEM systems experiencing issues with the installation of the WinRE update (KB-5028997) are likely related to partition resizing complications. For systems with BitLocker enabled, administrators must follow complex instructions to manually resize partitions to accommodate the update, which may lead to difficulties in maintaining system integrity and recovery options. These problems could hinder the ability to receive important patches, leaving systems vulnerable to potential issues from unpatched software.",
+  "source_id": "202cba8e-ddf9-60fb-9d93-8fa8cf717598",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "BitLocker",
+    "OEM",
+    "partitionResizing",
+    "updateInstallation"
+  ],
+  "node_id": "f32c14c2-4029-4ae7-acb0-6e7f5d9685e4",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Microsoft Edge (Chromium-based) spoofing vulnerability (CVE-2024-30058), ensure that you are running the updated version of Microsoft Edge.\n\n1. Check your current version of Microsoft Edge. You can do this by navigating to Settings > About Microsoft Edge.\n\n2. If your current version is older than 126.0.2592.56, download the latest update immediately to patch the vulnerability.\n\n3. Access the Microsoft Update Catalog to download the KB30058 update directly if the auto-update doesn't apply it:\n   - [Download KB30058](https://catalog.update.microsoft.com/Search.aspx?q=KB30058).\n\n4. Restart Microsoft Edge to ensure all changes take effect.\n\n**Details**:\nThis update addresses the spoofing vulnerability identified in Microsoft Edge, which could allow attackers to impersonate an authentic resource.\n\n**Preconditions**:\n- Ensure Microsoft Edge is running on your system before applying the update.\n- Backup data if necessary prior to proceeding with the update installation.",
+  "source_id": "20d8c172-a065-f973-1dc6-76c64fbc2069",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_update_microsoft_edge_cve202430058",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE202430058",
+    "KB30058",
+    "Spoofing"
+  ],
+  "node_id": "5ad108fa-056e-4b9d-b659-0fc7b55226b0",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Fix",
+  "source_ids": [
+    "20d8c172-a065-f973-1dc6-76c64fbc2069"
+  ],
+  "verification_status": "unverified"
+}

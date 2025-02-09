@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause identified is an unsafe deserialization method used by the Veeam Service Provider Console (VSPC) during communication between the management agent and its components. This issue allows for the potential execution of remote code on the VSPC server under specific conditions, which poses significant security risks. This vulnerability has been addressed in later builds, specifically in Veeam Service Provider Console version 7.0.0.18899 and version 8.0.0.19236. Administrators are strongly advised to upgrade to these versions to mitigate the risk associated with this unsafe deserialization procedure. The detailed nature of this issue highlights the importance of secure coding practices to prevent exploitation in similar software components.",
+  "source_id": "19ff512c-68b8-cc68-a281-339883050882",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "19ff512c-68b8-cc68-a281-339883050882"
+  ],
+  "cause_label": "unsafe_deserialization_method_in_vspc",
+  "tags": [
+    "veeam",
+    "service provider console",
+    "remote code execution",
+    "unsafe deserialization"
+  ],
+  "node_id": "ef7897fc-3a33-404b-a974-64070b6214f8",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

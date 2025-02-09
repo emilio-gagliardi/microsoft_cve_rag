@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_system_privileges_can_be_elevated",
+  "description": "After deploying the security updates associated with CVE-2024-38242, users may notice unauthorized elevation of privileges occurring within affected builds of Windows. This can manifest as unexpected access gains to system-level resources for standard users, particularly in systems running Windows 10 and Windows 11 across various versions, specifically those with build numbers 10.0.22621.4169, 10.0.22000.3197, and others. The acknowledged KB Articles including KB5043080 and KB5043067 point to requirements for users to ensure updates are applied, as failure to do so may leave systems vulnerable to exploit. Ultimately, this can lead to unauthorized modifications or access to sensitive information and resources, endangering overall system integrity.",
+  "source_id": "470a6f88-89e2-c5d3-6d7e-fe9ae13edbb0",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "470a6f88-89e2-c5d3-6d7e-fe9ae13edbb0"
+  ],
+  "tags": [
+    "Windows 10",
+    "Windows 11",
+    "CVE-2024-38242",
+    "elevation of privilege"
+  ],
+  "node_id": "e7953cb0-531b-43eb-b9ab-0492944a6a45",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

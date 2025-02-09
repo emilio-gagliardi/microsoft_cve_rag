@@ -1,0 +1,21 @@
+{
+  "description": "The vulnerability arises from sensitive data being stored in improperly locked memory within the Windows Ancillary Function Driver for Winsock, which allows local attackers to exploit the vulnerability for elevation of privilege.",
+  "cause_label": "windows_ancillary_function_driver_winsock_memory_locking_issue",
+  "source_id": "e1bb5e13-8d4d-4601-beb1-22529d939c46",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e1bb5e13-8d4d-4601-beb1-22529d939c46"
+  ],
+  "tags": [
+    "CVE-2024-43563",
+    "Windows",
+    "Elevation of Privilege",
+    "Memory Management"
+  ],
+  "node_id": "63c1413c-dbb5-4595-803d-1bed4bcd79bf",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

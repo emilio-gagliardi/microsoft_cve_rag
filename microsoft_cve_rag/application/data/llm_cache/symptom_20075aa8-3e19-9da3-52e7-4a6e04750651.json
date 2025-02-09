@@ -1,0 +1,20 @@
+{
+  "symptom_label": "remote_code_execution_vulnerability_leads_to_exploitation",
+  "description": "End users experience the risk of remote code execution when connected to a malicious SQL database via their SQL client application. Users can unknowingly connect and interact with an attacker-controlled database, leading to the execution of arbitrary code in the context of their application. This behavior poses significant risks for user data, with the potential for complete loss of confidentiality and integrity, and may render critical applications unusable. The affected builds include Windows 10 Version 22H2 (10.0.19045.4046), Windows 11 Version 21H2 (10.0.22000.2777), and various other Windows Server versions. Users are advised to reference KB-5034763 for mitigation steps.",
+  "source_id": "20075aa8-3e19-9da3-52e7-4a6e04750651",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "20075aa8-3e19-9da3-52e7-4a6e04750651"
+  ],
+  "tags": [
+    "Windows Server",
+    "Remote Code Execution",
+    "SQL Server",
+    "Endpoint Security"
+  ],
+  "node_id": "be611ff8-8a23-43dc-9346-6391f09cff0e",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

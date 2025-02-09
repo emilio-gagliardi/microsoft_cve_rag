@@ -1,0 +1,20 @@
+{
+  "symptom_label": "UniversalDriversFailFeatureCompleteness",
+  "description": "The implementation of universal printer drivers may lead to issues with feature completeness across different printer models. This inconsistency can manifest as certain functionalities being unavailable or not performing as intended when users interact with the affected printers. Such limitations can severely impact end-user productivity, especially in environments that rely on specific printer capabilities tailored to unique operational needs.",
+  "source_id": "9f44af36-9275-82e4-7a91-eb96ed01910b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "9f44af36-9275-82e4-7a91-eb96ed01910b"
+  ],
+  "tags": [
+    "printer",
+    "universal drivers",
+    "feature completeness",
+    "end user experience"
+  ],
+  "node_id": "84fac61e-ad17-4da5-8abb-9057272db291",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

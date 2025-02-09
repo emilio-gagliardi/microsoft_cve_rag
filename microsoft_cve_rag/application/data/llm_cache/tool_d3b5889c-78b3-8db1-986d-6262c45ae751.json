@@ -1,0 +1,22 @@
+{
+  "tool_label": "revamped_templates_customization_tool",
+  "description": "**Tool Overview**:\n\nThe revamped templates tool is designed to enhance user experience by providing customizable templates that allow for seamless transitions between different modules. This tool empowers users to modify and adjust templates in a more efficient manner, facilitating quicker adjustments and improved workflows.\n\n**Details**:\n\n1. **Customization**: Users can create and modify templates tailored to specific needs, leading to better content relevance and efficiency.\n2. **Flexibility**: The tool allows moving between modules in any order, making it simple to adapt to varying project requirements.\n3. **Time-Saving**: By streamlining the template customization process, users can save time and reduce friction in their workflows, ensuring they can focus on core tasks.\n4. **User-Friendly Interface**: Designed with ease of use in mind, the tool features an intuitive interface that makes it accessible to users of all skill levels.\n5. **Integration**: Works alongside other application features, improving overall functionality and user satisfaction.\n",
+  "source_id": "d3b5889c-78b3-8db1-986d-6262c45ae751",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d3b5889c-78b3-8db1-986d-6262c45ae751"
+  ],
+  "source_url": "N/A",
+  "tool_url": "N/A",
+  "tags": [
+    "templates",
+    "customization",
+    "workflow",
+    "user interface"
+  ],
+  "node_id": "2ceec347-f761-4a30-920d-46162725dc18",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

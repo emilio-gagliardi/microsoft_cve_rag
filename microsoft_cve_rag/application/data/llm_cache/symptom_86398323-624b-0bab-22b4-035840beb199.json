@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_server_2022_auto_upgrading_to_2025",
+  "description": "Windows Server 2022 instances are unexpectedly initiating an auto-upgrade process to Windows Server 2025 after the deployment of a security update, specifically KB5044284. This behavior not only leads to unauthorized upgrades but also results in licensing issues, as the servers may become unlicensed post-upgrade. Administrators should be particularly vigilant, as this update has been linked to security properties yet displays within Windows 11 KB information, creating confusion. Affected systems may not even display KB5044284 in update histories, which complicates the troubleshooting process. System administrators are advised to monitor server updates closely to prevent unexpected upgrades and resulting compliance issues.",
+  "source_id": "86398323-624b-0bab-22b4-035840beb199",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "86398323-624b-0bab-22b4-035840beb199"
+  ],
+  "tags": [
+    "auto upgrade",
+    "Windows Server",
+    "KB5044284",
+    "licensing issues"
+  ],
+  "node_id": "0f077677-18cc-4d11-ac35-737a053be044",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_server_crashes_reboot_after_updates",
+  "description": "An emergency update was released due to critical issues identified in Windows Server that cause domain controllers to crash and reboot unexpectedly. This problem is notably associated with the out-of-band release of build 17763.5579, as documented in KB-5037425. The updates have been reported to affect system stability and availability, impacting server operations crucial for enterprise environments. Administrators are advised to apply the emergency fix to mitigate the risk of server downtime and operational disruptions. Regular monitoring after the update is recommended to ensure system performance returns to normal.",
+  "source_id": "3d1d9b8d-d7ba-ce7f-55dc-d8715e0dc61b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "3d1d9b8d-d7ba-ce7f-55dc-d8715e0dc61b"
+  ],
+  "tags": [
+    "windows_server",
+    "updates",
+    "domain_controller",
+    "crashes"
+  ],
+  "node_id": "3094560b-b5dd-4654-bb8c-3860c0d50731",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "critical",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo ensure Windows can effectively manage future updates with larger recovery images, it is recommended to properly configure the recovery tools partition on the hard drive.\n\n1. Place the recovery tools partition immediately after the Windows partition.\n2. This configuration allows Windows to modify and recreate the partition as needed for future releases and larger recovery images.\n\n**Details**:\n- By maintaining this partition immediately after the Windows partition, the recovery tools can operate more effectively without requiring manual adjustments during updates. This ensures a seamless update process and reduces potential downtime. (LLM Synthesized)",
+  "source_id": "344c7e4d-7add-1f52-a005-01e26625b40b",
+  "source_type": "PatchManagementPost",
+  "fix_label": "ConfigureRecoveryPartitionForWindowsUpdates",
+  "tags": [
+    "RecoveryPartition",
+    "Windows11",
+    "Configuration",
+    "LLM Synthesized"
+  ],
+  "node_id": "c283e776-ece2-4994-8ed7-13062ae8de3d",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

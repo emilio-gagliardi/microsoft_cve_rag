@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the inappropriate implementation in FEDCM identified by CVE-2024-7976 in Chromium, Microsoft Edge users should ensure they are running the latest version of the browser:\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) at the top right corner.\n3. Navigate to **Help and Feedback**.\n4. Click on **About Microsoft Edge** to view the current version.\n5. If your version is below 128.0.2739.42, update your browser to the latest version available.\n\n**Details**:\n- The fix is released as part of Microsoft Edge version 128.0.2739.42.\n- This update addresses the cross-site scripting vulnerability allowing remote attackers to perform UI spoofing through crafted HTML pages.\n- For further details, refer to Google's Chromium release notes. This update ensures that Microsoft Edge (Chromium-based) is no longer vulnerable to the issues associated with this CVE.",
+  "source_id": "7a3ebc87-ce00-2e72-41ee-e411b8d56936",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_128_0_2739_42",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20247976",
+    "Chromium",
+    "CrossSiteScripting"
+  ],
+  "node_id": "d5b38449-ce8f-41e5-b792-e6ff4245f0a7",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "7a3ebc87-ce00-2e72-41ee-e411b8d56936"
+  ],
+  "verification_status": "unverified"
+}

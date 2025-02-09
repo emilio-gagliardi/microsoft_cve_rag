@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address issues with installing updates on a server, you can manually install the update by following these steps:\n\n1. Download the required update directly from the Microsoft Update Catalog.\n2. Run the downloaded patch on the server directly to install it.\n\nAfter the manual installation, all subsequent updates via WSUS or other methods should work normally again.\n\n**Details**:\n- Manually installing the update can resolve issues that prevent standard installation methods from succeeding. This approach has proven effective in ensuring that future updates are processed correctly after the manual intervention. (LLM Synthesized)\n",
+  "source_id": "8a891afd-8db5-5e62-99a5-6d427b6082de",
+  "source_type": "PatchManagementPost",
+  "fix_label": "manually_install_update_server_via_ms_catalog",
+  "tags": [
+    "WindowsServer",
+    "ManualUpdate",
+    "MSCatalog",
+    "LLM Synthesized"
+  ],
+  "node_id": "81b0e26d-9ec8-4fbc-b4f3-ac13140f7c5f",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "8a891afd-8db5-5e62-99a5-6d427b6082de"
+  ]
+}

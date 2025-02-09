@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve installation errors related to a recovery partition on a GPT-based disk:\n\n1. Test the recovery partition by using appropriate PowerShell commands to analyze its current size and status.\n2. Resize the recovery partition as necessary to ensure that it meets the requirements for successful installations.\n\n**Details**:\n- Ensure that you have adequate privileges to perform these actions and create backups before resizing partitions. Understanding the layout of your disk is crucial to avoid data loss. (LLM Synthesized)\n",
+  "source_id": "aaba0ceb-8f8e-180e-e11d-d5874002b32e",
+  "source_type": "PatchManagementPost",
+  "fix_label": "ResizeRecoveryPartitionGPTDiskForInstallSuccess",
+  "tags": [
+    "RecoveryPartition",
+    "GPTDisk",
+    "InstallationIssues",
+    "LLM Synthesized"
+  ],
+  "node_id": "1f0f2236-8fcb-4f29-9f82-4239ca4f352b",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

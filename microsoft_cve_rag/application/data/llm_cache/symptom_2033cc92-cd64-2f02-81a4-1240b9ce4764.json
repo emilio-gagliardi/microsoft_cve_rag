@@ -1,0 +1,21 @@
+{
+  "symptom_label": "thumb_drive_boot_issue_without_mitigation_installed",
+  "description": "Devices lacking the necessary mitigations cannot boot from updated thumb drives intended for Windows Preinstallation Environment (WinPE). The user has reported that after running specific commands to create bootable media from a device with mitigations, the thumb drive fails to initiate the boot sequence when used on incompatible hardware. This situation necessitates maintaining separate bootable media for systems with and without the applied mitigations, complicating deployment scenarios. The described behavior can affect any Windows environment relying on external boot media created for installation or recovery purposes. End users must ensure their systems are properly configured to avoid disruptions during critical operations such as system recovery and installation.",
+  "source_id": "2033cc92-cd64-2f02-81a4-1240b9ce4764",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "2033cc92-cd64-2f02-81a4-1240b9ce4764"
+  ],
+  "tags": [
+    "boot issues",
+    "Windows PE",
+    "mitigation",
+    "external media"
+  ],
+  "node_id": "85d220c4-ca9f-40a4-b4af-78003d3953da",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

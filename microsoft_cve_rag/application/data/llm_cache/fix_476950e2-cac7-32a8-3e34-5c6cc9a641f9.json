@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the information disclosure vulnerability in the Windows Package Library Manager (CVE-2024-38203), apply the relevant updates for your system as follows:\n\n1. Identify the version of Windows you are running to choose the appropriate KB Article.\n\n2. Download and install the necessary updates from the official Microsoft Update Catalog using the links provided below:\n   - [KB5046617](https://catalog.update.microsoft.com/Search.aspx?q=KB5046617)\n   - [KB5046633](https://catalog.update.microsoft.com/Search.aspx?q=KB5046633)\n   - [KB5046613](https://catalog.update.microsoft.com/Search.aspx?q=KB5046613)\n   - [KB5046665](https://catalog.update.microsoft.com/Search.aspx?q=KB5046665)\n\n3. After installation, restart your system to ensure the changes are applied.\n\n**Details**:\nThe updates will address the protection mechanism failure identified in the CVE report, significantly reducing the risk of information disclosure. Ensure your system meets the build requirements for the updates you're applying.\n\n**Preconditions**:\n- Ensure your system is updated to the correct version before applying the patches.\n- Backup critical data prior to installation of updates.",
+  "source_id": "476950e2-cac7-32a8-3e34-5c6cc9a641f9",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_cumulative_updates_for_windows_package_library_manager",
+  "tags": [
+    "KB5046617",
+    "Windows11",
+    "InformationDisclosure",
+    "LLM Synthesized"
+  ],
+  "node_id": "b599ae66-be68-4b39-9f06-057853c83e7d",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "476950e2-cac7-32a8-3e34-5c6cc9a641f9"
+  ],
+  "verification_status": "unverified"
+}

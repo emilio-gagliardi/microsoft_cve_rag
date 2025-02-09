@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability in Microsoft Office (CVE-2024-30101):\n\n1. Ensure your Office suite is updated to the latest version available through Windows Update or the Microsoft Update catalog.\n2. For manual updates, navigate to the Microsoft Update catalog and search for the latest Office security updates. \n\n**Details**:\n- This update addresses the use-after-free vulnerabilities in Microsoft Office, preventing potential exploitation via crafted documents. For further information, please refer to the Microsoft Security Update Guide at: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30101.\n\n**Preconditions**:\n- Administrative rights may be required to apply updates.\n- Ensure to back up any critical documents before proceeding with the update.",
+  "source_id": "4d0d2273-edd7-f804-a231-f73ac22ea625",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_office_cve202430101",
+  "tags": [
+    "MicrosoftOffice",
+    "CVE202430101",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "51190f69-853d-4444-8102-ea4e784372d6",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "4d0d2273-edd7-f804-a231-f73ac22ea625"
+  ],
+  "verification_status": "unverified"
+}

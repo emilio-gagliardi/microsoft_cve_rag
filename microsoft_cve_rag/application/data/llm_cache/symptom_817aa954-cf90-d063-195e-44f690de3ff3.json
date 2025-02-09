@@ -1,0 +1,21 @@
+{
+  "symptom_label": "localization_issue_in_windows_server_update",
+  "description": "The issue pertains to a localization problem with the latest Windows Server update, documented in KB5037765, released on May 16th. Users have reported a lack of clarity around the specific changes introduced by this update. This ambiguity can lead to confusion among administrators, particularly those managing multilingual environments. The localization issue may impact system operations, affecting user experience and the overall performance of tasks tied to local language settings. A thorough understanding of such updates is critical for maintaining operational efficiency and ensuring proper regional compliance in server operations.",
+  "source_id": "817aa954-cf90-d063-195e-44f690de3ff3",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "817aa954-cf90-d063-195e-44f690de3ff3"
+  ],
+  "tags": [
+    "localization issue",
+    "windows server",
+    "KB5037765",
+    "server operation"
+  ],
+  "node_id": "638d1238-129d-489a-b6d0-59a3b54e1b20",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

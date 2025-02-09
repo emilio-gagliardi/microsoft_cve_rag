@@ -1,0 +1,18 @@
+{
+  "symptom_label": "InformationDisclosureInWindowsThemes",
+  "description": "The exploitation of CVE-2024-20691 could lead to unauthorized access to initialized or uninitialized memory in the process heap, resulting in the inadvertent disclosure of sensitive information. Users on Windows 10 and Windows Server 2016 systems may notice unexpected behavior when accessing certain themes, potentially exposing personal or confidential data. Affected systems include build numbers 10.0.19044.3930, 10.0.19045.3930, 10.0.22000.2713, and 10.0.22631.3007, which are implicated during the utilization of theme features. This symptom emphasizes the importance of installing relevant updates, such as KB-5034134, KB-5034121, and KB-5034122, to mitigate the risk of data exposure while enhancing overall security posture.",
+  "source_id": "c000e8fc-557a-c032-b37d-1a6852480f30",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Windows",
+    "Themes",
+    "Information Disclosure",
+    "KB Articles",
+    "Updates"
+  ],
+  "node_id": "b0304102-896a-4b53-97aa-3acaed1bae39",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

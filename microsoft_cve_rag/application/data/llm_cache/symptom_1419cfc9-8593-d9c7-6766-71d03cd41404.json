@@ -1,0 +1,21 @@
+{
+  "symptom_label": "outlook_appointments_disappear_in_cached_mode",
+  "description": "Users may experience issues with Outlook where appointments created in Cached Mode disappear without warning. This seems particularly problematic when interacting with Office 365 groups, as removal of Cached Mode leads to these groups not being displayed. The issue was observed on a client PC where the user had multiple Outlook-related problems, including the erratic behavior of appointments depending on whether they were created using Outlook Web Access (OWA) or the desktop application. The resolution involved disabling Cached Mode, which had side effects, thus necessitating the uninstallation and reinstallation of Office to restore functionality. Users should monitor their appointment visibility, especially when switching between Cached Mode and OWA, as this seems to directly affect the stability of calendar entries.",
+  "source_id": "1419cfc9-8593-d9c7-6766-71d03cd41404",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "1419cfc9-8593-d9c7-6766-71d03cd41404"
+  ],
+  "tags": [
+    "Outlook",
+    "Cached Mode",
+    "Office 365",
+    "appointment management"
+  ],
+  "node_id": "8d97ebdd-8bc0-434f-a9d4-b4892f5c735c",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

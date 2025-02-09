@@ -1,0 +1,22 @@
+{
+  "description": "The underlying cause for the issue outlined in this post relates to the update process for the Common Vulnerability and Exposure (CVE) referenced, specifically CVE-2024-43590. Initially, the publication of the CVE listed an incorrect version of the affected software, which could lead to potential misconfiguration during deployments. The current version, 14.40.33816, has been rectified and is now available for download through Microsoft links. This discrepancy emphasizes the importance of keeping track of the latest software builds to ensure that all mitigations align correctly with patches. Furthermore, failure to utilize the corrected download could leave systems vulnerable, reinforcing the necessity of vigilant patch management practices in enterprise environments.",
+  "source_id": "96e80ff5-31ce-2d30-92ec-d45a882911b3",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "96e80ff5-31ce-2d30-92ec-d45a882911b3"
+  ],
+  "cause_label": "incorrect_cve_publication_updates_software_version",
+  "tags": [
+    "CVE",
+    "Patch Management",
+    "Software Update",
+    "Configuration",
+    "Microsoft"
+  ],
+  "node_id": "f6c85d53-b356-4042-96b1-0d09eb0c5a21",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,15 @@
+{
+  "description": "The core issue identified is related to memory leaks in the Local Security Authority Subsystem Service (LSASS) affecting domain controllers. This problem can significantly hamper system performance and security as LSASS is crucial for enforcing security policies on Windows systems. The new out-of-band (OOB) update aims to resolve this issue effectively, preventing the degradation of system resources that can lead to operational challenges. As the update addresses LSASS memory management, it is critical for administrators managing Windows Server environments, particularly in enterprise setups, to apply this patch promptly. Although specific KB Article IDs were not mentioned in the provided context, patch implementation should be made a priority to mitigate risks associated with the memory leak in LSASS.",
+  "source_id": "fba4e309-3491-74f3-ddf4-09af50cc245a",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "fba4e309-3491-74f3-ddf4-09af50cc245a"
+  ],
+  "cause_label": "memory_leak_in_lsass_affecting_performance",
+  "tags": [],
+  "node_id": "2f01a5b1-1720-4da7-a88c-31b6342b37e4",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

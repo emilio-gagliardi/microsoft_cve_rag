@@ -1,0 +1,17 @@
+{
+  "symptom_label": "CruiseControlFailsToRespondAfterFirmwareUpdate",
+  "description": "The 2016 RAM 1500 is experiencing critical issues with its cruise control feature after two firmware updates. Initially, the first update failed to resolve the underlying defect, resulting in system crashes when the cancel button was held. The second update, while eliminating crashes, led the cruise control system to enter an unresponsive loop and not respond to the on/off button, necessitating a system reset by parking and waiting for residual power to dissipate. This symptom highlights significant malfunctions in the firmware affecting the vehicle's driver assistance features.",
+  "source_id": "24370ed1-5b11-38f8-c976-f16a5c5c55eb",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Cruise Control Issues",
+    "Firmware Update Failure",
+    "Vehicle System Crash",
+    "Unresponsive Features"
+  ],
+  "node_id": "4992467d-0d51-4ecb-a060-d041b2ea5b26",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

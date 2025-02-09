@@ -1,0 +1,23 @@
+{
+  "tool_label": "create_partition_primary_line_in_windows",
+  "description": "**Tool Overview**:\n\nA command to create a primary partition in Windows, specifically for Master Boot Record (MBR) configurations. This process is essential for managing disk partitions, especially when dealing with system repairs or setups.\n\n**Details**:\n\n1. The command should be executed from a disk management tool or a command prompt with administrative privileges.\n2. It focuses on MBR, which is important as it differs from GUID Partition Table (GPT).\n3. Users must be cautious with this command to avoid data loss.\n4. This command is typically tied to KB 5028997, so checking that documentation may clarify its use.\n5. Visual aids would enhance understanding; thus, referencing the KB article might provide clearer guidance for users navigating this process, especially in identifying the correct partition ID.\n",
+  "source_id": "db05b61b-17e3-94b4-e56e-1967bdffcd29",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "db05b61b-17e3-94b4-e56e-1967bdffcd29"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://support.microsoft.com/en-us/help/5028997/kb5028997",
+  "tags": [
+    "disk management",
+    "command line",
+    "partitioning",
+    "LLM Synthesized"
+  ],
+  "node_id": "0b1398a3-635d-4cd8-bbb7-37883e9cfbdb",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "cumulative_update_installation_issues_for_net_framework",
+  "description": "The installation process for cumulative updates (CUs) for .NET Framework versions 3.5, 4.8, and 4.8.1 on Windows 10 version 22H2 is encountering issues where the November CU does not supersede the October CU. Notably, the individual cumulative update identified as KB5044020 is not appearing as applicable during installation, indicating potential oversight in the update's design or problems with dependency resolution. This situation leads to confusion among system administrators regarding which updates should be applied and may result in incomplete patching of critical components. Furthermore, there are indications that some fixes intended for the November CU may not have been included, leading to lingering issues that administrators expect to be resolved. The existence of a suggested global KB for Windows 10 21H2/22H2 (KB5045936) adds to the complexity, potentially indicating that existing issues from prior months remain relevant for users receiving newer updates.",
+  "source_id": "c221be19-bb66-5124-8e75-79743239eed2",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "c221be19-bb66-5124-8e75-79743239eed2"
+  ],
+  "tags": [
+    "cumulative_update",
+    "net_framework",
+    "windows_10",
+    "installation_issues"
+  ],
+  "node_id": "b357fe83-a6ff-45ca-8e19-b84115caac99",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

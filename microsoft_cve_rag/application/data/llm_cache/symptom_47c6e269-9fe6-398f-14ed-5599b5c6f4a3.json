@@ -1,0 +1,21 @@
+{
+  "symptom_label": "esxi_7_8_zero_day_exploit_unpatched",
+  "description": "Vmware ESXi 7 and 8 may be vulnerable to a significant zero-day exploit that remains unpatched according to the user inquiry. The uncertainty surrounding the availability of patches for these ESXi versions raises concerns about system exposure to potential attacks until updates can be applied. As system administrators lack definitive information on the patched versions, they face challenges in maintaining a secure environment. Additionally, the absence of specific build numbers or KB Article IDs further complicates the situation, leaving many professionals seeking clarity on how to remediate or mitigate risks. Given these vulnerabilities, administrators must explore temporary workarounds while awaiting an official patch release.",
+  "source_id": "47c6e269-9fe6-398f-14ed-5599b5c6f4a3",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "47c6e269-9fe6-398f-14ed-5599b5c6f4a3"
+  ],
+  "tags": [
+    "vmware",
+    "esxi",
+    "zero-day",
+    "patching"
+  ],
+  "node_id": "5c963994-2116-47f2-ad90-780cc92f65cc",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

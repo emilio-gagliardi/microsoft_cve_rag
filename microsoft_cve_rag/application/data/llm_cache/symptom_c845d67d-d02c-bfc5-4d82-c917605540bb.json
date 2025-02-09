@@ -1,0 +1,20 @@
+{
+  "symptom_label": "microsoft_edge_browser_avoids_heap_corruption",
+  "description": "After updating to Microsoft Edge version 122.0.2365.80, users can expect the browser to function without the risks associated with heap corruption previously present in earlier builds. This behavior is significant especially for users who frequently navigate across various websites, as heap-related vulnerabilities could potentially lead to unexpected browser behaviors, including crashes or data leaks. Prior to this update, users might have experienced erratic performance or failure to load content properly due to these vulnerabilities. The update, noted in KB-122.0.2365.80, is crucial for maintaining stable browsing sessions and protecting sensitive user data against exploitation. Overall, the user experience should be noticeably improved post-update, reinforcing confidence in the security and reliability of their browsing activities.",
+  "source_id": "c845d67d-d02c-bfc5-4d82-c917605540bb",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c845d67d-d02c-bfc5-4d82-c917605540bb"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "heap corruption",
+    "browser update",
+    "security enhancement"
+  ],
+  "node_id": "3dd9dc4d-97cb-499e-81e1-c9776ea564cf",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

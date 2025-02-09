@@ -1,0 +1,22 @@
+{
+  "description": "The underlying cause of the reported errors in the Office applications is related to the 'Optional Connected Experiences' setting. When enabled, this feature can lead to unexpected web error messages such as 404, 504, or 502, even when accessing local files. In contexts where users attempt to browse for files, this can generate issues that appear to be network-related despite being local operations. Additionally, authentication issues are exacerbated when users are signed into multiple tenancies, often requiring a manual clear of cache and cookies to resolve the problem. Turning off the optional connected experiences setting resolves most of these web errors and reduces authentication complications experienced in tools like Excel and Outlook. Such obscure settings can yield resolutions to seemingly unrelated issues, showcasing the intricate behavior of Office applications.",
+  "source_id": "acd7c30b-be1c-41cf-89b1-ff9bb4d0da43",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "acd7c30b-be1c-41cf-89b1-ff9bb4d0da43"
+  ],
+  "cause_label": "optional_connected_experience_setting_issues",
+  "tags": [
+    "Office 365",
+    "Excel",
+    "Outlook",
+    "popup errors",
+    "authentication issues"
+  ],
+  "node_id": "1bf50a96-d676-4c86-8d8d-3e54b06dd317",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

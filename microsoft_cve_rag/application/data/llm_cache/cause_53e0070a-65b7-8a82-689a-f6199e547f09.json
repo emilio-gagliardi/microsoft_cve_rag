@@ -1,0 +1,21 @@
+{
+  "description": "Improper link resolution before file access in Windows Storage, allowing local elevation of privilege through malicious manipulation of file paths.",
+  "cause_label": "windows_storage_improper_link_resolution_before_access",
+  "source_id": "53e0070a-65b7-8a82-689a-f6199e547f09",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "53e0070a-65b7-8a82-689a-f6199e547f09"
+  ],
+  "tags": [
+    "CVE-2024-43551",
+    "Windows",
+    "Elevation of Privilege",
+    "Improper Link Resolution"
+  ],
+  "node_id": "5c215404-eac8-4feb-818b-adedd8be76a2",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

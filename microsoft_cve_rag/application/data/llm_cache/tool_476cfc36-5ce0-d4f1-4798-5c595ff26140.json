@@ -1,0 +1,18 @@
+{
+  "tool_label": "CheckMicrosoftEdgeVersion",
+  "description": "This tool is a process for verifying the currently installed version of the Microsoft Edge browser. Users can initiate it by clicking on the three dots (...) located in the top-right corner of the Edge window. From there, they select 'Help and feedback' and then 'About Microsoft Edge.' This sequence will lead to a page displaying the version information. Staying updated with the latest version of Edge is crucial, especially considering vulnerabilities that may have been addressed in newer releases. Microsoft Edge relies on the underlying Chromium engine, so keeping both updated helps mitigate potential security risks. The detailed explanation for this Tool is provided in the Fix description.",
+  "source_id": "476cfc36-5ce0-d4f1-4798-5c595ff26140",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-6511",
+  "tool_url": "https://support.microsoft.com/en-us/microsoft-edge/update-microsoft-edge-3d0748ef-9d38-4b99-8a54-f40844b9f3db",
+  "tags": [
+    "MicrosoftEdge",
+    "versionCheck",
+    "browserSecurity"
+  ],
+  "node_id": "9ae4c5f1-6a5c-41e0-ad9a-1144725aed89",
+  "node_label": "Tool",
+  "reliability": "0.7",
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

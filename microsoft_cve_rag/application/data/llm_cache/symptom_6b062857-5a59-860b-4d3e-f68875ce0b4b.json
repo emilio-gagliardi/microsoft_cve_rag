@@ -1,0 +1,16 @@
+{
+  "symptom_label": "MicrosoftEdgeCrashesAfterPatchInstallation",
+  "description": "After the installation of Microsoft Edge (Chromium-based) version 119.0.2151.97, users may experience unexpected crashes during web browsing sessions. This issue is particularly noticeable when accessing content that interacts with the affected Chromium components. The updates address CVE-2023-6347 related to a use-after-free vulnerability, ensuring improved stability for the browser in affected build numbers. Refer to KB article available at: KB-119.0.2151.97 for detailed release notes and mitigations.",
+  "source_id": "6b062857-5a59-860b-4d3e-f68875ce0b4b",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "4c4571a2-3b17-4a23-98bf-5ca5594bf4b0",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

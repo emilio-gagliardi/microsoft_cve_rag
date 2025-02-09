@@ -1,0 +1,20 @@
+{
+  "symptom_label": "realtek_audio_driver_requires_dell_optimizer_application",
+  "description": "The Realtek High Definition audio driver on Windows systems necessitates the installation of either Waves MaxxAudio Pro or Dell Optimizer application to achieve full functionality. Without these supporting applications, users may experience degraded audio performance or missing features. This is particularly relevant for Windows 11 environments, where proper audio driver functionality is crucial for optimal user experience. The dependency on these applications should be documented in the deployment notes for systems utilizing the Realtek audio driver. Ensuring these applications are installed can prevent potential audio-related issues post-deployment.",
+  "source_id": "23d897bb-a3fe-2285-8619-3f5d32a5165d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "23d897bb-a3fe-2285-8619-3f5d32a5165d"
+  ],
+  "tags": [
+    "Realtek",
+    "audio driver",
+    "Waves MaxxAudio",
+    "Dell Optimizer"
+  ],
+  "node_id": "8e6ee2cb-c1ae-4863-ba1b-5120a0e1a7bd",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

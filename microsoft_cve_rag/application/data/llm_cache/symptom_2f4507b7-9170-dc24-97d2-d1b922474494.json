@@ -1,0 +1,20 @@
+{
+  "symptom_label": "problems_upgrading_screenconnect_server_installation",
+  "description": "The post indicates an issue encountered when upgrading the ScreenConnect server installation to the latest version. Users may experience difficulties reaching the latest features and improvements if they are stuck on an older version. This can be particularly problematic for installations that are significantly outdated, as they may miss out on crucial updates and enhancements since version 2. The inability to upgrade not only limits functionality but might also expose users to known issues with prior versions. The provided solution involves contacting ConnectWise support for assistance, highlighting that the upgrade path back to version 2 is available.",
+  "source_id": "2f4507b7-9170-dc24-97d2-d1b922474494",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "2f4507b7-9170-dc24-97d2-d1b922474494"
+  ],
+  "tags": [
+    "ScreenConnect",
+    "upgrade issues",
+    "ConnectWise",
+    "server maintenance"
+  ],
+  "node_id": "34d9369e-8fb5-474c-8571-ee818a3c0ba8",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

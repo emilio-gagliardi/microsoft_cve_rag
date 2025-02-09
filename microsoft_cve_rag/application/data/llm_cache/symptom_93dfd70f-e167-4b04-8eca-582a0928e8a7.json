@@ -1,0 +1,21 @@
+{
+  "symptom_label": "information_disclosure_in_windows_codecs_library",
+  "description": "Users may experience unauthorized access to sensitive information as a result of an information disclosure vulnerability in the Microsoft Windows codecs library. This vulnerability allows an attacker to read small portions of heap memory without requiring user interaction, which can lead to the exposure of confidential data on affected systems. Specifically, builds such as 10.0.22631.3880, 10.0.22621.3880, and older versions including 10.0.19045.4651 are impacted, with KB articles KB5040442, KB5040431, and KB5040427 highlighting the necessary updates. Administrators should be aware that successful exploitation can compromise the confidentiality of information, representing a significant security risk for environments where sensitive Data is handled.",
+  "source_id": "93dfd70f-e167-4b04-8eca-582a0928e8a7",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "93dfd70f-e167-4b04-8eca-582a0928e8a7"
+  ],
+  "tags": [
+    "Windows",
+    "Codecs",
+    "Information Disclosure",
+    "Heap Memory Access"
+  ],
+  "node_id": "7a002ffa-49b1-469d-bd6c-d20d700fc4c7",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

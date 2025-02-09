@@ -1,0 +1,15 @@
+﻿[
+  {
+    "n": {
+      "identity": 218,
+      "labels": [
+        "Cause"
+      ],
+      "properties": {
+        "description": "The vulnerability is caused by a flaw in the Remote Procedure Call, allowing information disclosure.",
+        "id": "cause_221ce347-fc3f-d97b-b046-c7472eba9eca_1"
+      },
+      "elementId": "4:a88df59f-847f-4b99-bff0-53420b2dfe18:218"
+    }
+  }
+]

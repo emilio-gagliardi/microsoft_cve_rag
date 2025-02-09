@@ -1,0 +1,22 @@
+{
+  "symptom_label": "elevation_of_privilege_in_windows_11_systems",
+  "description": "Users may experience unexpected system behavior that indicates an elevation of privilege issue in Windows operating systems, specifically in versions 22H2, 23H2, and 24H2 for both x64 and ARM64 architectures. Symptoms may manifest as unauthorized access to restricted features or data, which could lead to a lack of confidentiality and integrity in system operations. Additionally, users could notice significant changes in system performance or access control prompts that occur without recognizable triggers. This behavior impacts multiple builds, including 10.0.26100.2314 for Windows 11 Version 24H2 and 10.0.22631.4460 for Windows 11 Version 23H2, among others. Affected KB articles include KB5046617, KB5046633, and KB5046613, addressing these critical updates to mitigate the identified risks.",
+  "source_id": "195df867-eb05-cd0b-f7ef-86e397da82c7",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "195df867-eb05-cd0b-f7ef-86e397da82c7"
+  ],
+  "tags": [
+    "Windows 11",
+    "elevation of privilege",
+    "user experience",
+    "KB5046617",
+    "KB5046633"
+  ],
+  "node_id": "b6603637-b2c5-4bc0-befc-1f39105ea57a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

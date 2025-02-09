@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the remote code execution vulnerability in the Windows Mobile Broadband Driver, follow these steps:\n\n1. Identify the correct version of Windows that your system is running.\n\n2. Download and apply the necessary updates from the Microsoft Update Catalog based on your Windows version:\n   - For Windows 11 Version 24H2: [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n   - For Windows 11 Version 23H2: [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - For Windows 11 Version 22H2: [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280)\n   - For Windows 11 Version 21H2: [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280)\n   - For Windows 10 Version 22H2 and 21H2: [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n\n3. Restart your system to ensure the updates are fully applied.\n\n**Details**:\nThis update resolves the incorrect access of indexable resources leading to a remote code execution threat. Users are advised to ensure that they have the appropriate version updates installed. \n\n**Preconditions**:\n- Ensure your system is running the specified versions of Windows before applying the updates.\n- Backup critical data before proceeding with the installation.",
+  "source_id": "6ef9ce63-c0b4-fdf1-bd50-438d128f0cf8",
+  "source_type": "MSRCPost",
+  "fix_label": "address_remote_code_execution_windows_mobile_broadband_driver_cve202443524",
+  "tags": [
+    "KB5044284",
+    "RemoteCodeExecution",
+    "CVE202443524",
+    "Windows11"
+  ],
+  "node_id": "7cc34820-55d9-4819-8b9d-be8df3018be7",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "6ef9ce63-c0b4-fdf1-bd50-438d128f0cf8"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_misbehavior_after_chromium_update",
+  "description": "After applying the security update KB-126.0.2592.68, users may experience issues with Microsoft Edge (Chromium-based) that relate to unexpected behavior and performance degradations. Some users might notice increased loading times for web pages or an overall sluggishness in browser response. Additionally, there could be instances where the browser fails to properly render certain types of web content, leading to a frustrating browsing experience. This behavior could impact the usability of web applications that rely heavily on the underlying Chromium engine. Such symptoms may arise particularly for users who have not yet transitioned to the latest version, 126.0.6478.114, which resolves these issues.",
+  "source_id": "08a5f006-af33-e8f1-dca8-5400847b259a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "08a5f006-af33-e8f1-dca8-5400847b259a"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Performance Issues",
+    "Security Update"
+  ],
+  "node_id": "aa3fdc9a-d8e9-4304-93ec-6bc6cc63044c",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

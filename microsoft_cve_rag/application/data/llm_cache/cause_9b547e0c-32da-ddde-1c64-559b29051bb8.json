@@ -1,0 +1,22 @@
+{
+  "description": "The cause of the 'randomly disappearing meeting' issue in the Outlook desktop client stems from a service degradation affecting Exchange Online, noted under issue ID: ex800425. This degradation results in users intermittently being unable to update or cancel calendar items, leading to conflict errors and duplicate meetings. Although Microsoft has deployed a fix that will help prevent additional calendar items from being impacted, it does not address existing calendar items that may already have conflicts. Users experiencing these issues are advised to refer to specific workarounds provided in KB Article 69c26227, which offers solutions for handling conflict errors and duplicate calendar items. Monitoring for service telemetry is ongoing to ensure the resolution is effective.",
+  "source_id": "9b547e0c-32da-ddde-1c64-559b29051bb8",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "9b547e0c-32da-ddde-1c64-559b29051bb8"
+  ],
+  "cause_label": "service_degradation_affecting_calendar_updates",
+  "tags": [
+    "Outlook",
+    "Exchange Online",
+    "service degradation",
+    "calendar items",
+    "fix deployment"
+  ],
+  "node_id": "950c51be-956e-4229-84d4-4c89203935fc",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

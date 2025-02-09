@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the kernel streaming service driver elevation of privilege vulnerability (CVE-2024-38245):\n\n1. Identify the specific version of Windows installed on your system.\n2. Download and install the corresponding KB update from the links provided below.\n3. Restart your system to ensure all changes take effect.\n\n**Details**:\n- This fix addresses an improper input validation vulnerability that may be exploited to achieve elevation of privileges within the system.\n- Make sure to apply the appropriate update according to your operating system version. \n- For manual installation, download the relevant update packages from:\n  - [KB5043080](https://catalog.update.microsoft.com/Search.aspx?q=KB5043080)\n  - [KB5043076](https://catalog.update.microsoft.com/Search.aspx?q=KB5043076)\n  - [KB5043067](https://catalog.update.microsoft.com/Search.aspx?q=KB5043067)\n  - [KB5043064](https://catalog.update.microsoft.com/Search.aspx?q=KB5043064)\n\n**Preconditions**:\n- Verify that your system is running a compatible Windows build listed in the metadata.\n- Backup important data before proceeding with the installation.",
+  "source_id": "dc2fb4a4-7d40-0c47-9589-3fff45a660a8",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_kernel_streaming_service_cve202438245",
+  "tags": [
+    "KB5043080",
+    "KB5043076",
+    "CVE202438245",
+    "KernelVulnerability"
+  ],
+  "node_id": "f845f3e4-56f9-401f-b5d5-43dad87ef9c7",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "dc2fb4a4-7d40-0c47-9589-3fff45a660a8"
+  ],
+  "verification_status": "unverified"
+}

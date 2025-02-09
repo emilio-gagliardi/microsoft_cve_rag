@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the out-of-bounds memory access vulnerability (CVE-2024-5497) affecting Microsoft Edge (Chromium-based):\n\n1. Ensure you are using the latest version of Microsoft Edge, specifically version 125.0.2535.85 or later.\n2. You can check your current version by clicking on the three dots (...) in the top right corner, selecting 'Help and feedback', and then 'About Microsoft Edge'.\n3. If your version is older than 125.0.2535.85, update your browser from the Microsoft Edge official site or through Windows Update.\n\n**Details**:\n- This update resolves heap corruption issues that could be exploited through specific user interface gestures on compromised web pages.\n- The update is crucial for protecting users from potential remote attacks that leverage this vulnerability, especially since Microsoft Edge consumes the Chromium open source software.\n\n**Preconditions**:\n- Ensure that you have administrative rights to update software.\n- Backup your browser settings before performing the update in case of unexpected issues.",
+  "source_id": "6ff0664c-8870-2010-743b-4116b6835225",
+  "source_type": "MSRCPost",
+  "fix_label": "upgrade_microsoft_edge_to_125.0.2535.85_for_cve20245497",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20245497",
+    "Chromium",
+    "HeapCorruption"
+  ],
+  "node_id": "0a3f3e6d-8da3-45a7-bca0-012aa96ca1c5",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "6ff0664c-8870-2010-743b-4116b6835225"
+  ],
+  "verification_status": "unverified"
+}

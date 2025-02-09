@@ -1,0 +1,22 @@
+{
+  "node_id": "9445a294-f9bc-4b74-96d1-44b62bed9f6a",
+  "source_id": "6f4eb7ba-5cc0-0958-07a2-c56c175d1bcc",
+  "entity_type": "Tool",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "6f4eb7ba-5cc0-0958-07a2-c56c175d1bcc",
+    "669ab56d-33b6-e5df-32b2-9c682ecf1cdb"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-5493",
+  "tool_url": "https://chromereleases.googleblog.com/",
+  "verification_status": "unverified",
+  "tool_label": "google_chrome_releases",
+  "description": "**Tool Overview**:\n\nGoogle Chrome Releases is a platform that provides details regarding the security vulnerabilities, updates, and enhancements for the Google Chrome browser. Since Microsoft Edge is built on Chromium, any updates or vulnerabilities addressed in Google Chrome releases can also impact Microsoft Edge users. The release notes often include important information for users and administrators in relation to recent CVEs and patch management.\n\n**Details**:\n1. Users should regularly check the Google Chrome releases for security updates affecting Chromium-based browsers.\n2. The platform lists detailed descriptions of resolved vulnerabilities to help users understand what issues have been addressed.\n3. It plays a crucial role for Microsoft Edge administrators as they can track Chromium vulnerabilities affecting their environment.\n4. Each release is tagged with its build number, allowing for better version control.\n5. Monitoring this resource is essential for maintaining the security posture of environments that utilize Microsoft Edge.\n\nFor consistent security management, it's recommended to integrate checks for Google Chrome releases into your patch management workflow for any Chromium-based applications.",
+  "reliability": 0.9,
+  "tags": [
+    "Chrome",
+    "Chromium",
+    "Security",
+    "Updates"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_kernel_total_loss_of_availability",
+  "description": "The Windows systems affected by the kernel denial of service vulnerability CVE-2024-26181 may experience a total loss of availability. This could manifest as the system becoming completely unresponsive, prohibiting access to resources managed by the Windows kernel. Users and system administrators on impacted builds, including Windows Server 2012, Server 2012 R2, and various Windows 10 and Windows 11 builds, might encounter a situation where they are unable to perform any operations due to unavailability of critical services. The issue can be persistent or sustained, meaning that access might not be restored even after an attempted recovery. Silent user interaction or exploitation without prior user actions could exacerbate the situation, making it challenging to diagnose the underlying cause without direct system access. Relevant KB articles for remediation include KB-5035959, KB-5035858, and others identified.",
+  "source_id": "ef7217d6-ed14-1106-579b-030eb28afdf9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ef7217d6-ed14-1106-579b-030eb28afdf9"
+  ],
+  "tags": [
+    "windows",
+    "kernel",
+    "availability",
+    "doS",
+    "error_messages"
+  ],
+  "node_id": "b02fcb7b-be41-4d9b-b41d-571e68ca3d17",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

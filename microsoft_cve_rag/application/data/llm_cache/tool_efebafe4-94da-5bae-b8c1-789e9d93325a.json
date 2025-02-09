@@ -1,0 +1,20 @@
+{
+  "tool_label": "Win32ProductQueryTriggerReconfigure",
+  "description": "The Win32_Product class in Windows is a WMI class used to retrieve information about installed software products. However, querying this class can cause a reconfiguration of all MSI-based products, which may lead to unintended changes or long processing times. This behavior has been noted as an old issue, affecting the efficiency of management tasks related to software installation and updates. It is important to be aware of this behavior to avoid unnecessary disruptions during system maintenance. For more detailed information on this behavior, Microsoft has provided documentation outlining the implications of using this class.",
+  "source_id": "efebafe4-94da-5bae-b8c1-789e9d93325a",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAGN5iag%2B%2B%3DQRr46GBvFX-An9hvMhnj1gOJKN2FcwBQtKekvd4g%40mail.gmail.com",
+  "tool_url": "https://learn.microsoft.com/en-us/troubleshoot/windows-server/admin-development/windows-installer-reconfigured-all-applications",
+  "tags": [
+    "WMI",
+    "MSI",
+    "software management",
+    "Windows",
+    "reconfiguration"
+  ],
+  "node_id": "636acdd4-a6f0-407c-aff3-cb96794e1783",
+  "node_label": "Tool",
+  "reliability": "0.7",
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

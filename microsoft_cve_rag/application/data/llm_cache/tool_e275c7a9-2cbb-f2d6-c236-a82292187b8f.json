@@ -1,0 +1,23 @@
+{
+  "tool_label": "disable_auto_start_function_using_group_policy",
+  "description": "**Tool Overview**:\n\nA method for disabling the auto start function of applications, particularly useful for managing the behavior of new Teams in an enterprise environment.\n\n**Details**:\n\n1. This method involves utilizing Group Policy settings to restrict applications from auto-starting without user intervention.\n2. Administrators can set the necessary policies within the admin centre, tailoring the configuration to their organizational policies.\n3. A registry key change may be involved to ensure that no automatic start occurs, which can enhance system performance and user satisfaction.\n4. This process is critical for organizations aiming to control application behavior and avoid unnecessary resource consumption.\n5. Proper design and execution of this policy can minimize disruptions caused by unwanted application starts upon system boot.\n\n",
+  "source_id": "e275c7a9-2cbb-f2d6-c236-a82292187b8f",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e275c7a9-2cbb-f2d6-c236-a82292187b8f"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/PH0PR01MB7349B24EE0314794F78BA4E5B7B32%40PH0PR01MB7349.prod.exchangelabs.com",
+  "tool_url": "",
+  "tags": [
+    "group policy",
+    "auto start",
+    "management",
+    "teams"
+  ],
+  "node_id": "cd0cd95f-22d2-4669-8a0f-b9e8d4d49442",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

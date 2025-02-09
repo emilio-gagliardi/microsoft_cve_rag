@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_server_restarts_service_causing_issue",
+  "description": "After installing the security update referenced in KB-5039330, system administrators may experience unexpected restarts of the Windows Server services. This issue is particularly evident in environments running Windows Server 2012 R2, Windows Server 2016, and Windows Server 2022, where the restarted services may trigger the vulnerability outlined in CVE-2024-30062. Users might notice that applications relying on these services may become unresponsive, leading to a temporary denial of service. Such behavior could significantly impact operational continuity, causing frustration among end users, who may report slow application performance or complete unavailability during the service restart. The maximum severity of this issue has been classified as important, highlighting the need for prompt attention to prevent further complications.",
+  "source_id": "fdba597a-42f0-9acd-a363-3dd7fd513145",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "fdba597a-42f0-9acd-a363-3dd7fd513145"
+  ],
+  "tags": [
+    "Windows Server",
+    "service restart",
+    "patch management",
+    "user impact"
+  ],
+  "node_id": "087a0af9-e261-4d40-9265-5b5872e11f28",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

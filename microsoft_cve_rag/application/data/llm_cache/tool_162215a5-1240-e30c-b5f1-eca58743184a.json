@@ -1,0 +1,18 @@
+{
+  "tool_label": "GoogleWebp0DayMitigationStrategies",
+  "description": "A set of strategies and best practices to mitigate the vulnerabilities associated with the Google WebP format that could lead to potential exploits and security weaknesses.",
+  "source_id": "162215a5-1240-e30c-b5f1-eca58743184a",
+  "source_type": "PatchManagementPost",
+  "source_url": "https://groups.google.com/d/msgid/patchmanagement/CY8PR19MB7226059156665359B0C8C4FCE5C5A%40CY8PR19MB7226.namprd19.prod.outlook.com",
+  "tags": [
+    "webp",
+    "vulnerability",
+    "mitigation",
+    "security"
+  ],
+  "node_id": "4b49355d-ec72-4cc9-8a4c-b081b37d4d21",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Tool"
+}

@@ -1,0 +1,22 @@
+{
+  "tool_label": "screenconnect_product_connectwise",
+  "description": "**Tool Overview**:\n\nScreenConnect is a remote support software developed by ConnectWise that allows IT professionals to connect to and control devices over the internet. It is often used for technical support and remote desktop sessions, making it essential for system administrators when managing remote incidents.\n\n**Features**:\n1. **Remote Access**: Provides the ability to access devices from anywhere, allowing for efficient troubleshooting.\n2. **Collaboration Tools**: Equipped with features that allow multiple technicians to work on the same session.\n3. **Custom Branding**: Offers customization options for a more personalized user experience in support sessions.\n4. **Session Recording**: Includes functionality for recording sessions for training or compliance purposes.\n5. **Integrations**: Seamlessly integrates with various IT management systems and ticketing tools.\n\nTo make the most of ScreenConnect, users should familiarize themselves with its management console and utilize the installation package available in the documentation for distribution across devices.",
+  "source_id": "155032c0-cc56-db54-34a5-3600dcdfbd0d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "155032c0-cc56-db54-34a5-3600dcdfbd0d"
+  ],
+  "source_url": "https://screenconnect.product.connectwise.com/communities/26-screenconne",
+  "tool_url": "https://screenconnect.product.connectwise.com",
+  "tags": [
+    "remote_support",
+    "ConnectWise",
+    "IT_management",
+    "LLM Synthesized"
+  ],
+  "node_id": "fe30a6d7-b2f1-4fb3-a192-7794de16b5d7",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

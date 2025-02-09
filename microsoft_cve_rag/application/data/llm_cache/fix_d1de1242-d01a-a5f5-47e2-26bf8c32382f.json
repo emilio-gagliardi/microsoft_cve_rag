@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the elevation of privilege vulnerability in the Windows Common Log File System Driver (CVE-2024-30025), follow these steps:\n\n1. Download the appropriate update package from the Microsoft Update Catalog based on your Windows version and architecture:\n   - Windows 11 Version 23H2: [KB5037771](https://catalog.update.microsoft.com/Search.aspx?q=KB5037771)\n   - Windows 10 for x64-based Systems: [KB5037788](https://catalog.update.microsoft.com/Search.aspx?q=KB5037788)\n   - For other versions, refer to their respective KB articles.\n2. Install the update on your system.\n3. Restart your computer to ensure the update is applied.\n\n**Details**:\n- This update addresses an out-of-bounds read vulnerability that can lead to elevation of privilege on the affected systems.\n- Ensure that your system is one of the supported versions listed (Windows 10 and 11) before applying updates.\n\n**Preconditions**:\n- Backup critical data before proceeding with the update installation.\n- Ensure administrative privileges are available to perform the installation.",
+  "source_id": "d1de1242-d01a-a5f5-47e2-26bf8c32382f",
+  "source_type": "MSRCPost",
+  "fix_label": "address_elevation_privilege_issue_cve202430025",
+  "tags": [
+    "KB5037771",
+    "Windows11",
+    "OutOfBoundsRead",
+    "CVE202430025"
+  ],
+  "node_id": "6d5bedc1-4e54-4b73-91da-495f3251ae87",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "d1de1242-d01a-a5f5-47e2-26bf8c32382f"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_error_reporting_service_elevation_privileges",
+  "description": "After applying the security update as detailed in KB5035858 for Windows 10 builds 10.0.10240.20526 and 10.0.19044.4170, users may experience notifications or system prompts that indicate an application or process is attempting to gain unauthorized access or perform an action typically restricted to higher privilege levels. This observable behavior may present itself as permission errors or unexpected alerts when users attempt to launch certain applications or perform administrative tasks. Additionally, in environments where Windows Server 2016 builds 10.0.14393.6796 are in use, administrators might notice unusual error messages related to privilege elevation failures when managing system settings or executing higher-level commands post-application of the patch. The occurrences of these symptoms can lead to confusion among users and potential service disruptions in daily operations.",
+  "source_id": "337901cc-2975-e64a-5794-0e2b243e0110",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "337901cc-2975-e64a-5794-0e2b243e0110"
+  ],
+  "tags": [
+    "Windows",
+    "Error Reporting",
+    "Privilege Elevation",
+    "Patch Management"
+  ],
+  "node_id": "4d2c71bb-79bb-4e67-a0ba-59485e140bd7",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

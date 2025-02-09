@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_11_23h3_lacks_show_desktop_button",
+  "description": "Windows 11 version 23H3 users may experience a lack of the 'Show Desktop' button, which can affect their productivity and ease of use. This issue stems from a previous update where the button was replaced by Microsoft Copilot. To address this and restore functionality, Microsoft released the KB5040442 cumulative update, which includes thirty-one improvements, ultimately restoring the 'Show Desktop' button. This update is crucial for users who heavily rely on this feature for multitasking and efficient navigation on their Windows 11 systems. It is recommended to apply the patch promptly to ensure optimal user experience and accessibility.",
+  "source_id": "1311d1dc-813c-b40a-f566-dae95262fc61",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "1311d1dc-813c-b40a-f566-dae95262fc61"
+  ],
+  "tags": [
+    "windows_11",
+    "kb5040442",
+    "user_interface",
+    "productivity"
+  ],
+  "node_id": "eb6ed12e-30e8-4b2d-bbf5-8d8847e06930",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

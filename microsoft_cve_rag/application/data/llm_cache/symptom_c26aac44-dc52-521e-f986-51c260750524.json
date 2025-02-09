@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_crashes_after_vulnerability_update",
+  "description": "After applying the security update KB-127.0.2651.98 for Microsoft Edge (Chromium-based) to address the CVE-2024-7536 issue, users may experience unexpected crashes of the browser. These crashes are attributed to the changes made to mitigate the vulnerabilities inherited from the underlying Chromium codebase. System administrators may observe that affected users report the Edge browser closing unexpectedly during typical usage scenarios, such as navigating to websites or streaming media content. These crashes could lead to loss of unsaved work and disrupt user productivity. The specific build of Microsoft Edge impacted is 127.0.2651.98, and users should ensure they are updated to this version to potentially improve stability.",
+  "source_id": "c26aac44-dc52-521e-f986-51c260750524",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c26aac44-dc52-521e-f986-51c260750524"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "CVE-2024-7536",
+    "Security Update",
+    "Browser Crash"
+  ],
+  "node_id": "d7068cc9-8e51-446b-9172-b73dadc5dd7f",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "tool_label": "twitter_link_for_patch_updates",
+  "description": "**Tool Overview**:\n\nThis tool is a Twitter link that provides updates related to patch management. The link references a tweet where specific information about updates or issues can be found.\n\n**Details**:\n\n1. The link leads to a specific tweet which likely contains information about recent patch updates or vulnerabilities.\n2. Users can follow this link to gain insights and updates directly from the source, enhancing their understanding of patch management.\n3. It serves as a quick reference to stay informed about the most recent developments in patching.\n4. Engagement with the source can provide real-time updates and community feedback on patch management strategies.",
+  "source_id": "02e1fed2-7631-5f4d-c90a-895a8e760678",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "02e1fed2-7631-5f4d-c90a-895a8e760678"
+  ],
+  "source_url": "https://twitter.com/updatedavidm/status/1773481071071662092",
+  "tool_url": "https://twitter.com/updatedavidm/status/1773481071071662092",
+  "tags": [
+    "Twitter",
+    "patch management",
+    "updates"
+  ],
+  "node_id": "11d67c4d-e479-4ca7-8fa5-2cf2c5818cf3",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

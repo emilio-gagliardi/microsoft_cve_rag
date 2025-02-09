@@ -1,0 +1,20 @@
+{
+  "symptom_label": "microsoft_edge_crashes_after_chromium_update",
+  "description": "After updating to Microsoft Edge (Chromium-based) version 122.0.2365.80, users may experience crashes that can be attributed to the underlying use-after-free issue in the Chromium components. This observable behavior may manifest during routine browsing activities, leading to unexpected termination of the Edge browser. End users might notice frequent unresponsiveness or abrupt closures, disrupting their workflow. The KB Article ID for this update is KB-122.0.2365.80, which documents the resolution for the vulnerability. Overall, these issues highlight the critical nature of timely updates to browser software impacted by security vulnerabilities.",
+  "source_id": "aed1b2c0-6c07-6072-5b56-65e8fca29980",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "aed1b2c0-6c07-6072-5b56-65e8fca29980"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Browser Crashes",
+    "Security Update"
+  ],
+  "node_id": "193bdd06-eef6-4744-b362-ec1c7e3c50fb",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

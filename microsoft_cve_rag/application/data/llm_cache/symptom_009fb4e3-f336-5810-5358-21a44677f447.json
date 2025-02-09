@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_dwm_core_library_elevation_of_privilege",
+  "description": "After installation of the security updates KB5037788, KB5037771, KB5037770, and KB5037768 on Windows 10 and Windows 11 systems, users may experience unexpected behavior that includes system privileges being elevated without appropriate authentication. This may lead to unauthorized actions being performed by users, or may allow malicious users to access restricted resources managed by the system. Affected build numbers include various versions of Windows 10 and Windows 11, specifically builds 10.0.19045.4412, 10.0.22631.3593, 10.0.22621.3593, 10.0.22000.2960, and 10.0.10240.20651. Users may observe unusual access to sensitive files or settings changes without their consent, which can compromise system security and stability.",
+  "source_id": "009fb4e3-f336-5810-5358-21a44677f447",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "009fb4e3-f336-5810-5358-21a44677f447"
+  ],
+  "tags": [
+    "Windows",
+    "Security Update",
+    "Privilege Escalation",
+    "DWM",
+    "User Interaction"
+  ],
+  "node_id": "312c06df-ee82-41d2-9c2f-93a1b4c7824b",
+  "node_label": "Symptom",
+  "reliability": 9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

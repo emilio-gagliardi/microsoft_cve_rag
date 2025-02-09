@@ -1,0 +1,16 @@
+{
+  "symptom_label": "UserMayExperienceRemoteCodeExecutionImpact",
+  "description": "Users may experience the inability to safely connect to SQL databases, as authentication and connection attempts could lead to execution of arbitrary code due to vulnerabilities in the OLE DB provider for SQL Server. This can manifest as unexpected behaviors, including application crashes or unauthorized actions taken in the context of the user's session. The affected products include Windows 10 and 11 with various build numbers (e.g., 10.0.22000.2652, 10.0.19045.3803) and they can be tracked via KB articles such as KB-5033379 and KB-5033375.",
+  "source_id": "3ace2626-f40c-276f-0371-cb85ece0a855",
+  "source_type": "MSRCPost",
+  "tags": [
+    "user impact",
+    "SQL Server",
+    "OLE DB"
+  ],
+  "node_id": "3c945c77-c596-4397-b89a-85429655e4c8",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

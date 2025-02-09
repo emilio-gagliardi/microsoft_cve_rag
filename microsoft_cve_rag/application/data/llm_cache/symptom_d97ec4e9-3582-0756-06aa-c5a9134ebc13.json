@@ -1,0 +1,20 @@
+{
+  "symptom_label": "servers_failing_to_patch_with_error_0x800f0840",
+  "description": "A significant number of servers are encountering an issue where they fail to apply patches correctly, indicated by the error code 0x800f0840, which is related to a corrupted CBS session. Approximately 15% of servers experience this failure, leading to delays in the patch management process. Users have noted that while the initial install fails, the patches seem to install properly on a subsequent attempt after a reboot. The CBS logs reveal multiple instances of the error, highlighting that the session cannot be resumed due to the corruption. This issue could potentially impact system stability and security in environments relying heavily on timely updates, especially if patch failures become persistent.",
+  "source_id": "d97ec4e9-3582-0756-06aa-c5a9134ebc13",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d97ec4e9-3582-0756-06aa-c5a9134ebc13"
+  ],
+  "tags": [
+    "patch_management",
+    "error_code_800f0840",
+    "cbs_log",
+    "failed_install"
+  ],
+  "node_id": "0ee0ab2b-0fec-48d7-999f-ef9ee8273baa",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

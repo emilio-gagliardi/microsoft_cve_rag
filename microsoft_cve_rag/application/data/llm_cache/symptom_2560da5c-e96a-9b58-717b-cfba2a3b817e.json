@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_ocsp_server_denies_access_to_resources",
+  "description": "End users may experience complete denial of access to network resources when the Windows Online Certificate Status Protocol (OCSP) server encounters issues due to this vulnerability. Specifically, the systems running Windows 11, Windows 10, and Windows Server 2022 could face this problem if the security updates published on July 9, 2024, are not applied. This can lead to significant service disruption where no new connections can be established, impacting the usability of affected applications and services. Administrators will notice that users are unable to access essential resources, creating frustration and hindering productivity. The affected build numbers include 10.0.22631.3880 for Windows 11 and multiple versions of Windows 10 and Server 2022 outlined in KB articles such as KB5040442 and KB5040448.",
+  "source_id": "2560da5c-e96a-9b58-717b-cfba2a3b817e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2560da5c-e96a-9b58-717b-cfba2a3b817e"
+  ],
+  "tags": [
+    "Windows",
+    "OCSP",
+    "Denial of Service",
+    "Access Issues"
+  ],
+  "node_id": "80e7f330-960f-40ef-b9cb-b303214c11f1",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

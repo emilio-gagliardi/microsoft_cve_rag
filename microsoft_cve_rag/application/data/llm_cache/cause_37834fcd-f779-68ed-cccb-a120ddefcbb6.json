@@ -1,0 +1,22 @@
+{
+  "description": "The underlying cause is a use after free condition in the Microsoft Speech Application Programming Interface (SAPI), which allows the execution of arbitrary code via remote exploitation. This flaw occurs when an application attempts to access memory that has already been freed, leading to potential exploitation over the network, thus enabling attackers to gain unauthorized access and control over the affected systems.",
+  "cause_label": "sapi_use_after_free_remote_code_execution",
+  "source_id": "37834fcd-f779-68ed-cccb-a120ddefcbb6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "37834fcd-f779-68ed-cccb-a120ddefcbb6"
+  ],
+  "tags": [
+    "remote code execution",
+    "use after free",
+    "SAPI",
+    "Microsoft",
+    "CVE-2024-43574"
+  ],
+  "node_id": "e3be639e-1594-4acb-b126-227481edd391",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

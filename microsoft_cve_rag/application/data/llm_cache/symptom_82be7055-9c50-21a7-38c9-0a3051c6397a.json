@@ -1,0 +1,20 @@
+{
+  "symptom_label": "microsoft_edge_experiences_content_security_bypass",
+  "description": "Users may experience unexpected browser behavior when interacting with certain web pages due to a content security policy bypass vulnerability in Microsoft Edge (Chromium-based) versions prior to 130.0.6723.58. This could manifest as malicious scripts executing when a user navigates to crafted HTML pages, leading to unauthorized content display or potential data leakage. The impact is particularly relevant for environments that rely heavily on web applications, potentially compromising sensitive information and user privacy. To mitigate this, users are advised to update to Microsoft Edge version 130.0.6723.59 or later, effectively addressing this issue as documented in KB-130.0.2849.46.",
+  "source_id": "82be7055-9c50-21a7-38c9-0a3051c6397a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "82be7055-9c50-21a7-38c9-0a3051c6397a"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Web Security"
+  ],
+  "node_id": "6f0c429b-367c-413f-9cab-3e4fcf8ae2f2",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

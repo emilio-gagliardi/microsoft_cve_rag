@@ -1,0 +1,16 @@
+{
+  "symptom_label": "windows_package_manager_discloses_privileged_info",
+  "description": "The system experiences incidents where information, including secrets or privileged user data, may be inadvertently disclosed to unauthorized users. This symptom can arise during operations involving the Windows Package Library Manager across various build versions, specifically noted in Windows 10 and Windows Server builds listed (10.0.19044.5131, 10.0.19045.5131, etc.) and associated with registered KB articles such as KB-5046682 and KB-5046617. Users may notice unusual data access patterns or alerts indicating unauthorized data retrieval when interacting with the affected application. These behaviors signify potential breaches in data confidentiality, impacting user trust and system integrity. Affected build numbers and products include a wide range of Windows and Windows Server installations as referenced in the posts.",
+  "source_id": "476950e2-cac7-32a8-3e34-5c6cc9a641f9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "476950e2-cac7-32a8-3e34-5c6cc9a641f9"
+  ],
+  "tags": [],
+  "node_id": "cef5c679-9226-4cfb-b076-0751bc5ae934",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

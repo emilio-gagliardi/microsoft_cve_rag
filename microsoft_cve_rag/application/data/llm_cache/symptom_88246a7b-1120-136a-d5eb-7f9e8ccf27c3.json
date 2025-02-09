@@ -1,0 +1,21 @@
+{
+  "symptom_label": "user_interaction_required_for_malicious_file_open",
+  "description": "Users may experience a significant security risk when a malicious file is handled improperly, leading to the bypass of the SmartScreen user experience. This situation is evident in systems affected by the Windows Mark of the Web security feature bypass vulnerability, identified as CVE-2024-38213. When users inadvertently open these malicious files, they may find themselves exposed to unauthorized modifications of their system's integrity. This can manifest as a complete loss of protection for files deemed safe, severely impacting their trust in the security mechanisms provided by the operating system. Affected products include Windows 10 (all versions), Windows 11, and Windows Server 2016, with relevant KB articles being KB5039211, KB5039212, and KB5039213.",
+  "source_id": "88246a7b-1120-136a-d5eb-7f9e8ccf27c3",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "88246a7b-1120-136a-d5eb-7f9e8ccf27c3"
+  ],
+  "tags": [
+    "Windows",
+    "Security",
+    "SmartScreen",
+    "CVE-2024-38213"
+  ],
+  "node_id": "05ca0081-a2e5-4543-96f6-31483a2e3552",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

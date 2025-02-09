@@ -1,0 +1,21 @@
+{
+  "description": "Disabling IPv6 may lead to unexpected operational issues within systems relying on modern networking practices. Although disabling IPv6 can initially seem beneficial in terms of reducing surface area for vulnerabilities, it has been noted that important functionalities depend on this protocol, especially in contemporary Microsoft environments. Therefore, neglecting IPv6 can inadvertently expose systems to complications that are not immediately obvious, particularly in domains leveraging this technology. The discussion indicates that the system is not affected by the CVE if IPv6 is disabled, however, doing so may introduce other challenges. Relevant to this context, KB29601 serves as a foundational article that should be consulted for understanding the nuances surrounding these configurations.",
+  "source_id": "9ae7f742-52a5-d808-a95d-5204b96f3705",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "9ae7f742-52a5-d808-a95d-5204b96f3705"
+  ],
+  "cause_label": "disabling_ipv6_introduces_unexpected_issues",
+  "tags": [
+    "IPv6",
+    "configuration",
+    "best_practice",
+    "CVE mitigation"
+  ],
+  "node_id": "0e8e98b5-2376-4e2f-bb5a-a72af60380d1",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

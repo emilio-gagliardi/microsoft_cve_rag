@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve issues with chromium-based internet browsers becoming unresponsive after installing KB-5034129:\n\n1. Check the Windows registry for any entries related to `msedge.exe` or other chromium-based browsers.\n2. If found, consider removing or adjusting these registry entries, particularly those related to browser specific Image File Execution Options (IFEO).\n3. Restart the affected browsers to verify if the issue has been resolved.\n\n**Details**:\nThe presence of specific IFEO entries in the registry can interfere with the normal operation of browsers post-update. Modifying or deleting these entries can restore functionality. Always back up the registry before making any changes. (LLM Synthesized)",
+  "source_id": "7bfde795-95c0-668c-fe77-7ac2ea02f777",
+  "source_type": "PatchManagementPost",
+  "fix_label": "resolve_chromium_browsers_unresponsive_kb5034129",
+  "tags": [
+    "KB5034129",
+    "ChromiumBrowsers",
+    "ImageFileExecutionOptions",
+    "LLM Synthesized"
+  ],
+  "node_id": "64fb7ff2-ff08-4b1b-b42b-fb07278dc5ac",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "7bfde795-95c0-668c-fe77-7ac2ea02f777"
+  ]
+}

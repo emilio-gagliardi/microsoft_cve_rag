@@ -1,0 +1,17 @@
+{
+  "description": "This information disclosure issue arises from a flaw in Microsoft Message Queuing within various Windows operating systems. The vulnerability is tied to components that are exposed and accessible over the network, allowing attackers to potentially read sensitive data from the heap memory. This weakness stems from the implementation details of message queuing that do not properly restrict access, leading to the disclosure of information when exploited remotely. The affected builds include Windows 10, Windows 11, and various versions of Windows Server. Specifically, the issue may arise when configurations allow unauthorized parties to interact with the message queuing services without needing user engagement, increasing the risk of information leakage.",
+  "cause_label": "InformationDisclosureInMessageQueuingService",
+  "source_id": "a31241d2-a888-6617-d17e-252be06b25dc",
+  "source_type": "MSRCPost",
+  "tags": [
+    "information_disclosure",
+    "message_queuing",
+    "windows",
+    "heap_memory"
+  ],
+  "node_id": "95787f0b-09e9-4c88-8560-956c925956ac",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

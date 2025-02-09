@@ -1,0 +1,20 @@
+{
+  "description": "The underlying cause detailed in this post involves a misconfiguration concerning the Edge browser in a Windows environment. Specifically, the issue arises when the registry key controlling the 'HideFirstRunExperience' setting under 'HKLM:\\ SOFTWARE\\Policies\\Microsoft\\Edge' is not properly configured. This can lead to unintended behavior and user experience issues during the initial setup of Microsoft Edge. The solution suggests utilizing PowerShell to adjust this DWORD property to the desired value, ensuring that users can skip the first-run experience gracefully. Correctly setting this key can significantly improve deployment consistency across devices running Windows and Microsoft Edge.",
+  "source_id": "42e9b0f7-e731-4c50-aea7-287dd5485e61",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "42e9b0f7-e731-4c50-aea7-287dd5485e61"
+  ],
+  "cause_label": "MisconfiguredRegistryKeyForEdgeFirstRunExperience",
+  "tags": [
+    "MicrosoftEdge",
+    "RegistryKey",
+    "PowerShell",
+    "WindowsConfiguration"
+  ],
+  "node_id": "340ae064-8f52-4235-a878-7ba444c8bc67",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Cause"
+}

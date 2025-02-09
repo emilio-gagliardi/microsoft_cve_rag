@@ -1,0 +1,19 @@
+{
+  "symptom_label": "windows_remote_access_connection_manager_information_leak",
+  "description": "Users may experience inadvertent disclosure of sensitive information when using the Windows Remote Access Connection Manager. This vulnerability allows remote access interfaces to reveal private data when accessed under certain conditions. Affected products include Windows 10 with build numbers 10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, and other specified builds in the KB articles KB-5037788, KB-5037771, KB-5037768, KB-5036910, KB-5036899, KB-5036894, KB-5036893, and KB-5036892. System administrators need to be vigilant about the potential for unauthorized information exposure, which may compromise sensitive user data or pose compliance risks. Mitigations provided in the respective KB articles are essential to prevent these observable impacts.",
+  "source_id": "dbc37342-c87f-3688-367d-740d95b94d8c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "dbc37342-c87f-3688-367d-740d95b94d8c"
+  ],
+  "tags": [
+    "Windows",
+    "Remote Access",
+    "Information Disclosure"
+  ],
+  "node_id": "5d03a0ca-abef-441e-91d1-1b046965d95f",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

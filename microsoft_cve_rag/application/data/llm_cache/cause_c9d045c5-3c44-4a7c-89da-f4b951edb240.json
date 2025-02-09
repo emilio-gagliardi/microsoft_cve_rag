@@ -1,0 +1,21 @@
+{
+  "description": "Heap-based buffer overflow in Windows OLE component allows remote code execution when a user connects to a malicious SQL server via the connection driver, leading to execution of arbitrary code on the client system.",
+  "cause_label": "windows_ole_heap_buffer_overflow_remote_code_execution",
+  "source_id": "c9d045c5-3c44-4a7c-89da-f4b951edb240",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c9d045c5-3c44-4a7c-89da-f4b951edb240"
+  ],
+  "tags": [
+    "CVE",
+    "heap buffer overflow",
+    "Windows OLE",
+    "remote code execution"
+  ],
+  "node_id": "4cafd3fb-4cab-47d2-8ac8-dde001f116c0",
+  "node_label": "Cause",
+  "reliability": 1,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

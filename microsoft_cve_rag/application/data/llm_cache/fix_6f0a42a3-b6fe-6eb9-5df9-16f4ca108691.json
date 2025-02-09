@@ -1,0 +1,19 @@
+{
+  "description": "**Fix Overview**:\n\nTo enable standard user accounts in Active Directory to manage computer accounts, you can modify the permissions on the default computer container.\n\n1. Grant specific rights such as \"create\" and \"delete\" to the standard user accounts on the default computer container.\n2. Allow these accounts to log into Active Directory Users and Computers (ADUC) and perform actions limited to deleting computer accounts from that container.\n3. Optionally, for better management, create a security group for these user accounts and assign the same permissions to the group.\n\n**Details**:\n- This delegation of permissions allows the defined users to clean up and reuse computer account names in the domain environment with ease, streamlining the domain-joining processes.\n- Ensure that any changes made comply with your organization's security guidelines, and document each step to maintain audit trails for permissions modifications.",
+  "source_id": "6f0a42a3-b6fe-6eb9-5df9-16f4ca108691",
+  "source_type": "PatchManagementPost",
+  "fix_label": "delegate_rights_standard_user_ad_container_management",
+  "tags": [
+    "ActiveDirectory",
+    "UserManagement",
+    "PermissionDelegation"
+  ],
+  "node_id": "9bd2ca8c-9cc3-4848-863c-803e31495505",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "6f0a42a3-b6fe-6eb9-5df9-16f4ca108691"
+  ]
+}

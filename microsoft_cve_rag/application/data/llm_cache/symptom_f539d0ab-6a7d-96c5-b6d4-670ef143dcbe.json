@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_hyperv_allows_elevation_of_privilege",
+  "description": "After applying security updates associated with KB5040442 and KB5040431, users may experience unauthorized access as the Windows Hyper-V component is affected by an elevation of privilege vulnerability. This vulnerability could allow attackers with basic user capabilities, exploiting systems running Windows Server 2022 or Windows 11 versions (21H2, 22H2, and 23H2), to gain system-level privileges. End users might notice unexpected behavior or performance issues related to resource access, as malicious modifications could affect files and settings typically protected from user-level access. Systems running affected builds such as 10.0.25398.1009 for Windows Server 2022 and 10.0.22631.3880 for Windows 11 are particularly vulnerable. The security updates aim to fully mitigate these risks, emphasizing the importance of applying the patches promptly to prevent potential exploitation.",
+  "source_id": "f539d0ab-6a7d-96c5-b6d4-670ef143dcbe",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f539d0ab-6a7d-96c5-b6d4-670ef143dcbe"
+  ],
+  "tags": [
+    "Windows",
+    "Hyper-V",
+    "Elevation of Privilege",
+    "KB5040442",
+    "KB5040431"
+  ],
+  "node_id": "3b9c8c03-93c1-490f-9d05-9b18aab2aeca",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

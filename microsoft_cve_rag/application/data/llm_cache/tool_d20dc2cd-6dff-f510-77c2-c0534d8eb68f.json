@@ -1,0 +1,19 @@
+{
+  "tool_label": "ContinuousInnovationWindows10",
+  "description": "The Continuous Innovation tool for Windows 10 is designed to streamline updates and provide dynamic support for the operating system. This tool is particularly useful for administrators who are managing Windows environments with a focus on maintaining cutting-edge functionality. It ensures that systems are up-to-date with the latest enhancements and security patches, which is vital for enterprise-level deployments. With a focus on continuous improvement, this tool leverages Microsoft's regularly updated resources, helping organizations stay compliant and secure. For detailed usage instructions, administrators should refer to the official documentation provided by Microsoft regarding continuous updates in Windows 10.",
+  "tool_url": "https://support.microsoft.com/help/5033520",
+  "source_id": "d20dc2cd-6dff-f510-77c2-c0534d8eb68f",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/...",
+  "tags": [
+    "Windows 10",
+    "continuous innovation",
+    "updates",
+    "security"
+  ],
+  "node_id": "9ecd83d3-414e-4d7c-b70e-466e88419788",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

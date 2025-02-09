@@ -1,0 +1,21 @@
+{
+  "description": "Inappropriate implementation in the Blink rendering engine of Chromium led to improper neutralization of input during web page generation, enabling remote attackers to perform UI spoofing under specific user interactions.",
+  "cause_label": "chromium_inappropriate_input_neutralization_in_blink",
+  "source_id": "10119465-914e-a301-5583-48ae0434e2f4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "10119465-914e-a301-5583-48ae0434e2f4"
+  ],
+  "tags": [
+    "Chromium",
+    "UI spoofing",
+    "CVE-2024-11116",
+    "Microsoft Edge"
+  ],
+  "node_id": "70d1c844-8a86-49b1-bf7f-263e79c8997d",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

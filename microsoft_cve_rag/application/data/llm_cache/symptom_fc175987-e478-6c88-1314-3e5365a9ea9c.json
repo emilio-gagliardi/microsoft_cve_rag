@@ -1,0 +1,21 @@
+{
+  "symptom_label": "win11_updates_not_superseding_previous_versions",
+  "description": "Reports indicate a possible issue with the supersedence of Windows updates for versions 22H2 and 23H2. Specifically, the June 2024 updates are not superseding the May 2024 updates as expected. This discrepancy has been confirmed against the Microsoft Update Catalog, where KB5039212 is not set to supersede KB5037771, which could lead to users applying outdated patches. Such issues could leave systems vulnerable if the latest updates do not install as intended. System administrators are advised to closely monitor patching behavior in their ConfigMgr labs to ensure compliance and to avoid potential security risks from missing critical updates.",
+  "source_id": "fc175987-e478-6c88-1314-3e5365a9ea9c",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "fc175987-e478-6c88-1314-3e5365a9ea9c"
+  ],
+  "tags": [
+    "configmgr",
+    "windows_updates",
+    "patch_management",
+    "supersedence"
+  ],
+  "node_id": "8e04c415-675d-41e6-8a62-87b12f4b3bd4",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

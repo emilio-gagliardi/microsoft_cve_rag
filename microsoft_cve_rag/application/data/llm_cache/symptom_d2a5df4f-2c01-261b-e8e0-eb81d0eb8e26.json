@@ -1,0 +1,18 @@
+{
+  "symptom_label": "WindowsUserInteractionRequiredForSpoofingAttacks",
+  "description": "Users may experience the need to interact with suspicious files or links that have been crafted to exploit the spoofing vulnerability described in CVE-2024-21320. This behavior can include inadvertently loading malicious files through emails or messages, potentially leading to further security risks, including the disclosure of sensitive information. The affected systems include various builds of Windows 10 and Windows Server 2016, with relevant KB Article IDs such as KB5034134, KB5034119, and KB5034184. As a result of this vulnerability, users must remain vigilant against potential social engineering attempts that could lead to malicious exploitation. Consequently, it emphasizes the critical role of user awareness in maintaining system security and preventing unauthorized access.",
+  "source_id": "d2a5df4f-2c01-261b-e8e0-eb81d0eb8e26",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Windows 10",
+    "Windows Server",
+    "User Interaction",
+    "Spoofing",
+    "Vulnerability"
+  ],
+  "node_id": "e80c9ca3-0a86-4134-bc21-dbefcf6fea7a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

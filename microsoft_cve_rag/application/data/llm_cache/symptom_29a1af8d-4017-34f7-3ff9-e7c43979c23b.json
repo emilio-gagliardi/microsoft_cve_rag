@@ -1,0 +1,21 @@
+{
+  "symptom_label": "elevation_of_privilege_on_windows_services",
+  "description": "End users may notice unauthorized changes to system settings or access to restricted resources after applying updates related to CVE-2024-38141. Right after the update is applied, an escalation of privileges may occur, allowing a user with limited access to perform administrative tasks or alter system configurations, which should only be possible for users with elevated permissions. Affected products include Windows Server 2012 through 2016 and Windows 11 in various build versions (listed in the KB articles: KB5041592, KB5041585, KB5041580, KB5041571). Users may see unexpected behaviors like the ability to run administrative applications without necessary privileges or access sensitive areas of the system that were previously locked down. Such unacceptable access allows for modifications that compromise the integrity and confidentiality of the system.",
+  "source_id": "29a1af8d-4017-34f7-3ff9-e7c43979c23b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "29a1af8d-4017-34f7-3ff9-e7c43979c23b"
+  ],
+  "tags": [
+    "Windows Server",
+    "Windows 11",
+    "Elevation of Privilege",
+    "CVE-2024-38141"
+  ],
+  "node_id": "daf2d872-4076-44b9-b478-f05cb9da269a",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

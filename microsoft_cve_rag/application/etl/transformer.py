@@ -13,7 +13,7 @@ from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 
 # import warnings
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union, Set
 
 import marvin
 from openai import AuthenticationError, APIConnectionError
@@ -133,7 +133,9 @@ def prepare_products(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def fuzzy_search(
-    text: str, search_terms: List[str], threshold: int = 80
+    text: str,
+    search_terms: List[str],
+    threshold: int = 80
 ) -> List[str]:
     """Perform fuzzy string matching on text.
 
@@ -265,6 +267,8 @@ def convert_to_original_representation(mentions: List[str]) -> List[str]:
     Returns:
         List[str]: Product mentions with underscores
     """
+    if not mentions:
+        return []
     return [mention.replace(" ", "_") for mention in mentions]
 
 
@@ -318,14 +322,15 @@ def extract_windows_kbs(text: str) -> List[str]:
     Returns:
         List[str]: List of standardized KB article references
     """
-    pattern = r"(?i)KB[-\s]?\d{6,7}"
-    matches = re.findall(pattern, text)
+    kb_pattern = r"(?i)KB[-\s]?\d{6,7}"
+    raw_kb_matches = re.findall(kb_pattern, text)
+
     # Convert matches to uppercase and standardize format to "KB-123456"
-    matches = [
-        match.upper().replace(" ", "").replace("KB", "") for match in matches
+    cleaned_kb_numbers = [
+        match.upper().replace(" ", "").replace("KB", "") for match in raw_kb_matches
     ]
-    matches = [f"KB-{match.strip('-')}" for match in matches]
-    return list(set(matches))
+    standardized_kbs = [f"KB-{kb_number.strip('-')}" for kb_number in cleaned_kb_numbers]
+    return list(set(standardized_kbs))
 
 
 def extract_edge_kbs(row: pd.Series) -> List[str]:
@@ -340,10 +345,13 @@ def extract_edge_kbs(row: pd.Series) -> List[str]:
         List[str]: List of Edge KB references
     """
     edge_kbs = []
-    if "edge" in row["product_mentions"]:
+    if (row.get("product_mentions") is not None
+            and "edge" in row["product_mentions"]
+            and row.get("build_numbers") is not None):
         for build_number in row["build_numbers"]:
-            build_str = ".".join(map(str, build_number))
-            edge_kbs.append(f"KB-{build_str}")
+            if build_number:  # Additional check for non-empty build number
+                build_str = ".".join(map(str, build_number))
+                edge_kbs.append(f"KB-{build_str}")
     return list(set(edge_kbs))
 
 
@@ -3230,32 +3238,45 @@ def transform_patch_posts_v2(
 # End Feature Engineering Patch Transformer ===================================
 
 
-def expand_version_architectures(
-    mention: str, products_df: pd.DataFrame
-) -> List[str]:
-    """Expand version mentions to include all relevant architectures.
-
-    For example, if "windows 10 22h2" is mentioned and both x86 and x64
-    versions exist in products_df, return both full product names.
+def expand_version_architectures(mention: str, products_df: pd.DataFrame) -> List[str]:
+    """Expand product mentions to include architecture variants.
 
     Args:
         mention: Product mention to expand
-        products_df: DataFrame containing product information
+        products_df: DataFrame with product information
 
     Returns:
-        List of expanded product mentions including architectures
+        List of full product names with architectures
     """
-    # Skip if already has architecture
-    if any(arch in mention.lower() for arch in ["x86", "x64"]):
+    mention = mention.replace(' ', '_').lower()
+
+    # Extract version components
+    version_match = re.search(
+        r'(\d{4}[a-z]?|\d{2}h\d)',
+        mention,
+        flags=re.IGNORECASE
+    )
+
+    if version_match:
+        version = version_match.group().lower()
+        base = mention.split(version)[0].strip('_')
+        pattern = f"{base}_{version}"
+
+        # Find architecture variants
+        arch_matches = products_df[
+            products_df["product_full"].str.contains(pattern, case=False)
+        ]
+        if not arch_matches.empty:
+            return arch_matches["product_full"].tolist()
+
+    # Fallback to basic architecture expansion
+    if any(arch in mention for arch in ['x86', 'x64']):
         return [mention]
 
-    # Find all products that match the base mention (without architecture)
-    matches = products_df[
-        products_df["product_name_version"].str.lower() == mention.lower()
+    base_matches = products_df[
+        products_df["product_name_version"].str.lower() == mention
     ]
-    if not matches.empty:
-        return matches["product_full"].tolist()
-    return [mention]
+    return base_matches["product_full"].tolist() if not base_matches.empty else [mention]
 
 
 def normalize_product_mentions(
@@ -3272,14 +3293,27 @@ def normalize_product_mentions(
     """
     if not mentions:
         return []
-    normalized = set()
-    for mention in mentions:
-        # Convert to lowercase for consistency
-        mention = mention.lower()
-        # Expand version mentions to include architectures if needed
-        expanded = expand_version_architectures(mention, products_df)
-        normalized.update(expanded)
-    return list(normalized)
+    expanded = set()
+    for m in mentions:
+        expanded.update(expand_version_architectures(m, products_df))
+
+    # Build product hierarchy
+    product_tree = defaultdict(set)
+    for product in expanded:
+        parts = product.split('_')
+        current = []
+        for part in parts:
+            current.append(part)
+            product_tree['_'.join(current)].add(product)
+
+    # Keep only most specific leaves
+    return [
+        p for p in expanded
+        if not any(
+            p != child and child.startswith(p + '_')
+            for child in expanded
+        )
+    ]
 
 
 def patch_fe_transformer(
@@ -3304,7 +3338,7 @@ def patch_fe_transformer(
     ]
 
     if not docs:
-        print("No patch posts to featur e engineer.")
+        print("No patch posts to feature engineer.")
         return None
     # Convert docs to DataFrame for easier manipulation
     patch_posts_df = pd.DataFrame(docs)
@@ -3326,66 +3360,45 @@ def patch_fe_transformer(
     )
     # Example columns in the DataFrame might differ in real code
     # Assume 'text', 'noun_chunks', 'keywords', etc. are present
+    patch_posts_df["product_mentions_noun_chunks"] = None
+    patch_posts_df["product_mentions_keywords"] = None
+    patch_posts_df["product_mentions_subject"] = None
+    patch_posts_df["product_mentions_text"] = None
     patch_posts_df["windows_kbs"] = None
     patch_posts_df["edge_kbs"] = None
 
-    patch_posts_df["product_mentions_noun_chunks"] = fuzzy_search_column(
-        patch_posts_df["noun_chunks"], products_df
-    )
-    patch_posts_df["product_mentions_keywords"] = fuzzy_search_column(
-        patch_posts_df["keywords"], products_df
-    )
-    patch_posts_df["product_mentions_subject"] = patch_posts_df[
-        "subject"
-    ].apply(lambda x: extract_product_mentions(x, products_df))
-    patch_posts_df["product_mentions_text"] = patch_posts_df[
-        "text"
-    ].apply(lambda x: extract_product_mentions(x, products_df))
+    non_conversational_idx = patch_posts_df[
+        patch_posts_df["post_type"] != "Conversational"
+    ].index
+    # Extract product mentions only for non-conversational posts
+    if len(non_conversational_idx) > 0:
+        # Process noun chunks
+        patch_posts_df.loc[non_conversational_idx, "product_mentions_noun_chunks"] = (
+            patch_posts_df.iloc[non_conversational_idx]["noun_chunks"].apply(
+                lambda x: extract_product_mentions(x, products_df, is_preprocessed=True)
+            )
+        )
 
-    # Filter out subject mentions for conversational posts
-    patch_posts_df["product_mentions_subject"] = patch_posts_df.apply(
-        lambda row: (
-            None
-            if row["post_type"].lower() == "conversational"
-            else row["product_mentions_subject"]
-        ),
-        axis=1,
-    )
+        # Process keywords
+        patch_posts_df.loc[non_conversational_idx, "product_mentions_keywords"] = (
+            patch_posts_df.iloc[non_conversational_idx]["keywords"].apply(
+                lambda x: extract_product_mentions(x, products_df, is_preprocessed=True)
+            )
+        )
 
-    # Combine and normalize all product mentions
-    patch_posts_df["product_mentions"] = patch_posts_df.apply(
-        lambda row: normalize_product_mentions(
-            list(
-                set(
-                    row["product_mentions_noun_chunks"]
-                    + row["product_mentions_keywords"]
-                    + (row["product_mentions_subject"] or [])
-                    + (row["product_mentions_text"] or [])
-                )
-            ),
-            products_df
-        ),
-        axis=1,
-    )
+        # Process subject
+        patch_posts_df.loc[non_conversational_idx, "product_mentions_subject"] = (
+            patch_posts_df.iloc[non_conversational_idx]["subject"].apply(
+                lambda x: extract_product_mentions(x, products_df, is_preprocessed=False)
+            )
+        )
 
-    # Apply retain_most_specific after normalization
-    patch_posts_df["product_mentions"] = patch_posts_df[
-        "product_mentions"
-    ].apply(lambda mentions: retain_most_specific(mentions, products_df))
-
-    patch_posts_df["product_mentions"] = patch_posts_df[
-        "product_mentions"
-    ].apply(convert_to_original_representation)
-
-    # Clean up intermediate columns
-    patch_posts_df = patch_posts_df.drop(
-        columns=[
-            "product_mentions_noun_chunks",
-            "product_mentions_keywords",
-            "product_mentions_subject",
-            "product_mentions_text"
-        ]
-    )
+        # Process text
+        patch_posts_df.loc[non_conversational_idx, "product_mentions_text"] = (
+            patch_posts_df.iloc[non_conversational_idx]["text"].apply(
+                lambda x: extract_product_mentions(x, products_df, is_preprocessed=False)
+            )
+        )
 
     # Extract build numbers
     regex_pattern = construct_regex_pattern()
@@ -3411,15 +3424,49 @@ def patch_fe_transformer(
         get_windows_kbs, axis=1
     )
     patch_posts_df["edge_kbs"] = patch_posts_df.apply(extract_edge_kbs, axis=1)
-    patch_posts_df["kb_mentions"] = patch_posts_df.apply(
-        lambda row: list(set(row["windows_kbs"] + row["edge_kbs"])), axis=1
-    )
 
-    # Clean up
+    def combine_kb_lists(row):
+        """Combine windows and edge KB lists, handling None values."""
+        windows_kbs = row["windows_kbs"] or []  # Convert None to empty list
+        edge_kbs = row["edge_kbs"] or []  # Convert None to empty list
+        return list(set(windows_kbs + edge_kbs))
+
+    patch_posts_df["kb_ids"] = patch_posts_df.apply(combine_kb_lists, axis=1)
+
+    # Combine and normalize product mentions only for non-conversational posts
+    if len(non_conversational_idx) > 0:
+        patch_posts_df.loc[non_conversational_idx, "product_mentions"] = (
+            patch_posts_df.iloc[non_conversational_idx].apply(
+                lambda row: normalize_product_mentions(
+                    list(
+                        set(
+                            (row["product_mentions_noun_chunks"] or [])
+                            + (row["product_mentions_keywords"] or [])
+                            + (row["product_mentions_subject"] or [])
+                            + (row["product_mentions_text"] or [])
+                        )
+                    ),
+                    products_df,
+                ),
+                axis=1,
+            )
+        )
+
+    def safe_convert_mentions(x):
+        if isinstance(x, list):
+            return convert_to_original_representation(x)
+        return []  # Handle NaN and any other non-list values
+
+    # Convert product mentions to match database format
+    patch_posts_df["product_mentions"] = patch_posts_df["product_mentions"].apply(safe_convert_mentions)
+
+    # Clean up intermediate columns
     patch_posts_df.drop(
         columns=[
-            "windows_kbs",
-            "edge_kbs",
+            "product_mentions_noun_chunks",
+            "product_mentions_keywords",
+            "product_mentions_subject",
+            "product_mentions_text",
         ],
         inplace=True,
     )
@@ -3431,8 +3478,8 @@ def patch_fe_transformer(
         logging.info(
             f"Found {has_mentions.sum()} records with product mentions:"
         )
-        for node_id in patch_posts_df[has_mentions]["node_id"]:
-            logging.info(f"Record {node_id} has product mentions")
+        # for node_id in patch_posts_df[has_mentions]["node_id"]:
+        #     logging.info(f"Record {node_id} has product mentions")
     return patch_posts_df
 
 
@@ -3440,19 +3487,21 @@ def patch_fe_transformer(
 
 
 def extract_product_mentions(
-    text: str,
+    text: Union[str, List[str]],
     products_df: pd.DataFrame,
-    threshold: int = 80
+    threshold: int = 91,
+    is_preprocessed: bool = False
 ) -> List[str]:
-    """Extract product mentions from text with special handling for Windows versions.
+    """Extract product mentions from text with comprehensive pattern matching.
 
-    Handles special cases like "windows10/11" and version patterns like "23h2"
-    while maintaining compatibility with fuzzy_search_column results.
+    Handles special cases like "windows10/11", version patterns like "23h2",
+    and server versions while maintaining compatibility with fuzzy matching.
 
     Args:
-        text: Input text to search for product mentions
+        text: Input text or list of texts to search
         products_df: DataFrame containing product information
-        threshold: Fuzzy matching threshold (default: 80)
+        threshold: Fuzzy matching threshold
+        is_preprocessed: Whether input is pre-processed (noun chunks/keywords)
 
     Returns:
         List of matched product names
@@ -3460,21 +3509,34 @@ def extract_product_mentions(
     if pd.isna(text):
         return []
 
-    matches = set()
-    search_text = text.lower()
+    matches: Set[str] = set()
 
-    # Handle special Windows 10/11 pattern first
+    # Convert list input to string if needed
+    search_text = ' '.join(text) if isinstance(text, list) else text
+    search_text = search_text.lower()
+
+    # Handle special Windows 10/11 pattern
     win1011_pattern = r"(?:windows|win)\s*(?:10/11|11/10)"
     if re.search(win1011_pattern, search_text, re.IGNORECASE):
-        matches.add("windows_10")
-        matches.add("windows_11")
+        matches.update(["windows_10", "windows_11"])
 
-    # Handle version-specific patterns with explicit Windows mentions
+    # Handle server versions
+    server_patterns = {
+        r"(?:windows\s+)?server\s+2025\b": "windows_server_2025",
+        r"(?:windows\s+)?server\s+2022\b": "windows_server_2022",
+        r"(?:windows\s+)?server\s+2019\b": "windows_server_2019",
+        r"(?:windows\s+)?server\s+2016\b": "windows_server_2016",
+    }
+
+    for pattern, product in server_patterns.items():
+        if re.search(pattern, search_text, re.IGNORECASE):
+            matches.add(product)
+
+    # Handle version-specific patterns
     version_patterns = {
         r"(?:windows|win)?\s*11.*?(?:version\s*)?24h2\b": "windows_11_24h2",
         r"(?:windows|win)?\s*11.*?(?:version\s*)?23h2\b": "windows_11_23h2",
         r"(?:windows|win)?\s*11.*?(?:version\s*)?22h2\b": "windows_11_22h2",
-        r"(?:windows|win)?\s*10.*?(?:version\s*)?23h2\b": "windows_10_23h2",
         r"(?:windows|win)?\s*10.*?(?:version\s*)?22h2\b": "windows_10_22h2",
         r"(?:windows|win)?\s*10.*?(?:version\s*)?21h2\b": "windows_10_21h2",
     }
@@ -3484,15 +3546,11 @@ def extract_product_mentions(
             matches.add(product)
 
     # Handle standalone versions
-    if not any(ver in matches for ver in ["windows_11_24h2"]):
-        if re.search(r"\b24h2\b", search_text, re.IGNORECASE):
-            matches.add("windows_11_24h2")  # 24H2 is Windows 11 only
-
-    # Handle other standalone versions for both Windows 10 and 11
     standalone_patterns = {
-        r"\b23h2\b": ["windows_11_23h2", "windows_10_23h2"],
+        r"\b24h2\b": ["windows_11_24h2"],
+        r"\b23h2\b": ["windows_11_23h2"],
         r"\b22h2\b": ["windows_11_22h2", "windows_10_22h2"],
-        r"\b21h2\b": ["windows_10_21h2"]  # 21H2 is Windows 10 only
+        r"\b21h2\b": ["windows_10_21h2", "windows_server_2022"]
     }
 
     for pattern, products in standalone_patterns.items():
@@ -3507,11 +3565,23 @@ def extract_product_mentions(
         if re.search(r"(?:windows|win)\s*10\b", search_text, re.IGNORECASE):
             matches.add("windows_10")
 
-    # Apply standard fuzzy matching
-    text_list = pd.Series([search_text])
-    fuzzy_matches = fuzzy_search_column(text_list, products_df, threshold)
-    if fuzzy_matches and fuzzy_matches[0]:
-        matches.update(fuzzy_matches[0])
+    # If no matches found and text is pre-processed, try fuzzy matching with lower threshold
+    if not matches and is_preprocessed:
+        # Normalize text for better matching
+        search_text = re.sub(r'microsoft\s+', '', search_text)  # Remove Microsoft prefix
+        search_text = re.sub(r'\s+xdr$', '', search_text)  # Remove XDR suffix
+        search_text = re.sub(r'defender\s+for\s+', 'defender_', search_text)  # Normalize Defender product names
+
+        text_series = pd.Series([search_text])
+        fuzzy_matches = fuzzy_search_column(text_series, products_df, threshold=80)
+        if fuzzy_matches and fuzzy_matches[0]:
+            matches.update(fuzzy_matches[0])
+    # For non-preprocessed text, use standard fuzzy matching as fallback
+    elif not matches:
+        text_series = pd.Series([search_text])
+        fuzzy_matches = fuzzy_search_column(text_series, products_df, threshold)
+        if fuzzy_matches and fuzzy_matches[0]:
+            matches.update(fuzzy_matches[0])
 
     return list(matches)
 

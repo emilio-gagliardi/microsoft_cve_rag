@@ -1,0 +1,22 @@
+{
+  "description": "**Fix Overview**:\n\nTo successfully transition from Windows 11 22H2 to 24H2 using the necessary enablement packages and cumulative updates:\n\n1. Begin by installing the KB5027397 enablement package, which prepares the system for the 23H2 feature update.\n\n2. Ensure you also have the KB5031455 preview or later cumulative update installed prior to updating to 24H2.\n\n3. Familiarize yourself with the recent known issues that may affect the upgrade process, which include potential complications with the Windows Update agent, secure boot, and BitLocker.\n\n**Details**:\n- The minimum operating system level required for the 24H2 update is dictated by the cumulative update from May 2024, which includes essential patches and features necessary for a smooth upgrade. It is imperative to resolve any lingering 23H2 issues before proceeding with the upgrade to 24H2 to avoid complications. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure all prior updates and patches, specifically related to KB5031455 and KB5027397, have been installed.\n- Backup important data before attempting the upgrade to safeguard against potential data loss.",
+  "source_id": "5bf59882-a7c8-10c1-2d98-7ad334a86e30",
+  "source_type": "PatchManagementPost",
+  "fix_label": "upgrade_windows_11_23h2_to_24h2_requirements",
+  "tags": [
+    "KB5037853",
+    "KB5031455",
+    "Windows11Upgrade",
+    "PatchManagement",
+    "LLM Synthesized"
+  ],
+  "node_id": "8abe1701-8df9-4b0a-abb3-a1440b22f5b9",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "5bf59882-a7c8-10c1-2d98-7ad334a86e30"
+  ],
+  "verification_status": "unverified"
+}

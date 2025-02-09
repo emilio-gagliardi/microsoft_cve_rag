@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_kernel_information_disclosure_in_reg_keys",
+  "description": "After applying the provided security updates for multiple Windows 10 and Windows 11 builds, users may experience unexpected access to sensitive information. Specifically, there is a risk of registry keys being disclosed, which users typically do not have permission to view. This could lead to unauthorized retrieval of important information that should remain confidential. The potential builds affected include various versions of Windows 10 and Windows 11, such as build numbers 10.0.19045.4170 for Windows 10 Version 22H2 for x64-based systems, and 10.0.22631.3296 for Windows 11 Version 23H2 for x64-based systems as described in KB articles KB-5035845 and KB-5035853. The overall impact rating for these updates is classified as important, necessitating immediate attention from system administrators to mitigate the information disclosure risks.",
+  "source_id": "bf8994c8-4b69-5679-af11-3bd102ad09c9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "bf8994c8-4b69-5679-af11-3bd102ad09c9"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Information Disclosure",
+    "Registry",
+    "Security Update"
+  ],
+  "node_id": "e3ee5e56-8561-4c4e-a459-d821fa62d66d",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

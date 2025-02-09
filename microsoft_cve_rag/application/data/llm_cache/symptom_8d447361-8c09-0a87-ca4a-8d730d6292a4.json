@@ -1,0 +1,22 @@
+{
+  "symptom_label": "remote_desktop_client_experiences_code_execution_issue",
+  "description": "After applying the security updates associated with KB5044284, KB5044285, and KB5044280, users of the Remote Desktop Client on Windows 11 versions 21H2, 22H2, 23H2, and 24H2 may experience unexpected behavior during remote connections. This includes the potential for unauthorized remote code execution, where an attacker could gain control over the client machine simply by a malicious connection initiated by the victim to a compromised remote desktop server. Symptoms may manifest as unresponsive applications, unexpected processes launching, or even complete system compromises, severely affecting system integrity and availability. Users running build numbers 10.0.22000.3260, 10.0.22621.4317, 10.0.22631.4317, and 10.0.26100.2033 should be particularly vigilant about unusual connection behaviors following the updates.",
+  "source_id": "8d447361-8c09-0a87-ca4a-8d730d6292a4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8d447361-8c09-0a87-ca4a-8d730d6292a4"
+  ],
+  "tags": [
+    "Remote Desktop",
+    "Windows 11",
+    "Remote Code Execution",
+    "Security Update",
+    "System Integrity"
+  ],
+  "node_id": "648692c7-58ad-4a46-a345-64d4639dbd2e",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

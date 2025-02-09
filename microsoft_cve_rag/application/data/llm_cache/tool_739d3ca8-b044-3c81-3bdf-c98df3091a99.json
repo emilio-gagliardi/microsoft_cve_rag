@@ -1,0 +1,19 @@
+{
+  "tool_label": "MicrosoftEdgeManagementService",
+  "description": "**Tool Overview**: The Microsoft Edge Management Service enables administrators to effectively manage and configure Microsoft Edge settings across their organization. This tool aids in deploying policies, managing updates, and ensuring compliance with security measures. Administrators can use the service to ensure that all Edge users receive consistent configurations, enhancing both security and user experience. It integrates seamlessly with Intune for device management, providing a centralized dashboard for managing browser settings. **Details**: The service supports various management capabilities such as application configuration, automatic updates, and remote monitoring of browser usage statistics.",
+  "source_id": "739d3ca8-b044-3c81-3bdf-c98df3091a99",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/emff17d2f0-4780-446a-9df7-820dd83ccd26%40be4c8e1a.com",
+  "tool_url": "https://intune.tech/2023/12/15/getting-started-with-microsoft-edge-management-service.html",
+  "tags": [
+    "Microsoft Edge",
+    "Management",
+    "Intune",
+    "Browser Policy"
+  ],
+  "node_id": "f0c06313-4d40-458c-a5ab-7b92277c8e44",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

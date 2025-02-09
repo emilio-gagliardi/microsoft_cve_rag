@@ -1,0 +1,18 @@
+{
+  "description": "The cause of the issue is rooted in the need for retrieving installed program information from the Windows registry using a PowerShell function. The mentioned function operates by querying the registry paths for installed applications, specifically targeting Adobe Acrobat installations. It performs a conditional check based on the OS architecture, which could lead to incorrect registry path accesses if misconfigured. The use of specific properties and values, such as 'displayname' and 'uninstallkey', further illustrates the necessity for precise coding to avoid errors in the retrieval process. Additionally, the solution's reliance on registry structure can lead to vulnerabilities if not appropriately handled, making it crucial for system administrators to ensure that their scripts accurately account for the registry\u2019s layout and potential inconsistencies.",
+  "source_id": "e59949b8-49a7-99e3-7040-4b09aa062127",
+  "source_type": "PatchManagementPost",
+  "cause_label": "IncorrectRegistryAccessForProgramInformation",
+  "tags": [
+    "PowerShell",
+    "registry",
+    "Adobe",
+    "Acrobat",
+    "installed programs"
+  ],
+  "node_id": "7116de6c-fe0e-4521-b348-a7dc2160532d",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

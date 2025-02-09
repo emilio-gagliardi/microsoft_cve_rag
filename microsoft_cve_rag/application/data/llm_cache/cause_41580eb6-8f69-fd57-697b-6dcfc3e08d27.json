@@ -1,0 +1,18 @@
+{
+  "description": "The underlying cause for the retraction of all iterations of the holiday update (2023.44.30.1 through 2023.44.30.4) by Tesla involves multiple bug fixes related to issues reported by vehicle owners. This scenario hints at possible software instability or operational anomalies following the update deployment, which necessitated an immediate review and subsequent rollback of the released versions. Vehicle software updates are critical for performance and safety, thus, the need to address these issues quickly is paramount. Although specific bug details are not provided, it is indicative of unanticipated behavioral patterns that were likely affecting multiple vehicles. The prompt re-release of a subsequent update illustrates Tesla's proactive approach in rectifying the identified issues and maintaining customer satisfaction.",
+  "source_id": "41580eb6-8f69-fd57-697b-6dcfc3e08d27",
+  "source_type": "PatchManagementPost",
+  "cause_label": "MultipleBugFixesRequireImmediateUpdateRollback",
+  "tags": [
+    "bug fix",
+    "software stability",
+    "update rollback",
+    "vehicle performance",
+    "customer feedback"
+  ],
+  "node_id": "0087f9ac-b442-4004-9467-70dd49432296",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

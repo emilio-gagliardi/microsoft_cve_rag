@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_smartscreen_bypass_leads_to_code_injection",
+  "description": "The Windows Smartscreen feature may fail to adequately verify downloaded files, leading to potential unauthorized code execution. This behavior is particularly concerning for users operating on affected builds of Windows 10 and Windows Server 2016, where exploitation could occur following user interaction, such as opening a compromised file. This flaw prompts a significant loss of integrity, with attackers potentially able to modify critical files without detection. Users may also experience some loss of confidentiality, as restricted information could be exposed through the exploitation process. For systems running builds including 10.0.19045.4046 and 10.0.10240.20469, it's imperative to review the Microsoft security bulletin associated with KB5034763 for guidance on mitigating this risk.",
+  "source_id": "3c16d19d-e2e5-0e7f-6cf7-bff2c755195b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "3c16d19d-e2e5-0e7f-6cf7-bff2c755195b"
+  ],
+  "tags": [
+    "Windows",
+    "Smartscreen",
+    "Code Injection",
+    "Integrity Loss"
+  ],
+  "node_id": "4b3a4305-3335-4ea2-8624-64068da36674",
+  "node_label": "Symptom",
+  "reliability": 95,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the BitLocker security feature bypass vulnerability (CVE-2024-20666):\n\n1. Ensure your system is updated with the latest cumulative updates from Windows Update or WSUS. For most Windows versions, the Windows Recovery Environment (WinRE) will be automatically updated as part of these updates.\n\n2. For specific versions of Windows that do not update automatically, you can manually apply the necessary updates by downloading them from the Microsoft Update Catalog:\n   - Download KB5034134: [KB5034134](https://catalog.update.microsoft.com/Search.aspx?q=KB5034134)\n   - Download KB5034123: [KB5034123](https://catalog.update.microsoft.com/Search.aspx?q=KB5034123)\n   - Download KB5034121: [KB5034121](https://catalog.update.microsoft.com/Search.aspx?q=KB5034121)\n   - Download KB5034130: [KB5034130](https://catalog.update.microsoft.com/Search.aspx?q=KB5034130)\n   - Download KB5034127: [KB5034127](https://catalog.update.microsoft.com/Search.aspx?q=KB5034127)\n   - Download KB5034122: [KB5034122](https://catalog.update.microsoft.com/Search.aspx?q=KB5034122)\n   - Download KB5034129: [KB5034129](https://catalog.update.microsoft.com/Search.aspx?q=KB5034129)\n   - Download KB5034119: [KB5034119](https://catalog.update.microsoft.com/Search.aspx?q=KB5034119)\n\n**Details**:\nThis update directly addresses the ability to bypass the BitLocker encryption feature on the system. Ensure that your Windows installation is up-to-date to protect against this vulnerability. Following the update, verify that WinRE is properly configured by completing the verification steps outlined in Microsoft's recommendations.\n\n**Preconditions**:\n- Ensure your system meets the version requirements for the respective updates.\n- Backup important data before performing installation of updates.",
+  "source_id": "cf42d53d-3e8d-9b34-99d5-7f6132433e32",
+  "source_type": "MSRCPost",
+  "fix_label": "MitigateBitLockerBypassCVE202420666",
+  "tags": [
+    "KB5034134",
+    "BitLocker",
+    "CVE202420666",
+    "WindowsUpdate"
+  ],
+  "node_id": "d8455c45-5e95-428a-b08e-7261f4280e90",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

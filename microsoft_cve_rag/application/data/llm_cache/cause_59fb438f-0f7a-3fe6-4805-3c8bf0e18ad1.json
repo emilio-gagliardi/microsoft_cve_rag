@@ -1,0 +1,20 @@
+{
+  "description": "The underlying cause of the issue appears to be related to the licensing limitations imposed on the installation of the security update for ScreenConnect (ConnectWise). According to the release notes, the previous configurations prevented out-of-license instances from applying important updates. Therefore, users running license instances found themselves unable to install critical security patches that were necessary for the integrity and safety of their systems. By addressing these licensing restrictions, workaround options were made available that now allow all instances, regardless of licensing status, to effectively receive and install the associated security updates. This change ultimately mitigates any risk associated with outdated or unprotected installations.",
+  "source_id": "59fb438f-0f7a-3fe6-4805-3c8bf0e18ad1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "59fb438f-0f7a-3fe6-4805-3c8bf0e18ad1"
+  ],
+  "cause_label": "licensing_restrictions_prevent_security_update_installation",
+  "tags": [
+    "screenconnect",
+    "security_update",
+    "licensing",
+    "patch_management"
+  ],
+  "node_id": "5a7b4a20-a869-4f2d-afe0-23abe5506672",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

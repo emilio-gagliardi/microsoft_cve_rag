@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_mobile_hotspot_information_disclosure",
+  "description": "Users may experience unintended exposure of sensitive information while utilizing the Mobile Hotspot feature on affected Windows devices. The information disclosure issue is particularly relevant for those running Windows versions build 10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, 10.0.22621.3447, and 10.0.10240.20596. This may affect the behavior of applications or services relying on this feature, leading to potential data leaks that users may notice if their information is unexpectedly accessible. This vulnerability is addressed in several KB Articles, including KB-5036925, KB-5036896, KB-5036894, KB-5036893, and KB-5036892. Administrators should ensure their systems are up to date to mitigate this risk, particularly in environments where sensitive data is shared over network connections.",
+  "source_id": "3a6995b2-4214-1d7a-be3b-1194865188b0",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "3a6995b2-4214-1d7a-be3b-1194865188b0"
+  ],
+  "tags": [
+    "windows",
+    "mobile hotspot",
+    "information disclosure",
+    "vulnerability",
+    "data leak"
+  ],
+  "node_id": "c32d7c9f-c03f-4fc1-85a1-4e9dbcc68336",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "bypass_certificate_validation_during_enrollment_process",
+  "description": "Users may experience issues during the account enrollment process when the system fails to properly validate certificates. This behavior can lead to situations where an attacker could bypass necessary security checks, prompting concerns regarding the integrity and confidentiality of user data. Specifically, the security feature bypass affects multiple Windows build versions, including 10.0.22631.3880 and 10.0.19045.4651, and is associated with KB articles KB-5040442, KB-5040431, and KB-5040427. As a direct consequence, end users might notice that account enrollment and updates proceed without appropriate certificate checks, compromising the security posture of their systems.",
+  "source_id": "64efd1f7-cd5a-be1c-2740-00142f71e347",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "64efd1f7-cd5a-be1c-2740-00142f71e347"
+  ],
+  "tags": [
+    "Windows",
+    "enrollment",
+    "certificate",
+    "bypass",
+    "security"
+  ],
+  "node_id": "b4690b94-8da6-4490-9225-029b0be21820",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "The issue stems from a bypass in the secure boot security feature, allowing access to the system without proper validation checks. This could lead to unintended consequences and potential exploitation by unauthorized entities.",
+  "cause_label": "secure_boot_feature_bypass_due_to_configuration_flaw",
+  "source_id": "3652afd3-23d6-9978-2d99-daf34b03a7a0",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "3652afd3-23d6-9978-2d99-daf34b03a7a0"
+  ],
+  "tags": [
+    "CVE",
+    "secure boot",
+    "bypass",
+    "configuration",
+    "mechanism failure"
+  ],
+  "node_id": "2e3ccd99-28c4-48bb-9395-6e67c522181d",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

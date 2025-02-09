@@ -1,0 +1,20 @@
+{
+  "symptom_label": "secure_boot_dbx_update_not_applied_correctly",
+  "description": "After applying registry values related to the Secure Boot Dbx update on Windows operating systems, users may encounter issues where the updates are not fully applied as expected. Specifically, applying registry value 0x40 succeeded in registering the 'Windows UEFI CA 2023' certificate initially. However, subsequently applying value 0x30 removed the previously registered certificate, indicating an incomplete update sequence. This confusion is compounded by event log entries (event IDs 1034 and 1035) that suggest successful update applications when in reality, not all necessary updates are reflected in the Secure Boot database. This symptom highlights the critical importance of applying these registry changes in the correct order and ensuring that all required steps are followed to maintain the integrity of Secure Boot. Refer to KB-5025885 for more guidance on managing Windows Boot Manager revocations associated with CVE-2023-24932.",
+  "source_id": "5febc967-9996-bdcb-0a22-3e88191ad59d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "5febc967-9996-bdcb-0a22-3e88191ad59d"
+  ],
+  "tags": [
+    "secure_boot",
+    "registry_values",
+    "windows_updates",
+    "patch_management"
+  ],
+  "node_id": "10ffcb65-47e1-4935-9946-4a8cd1aa42c2",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

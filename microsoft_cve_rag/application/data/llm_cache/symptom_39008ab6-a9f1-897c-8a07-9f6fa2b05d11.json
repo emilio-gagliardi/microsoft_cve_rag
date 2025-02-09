@@ -1,0 +1,16 @@
+{
+  "symptom_label": "Action1VulnerabilityScannerAlertsOnCVE",
+  "description": "The Action1 patch management solution includes a vulnerability scanner that monitors for CVE alerts related to software installed on systems. When a relevant CVE, such as CVE-2023-4863, is detected, the scanner notifies the system administrator and provides remediation suggestions. This aids in proactive management of system vulnerabilities and ensures timely updates, which mitigates potential risks associated with unaddressed vulnerabilities.",
+  "source_id": "39008ab6-a9f1-897c-8a07-9f6fa2b05d11",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "vulnerability",
+    "patch management",
+    "CVE"
+  ],
+  "node_id": "c4485c2b-e24e-4c71-b083-61bd40fa5311",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

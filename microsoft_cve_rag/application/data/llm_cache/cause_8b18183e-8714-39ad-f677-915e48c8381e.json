@@ -1,0 +1,22 @@
+{
+  "description": "Improper implementation in fedcm in Google Chrome prior to version 127.0.6533.72, allowing remote UI spoofing by convincing users to perform specific UI gestures on a crafted HTML page.",
+  "cause_label": "chromium_improper_implementation_in_fedcm_ui_spoofing",
+  "source_id": "8b18183e-8714-39ad-f677-915e48c8381e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8b18183e-8714-39ad-f677-915e48c8381e"
+  ],
+  "tags": [
+    "Chromium",
+    "UI Spoofing",
+    "FedCM",
+    "Microsoft Edge",
+    "CVE-2024-7003"
+  ],
+  "node_id": "8c5abe2e-9c26-41cf-b8d0-65b1907cacd8",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "low",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

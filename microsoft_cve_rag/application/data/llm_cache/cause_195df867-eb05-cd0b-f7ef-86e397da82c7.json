@@ -1,0 +1,20 @@
+{
+  "description": "The untrusted pointer dereference flaw in the Windows Secure Kernel that allows local attackers to escalate privileges by manipulating memory access, leading to potential elevation of privilege vulnerabilities across multiple Windows versions.",
+  "cause_label": "windows_secure_kernel_untrusted_pointer_dereference",
+  "source_id": "195df867-eb05-cd0b-f7ef-86e397da82c7",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "195df867-eb05-cd0b-f7ef-86e397da82c7"
+  ],
+  "tags": [
+    "Windows",
+    "Elevation of Privilege",
+    "Kernel Security"
+  ],
+  "node_id": "e676241f-2d1f-41b7-adfc-2c0413e04de5",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

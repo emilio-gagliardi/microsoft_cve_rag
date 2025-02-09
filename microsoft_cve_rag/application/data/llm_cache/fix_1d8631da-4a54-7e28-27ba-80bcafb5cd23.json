@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the elevation of privilege vulnerability in Windows Remote Access Connection Manager (CVE-2024-26211):\n\n1. Apply the relevant updates as listed in the KB Articles below. \n2. Ensure that your system is one of the supported build numbers prior to applying the updates.\n3. Restart your system after installing the updates to enforce changes.\n\n**Details**:\nThe updates address a heap-based buffer overflow that could potentially allow an attacker to elevate privileges. It is crucial to apply all mentioned KB updates to ensure comprehensive protection. \n- KB Articles: KB-5037788, KB-5037771, KB-5037768, KB-5036909, KB-5036899, KB-5036896, KB-5036894, KB-5036893, KB-5036892.\n- Confirm that your system's build is one of the following: 10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, 10.0.22621.3447, 10.0.10240.20596, 10.0.19045.4412, 10.0.10240.20651, 10.0.22631.3593, 10.0.22621.3593, 10.0.19044.4412.\n\n**Preconditions**:\n- Ensure you have administrative privileges to apply updates.\n- Backup any critical data before proceeding with the installation.",
+  "source_id": "1d8631da-4a54-7e28-27ba-80bcafb5cd23",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_heap_based_buffer_overflow_cve202426211",
+  "tags": [
+    "WindowsRemoteAccess",
+    "CVE202426211",
+    "KB5037788",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "74cabc09-e005-42a7-9c66-e1451a040831",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "1d8631da-4a54-7e28-27ba-80bcafb5cd23"
+  ]
+}

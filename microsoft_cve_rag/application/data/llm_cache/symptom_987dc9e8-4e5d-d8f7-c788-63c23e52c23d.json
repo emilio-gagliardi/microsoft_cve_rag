@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_resilient_file_system_elevation_of_privilege",
+  "description": "After applying security updates including KB5044285, KB5044284, and KB5044280, users may experience unauthorized access to elevated privileges on systems running Windows 10 and Windows 11, specifically in builds 10.0.22631.4317 and 10.0.26100.2033. This can lead to unexpected behaviors such as the ability to modify sensitive files or to access restricted functions within the Windows Resilient File System (ReFS). The situation exacerbates if the user interacts with vulnerable files or applications that rely on these disk management features, potentially allowing local attackers to gain higher privileges than intended. As a consequence, administrators should monitor user activities closely following the deployment of these updates to ensure that no changes in privilege levels have gone unnoticed.",
+  "source_id": "987dc9e8-4e5d-d8f7-c788-63c23e52c23d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "987dc9e8-4e5d-d8f7-c788-63c23e52c23d"
+  ],
+  "tags": [
+    "Windows Resilient File System",
+    "Elevation of Privilege",
+    "Windows 10",
+    "Windows 11",
+    "System Administration"
+  ],
+  "node_id": "69d04f4d-cd2d-44b5-ab81-4b7277efd695",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,23 @@
+{
+  "tool_label": "windows_layer_2_bridge_network_driver",
+  "description": "**Tool Overview**:\n\nThe Windows Layer-2 Bridge Network Driver is involved in managing network connectivity in Windows operating systems. This driver facilitates communication between different network segments and can be vulnerable to issues that lead to denial of service.\n\n**Details**:\n\n1. **Purpose**: It connects Ethernet frames and manages data traffic across network interfaces.\n2. **Vulnerability**: A denial of service vulnerability has been identified (CVE-2024-38105) due to improper input validation in the driver.\n3. **Impact**: The vulnerability may allow an attacker to disrupt service availability, thereby interfering with network communications.\n4. **Configuration**: Ensure that you are using the latest updates provided by Microsoft to mitigate known vulnerabilities.\n5. **Usage**: System Administrators should keep abreast of Microsoft security updates related to the Windows Layer-2 Bridge to ensure optimal security.\n\nFor more detailed information, refer to the Microsoft Security Update Guide: [CVE-2024-38105 Update Guide](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38105).",
+  "source_id": "95655c24-046f-5352-577a-81dddeed0a26",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "95655c24-046f-5352-577a-81dddeed0a26"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38105",
+  "tool_url": "",
+  "tags": [
+    "driver",
+    "network",
+    "denial_of_service",
+    "security"
+  ],
+  "node_id": "12e8afd1-0f2f-475f-8cf2-61af5a5a1d74",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

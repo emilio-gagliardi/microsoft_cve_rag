@@ -1,0 +1,22 @@
+{
+  "symptom_label": "msmq_service_causes_remote_code_execution_vulnerability",
+  "description": "After applying the security update identified by KB5039212, users may experience a critical incident where the Microsoft Message Queuing (MSMQ) service could allow unauthorized remote code execution. This can manifest as unexpected application behavior, with possible crashes or data manipulation occurring without any user interaction. The affected builds include Windows 10 (10.0.19043.4529, 10.0.22631.3737, 10.0.22621.3737, 10.0.22000.3019), along with server versions such as Windows Server 2012 R2 and Windows Server 2008 R2. System administrators may find that services relying on MSMQ functionality are disrupted, leading to significant operational impacts and the need for immediate remediation measures.",
+  "source_id": "8b6d88da-dadc-67ce-0067-6c2b230b9aeb",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8b6d88da-dadc-67ce-0067-6c2b230b9aeb"
+  ],
+  "tags": [
+    "MSMQ",
+    "Remote Code Execution",
+    "Windows 10",
+    "Windows Server",
+    "Critical Update"
+  ],
+  "node_id": "3c53b63c-ed91-429e-9918-241adfe905a0",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,16 @@
+{
+  "symptom_label": "WindowsUpdateIssuesAfter21H2EndOfSupport",
+  "description": "Post indicates problems with Windows Update (WU) processes specifically following the cessation of updates for Windows 10 version 21H2. The symptom suggests that users on non-Enterprise or non-Education editions are experiencing tough difficulties in debugging Windows Update issues. A recommended solution mentioned is to upgrade to the next version, which would replace existing Windows Update files, thus potentially resolving those update problems caused by unsupported build limitations.",
+  "source_id": "c317ed68-2bfc-6415-d767-7e7b1a99567e",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows Update",
+    "21H2",
+    "Patch Management"
+  ],
+  "node_id": "4fe34c8c-4240-4448-9ecd-83f2908a8070",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

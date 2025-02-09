@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the secure boot security feature bypass vulnerabilities associated with CVE-2023-24932 and CVE-2024-23593:\n\n1. Refer to the KB article [KB-5025885](https://support.microsoft.com/help/5025885) to understand how to manage the Windows Boot Manager revocations.\n2. Implement the steps outlined in the article to enable protections against the vulnerabilities and update bootable media accordingly.\n3. Ensure that the system is configured to apply the necessary Secure Boot changes to mitigate potential attacks via malicious bootkits like BlackLotus.\n\n**Details**:\nThis mitigation is essential for protecting devices from the unauthorized loading of software during the boot sequence, which could compromise system integrity. Following the guidelines will help enforce the required security measures for Secure Boot. (LLM Synthesized)",
+  "source_id": "9d66da80-e989-cf66-a5b5-84dfbfcb5380",
+  "source_type": "PatchManagementPost",
+  "fix_label": "mitigate_secure_boot_security_bypass_cve20232423593",
+  "tags": [
+    "KB5025885",
+    "CVE-2023-24932",
+    "CVE-2024-23593",
+    "SecureBoot"
+  ],
+  "node_id": "55bc8496-9411-4500-b7d0-4156873912bf",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "9d66da80-e989-cf66-a5b5-84dfbfcb5380"
+  ]
+}

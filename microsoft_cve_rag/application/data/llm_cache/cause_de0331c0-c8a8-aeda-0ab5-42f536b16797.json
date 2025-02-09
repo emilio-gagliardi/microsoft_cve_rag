@@ -1,0 +1,20 @@
+{
+  "description": "Smartscreen security feature allows for prompt bypassing due to insufficient protective mechanisms.",
+  "cause_label": "smartscreen_prompt_security_feature_bypass_fallacy",
+  "source_id": "de0331c0-c8a8-aeda-0ab5-42f536b16797",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "de0331c0-c8a8-aeda-0ab5-42f536b16797"
+  ],
+  "tags": [
+    "smartscreen",
+    "bypass",
+    "security",
+    "CVE-2024-29988"
+  ],
+  "node_id": "d37565e6-6b6b-42ad-81c6-c5e72ca3569f",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

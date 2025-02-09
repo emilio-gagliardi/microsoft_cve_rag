@@ -1,0 +1,18 @@
+{
+  "tool_label": "CheckMicrosoftEdgeVersion",
+  "description": "**Tool Overview**:\nTo determine the version of your Microsoft Edge browser, follow this simple procedure. **Steps to Check**:\n1. Open your Microsoft Edge browser.\n2. Click on the three dots `(...)` located on the far right-hand side of the window.\n3. From the dropdown menu, select `Help and feedback`.\n4. Click on `About Microsoft Edge`. This will display the version information of your browser.\n\nThis procedure allows users to quickly verify the current version of Microsoft Edge they are using, ensuring they stay updated with the latest security improvements.\n\nFor more information, users can visit the official Microsoft documentation for Microsoft Edge.",
+  "source_id": "91387ad0-5d6d-9e5d-c410-2d67261620f9",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-7024",
+  "tool_url": "",
+  "tags": [
+    "Microsoft Edge",
+    "browser",
+    "version check"
+  ],
+  "node_id": "77128c0a-540c-4ec3-921e-83217c44a619",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo successfully boot a mitigated device using a custom WinPE image:\n\n1. Utilize the Deployment Image Servicing and Management (DISM) tool to update your custom WinPE .iso file.\n2. Ensure you have Windows ADK installed and create a new WinPE image using the latest 2024 version that supports Windows 11 (24H2).\n3. Boot the updated WinPE image on the mitigated device to resolve boot issues.\n\n**Details**:\n- The DISM tool allows for modifications and updates to your WinPE images, ensuring compatibility with the latest Windows features and updates.\n- It's crucial to test the created WinPE image on a mitigated device to confirm it works correctly before deploying it widely. (LLM Synthesized)",
+  "source_id": "42aa92dd-c399-96aa-037f-736c746a77c1",
+  "source_type": "PatchManagementPost",
+  "fix_label": "update_winpe_image_for_windows_11_24h2_support",
+  "tags": [
+    "Windows11",
+    "WinPE",
+    "WindowsADK",
+    "LLM Synthesized"
+  ],
+  "node_id": "cf3ab322-a9c9-4392-aad9-0f239949d0f3",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "42aa92dd-c399-96aa-037f-736c746a77c1"
+  ],
+  "verification_status": "unverified"
+}

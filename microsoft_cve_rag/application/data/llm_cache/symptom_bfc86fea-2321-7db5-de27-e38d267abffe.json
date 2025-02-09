@@ -1,0 +1,20 @@
+{
+  "symptom_label": "incremental_backup_fails_due_to_cbt_issue",
+  "description": "Users employing VMware ESXi 8.0 with Changed Block Tracking (CBT) for incremental backups may encounter failures when attempting to restore virtual machines after hot extending virtual disks. Specifically, the CBT in-memory bitmap does not resize properly, causing it to be unable to record changes on the extended disk block. This leads to incomplete backups, resulting in failure to start the VM from incremental backup attempts. This issue is particularly relevant for backup solutions like Veeam that utilize CBT in their backup processes. The problem is resolved in VMware ESXi 8.0 Update 2b, under KB Article KB3316967.",
+  "source_id": "bfc86fea-2321-7db5-de27-e38d267abffe",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "bfc86fea-2321-7db5-de27-e38d267abffe"
+  ],
+  "tags": [
+    "VMware",
+    "ESXi",
+    "Changed Block Tracking",
+    "Backup Solutions"
+  ],
+  "node_id": "29955066-8995-4291-a95b-15a2f85f6011",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

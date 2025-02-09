@@ -1,0 +1,16 @@
+{
+  "symptom_label": "WindowsConfigurationUpdateDoesNotInstallCopilot",
+  "description": "The installation of the Windows configuration update from September 26, 2023 (KB5030310, OS Build 22621.2361) does not result in the installation of Copilot on eligible devices. This issue indicates a potential barrier to accessing new features that may enhance user experience. Enterprise devices also cannot enable the toggle for receiving the latest updates without specific policy deployment, which restricts administrative control over update management and feature rollout.",
+  "source_id": "6bec89c1-794c-f064-2062-c20b3bdaa678",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "patch management",
+    "windows updates",
+    "feature deployment"
+  ],
+  "node_id": "d7e44d75-e312-4387-b40e-040d7030427d",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

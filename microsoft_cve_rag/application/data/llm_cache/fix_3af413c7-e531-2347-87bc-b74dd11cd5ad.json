@@ -1,0 +1,16 @@
+{
+  "description": "To resolve the issue where virtual machines may fail to start after installing the October 2023 update on affected ESXi hosts, it is recommended to implement the update specified in the knowledge base article KB-5031364. This article addresses problems specifically for the 7.0.x and below versions of ESXi that encountered operational inconsistencies. By following the instructions provided in the Veeam article linked in the context, administrators can ensure that VMs are operational post-update. Be sure to assess the environment to determine any possible disruptions before applying the update, focusing on ensuring all ESXi systems are compliant with the proposed changes. This action aims to enhance stability and improve the reliability of virtual operations post-update deployment.",
+  "source_id": "3af413c7-e531-2347-87bc-b74dd11cd5ad",
+  "source_type": "PatchManagementPost",
+  "fix_label": "ImplementKbPatchToResolveVMStartIssues",
+  "tags": [
+    "ESXi",
+    "VMware",
+    "October2023"
+  ],
+  "node_id": "1f859b6f-2cb9-4631-92d9-bfd520dfb865",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

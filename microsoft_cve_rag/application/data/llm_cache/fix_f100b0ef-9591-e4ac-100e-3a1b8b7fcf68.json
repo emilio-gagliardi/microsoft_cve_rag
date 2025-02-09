@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the use-after-free vulnerability identified by CVE-2024-1670 in Microsoft Edge (Chromium-based):\n\n1. Ensure that you are running Microsoft Edge version 122.0.2365.52 or later.\n2. If you are not on this version, update your browser immediately through the Microsoft Edge settings.\n3. Verify your update by navigating to the 'About Microsoft Edge' section in the browser's settings.\n\n**Details**:\n- This update mitigates the security issue arising from the vulnerability in Chromium that could allow a remote attacker to exploit heap corruption via a crafted HTML page.\n- For detailed release notes and additional updates, refer to the [Google Chrome releases](https://chromereleases.googleblog.com/2024).\n\n**Preconditions**:\n- Ensure your operating system supports the latest version of Microsoft Edge.\n- Backup any critical browser data before performing updates.\n\n",
+  "source_id": "f100b0ef-9591-e4ac-100e-3a1b8b7fcf68",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_122_0_2365_52",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-1670",
+    "Chromium",
+    "HeapCorruption"
+  ],
+  "node_id": "6ec62a6c-fbb3-4cdc-9a0d-38c6b2e92882",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "f100b0ef-9591-e4ac-100e-3a1b8b7fcf68"
+  ]
+}

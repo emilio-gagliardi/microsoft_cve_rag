@@ -1,0 +1,16 @@
+{
+  "description": "To address the issue of unwanted Windows restarts, first, halt the Windows Update and BITS services. If necessary, disable both services to ensure they do not restart automatically. Next, delete the staging folders associated with Windows Update, specifically the Software Distribution folder located at 'C:\\$windows.~bt'. After this cleanup, configure the Product Version and Target Version settings in the registry or Group Policy Object (GPO). Once all steps are completed, restart the device to apply the changes.",
+  "source_id": "6ff2cc72-f237-f9fe-587e-8203a308d30a",
+  "source_type": "PatchManagementPost",
+  "fix_label": "StopWindowsUpdateAndConfigureRegistrySettings",
+  "tags": [
+    "windows update",
+    "registry configuration",
+    "service management"
+  ],
+  "node_id": "fb10253e-349a-4d89-be0c-ff6eddc08a97",
+  "node_label": "Fix",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

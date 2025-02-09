@@ -1,0 +1,21 @@
+{
+  "symptom_label": "remote_code_execution_on_windows_client_devices",
+  "description": "Users of Windows 10 and Windows 11 client devices may experience unauthorized remote code execution due to a vulnerability in the clipboard virtual channel extension. This issue can manifest as unexpected behavior when connecting to malicious servers, resulting in arbitrary code being executed on the user\u2019s system. Specific builds affected include Windows 10 versions 21H2 and 22H2 (KB5041580), as well as Windows 11 versions 21H2, 22H2, and the upcoming 24H2 (KB5041592, KB5041585, KB5041571). End users may notice unresponsive applications or corrupted data as a result of this unauthorized execution, severely affecting their workflows and data integrity.",
+  "source_id": "42925405-6d98-ca25-b93e-0c20030f7113",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "42925405-6d98-ca25-b93e-0c20030f7113"
+  ],
+  "tags": [
+    "remote code execution",
+    "Windows 10",
+    "Windows 11",
+    "clipboard virtual channel"
+  ],
+  "node_id": "52af2617-099d-4b2a-b3b9-1ca9424e55a5",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

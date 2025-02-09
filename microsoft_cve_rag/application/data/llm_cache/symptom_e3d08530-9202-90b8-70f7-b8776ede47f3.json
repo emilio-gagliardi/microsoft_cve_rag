@@ -1,0 +1,20 @@
+{
+  "symptom_label": "insufficient_free_space_for_winre_partition_creation",
+  "description": "The observable behavior indicates that there is insufficient free space within the Windows Recovery Environment (WinRE) partition, which can prevent system recovery operations. Specifically, when attempting to create or resize the WinRE partition after performing operations such as shrinking the C: drive, it's crucial that sufficient unallocated space is available. Failure to have at least 1024 MB unallocated can lead to issues when enabling WinRE. Additionally, the proper identification of the hard disk and partition number is vital to ensure accurate recovery setup, which can be confirmed using the reagentc command. Ensuring that the required space is correctly allocated and that the partition is enabled helps maintain system recovery capabilities for Windows Server environments.",
+  "source_id": "e3d08530-9202-90b8-70f7-b8776ede47f3",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e3d08530-9202-90b8-70f7-b8776ede47f3"
+  ],
+  "tags": [
+    "WinRE",
+    "partition management",
+    "Windows Server",
+    "reagentc command"
+  ],
+  "node_id": "a6549b46-926c-4ba5-b675-834b6f2bb60a",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

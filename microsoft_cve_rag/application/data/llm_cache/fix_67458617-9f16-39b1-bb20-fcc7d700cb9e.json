@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the use after free vulnerability in Microsoft Edge (Chromium-based), ensure that you are using the latest version of the browser:\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) in the upper right corner.\n3. Navigate to Help and feedback and then click on About Microsoft Edge.\n4. Verify that your version is at least 128.0.2739.79, which incorporates fix for CVE-2024-8639.\n\n**Details**:\n- This update resolves critical security risks associated with heap corruption via crafted HTML pages.\n- The latest version is: **128.0.2739.79** released on **September 12, 2024**.\n- For more details on Google Chrome releases, reference their official documentation.\n\n**Preconditions**:\n- Ensure you regularly check for updates to Microsoft Edge to maintain security.\n- Backup important browser data before upgrading.",
+  "source_id": "67458617-9f16-39b1-bb20-fcc7d700cb9e",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_128_0_2739_79",
+  "tags": [
+    "CVE-2024-8639",
+    "MicrosoftEdge",
+    "ChromiumUpdate"
+  ],
+  "node_id": "143a7f09-5639-4936-a8f7-81dd51ba04d2",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix",
+  "source_ids": [
+    "67458617-9f16-39b1-bb20-fcc7d700cb9e"
+  ],
+  "verification_status": "unverified"
+}

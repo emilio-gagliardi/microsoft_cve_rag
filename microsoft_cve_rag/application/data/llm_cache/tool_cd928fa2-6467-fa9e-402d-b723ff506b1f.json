@@ -1,0 +1,22 @@
+{
+  "tool_label": "MicrosoftEntraIDActivation",
+  "description": "This tool facilitates the automatic activation of Microsoft Entra ID within Azure Active Directory. By leveraging its integration with Microsoft Edge, organizations can synchronize their identity management more efficiently. This tool assists in configuring the necessary settings for secure access and streamlined user management. It is particularly beneficial for enterprises looking to enhance their security posture while simplifying access to various services through streamlined identity verification. The details on configuration and usage are typically included within specific deployment guides from Microsoft.",
+  "source_id": "cd928fa2-6467-fa9e-402d-b723ff506b1f",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "cd928fa2-6467-fa9e-402d-b723ff506b1f"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://docs.microsoft.com/en-us/azure/active-directory/overview",
+  "tags": [
+    "Azure",
+    "Microsoft Entra ID",
+    "Identity Management",
+    "Automation"
+  ],
+  "node_id": "994e0f85-f94c-4fbe-af95-d72151408428",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

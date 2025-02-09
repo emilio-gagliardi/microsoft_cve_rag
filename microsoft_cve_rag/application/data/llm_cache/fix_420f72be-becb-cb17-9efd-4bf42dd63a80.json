@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the specified issue with Azure:\n\n1. Apply the newer optional release as indicated in the Microsoft page.\n2. Reference the details in KB-5045594 for specific instructions on the release.\n\n**Details**:\n- The newer optional release contains fixes specific to the problem, ensuring improved performance or stability.\n- It's recommended to review the KB article for any prerequisites or additional steps needed.\n",
+  "source_id": "420f72be-becb-cb17-9efd-4bf42dd63a80",
+  "source_type": "PatchManagementPost",
+  "fix_label": "apply_newer_optional_release_kb5045594",
+  "tags": [
+    "KB5045594",
+    "Azure",
+    "OptionalRelease"
+  ],
+  "node_id": "ce29ad3a-d6d3-44ba-b1be-6d57d62ac734",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "420f72be-becb-cb17-9efd-4bf42dd63a80"
+  ],
+  "verification_status": "unverified"
+}

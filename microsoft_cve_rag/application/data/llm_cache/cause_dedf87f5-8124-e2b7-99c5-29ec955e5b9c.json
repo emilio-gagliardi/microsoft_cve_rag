@@ -1,0 +1,16 @@
+{
+  "description": "The cause of CVE-2023-35629 is a flaw in the Microsoft USB Hub 3.0 device driver, which allows an attacker to execute remote code. Specifically, the vulnerability arises from improper handling of USB device interactions that can be exploited during physical access to the device. This includes necessary conditions where the attacker has to manipulate the vulnerable component, enabling them to perform actions that lead to unauthorized access to system resources. The affected build numbers include Windows 10 for x64-based systems (10.0.10240.20345) and various Windows Server versions, documented under KB article IDs KB-5033379 and KB-5033420, among others.",
+  "cause_label": "FlawInUsbHubDeviceDriverLeadsToRCE",
+  "source_id": "dedf87f5-8124-e2b7-99c5-29ec955e5b9c",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE",
+    "USB",
+    "Driver Vulnerability"
+  ],
+  "node_id": "fab27039-b650-42a4-b7bc-be0507f7a989",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

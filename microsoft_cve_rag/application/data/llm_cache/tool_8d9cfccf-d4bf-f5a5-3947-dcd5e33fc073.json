@@ -1,0 +1,20 @@
+{
+  "tool_label": "CheckPartitionSizesAndFreeSpace",
+  "description": "**Tool Overview**:\n\nA PowerShell script that checks the partition sizes and available free space for the Windows Recovery Environment (WinRE).\n\n**Functionality**:\nThis script retrieves the disk and partition information for the WinRE location through the command `reagentc /info`. It then checks the size of the volume mapped to this location and evaluates the remaining free space. Based on the defined thresholds, it provides output indicating whether the WinRE partition needs to be larger, requires additional free space, or is adequately sized.\n\n**Usage**:\nRun this script in a PowerShell environment to assess the state of your WinRE partition and ensure it has enough free space for recovery operations. If you need to make adjustments, consider resizing the partition based on the results.\n\n***Details***\n\n1. Executes `reagentc /info` to identify WinRE's disk and partition.\n2. Uses `Get-Volume` cmdlet to obtain information about the size and remaining free space.\n3. Provides conditional output to inform about the partition status regarding space requirements.",
+  "tool_url": "",
+  "source_url": "N/A",
+  "source_id": "8d9cfccf-d4bf-f5a5-3947-dcd5e33fc073",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "PowerShell",
+    "partition check",
+    "disk management",
+    "free space",
+    "WinRE"
+  ],
+  "node_id": "81539ef8-224a-45ae-9343-da8b30c26b10",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

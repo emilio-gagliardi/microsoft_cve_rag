@@ -1,0 +1,19 @@
+{
+  "tool_label": "CheckMicrosoftEdgeVersion",
+  "description": "**Tool Overview**:\n\nA simple method to check the version of Microsoft Edge installed on your system. **Steps to Check Version**:\n\n1. Open your Microsoft Edge browser.\n2. Click on the three dots (...) located at the top right corner of the window.\n3. Navigate to 'Help and feedback' from the dropdown menu.\n4. Select 'About Microsoft Edge' from the options.\n\nThis method provides you with the version information about your Microsoft Edge installation, which can be essential in determining if you are running a vulnerable version or have the latest security updates. By ensuring that you are using the most recent version, you can reduce security risks associated with older versions that may have known vulnerabilities.",
+  "source_id": "b540b27f-8311-a400-301c-6f2810639869",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-0224",
+  "tool_url": "",
+  "tags": [
+    "MicrosoftEdge",
+    "versionCheck",
+    "browser",
+    "userGuide"
+  ],
+  "node_id": "a22ea554-7ad4-492f-b239-fe3090d27c7d",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

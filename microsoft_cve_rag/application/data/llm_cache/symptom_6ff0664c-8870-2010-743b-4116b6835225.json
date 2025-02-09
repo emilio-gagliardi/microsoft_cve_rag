@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_browser_experiences_memory_access_issues",
+  "description": "Users of Microsoft Edge (Chromium-based) version 125.0.2535.85 may experience issues related to out-of-bounds memory access when interacting with keyboard inputs. This situation can lead to unpredictable behaviors, such as application crashes or unresponsive states while using specific features within the browser. Users may notice that certain user interface interactions, particularly those requiring keyboard input, do not function as expected. Furthermore, these impacts could potentially allow exploitations if the browser is not updated to the patched version, resulting in heap corruption. As such, it is crucial for users and system administrators to ensure their browsers are updated to version 125.0.6422.141 or higher, as detailed in KB-125.0.2535.85, to mitigate these observed issues.",
+  "source_id": "6ff0664c-8870-2010-743b-4116b6835225",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "6ff0664c-8870-2010-743b-4116b6835225"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "memory access",
+    "browser issues"
+  ],
+  "node_id": "3204ceac-0f7e-4210-a925-6847eaa53c6e",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

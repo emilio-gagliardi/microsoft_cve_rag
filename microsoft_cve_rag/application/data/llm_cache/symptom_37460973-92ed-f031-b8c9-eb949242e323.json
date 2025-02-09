@@ -1,0 +1,17 @@
+{
+  "symptom_label": "VulnerabilityRemainsWithWinreEnabledOnMachines",
+  "description": "When Windows Recovery Environment (WinRE) is enabled on a machine, it poses a potential security vulnerability that can be exploited by attackers. Disabling WinRE effectively eliminates this vulnerability, as it removes the recovery options that could potentially be misused. Administrators must weigh the necessity of recovery capabilities against the risks associated with leaving WinRE active, especially on sensitive systems.",
+  "source_id": "37460973-92ed-f031-b8c9-eb949242e323",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "WinRE",
+    "vulnerability",
+    "security",
+    "patch management"
+  ],
+  "node_id": "3d105c0e-32a7-4d3e-8676-554ab6718cd8",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

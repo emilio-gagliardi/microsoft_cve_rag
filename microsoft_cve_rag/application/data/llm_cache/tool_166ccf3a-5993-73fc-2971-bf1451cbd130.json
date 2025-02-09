@@ -1,0 +1,22 @@
+{
+  "node_id": "bb247e88-d26c-4bb5-b7b8-3806b9826b26",
+  "source_id": "c4063fc2-92f3-cbaf-10b7-d58dc5917b1a",
+  "entity_type": "Tool",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "166ccf3a-5993-73fc-2971-bf1451cbd130",
+    "c4063fc2-92f3-cbaf-10b7-d58dc5917b1a"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-5841",
+  "tool_url": "https://support.microsoft.com/en-us/microsoft-edge/update-microsoft-edge-ef51c88b-d4df-7723-3c34-eabcad5c328a",
+  "verification_status": "unverified",
+  "tool_label": "microsoft_edge_version_check",
+  "description": "**Tool Overview**: A method to check the version of Microsoft Edge (Chromium-based) installed on a system. **Details**: This tool is essential for ensuring that users have the latest security updates applied to Microsoft Edge, particularly those related to vulnerabilities in the Chromium open-source software. The version of Microsoft Edge can be viewed through the browser's settings or by accessing the 'About Microsoft Edge' section. Users should regularly verify their browser's version to mitigate security risks associated with outdated software. This helps in confirming that the latest updates addressing CVE vulnerabilities have been implemented.",
+  "reliability": 0.9,
+  "tags": [
+    "Microsoft Edge",
+    "version check",
+    "security",
+    "CVE-2024-5841"
+  ]
+}

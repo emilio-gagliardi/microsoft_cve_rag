@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_kernel_mode_driver_elevation_privilege",
+  "description": "Upon the installation of recent security updates, users may experience unexpected system behavior potentially leading to elevation of privileges. Specifically, this issue affects Windows versions 10 and 11, along with various build numbers including 10.0.19043.4529 and 10.0.22631.3737, which have been associated with KB-5039212. Users may notice unusual access rights being granted to applications or processes, resulting in unauthorized actions being performed by malicious software. This escalation could manifest as applications behaving as if they possess higher system privileges, potentially exposing sensitive data or altering system configurations unintentionally. Administrators should monitor for these changes and ensure that all security patches are applied promptly to mitigate any risks associated with such privileges.",
+  "source_id": "5a4f6880-b553-2c00-79aa-6278a8aee5f9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5a4f6880-b553-2c00-79aa-6278a8aee5f9"
+  ],
+  "tags": [
+    "Windows",
+    "elevation of privilege",
+    "system behavior",
+    "kernel mode driver"
+  ],
+  "node_id": "575089b3-054f-4c55-9446-d9878c8e7b35",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

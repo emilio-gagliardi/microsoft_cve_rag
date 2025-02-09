@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address upgrade challenges with Windows Server 2012 R2:\n\n1. Begin by assessing whether the server meets the hardware requirements for an upgrade.\n2. Consider performing an in-place upgrade to a newer version of Windows Server. Refer to the following resources for detailed guidance:\n   - [Upgrade Overview](https://learn.microsoft.com/en-us/windows-server/get-started/upgrade-overview)  \n   - [In-place Upgrade Instructions](https://learn.microsoft.com/en-us/windows-server/get-started/perform-in-place-upgrade)  \n\n**Details**:\nEnsure to have backups and a recovery plan in case the upgrade process encounters issues. Testing the upgrade process in a lab environment can also be beneficial.",
+  "source_id": "375b00d7-eb7c-4bea-ca3f-dbb3a639fdcb",
+  "source_type": "PatchManagementPost",
+  "fix_label": "UpgradeWindowsServer2012R2ToNewerVersion",
+  "tags": [
+    "WindowsServer2012R2",
+    "InPlaceUpgrade",
+    "UpgradeGuide",
+    "LLM Synthesized"
+  ],
+  "node_id": "ec6a31ae-de3c-488f-a753-fe84e79fafab",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "375b00d7-eb7c-4bea-ca3f-dbb3a639fdcb"
+  ]
+}

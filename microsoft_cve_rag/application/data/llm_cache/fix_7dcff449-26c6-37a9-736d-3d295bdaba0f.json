@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the elevation of privilege vulnerability in the Windows Win32 kernel subsystem (CVE-2024-30086):\n\n1. Download and apply the update package(s) related to KB5039211, KB5039212, or KB5039213 from the Microsoft Update Catalog.\n2. Ensure that your system is running a supported version of Windows 10 or Windows 11 as listed below to be eligible for the updates.\n3. Restart your system after the installation to apply the changes effectively.\n\n**Details**:\n- This update mitigates the use after free vulnerabilities that could potentially allow attackers to escalate privileges on the affected systems.\n- For manual installation, download the update packages from the following links:\n   - [KB5039211](https://catalog.update.microsoft.com/Search.aspx?q=KB5039211)\n   - [KB5039212](https://catalog.update.microsoft.com/Search.aspx?q=KB5039212)\n   - [KB5039213](https://catalog.update.microsoft.com/Search.aspx?q=KB5039213)\n\n**Preconditions**:\n- Ensure the system is running a supported version of Windows:\n   - Windows 10 for x64-based Systems (build 10.0.19043.4529 or 10.0.22000.3019)\n   - Windows 11 Versions 23H2, 22H2, or 21H2 (builds mentioned above).\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "7dcff449-26c6-37a9-736d-3d295bdaba0f",
+  "source_type": "MSRCPost",
+  "fix_label": "address_win32_kernel_elevation_privilege_cve202430086",
+  "tags": [
+    "KB5039211",
+    "KB5039212",
+    "Windows10",
+    "Windows11"
+  ],
+  "node_id": "786f026f-3715-4180-ad47-fdae03c5a853",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "7dcff449-26c6-37a9-736d-3d295bdaba0f"
+  ],
+  "verification_status": "unverified"
+}

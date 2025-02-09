@@ -1,0 +1,21 @@
+{
+  "symptom_label": "elevation_of_privilege_on_windows_11_systems",
+  "description": "After applying the security update identified by KB5044285 on Windows 11 versions 23H2 and 22H2, users may experience issues related to elevated privileges. This symptom can manifest as unauthorized actions being executed within the system without appropriate user consent, allowing local attackers to potentially gain access to sensitive data or system controls. It's crucial for system administrators to monitor user permissions closely following this update, as it may impact the integrity and confidentiality of the environment. Some administrators may note an increased frequency of alerts indicating suspicious account activity or unauthorized settings changes as indirect evidence of privilege escalation activities. The affected systems include Windows 11 Version 23H2 and Version 22H2 for both x64 and ARM64-based architectures, with build numbers 10.0.22631.4317 and 10.0.22621.4317 respectively.",
+  "source_id": "93272b8b-9be3-062c-c606-9c5e69beeba5",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "93272b8b-9be3-062c-c606-9c5e69beeba5"
+  ],
+  "tags": [
+    "Windows",
+    "Privilege Escalation",
+    "Update",
+    "System Integrity"
+  ],
+  "node_id": "9659103d-d2ea-4753-bafa-3dbf0bfbb827",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

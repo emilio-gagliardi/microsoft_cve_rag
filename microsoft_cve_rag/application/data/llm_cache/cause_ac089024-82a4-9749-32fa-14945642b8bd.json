@@ -1,0 +1,22 @@
+{
+  "description": "An out-of-bounds write condition in the Streams API of Chromium prior to version 125.0.6422.141, allowing remote code execution through a crafted HTML page in Microsoft Edge (Chromium-based).",
+  "cause_label": "chromium_out_of_bounds_write_in_streams_api",
+  "source_id": "ac089024-82a4-9749-32fa-14945642b8bd",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ac089024-82a4-9749-32fa-14945642b8bd"
+  ],
+  "tags": [
+    "CVE",
+    "Chromium",
+    "Microsoft Edge",
+    "Out-of-bounds Write",
+    "Security"
+  ],
+  "node_id": "b4adf0c2-feb2-4537-acfa-fd4670f636bb",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

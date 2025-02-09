@@ -1,0 +1,20 @@
+{
+  "symptom_label": "enterprise_customers_experience_increased_download_traffic",
+  "description": "Enterprise customers may experience increased download traffic on their internet routes due to an issue with Microsoft Connected Cache following the installation of the February 2024 Windows security update (KB-5034763). After updating, Windows devices configured to discover Microsoft Connected Cache using DHCP option 235 are unable to utilize the connected cache nodes effectively. Instead, these devices revert to downloading updates and applications from the public internet, which is not the intended operation for environments that typically leverage Microsoft Connected Cache for more efficient bandwidth usage. This behavior predominantly affects enterprise environments where such setups are common, while home users are unlikely to encounter this issue. It is recommended that IT administrators apply specific configurations or group policies to mitigate this problem temporarily until a formal resolution is provided.",
+  "source_id": "9debca9a-5e5b-ee49-27f6-9c90d793d4e8",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "9debca9a-5e5b-ee49-27f6-9c90d793d4e8"
+  ],
+  "tags": [
+    "microsoft_connected_cache",
+    "windows_10",
+    "dhcp_option_235",
+    "increased_traffic"
+  ],
+  "node_id": "af76ddfd-bca1-4c93-aec9-5a4519635e42",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "vpn_connections_fail_after_april_2024_update",
+  "description": "After applying the April 2024 Security Update, Windows devices may experience failures in VPN connections. This issue is confirmed to affect various client versions, including Windows 11 (versions 21H2, 22H2, and 23H2) and Windows 10 (versions 21H2 and 22H2), as well as multiple Windows Server versions. The identified KB Articles related to this problem include KB5036892, KB5036893, KB5036894, and others. The symptoms may manifest as an inability to establish or maintain VPN sessions, potentially disrupting remote connectivity for users. IT administrators should monitor affected devices and be prepared to troubleshoot VPN connectivity issues following the update.",
+  "source_id": "0fcfd163-e8af-0f39-e21b-c11a237c2ba5",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "0fcfd163-e8af-0f39-e21b-c11a237c2ba5"
+  ],
+  "tags": [
+    "vpn",
+    "connection_failure",
+    "april_2024",
+    "Windows"
+  ],
+  "node_id": "e29d0173-4798-47c3-8248-87510e298645",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

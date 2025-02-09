@@ -1,0 +1,16 @@
+{
+  "symptom_label": "ElevatedPrivilegesPotentialRiskToSystemIntegrity",
+  "description": "Users may experience an abnormal increase in permissions under certain conditions, which could lead to unintended access and modifications of system resources. This behavior is a consequence of the win32k elevation of privilege issue identified with CVE-2023-36011, impacting various Windows builds including 10.0.10240, 10.0.19041, and others as documented in KB articles KB-5033379, KB-5033375, KB-5033372, and KB-5033369. The vulnerability's severity is classified as important, highlighting the need for prompt remediation to maintain system integrity and security.",
+  "source_id": "b23cd5cd-ed03-6526-8685-1a4c4e38dec1",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "bca8e43d-dacc-42c9-9ffc-6056cb0bb598",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

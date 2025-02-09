@@ -1,0 +1,18 @@
+{
+  "description": "The underlying cause of CVE-2023-5218 is a use-after-free vulnerability in the Chromium-based Microsoft Edge browser. This occurs when the software incorrectly frees memory that is still in use, leading to potential access of invalid memory locations. As a result, attackers could exploit this flaw to execute arbitrary code or crash the browser. This particular issue has been addressed in the Microsoft Edge build 118.0.2088.46 as part of the security updates; thus, any versions prior to this may still be vulnerable. The related KB Article ID is KB-118.0.2088.46.",
+  "cause_label": "UseAfterFreeMemoryAccessInEdgeChromium",
+  "source_id": "63e6cb66-4a6e-5750-a587-cb40d9d1895c",
+  "source_type": "MSRCPost",
+  "tags": [
+    "memory management",
+    "vulnerability",
+    "browser",
+    "edge",
+    "chromium"
+  ],
+  "node_id": "df24d2f3-e938-4146-ab3d-460bfcc72b34",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

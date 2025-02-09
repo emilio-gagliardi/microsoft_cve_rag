@@ -1,0 +1,20 @@
+{
+  "symptom_label": "secure_boot_feature_bypass_due_to_revocation",
+  "description": "The Windows Boot Manager is affected by a security feature bypass due to revocation associated with CVE-2023-24932. This issue can allow malicious programs, known as bootkits, to load early in the device's boot sequence, potentially compromising the operating system's integrity. To mitigate this vulnerability, additional steps are required as outlined in KB5025885, which provides guidance on enabling protective measures and managing bootable media updates. Users should implement the recommendations in the KB article to safeguard against the exploits enabled by the blacklotus UEFI bootkit. Failure to address this issue could lead to unauthorized control over device boot processes.",
+  "source_id": "9d66da80-e989-cf66-a5b5-84dfbfcb5380",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "9d66da80-e989-cf66-a5b5-84dfbfcb5380"
+  ],
+  "tags": [
+    "secure_boot",
+    "bootkit",
+    "CVE-2023-24932",
+    "Windows Boot Manager"
+  ],
+  "node_id": "e1750190-1e9d-4df2-af9c-5386bdf4bd3b",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

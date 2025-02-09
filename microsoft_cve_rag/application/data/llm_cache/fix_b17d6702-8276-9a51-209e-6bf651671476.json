@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Microsoft OpenSSH for Windows remote code execution vulnerability (CVE-2024-43615):\n\n1. Identify the version of Windows you are running using the build numbers listed below.\n2. Download and apply the appropriate KB updates from the links provided.\n3. Restart your system after the installation to ensure all changes take effect.\n\n**Details**:\n- This vulnerability allows remote code execution due to misconfiguration in the OpenSSH component. It is crucial to install the updates to mitigate the risks associated with this vulnerability.\n- For manual installation, download the update packages from:\n  - [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n  - [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n  - [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n  - [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280).\n\n**Preconditions**:\n- Confirm that your system is running one of the affected Windows versions listed.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "b17d6702-8276-9a51-209e-6bf651671476",
+  "source_type": "MSRCPost",
+  "fix_label": "address_openssh_code_execution_cve202443615",
+  "tags": [
+    "KB5044285",
+    "OpenSSH",
+    "RemoteCodeExecution",
+    "Windows"
+  ],
+  "node_id": "d871181f-d3af-48ea-834f-cc03c4210be0",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b17d6702-8276-9a51-209e-6bf651671476"
+  ],
+  "verification_status": "unverified"
+}

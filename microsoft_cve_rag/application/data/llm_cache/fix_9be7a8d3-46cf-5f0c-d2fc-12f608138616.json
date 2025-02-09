@@ -1,0 +1,16 @@
+{
+  "description": "To mitigate the information disclosure issue caused by CVE-2023-36398, system administrators should apply the relevant security updates. Specifically, for Windows 11 Version 23H2 for x64-based systems, KB5032190 is available with build number 10.0.22621.2715. For Windows 10 systems, KB5032199 addresses similar concerns across various builds including 10.0.19045.3693. Users can access the update packages via these links: https://catalog.update.microsoft.com/Search.aspx?q=KB5032190 and https://catalog.update.microsoft.com/Search.aspx?q=KB5032199. Ensure to verify the installation of updates from the Microsoft Update Catalog or Windows Update settings to maintain system security against potential exploits. Further information can be found in the security update guides provided by Microsoft.",
+  "source_id": "9be7a8d3-46cf-5f0c-d2fc-12f608138616",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplySecurityPatchesForInformationDisclosure",
+  "tags": [
+    "security",
+    "information disclosure",
+    "patch management"
+  ],
+  "node_id": "08618642-b746-4076-9a8b-3f75b047bc70",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

@@ -1,0 +1,22 @@
+{
+  "tool_label": "patch_downloads_website_link",
+  "description": "**Tool Overview**:\n\nThis tool is a reference link to a website that provides access to patch downloads for specific products. It allows users to navigate to the Solutions tab where various patches can be found in relation to identified build numbers.\n\n**Details**:\n\nThe link mentioned serves as a gateway to retrieve necessary updates. Users can select their specific download requirements, ensuring that they are getting the correct patches relevant to their products. The effectiveness of this tool lies in its ability to streamline the download process, removing the need for extensive manual searches through various support sites. To utilize this resource effectively, simply visit the indicated website and utilize the Solutions tab for more specific options.\n\n**Note**: Make sure to verify the build numbers you are dealing with to access the correct patches efficiently.",
+  "source_id": "c3a1ab08-7cec-17d0-b3e5-3114c6161280",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "c3a1ab08-7cec-17d0-b3e5-3114c6161280"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAJcy2ZgjD_ezqi8kJxpUUNu%2BRi1YcbOJ%2BUWsK6UfBh%3DV0TtRuw%40mail.gmail.com",
+  "tool_url": "https://{website_url_placeholder}",
+  "tags": [
+    "patch management",
+    "downloads",
+    "links"
+  ],
+  "node_id": "7ba43962-e30f-4be0-bd2a-fbaf957f9b31",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,16 @@
+{
+  "description": "To address the identified issue related to remote code execution in the Microsoft WDAC OLE DB Provider for SQL Server, system administrators should apply the relevant updates as detailed in KB Articles KB5032199, KB5032192, KB5032190, and KB5032189. These updates are applicable to various Windows 10 and Windows 11 versions, including build numbers 10.0.22631.2715, 10.0.19043.3693, 10.0.19045.3693, and others specified in the post. The updates can be accessed through the Microsoft Update Catalog at the following links: https://catalog.update.microsoft.com/Search.aspx?q=KB5032199, https://catalog.update.microsoft.com/Search.aspx?q=KB5032192, https://catalog.update.microsoft.com/Search.aspx?q=KB5032189. Ensure to verify the correct build number for each respective system to implement these updates effectively. Following the instructions in the Knowledge Base articles will help mitigate the potential risks associated with the vulnerability.",
+  "source_id": "ca95dfbb-607c-218c-56be-3433d77e2376",
+  "source_type": "MSRCPost",
+  "fix_label": "ImplementUpdateForSqlServerRemoteExec",
+  "tags": [
+    "Windows 10",
+    "Windows 11",
+    "Remote Code Execution"
+  ],
+  "node_id": "933d555e-6de5-461a-bc5b-2ca29f199ce1",
+  "node_label": "Fix",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

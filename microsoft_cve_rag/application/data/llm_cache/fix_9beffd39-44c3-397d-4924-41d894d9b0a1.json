@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo improve the functionality of messages sent via the system, a solution is provided for rewriting the URLs in the body of the messages to ensure that links are correct and navigate properly.\n\n1. Identify the direct link that is included in the original mail, which leads to techcommunity.microsoft.com.\n2. Implement a process to rewrite the URL to make it more accessible and user-friendly in the message body.\n\n**Details**:\n- This adjustment can enhance user experience by ensuring that intended resources are easily reachable without confusion.\n- It is important to verify the correctness of the URL after rewriting to prevent navigation issues. (LLM Synthesized)",
+  "source_id": "9beffd39-44c3-397d-4924-41d894d9b0a1",
+  "source_type": "PatchManagementPost",
+  "fix_label": "RewritingEmailBodyURLsForTechCommunityAccess",
+  "tags": [
+    "URLRewriting",
+    "EmailMessages",
+    "TechCommunity",
+    "LLM Synthesized"
+  ],
+  "node_id": "d8acc9bd-ae22-4890-a907-1e95bc89a1f1",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

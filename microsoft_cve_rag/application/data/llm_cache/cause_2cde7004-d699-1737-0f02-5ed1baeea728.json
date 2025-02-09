@@ -1,0 +1,21 @@
+{
+  "description": "The issue is caused by a use after free flaw in the media stream component of Chromium, which Microsoft Edge (Chromium-based) utilizes. This vulnerability potentially allows a remote attacker to exploit heap corruption via a crafted HTML page if the user engages in specific UI gestures, thus compromising the safety of the user's system.",
+  "cause_label": "chromium_use_after_free_in_media_stream",
+  "source_id": "2cde7004-d699-1737-0f02-5ed1baeea728",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2cde7004-d699-1737-0f02-5ed1baeea728"
+  ],
+  "tags": [
+    "CVE-2024-6775",
+    "Chromium",
+    "Microsoft Edge",
+    "Heap Corruption"
+  ],
+  "node_id": "18df029f-53ba-45f5-ae53-5990f092b8db",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

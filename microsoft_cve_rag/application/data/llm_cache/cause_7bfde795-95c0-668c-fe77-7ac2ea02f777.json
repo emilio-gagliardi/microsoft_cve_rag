@@ -1,0 +1,20 @@
+{
+  "description": "The underlying cause of the issue stems from registry configurations associated with chromium-based internet browsers, particularly Microsoft Edge. After installing KB5034129, users have reported instances where these browsers might fail to open correctly, often displaying a blank white screen and becoming unresponsive. This is attributed to specific Image File Execution Options (IFEO) entries for Microsoft Edge or other chromium-based browser executables in the Windows registry. Such entries can be created inadvertently through developer tools or specific debugging and diagnostics settings enabled for the browsers, leading to unpredictable behaviors post-update. This problem affects devices running OS build 20348-2322 as documented in the KB5034770 article.",
+  "source_id": "7bfde795-95c0-668c-fe77-7ac2ea02f777",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "7bfde795-95c0-668c-fe77-7ac2ea02f777"
+  ],
+  "cause_label": "browser_specific_ifeo_registry_issue",
+  "tags": [
+    "KB5034129",
+    "chromium_browsers",
+    "Microsoft Edge",
+    "registry configuration"
+  ],
+  "node_id": "bbe08e97-2e8b-4d91-abb3-4cf538b02730",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

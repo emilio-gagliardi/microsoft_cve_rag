@@ -1,0 +1,16 @@
+{
+  "description": "The underlying cause of the blue screen and crash issues experienced by a few users on some commercial ASUS models is linked to a particular driver update released between July 17 and July 23, 2024. This update seemingly introduced instability, leading to unexpected blue screens on affected devices. The technical team promptly identified this issue and responded by providing a fix, which indicates that the driver in question may have had compatibility issues or bugs resulting from the update process. Although specific build numbers and KB Article IDs have not been detailed in the provided context, the prompt action by the technical team suggests a dedicated effort to resolve the root cause quickly to minimize user disruption.",
+  "source_id": "29ec1869-3eeb-9dfa-7bc4-6626a0925654",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "29ec1869-3eeb-9dfa-7bc4-6626a0925654"
+  ],
+  "cause_label": "driver_update_introduces_device_instability",
+  "tags": [],
+  "node_id": "12c18b05-1b99-447d-8ea4-5ed0c718f499",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

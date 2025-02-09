@@ -1,0 +1,22 @@
+{
+  "description": "An out-of-bounds read vulnerability in the Windows kernel allows local attackers to elevate privileges by executing specially crafted applications. This issue is linked to improper memory management, specifically where the vulnerable component does not adequately check the boundaries of memory accesses, potentially leading to unauthorized access to higher integrity level resources.",
+  "cause_label": "windows_kernel_out_of_bounds_read_elevation_privilege",
+  "source_id": "c9581fbb-40d0-1b1b-ae1c-83d10fe03fed",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c9581fbb-40d0-1b1b-ae1c-83d10fe03fed"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Elevation of Privilege",
+    "Out-of-bounds Read",
+    "CVE-2024-30068"
+  ],
+  "node_id": "d1f426c3-0157-40cf-8daa-793b58a311de",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

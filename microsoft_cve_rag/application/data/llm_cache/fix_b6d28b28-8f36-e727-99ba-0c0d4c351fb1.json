@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Mark of the Web security feature bypass vulnerability (CVE-2024-38217), follow these steps:\n\n1. Download the relevant KB update for your system version from the official Microsoft Update Catalog.\n   - For Windows 11 Version 24H2, use: [KB5043080](https://catalog.update.microsoft.com/Search.aspx?q=KB5043080)\n   - For Windows 10 Version 22H2, use: [KB5043083](https://catalog.update.microsoft.com/Search.aspx?q=KB5043083)\n2. Install the update through the Windows Update settings or manually execute the downloaded package.\n3. Restart your system after installation to apply the updates and mitigate the vulnerability.\n\n**Details**:\n- The updates resolve potential security feature bypass issues by reinforcing the Mark of the Web functionality. \n- Ensure that you are downloading the specific updates corresponding to your installed Windows build numbers listed above.\n\n**Preconditions**:\n- Confirm that your system matches one of the builds mentioned in the detail section.\n- Backup critical data before proceeding with the installation.\n",
+  "source_id": "b6d28b28-8f36-e727-99ba-0c0d4c351fb1",
+  "source_type": "MSRCPost",
+  "fix_label": "address_windows_mark_of_web_bypass_cve202438217",
+  "tags": [
+    "KB5043080",
+    "Windows11",
+    "WebSecurityBypass",
+    "CVE202438217"
+  ],
+  "node_id": "dac2ad83-f76b-4358-a477-3a2481fd0880",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b6d28b28-8f36-e727-99ba-0c0d4c351fb1"
+  ],
+  "verification_status": "unverified"
+}

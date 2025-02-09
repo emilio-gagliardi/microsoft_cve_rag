@@ -1,0 +1,20 @@
+{
+  "symptom_label": "elevation_of_privilege_via_usb_device",
+  "description": "After the installation of updates KB5046696, KB5046633, KB5046617, and KB5046613 on Windows systems, users may notice an elevation of privilege risk when malicious USB devices are connected to their machines. End-users may not immediately perceive this risk, as it requires physical interaction with the device. However, any unauthorized access attempts could enable an attacker to gain system privileges without prior authentication. Affected builds include Windows 10 (various versions) and Windows 11 (various versions). This behavior poses significant security implications as unauthorized changes could be executed, potentially impacting overall system integrity and access control.",
+  "source_id": "385727a6-b0ff-4a3e-c4f1-b61c908eaa70",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "385727a6-b0ff-4a3e-c4f1-b61c908eaa70"
+  ],
+  "tags": [
+    "Hardware Security",
+    "USB Vulnerability",
+    "System Privileges"
+  ],
+  "node_id": "a6a1e22d-8233-4476-b0f0-d56bc91eea92",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

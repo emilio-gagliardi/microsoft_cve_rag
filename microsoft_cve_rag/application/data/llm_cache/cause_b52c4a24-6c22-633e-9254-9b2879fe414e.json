@@ -1,0 +1,21 @@
+{
+  "description": "The Radius protocol, as defined in RFC 2865, is vulnerable to forgery attacks that allow a local attacker to manipulate valid responses. This manipulation can occur due to the use of a broken MD5 response authenticator, leading to possible unauthorized access or message integrity violations during transmission.",
+  "cause_label": "radius_protocol_forgery_vulnerability_due_to_md5",
+  "source_id": "b52c4a24-6c22-633e-9254-9b2879fe414e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b52c4a24-6c22-633e-9254-9b2879fe414e"
+  ],
+  "tags": [
+    "CVE-2024-3596",
+    "Radius Protocol",
+    "Forged Responses",
+    "MD5 vulnerability"
+  ],
+  "node_id": "93eb5f61-1a68-402b-a7b7-f9bad5646ebd",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

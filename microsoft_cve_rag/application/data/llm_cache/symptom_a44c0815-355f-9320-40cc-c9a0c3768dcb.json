@@ -1,0 +1,16 @@
+{
+  "symptom_label": "TaskbarSearchBoxExperienceNotRestoringAsExpected",
+  "description": "The taskbar search box may not present the functionality as intended after the installation of the update referenced in KB-5030300 for OS build 19045.3516. Users are expected to access an improved search experience including search highlights, but the experience is reportedly not restoring for some users despite utilizing the taskbar shortcut menu or dialog prompts. This inconsistency can lead to confusion and frustration among end users trying to efficiently access apps, files, and settings.",
+  "source_id": "a44c0815-355f-9320-40cc-c9a0c3768dcb",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "search",
+    "taskbar",
+    "user experience"
+  ],
+  "node_id": "026efa78-58da-4f83-9c4d-cd4b61355d29",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

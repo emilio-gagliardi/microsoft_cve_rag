@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_nat_results_in_denial_of_service",
+  "description": "After applying the security update referenced in KB5034763, users may experience intermittent inaccessibility of network services due to the Windows Network Address Translation (NAT) denial of service issue. This update targets builds of Windows 10 such as 10.0.19045.4046 and 10.0.22631.3155 as well as Windows Server 2016. The systems could exhibit complete denial of access to network resources, impacting connectivity for web applications and other services critical to end-user operations. System administrators may log increased occurrences of messages indicating the unavailability of services which could lead to decreased productivity until the update is correctly applied and monitored. The important severity rating of this symptom emphasizes the need for immediate action in environments where uptime is crucial.",
+  "source_id": "5165af76-9ba2-01d4-2ebe-f082255b5e81",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5165af76-9ba2-01d4-2ebe-f082255b5e81"
+  ],
+  "tags": [
+    "Windows",
+    "NAT",
+    "Denial of Service",
+    "Network Issues",
+    "KB5034763"
+  ],
+  "node_id": "84707d88-6763-4523-9108-6a8f8d50540a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,20 @@
+{
+  "symptom_label": "vmware_hypervisor_escape_compromises_sandbox_security",
+  "description": "Recent VMware sandbox escape bugs allow attackers to break out of sandbox protections equipped within VMware products. This issue affects the full range of VMware offerings, including ESXi, Workstation, Fusion, and Cloud Foundation, even extending to versions that have reached end-of-life. The nature of these critical vulnerabilities is such that they directly threaten the hypervisor layer, potentially enabling unauthorized access to host systems. The ramifications could include exposure of sensitive data and control over virtual machines, thus undermining operational security. VMware strongly recommends immediate application of the patches released to mitigate these risks.",
+  "source_id": "5f4b242f-5938-755e-8ff7-8cbe76ed7a13",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "5f4b242f-5938-755e-8ff7-8cbe76ed7a13"
+  ],
+  "tags": [
+    "vmware sandbox escape bug",
+    "patch critical vulnerability",
+    "vmware esxi",
+    "cloud foundation product"
+  ],
+  "node_id": "d0f931c8-8190-47c9-8c0f-13b302eb0aed",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

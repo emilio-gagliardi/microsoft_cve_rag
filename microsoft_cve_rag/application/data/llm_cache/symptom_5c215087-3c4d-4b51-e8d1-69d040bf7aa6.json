@@ -1,0 +1,19 @@
+{
+  "symptom_label": "http_sys_denial_of_service_causes_disruption",
+  "description": "After the application of update packages KB-5036894, KB-5036893, or KB-5036892, systems running Windows builds 10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, or 10.0.22621.3447 may experience service interruptions caused by an HTTP.sys denial of service vulnerability. Users may notice that web services become unresponsive, leading to failed connections when attempting to access hosted sites or applications. This can manifest in the form of timed-out requests or error responses from the server. System administrators will likely observe that essential services dependent on HTTP traffic are unavailable, impacting overall operational efficiency. Thus, users reliant on web-based resources or applications will face delays and potentially significant disruptions in their workflows.",
+  "source_id": "5c215087-3c4d-4b51-e8d1-69d040bf7aa6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5c215087-3c4d-4b51-e8d1-69d040bf7aa6"
+  ],
+  "tags": [
+    "HTTP",
+    "Denial of Service",
+    "Windows Updates"
+  ],
+  "node_id": "d6f768e5-39a2-4764-96ef-dff252d668f6",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "The Microsoft Edge (Chromium-based) suffers from an out-of-bounds read issue that allows an attacker to execute arbitrary code remotely. Exploitation requires the victim to open a specially crafted file, leading to loss of confidentiality, integrity, and availability of the impacted system. This flaw emerges from improper handling of memory within the Edge component, specifically during operations that should enforce bounds on memory access.",
+  "cause_label": "microsoft_edge_chromium_out_of_bounds_read",
+  "source_id": "c9be69b6-5170-c661-d614-e0e1b99a8619",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c9be69b6-5170-c661-d614-e0e1b99a8619"
+  ],
+  "tags": [
+    "remote code execution",
+    "Microsoft Edge",
+    "Out-of-bounds Read",
+    "CVE-2024-38210"
+  ],
+  "node_id": "1f473e7e-1ae1-4efb-8aed-197b192a7cfd",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

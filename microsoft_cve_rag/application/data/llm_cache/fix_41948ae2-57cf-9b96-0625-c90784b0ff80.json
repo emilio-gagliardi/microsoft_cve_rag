@@ -1,0 +1,16 @@
+{
+  "description": "To address the issue of not being able to upgrade from Windows 7/8/8.1 to Windows 10/11 after September 26, 2023, users should ensure that they are using a genuine Windows 7/8/8.1 key for activation when performing the upgrade. Upgrades performed under these conditions may not automatically grant a new digital license on the same machine. It is essential to verify the hardware ID activation is intact to maintain the existing digital license. Reinstalls of Windows 10 or 11 will still function using the digital license if it was originally activated through these methods. Users should perform upgrades while ensuring all licensing requirements are met to mitigate potential activation issues.",
+  "source_id": "41948ae2-57cf-9b96-0625-c90784b0ff80",
+  "source_type": "PatchManagementPost",
+  "fix_label": "UseGenuineKeyForWindowsUpgradeActivation",
+  "tags": [
+    "WindowsUpgrade",
+    "DigitalLicense",
+    "Activation"
+  ],
+  "node_id": "86857d46-3cd0-4773-bafc-281d2905b9e1",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

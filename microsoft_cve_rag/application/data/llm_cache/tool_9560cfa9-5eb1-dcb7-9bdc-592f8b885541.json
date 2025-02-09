@@ -1,0 +1,22 @@
+{
+  "tool_label": "software_restriction_policies_group_policy",
+  "description": "**Tool Overview**:\n\nThis refers to the configuration of Software Restriction Policies (SRP) using Group Policy in Windows environments to manage the execution of applications. By setting these policies, administrators can prevent unauthorized software from running, thereby enhancing security and compliance within the organization.\n\n**Details**:\n\n- **Purpose**: The primary purpose of Software Restriction Policies is to control which applications are allowed to run within a network or on individual machines. This helps prevent malware and unverified applications from executing.\n- **Configuration**: Administrators can configure Software Restriction Policies through the Group Policy Management Console (GPMC). This includes defining rules for allowed and disallowed software based on security levels, hashes, and file paths.\n- **Usage**: To implement SRP, admins need to create or edit a Group Policy Object (GPO) that targets specific user groups or organizational units.\n\n**Steps to Apply**:\n1. Open Group Policy Management Editor.\n2. Navigate to `Computer Configuration` -> `Policies` -> `Windows Settings` -> `Security Settings` -> `Software Restriction Policies`.\n3. Create new policies or modify existing ones to suit your security needs.\n4. Link the GPO to the desired organizational unit.\n\nThis tool is critical for enhancing security measures and ensuring that only legitimate and authorized applications can be executed within the enterprise network.",
+  "source_id": "9560cfa9-5eb1-dcb7-9bdc-592f8b885541",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "9560cfa9-5eb1-dcb7-9bdc-592f8b885541"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/7418ff2e9a2f42019de10b6b3119bbe9%40MPECSInc.Ca",
+  "tool_url": "",
+  "tags": [
+    "Group Policy",
+    "Software Restriction Policies",
+    "system security",
+    "LLM Synthesized"
+  ],
+  "node_id": "296b3c04-ffd6-40ef-92a3-aa70b8b610a0",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

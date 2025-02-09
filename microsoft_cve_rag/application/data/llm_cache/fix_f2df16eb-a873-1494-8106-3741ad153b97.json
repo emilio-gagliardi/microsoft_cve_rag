@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows USB Print Driver elevation of privilege vulnerability (CVE-2024-21442), it is important to apply the following updates:\n\n1. Identify the relevant build of Windows you are running.\n2. Download and install the appropriate KB articles corresponding to your Windows version:\n   - For Windows 11 Version 23H2: Install KB5035853. \n   - For Windows 11 Version 22H2: Install KB5035853.\n   - For Windows 11 Version 21H2: Install KB5035854.\n   - For Windows 10 Version 22H2 (x64): Install KB5035845.\n   - For Windows 10 Version 21H2 (x64): Install KB5035845.\n   - For Windows 10 Version 22H2 (32-bit): Install KB5035845.\n   - For Windows 10 Version 21H2 (32-bit): Install KB5035845.\n\n**Details**:\n- This vulnerability can be exploited to gain elevated privileges on affected systems when using the Windows USB print driver. \n- Ensure you follow the update process specified in the Microsoft Update Catalog links provided below for installation.\n- Backup critical data before proceeding with the updates.\n\n**Update Packages**:\n- [Download KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845)\n- [Download KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)\n- [Download KB5035854](https://catalog.update.microsoft.com/Search.aspx?q=KB5035854)\n\n**Preconditions**:\n- Ensure you are running a compatible version of Windows as per the details outlined.\n- Administrative privileges are required to apply these updates.",
+  "source_id": "f2df16eb-a873-1494-8106-3741ad153b97",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_elevation_of_privilege_usb_print_driver_cve202421442",
+  "tags": [
+    "KB5035845",
+    "KB5035853",
+    "KB5035854",
+    "USBPrintDriver"
+  ],
+  "node_id": "eebe3595-9d0e-47c4-9be8-0418c47fc303",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "f2df16eb-a873-1494-8106-3741ad153b97"
+  ]
+}

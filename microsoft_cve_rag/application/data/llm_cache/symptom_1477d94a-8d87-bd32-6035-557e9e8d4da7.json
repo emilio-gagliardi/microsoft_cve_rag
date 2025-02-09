@@ -1,0 +1,20 @@
+{
+  "symptom_label": "microsoft_fixes_issue_in_build_update",
+  "description": "This symptom indicates that an issue previously affecting a Microsoft product has been resolved by the company. While the specific details of the issue are not provided, the acknowledgment of a 'now fixed' status suggests previous functionality or operational problems that users might have experienced. Typically, this could relate to software glitches, security bugs, or performance hit that required a patch or update. Knowledge of the affected build numbers would usually help administrators recognize the impacted systems. Users should ensure they have applied the relevant updates to prevent issues previously encountered with this build.",
+  "source_id": "1477d94a-8d87-bd32-6035-557e9e8d4da7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "1477d94a-8d87-bd32-6035-557e9e8d4da7"
+  ],
+  "tags": [
+    "Microsoft",
+    "patch",
+    "update",
+    "build fix"
+  ],
+  "node_id": "82bec68d-307c-4b6c-a776-ec5f908f496c",
+  "node_label": "Symptom",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

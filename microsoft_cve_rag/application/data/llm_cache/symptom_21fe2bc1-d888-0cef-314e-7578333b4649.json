@@ -1,0 +1,16 @@
+{
+  "symptom_label": "MupDriverNotStartingOnNetworkEnabledMachines",
+  "description": "There is an issue with the Multiple UNC Provider (MUP) driver not starting correctly on certain network-enabled machines. This affects the operation of the Redirected Buffering Sub System (RDBSS), which relies on MUP for proper functioning. Without MUP running as expected, users may experience disruptions in access to network resources and shared folders, impacting overall network file operations.",
+  "source_id": "21fe2bc1-d888-0cef-314e-7578333b4649",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "network",
+    "rdbss",
+    "mup"
+  ],
+  "node_id": "4d2e6c01-ae6e-4f40-84c9-21f7c09c8aaf",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

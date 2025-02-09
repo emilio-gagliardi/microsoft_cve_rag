@@ -1,0 +1,21 @@
+{
+  "description": "An out-of-bounds read in the Microsoft Windows codecs library allows an attacker to potentially access sensitive information from heap memory through local access or user interaction, leading to information disclosure.",
+  "cause_label": "microsoft_windows_codecs_library_out_of_bounds_read",
+  "source_id": "93dfd70f-e167-4b04-8eca-582a0928e8a7",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "93dfd70f-e167-4b04-8eca-582a0928e8a7"
+  ],
+  "tags": [
+    "Windows",
+    "information disclosure",
+    "codecs library",
+    "heap memory"
+  ],
+  "node_id": "4b11fc9e-b37f-4252-a7d6-2065c3d5591a",
+  "node_label": "Cause",
+  "reliability": 0.08,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

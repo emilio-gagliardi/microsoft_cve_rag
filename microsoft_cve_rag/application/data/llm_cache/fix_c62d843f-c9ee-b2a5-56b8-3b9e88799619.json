@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the UI spoofing vulnerability identified as CVE-2024-8909 in the Chromium engine used by Microsoft Edge (Chromium-based):\n\n1. Update your Microsoft Edge browser to the latest version, which is 129.0.2792.52 or higher.\n2. Verify the update by clicking on the three dots in the upper right corner of the Edge browser, select 'Help and feedback', and then 'About Microsoft Edge' to check the current version.\n\n**Details**:\n- This update resolves issues related to inappropriate implementation that could allow UI spoofing via crafted HTML pages. \n- For Microsoft Edge, ensure you are on version 129.0.6668.58 or higher to be patched against this vulnerability. \n- The update was released on September 19, 2024.\n\n**Preconditions**:\n- Make sure your system has a stable internet connection to download the updates.\n- Backup any essential data to avoid potential interruptions during the update process.",
+  "source_id": "c62d843f-c9ee-b2a5-56b8-3b9e88799619",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_address_ui_spoofing",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-8909",
+    "ChromiumUpdate",
+    "UISpoofing"
+  ],
+  "node_id": "3b41e911-5847-4ec1-9dc8-f0e34bad585a",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c62d843f-c9ee-b2a5-56b8-3b9e88799619"
+  ],
+  "verification_status": "unverified"
+}

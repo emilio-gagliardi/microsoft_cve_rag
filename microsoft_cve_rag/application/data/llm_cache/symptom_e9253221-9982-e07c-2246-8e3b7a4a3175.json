@@ -1,0 +1,16 @@
+{
+  "symptom_label": "DenialOfServiceOnWindowsServer2022",
+  "description": "The system experiences total loss of availability due to a denial of service condition. This can lead to an inability for users to access critical services or applications on Windows Server 2022 running build 10.0.25398.531. Remediation is advised through KB5032202, which addresses the identified issue.",
+  "source_id": "e9253221-9982-e07c-2246-8e3b7a4a3175",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "57a50c5d-d42d-4036-a838-c1ef6738d6a3",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

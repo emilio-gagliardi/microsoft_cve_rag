@@ -1,0 +1,23 @@
+{
+  "symptom_label": "windows_broadband_driver_causes_remote_code_execution",
+  "description": "The Windows mobile broadband driver, specifically in builds such as Windows 11 Version 23H2 (10.0.22631.3880) and various builds of Windows 10 (including versions 22H2 and 21H2), is affected by a remote code execution vulnerability (CVE-2024-38161). Users may experience unauthorized execution of code if an attacker physically connects a malicious USB device to the affected systems, resulting in a total loss of confidentiality and integrity. As a consequence, users could observe unexpected behaviors, such as unauthorized modifications to their files, or significant disruptions in service availability. This vulnerability has been documented in KB Articles 5040442, 5040427, and 5040431, highlighting the need for immediate security updates to mitigate the associated risks.",
+  "source_id": "8546cdbb-fe7b-8ea2-e6fe-070ee78f612a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8546cdbb-fe7b-8ea2-e6fe-070ee78f612a"
+  ],
+  "tags": [
+    "windows",
+    "broadband",
+    "driver",
+    "remote_code_execution",
+    "Windows_11",
+    "Windows_10"
+  ],
+  "node_id": "70120eec-d579-4871-8161-27183acf781e",
+  "node_label": "Symptom",
+  "reliability": 0.05,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,18 @@
+{
+  "description": "The vulnerability described as CVE-2024-20658 arises from a flaw in the Microsoft Virtual Hard Disk functionality that leads to elevation of privilege. Specifically, the vulnerable component does not appropriately manage access rights, allowing an attacker with local access to exploit this flaw. This exploitation can occur via physical keyboard or console access, as well as through remote means such as SSH. The issue is compounded by the fact that the attacker needs only basic privileges, making it easier to leverage the vulnerability. The condition's severity is highlighted by its capacity to allow complete access to the system, compromising the confidentiality, integrity, and availability of the affected component.",
+  "cause_label": "ImproperAccessControlInVirtualHardDisk",
+  "source_id": "5bb0abb1-69b0-f624-1572-ca63c3422440",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE-2024-20658",
+    "Microsoft",
+    "Virtual Hard Disk",
+    "elevation of privilege",
+    "access control"
+  ],
+  "node_id": "3688b0f6-db63-4d8a-acbb-58a4e90b47a1",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

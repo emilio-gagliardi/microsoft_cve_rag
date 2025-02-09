@@ -1,0 +1,21 @@
+{
+  "symptom_label": "uefi_update_message_prior_to_windows_boot",
+  "description": "System administrators may notice an unusual behavior on device power-on, where a message stating 'please wait while we install a system update' appears prior to the UEFI firmware handing over control to the Windows boot process. This symptom deviates from typical notifications associated with cumulative or out-of-band Windows updates, suggesting a new layer of update management specifically linked to UEFI updates. Given that UEFI updates have been supported since Windows 8 and 8.1, this particular observable behavior raises concerns about potential correlations to recent security vulnerabilities, indicating that these updates might be bundled or sequenced with standard Microsoft security patches. Such behaviors can affect system boot times and user experience, warranting attention from system administrators overseeing UEFI firmware compliance and update strategies.",
+  "source_id": "dc757213-a398-be22-1d79-4e631e3a75f8",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "dc757213-a398-be22-1d79-4e631e3a75f8"
+  ],
+  "tags": [
+    "uefi_updates",
+    "windows_boot",
+    "system_update_message",
+    "patch_management"
+  ],
+  "node_id": "e7715dd6-67d2-4940-bf34-b57602914a23",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

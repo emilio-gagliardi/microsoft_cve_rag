@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Microsoft Edge (Chromium-based) spoofing vulnerability CVE-2024-38221:\n\n1. Ensure that your Microsoft Edge browser is updated to at least version 129.0.2792.52 or later.\n2. Download and install the respective update package from the Microsoft Update Catalog:\n   [KB38221](https://catalog.update.microsoft.com/Search.aspx?q=KB38221).\n3. Restart your browser after the installation to apply the updates.\n\n**Details**:\n- This update resolves a spoofing vulnerability that could potentially be exploited during web page generation, meeting CWE-79 guidelines.\n- No additional user access or privileges are required for this update. \n\n**Preconditions**:\n- Ensure your current version of Microsoft Edge is prior to 129.0.2792.52.\n- Backup any important data before proceeding with the update installation.\n",
+  "source_id": "15c5dd43-fc8d-2a4d-b7a4-31398d87d68f",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_resolve_cve202438221_spoofing",
+  "tags": [
+    "KB38221",
+    "MicrosoftEdge",
+    "CVE202438221",
+    "ChromiumBased"
+  ],
+  "node_id": "1e036e06-9107-41e6-badf-fbef745ecbc9",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "15c5dd43-fc8d-2a4d-b7a4-31398d87d68f"
+  ],
+  "verification_status": "unverified"
+}

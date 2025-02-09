@@ -1,0 +1,17 @@
+{
+  "description": "The root cause of CVE-2023-36401 is an integer overflow flaw in the Microsoft Remote Registry service (regsvc). This vulnerability allows a remote, authenticated attacker who is part of the performance log users group to execute arbitrary code on affected systems. The issue primarily arises because the vulnerable component is improperly handling specific input values, which can lead to exploit scenarios that enable code execution with significant privileges. The affected Windows builds include multiple versions of Windows 10 and Windows 11, such as 10.0.22631.2715 and 10.0.19045.3693, and is detailed in KB articles including KB-5032199, KB-5032192, and KB-5032189. Exploitation requires the attacker to have already-authenticated access on the network, which could facilitate numerous attack vectors given that the component is accessible from external network segments.",
+  "cause_label": "IntegerOverflowInRemoteRegistryService",
+  "source_id": "0262116a-b2aa-5368-d693-2487808a4440",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE",
+    "vulnerability",
+    "IntegerOverflow",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "2b35cda0-5353-42ab-af7f-1001919ec6b1",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

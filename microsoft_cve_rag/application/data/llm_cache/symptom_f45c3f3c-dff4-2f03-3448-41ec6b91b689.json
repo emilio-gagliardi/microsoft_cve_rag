@@ -1,0 +1,16 @@
+{
+  "symptom_label": "MicrosoftAccessNTLMHashExposedThroughSQL",
+  "description": "A significant information disclosure vulnerability has been identified in Microsoft Access that allows attackers to obtain a victim's NTLM hash. This occurs when a Microsoft Office document embedded with an Access database linked to a remote SQL Server database using Windows NT authentication is opened. As Access updates a table with this link, it inadvertently exposes the NTLM hash to the attacker, particularly over firewall-friendly ports such as 80 or 443. This vulnerability has not been addressed adequately by Microsoft despite its serious implications, leading to potential credential leakage.",
+  "source_id": "f45c3f3c-dff4-2f03-3448-41ec6b91b689",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Microsoft Access",
+    "NTLM Hash",
+    "Information Disclosure"
+  ],
+  "node_id": "8c62e5dd-d16f-4154-96b6-d26f796e1fe3",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

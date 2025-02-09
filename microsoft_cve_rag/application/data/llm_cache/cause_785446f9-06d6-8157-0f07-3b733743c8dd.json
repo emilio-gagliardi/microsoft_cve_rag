@@ -1,0 +1,21 @@
+{
+  "description": "Improper link resolution before file access in Azure Monitor Agent allows an attacker with local access to perform arbitrary file deletions, undermining data integrity and availability.",
+  "cause_label": "azure_monitor_agent_improper_link_resolution_before_file_access",
+  "source_id": "785446f9-06d6-8157-0f07-3b733743c8dd",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "785446f9-06d6-8157-0f07-3b733743c8dd"
+  ],
+  "tags": [
+    "Azure Monitor Agent",
+    "CVE-2024-35254",
+    "Privilege Escalation",
+    "CWE-59"
+  ],
+  "node_id": "696f6d2d-2ba1-4d57-8829-a575c277da8b",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

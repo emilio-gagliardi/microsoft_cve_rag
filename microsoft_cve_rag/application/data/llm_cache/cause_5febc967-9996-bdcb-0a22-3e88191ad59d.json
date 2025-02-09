@@ -1,0 +1,21 @@
+{
+  "description": "The issue arises from the application of conflicting registry values (0x40 and 0x30) after the installation of the 2024-02 Cumulative Update, as referenced in KB-5025885. Initially, setting the registry value to 0x40 appeared to successfully apply the Secure Boot Dbx update, as logged by event ID 1034. However, subsequently setting the registry value to 0x30 resulted in the unintended removal of essential certificates from the UEFI database. This series of steps suggests that not all updates are cumulative, and the order of applying these registry values is crucial for maintaining the integrity of the Secure Boot configuration. Ultimately, repeated reapplication of the registry values is needed to restore the previous Secure Boot state, indicating a flaw in the update process that necessitates careful management.",
+  "source_id": "5febc967-9996-bdcb-0a22-3e88191ad59d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "5febc967-9996-bdcb-0a22-3e88191ad59d"
+  ],
+  "cause_label": "registry_value_conflict_impacts_secure_boot",
+  "tags": [
+    "secure boot",
+    "registry values",
+    "cumulative update",
+    "Windows",
+    "KB-5025885"
+  ],
+  "node_id": "31d910aa-ee32-4f66-b709-600c999e821e",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

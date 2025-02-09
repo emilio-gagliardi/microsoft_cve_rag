@@ -1,0 +1,21 @@
+{
+  "description": "A use after free vulnerability in the media router of Google Chrome prior to version 128.0.6613.137, which could allow remote attackers to exploit heap corruption via crafted HTML content.",
+  "cause_label": "chromium_use_after_free_in_media_router_heap_corruption",
+  "source_id": "39c54966-8408-008c-2aa5-db01f9a8d4f9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "39c54966-8408-008c-2aa5-db01f9a8d4f9"
+  ],
+  "tags": [
+    "use_after_free",
+    "heap_corruption",
+    "chromium",
+    "microsoft_edge"
+  ],
+  "node_id": "29b417f5-dc5f-44b4-98b9-a844f1f4d2b1",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

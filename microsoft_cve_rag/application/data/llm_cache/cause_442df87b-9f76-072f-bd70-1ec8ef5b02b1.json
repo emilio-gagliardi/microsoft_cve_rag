@@ -1,0 +1,21 @@
+{
+  "description": "The Azure Storage Movement Client Library contains a Denial of Service vulnerability caused by the use of unmaintained third-party components, which may lead to a complete loss of availability when exploited. This condition arises within the network stack, allowing attackers to execute remote attacks without user interaction or specialized access conditions.",
+  "cause_label": "azure_storage_movement_client_library_dos_vulnerability",
+  "source_id": "442df87b-9f76-072f-bd70-1ec8ef5b02b1",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "442df87b-9f76-072f-bd70-1ec8ef5b02b1"
+  ],
+  "tags": [
+    "Azure",
+    "Denial of Service",
+    "Vulnerability",
+    "Third Party Components"
+  ],
+  "node_id": "a7ae8b90-5552-4ed9-85ec-572b2d4b4317",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

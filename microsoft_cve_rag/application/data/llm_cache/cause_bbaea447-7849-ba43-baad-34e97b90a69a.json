@@ -1,0 +1,21 @@
+{
+  "description": "The underlying issue stems from a vulnerability within the Chromium open source software that Microsoft Edge (Chromium-based) utilizes. This flaw in the Chromium code makes versions of Microsoft Edge prior to 127.0.2651.74 susceptible to certain security risks. The latest Edge version has been updated to eliminate this vulnerability.",
+  "cause_label": "chromium_open_source_security_flaw_in_edge",
+  "source_id": "bbaea447-7849-ba43-baad-34e97b90a69a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "bbaea447-7849-ba43-baad-34e97b90a69a"
+  ],
+  "tags": [
+    "CVE-2024-6992",
+    "Microsoft Edge",
+    "Chromium",
+    "vulnerability"
+  ],
+  "node_id": "62e5b8a6-d170-4c77-af84-cb9e8841ed29",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

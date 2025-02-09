@@ -1,0 +1,22 @@
+{
+  "description": "Insufficient data validation in the Omnibox of Google Chrome on Android prior to version 129.0.6668.58 allowed a remote attacker to inject arbitrary scripts through crafted UI gestures.",
+  "cause_label": "chromium_insufficient_data_validation_in_omnibox",
+  "source_id": "f8f1903e-0ae3-1878-1b82-35394e4da119",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f8f1903e-0ae3-1878-1b82-35394e4da119"
+  ],
+  "tags": [
+    "chromium",
+    "cross-site scripting",
+    "data validation",
+    "Google Chrome",
+    "Microsoft Edge"
+  ],
+  "node_id": "e14f16cc-e493-409d-a624-1e9c21c0f15a",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

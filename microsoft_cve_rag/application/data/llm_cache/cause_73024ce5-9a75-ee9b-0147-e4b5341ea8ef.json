@@ -1,0 +1,21 @@
+{
+  "description": "The vulnerability arises from a numeric truncation error in the Microsoft WDAC OLE DB provider, which can facilitate remote code execution if an authenticated user connects to a malicious SQL Server. This attack exploits improperly handled network communications in the OLE DB architecture, allowing crafted data to execute arbitrary code on the client system.",
+  "cause_label": "wdac_ole_db_numeric_truncation_error",
+  "source_id": "73024ce5-9a75-ee9b-0147-e4b5341ea8ef",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "73024ce5-9a75-ee9b-0147-e4b5341ea8ef"
+  ],
+  "tags": [
+    "CVE",
+    "SQL Server",
+    "OLE DB",
+    "Remote Code Execution",
+    "Windows"
+  ],
+  "node_id": "4ace1c11-cf57-49e2-97f5-84ad55944df9",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

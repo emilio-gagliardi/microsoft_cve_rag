@@ -1,0 +1,22 @@
+{
+  "description": "The underlying cause of the issue is related to the change in the application packaging of Microsoft Teams. Previously, the auto start function was controlled through a registry key that could be manipulated via Group Policy; however, with the transition to an AppX package, this key is no longer accessible in the same manner. This change has created difficulties for system administrators trying to maintain consistency in application behavior across user environments. The provided solution involves modifying a new registry path specifically related to the Teams AppX package, which allows administrators to disable the auto start feature by setting the appropriate registry value. This solution reflects a shift in managing application startup behaviors in the Windows environment, revealing potential complications associated with newer packaging formats.",
+  "source_id": "e275c7a9-2cbb-f2d6-c236-a82292187b8f",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e275c7a9-2cbb-f2d6-c236-a82292187b8f"
+  ],
+  "cause_label": "appx_package_change_impacts_group_policy_control",
+  "tags": [
+    "Microsoft Teams",
+    "Group Policy",
+    "AppX package",
+    "auto start",
+    "registry modification"
+  ],
+  "node_id": "58514fe2-48a8-4b9e-ae79-50a731ddd838",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

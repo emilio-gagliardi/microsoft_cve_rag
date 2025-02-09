@@ -1,0 +1,16 @@
+{
+  "description": "To address CVE-2023-24023, administrators should apply a series of security updates across affected systems. For Windows 11 version 23H2 for x64-based systems, apply KB5032190 by accessing the update package at https://catalog.update.microsoft.com/Search.aspx?q=KB5032190. For Windows 10 version 22H2 on x64-based systems, KB5032189 should be installed, available at https://catalog.update.microsoft.com/Search.aspx?q=KB5032189. Additionally, ensure Windows Server 2022 is updated with KB5032202 through the link https://catalog.update.microsoft.com/Search.aspx?q=KB5032202. Systems running older builds, such as Windows 10 version 21H2 for x64-based should also receive KB5032196 via https://catalog.update.microsoft.com/Search.aspx?q=KB5032196. Each of these updates mitigates the risks associated with Bluetooth vulnerabilities and should be deployed as soon as possible to ensure system integrity.",
+  "source_id": "957de05f-19ea-e33d-eb80-f10ca14dc907",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplySecurityUpdatesForBluetoothVulnerability",
+  "tags": [
+    "update",
+    "bluetooth",
+    "windows"
+  ],
+  "node_id": "5a92534d-13a1-41e3-8cd5-6d17d4908fe2",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

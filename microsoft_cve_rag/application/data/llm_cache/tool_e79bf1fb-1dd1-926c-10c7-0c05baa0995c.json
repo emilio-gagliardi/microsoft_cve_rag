@@ -1,0 +1,23 @@
+{
+  "tool_label": "powershell_script_update_recovery_environment",
+  "description": "**Tool Overview**:\n\nThis PowerShell script is designed to manage the recovery environment on Windows Server 2022 systems while allowing for updates without resizing the recovery partition.\n\n**Details**:\n\n1. The script starts by disabling the recovery environment using `reagentc / disable`, which temporarily removes the recovery image.\n2. It checks for the presence of the recovery image at a specified path, and if not found, it re-enables the recovery environment and exits.\n3. It identifies the recovery partition type (GPT or MBR) and changes it temporarily to facilitate updates.\n4. After setting the partition type, the script re-enables the recovery environment and indicates that the user should manually install specified updates (KB5034439, KB5034441).\n5. Finally, it restores the original settings of the recovery partition and re-enables the recovery environment once all operations are complete.\n\nThis script allows administrators to perform necessary updates without permanently reducing capacity or altering the recovery partition structure, optimizing maintenance processes in an enterprise environment.",
+  "source_id": "e79bf1fb-1dd1-926c-10c7-0c05baa0995c",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e79bf1fb-1dd1-926c-10c7-0c05baa0995c"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/8fcbb6ad0ab743d0b6f3bcbe827261d4%40ausmarinetech.com.au",
+  "tool_url": "",
+  "tags": [
+    "PowerShell",
+    "server management",
+    "recovery environment",
+    "Windows Server 2022"
+  ],
+  "node_id": "c7c01278-c135-4b94-900b-eac80fdbfe58",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

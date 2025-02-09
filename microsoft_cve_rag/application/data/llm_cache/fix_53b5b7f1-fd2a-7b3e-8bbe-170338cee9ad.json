@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows kernel elevation of privilege vulnerability (CVE-2024-38106) effectively:\n\n1. Identify your Windows version and architecture (x64 or 32-bit).\n2. Ensure the system is backed up before applying updates.\n3. Download and install the relevant KB updates from the Microsoft Update Catalog:\n   - For Windows 11 Version 24H2: [KB5041571](https://catalog.update.microsoft.com/Search.aspx?q=KB5041571)\n   - For Windows 11 Version 23H2: [KB5041585](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585)\n   - For Windows 11 Version 22H2: [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n   - For Windows 11 Version 21H2: [KB5041592](https://catalog.update.microsoft.com/Search.aspx?q=KB5041592)\n   - For Windows 10 (x64 and 32-bit): [KB5041782](https://catalog.update.microsoft.com/Search.aspx?q=KB5041782)\n4. Restart the system to complete the installation of each update.\n\n**Details**:\nThis update addresses the sensitive data storage issue in improperly locked memory, which can lead to elevation of privilege risks within the Windows kernel. It is crucial to apply these updates to maintain system security and functionality.\n**Preconditions**:\n- Ensure the system is running a supported version of Windows.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "53b5b7f1-fd2a-7b3e-8bbe-170338cee9ad",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_kernel_elevation_privilege_cve202438106",
+  "tags": [
+    "KB5041571",
+    "KB5041585",
+    "WindowsKernel",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "4e886abb-6bb5-4dd6-9178-638d9c277013",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "53b5b7f1-fd2a-7b3e-8bbe-170338cee9ad"
+  ],
+  "verification_status": "unverified"
+}

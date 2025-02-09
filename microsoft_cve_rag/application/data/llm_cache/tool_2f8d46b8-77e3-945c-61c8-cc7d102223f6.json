@@ -1,0 +1,13 @@
+{
+  "tool_label": "null",
+  "description": "null",
+  "source_id": "2f8d46b8-77e3-945c-61c8-cc7d102223f6",
+  "source_type": "PatchManagementPost",
+  "source_url": "https://groups.google.com/d/msgid/patchmanagement/013701d9f70d%24b8447530%2428cd5f90%24%40ccbox.com",
+  "tags": [],
+  "node_id": "1d5f6a04-fdae-4cae-814e-f9234fe3a206",
+  "node_label": "Tool",
+  "reliability": 0.0,
+  "severity_type": "critical",
+  "entity_type": "Tool"
+}

@@ -1,0 +1,16 @@
+{
+  "description": "**Fix Overview**:\n\nThe function to retrieve installed program information can streamline your workflow, especially when dealing with multiple installations. This script effectively interacts with the registry to extract relevant details and can be modified to filter for specific applications.\n\nTo retrieve Acrobat installations:\n\n1. Utilize the following PowerShell function:\n   ```powershell\n   function Get-AddRemovePrograms {\n       param (\n           [string] $value = \"*\",\n           [string] $property = \"displayname\"\n       )\n       $is64BitOS = (Get-WmiObject -Query \"SELECT osarchitecture FROM Win32_OperatingSystem\").osarchitecture -eq \"64-bit\"\n       $arpEntries = Get-ChildItem -Path \"hklm:\\software\\microsoft\\windows\\currentversion\\uninstall\", \"hklm:\\software\\wow6432node\\microsoft\\windows\\currentversion\\uninstall\" -ErrorAction SilentlyContinue\n       | Where { $_.GetValue(\"$property\") -ilike \"$value\" }\n       return @($arpEntries)\n   }\n   Get-AddRemovePrograms -Value \"*acrobat*\"\n   ```\n\n**Details**:\nThis function identifies installed applications by querying the Windows registry. It returns an array of objects containing installation information, which can be useful for inventory management or troubleshooting. \n\n**Preconditions**:\n- Ensure you have the necessary permissions to access the Windows registry.\n- This function works on both 32-bit and 64-bit systems. Make sure to test in a development environment before deploying widely. (LLM Synthesized)",
+  "source_id": "e59949b8-49a7-99e3-7040-4b09aa062127",
+  "source_type": "PatchManagementPost",
+  "fix_label": "GetInstalledProgramsInfoViaPowerShell",
+  "tags": [
+    "PowerShell",
+    "InstalledPrograms",
+    "LLM Synthesized"
+  ],
+  "node_id": "2e2eee72-1b31-447e-b4aa-e955a1141c3e",
+  "node_label": "Fix",
+  "reliability": "0.8",
+  "severity_type": "moderate",
+  "entity_type": "Fix"
+}

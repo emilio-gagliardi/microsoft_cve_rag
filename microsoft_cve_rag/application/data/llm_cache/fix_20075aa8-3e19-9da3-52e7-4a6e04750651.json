@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the remote code execution vulnerability in the Microsoft WDAC OLE DB provider for SQL Server (CVE-2024-21366):\n\n1. Download and apply the appropriate KB updates from the Windows Update catalog specific to your version of Windows.\n2. Restart your system after installation to ensure the updates take effect.\n\n**Details**:\n- The following update packages are available for download:\n  - [KB5034766](https://catalog.update.microsoft.com/Search.aspx?q=KB5034766) for Windows 11 Version 21H2.\n  - [KB5034774](https://catalog.update.microsoft.com/Search.aspx?q=KB5034774) for Windows 10 x64 and 32-bit.\n  - [KB5034765](https://catalog.update.microsoft.com/Search.aspx?q=KB5034765) for Windows 10 Version 22H2.\n  - [KB5034763](https://catalog.update.microsoft.com/Search.aspx?q=KB5034763) for Windows 10 Version 21H2 and Windows 10 Version 22H2 for 32-bit systems.\n- This update aims to mitigate possible exploitation of the heap-based buffer overflow vulnerability referenced by CWE-122.\n\n**Preconditions**:\n- Ensure that your system is running one of the affected Windows 10 or Windows 11 versions.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "20075aa8-3e19-9da3-52e7-4a6e04750651",
+  "source_type": "MSRCPost",
+  "fix_label": "address_remote_code_execution_in_wdac_provider_cve202421366",
+  "tags": [
+    "KB5034763",
+    "WBACProvider",
+    "RemoteCodeExecution",
+    "CVE202421366"
+  ],
+  "node_id": "35ad7a5d-3bc7-4df9-823d-f8b2f7073e55",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "20075aa8-3e19-9da3-52e7-4a6e04750651"
+  ]
+}

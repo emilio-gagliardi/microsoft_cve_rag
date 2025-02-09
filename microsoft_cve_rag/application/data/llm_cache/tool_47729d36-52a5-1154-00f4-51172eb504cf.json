@@ -1,0 +1,22 @@
+{
+  "tool_label": "aj_tek_wam_tool",
+  "description": "**Tool Overview**:\n\nAJ Tek's WAM (Windows Automation Manager) is a powerful tool designed for patch management and automation processes within IT environments. It aims to streamline the update process, allowing system administrators to effectively manage Windows updates across multiple devices. \n\n**Details**:\n1. **Subscription-Based**: Users can subscribe to AJ Tek's WAM for ongoing information and updates.\n2. **Functionality**: The tool automates the deployment of updates and patches, minimizing the need for manual intervention. \n3. **Monitoring Capabilities**: Administrators can monitor the status of patches and be alerted to any issues.\n4. **Integration**: It integrates seamlessly with existing IT infrastructure, making it an excellent addition to any enterprise deployment. \n5. **Support**: AJ Tek provides customer support for users needing assistance with the tool's features.\n\nFor more information, please visit their official documentation.",
+  "source_id": "47729d36-52a5-1154-00f4-51172eb504cf",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "47729d36-52a5-1154-00f4-51172eb504cf"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/8430e83813594901af49135a7742034d%40genedata.com",
+  "tool_url": "",
+  "tags": [
+    "automation",
+    "patch_management",
+    "IT_operations"
+  ],
+  "node_id": "18cdd259-75f1-4b5f-a15b-3f113e389578",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

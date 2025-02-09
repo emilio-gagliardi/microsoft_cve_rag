@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_update_pushes_bios_update_causing_issue",
+  "description": "The system exhibits unexpected behavior following a BIOS update that has been pushed via Windows Update. This behavior may manifest as startup complications or performance irregularities, potentially affecting device stability and user experience. System administrators should be aware that such updates can sometimes conflict with existing hardware configurations or software applications. It is essential to review the specific BIOS version involved and verify compatibility with the current operating system. Users may experience difficulties during boot or changes in system responsiveness that necessitate further investigation into the updates dispensed and their respective impacts on the system.",
+  "source_id": "c7c0a7a2-a2ad-3f86-829e-9410092285bf",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "c7c0a7a2-a2ad-3f86-829e-9410092285bf"
+  ],
+  "tags": [
+    "windows_update",
+    "bios_update",
+    "startup_issues",
+    "device_stability"
+  ],
+  "node_id": "7c80c987-6faa-4405-bc3b-daa82bbdb56f",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

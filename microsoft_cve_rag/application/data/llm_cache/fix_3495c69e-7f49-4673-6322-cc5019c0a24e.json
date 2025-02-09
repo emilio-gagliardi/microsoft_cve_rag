@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the denial of service vulnerability in Windows Hyper-V (CVE-2024-43633):\n\n1. Download and apply the relevant updates for your Windows version from the Microsoft Update Catalog.\n   - For Windows 11 Version 24H2, use KB5046617.\n   - For Windows 11 Version 23H2, use KB5046633.\n   - For Windows 11 Version 22H2, use KB5046633.\n2. Restart your system after installation to ensure that all changes take effect.\n\n**Details**:\n- These updates address sensitive data storage issues present in improperly locked memory, which could lead to denial of service.\n- Ensure that your system is running one of the affected Windows versions to properly apply the fix.\n- The update packages can be found at:\n   - [KB5046617](https://catalog.update.microsoft.com/Search.aspx?q=KB5046617)\n   - [KB5046633](https://catalog.update.microsoft.com/Search.aspx?q=KB5046633)\n\n**Preconditions**:\n- Verify that you are using a compatible build of Windows 11.\n- Backup critical data before proceeding with the updates.",
+  "source_id": "3495c69e-7f49-4673-6322-cc5019c0a24e",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_hyperv_denial_of_service_cve202443633",
+  "tags": [
+    "KB5046617",
+    "KB5046633",
+    "Windows11",
+    "HyperV"
+  ],
+  "node_id": "3ce358f6-c3e5-4713-b17e-d0da61f2f200",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "3495c69e-7f49-4673-6322-cc5019c0a24e"
+  ],
+  "verification_status": "unverified"
+}

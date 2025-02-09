@@ -1,0 +1,17 @@
+{
+  "symptom_label": "WusaFailsToUninstallUpdatesCorrectly",
+  "description": "The use of Windows Update Standalone Installer (wusa) to uninstall updates may result in issues when attempting to install an older cumulative update (CU). This causes confusion and potential operational disturbances in environments that rely on updating processes for system management. Specifically, users may find that after uninstalling a Windows update, subsequent attempts to apply an older cumulative update fail, leading to inconsistencies in the update history and system state.",
+  "source_id": "643d25de-d383-cf2e-e969-c9ef13ff31ad",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "wusa",
+    "patch management",
+    "update installation",
+    "cumulative update"
+  ],
+  "node_id": "d432562b-dfb3-4c93-9339-046cbce69efb",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

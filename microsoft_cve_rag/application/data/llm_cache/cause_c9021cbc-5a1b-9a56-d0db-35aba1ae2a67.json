@@ -1,0 +1,22 @@
+{
+  "description": "The underlying cause of the secure boot feature bypass (CVE-2024-37989) is due to improper handling of length parameter inconsistency, allowing an attacker on an adjacent network to exploit the vulnerability and bypass secure boot protections. This flaw is related to the components affected in the Windows operating system, enabling unauthorized actions without requiring elevated privileges.",
+  "cause_label": "secure_boot_feature_bypass_due_to_length_inconsistency",
+  "source_id": "c9021cbc-5a1b-9a56-d0db-35aba1ae2a67",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c9021cbc-5a1b-9a56-d0db-35aba1ae2a67"
+  ],
+  "tags": [
+    "secure boot",
+    "CVE-2024-37989",
+    "Microsoft",
+    "vulnerability",
+    "length parameter handling"
+  ],
+  "node_id": "3f758337-17c7-4839-a6c5-56af7f9304c4",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

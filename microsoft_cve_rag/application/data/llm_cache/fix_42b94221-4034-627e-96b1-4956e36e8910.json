@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo successfully apply updates using SCCM after a manual installation:\n\n1. Perform manual installations for the required updates that SCCM could not handle in the first attempt.\n2. Once the manual installs are complete, allow SCCM to process and install the .NET updates successfully without further issues.\n\n**Details**:\n- This approach helps in cases where SCCM encounters difficulties during automatic updates and requires manual intervention first. \n- Ensure that the system is properly prepared for updates before proceeding with manual installations. (LLM Synthesized)",
+  "source_id": "42b94221-4034-627e-96b1-4956e36e8910",
+  "source_type": "PatchManagementPost",
+  "fix_label": "enable_sccm_install_after_manual_updates",
+  "tags": [
+    "KB5036899",
+    "SCCM",
+    "ManualUpdates",
+    "NETFramework"
+  ],
+  "node_id": "2a2898b1-164b-496b-af20-adf9bf01fa96",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "42b94221-4034-627e-96b1-4956e36e8910"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,16 @@
+{
+  "description": "To prevent upgrades to Windows 11, a registry modification can be made to specify a target version of Windows 10. By accessing the registry at HKLM\\Software\\Policies\\Microsoft\\Windows\\WindowsUpdate, users can create two new values: a DWORD 32-bit value called 'TargetReleaseVersion' set to 1 and a string value 'TargetReleaseVersionInfo' set to '22H2' or another desired version. This adjustment not only halts any incomplete upgrades to Windows 11 but also ensures that necessary Windows 10 updates continue to install. The registry settings can be easily modified or removed later to resume normal upgrade processes if desired. This method offers a timely and effective workaround to manage Windows version updates without interruption.",
+  "source_id": "022a987e-f54d-657a-308f-2f512b5cefdf",
+  "source_type": "PatchManagementPost",
+  "fix_label": "ModifyRegistryToSetTargetWindowsVersion",
+  "tags": [
+    "Windows10",
+    "RegistryModification",
+    "UpgradeManagement"
+  ],
+  "node_id": "0e7308ab-de6c-4294-92b0-ba7b046b86f6",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

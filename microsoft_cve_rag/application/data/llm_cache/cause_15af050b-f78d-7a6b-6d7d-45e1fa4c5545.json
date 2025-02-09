@@ -1,0 +1,19 @@
+{
+  "description": "The cause of CVE-2023-6351 is a use-after-free vulnerability in the libavif library, which is part of the Chromium open-source project. This condition allows memory that is no longer in use to be accessed, leading to potential exploitation by malicious entities. The affected products include Microsoft Edge (Chromium-based) builds 119.0.2151.97 and 118.0.2088.122, both of which are mitigated by updating to the fixed versions released on November 29, 2023. The KB Article ID related to this update is KB-119.0.2151.97. It is crucial for administrators to ensure that users are running the latest version of Microsoft Edge to eliminate this security risk.",
+  "cause_label": "UseAfterFreeInLibavifLibraryImpact",
+  "source_id": "15af050b-f78d-7a6b-6d7d-45e1fa4c5545",
+  "source_type": "MSRCPost",
+  "tags": [
+    "use-after-free",
+    "libavif",
+    "Microsoft Edge",
+    "Chromium",
+    "CVE-2023-6351",
+    "vulnerability"
+  ],
+  "node_id": "281c779f-1a79-4f71-8cd8-9ccdac15e661",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

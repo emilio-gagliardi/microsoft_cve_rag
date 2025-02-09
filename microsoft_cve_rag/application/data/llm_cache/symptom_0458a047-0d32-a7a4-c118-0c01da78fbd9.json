@@ -1,0 +1,20 @@
+{
+  "symptom_label": "dfs_namespace_remote_code_execution_disruption",
+  "description": "After applying security update KB-5036896 for the Windows Distributed File System (DFS), users may observe unexpected behavior causing intermittent connection issues or failed operations with the DFS service. Symptoms could manifest as error messages indicating inability to access shared resources, particularly during attempts to retrieve or synchronize files across the network. System administrators may note significant disruptions in existing network functionalities, specifically for clients attempting to access namespace functionalities. Additionally, increased latencies or failures in file operations may also be prevalent, affecting productivity and system reliability across the network environment. This issue particularly impacts Windows Server 2019 and earlier versions, leading to concerns regarding operational continuity in enterprise environments.",
+  "source_id": "0458a047-0d32-a7a4-c118-0c01da78fbd9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0458a047-0d32-a7a4-c118-0c01da78fbd9"
+  ],
+  "tags": [
+    "Windows",
+    "DFS",
+    "Remote Code Execution",
+    "Network Issues"
+  ],
+  "node_id": "5c67507d-8a05-413f-a820-59f379670d50",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

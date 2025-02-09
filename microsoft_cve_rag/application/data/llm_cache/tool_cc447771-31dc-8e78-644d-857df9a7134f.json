@@ -1,0 +1,22 @@
+{
+  "tool_label": "google_chrome_releases_website",
+  "description": "**Tool Overview**:\n\nThe Google Chrome Releases page is a valuable resource for developers and system administrators to keep track of security updates and patches in the Chromium-based browsers. It lists the latest versions of Chrome and details vulnerabilities that have been addressed in each release. The page provides insights into the severity of issues, including CVEs like CVE-2024-1676, which pertains to improper implementation and cross-site scripting vulnerabilities.\n\n**Details**:\nThis tool serves several purposes:\n1. **Reference**: Users can scroll through the entire list of recent Chrome updates.\n2. **Mitigation**: Identify the versions that address specific vulnerabilities and implement the necessary updates in Microsoft Edge or other Chromium-based browsers.\n3. **Tracking**: Keep tabs on security enhancements made periodically to ensure maximum protection.\n\nFor system administrators, ensuring that their browsers are updated according to the latest releases is critical for maintaining security compliance.\n\nVisit the Google Chrome Releases page to access detailed information and download links for updates.",
+  "source_id": "cc447771-31dc-8e78-644d-857df9a7134f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "cc447771-31dc-8e78-644d-857df9a7134f"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-1676",
+  "tool_url": "https://chromereleases.googleblog.com/",
+  "tags": [
+    "Chromium",
+    "security",
+    "updates",
+    "CVE-2024-1676"
+  ],
+  "node_id": "5fa0ba41-26e9-438c-84ef-5f4750dcab5d",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "low",
+  "entity_type": "Tool"
+}

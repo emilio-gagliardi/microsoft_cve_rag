@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the information disclosure vulnerability affecting the Windows Remote Access Connection Manager:\n\n1. Install the following update packages:\n   - KB-5037788\n   - KB-5037771\n   - KB-5037768\n   - KB-5036894\n\n2. Ensure your system meets the following build numbers:\n   - 10.0.19045.4291\n   - 10.0.19044.4291\n   - 10.0.22631.3447\n   - 10.0.22000.2899\n   - Additional relevant builds include various version combinations ending with 3447, 4412, and 20596.\n\n**Details**:\n- These updates address the vulnerability identified by CVE-2024-28902, which could lead to information disclosure.\n- It is recommended to apply these updates as soon as possible to secure the system against potential threats.\n\n**Preconditions**:\n- Ensure that the system is compatible with the specified build numbers before applying the updates.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "95ceb97f-3215-e776-e906-1922501e5889",
+  "source_type": "MSRCPost",
+  "fix_label": "install_kb_updates_for_windows_remote_access_flaw",
+  "tags": [
+    "KB5037788",
+    "CVE-2024-28902",
+    "WindowsRemoteAccess",
+    "InformationDisclosure"
+  ],
+  "node_id": "e7876e6b-c0ca-4ec4-ab29-770cd2946288",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "95ceb97f-3215-e776-e906-1922501e5889"
+  ]
+}

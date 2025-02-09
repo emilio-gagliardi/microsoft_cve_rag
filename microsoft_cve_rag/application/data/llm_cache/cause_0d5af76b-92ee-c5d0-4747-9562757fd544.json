@@ -1,0 +1,20 @@
+{
+  "description": "Inappropriate implementation in permissions in Chromium prior to version 130.0.6723.58, allowing UI spoofing via crafted HTML pages when users engaged in specific gestures.",
+  "cause_label": "chromium_inappropriate_implementation_in_permissions",
+  "source_id": "0d5af76b-92ee-c5d0-4747-9562757fd544",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0d5af76b-92ee-c5d0-4747-9562757fd544"
+  ],
+  "tags": [
+    "Chromium",
+    "UI Spoofing",
+    "Permissions"
+  ],
+  "node_id": "1d42cd8f-2314-4fb5-b80e-061a992c0ec2",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

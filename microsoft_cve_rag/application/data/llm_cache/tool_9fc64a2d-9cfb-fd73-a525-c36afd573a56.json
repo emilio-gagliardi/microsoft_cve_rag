@@ -1,0 +1,24 @@
+{
+  "tool_label": "intune_remediation_verify_bitlocker_keys",
+  "description": "**Tool Overview**:\n\nThis tool facilitates the verification of BitLocker keys uploaded to Entra ID, ensuring that device encryption keys are properly managed and accessible. \n\n**Details**:\n\n1. The Intune remediation process involves checking whether the BitLocker keys are correctly registered in Entra ID, which is essential for effective device security management.\n2. This functionality is particularly useful for organizations utilizing Intune for mobile device management (MDM), allowing for automated key verification within their existing infrastructure.\n3. By using this tool, system administrators can troubleshoot and ensure compliance with security policies regarding data encryption.\n4. It provides a streamlined approach to manage access to recovery keys, reducing the risk of unauthorized access to sensitive data.\n5. Additionally, the tool may integrate with existing workflows to notify IT staff of any inconsistencies or missing keys.\n\n**Note**: Details of commands and configurations would depend on the specific Intune setup and policies implemented within an organization.",
+  "source_id": "9fc64a2d-9cfb-fd73-a525-c36afd573a56",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "9fc64a2d-9cfb-fd73-a525-c36afd573a56"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/PH0PR01MB7349C677983BF8E695443D70B7B32%40PH0PR01MB7349.prod.exchangelabs.com",
+  "tool_url": "",
+  "tags": [
+    "Intune",
+    "BitLocker",
+    "MDM",
+    "encryption",
+    "LLM Synthesized"
+  ],
+  "node_id": "bf48432d-afcc-48c0-a708-ebddc6348816",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

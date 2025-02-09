@@ -51,6 +51,7 @@ from neomodel.async_.relationship_manager import AsyncRelationshipTo
 from neomodel.exceptions import UniqueProperty
 from rapidfuzz import fuzz
 from tqdm import tqdm
+import ast
 
 settings = get_app_config()
 graph_db_settings = settings["GRAPHDB_CONFIG"]
@@ -589,9 +590,22 @@ class BaseService(Generic[T]):
                             ):
                                 item["keywords"] = []
                             elif isinstance(item["keywords"], str):
-                                item["keywords"] = [item["keywords"]]
+                                # Check if the string looks like a list representation
+                                if item["keywords"].startswith('[') and item["keywords"].endswith(']'):
+                                    try:
+                                        # Use ast.literal_eval to safely parse the string into a list
+                                        item["keywords"] = ast.literal_eval(item["keywords"])
+                                    except (ValueError, SyntaxError):
+                                        # If parsing fails, treat it as a regular string
+                                        item["keywords"] = [item["keywords"]]
+                                else:
+                                    item["keywords"] = [item["keywords"]]
                             elif not isinstance(item["keywords"], list):
                                 item["keywords"] = [str(item["keywords"])]
+                            elif isinstance(item["keywords"], list):
+                                # If it's a nested list with only one element, flatten it
+                                if len(item["keywords"]) == 1 and isinstance(item["keywords"][0], list):
+                                    item["keywords"] = item["keywords"][0]
                         if "noun_chunks" in item:
                             if item["noun_chunks"] is None or (
                                 isinstance(item["noun_chunks"], float)
@@ -599,11 +613,23 @@ class BaseService(Generic[T]):
                             ):
                                 item["noun_chunks"] = []
                             elif isinstance(item["noun_chunks"], str):
-                                item["noun_chunks"] = [item["noun_chunks"]]
+                                if item["noun_chunks"].startswith('[') and item["noun_chunks"].endswith(']'):
+                                    try:
+                                        # Use ast.literal_eval to safely parse the string into a list
+                                        item["noun_chunks"] = ast.literal_eval(item["noun_chunks"])
+                                    except (ValueError, SyntaxError):
+                                        # If parsing fails, treat it as a regular string
+                                        item["noun_chunks"] = [item["noun_chunks"]]
+                                else:
+                                    item["noun_chunks"] = [item["noun_chunks"]]
                             elif not isinstance(item["noun_chunks"], list):
                                 item["noun_chunks"] = [
                                     str(item["noun_chunks"])
                                 ]
+                            elif isinstance(item["noun_chunks"], list):
+                                # If it's a nested list with only one element, flatten it
+                                if len(item["noun_chunks"]) == 1 and isinstance(item["noun_chunks"][0], list):
+                                    item["noun_chunks"] = item["noun_chunks"][0]
                         if "post_type" in item:
                             if item["post_type"] is None or (
                                 isinstance(item["post_type"], float)
@@ -2204,34 +2230,36 @@ async def match_product(source_node, target_node) -> bool:
 
     # Iterate over product mentions in the source node
     for mention in product_mentions:
-        # Split the mention into components by '_'
-        parts = mention.split("_")
+        parts = mention.lower().split("_")
 
-        # Windows logic (e.g., windows_10_21H2_x64)
-        if parts[0].lower() == "windows":
-            product_name = f"windows_{parts[1]}"  # e.g., windows_10
-            # Check if the last part is an architecture
-            if len(parts) > 2 and parts[-1].lower() in ["x86", "x64"]:
-                product_architecture = parts[-1].lower()
-                # Version is everything between product name and architecture (if any)
-                product_version = "_".join(parts[2:-1]) if len(parts) > 3 else None
+        # Windows product matching logic
+        if parts[0] == "windows":
+            # Handle windows_server product family
+            if len(parts) >= 3 and parts[1] == "server":
+                # Extract full server name with version from mention
+                server_name = "_".join(parts[:3])  # "windows_server_2022"
+
+                # Check direct match for full server name
+                if target_node.product_name.lower() == server_name:
+                    return True
+
+                # Fallback to version comparison if product_version exists
+                if target_node.product_version:
+                    return parts[2].upper() == target_node.product_version.upper()
             else:
-                # No architecture specified
-                product_architecture = None
-                # Version is everything after product name (if any)
-                product_version = "_".join(parts[2:]) if len(parts) > 2 else None
+                # Standard windows versions (10/11)
+                base_name = f"windows_{parts[1]}" if len(parts) > 1 else "windows"
+                version_part = "_".join(parts[2:]) if len(parts) > 2 else None
 
-            # Check the target product for an exact product_name match first
-            if target_node.product_name == product_name:
-                # Now check for product_version and product_architecture
-                if (
-                    not product_version
-                    or target_node.product_version == product_version
-                ) and (
-                    not product_architecture
-                    or target_node.product_architecture == product_architecture
-                ):
-                    return True  # Exact match found
+            # Check if base name matches target product
+            if target_node.product_name.lower() == base_name:
+                # If no version specified in mention, match any version
+                if not version_part and target_node.product_version == "NV":
+                    return True
+
+                # Check version match if target has version specified
+                if version_part and target_node.product_version:
+                    return version_part.upper() == target_node.product_version.upper()
 
         # Edge logic (simple match based on product_name)
         elif parts[0].lower() == "edge":

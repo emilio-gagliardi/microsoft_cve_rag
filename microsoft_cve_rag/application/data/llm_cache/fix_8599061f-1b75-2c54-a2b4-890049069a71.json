@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows standards-based storage management service denial of service vulnerability (CVE-2024-26197), apply the relevant updates listed below.\n\n1. Identify your current Windows build number to ensure compatibility with the updates.\n2. Download and apply the following KB updates from the official Microsoft Update catalog:\n   - KB-5035959\n   - KB-5035857\n   - KB-5035855\n   - KB-5035849\n3. Restart your system after installation to ensure the changes take effect.\n\n**Details**:\n- These updates resolve the denial of service vulnerability that could allow an attacker to fully deny access to resources managed by the storage management service.\n- Ensure your system is running a compatible version as listed in the build numbers.\n- To check your Windows build, run `winver` in the Run dialog.\n\n**Preconditions**:\n- Make sure you have administrative privileges to install the updates.\n- Backup critical data before proceeding with any updates.",
+  "source_id": "8599061f-1b75-2c54-a2b4-890049069a71",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_to_mitigate_dos_cve202426197",
+  "tags": [
+    "KB5035959",
+    "KB5035857",
+    "KB5035855",
+    "KB5035849"
+  ],
+  "node_id": "e8d185a8-f602-491b-a698-699dc30ffb86",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "8599061f-1b75-2c54-a2b4-890049069a71"
+  ]
+}

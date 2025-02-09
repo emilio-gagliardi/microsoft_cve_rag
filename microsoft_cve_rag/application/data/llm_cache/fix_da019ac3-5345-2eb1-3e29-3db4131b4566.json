@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo retrieve dock information for a Lenovo ThinkPad Universal USB-C dock, you can execute a PowerShell command that queries the specific namespace used by Lenovo docks. This method allows you to obtain critical details such as the machine type, MAC address, serial number, and firmware version.\n\n1. Open PowerShell with administrative privileges.\n2. Execute the following command:\n\n```powershell\nGet-WmiObject -Namespace \"root\\Lenovo\\Dock_Manager\" -Query \"select * from dockdevice\" | Format-List -Property MachineType, MacAddress, SerialNumber, FWVersion\n```\n\n3. Review the output for relevant information:\n   - Machine Type: 40B7\n   - MAC Address: F8CE72202FA4\n   - Serial Number: (extracted part after the prefix)\n   - Firmware Version: 1.0.23\n\n**Details**:\nThis command is useful in environments with multiple docks, whether they are in use or disconnected, as inconsistent configurations may arise across different models. It\u2019s important to recognize that different vendors, like Dell, will use a different namespace, which complicates retrieval for their docks. (LLM Synthesized)",
+  "source_id": "da019ac3-5345-2eb1-3e29-3db4131b4566",
+  "source_type": "PatchManagementPost",
+  "fix_label": "retrieve_lenovo_dock_information_using_powershell",
+  "tags": [
+    "PowerShell",
+    "LenovoDock",
+    "DockManagement",
+    "LLM Synthesized"
+  ],
+  "node_id": "6df238ba-6191-4ffd-879a-111c0c303d8b",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "da019ac3-5345-2eb1-3e29-3db4131b4566"
+  ]
+}

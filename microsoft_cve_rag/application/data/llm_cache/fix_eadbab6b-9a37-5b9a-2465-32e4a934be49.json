@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the secure boot security feature bypass vulnerability (CVE-2024-37984), it is essential to apply the relevant Windows updates, which address the stack-based buffer overflow issue.\n\n1. Identify the appropriate update package for your Windows version:\n   - For Windows 11 Version 23H2 (x64): Download and install KB5040442.\n   - For Windows 11 Version 22H2 (x64): Download and install KB5040442.\n   - For Windows 11 Version 21H2 (x64): Download and install KB5040431.\n   - For Windows 10 Version 22H2 (x64): Download and install KB5040427.\n   - For Windows 10 Version 21H2 (x64): Download and install KB5040448.\n\n2. Follow the installation prompts to apply the updates and restart your system to finalize the changes.\n\n**Details**:\nThe vulnerability enables a bypass of the secure boot feature, which could potentially compromise system security. Applying the updates addresses the underlying buffer overflow vulnerability effectively.\n- For installation, visit the following links based on your Windows version:\n   - [KB5040442](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442)\n   - [KB5040431](https://catalog.update.microsoft.com/Search.aspx?q=KB5040431)\n   - [KB5040427](https://catalog.update.microsoft.com/Search.aspx?q=KB5040427)\n   - [KB5040448](https://catalog.update.microsoft.com/Search.aspx?q=KB5040448)\n\n**Preconditions**:\n- Ensure your system is compatible with the updates based on the Windows version.\n- Backup critical data before applying system updates to prevent data loss.\n",
+  "source_id": "eadbab6b-9a37-5b9a-2465-32e4a934be49",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_windows_updates_for_secure_boot_bypass_cve202437984",
+  "tags": [
+    "KB5040442",
+    "StackBasedBufferOverflow",
+    "WindowsUpdate",
+    "CVE202437984"
+  ],
+  "node_id": "6fc22ab2-6a5c-4efa-a547-764be1d939b2",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "eadbab6b-9a37-5b9a-2465-32e4a934be49"
+  ],
+  "verification_status": "unverified"
+}

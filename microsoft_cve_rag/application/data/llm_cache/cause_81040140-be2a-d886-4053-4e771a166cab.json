@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause for the unwanted appearance of the Copilot feature in Microsoft Edge is related to specific registry key settings within the Windows Registry. The absence of proper configuration can lead to the display of the 'Side Copilot' icon and 'Bing Chat' on the Edge start page. Modifying these registry entries, specifically setting 'hubssidebarenabled' and 'newtabpagebingchatenabled' to 0 (or dword: 00000000), effectively disables these features. This is a common misconfiguration that affects users wanting a cleaner Edge experience without these integrated functionalities. The guidance provided in this post suggests a registry-based resolution to this issue, contributing to a more streamlined user interface.",
+  "source_id": "81040140-be2a-d886-4053-4e771a166cab",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "81040140-be2a-d886-4053-4e771a166cab"
+  ],
+  "cause_label": "registry_configuration_removes_copilot_features",
+  "tags": [
+    "edge",
+    "registry",
+    "copilot",
+    "group_policy"
+  ],
+  "node_id": "165c50f5-1ebc-4962-9bc4-cfaa28b3a55c",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

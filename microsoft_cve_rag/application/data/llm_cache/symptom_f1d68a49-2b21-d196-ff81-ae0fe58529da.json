@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_memory_indiscriminately_leaks_privileges",
+  "description": "After applying security update KB5035856 on Windows Server 2022 and related builds, users may observe unexpected local privilege escalation, which manifests through unauthorized access to system-level permissions. This behavior may not be immediately apparent until specific tasks requiring elevated privileges are executed. In the case of Windows 11 version 23H2 (build 10.0.22631.3296) and Windows 10 version 22H2 (build 10.0.19045.4170), administrators might notice system processes exhibiting abnormal behavior linked to access permissions, thereby enhancing the risk of unauthorized actions within the system. Monitoring logs may reveal instances where standard user activities are performing processes typically restricted to system-level access, leading to potential security concerns. This symptom underscores the critical need for vigilant management of permissions following the implementation of these updates, as neglecting to address these issues may lead to further vulnerabilities.",
+  "source_id": "f1d68a49-2b21-d196-ff81-ae0fe58529da",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f1d68a49-2b21-d196-ff81-ae0fe58529da"
+  ],
+  "tags": [
+    "Windows",
+    "privilege escalation",
+    "KB5035856",
+    "system updates"
+  ],
+  "node_id": "87b10231-2b6d-49fc-8fdd-e8a199855bb5",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

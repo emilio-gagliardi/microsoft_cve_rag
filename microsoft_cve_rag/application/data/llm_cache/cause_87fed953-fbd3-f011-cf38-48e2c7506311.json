@@ -1,0 +1,22 @@
+{
+  "description": "The underlying cause of installation issues with the update specified in KB-5041580 is related to the setup configuration parameters that need to be correctly invoked. This scenario typically arises when administrators attempt to automate the upgrade process without the proper command-line switches. The failure can be attributed to missing or misconfigured parameters such as 'auto upgrade' and 'quiet' that are critical for the installation to proceed silently and without user intervention. As pointed out in the guidance, mounting the update via PowerShell is essential, as it allows for flexibility in managing upgrades, especially in enterprise settings where silent installations are preferred. As a result, ensuring that the installation command correctly includes these setup parameters can mitigate such issues significantly.",
+  "source_id": "87fed953-fbd3-f011-cf38-48e2c7506311",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "87fed953-fbd3-f011-cf38-48e2c7506311"
+  ],
+  "cause_label": "missing_setup_parameters_for_silent_installation",
+  "tags": [
+    "installation",
+    "setup",
+    "PowerShell",
+    "upgrade",
+    "automation"
+  ],
+  "node_id": "88a3fa36-7749-4e3f-b67c-1f5734d7024b",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

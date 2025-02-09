@@ -1,0 +1,20 @@
+{
+  "description": "The vulnerability in the Microsoft WDAC OLE DB provider for SQL Server allows for remote code execution due to an Integer Overflow condition. This occurs when an attacker tricks an authenticated user into connecting to a malicious SQL server, which results in the server sending specially crafted packets to the client, exploiting the overflow flaw and executing code in the context of the user's application.",
+  "cause_label": "wdac_ole_db_integer_overflow_remote_code_execution",
+  "source_id": "b2bf9db1-572f-3edb-d7cf-243a40c22156",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b2bf9db1-572f-3edb-d7cf-243a40c22156"
+  ],
+  "tags": [
+    "SQL Server",
+    "OLE DB",
+    "Remote Code Execution",
+    "Integer Overflow"
+  ],
+  "node_id": "2feacdf8-8e3a-4961-9ca5-332fe3ea9bc6",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

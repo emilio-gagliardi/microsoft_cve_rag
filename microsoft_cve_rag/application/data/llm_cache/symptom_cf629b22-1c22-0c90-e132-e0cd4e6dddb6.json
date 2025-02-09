@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_crashes_after_updating_chromium",
+  "description": "After updating Microsoft Edge (Chromium-based) to version 128.0.2739.42 to address the CVE-2024-7967 vulnerability, users may experience unexpected crashes when opening certain web pages that utilize specific features of the browser. This instability is likely linked to the heap buffer overflow vulnerability outlined in the previous Chromium versions. Users may notice that the browser closes without warning, leading to potential data loss if forms or other input were not saved. System administrators may find that their user base is reporting increased frustration due to these crashes, prompting numerous help desk calls. Additionally, the impact could extend to business productivity if users are unable to reliably use the browser for their daily tasks.",
+  "source_id": "cf629b22-1c22-0c90-e132-e0cd4e6dddb6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "cf629b22-1c22-0c90-e132-e0cd4e6dddb6"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "CVE-2024-7967",
+    "Heap Buffer Overflow"
+  ],
+  "node_id": "d750d3f1-41ea-479b-b718-e0f9e6843335",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "critical",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

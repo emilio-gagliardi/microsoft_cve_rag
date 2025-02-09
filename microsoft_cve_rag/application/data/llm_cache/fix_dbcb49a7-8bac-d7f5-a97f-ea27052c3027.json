@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the vulnerability associated with CVE-2024-11111 in Chromium that affects Microsoft Edge:\n\n1. Update your Microsoft Edge (Chromium-based) browser to the latest version 131.0.2903.48 or later. \n2. To check and confirm your current version, open Microsoft Edge, click the three dots (...) in the upper right corner, select 'Help and feedback', and then click 'About Microsoft Edge'. This section will display your current version.\n\n**Details**:\n- This update resolves the 'Improper Neutralization of Input During Web Page Generation' vulnerability by addressing issues in the autofill component of Chromium.\n- For detailed version and release information, refer to the Google Chrome release notes. \n\n**Preconditions**:\n- Ensure you have administrative access to update the browser.\n- Backup important data or settings in the browser before proceeding with the update.",
+  "source_id": "dbcb49a7-8bac-d7f5-a97f-ea27052c3027",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_resolve_chromium_cve202411111",
+  "tags": [
+    "MicrosoftEdge",
+    "Chromium",
+    "CVE202411111",
+    "KB131290348"
+  ],
+  "node_id": "907e5b6e-4bc2-46c5-a2e0-7d6fb711b0d6",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "dbcb49a7-8bac-d7f5-a97f-ea27052c3027"
+  ],
+  "verification_status": "unverified"
+}

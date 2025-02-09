@@ -1,0 +1,17 @@
+{
+  "tool_label": "SupportEsuMakAddonUsingKbArticles",
+  "description": "This update contains enhancements to the sppsvc component for supporting the ESU MAK addon, which is necessary if the existing ESU key does not allow the installation of updates. Applying these updates (KB-5031419 and KB-5031407) ensures that your server can receive the appropriate updates for extended security support.",
+  "source_id": "701a4e86-6f16-5101-d57a-b26434b068c2",
+  "source_type": "PatchManagementPost",
+  "source_url": "",
+  "tags": [
+    "update",
+    "sppsvc",
+    "ESU"
+  ],
+  "node_id": "c7e0eba1-2513-4ee8-924b-20589fb68f78",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

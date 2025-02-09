@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate performance issues and long patching times experienced during updates:\n\n1. Stop the cryptographic services which may be contributing to slowdowns.\n2. Clear out the contents of the `C:\\Windows\\System32\\catroot2` directory before proceeding with patching.\n3. Perform a hard reset on the first reboot if hanging or freezing occurs.\n\n**Details**:\n- Stopping the cryptographic services may help improve system responsiveness during the patching process.\n- Clearing the `catroot2` folder can resolve issues related to Windows Update. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure you have administrative access to perform these actions.\n- Backup any important data to prevent loss during the update.",
+  "source_id": "159dceb5-5e6a-1743-c37c-98e2e2426bc8",
+  "source_type": "PatchManagementPost",
+  "fix_label": "address_windows_server_performance_patching_issues",
+  "tags": [
+    "KB5041773",
+    "WindowsServer2016",
+    "Patching",
+    "LLM Synthesized"
+  ],
+  "node_id": "c578b0fd-a4b4-4b01-be07-94a470349ca5",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "159dceb5-5e6a-1743-c37c-98e2e2426bc8"
+  ],
+  "verification_status": "unverified"
+}

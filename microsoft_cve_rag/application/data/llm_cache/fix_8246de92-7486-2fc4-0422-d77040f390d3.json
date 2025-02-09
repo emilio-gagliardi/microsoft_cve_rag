@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the inappropriate implementation vulnerability in Chromium that affects Microsoft Edge (Chromium-based), ensure you are using the latest version of Microsoft Edge.\n\n1. Open your Microsoft Edge browser.\n2. Click on the three dots (...) located on the far right-hand side of the window.\n3. Select 'Help and feedback'.\n4. Click on 'About Microsoft Edge' to check your current version.\n5. If your version is lower than 127.0.6533.73, update your browser to the latest version (127.0.2651.74 or higher).\n\n**Details**:\n- This update addresses a security vulnerability that could allow a remote attacker to spoof the contents of the omnibox (URL bar) due to improper implementation in fullscreen mode.\n- The specific version to upgrade to is Microsoft Edge 127.0.6533.73 or later.\n- For more information, refer to the official Chrome release notes at the provided source link.\n\n**Preconditions**:\n- Ensure your current Microsoft Edge version is below 127.0.6533.73 before proceeding with the update. Backup any critical data before updating your browser.",
+  "source_id": "8246de92-7486-2fc4-0422-d77040f390d3",
+  "source_type": "MSRCPost",
+  "fix_label": "upgrade_microsoft_edge_to_version_1270_653373",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-6995",
+    "Chromium",
+    "Update"
+  ],
+  "node_id": "84dce5bf-cad6-470b-94f7-9bed123b6dc0",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "8246de92-7486-2fc4-0422-d77040f390d3"
+  ],
+  "verification_status": "unverified"
+}

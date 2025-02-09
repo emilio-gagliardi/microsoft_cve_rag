@@ -1,0 +1,21 @@
+{
+  "symptom_label": "secure_boot_bypass_allows_unexpected_system_behavior",
+  "description": "Users may notice that their device is exhibiting unexpected behavior related to secure boot functionality after applying security updates from Microsoft. Specifically, systems running affected build numbers, such as 10.0.19045.4291 and others specified in the KB articles (KB-5036925, KB-5036909, KB-5036896, KB-5036894, KB-5036893, KB-5036892), may fail to enforce secure boot policies. This can result in unauthorized changes to system configurations or potentially allow non-secured drivers to load, leading to instability or inconsistent security enforcement. It is crucial for system administrators to monitor these behaviors following updates, especially when managing environments reliant on secure boot. The issue stems from a vulnerability related to improper input validation, as indicated by the CVE ID CVE-2024-26240.",
+  "source_id": "2074e66d-d953-931d-5acf-1b66e278c71e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2074e66d-d953-931d-5acf-1b66e278c71e"
+  ],
+  "tags": [
+    "secure boot",
+    "system stability",
+    "Windows 10",
+    "build 19045",
+    "CVE-2024-26240"
+  ],
+  "node_id": "6be9dd8a-8365-4844-9bd7-7c6f3fac0f5a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

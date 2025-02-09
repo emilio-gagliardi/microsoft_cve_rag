@@ -1,0 +1,19 @@
+{
+  "tool_label": "AdobeAcrobatReaderFullInstaller",
+  "description": "This tool provides access to download the full installer version of Adobe Acrobat Reader, which is preferred over the stub installer. The stub installer is a lightweight version that only downloads required components during installation, but the full installer allows users to complete installation without needing to fetch additional files. This can be beneficial in environments with strict network policies or in need of offline installation capabilities. Users can utilize the provided link for a direct download of the full version. Detailed instructions and support can be found in the documentation provided by Adobe.",
+  "tool_url": "https://get.adobe.com/reader/enterprise/",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/...",
+  "source_id": "eeee9c20-768c-ea59-fab2-65d08100ecaa",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Adobe",
+    "AcrobatReader",
+    "installer",
+    "enterprise"
+  ],
+  "node_id": "dddf0b7f-942b-489e-b5ef-98115c6cfc2c",
+  "node_label": "Tool",
+  "reliability": "0.9",
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

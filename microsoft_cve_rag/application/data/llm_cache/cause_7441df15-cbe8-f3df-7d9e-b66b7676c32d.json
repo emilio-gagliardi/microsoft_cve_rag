@@ -1,0 +1,22 @@
+{
+  "description": "The vulnerability originates from a use-after-free flaw in the Windows layer-2 bridge network driver, allowing unauthorized remote code execution when malicious packets are sent over the network. This issue is specifically triggered in builds of Windows that are operating under network conditions that allow adjacency, such as local subnets or shared networks, where the attacker and target are on the same network segment.",
+  "cause_label": "windows_layer_2_bridge_driver_use_after_free",
+  "source_id": "7441df15-cbe8-f3df-7d9e-b66b7676c32d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7441df15-cbe8-f3df-7d9e-b66b7676c32d"
+  ],
+  "tags": [
+    "CVE-2024-38053",
+    "Windows",
+    "Remote Code Execution",
+    "Use After Free",
+    "Layer-2 Bridge"
+  ],
+  "node_id": "e0c3f749-f9e7-4dde-98e0-78772732b200",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

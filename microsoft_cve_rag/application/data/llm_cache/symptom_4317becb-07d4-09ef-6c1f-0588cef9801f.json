@@ -1,0 +1,21 @@
+{
+  "symptom_label": "elevation_of_privilege_allows_unauthorized_access",
+  "description": "End users may notice that unauthorized access to sensitive settings or data is possible due to excessively permissive system privileges resulting from the exploitation of the kernel streaming wow thunk service driver. Under specific conditions, an attacker can manipulate the impacted systems running Windows 10 Version 21H2 (Build 10.0.19044.4780) and Windows 11 Version 21H2 (Build 10.0.22000.3147) to gain elevated privileges. Users may observe unexpected changes in system behavior or settings, potentially leading to data exposure or unauthorized alterations. If security update KB5041580 or KB5041592 is not deployed, systems remain vulnerable to this crucial issue. It is imperative for system administrators to verify these updates are applied to prevent scenarios where sensitive information might be at risk.",
+  "source_id": "4317becb-07d4-09ef-6c1f-0588cef9801f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4317becb-07d4-09ef-6c1f-0588cef9801f"
+  ],
+  "tags": [
+    "Windows",
+    "Elevation of Privilege",
+    "Kernel Vulnerability",
+    "Technical"
+  ],
+  "node_id": "72f2f7ac-d6a2-445a-ad8b-5712ea7f9249",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

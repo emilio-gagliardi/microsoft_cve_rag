@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Hyper-V denial of service vulnerability (CVE-2024-20684):\n\n1. Download and install the update package KB5034765 for your respective Windows build from the official Microsoft Update Catalog.\n2. Restart your system after installation to implement the changes effectively.\n\n**Details**:\nThis update mitigates the impact of the identified denial of service vulnerability affecting Hyper-V. The vulnerability's improper input validation could be exploited locally or remotely to disrupt service. Ensure to apply the update relevant to your specific Windows version.\n- For manual installation, download the update package from:\n  - Windows 11 Version 23H2: [KB5034765](https://catalog.update.microsoft.com/Search.aspx?q=KB5034765)\n  - Windows 11 Version 22H2: [KB5034765](https://catalog.update.microsoft.com/Search.aspx?q=KB5034765)\n  - Windows 11 Version 21H2: [KB5034766](https://catalog.update.microsoft.com/Search.aspx?q=KB5034766).\n\n**Preconditions**:\n- Ensure that your system version matches one of the supported builds:\n  - Windows 11 Version 23H2 (10.0.22631.3155)\n  - Windows 11 Version 22H2 (10.0.22621.3155)\n  - Windows 11 Version 21H2 (10.0.22000.2777)\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "c60c878b-33d6-61d0-8d28-86d17f687740",
+  "source_type": "MSRCPost",
+  "fix_label": "address_hyper_v_denial_of_service_cve202420684",
+  "tags": [
+    "KB5034765",
+    "Windows11",
+    "HyperV",
+    "DenialOfService"
+  ],
+  "node_id": "a37211e4-10ab-4be5-9851-b6fc5ffe4ab9",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c60c878b-33d6-61d0-8d28-86d17f687740"
+  ]
+}

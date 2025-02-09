@@ -1,0 +1,24 @@
+{
+  "tool_label": "sccm_boot_stick_winpe_media",
+  "description": "**Tool Overview**:\n\nThe SCCM Boot Stick is a WinPE (Windows Preinstallation Environment) medium that allows system administrators to boot into a minimal environment for maintenance and troubleshooting purposes. \n\n**Details**:\n\nThis tool can be used when a system is unable to boot into its regular operating system environment. The SCCM Boot Stick enables users to access drives that may be locked or inaccessible due to issues such as BitLocker encryption. The steps to utilize this tool include:  \n1. Creating a bootable USB drive using SCCM tools for WinPE.  \n2. Booting the affected machine using the created SCCM Boot Stick.  \n3. Accessing the drive to perform necessary troubleshooting or unlocking operations. \nThis approach is particularly useful in environments where systems are encrypted with BitLocker, as it provides a way to unlock and manage those drives without requiring the full operating system to be functional.",
+  "source_id": "d4bdeb94-e26f-880b-bc1e-d58dc4eab878",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d4bdeb94-e26f-880b-bc1e-d58dc4eab878"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAAieoHiTe%2Bu0a76cOJS-yASUS_GktJJjwMqxyQTV5KftN1etdA%40mail.gmail.com",
+  "tool_url": "",
+  "tags": [
+    "SCCM",
+    "WinPE",
+    "Boot",
+    "Recovery",
+    "LLM Synthesized"
+  ],
+  "node_id": "11ceadd5-8ad7-4269-9d6c-d7c8385cbb73",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

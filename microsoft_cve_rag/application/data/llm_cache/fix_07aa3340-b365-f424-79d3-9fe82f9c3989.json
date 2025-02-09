@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo ensure your system addresses the secure boot certificates expiration and updates are applied correctly, follow these steps:\n\n1. Install the latest cumulative update.\n\n2. Set the registry value to `0x30` and follow the instructions outlined in KB5025885, including performing multiple reboots and checking the event logs.\n\n3. Verify that both the `dbx` and the boot code integrity policy (`skusipolicy.p7b`) are current.\n\n4. Next, set the registry value to `0x40` and follow the update process for the KEK and `db` as detailed in the original blog post.\n\n5. Confirm everything is updated using the provided PowerShell snippet.\n\n6. Evaluate different hardware OEMs with various BIOS providers in your organization and repeat from step 1 as necessary.\n\n7. Document any results or changes observed during testing.\n\n**Details**:\n- Ensure you are using the proper registry values as changes may affect the effectiveness of the updates.\n- Follow the recommended order of operations to avoid conflicts between updates. (LLM Synthesized)",
+  "source_id": "07aa3340-b365-f424-79d3-9fe82f9c3989",
+  "source_type": "PatchManagementPost",
+  "fix_label": "update_secure_boot_certificate_process_kb5025885",
+  "tags": [
+    "KB5025885",
+    "SecureBoot",
+    "WindowsUpdates",
+    "CVE-2023-24932"
+  ],
+  "node_id": "9f44a035-c456-47ec-8ae5-9ba0d2ecdded",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "07aa3340-b365-f424-79d3-9fe82f9c3989"
+  ]
+}

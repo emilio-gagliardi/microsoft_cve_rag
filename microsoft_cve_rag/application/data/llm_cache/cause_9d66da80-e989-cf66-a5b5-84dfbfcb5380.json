@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause of the issue involves a publicly disclosed secure boot security feature bypass attributed to the blacklotus UEFI bootkit, tracked under CVE-2023-24932. This vulnerability allows malicious software to bypass the Secure Boot process, enabling unauthorized control over the device during its boot sequence. Affected systems need to manage Windows Boot Manager revocations as outlined in KB5025885 to mitigate risks effectively. The guidance document provides steps to enable protections against this issue and instructions on updating bootable media to prevent exploitation. The associated changes in secure boot configurations are critical for maintaining system integrity.",
+  "source_id": "9d66da80-e989-cf66-a5b5-84dfbfcb5380",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "9d66da80-e989-cf66-a5b5-84dfbfcb5380"
+  ],
+  "cause_label": "secure_boot_feature_bypass_vulnerability",
+  "tags": [
+    "CVE-2023-24932",
+    "Secure Boot",
+    "Windows Boot Manager",
+    "bootkit",
+    "mitigation"
+  ],
+  "node_id": "b07d6b65-e5ae-4bd1-8063-db3b3c34e5ca",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

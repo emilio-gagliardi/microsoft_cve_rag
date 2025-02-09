@@ -1,0 +1,22 @@
+{
+  "symptom_label": "users_experience_ui_spoofing_in_windows_apps",
+  "description": "Users may experience issues with user interface elements in various Windows applications due to a spoofing vulnerability in the Microsoft HTML (MSHTML) platform. This behavior manifests as incorrect or misleading representations of critical information within applications, potentially leading to user confusion or misinterpretation of data. Specifically, users running affected versions of Windows 11 (builds 10.0.22621.3880 and 10.0.22000.3079) and Windows 10 (builds 10.0.19044.4651, 10.0.22631.3880) may notice inconsistencies in the display of information after the application of security updates referenced in KB5040427, KB5040442, and KB5040431. The importance of addressing this symptom lies in the potential for users to engage with misleading information, which can hinder effective decision-making within the enterprise environment.",
+  "source_id": "1968ed1d-98f7-6665-ae72-bba9b5545908",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "1968ed1d-98f7-6665-ae72-bba9b5545908"
+  ],
+  "tags": [
+    "Windows",
+    "MSHTML",
+    "UI Spoofing",
+    "User Experience",
+    "Security Update"
+  ],
+  "node_id": "ea61949e-427b-46ce-815b-d5dc6ee20c60",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

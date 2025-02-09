@@ -1,0 +1,17 @@
+{
+  "tool_label": "ConfigureNetworkPoliciesForPEAPUsage",
+  "description": "The network policies in Windows Server can be configured to manage the use of Microsoft Protected Extensible Authentication Protocol (PEAP). End users can access the Network Policy Server (NPS) settings to ensure the PEAP type is not configured as an allowed EAP type within their network policy. This configuration helps mitigate vulnerabilities associated with PEAP by preventing unauthorized access.",
+  "source_id": "2d538a4e-07e2-3ea2-348a-29a43bcd3523",
+  "source_type": "MSRCPost",
+  "source_url": "https://docs.microsoft.com/en-us/windows-server/networking/network-policy-server",
+  "tags": [
+    "network",
+    "security",
+    "authentication"
+  ],
+  "node_id": "ac535483-5aec-43a1-b602-efbc94a2886c",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

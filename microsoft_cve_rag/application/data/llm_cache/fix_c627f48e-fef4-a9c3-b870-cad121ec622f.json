@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the elevation of privilege vulnerability in Windows Subsystem for Linux:\n\n1. Download and apply the relevant KB updates from the Microsoft Update Catalog.\n2. Ensure your system is up to date with the latest patches including:\n   - KB5034121\n   - KB5034122\n   - KB5034123\n   - KB5034129\n   - KB5034130\n3. Restart your system after installation to apply the updates.\n\n**Details**:\nThese updates address the elevation of privilege vulnerability in the Windows Subsystem for Linux, which could allow local attackers to gain elevated permissions on affected systems. For manual installation, download the updates from the respective links:\n- [KB5034121](https://catalog.update.microsoft.com/Search.aspx?q=KB5034121)\n- [KB5034123](https://catalog.update.microsoft.com/Search.aspx?q=KB5034123)\n- [KB5034122](https://catalog.update.microsoft.com/Search.aspx?q=KB5034122)\n- [KB5034129](https://catalog.update.microsoft.com/Search.aspx?q=KB5034129)\n- [KB5034130](https://catalog.update.microsoft.com/Search.aspx?q=KB5034130).\n\n**Preconditions**:\n- Ensure the system is running a supported version of Windows 10 or Windows 11.\n- Backup critical data before proceeding with the updates.",
+  "source_id": "c627f48e-fef4-a9c3-b870-cad121ec622f",
+  "source_type": "MSRCPost",
+  "fix_label": "MitigateElevationOfPrivilegeWSLCVE202420681",
+  "tags": [
+    "KB5034121",
+    "KB5034122",
+    "WSL",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "c2c8ffcf-4bb6-43f2-93ac-442ba1e28837",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

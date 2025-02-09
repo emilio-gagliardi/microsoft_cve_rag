@@ -1,0 +1,23 @@
+{
+  "tool_label": "browser_specific_image_file_execution_options",
+  "description": "**Tool Overview**:\n\nThis tool relates to the configuration and usage of Image File Execution Options (IFEO) for managing how specific applications run on a Windows system. IFEO allows administrators to specify debugger settings and control how applications behave, especially for troubleshooting and performance enhancements.\n\n**Details**:\n1. **Configuration**: IFEO settings can be adjusted through the Windows Registry. Administrators can create entries under the `HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options` path for specific executables like `msedge.exe`.\n2. **Purpose**: This tool is essential for diagnosing and resolving application launch issues, as seen with Chromium-based browsers becoming unresponsive post-update.\n3. **Usage**: Changes to an IFEO entry can include setting a debugger or modifying the command-line arguments for the executable.\n4. **Caveats**: Improper configurations can lead to application crashes or unintended behavior, hence caution is advised when using this tool.\n5. **Example**: To modify the behavior of Microsoft Edge, you might add an entry in the registry that points to a custom executable or debugger to be invoked when `msedge.exe` is launched.",
+  "source_id": "7bfde795-95c0-668c-fe77-7ac2ea02f777",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "7bfde795-95c0-668c-fe77-7ac2ea02f777"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/9640a32f-2cdb-409a-ae2f-f2207a10e81cn%40googlegroups.com",
+  "tool_url": "https://support.microsoft.com/en-au/topic/february-13-2024-kb5034770-os-build-20348-2322-6ac88bee-2b14-44c3-b8b4-b185259a27f5",
+  "tags": [
+    "Image File Execution Options",
+    "Chromium Browsers",
+    "Windows Registry",
+    "Troubleshooting",
+    "System Configuration"
+  ],
+  "node_id": "62ebce5f-32ca-4774-957e-590243392234",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

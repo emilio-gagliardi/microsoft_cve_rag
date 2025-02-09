@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo diagnose and repair potential hard drive failures on a Windows system, follow these steps:\n\n1. Download SmartMonTools from [Smartmontools website](https://www.smartmontools.org/).\n2. Navigate to the downloaded bin folder and use one of the following commands to check drive health:\n   - `smartctl -a /dev/sda`\n   - `smartctl -x /dev/sda`\n3. If the drive is passing health checks, use the Disk Check utility:\n   ```\n   chkdsk c: /f /r /x\n   ```\n   Restart your computer to let it run.\n4. After rebooting, check the event log to view the results:\n   ```\n   get-eventlog -logname application -source 'chkdsk' | foreach { write-host $_.timegenerated, $_.message }\n   ```\n5. Optionally, limit the output by date or count:\n   ```\n   get-eventlog -logname application -source 'chkdsk' -newest 1 | foreach { write-host $_.timegenerated, $_.message }\n   ```\n6. Repeat the Disk Check for each partition on your primary drive, especially those without drive letters (e.g., MSR and recovery).\n7. Run the System File Checker tool:\n   ```\n   sfc /scannow\n   ```\n8. Finally, if the issues persist, download a clean copy of the currently installed Windows 10 ISO, validate it, and run DISM:\n   ```\n   dism.exe /online /cleanup-image /restorehealth /source:c:\\iso\\win10_22h2_english_x64\\sources\\install.wim /limitaccess\n   ```\n\n**Preconditions**:\n- Ensure you have administrative privileges to perform these actions.\n- Backup important data before proceeding with any repair processes.\nGiven the detailed procedure, not only can this help identify if a drive is failing, but it also provides actionable repair steps to maintain system integrity.",
+  "source_id": "2f27d3ba-6e84-a357-c3c7-40f7227631c0",
+  "source_type": "PatchManagementPost",
+  "fix_label": "diagnose_repair_windows_hard_drive_issues",
+  "tags": [
+    "SmartMonTools",
+    "Windows10",
+    "DiskCheck",
+    "LLM Synthesized"
+  ],
+  "node_id": "bdd5b5e2-3842-4564-ba32-00d0db07c203",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "2f27d3ba-6e84-a357-c3c7-40f7227631c0"
+  ]
+}

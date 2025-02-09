@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Kernel elevation of privilege vulnerability (CVE-2024-43527):\n\n1. Download and install the KB5044284 update from the official Windows Update catalog.\n2. Restart your system to apply the changes.\n\n**Details**:\n- The KB5044284 update resolves a heap-based buffer overflow issue that may allow an attacker to gain elevated privileges.\n- For manual installation, download the update package from: https://catalog.update.microsoft.com/Search.aspx?q=KB5044284.\n\n**Preconditions**:\n- Ensure that the system is running Windows 11 Version 24H2.\n- Backup critical data before proceeding with the installation.",
+  "source_id": "b97c42de-e625-2e03-8f9d-48e189a732a2",
+  "source_type": "MSRCPost",
+  "fix_label": "address_windows_kernel_elevation_privilege_cve202443527",
+  "tags": [
+    "KB5044284",
+    "Windows11",
+    "ElevationOfPrivilege",
+    "HeapBufferOverflow"
+  ],
+  "node_id": "8a22fa0e-3dce-47c9-a461-ba2893575f7f",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b97c42de-e625-2e03-8f9d-48e189a732a2"
+  ],
+  "verification_status": "unverified"
+}

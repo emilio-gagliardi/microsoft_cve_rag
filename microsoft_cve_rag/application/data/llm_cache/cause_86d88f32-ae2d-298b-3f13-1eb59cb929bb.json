@@ -1,0 +1,20 @@
+{
+  "description": "An untrusted search path flaw allows remote code execution when a specially crafted file loads a malicious DLL.",
+  "cause_label": "windows_ole_remote_code_execution_due_to_untrusted_search_path",
+  "source_id": "86d88f32-ae2d-298b-3f13-1eb59cb929bb",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "86d88f32-ae2d-298b-3f13-1eb59cb929bb"
+  ],
+  "tags": [
+    "CVE-2024-21435",
+    "Windows",
+    "Remote Code Execution",
+    "Untrusted Search Path"
+  ],
+  "node_id": "eb0263f4-b463-4e5d-9d7b-e0eccfec256b",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

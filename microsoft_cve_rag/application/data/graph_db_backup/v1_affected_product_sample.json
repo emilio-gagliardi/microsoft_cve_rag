@@ -1,0 +1,16 @@
+﻿[
+  {
+    "n": {
+      "identity": 51,
+      "labels": [
+        "AffectedProduct"
+      ],
+      "properties": {
+        "name": "Microsoft Edge (Chromium-based)",
+        "id": "product_d3955f7b-cc16-0d57-b9f2-691326e46363_1",
+        "version": "Not provided"
+      },
+      "elementId": "4:a88df59f-847f-4b99-bff0-53420b2dfe18:51"
+    }
+  }
+]

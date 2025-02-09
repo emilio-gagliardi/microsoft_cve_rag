@@ -1,0 +1,17 @@
+{
+  "symptom_label": "InformationDisclosureFromWindowsCoreMessaging",
+  "description": "Users may experience potential information disclosure due to vulnerabilities in the Windows Core Messaging framework. Specifically, the affected products, which include various builds of Windows 10 and Windows 11\u2014such as versions 22H2 (KB5034122) and 23H2 (KB5034123)\u2014could allow an attacker to read sensitive information from memory. This can occur under specific conditions, primarily when a user interacts with malicious documents or software. As a result, users might notice unusual behaviors if sensitive information is inadvertently disclosed. Critical builds affected include Windows 10 (builds 19044 and 19045) and Windows 11 (build 22000), as specified in the provided KB articles.",
+  "source_id": "fff9bc6a-a9b8-240a-9db4-c4c397f54322",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Information Disclosure",
+    "Windows",
+    "Core Messaging",
+    "User Interaction"
+  ],
+  "node_id": "cfd922fa-73a5-4e59-a4b9-c0febd641538",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

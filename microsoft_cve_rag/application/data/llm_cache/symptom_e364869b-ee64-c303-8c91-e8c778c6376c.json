@@ -1,0 +1,19 @@
+{
+  "symptom_label": "WindowsSystemExperiencesElevatedPrivilegeIssues",
+  "description": "After applying security updates associated with CVE-2023-35644, users may experience observable issues related to unauthorized access or functionality interruptions. Specifically, systems running on Windows 10 versions 22H2 (build 10.0.19045.3803), Windows 11 22H2 (build 10.0.22621.2861), and Windows Server 2022 may face problems as a consequence of elevation of privilege vulnerabilities. This can manifest as unauthorized access attempts or disruptions in normal operations that necessitate immediate attention from system administrators. Relevant KB Articles include KB5033375, KB5033372, and KB5033369 which outline necessary remediation steps provided by Microsoft.",
+  "source_id": "e364869b-ee64-c303-8c91-e8c778c6376c",
+  "source_type": "MSRCPost",
+  "tags": [
+    "security",
+    "system",
+    "update",
+    "elevation",
+    "privilege",
+    "Windows"
+  ],
+  "node_id": "18469fb8-06ef-4547-a068-8e855a92c64f",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

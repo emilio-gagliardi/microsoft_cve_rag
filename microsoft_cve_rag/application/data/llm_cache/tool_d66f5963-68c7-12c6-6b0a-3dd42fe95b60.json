@@ -1,0 +1,19 @@
+{
+  "tool_label": "SecurityUpdateForMicrosoftEdgeVersion119",
+  "description": "This update addresses the Microsoft Edge (Chromium-based) elevation of privilege vulnerability identified as CVE-2023-36027. It is essential for users to regularly apply these security updates to protect their systems from potential exploits. Users can find and download the latest updates through the Microsoft Update Catalog or directly within the Microsoft Edge application.",
+  "source_id": "d66f5963-68c7-12c6-6b0a-3dd42fe95b60",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-36027",
+  "tags": [
+    "update",
+    "security",
+    "CVE",
+    "Microsoft Edge",
+    "patch"
+  ],
+  "node_id": "747200da-9c40-424c-9fba-85b7f82bc4e6",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_redirects_users_to_malicious_sites",
+  "description": "After applying the security update KB-129.0.2792.52 for Microsoft Edge (Chromium-based) version 129.0.2792.52, users may experience unexpected behavior where they are redirected to malicious sites when clicking on specially crafted URLs. This issue arises from the spoofing vulnerability (CVE-2024-38221), which allows an attacker to modify the content of a link, leading users to untrusted domains. Consequently, administrators should be aware that end users may report incidents of random site redirects or increased phishing attempts post-update. It is crucial for system administrators to monitor user reports and provide guidance on safe browsing practices until further mitigation is confirmed.",
+  "source_id": "15c5dd43-fc8d-2a4d-b7a4-31398d87d68f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "15c5dd43-fc8d-2a4d-b7a4-31398d87d68f"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "spoofing",
+    "CVE-2024-38221",
+    "user impact",
+    "security update"
+  ],
+  "node_id": "2d571189-18f4-4591-92b3-d876d7f171fb",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

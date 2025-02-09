@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_rras_remote_code_execution_user_involvement_required",
+  "description": "End users may experience unexpected prompts or requests for action when attempting to connect to services that interact with Windows Routing and Remote Access Service (RRAS). This is due to a security issue identified as CVE-2024-30024, affecting various Windows builds, specifically those around 10.0.19045, 10.0.22631, and older versions like 10.0.10240. Users might notice abnormal behavior such as being redirected to unknown servers or receiving authentication errors, which can indicate that an exploit is being attempted. The issue requires some user involvement to successfully exploit, leading to risks of remote code execution if not remediated effectively. This could severely impact server operations or expose sensitive data if the methods of exploitation are successful. The relevant KB articles for this issue are KB-5037788, KB-5037771, KB-5037770, and KB-5037768.",
+  "source_id": "e4d53055-745f-a86c-dc7d-938fe27327dc",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e4d53055-745f-a86c-dc7d-938fe27327dc"
+  ],
+  "tags": [
+    "Windows",
+    "RRAS",
+    "Remote Code Execution",
+    "End User Experience",
+    "Microsoft"
+  ],
+  "node_id": "7e6bea0d-494a-4f70-9e0e-8e02e06cdb7c",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "The underlying cause of the issue is related to a type confusion flaw in Microsoft Message Queuing (MSMQ), which allows remote code execution due to inappropriate handling of resource types. This type confusion can be exploited through local access, permitting attackers to execute arbitrary code if they have basic user privileges on the affected system environments specified by the build numbers.",
+  "cause_label": "msmq_type_confusion_flaw_remote_code_execution",
+  "source_id": "b9adb59b-51a1-9237-09f2-08740f226c1e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b9adb59b-51a1-9237-09f2-08740f226c1e"
+  ],
+  "tags": [
+    "remote code execution",
+    "MSMQ",
+    "type confusion",
+    "CVE-2024-21363"
+  ],
+  "node_id": "9e5db12f-dadb-4ed0-a888-142d55d20071",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

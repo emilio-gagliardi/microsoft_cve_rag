@@ -1,0 +1,18 @@
+{
+  "description": "The core cause of the vulnerability identified as CVE-2024-20696 stems from a design flaw in the Windows Libarchive component, which enables remote code execution under specific conditions. This flaw exists across multiple versions of Windows, including Windows 10 (specifically versions 22H2 and 21H2), and Windows 11 (versions 22H2 and 23H2). In this situation, the vulnerability allows an attacker with low privileges to execute arbitrary code after tricking a legitimate user into interacting with a malicious document. This typically includes manipulating the user into opening a specially crafted file that exploits this flaw. The impact of successfully exploiting this vulnerability is substantial, leading to potential breaches of confidentiality, integrity, and availability of the system's resources, as the exploitable component remains only locally accessible. Details can be further explored via provided KB Articles: KB-5034123, KB-5034122, and KB-5034121.",
+  "cause_label": "DesignFlawInWindowsLibarchive",
+  "source_id": "d827f191-e174-fa50-b33f-df91c55976b2",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Windows",
+    "Libarchive",
+    "RemoteCodeExecution",
+    "CVE-2024",
+    "Vulnerability"
+  ],
+  "node_id": "a38d998f-5590-4a9f-bebc-bc61c559cbd3",
+  "node_label": "Cause",
+  "reliability": 9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

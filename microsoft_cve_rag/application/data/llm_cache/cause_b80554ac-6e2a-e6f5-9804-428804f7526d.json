@@ -1,0 +1,21 @@
+{
+  "description": "A critical flaw in Windows Cryptographic Services that allows local attackers to exploit information disclosure vulnerabilities to gain unauthorized access to sensitive cryptographic secrets, including keyguard keys, potentially leading to wider access to encrypted data.",
+  "cause_label": "windows_cryptographic_services_info_disclosure_vulnerability",
+  "source_id": "b80554ac-6e2a-e6f5-9804-428804f7526d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b80554ac-6e2a-e6f5-9804-428804f7526d"
+  ],
+  "tags": [
+    "information_disclosure",
+    "windows",
+    "cryptographic_services",
+    "CVE-2024-30096"
+  ],
+  "node_id": "e79cb05d-958b-46d4-aa16-728c8029f31f",
+  "node_label": "Cause",
+  "reliability": 9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

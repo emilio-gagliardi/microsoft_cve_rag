@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_xp_machines_unbootable_due_to_mcafee",
+  "description": "A widespread issue occurred where McAfee antivirus software inadvertently deleted a critical Windows service executable on numerous Windows XP machines. This led to the total failure of each affected machine to boot successfully, rendering them unusable for end users and administrators alike. The dilemma required manual intervention, demanding technicians to utilize a rescue disk to restore the deleted service file on each machine individually. This incident highlights the potential risks associated with antivirus programs misidentifying essential system files as threats, particularly on legacy systems such as Windows XP. No specific KB Articles or build numbers were cited, denoting a general concern within legacy environments affected by software conflicts.",
+  "source_id": "5d60c070-f4c1-c30f-344f-aad2c310bcde",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "5d60c070-f4c1-c30f-344f-aad2c310bcde"
+  ],
+  "tags": [
+    "McAfee",
+    "Windows XP",
+    "boot failure",
+    "service executable"
+  ],
+  "node_id": "b61fde34-84d8-4be0-8e0c-73d63ca699c5",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "chrome_ui_spoofing_induces_user_confusion",
+  "description": "Users may experience confusion and distrust in the payment UI when using Microsoft Edge based on Chromium version prior to 130.0.6723.58. This is due to an inappropriate implementation that enables UI spoofing via malicious Chrome extensions. As a consequence, users might be misled into believing they are interacting with a trusted payment interface, potentially leading to unintended transactions or data entry into fraudulent forms. The impact of this issue is specifically noted when users engage in payment interactions online, which is critical for browsing safety. To mitigate this risk, users should ensure their browser has been updated to at least version 130.0.6723.59, released on October 17, 2024, as noted in KB-130.0.2849.46.",
+  "source_id": "3d385754-86d0-43fb-3428-a508010a8ce0",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "3d385754-86d0-43fb-3428-a508010a8ce0"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "UI Spoofing",
+    "User Impact",
+    "Payments"
+  ],
+  "node_id": "c58a0794-2167-4ecd-8894-68e95caefe4d",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

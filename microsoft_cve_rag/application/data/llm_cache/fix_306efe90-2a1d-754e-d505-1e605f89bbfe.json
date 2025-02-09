@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the elevation of privilege vulnerability in Azure Identity Libraries and Microsoft Authentication Library (CVE-2024-35255):\n\n1. Apply the official fix available from Microsoft by following the instructions under the linked update guide.\n2. Ensure to monitor any related security advisories for updates or additional instructions following the application of the fix.\n\n**Details**:\n- The vulnerability allows for elevation of privilege and impacts the confidentiality of user data.\n- Affected users should prioritize applying this update to avoid potential unauthorized access.\n\nFor further details, refer to: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-35255.\n\n**Preconditions**:\n- Ensure your systems are running versions of Azure Identity Libraries and Microsoft Authentication Library that are vulnerable to CVE-2024-35255.\n- Backup critical configurations before applying the update.",
+  "source_id": "306efe90-2a1d-754e-d505-1e605f89bbfe",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_elevation_of_privilege_cve202435255",
+  "tags": [
+    "CVE202435255",
+    "AzureIdentityLibraries",
+    "MicrosoftAuthenticationLibrary",
+    "KB-1.11.4"
+  ],
+  "node_id": "62a55bea-874e-40be-8a3d-8674a8cf5f5c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "306efe90-2a1d-754e-d505-1e605f89bbfe"
+  ],
+  "verification_status": "unverified"
+}

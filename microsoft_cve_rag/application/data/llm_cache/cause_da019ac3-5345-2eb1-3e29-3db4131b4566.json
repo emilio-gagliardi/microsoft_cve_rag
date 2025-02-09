@@ -1,0 +1,20 @@
+{
+  "description": "The underlying issue arises from inconsistencies in the management of dock information due to the use of vendor-specific namespaces and classes. In the case of the Lenovo ThinkPad Universal USB-C dock, properties are exposed through the namespace 'root\\Lenovo\\Dock_Manager', which may not align with other vendor implementations, such as Dell docks that utilize 'root\\Dell\\Sysinv'. This can lead to discrepancies when multiple docks are connected or when a dock is disconnected, causing the system to retrieve incorrect or incomplete dock information. Such issues can affect the reliability and performance of docking setups in enterprise environments, particularly when users switch between home and office settings. The lack of standardized access to dock properties necessitates careful scripting and testing to ensure accurate identification and configuration of docking devices.",
+  "source_id": "da019ac3-5345-2eb1-3e29-3db4131b4566",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "da019ac3-5345-2eb1-3e29-3db4131b4566"
+  ],
+  "cause_label": "inconsistent_vendor_namespace_for_dock_info",
+  "tags": [
+    "dock management",
+    "Lenovo",
+    "USB-C",
+    "device configuration"
+  ],
+  "node_id": "69635777-1a50-42fb-8fff-7d3c746598c0",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Cause"
+}

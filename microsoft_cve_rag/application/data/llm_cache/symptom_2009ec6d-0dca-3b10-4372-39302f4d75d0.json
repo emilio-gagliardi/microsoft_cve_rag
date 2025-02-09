@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_11_upgrade_from_22h2_to_23h2",
+  "description": "Upgrading from Windows 11 build 22H2 to 23H2 requires the installation of the latest cumulative update (LCU) and the use of the enablement package. Failing to perform these steps can result in incomplete installation and system instability. This process is crucial for administrators to ensure all features and functionalities of the latest version are operational. After the proper updates and enablement package are applied and the system is rebooted, users should observe the successful transition to build 23H2. The upgrade method is critical for maintaining a secure and efficient IT environment, especially as new updates roll out.",
+  "source_id": "2009ec6d-0dca-3b10-4372-39302f4d75d0",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "2009ec6d-0dca-3b10-4372-39302f4d75d0"
+  ],
+  "tags": [
+    "Windows 11",
+    "upgrade",
+    "LCU",
+    "enablement package"
+  ],
+  "node_id": "9aaae07f-e420-4490-8f13-4a9222ac27ad",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

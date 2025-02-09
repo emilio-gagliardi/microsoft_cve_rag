@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows Mark of the Web security feature bypass vulnerability (CVE-2024-30050):\n\n1. Download and apply the respective updates based on your operating system version from the Microsoft Update Catalog.\n\n**Details**:\n- For Windows 11 Version 23H2, apply KB5037771: [Download here](https://catalog.update.microsoft.com/Search.aspx?q=KB5037771).\n- For Windows 11 Version 22H2, apply KB5037771: [Download here](https://catalog.update.microsoft.com/Search.aspx?q=KB5037771).\n- For Windows 11 Version 21H2, apply KB5037770: [Download here](https://catalog.update.microsoft.com/Search.aspx?q=KB5037770).\n- For Windows 10 (x64-based and 32-bit), apply KB5037788: [Download here](https://catalog.update.microsoft.com/Search.aspx?q=KB5037788).\n- For Windows 10 Version 22H2, apply KB5037768: [Download here](https://catalog.update.microsoft.com/Search.aspx?q=KB5037768).\n\n**Preconditions**:\n- Ensure your system is running a version of Windows compatible with the specified updates.\n- Backup critical data before proceeding with the installation of any updates.\n",
+  "source_id": "bee66748-789e-82a5-6c68-b9aea45f5761",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_mark_of_web_bypass_cve202430050",
+  "tags": [
+    "KB5037788",
+    "KB5037770",
+    "KB5037771",
+    "KB5037768"
+  ],
+  "node_id": "f8b5fe6b-89c8-4457-a883-870318b0783c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "bee66748-789e-82a5-6c68-b9aea45f5761"
+  ],
+  "verification_status": "unverified"
+}

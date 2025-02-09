@@ -1,0 +1,23 @@
+{
+  "tool_label": "dism_custom_winpe_update",
+  "description": "**Tool Overview**:\n\nThe DISM (Deployment Image Service and Management Tool) is a command-line tool used to service Windows images. It can be used to create, modify, and manage Windows images, including custom WinPE (Windows Preinstallation Environment) images. \n\n**Details**:\n\n1. **Purpose**: DISM allows administrators to update and manage Windows images to ensure they are equipped with the latest drivers and updates before deployment.\n2. **Functionality**: The tool can be used to mount Windows images, add packages, and even apply updates directly to the images. This is particularly useful in environments where custom WinPE images are utilized for deployment.\n3. **Usage Example**: A typical command might look like this: `dism /Mount-Image /ImageFile:C:\\path\\to\\image.wim /index:1`. After mounting, updates can be applied using commands like `dism /Image:C:\\path\\to\\mounted\\image /Add-Package /PackagePath:C:\\path\\to\\update.cab`.\n4. **Requirements**: To use DISM effectively, the Windows ADK (Assessment and Deployment Kit) should be installed in your environment.\n5. **Additional Note**: Utilizing DISM is a best practice for keeping Windows deployment images current and functional on modern systems such as Windows 11.\n\n",
+  "source_id": "42aa92dd-c399-96aa-037f-736c746a77c1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "42aa92dd-c399-96aa-037f-736c746a77c1"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/38726010-aa5f-4ef3-8669-c5779cd3bd74n%40googlegroups.com",
+  "tool_url": "https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/deployment-image-servicing-and-management--dism--command-line-options",
+  "tags": [
+    "DISM",
+    "Windows",
+    "WinPE",
+    "Image Management"
+  ],
+  "node_id": "83cca413-3f8b-4e54-b058-ab9fb218bb2c",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

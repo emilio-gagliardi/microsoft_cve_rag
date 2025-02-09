@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_chrome_autofill_ui_spoofing",
+  "description": "With the inappropriate implementation in autofill affecting Microsoft Edge (Chromium-based) versions prior to 129.0.6668.58, users may experience potential UI spoofing attacks via malicious crafted HTML pages. This can result in users being misled to enter sensitive information into improperly displayed fields, causing confusion and potential data exposure. With the release of security update KB-129.0.2792.52 on September 19, 2024, Microsoft Edge is updated to a secure version, thus mitigating the risk of this observable behavior. End users should have their Edge browser updated to ensure that the autofill feature functions securely, maintaining accurate UI displays without vulnerabilities.",
+  "source_id": "92424de4-08e4-c8cc-05d2-69171ea41b0d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "92424de4-08e4-c8cc-05d2-69171ea41b0d"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "autofill",
+    "UI spoofing",
+    "security update"
+  ],
+  "node_id": "39e6c6cc-6f7e-4b15-a055-55048163c4f2",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "tool_label": "reagentc_exe_disable_winre",
+  "description": "**Tool Overview**:\n\n`reagentc.exe` is a command-line tool used to configure the Windows Recovery Environment (WinRE), which provides recovery options and troubleshooting tools for the operating system.\n\n**Details**:\n\nThis tool can be utilized to disable the Windows Recovery Environment when it is not needed in certain environments, particularly in scenarios where machines are routinely wiped and reloaded. The command `reagentc.exe /disable` effectively disables the recovery environment, allowing for a more streamlined setup in environments not requiring recovery options.\n\n1. Open the command prompt with administrative privileges.\n2. Execute the command `reagentc.exe /disable` to disable the recovery options.\n3. Verify the status of WinRE by running `reagentc.exe /info` to ensure it has been successfully disabled.\n4. This operation can be particularly useful in a corporate setting where recovery environment features are redundant.\n5. Remember to check whether your environment truly requires recovery features before disabling WinRE, as this can impact user recovery options.\n",
+  "source_id": "6b468be5-819a-2166-1c3b-caf05e570302",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "6b468be5-819a-2166-1c3b-caf05e570302"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://docs.microsoft.com/en-us/windows-hardware/manufacturer/devload/reagentc-windows-recovery-environment-tool",
+  "tags": [
+    "command-line",
+    "windows",
+    "recovery",
+    "administration"
+  ],
+  "node_id": "0c90eda9-47f9-40f2-bc52-f854448c5685",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

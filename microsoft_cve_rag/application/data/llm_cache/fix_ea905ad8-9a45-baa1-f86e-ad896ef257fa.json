@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the information disclosure issue related to CVE-2024-20680 affecting the Windows Message Queuing Client (MSMQC), it is essential to apply the relevant security updates as outlined below:\n\n1. Identify your operating system and architecture (x64 or ARM64).\n2. Download and install the appropriate KB updates from the Microsoft Update Catalog:\n   - For Windows 11 Version 23H2, apply KB5034123: [Download](https://catalog.update.microsoft.com/Search.aspx?q=KB5034123)\n   - For Windows 10 Version 22H2, apply KB5034122: [Download](https://catalog.update.microsoft.com/Search.aspx?q=KB5034122)\n   - For Windows Server 2022, apply KB5034130: [Download](https://catalog.update.microsoft.com/Search.aspx?q=KB5034130)\n   - Additional updates for other versions can be found in the provided links.\n3. Restart the system to ensure all changes take effect.\n\n**Details**:\n- This update addresses the information disclosure vulnerability which could allow an attacker to read portions of heap memory.\n- Ensure that your system is compatible with the update by checking the build numbers provided. Important build numbers include: 10.0.19044.3930, 10.0.22631.3007, and others applicable based on your operating system version.\n\n**Preconditions**:\n- Ensure your system is up to date with all previous security updates.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "ea905ad8-9a45-baa1-f86e-ad896ef257fa",
+  "source_type": "MSRCPost",
+  "fix_label": "MitigateInformationDisclosureCVE202420680",
+  "tags": [
+    "CVE202420680",
+    "WindowsMessageQueuing",
+    "SecurityUpdate",
+    "KB5034123"
+  ],
+  "node_id": "3d4d3e28-a7cd-438d-a0ef-729d1c92f9d6",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

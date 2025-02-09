@@ -1,0 +1,21 @@
+{
+  "description": "An inappropriate implementation in extensions of Chromium allowed remote UI spoofing via crafted HTML pages, affecting versions prior to 128.0.6613.84.",
+  "cause_label": "chromium_inappropriate_implementation_in_extensions",
+  "source_id": "faf90bac-2a51-f62e-8051-9599345289e5",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "faf90bac-2a51-f62e-8051-9599345289e5"
+  ],
+  "tags": [
+    "chromium",
+    "microsoft edge",
+    "ui spoofing",
+    "remote attack"
+  ],
+  "node_id": "02b6298c-4120-4153-ac07-fbc713cdc2a8",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

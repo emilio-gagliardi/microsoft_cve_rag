@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows kernel-mode driver elevation of privilege vulnerability (CVE-2024-43535), the following update actions should be taken:\n\n1. Identify the appropriate update package for your system version from the list provided below.\n2. Download the update from the official Microsoft Update Catalog links.\n3. Install the update following your organization\u2019s patch management procedures.\n4. Restart your system after installation to apply the changes.\n\n**Details**:\n- The updates resolve a vulnerability that could allow an attacker to elevate privileges within the Windows operating system.\n- Ensure that your systems are running the correct build of Windows 10 or Windows 11 as specified.\n\n**Update Packages**:\n- For Windows 11 Version 24H2: [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n- For Windows 11 Version 23H2: [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n- For Windows 10 Version 22H2: [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n- For Windows 10 (32-bit): [KB5044286](https://catalog.update.microsoft.com/Search.aspx?q=KB5044286)\n\n**Preconditions**:\n- Ensure your system is one of the supported versions (Windows 10 or 11).\n- Backup your critical data before proceeding with the updates.",
+  "source_id": "a64b2175-21b1-1700-a3bc-7c32a958b1e5",
+  "source_type": "MSRCPost",
+  "fix_label": "address_kernel_mode_driver_elevation_cve202443535",
+  "tags": [
+    "KB5044284",
+    "KB5044285",
+    "KernelPrivilegeEscalation",
+    "CVE-2024-43535"
+  ],
+  "node_id": "ef7e8bbb-4305-4022-851e-42eddc5805ae",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "a64b2175-21b1-1700-a3bc-7c32a958b1e5"
+  ],
+  "verification_status": "unverified"
+}

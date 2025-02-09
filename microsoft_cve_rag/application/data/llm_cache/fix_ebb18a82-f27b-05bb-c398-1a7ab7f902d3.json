@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the kernel streaming wow thunk service driver elevation of privilege vulnerability (CVE-2024-38144):\n\n1. Download and apply the appropriate update packages for your system from the official Microsoft Update Catalog.\n2. Restart your system after installing the updates to apply the changes.\n\n**Details**:\n- This update addresses an integer overflow or wraparound vulnerability allowing potential elevation of privilege.\n- Ensure to install the correct update package based on your Windows version:\n  - Windows 11 Version 24H2: [KB5041571](https://catalog.update.microsoft.com/Search.aspx?q=KB5041571)\n  - Windows 11 Version 23H2: [KB5041585](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585)\n  - Windows 11 Version 22H2: [KB5041585](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585)\n  - Windows 10 Version 22H2: [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n  - Windows 10 Version 21H2: [KB5041592](https://catalog.update.microsoft.com/Search.aspx?q=KB5041592)\n\n**Preconditions**:\n- Confirm your Windows build version before applying updates.\n- Backup critical data prior to performing system updates.",
+  "source_id": "ebb18a82-f27b-05bb-c398-1a7ab7f902d3",
+  "source_type": "MSRCPost",
+  "fix_label": "address_elevation_of_privilege_cve202438144",
+  "tags": [
+    "KB5041592",
+    "KB5041585",
+    "Windows10",
+    "Windows11"
+  ],
+  "node_id": "2e7d704b-70ea-46a6-8f78-7368b6db6929",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "ebb18a82-f27b-05bb-c398-1a7ab7f902d3"
+  ],
+  "verification_status": "unverified"
+}

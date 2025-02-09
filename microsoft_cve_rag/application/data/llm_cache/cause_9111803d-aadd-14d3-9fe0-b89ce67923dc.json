@@ -1,0 +1,20 @@
+{
+  "description": "An information disclosure vulnerability due to an out-of-bounds read and buffer over-read condition in the Windows Remote Access Connection Manager, potentially leading to unintended information leakage.",
+  "cause_label": "windows_remote_access_connection_manager_information_disclosure",
+  "source_id": "9111803d-aadd-14d3-9fe0-b89ce67923dc",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "9111803d-aadd-14d3-9fe0-b89ce67923dc"
+  ],
+  "tags": [
+    "CVE-2024-26255",
+    "Windows",
+    "Remote Access",
+    "Buffer Over-read"
+  ],
+  "node_id": "55d3e424-3768-465c-b012-bbfb32ae92f0",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

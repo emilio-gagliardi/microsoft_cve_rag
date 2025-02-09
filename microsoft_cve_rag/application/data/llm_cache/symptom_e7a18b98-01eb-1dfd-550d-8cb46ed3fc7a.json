@@ -1,0 +1,20 @@
+{
+  "symptom_label": "user_level_policy_issues_with_software_restrictions",
+  "description": "Issues can arise when user-level policies implemented through Software Restriction Policies fail to enforce security measures as intended. This kind of problem can lead to unauthorized software or applications running on user machines, creating potential security risks. Particularly in Windows 10 and Windows 11 environments, improper configuration of these policies may allow individual users to execute applications that should be restricted. It is crucial to ensure that user configuration settings are correctly applied to prevent such lapses in policy enforcement. Always refer to current guidance and best practices for managing software restrictions to enhance system integrity.",
+  "source_id": "e7a18b98-01eb-1dfd-550d-8cb46ed3fc7a",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e7a18b98-01eb-1dfd-550d-8cb46ed3fc7a"
+  ],
+  "tags": [
+    "software_restriction_policy",
+    "user_configuration",
+    "windows_10_11",
+    "policy_enforcement"
+  ],
+  "node_id": "9170261f-dd05-4531-b4f4-e5a5b26e013b",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

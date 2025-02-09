@@ -1,0 +1,20 @@
+{
+  "symptom_label": "microsoft_patching_issues_due_to_cu_support",
+  "description": "The observed issue arises from Microsoft's support policy that only covers the current cumulative update (CU) and one preceding CU. This can result in administrators not receiving updates as expected, particularly if systems are running versions beyond this limit. As a consequence, users may experience lag in security updates and bug fixes, leading to potential vulnerabilities if the software remains unpatched. It is critical for system administrators to adhere to these update policies to ensure systems are adequately protected and up-to-date. Continuous monitoring and management of cumulative update configurations are essential to mitigate this issue.",
+  "source_id": "b5c0fd6e-fde6-cd92-c6ec-65fec249461f",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "b5c0fd6e-fde6-cd92-c6ec-65fec249461f"
+  ],
+  "tags": [
+    "cumulative_update",
+    "update_management",
+    "patching",
+    "microsoft"
+  ],
+  "node_id": "593e07c6-756e-476e-ac27-2a766fdd9828",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

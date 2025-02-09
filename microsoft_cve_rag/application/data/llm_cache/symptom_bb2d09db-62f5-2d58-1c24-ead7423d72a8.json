@@ -1,0 +1,20 @@
+{
+  "symptom_label": "remote_code_execution_possible_with_sql_client",
+  "description": "End users may experience unauthorized actions taken by a remote attacker while using various SQL client applications. This occurs when users are tricked into connecting to a malicious SQL database, enabling attackers to execute arbitrary code within the user's client context. Affected build numbers include Windows 10 versions 10.0.19045.4046, 10.0.10240.20469, and Windows 11 versions 10.0.22631.3155, among others. Users may observe unusual application behavior, unexpected data corruption, or unauthorized data access after connecting to the compromised service. The relevant KB Article for further details is KB-5034763.",
+  "source_id": "bb2d09db-62f5-2d58-1c24-ead7423d72a8",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "bb2d09db-62f5-2d58-1c24-ead7423d72a8"
+  ],
+  "tags": [
+    "SQL Server",
+    "Remote Code Execution",
+    "Windows 10",
+    "Windows 11"
+  ],
+  "node_id": "0c43a6ba-375c-4652-9dcb-18fcd204765c",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

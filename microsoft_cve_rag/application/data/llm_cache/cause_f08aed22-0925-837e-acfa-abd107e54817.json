@@ -1,0 +1,17 @@
+{
+  "description": "The issue described in CVE-2024-0225 is attributed to a 'use after free' condition within the WebGPU implementation of the Chromium open source project. This flaw arises when the memory allocated for an object is freed, but there are still references to that object in the code. When the code attempts to access the freed object, it can lead to unpredictable behavior, including potential leaks of sensitive information or crashes. This vulnerability impacts Microsoft Edge (Chromium-based) as it utilizes the Chromium engine, meaning that updates to rectify this condition originate from the Chromium project and are subsequently integrated into Microsoft Edge. The affected build numbers for Microsoft Edge are 120.0.2210.121, indicating that any browser operating on this version or prior is vulnerable until the patch is applied through the update process. The resolution for this vulnerability is documented within the referenced KB article providing insights for remediation steps.",
+  "cause_label": "UseAfterFreeInWebGPUImpactsEdge",
+  "source_id": "f08aed22-0925-837e-acfa-abd107e54817",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE-2024-0225",
+    "Chromium",
+    "Microsoft Edge",
+    "WebGPU"
+  ],
+  "node_id": "6eb6f9a1-1421-4909-a7a9-8a8328decc50",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "NST",
+  "entity_type": "Cause"
+}

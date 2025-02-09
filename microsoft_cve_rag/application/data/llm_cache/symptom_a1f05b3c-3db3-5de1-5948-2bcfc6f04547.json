@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_dwm_core_library_elevation_privilege_issue",
+  "description": "Users may experience an inability to perform certain administrative tasks on their systems, as privileges may inadvertently be elevated without proper authentication. This could result in unexpected behavior such as unauthorized changes being made to system settings. Such symptoms may manifest in various flavors, including altered application permissions or configurations that do not align with user expectations. Notably, systems running Windows 10 versions 22H2 and 21H2 (build numbers 10.0.19045.4412 and 10.0.19044.4412 respectively) and Windows 11 versions 23H2 and 22H2 (build numbers 10.0.22631.3593 and 10.0.22621.3593 respectively) are all affected by this issue. The resolution is documented in KB articles KB5037771, KB5037768, and KB5037770, which provide necessary updates for restoring normal functionality and security integrity.",
+  "source_id": "a1f05b3c-3db3-5de1-5948-2bcfc6f04547",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a1f05b3c-3db3-5de1-5948-2bcfc6f04547"
+  ],
+  "tags": [
+    "Windows",
+    "DWM",
+    "Privilege Escalation",
+    "Windows 10",
+    "Windows 11"
+  ],
+  "node_id": "2c721ced-8463-42aa-b5a2-bc51e481ac70",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

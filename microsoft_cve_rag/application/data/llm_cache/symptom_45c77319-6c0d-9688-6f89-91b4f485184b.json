@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_account_recovery_key_missing_on_pc",
+  "description": "When a PC has been touched by any Microsoft account, there is a possibility that a recovery key associated with that account exists. This can lead to difficulties in accessing the device if BitLocker is enabled and the recovery key is not available. The recovery key may not reside in the current user's account but could be tied to the original deployer, which may include accounts managed through Entra or Azure AD. Users encountering this issue may find themselves locked out of their system, unable to proceed without the recovery key, creating operational challenges in recovery scenarios. This symptom highlights the importance of managing and tracking recovery keys during deployment and maintenance of devices in an organization.",
+  "source_id": "45c77319-6c0d-9688-6f89-91b4f485184b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "45c77319-6c0d-9688-6f89-91b4f485184b"
+  ],
+  "tags": [
+    "BitLocker",
+    "recovery key",
+    "Azure AD",
+    "Microsoft account"
+  ],
+  "node_id": "1cfcc57d-5326-4a93-b38d-22898a1be104",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_browser_tab_crashes_on_malicious_link",
+  "description": "Users experiencing remote code execution vulnerabilities in Microsoft Edge (Chromium-based) version 130.0.2849.46 may notice that the browser becomes unstable and crashes when they click on malicious links crafted by attackers. This occurs when attackers host specially designed websites that exploit this vulnerability. The browser tab may unexpectedly close, leading to potential data loss on unsaved work or interrupting the user's browsing session. Such crashes not only hinder productivity but could also raise frustration among users who are unable to access certain webpages or perform online tasks. For reference, this issue is linked to KB-130.0.2849.46 indicating the potential impact on overall user experience and system reliability.",
+  "source_id": "23367a73-7645-8452-c275-5ce861aa8240",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "23367a73-7645-8452-c275-5ce861aa8240"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "remote code execution",
+    "browser stability",
+    "user experience",
+    "Microsoft"
+  ],
+  "node_id": "55a2b65e-cc17-4f43-a449-b3445a430ed0",
+  "node_label": "Symptom",
+  "reliability": 0.09,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

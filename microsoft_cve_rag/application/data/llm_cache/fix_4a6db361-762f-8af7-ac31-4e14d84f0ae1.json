@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the Windows Storage Elevation of Privilege vulnerability (CVE-2024-30093), it is advised to apply the corresponding security updates provided by Microsoft:\n\n1. Ensure your Windows system is of the supported version, ranging from Windows 10 to Windows 11 as specified below.\n2. Download and install the appropriate KB updates from the Microsoft Update Catalog using the provided links.\n3. Restart your system after the installation to ensure all changes are applied.\n\n**Details**:\n- This update addresses improper link resolution issues that can lead to privilege escalation.\n- For manual installation, you can download the update packages from the following links:\n  - [KB5039211](https://catalog.update.microsoft.com/Search.aspx?q=KB5039211)\n  - [KB5039212](https://catalog.update.microsoft.com/Search.aspx?q=KB5039212)\n  - [KB5039213](https://catalog.update.microsoft.com/Search.aspx?q=KB5039213)\n  - [KB5039225](https://catalog.update.microsoft.com/Search.aspx?q=KB5039225)\n\n**Preconditions**:\n- Ensure the system is running a compatible version of Windows (check the build numbers below).\n- Backup critical data before proceeding with the update installation.\n\n**Build Numbers**:\n- Windows 11 Version 23H2: 10.0.22631.3737\n- Windows 11 Version 22H2: 10.0.22621.3737\n- Windows 10 Version 22H2: 10.0.19043.4529\n- Windows 10 Version 21H2: 10.0.19043.4529\n",
+  "source_id": "4a6db361-762f-8af7-ac31-4e14d84f0ae1",
+  "source_type": "MSRCPost",
+  "fix_label": "address_windows_storage_elevation_of_privilege_cve202430093",
+  "tags": [
+    "Windows10",
+    "Windows11",
+    "KB5039212",
+    "CVE202430093"
+  ],
+  "node_id": "1f672d8d-e866-4ac9-9fb0-a31c544f92a6",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "4a6db361-762f-8af7-ac31-4e14d84f0ae1"
+  ],
+  "verification_status": "unverified"
+}

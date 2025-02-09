@@ -1,0 +1,22 @@
+{
+  "tool_label": "intune_dashboard_safeguard_hold_visibility",
+  "description": "**Tool Overview**:\n\nThe Intune dashboards provide a native interface for IT administrators to visualize and manage Safeguard Holds for Windows upgrades. This tool allows administrators to see which upgrade holds are active and how they impact device management. \n\n**Details**:\n1. **Anonymous Telemetry**: Utilizes anonymous telemetry data to enhance the visibility of upgrade holds, enabling more informed decisions regarding device updates.\n2. **User-Friendly Interface**: Designed for easy navigation and quick insights into the status of devices under Safeguard Hold.\n3. **Reporting**: Generate reports based on MVP insights that detail the impact of holds on device performance and compliance.\n4. **Integration**: Seamlessly integrates with other Intune features to provide a comprehensive management experience.\n5. **Real-Time Updates**: Reflects changes in holds in real-time, allowing for immediate action where necessary.",
+  "source_id": "a2452e4b-50c0-a801-6729-ed34afac26fc",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "a2452e4b-50c0-a801-6729-ed34afac26fc"
+  ],
+  "source_url": "N/A",
+  "tool_url": "N/A",
+  "tags": [
+    "Intune",
+    "dashboards",
+    "safeguard hold",
+    "telemetry"
+  ],
+  "node_id": "7690a369-a278-451a-aa89-975513f47271",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

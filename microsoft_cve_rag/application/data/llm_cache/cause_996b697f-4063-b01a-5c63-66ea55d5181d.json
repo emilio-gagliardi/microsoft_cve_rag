@@ -1,0 +1,20 @@
+{
+  "description": "A Time-of-Check Time-of-Use (TOCTOU) race condition in the Windows Print Spooler can allow an attacker to elevate privileges by winning a race condition that enables unauthorized access to system resources, requiring no user interaction and limited privileges.",
+  "cause_label": "print_spooler_time_of_check_time_of_use_race_condition",
+  "source_id": "996b697f-4063-b01a-5c63-66ea55d5181d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "996b697f-4063-b01a-5c63-66ea55d5181d"
+  ],
+  "tags": [
+    "Windows",
+    "Print Spooler",
+    "Privilege Escalation",
+    "CVE-2024-21433"
+  ],
+  "node_id": "6ee0e322-ecf0-47c6-88a0-7e9683479b55",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

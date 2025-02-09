@@ -1,0 +1,19 @@
+{
+  "tool_label": "WindowsLibarchiveVulnerabilityMitigationTool",
+  "description": "**Tool Overview**:\n\nThe Windows Libarchive Remote Code Execution Vulnerability Mitigation Tool is an actionable utility designed to help system administrators and security professionals mitigate the risks associated with CVE-2024-20697. This tool focuses on ensuring that local access and user interaction pathways are securely monitored and managed, thereby reducing the likelihood of exploitation. Specifically, the tool aids in assessing system configurations and user permissions that might expose the system to risks related to the vulnerability.\n\n**Details**:\n\n1. The tool assists in identifying any instances of the libarchive vulnerability on Windows 10 and Windows 11 systems.\n2. It provides recommendations for configuring user permissions to limit unauthorized access or interactions that could lead to exploitation.\n3. Administrators can run the tool to generate reports outlining security posture regarding libarchive access pathways.\n4. Furthermore, the tool includes options to apply security updates or patches as part of the mitigation strategy, enhancing the overall security framework of the systems.\n5. Detailed instructions on applying the tool and interpreting its output are recommended to be referenced in the provided Fix description.\n\n### Usage Example\nTo run the mitigation tool, execute the following command:  \n```powershell\nStart-LibarchiveMitigationTool -Verbose\n```  \nThis command initiates the tool in verbose mode, allowing for detailed logging of its operations.",
+  "source_id": "f9ec90d7-11e6-da7b-9148-38469b8e1e6e",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-20697",
+  "tool_url": "",
+  "tags": [
+    "Libarchive",
+    "Remote Code Execution",
+    "Mitigation",
+    "PowerShell"
+  ],
+  "node_id": "d8417f2a-e8ec-4434-9a0e-64389cdf55cb",
+  "node_label": "Tool",
+  "reliability": 0.75,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the kernel streaming service driver elevation of privilege vulnerability (CVE-2024-38244), ensure that the appropriate updates are applied to your Windows systems:\n\n1. Determine your system's build number and Windows version.\n2. Download and apply the relevant KB updates from the Microsoft Update Catalog based on your system version:\n   - For Windows 11 Version 24H2, apply: [KB5043080](https://catalog.update.microsoft.com/Search.aspx?q=KB5043080)\n   - For Windows 11 Version 23H2, apply: [KB5043076](https://catalog.update.microsoft.com/Search.aspx?q=KB5043076)\n   - For Windows 11 Version 22H2, apply: [KB5043076](https://catalog.update.microsoft.com/Search.aspx?q=KB5043076)\n   - For Windows 11 Version 21H2, apply: [KB5043067](https://catalog.update.microsoft.com/Search.aspx?q=KB5043067)\n   - For Windows 10 Version 22H2 (x64), apply: [KB5043083](https://catalog.update.microsoft.com/Search.aspx?q=KB5043083)\n   - For Windows 10 Version 21H2 (x64), apply: [KB5043064](https://catalog.update.microsoft.com/Search.aspx?q=KB5043064)\n3. Restart your system after installation to ensure all changes take effect.\n\n**Details**:\nThis update addresses the improper input validation resulting in the elevation of privilege vulnerability. Ensuring your system is running the latest updates will close potential exploitation vectors.\n\n**Preconditions**:\n- Verify your system is running one of the specified Windows versions.\n- Backup important data before applying any updates.",
+  "source_id": "b28fcd56-d58c-1e8b-884a-f0d2f8c4acf0",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_kernel_streaming_privilege_escalation_cve202438244",
+  "tags": [
+    "KB5043080",
+    "KB5043076",
+    "KernelStreaming",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "3b2734d4-ba37-4244-953c-199c4143bfc9",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b28fcd56-d58c-1e8b-884a-f0d2f8c4acf0"
+  ],
+  "verification_status": "unverified"
+}

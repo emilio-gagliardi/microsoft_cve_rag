@@ -1,0 +1,21 @@
+{
+  "description": "A NULL Pointer Dereference in http.sys can lead to denial of service, affecting specific Windows build numbers including 19045, 19044, and 22000.",
+  "cause_label": "http_sys_null_pointer_dereference_dos_attack",
+  "source_id": "5c215087-3c4d-4b51-e8d1-69d040bf7aa6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5c215087-3c4d-4b51-e8d1-69d040bf7aa6"
+  ],
+  "tags": [
+    "http.sys",
+    "denial of service",
+    "NULL Pointer Dereference",
+    "Windows",
+    "CVE-2024-26219"
+  ],
+  "node_id": "7326e493-ece8-4846-88f1-b58d4cf6e51f",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,23 @@
+{
+  "tool_label": "kb29166583_management_point_security_update",
+  "description": "**Tool Overview**:\n\nThe KB29166583 hotfix is a security update aimed at resolving the vulnerability outlined in CVE-2024-43468. \n\n**Details**:\n\nThis update is crucial for users of Microsoft Configuration Manager as it enhances the security posture of their setup. It is recommended for all customers globally to install this hotfix to mitigate potential security threats. The KB29166583 hotfix supersedes two previously released hotfixes - KB28290310 and KB28458746 - specifically for version 2403. Installing this update is an essential step towards hardening your Configuration Manager environment.\n\nOverall, the KB29166583 hotfix is a recommended action for maintaining a robust security framework in Configuration Manager installations.",
+  "source_id": "1803b6a7-2865-d5e5-8dbd-6239d473da40",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "1803b6a7-2865-d5e5-8dbd-6239d473da40"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/f91b7e6f-6d83-463b-bbdc-7230f6d3a482n%40googlegroups.com",
+  "tool_url": "",
+  "tags": [
+    "security",
+    "Configuration Manager",
+    "hotfix",
+    "CVE-2024-43468"
+  ],
+  "node_id": "cd423abd-17e7-4b75-a2fc-cceee958a70a",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

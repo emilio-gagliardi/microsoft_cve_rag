@@ -1,0 +1,21 @@
+{
+  "description": "A time-of-check time-of-use (TOCTOU) race condition in the Windows kernel-mode driver allows an attacker to gain elevated privileges by exploiting synchronization issues during checks and use of resources.",
+  "cause_label": "windows_kernel_time_of_check_time_of_use_race_condition",
+  "source_id": "5a4f6880-b553-2c00-79aa-6278a8aee5f9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5a4f6880-b553-2c00-79aa-6278a8aee5f9"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Privilege Escalation",
+    "TOCTOU"
+  ],
+  "node_id": "2bc4566b-04c5-468f-89d8-fe40ea9ba005",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

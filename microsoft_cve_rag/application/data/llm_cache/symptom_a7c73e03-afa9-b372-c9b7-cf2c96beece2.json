@@ -1,0 +1,17 @@
+{
+  "symptom_label": "CrowdsecBlockingIPsOnUnusualTraffic",
+  "description": "Crowdsec, when utilized in conjunction with HAProxy for inbound proxying, may inadvertently block legitimate IP addresses due to its automated threat detection mechanisms. This blocking occurs when it detects what it perceives as unusual behavior or attacks targeted at servers, which can lead to accessibility issues for genuine users or services. This symptom underscores the fine balance between maintaining robust security and avoiding unnecessary disruptions in service delivery, particularly affecting environments relying on these components for secure and efficient network management.",
+  "source_id": "a7c73e03-afa9-b372-c9b7-cf2c96beece2",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Crowdsec",
+    "HAProxy",
+    "IP Blocking",
+    "Network Security"
+  ],
+  "node_id": "22a7df8a-5710-4049-ba46-7db831eaf658",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

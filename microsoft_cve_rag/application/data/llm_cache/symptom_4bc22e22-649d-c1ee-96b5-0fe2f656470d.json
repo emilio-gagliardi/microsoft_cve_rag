@@ -1,0 +1,21 @@
+{
+  "symptom_label": "older_devices_fail_to_receive_firmware_updates",
+  "description": "Older devices may not receive necessary firmware updates, causing compatibility issues with recent software updates. This can lead to system instability and unbootable states, especially after critical updates are applied. Administrators should be aware that if these devices are not updated, they could experience failures to boot or erratic behavior. Increased support tickets may also arise from end users experiencing issues on these older systems. It's crucial to check for corresponding firmware updates that are compatible with the specific hardware in use.",
+  "source_id": "4bc22e22-649d-c1ee-96b5-0fe2f656470d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "4bc22e22-649d-c1ee-96b5-0fe2f656470d"
+  ],
+  "tags": [
+    "firmware_updates",
+    "device_compatibility",
+    "system_stability",
+    "patch_management"
+  ],
+  "node_id": "d9e6630d-af21-411c-960c-746ad2ddd783",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

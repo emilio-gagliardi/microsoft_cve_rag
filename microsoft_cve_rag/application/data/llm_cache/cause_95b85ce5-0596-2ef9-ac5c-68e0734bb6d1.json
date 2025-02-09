@@ -1,0 +1,23 @@
+{
+  "description": "Inappropriate implementation of memory access controls in V8 for Chromium allows out-of-bounds access, impacting Microsoft Edge which depends on Chromium.",
+  "cause_label": "chromium_inappropriate_implementation_in_v8_memory_access",
+  "source_id": "95b85ce5-0596-2ef9-ac5c-68e0734bb6d1",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "95b85ce5-0596-2ef9-ac5c-68e0734bb6d1"
+  ],
+  "tags": [
+    "CVE-2024-6772",
+    "Microsoft Edge",
+    "Chromium",
+    "Memory Access",
+    "V8 Engine",
+    "Patch Management"
+  ],
+  "node_id": "54562286-1fe5-4e44-a8b9-e37f3fd6da1a",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

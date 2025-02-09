@@ -1,0 +1,16 @@
+{
+  "description": "To address the issue associated with CVE-2023-36047, Microsoft has released critical updates for affected systems. The recommended updates are KB5032190 for Windows 11 Version 23H2 for x64-based systems (build 10.0.22621.2715) and the respective updates for Windows 10 and 11 versions (KB5032189 for Windows 10 Version 22H2 and KB5032192 for other relevant versions). Administrators should apply these updates to ensure elevated privilege exploits via Windows Authentication are mitigated. The updates can be downloaded from Microsoft's Update Catalog using the following links: https://catalog.update.microsoft.com/Search.aspx?q=KB5032190, https://catalog.update.microsoft.com/Search.aspx?q=KB5032189, https://catalog.update.microsoft.com/Search.aspx?q=KB5032192.",
+  "source_id": "167203ed-071a-f048-9910-aa968168d4fe",
+  "source_type": "MSRCPost",
+  "fix_label": "ImplementUpdateForWindowsAuthenticationPrivilegeElevation",
+  "tags": [
+    "WindowsUpdate",
+    "CVE-2023-36047",
+    "PrivilegeElevation"
+  ],
+  "node_id": "95eacbc7-d899-4452-b4a8-6dc18a603549",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

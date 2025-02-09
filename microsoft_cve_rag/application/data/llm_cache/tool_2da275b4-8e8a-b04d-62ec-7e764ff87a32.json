@@ -1,0 +1,23 @@
+{
+  "tool_label": "adobe_creative_suite_security_update",
+  "description": "**Tool Overview**:\n\nAdobe Creative Suite security updates include patches for various design applications.\n\n**Details**:\n\nThese security updates are designed to address vulnerabilities within Adobe Illustrator, Adobe Dimension, Adobe Photoshop, and Adobe InDesign. By regularly applying these updates, users can mitigate security risks and ensure that their creative tools are protected against potential exploits. The updates enhance the software's stability and improve the overall performance of the applications. Users can apply the updates via the Adobe Creative Cloud interface or by downloading them directly from the Adobe website.\n",
+  "source_id": "2da275b4-8e8a-b04d-62ec-7e764ff87a32",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "2da275b4-8e8a-b04d-62ec-7e764ff87a32"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAGN5iag6SF9OCZYdgmmanrngkqxnKqrdMQ5Sdyu4rnunwiF4fg%40mail.gmail.com",
+  "tool_url": "https://helpx.adobe.com/security.html",
+  "tags": [
+    "Adobe",
+    "security",
+    "updates",
+    "design"
+  ],
+  "node_id": "27d65fde-bf98-4cac-ac74-fa0f921c6d6b",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

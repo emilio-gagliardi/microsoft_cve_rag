@@ -1,0 +1,20 @@
+{
+  "symptom_label": "vmware_tools_update_fails_with_vbs_enabled",
+  "description": "When using VMware virtual machines configured with Virtualization-Based Security (VBS) enabled, updating VMware Tools from vCenter is by design not permitted. This limitation may cause frustration for administrators who expect to manage updates seamlessly through vCenter. The post highlights the necessity to ensure that the virtual machine utilizes the latest VM version and the correct operating system version while enabling UEFI + VBS for enhanced security. For Windows Server 2022 and upcoming versions, this step is recommended to optimize security configurations. The inability to update VMware Tools directly might hinder the operational efficiency of the virtual environment, requiring alternative update strategies.",
+  "source_id": "58760faf-b628-d4d6-d8fc-53f64cbed59e",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "58760faf-b628-d4d6-d8fc-53f64cbed59e"
+  ],
+  "tags": [
+    "VMware",
+    "VBS",
+    "Windows Server",
+    "VM Updates"
+  ],
+  "node_id": "4750090e-6202-45b3-9796-fd0e1bdd5437",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

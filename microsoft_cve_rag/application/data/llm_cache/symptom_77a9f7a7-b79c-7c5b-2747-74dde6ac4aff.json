@@ -1,0 +1,17 @@
+{
+  "symptom_label": "WinreWimLossDuringPartitionRecoveryProcess",
+  "description": "The issue manifested when manual steps for managing partitions led to the loss of the Windows Recovery Environment (WinRE) image file (wim). This was caused specifically by the recovery partition being positioned to the left of the OS partition, which disrupted the restoration process. The necessary recovery file needed to be restored from the latest ISO media after it was accidentally lost during testing, indicating a critical system recovery step that must be handled cautiously to prevent further complications.",
+  "source_id": "77a9f7a7-b79c-7c5b-2747-74dde6ac4aff",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "recovery",
+    "partition management",
+    "Windows",
+    "system restoration"
+  ],
+  "node_id": "cc9e0ed4-ea5e-4061-9661-d1c534fa8fb2",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

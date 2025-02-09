@@ -1,0 +1,20 @@
+{
+  "symptom_label": "KonicaPrinterFailsToReleaseDocumentsViaPapercut",
+  "description": "Users are experiencing issues with Version 4 Print Drivers on Konica Copiers, specifically in relation to the Papercut Print Release functionality. This malfunction prevents documents from being properly released from print queues, leading to delays and frustration for end users attempting to print. The issue may affect various environments using these specific drivers and configurations, as indicated by KB article reference KB43524.",
+  "source_id": "40c46840-ffaf-c326-e53f-7b98235caf17",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "40c46840-ffaf-c326-e53f-7b98235caf17"
+  ],
+  "tags": [
+    "Konica",
+    "PrintManagement",
+    "Papercut",
+    "PrintDrivers"
+  ],
+  "node_id": "6f2bb4d1-44c7-4c98-b45f-ee0add6555de",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

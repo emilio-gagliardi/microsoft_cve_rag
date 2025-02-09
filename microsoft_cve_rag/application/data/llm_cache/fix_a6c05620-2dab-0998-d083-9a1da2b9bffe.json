@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo implement the full BitLocker bypass method:\n\n1. Ensure a valid password for logon is configured.  \n2. Use this method to bypass BitLocker under specific testing conditions.  \n\n**Details**:\n- This method is confirmed to work for users needing to bypass BitLocker encryption while still requiring a password for access. Ensure all security practices are followed accordingly. \n- It's important to note that using this bypass method may expose sensitive data if not managed properly. (LLM Synthesized)\n",
+  "source_id": "a6c05620-2dab-0998-d083-9a1da2b9bffe",
+  "source_type": "PatchManagementPost",
+  "fix_label": "bypass_bitlocker_with_password_requirement",
+  "tags": [
+    "BitLocker",
+    "PasswordRequirement",
+    "BypassMethod",
+    "LLM Synthesized"
+  ],
+  "node_id": "dcabfa4e-6741-4dec-a174-d93f6448a78c",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "a6c05620-2dab-0998-d083-9a1da2b9bffe"
+  ],
+  "verification_status": "unverified"
+}

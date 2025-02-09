@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the remote code execution vulnerability in Microsoft Edge (Chromium-based) related to CVE-2024-39379:\n\n1. Download and apply the KB39379 update from the official Microsoft Update Catalog.\n2. Restart Microsoft Edge to apply the changes and ensure that previous sessions using the vulnerable components are properly closed.\n\n**Details**:\n- This update fixes an out-of-bounds read vulnerability that could lead to the disclosure of sensitive memory.\n- Ensure you are running a version of Microsoft Edge that is 127.0.2651.74 or earlier to apply this update.\n- Keep the system updated regularly to avoid future vulnerabilities.\n- For manual installation, download the update package from: https://catalog.update.microsoft.com/Search.aspx?q=KB39379.",
+  "source_id": "ae8489fc-7159-af75-4686-263f8f563de0",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb39379_to_resolve_edge_code_execution_issue",
+  "tags": [
+    "KB39379",
+    "MicrosoftEdge",
+    "OutOfBoundsRead",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "a2d67093-3e0f-4aa0-8876-9e720e3a8c29",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "ae8489fc-7159-af75-4686-263f8f563de0"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,23 @@
+{
+  "tool_label": "windows_server_2025_known_issues_notifications",
+  "description": "**Tool Overview**:\n\nThe 'Windows Server 2025 Known Issues and Notifications' is an informational resource provided by Microsoft discussing various issues related to Windows Server 2025, which reached General Availability on November 1, 2024.\n\n**Details**:\n- This tool serves as a reference for system administrators and IT professionals to stay informed about potential problems that may arise with Windows Server 2025 deployments.\n- It includes notifications that detail known issues with various components of the server.\n- IT departments can utilize this information to prepare for or mitigate any impacts these known issues may cause in enterprise environments.\n- It drives better decision-making in terms of patch management and system updates, allowing for proactive management of server configurations.\n\nFor more information, Microsoft encourages users to refer to their official documentation for the most comprehensive insights into the known issues associated with Windows Server 2025.",
+  "source_id": "26a45bb1-4257-035d-356f-25488c51f3ee",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "26a45bb1-4257-035d-356f-25488c51f3ee"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/80da68c3587f4724b87989b5efc35244%40smithcons.com",
+  "tool_url": "https://learn.microsoft.com/en-us/windows-server/known-issues",
+  "tags": [
+    "Windows Server",
+    "Notifications",
+    "Known Issues",
+    "LLM Synthesized"
+  ],
+  "node_id": "629414c6-2550-472f-8704-3dc7c80454b9",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

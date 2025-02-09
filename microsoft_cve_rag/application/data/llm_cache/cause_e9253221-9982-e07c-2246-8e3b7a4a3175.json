@@ -1,0 +1,17 @@
+{
+  "description": "The issue stems from a flaw in the Windows authentication subsystem that allows denial of service (DoS) attacks. The underlying technical reason is due to improper handling of requests which results in an inability to maintain service availability when subjected to local or user-interactive exploitation attempts. Specifically, the compromise can happen through unauthorized write/overwrite operations on file contents, leading to a complete loss of integrity and availability. This vulnerability is present in several Windows builds (10.0.22631.2715, 10.0.22000.2600) and was documented under KB articles 5032192 and 5032190. Attackers with basic user privileges can trigger this vulnerability without requiring user interaction, making it significant across various Windows environments.",
+  "cause_label": "FlawInWindowsAuthenticationLeadsToDoS",
+  "source_id": "e9253221-9982-e07c-2246-8e3b7a4a3175",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "vulnerability",
+    "Windows",
+    "authentication"
+  ],
+  "node_id": "99e00dec-e7a6-48e1-9c1e-7827f95e6dbf",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

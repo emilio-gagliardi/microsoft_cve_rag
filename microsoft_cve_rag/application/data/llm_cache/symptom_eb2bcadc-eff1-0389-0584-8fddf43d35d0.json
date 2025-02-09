@@ -1,0 +1,17 @@
+{
+  "symptom_label": "WsusDistributionMethodRemovedForUpdateInstallation",
+  "description": "The recent update KB-5034441 for Windows Recovery Environment has removed Windows Server Update Services (WSUS) as a distribution method for certain updates. This change impacts Windows 10 versions 21H2 and 22H2, as administrators relying on WSUS for update distribution might experience unexpected behavior or installation failures. The modification to the distribution method can lead to confusion regarding update availability and can hinder the ability to effectively manage update deployments in enterprise environments.",
+  "source_id": "eb2bcadc-eff1-0389-0584-8fddf43d35d0",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "KB5034441",
+    "WSUS",
+    "update management",
+    "Windows 10"
+  ],
+  "node_id": "84906f30-d61b-4011-a170-12310293873e",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

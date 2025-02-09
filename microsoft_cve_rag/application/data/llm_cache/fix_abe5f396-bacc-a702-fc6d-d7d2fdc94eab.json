@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the use after free vulnerability in the Chromium component affecting Microsoft Edge:\n\n1. Update Microsoft Edge (Chromium-based) to version 126.0.2592.113 or later.\n2. Confirm the installation by checking the version in the browser's Help and Feedback section.\n\n**Details**:\nThis update mitigates the vulnerability associated with CVE-2024-6774 which could allow a remote attacker to exploit heap corruption through specific UI gestures. Ensure your Microsoft Edge installation is up-to-date to protect against potential exploitation. The latest version (126.0.2592.113) was released on July 18, 2024.\n\n**Preconditions**:\n- Ensure internet access to download the update.\n- Backup important browser data if necessary.\n",
+  "source_id": "abe5f396-bacc-a702-fc6d-d7d2fdc94eab",
+  "source_type": "MSRCPost",
+  "fix_label": "update_edge_to_version_126_0_2592_113",
+  "tags": [
+    "EdgeBrowser",
+    "CVE20246774",
+    "Chromium",
+    "Update"
+  ],
+  "node_id": "0dee2bbf-3ee3-4093-890e-00816f4e697f",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "abe5f396-bacc-a702-fc6d-d7d2fdc94eab"
+  ],
+  "verification_status": "unverified"
+}

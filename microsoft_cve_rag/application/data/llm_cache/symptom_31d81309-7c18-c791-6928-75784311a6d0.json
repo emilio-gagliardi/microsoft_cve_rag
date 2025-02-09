@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_10_copilot_experience_availability_issue",
+  "description": "The new Copilot experience on Windows 10 is not universally available due to a staggered rollout, impacting user access on existing PC setups. This functionality is limited to new Windows 10 PCs and Copilot-enabled machines shipping to the European Economic Area (EEA). Users may experience confusion regarding the absence of the Copilot app, as its availability will differ based on regional rollout plans. The app's new features, including window resizing, moving, and snapping, are critical for enhancing user interaction. Additionally, an active exploit related to Hyper-V has been noted, suggesting potential risks even when certain features are inaccessible.",
+  "source_id": "31d81309-7c18-c791-6928-75784311a6d0",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "31d81309-7c18-c791-6928-75784311a6d0"
+  ],
+  "tags": [
+    "Copilot",
+    "Windows 10",
+    "feature rollout",
+    "Hyper-V exploit"
+  ],
+  "node_id": "ff5efd6c-faec-460a-a934-207d688d202b",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

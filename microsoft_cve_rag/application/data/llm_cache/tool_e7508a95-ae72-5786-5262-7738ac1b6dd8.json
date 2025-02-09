@@ -1,0 +1,18 @@
+{
+  "tool_label": "Windows10Windows11PatchManagementUtility",
+  "description": "This utility is used for managing and applying patches to Windows 10 and Windows 11 systems. It simplifies the process of identifying and installing critical updates, ensuring that systems are up-to-date and secure. To find and utilize this utility, users can access the Microsoft Update Catalog or use Windows Update settings on their devices.",
+  "source_id": "e7508a95-ae72-5786-5262-7738ac1b6dd8",
+  "source_type": "MSRCPost",
+  "source_url": "https://www.catalog.update.microsoft.com/Home.aspx",
+  "tags": [
+    "patch",
+    "management",
+    "windows",
+    "utility"
+  ],
+  "node_id": "ae2078f2-5ea1-49a5-a92c-fd05ce7bfee2",
+  "node_label": "Tool",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

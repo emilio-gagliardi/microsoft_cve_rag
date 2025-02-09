@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_11_24h2_update_requires_previous_patch",
+  "description": "The Windows 11 24h2 feature update cannot be installed without first ensuring that specific previous updates are applied. It requires the cumulative update KB5037853 from May 29, 2024, as a prerequisite, making this update the minimum starting point for installation. Additionally, the enablement package KB5027397 that facilitated the transition from version 22h2 to 23h2 indicates that subsequent known issues related to the update process may arise. End users might experience issues if they attempt to upgrade without the, now necessary, previous updates installed, potentially including complications with the Windows Update agent as well as secure boot features. As a result, improper installation sequences could lead to multiple system restarts or even necessitate repair tools to resolve post-update behaviors.",
+  "source_id": "5bf59882-a7c8-10c1-2d98-7ad334a86e30",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "5bf59882-a7c8-10c1-2d98-7ad334a86e30"
+  ],
+  "tags": [
+    "Windows 11",
+    "Feature Update",
+    "Patch Management",
+    "Cumulative Update"
+  ],
+  "node_id": "466d05ca-144e-4530-bd0b-5caef0b80d20",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

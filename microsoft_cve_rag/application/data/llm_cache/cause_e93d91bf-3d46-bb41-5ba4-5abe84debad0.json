@@ -1,0 +1,21 @@
+{
+  "description": "The underlying issue stems from the reported vulnerabilities present in earlier versions of the ConnectWise ScreenConnect software. Specific to versions prior to 23.9.10.8817, these vulnerabilities posed risks that could impact the customer experience. The release of version 23.9.8 initiated remediation for these vulnerabilities, establishing it as the minimum version necessary to ensure security standards were met. Furthermore, the recent update improved user experience by addressing functionality issues. To facilitate user upgrades to the latest version, ConnectWise also removed license restrictions for partners no longer under maintenance, enhancing accessibility for updates.",
+  "source_id": "e93d91bf-3d46-bb41-5ba4-5abe84debad0",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e93d91bf-3d46-bb41-5ba4-5abe84debad0"
+  ],
+  "cause_label": "reported_vulnerabilities_in_older_screenconnect_versions",
+  "tags": [
+    "ConnectWise",
+    "ScreenConnect",
+    "vulnerabilities",
+    "patch management",
+    "update"
+  ],
+  "node_id": "5e68e040-26d7-46c1-947a-f6c14acae69e",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

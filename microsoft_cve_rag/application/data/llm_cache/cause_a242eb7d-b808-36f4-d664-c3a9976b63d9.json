@@ -1,0 +1,21 @@
+{
+  "description": "Heap-based buffer overflow in Windows secure kernel mode that allows elevation of privilege by exploiting local access to memory management flaws.",
+  "cause_label": "windows_secure_kernel_mode_heap_buffer_overflow",
+  "source_id": "a242eb7d-b808-36f4-d664-c3a9976b63d9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a242eb7d-b808-36f4-d664-c3a9976b63d9"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Buffer Overflow",
+    "Elevation of Privilege"
+  ],
+  "node_id": "b3e82a39-a465-4c22-91c7-de9931a3695b",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

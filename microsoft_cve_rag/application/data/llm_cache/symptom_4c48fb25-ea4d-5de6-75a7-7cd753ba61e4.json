@@ -1,0 +1,21 @@
+{
+  "symptom_label": "system_privileges_elevated_due_to_exploit",
+  "description": "A successful exploitation of the CVE-2024-38125 vulnerability in the kernel streaming wow thunk service driver allows an attacker to gain elevated system privileges. Users may notice unusual system behavior if such an exploit occurs, including unauthorized access to sensitive resources or modifications to system settings that could impact overall performance and security. The issue primarily affects systems running Windows 11 versions 24H2 and older, including builds 10.0.26100.1457 for x64-based and ARM64 platforms, and may lead to unexpected behaviors like application crashes or data exposure. The relevant KB Article IDs for these updates include KB5041571, KB5041585, KB5041580, and KB5041592, which provide the necessary security updates to mitigate this risk.",
+  "source_id": "4c48fb25-ea4d-5de6-75a7-7cd753ba61e4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4c48fb25-ea4d-5de6-75a7-7cd753ba61e4"
+  ],
+  "tags": [
+    "CVE-2024-38125",
+    "Windows 11",
+    "security update",
+    "elevation of privilege"
+  ],
+  "node_id": "14edb9b9-93c7-46e4-ab22-ff15ad242c30",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

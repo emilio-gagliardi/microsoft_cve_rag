@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows cryptographic services security feature bypass vulnerability (CVE-2024-26228), follow the steps below to apply the necessary updates:\n\n1. Download the latest cumulative updates corresponding to your build number from the official Microsoft Update catalog.\n2. Install the updates KB-5036925, KB-5036894, KB-5036893, and KB-5036892 as per the guidance presented in the MSRC release notes.\n3. Restart your system after each update installation to ensure all changes take effect.\n\n**Details**:\n- Ensure your system is running one of the affected Windows builds: [10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, 10.0.22621.3447, 10.0.10240.20596].\n- Backup critical data before proceeding with the update installations to prevent any data loss during the patch process.",
+  "source_id": "aaa58ac0-0a95-20bf-1725-3d8e0a93424f",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_windows_updates_kb5036925_and_related",
+  "tags": [
+    "KB5036925",
+    "CryptographicIssues",
+    "CVE202426228",
+    "Windows10"
+  ],
+  "node_id": "08765f2f-31ae-45f3-9a65-fe695795ec05",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "aaa58ac0-0a95-20bf-1725-3d8e0a93424f"
+  ]
+}

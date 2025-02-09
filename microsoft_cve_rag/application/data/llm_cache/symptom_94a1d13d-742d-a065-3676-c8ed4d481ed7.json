@@ -1,0 +1,21 @@
+{
+  "symptom_label": "unauthorized_access_via_bypassed_secure_boot",
+  "description": "Upon the successful exploitation of CVE-2024-37975, users may observe an unauthorized access event leading to a security feature bypass of the Secure Boot mechanism. This observed behavior includes potential unauthorized booting of insecure operating systems or malicious software, risking the integrity and confidentiality of user data. Specifically, systems running Windows 10 and Windows 11 builds including 10.0.22631.3880, 10.0.22621.3880, and others could be impacted. Such exploitation may manifest as unexpected system behavior or alerts indicating compromised boot integrity. Furthermore, users should consult KB Articles KB5040442, KB5040431, and KB5040427 for detailed guidance and mitigations.",
+  "source_id": "94a1d13d-742d-a065-3676-c8ed4d481ed7",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "94a1d13d-742d-a065-3676-c8ed4d481ed7"
+  ],
+  "tags": [
+    "CVE-2024-37975",
+    "Secure Boot",
+    "Windows 10",
+    "Windows 11"
+  ],
+  "node_id": "8c7447ed-76cf-4262-83a3-f492ceace5a9",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

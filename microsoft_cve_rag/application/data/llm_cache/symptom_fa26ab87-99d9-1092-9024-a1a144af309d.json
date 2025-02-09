@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_task_scheduler_allows_elevation_of_privileges",
+  "description": "An elevation of privilege vulnerability exists in Windows Task Scheduler, impacting Windows 10 and later versions including Windows 11 24H2 and Server 2025. This vulnerability, designated CVE-2024-49039, has a CVSS v3.1 score of 8.8 and is confirmed to have been exploited in the wild. An attacker may exploit this vulnerability by executing a specially crafted application that enables them to gain elevated privileges to a medium integrity level, allowing unauthorized access to system functions. System administrators should prioritize patching this vulnerability as it is rated important and could lead to significant security risks if not addressed promptly. For mitigation efforts, Microsoft recommends installing the appropriate updates available through their patch management system to secure affected systems, as detailed in the relevant KB articles.",
+  "source_id": "fa26ab87-99d9-1092-9024-a1a144af309d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "fa26ab87-99d9-1092-9024-a1a144af309d"
+  ],
+  "tags": [
+    "CVE-2024-49039",
+    "Windows",
+    "elevation_of_privileges",
+    "PatchManagement"
+  ],
+  "node_id": "7578f400-f1b5-4a32-8ac3-85cd58dfa033",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

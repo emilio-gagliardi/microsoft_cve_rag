@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_kernel_mode_driver_information_disclosure",
+  "description": "After the installation of the security update identified in KB5043064, users running Windows 10 (various builds) and Windows Server editions may experience information disclosure regarding sensitive data. This could manifest as unexpected availability of memory contents, where portions of the heap memory may be accessed by unauthorized individuals if the security vulnerability is exploited. While the update aims to mitigate such risks, the end-user experience may involve concerns over data privacy. Administrators must ensure timely deployment of this patch across all environments to prevent potential breaches of sensitive information. This issue is notably relevant for systems with build numbers including 10.0.19045.4894 and 6.3.9600.22175, and should be monitored closely. The severity of this flaw is classified as important, emphasizing the urgency of remediation efforts.",
+  "source_id": "d3c27440-24a7-cf3e-6491-2bb828060893",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d3c27440-24a7-cf3e-6491-2bb828060893"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Information Disclosure",
+    "Patch Management"
+  ],
+  "node_id": "75b8cedb-0e58-4552-8964-5803956f6768",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

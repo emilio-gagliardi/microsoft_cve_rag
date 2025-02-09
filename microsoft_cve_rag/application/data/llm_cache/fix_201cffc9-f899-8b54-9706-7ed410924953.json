@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability identified as CVE-2024-30013 in Windows Multipoint Services:\n\n1. Identify the installed Windows version and build number on your system.\n2. Download the appropriate KB update corresponding to your build from the Microsoft Update Catalog:\n   - Windows 11 Version 23H2: [KB5040442](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442)\n   - Windows 11 Version 22H2: [KB5040442](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442)\n   - Windows 11 Version 21H2: [KB5040431](https://catalog.update.microsoft.com/Search.aspx?q=KB5040431)\n   - Windows 10 Version 22H2: [KB5040427](https://catalog.update.microsoft.com/Search.aspx?q=KB5040427)\n   - Windows 10 Version 21H2: [KB5040427](https://catalog.update.microsoft.com/Search.aspx?q=KB5040427)\n3. Install the downloaded update package and restart your system to apply the changes.\n\n**Details**:\nThis update addresses the double free vulnerability (CWE-415) that could lead to remote code execution, enhancing the security of your system against external exploits. Ensure administrative privileges are available to perform the update.\n\n**Preconditions**:\n- Verify that your system matches one of the specified build numbers before applying the update.\n- Backup critical data before proceeding to install any updates to prevent data loss in case of issues during installation.",
+  "source_id": "201cffc9-f899-8b54-9706-7ed410924953",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_cve202430013_windows_multipoint_services",
+  "tags": [
+    "KB5040442",
+    "KB5040431",
+    "KB5040427",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "aa2a4f44-bf90-4422-9e13-2a1e97098c38",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "201cffc9-f899-8b54-9706-7ed410924953"
+  ],
+  "verification_status": "unverified"
+}

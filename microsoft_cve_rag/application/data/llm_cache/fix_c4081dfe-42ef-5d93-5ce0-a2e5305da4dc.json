@@ -1,0 +1,16 @@
+{
+  "description": "To address CVE-2023-38039, Microsoft has made available an update that includes curl version 8.4.0, specifically released on November 14, 2023. Affected builds include Windows 10 versions 22H2 and 21H2 (build numbers 10.0.19045.3693 and 10.0.22621.2715, respectively), and various Windows 11 versions such as 23H2 (build number 10.0.22621.2715). System administrators can implement the fix by installing the latest updates available through the Microsoft Update Catalog, specifically KB5032192, KB5032190, and KB5032189, which can be found at the following links: https://catalog.update.microsoft.com/Search.aspx?q=KB5032192, https://catalog.update.microsoft.com/Search.aspx?q=KB5032190, https://catalog.update.microsoft.com/Search.aspx?q=KB5032189. For devices set to receive automatic updates, no further action is necessary, as updates will be applied automatically. However, for those needing manual intervention, it's crucial to ensure the most current version of curl is installed to prevent denial of service issues.",
+  "source_id": "c4081dfe-42ef-5d93-5ce0-a2e5305da4dc",
+  "source_type": "MSRCPost",
+  "fix_label": "InstallCurlUpdateForCveResolution",
+  "tags": [
+    "curl",
+    "update",
+    "windows"
+  ],
+  "node_id": "55422214-81c6-4d8d-b73d-6459af1e0b53",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Fix"
+}

@@ -1,0 +1,23 @@
+{
+  "tool_label": "microsoft_edge_chromium_version_update",
+  "description": "**Tool Overview**:  The latest version of Microsoft Edge (Chromium-based) is updated to address the CVE-2024-7979 vulnerability. **Details**: This tool involves ensuring that Microsoft Edge is operating on the most recent Chromium version that has patched the identified security vulnerability. It is crucial for system administrators to maintain the browser's integrity and security. Here are steps for effective implementation: \n1. Regularly check for Microsoft Edge updates. \n2. Confirm that the latest software version aligns with Chromium releases. \n3. Distribute these updates across your organization's devices to mitigate risks. Ensuring your version is up to date can prevent local attackers from exploiting insufficient data validation vulnerabilities during the installation process.",
+  "source_id": "ddae3811-d237-626b-586f-929151c8812f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ddae3811-d237-626b-586f-929151c8812f"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-7979",
+  "tool_url": "https://chromereleases.googlecode.com/",
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "security",
+    "update"
+  ],
+  "node_id": "367882b3-1652-4268-b4e5-0ad9c1e0efc9",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

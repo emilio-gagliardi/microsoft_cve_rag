@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_intermittently_freezes_after_update",
+  "description": "After installing the Microsoft Edge update version 122.0.2365.52, users may experience intermittent freezing or lag during browser usage. This issue is particularly evident when navigating through content-heavy websites or using complex web applications. The performance degradation can manifest as delayed responses to user inputs such as clicks and scrolling. These observable behaviors are likely linked to the recent update addressing a use after free vulnerability in Chromium, which underlies the Microsoft Edge infrastructure. Users may need to restart the browser or the system to regain normal functionality, impacting their overall productivity.",
+  "source_id": "ae10fdfe-1015-f1bd-2215-d0386c2ef587",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ae10fdfe-1015-f1bd-2215-d0386c2ef587"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Performance",
+    "Update",
+    "User Experience",
+    "Browser Issue"
+  ],
+  "node_id": "c77b766d-6d64-4291-924c-538eaf68d990",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

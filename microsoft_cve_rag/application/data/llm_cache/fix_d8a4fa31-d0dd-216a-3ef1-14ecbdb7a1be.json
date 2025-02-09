@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability in Windows DNS Server (CVE-2024-26223), apply the following updates:\n\n1. Download and install the necessary updates from the Microsoft Update Catalog corresponding to your system configuration:\n   - KB-5036910\n   - KB-5036909\n   - KB-5036899\n   - KB-5036896\n2. Restart the server to ensure all changes are effectively applied.\n\n**Details**:\nThese updates address a use-after-free vulnerability that could allow an attacker to execute arbitrary code on a target server, potentially leading to unauthorized control. Always ensure your critical data is backed up before proceeding with updates to minimize the risk of data loss.\n\n**Preconditions**:\n- The system must be a Windows DNS Server.\n- Ensure that administrative privileges are available for the installation of updates.",
+  "source_id": "d8a4fa31-d0dd-216a-3ef1-14ecbdb7a1be",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_windows_dns_cve202426223",
+  "tags": [
+    "KB5036910",
+    "WindowsDNS",
+    "RemoteCodeExecution",
+    "CVE202426223"
+  ],
+  "node_id": "fee639c0-c75e-4eae-93a0-cad105be951e",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "d8a4fa31-d0dd-216a-3ef1-14ecbdb7a1be"
+  ]
+}

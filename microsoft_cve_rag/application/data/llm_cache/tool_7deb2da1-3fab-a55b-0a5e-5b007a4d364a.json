@@ -1,0 +1,23 @@
+{
+  "tool_label": "microsoft_edge_upload_from_mobile",
+  "description": "**Tool Overview**:\n\nMicrosoft Edge's upload from mobile feature allows users to upload files directly from their mobile devices to Windows 11 or Windows 10 devices. This functionality enhances the user experience by simplifying the process of transferring files across devices without needing any additional software or complex setups.\n\n**Details**:\n\nThis feature can be utilized as follows:\n1. Enable the upload from phone feature in Microsoft Edge settings on both mobile and desktop.\n2. From the mobile device, users can select files to upload.\n3. The uploaded files will appear on the Microsoft Edge interface on the Windows device, allowing for immediate access and use.\n4. Supports various file formats, promoting flexibility in file sharing.\n5. Ideal for professionals who frequently need to transfer documents, images, and videos from mobile devices to their primary computing environment.\n\n**Note**: Ensure that both devices are connected to the internet for optimal performance.",
+  "source_id": "7deb2da1-3fab-a55b-0a5e-5b007a4d364a",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "7deb2da1-3fab-a55b-0a5e-5b007a4d364a"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/bacc3773c01647f18d8acf9ec3325893%40ausmarinetech.com.au",
+  "tool_url": "https://www.windowslatest.com/2024/02/20/microsoft-edge-gets-upload-from-mobile-on-windows/",
+  "tags": [
+    "Microsoft Edge",
+    "file upload",
+    "mobile",
+    "Windows 11",
+    "Windows 10"
+  ],
+  "node_id": "58aaeead-095a-4396-b443-b4adb95026c6",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

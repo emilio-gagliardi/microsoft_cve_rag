@@ -1,0 +1,16 @@
+{
+  "symptom_label": "MicrosoftEdgeFailsToRunDueToVulnerability",
+  "description": "After the release of security update KB-120.0.2210.61 for Microsoft Edge (Chromium-based) on December 7, 2023, users may experience complete failure of the browser to launch or function properly. Build number 120.0.2210.61 is essential for addressing the vulnerabilities identified by CVE-2023-6509, specifically a use-after-free issue affecting browser searches. Users failing to update may still encounter instability or errors when attempting to use the Edge browser after installation.",
+  "source_id": "0639d08b-472a-7ede-5698-3f465fb83e08",
+  "source_type": "MSRCPost",
+  "tags": [
+    "browser",
+    "Microsoft Edge",
+    "update"
+  ],
+  "node_id": "16d85e51-5cc7-43b5-9626-d3ae48b50009",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

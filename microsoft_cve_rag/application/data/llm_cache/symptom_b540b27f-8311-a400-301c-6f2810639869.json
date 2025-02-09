@@ -1,0 +1,18 @@
+{
+  "symptom_label": "WebAudioFunctionalityDisruptionInMicrosoftEdge",
+  "description": "Users may experience disruptions in Web Audio functionality when using Microsoft Edge (Chromium-based) version 120.0.2210.121. These disruptions can manifest as audio playback failures, unexpected audio distortions, or complete silence during web sessions that rely on audio processing. This behavior is observable after the installation of the corresponding security update addressing the use-after-free vulnerability identified as CVE-2024-0224. Affected end users may notice that media applications and websites that use Web Audio API may not perform as expected. To mitigate these issues, it is recommended to promptly update to the latest stable version of Microsoft Edge, ensuring that the enhancements and fixes related to this vulnerability are applied as per KB-120.0.2210.121.",
+  "source_id": "b540b27f-8311-a400-301c-6f2810639869",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Microsoft Edge",
+    "Web Audio",
+    "Audio Disruption",
+    "CVE-2024-0224",
+    "Edge Update"
+  ],
+  "node_id": "19896cb9-f283-4355-b59a-de07202692ec",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

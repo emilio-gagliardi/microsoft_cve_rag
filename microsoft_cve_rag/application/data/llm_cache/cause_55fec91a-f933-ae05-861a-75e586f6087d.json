@@ -1,0 +1,16 @@
+{
+  "description": "The cause of the elevation of privilege issue in Microsoft Edge (Chromium-based) version 120.0.2210.61 is rooted in a flaw that allows for a browser sandbox escape. This vulnerability enables an attacker to gain elevated privileges through remote exploitation. It is characterized by the requirement for user interaction, where an attacker must deceive the user into visiting a malicious site, potentially through emails or instant messaging. The flaw can allow unauthorized code execution once the crafted file is opened. This issue pertains specifically to build numbers 120.0.2210.61 and is documented in KB-120.0.2210.61.",
+  "cause_label": "BrowserSandboxEscapeEnablesElevationOfPrivilege",
+  "source_id": "55fec91a-f933-ae05-861a-75e586f6087d",
+  "source_type": "MSRCPost",
+  "tags": [
+    "elevation of privilege",
+    "Microsoft Edge",
+    "CVE-2023-35618"
+  ],
+  "node_id": "debd0201-46fc-433e-8348-d4501a1b491c",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause"
+}

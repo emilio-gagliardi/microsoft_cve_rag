@@ -1,0 +1,22 @@
+{
+  "tool_label": "check_lenovo_device_latest_bios_version_powershell",
+  "description": "**Tool Overview**:\n\nThis PowerShell script is designed to check if your Lenovo device is running the latest BIOS version. \n\n**Details**:\n\n1. This script connects to Lenovo's official update servers to fetch the latest BIOS version available for your device model. \n2. It compares the installed BIOS version on your device with the most recent version available. \n3. If an update is necessary, it provides instructions for downloading and applying the BIOS update safely. \n4. The script is tailored specifically for Lenovo devices, ensuring compatibility and effectiveness.\n5. For best results, this script should be run with administrative privileges to access the necessary system information.\n\n### **Example Usage**:\n```powershell\n# Example script content to check BIOS version\nCheck-LenovoBIOSVersion -DeviceModel (Get-WmiObject -Class Win32_ComputerSystem).Model\n```",
+  "source_id": "8d3d87c7-665b-e0e7-d058-c6034e0fd2ba",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "8d3d87c7-665b-e0e7-d058-c6034e0fd2ba"
+  ],
+  "source_url": "https://www.systanddeploy.com/2024/04/check-if",
+  "tool_url": "https://www.lenovo.com/support/bios-updates",
+  "tags": [
+    "PowerShell",
+    "Lenovo",
+    "BIOS",
+    "LLM Synthesized"
+  ],
+  "node_id": "fbbd8e87-1480-4800-bfdb-492f34ea171d",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

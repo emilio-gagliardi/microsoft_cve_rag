@@ -1,0 +1,22 @@
+{
+  "symptom_label": "unauthorized_access_on_azure_data_science_vm",
+  "description": "End users of Azure Data Science Virtual Machines (DSVMs) running Linux/Ubuntu prior to version 24.05.24 may experience unauthorized access to their resources. An attacker, exploiting the elevation of privilege vulnerability (CVE-2024-37325), can send specially crafted requests to gain access to the credentials of authorized users. This breach could lead to malicious operations being performed by the attacker, thereby compromising user data and functionalities. The observable impact includes unexpected modifications to user data and potentially unauthorized actions being executed within the DSVM environment, undermining the integrity and confidentiality of user operations. Users are advised to upgrade to Ubuntu 20.04 to mitigate this risk, as detailed in KB-24.05.24.",
+  "source_id": "54744f83-2335-c9b2-be94-fdb958ae8f72",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "54744f83-2335-c9b2-be94-fdb958ae8f72"
+  ],
+  "tags": [
+    "Azure",
+    "Data Science Virtual Machines",
+    "Linux",
+    "Unauthorized Access",
+    "Elevation of Privilege"
+  ],
+  "node_id": "25674232-c369-4998-833a-2dce277488e5",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

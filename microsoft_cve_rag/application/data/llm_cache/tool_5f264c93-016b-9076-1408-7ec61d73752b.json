@@ -1,0 +1,21 @@
+{
+  "tool_label": "azure_entra_identity_service",
+  "description": "**Tool Overview**:\n\nAzure Entra is a suite of identity and access management services provided by Microsoft, designed to manage and secure user identities for cloud and on-premises applications.\n\n**Details**:\n\nAzure Entra allows organizations to monitor and manage their user access across multiple Azure Active Directory (AAD) tenants effectively. Organizations that hold Volume Licensing licenses generally own an Azure Entra AD tenant. The tool supports managing identities in a centralized manner, provides enhanced security protocols, and integrates seamlessly with Microsoft 365 services. It enables administrators to set up user roles, enforce multi-factor authentication, and manage user lifecycle events, which are essential for maintaining security over cloud resources.\n\nDocumentation on Azure Entra can be found [here](https://learn.microsoft.com/en-us/entra/identity/users/domains-ad).",
+  "source_id": "5f264c93-016b-9076-1408-7ec61d73752b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "5f264c93-016b-9076-1408-7ec61d73752b"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://learn.microsoft.com/en-us/entra/identity/users/domains-ad",
+  "tags": [
+    "Azure",
+    "identity management",
+    "access control"
+  ],
+  "node_id": "827ebfaa-5140-43d3-9c04-175e4d71f76b",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

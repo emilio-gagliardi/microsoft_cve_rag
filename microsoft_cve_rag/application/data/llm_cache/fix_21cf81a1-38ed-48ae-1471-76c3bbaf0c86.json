@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve issues with saving documents in Spanish language versions of Microsoft Word:\n\n1. Ensure you are using the latest build of the application, specifically version 2409 build 18025.20104.\n2. Save the document to a local folder instead of directly to cloud storage.\n\n**Details**:\n- After saving to a local folder, reopen the file to verify it saved correctly without any issues. This method has proven effective for avoiding potential problems related to file handling in non-English versions of Word.\n",
+  "source_id": "21cf81a1-38ed-48ae-1471-76c3bbaf0c86",
+  "source_type": "PatchManagementPost",
+  "fix_label": "mitigate_ms_word_document_handling_spanish_version",
+  "tags": [
+    "Word",
+    "LocalStorage",
+    "Build2409",
+    "DocumentHandling"
+  ],
+  "node_id": "6936af26-b976-4c05-9620-2c73ba9ea203",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "21cf81a1-38ed-48ae-1471-76c3bbaf0c86"
+  ],
+  "verification_status": "unverified"
+}

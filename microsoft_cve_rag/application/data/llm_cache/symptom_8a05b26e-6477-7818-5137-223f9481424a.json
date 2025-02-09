@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_crashes_after_security_update",
+  "description": "After installing the security update KB-126.0.2592.56 on Microsoft Edge (Chromium-based), users may experience unexpected crashes. This behavior may manifest as the browser closing abruptly without warning, leading to potential loss of open tabs and work. Users may notice slow performance prior to the crash, indicating instability in the browser session. Additionally, there may be challenges when attempting to reopen the browser, increasing user frustration. It is essential for system administrators to monitor user feedback and address any recurring issues to ensure a stable browsing experience post-update.",
+  "source_id": "8a05b26e-6477-7818-5137-223f9481424a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8a05b26e-6477-7818-5137-223f9481424a"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Security Update",
+    "Browser Crashes",
+    "User Experience"
+  ],
+  "node_id": "8a86872a-ad2a-4023-b24a-3b21abf4ded0",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

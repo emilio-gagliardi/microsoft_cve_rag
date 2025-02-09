@@ -1,0 +1,22 @@
+{
+  "symptom_label": "remote_code_execution_vulnerability_observed_on_windows",
+  "description": "Users may experience unauthorized access or unintended execution of code when interacting with specially crafted files originating from untrustworthy sources. This behavior stems from a remote code execution vulnerability associated with Windows OLE, identified as CVE-2024-38152. Affected builds include Windows 10 versions 21H2 and 22H2 (build numbers 10.0.19044.4780 and 10.0.19045.4780 respectively) and Windows 11 version 24H2 (build number 10.0.26100.1457), among others outlined in related KB articles like KB5041571 and KB5041592. Administrators should be vigilant for reports of unusual application behavior or unexpected prompts to grant permissions upon opening documents, as this could indicate exploitation of the aforementioned vulnerability. Timely patch updates are essential to mitigate these risks and ensure system integrity and availability.",
+  "source_id": "e25bdf60-cbbc-501f-c3c5-a914c80162f9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e25bdf60-cbbc-501f-c3c5-a914c80162f9"
+  ],
+  "tags": [
+    "Windows",
+    "OLE",
+    "Remote Code Execution",
+    "CVE-2024-38152",
+    "Patch Management"
+  ],
+  "node_id": "c419cb6c-aa72-45ab-bd9d-b60f65a62e18",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

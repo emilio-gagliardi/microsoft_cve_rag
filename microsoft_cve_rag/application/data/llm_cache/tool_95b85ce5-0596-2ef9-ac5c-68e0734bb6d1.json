@@ -1,0 +1,23 @@
+{
+  "tool_label": "google_chrome_releases_guide",
+  "description": "**Tool Overview**:\n\nThe Google Chrome Releases is a page that provides information about new Chrome releases, including updates related to various vulnerabilities, including CVEs. It lists the latest versions of Chrome, along with the security fixes and improvements made in each version. **Usage**:\n\n1. **Visit the Page**: Go to the Google Chrome Releases documentation online.\n2. **Review Updates**: Check for the latest Chromium or Microsoft Edge versions along with their decided security updates.\n3. **Understand Impacts**: Gain insights into the vulnerabilities that have been addressed by exploring the release notes.\n\nThis resource is vital for system administrators and security professionals to ensure they are utilizing updated software to mitigate potential risks effectively.",
+  "source_id": "95b85ce5-0596-2ef9-ac5c-68e0734bb6d1",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "95b85ce5-0596-2ef9-ac5c-68e0734bb6d1"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-6772",
+  "tool_url": "https://chromereleases.googleblog.com/",
+  "tags": [
+    "Chrome",
+    "Security Updates",
+    "Releases",
+    "Vulnerability Management"
+  ],
+  "node_id": "64f6ab78-f092-4d7e-8759-86d053e3d08f",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

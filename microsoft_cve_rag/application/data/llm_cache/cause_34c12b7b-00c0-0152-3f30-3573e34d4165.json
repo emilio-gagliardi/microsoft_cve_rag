@@ -1,0 +1,21 @@
+{
+  "description": "Out-of-bounds write vulnerability in Adobe Acrobat Reader that allows for arbitrary code execution, triggered when a malicious file is opened by the user.",
+  "cause_label": "adobe_acrobat_reader_out_of_bounds_write_rce",
+  "source_id": "34c12b7b-00c0-0152-3f30-3573e34d4165",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "34c12b7b-00c0-0152-3f30-3573e34d4165"
+  ],
+  "tags": [
+    "Adobe",
+    "PDF",
+    "RCE",
+    "Out-of-bounds Write"
+  ],
+  "node_id": "f514ffd0-28c3-4046-af6a-755f1da36d82",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

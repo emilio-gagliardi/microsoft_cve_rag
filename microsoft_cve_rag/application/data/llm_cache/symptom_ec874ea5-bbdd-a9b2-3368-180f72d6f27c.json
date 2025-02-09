@@ -1,0 +1,16 @@
+{
+  "symptom_label": "Win11MachinesNotOfferedNovemberUpdates",
+  "description": "A significant issue was identified where Windows 11 22H2 machines were not being offered the November updates, despite some machines receiving the cumulative update. This inconsistency indicated that the system was incorrectly pushing the upgrade to 23H2 instead of the necessary November updates. The administrator had to manually change the target version to successfully retrieve the November updates, highlighting potential misconfigurations in the update policies which differ from previous Windows 10 behavior.",
+  "source_id": "ec874ea5-bbdd-a9b2-3368-180f72d6f27c",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows11",
+    "PatchManagement",
+    "CumulativeUpdates"
+  ],
+  "node_id": "4c7255cc-7f6a-4f47-9310-983ef2411ee3",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

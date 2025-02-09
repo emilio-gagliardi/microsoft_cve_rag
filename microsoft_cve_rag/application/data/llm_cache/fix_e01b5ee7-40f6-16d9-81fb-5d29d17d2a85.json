@@ -1,0 +1,19 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows DNS Server Remote Code Execution vulnerability (CVE-2024-26222):\n\n1. Download and apply the KB-5036899 update from the official Microsoft Update Catalog.\n2. Restart the DNS server service after installation to ensure the changes take effect.\n\n**Details**:\n- This update resolves vulnerabilities related to 'Use After Free' that could allow remote code execution on affected systems.\n- For additional instructions and manual download, visit: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-26222.\n\n**Preconditions**:\n- Ensure that your Windows DNS Server is up to date with the latest patches.\n- Backup your DNS configurations before proceeding with the update.",
+  "source_id": "e01b5ee7-40f6-16d9-81fb-5d29d17d2a85",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_5036899_to_resolve_dns_remote_code_execution",
+  "tags": [
+    "KB5036899",
+    "WindowsDNS",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "12f940fe-0832-40fd-a62d-cff6159086b2",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e01b5ee7-40f6-16d9-81fb-5d29d17d2a85"
+  ]
+}

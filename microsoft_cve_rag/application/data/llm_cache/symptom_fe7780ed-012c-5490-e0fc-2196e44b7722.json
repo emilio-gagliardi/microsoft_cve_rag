@@ -1,0 +1,17 @@
+{
+  "symptom_label": "HomeUsersExperienceProblemsWithWindowsUpdate",
+  "description": "Home users are encountering serious issues due to recent updates that lack a graphical user interface (GUI) method for certain operations. This complication arises particularly with third-party applications like Minitool Partition Wizard and AOMEI Partition Assistant, which might lead to difficulties in managing disk partitions or performing necessary operations post-update. As a result, users are likely to face frustrating limitations and potential data management issues as a direct consequence of the update.",
+  "source_id": "fe7780ed-012c-5490-e0fc-2196e44b7722",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows Update",
+    "Home Users",
+    "Third-party Apps",
+    "User Experience"
+  ],
+  "node_id": "a58d4616-abd2-49d4-b008-e2cbf549c5e9",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

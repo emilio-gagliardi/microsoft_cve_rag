@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo effectively submit feedback regarding Windows issues using the Feedback app, follow these steps:\n\n1. Open the Feedback app while signed in with your Microsoft account.\n2. In the left-hand navigation bar, click on \u2018Feedback\u2019.\n3. Choose \u2018Give new feedback\u2019 or select an existing item to modify.\n4. Optionally, apply filters to narrow down your options and add a comment addressing your concern.\n\n**Details**:\n- Feedback is categorized into subcategories (like APS, Network, Windows Update) to assist in organizing the response.\n- Ensure you are logged in to utilize all functionalities of the Feedback app.\n",
+  "source_id": "2a5a6dc7-8a53-83a9-7269-0b70be3436b9",
+  "source_type": "PatchManagementPost",
+  "fix_label": "submit_window_feedback_using_feedback_app",
+  "tags": [
+    "WindowsFeedback",
+    "FeedbackApp",
+    "MicrosoftAccount",
+    "LLM Synthesized"
+  ],
+  "node_id": "599df926-9ace-4e4c-bd4e-2d0c5835924d",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "2a5a6dc7-8a53-83a9-7269-0b70be3436b9"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows TCP/IP remote code execution vulnerability (CVE-2024-38045) affecting various Windows 10 and Windows 11 systems:\n\n1. Identify the specific Windows build you are running.\n2. Download and install the appropriate update from the official Microsoft Update Catalog by following the provided links for your version:\n   - For Windows 11 Version 24H2: [KB5043080](https://catalog.update.microsoft.com/Search.aspx?q=KB5043080)\n   - For Windows 11 Version 23H2: [KB5043076](https://catalog.update.microsoft.com/Search.aspx?q=KB5043076)\n   - For Windows 11 Version 22H2: [KB5043076](https://catalog.update.microsoft.com/Search.aspx?q=KB5043076)\n   - For Windows 11 Version 21H2: [KB5043067](https://catalog.update.microsoft.com/Search.aspx?q=KB5043067)\n   - For Windows 10 Version 22H2: [KB5043064](https://catalog.update.microsoft.com/Search.aspx?q=KB5043064)\n   - For Windows 10 Version 21H2 and 32-bit systems: [KB5043064](https://catalog.update.microsoft.com/Search.aspx?q=KB5043064)\n3. Restart your system after installation to ensure all changes take effect.\n\n**Details**:\n- This update addresses a heap-based buffer overflow in Windows TCP/IP which could allow for remote code execution if exploited.\n- You must ensure that your version is compatible with the updates being applied.\n\n**Preconditions**:\n- Always back up critical data before proceeding with the update installation to prevent data loss in case of any issues.",
+  "source_id": "950ee44c-1ce7-2c17-6b16-755d33bf36a3",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_tcp_ip_remote_code_execution_cve202438045",
+  "tags": [
+    "KB5043080",
+    "KB5043076",
+    "CVE202438045",
+    "WindowsUpdate"
+  ],
+  "node_id": "748b2abe-1ad9-4dc2-b236-52135941e1fa",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "950ee44c-1ce7-2c17-6b16-755d33bf36a3"
+  ],
+  "verification_status": "unverified"
+}

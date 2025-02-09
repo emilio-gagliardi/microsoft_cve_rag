@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the information disclosure vulnerability in Windows kernel-mode drivers (CVE-2024-38256), follow these steps:\n\n1. Download and apply the KB5043064 update for your system from the official Microsoft Update Catalog.\n2. Restart your system to ensure the applied changes take effect.\n\n**Details**:\n- This update addresses the vulnerability by ensuring proper initialization of resources within the kernel, preventing unauthorized information disclosure.\n- Available for the following systems:\n  - Windows 10 for x64-based Systems\n  - Windows 10 for 32-bit Systems\n  - Windows 10 Version 22H2 for x64 and 32-bit Systems\n  - Windows 10 Version 21H2 for x64 and 32-bit Systems\n- For manual installation, download from:\n  - [KB5043083](https://catalog.update.microsoft.com/Search.aspx?q=KB5043083)\n  - [KB5043064](https://catalog.update.microsoft.com/Search.aspx?q=KB5043064)\n\n**Preconditions**:\n- Ensure your system is running a supported version of Windows 10.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "d3c27440-24a7-cf3e-6491-2bb828060893",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_information_disclosure_windows_kernel_driver_cve202438256",
+  "tags": [
+    "KB5043064",
+    "Windows10",
+    "KernelDriver",
+    "InformationDisclosure"
+  ],
+  "node_id": "619446d4-3fee-477b-bde0-acb85155e826",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "d3c27440-24a7-cf3e-6491-2bb828060893"
+  ],
+  "verification_status": "unverified"
+}

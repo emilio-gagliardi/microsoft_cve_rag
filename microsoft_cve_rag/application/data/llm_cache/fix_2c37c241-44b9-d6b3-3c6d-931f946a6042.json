@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability in the Windows Telephony Service defined by CVE-2024-43627, apply the relevant updates as outlined below:\n\n1. For Windows 11 Version 24H2:\n   - Download and install the update from the link: [KB5046617](https://catalog.update.microsoft.com/Search.aspx?q=KB5046617)\n\n2. For Windows 11 Version 23H2:\n   - Download and install the update from the link: [KB5046633](https://catalog.update.microsoft.com/Search.aspx?q=KB5046633)\n\n3. For Windows 11 Version 22H2:\n   - Download and install the update from the link: [KB5046633](https://catalog.update.microsoft.com/Search.aspx?q=KB5046633)\n\n4. For Windows 10:\n   - Download and install the update from the link: [KB5046665](https://catalog.update.microsoft.com/Search.aspx?q=KB5046665)\n\n**Details**:\n- These updates address a heap-based buffer overflow weakness in the Windows Telephony Service that may allow remote code execution. Ensure your system is updated to the specified versions to protect against this vulnerability.\n\n**Preconditions**:\n- Ensure your system versions match the specified build numbers. Backup critical data before proceeding with the update installation.",
+  "source_id": "2c37c241-44b9-d6b3-3c6d-931f946a6042",
+  "source_type": "MSRCPost",
+  "fix_label": "address_remote_code_execution_cve202443627_windows_telephony_service",
+  "tags": [
+    "KB5046617",
+    "KB5046633",
+    "WindowsTelephony",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "e3c87e92-133e-433a-8711-183077c80e97",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "2c37c241-44b9-d6b3-3c6d-931f946a6042"
+  ],
+  "verification_status": "unverified"
+}

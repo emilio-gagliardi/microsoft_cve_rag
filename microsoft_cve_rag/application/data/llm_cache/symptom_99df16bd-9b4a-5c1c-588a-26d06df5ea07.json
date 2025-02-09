@@ -1,0 +1,20 @@
+{
+  "symptom_label": "incompatible_processor_prevents_windows_11_installation",
+  "description": "Users performing bare metal builds of Windows 11 may encounter issues if the host machine has an incompatible processor. In such scenarios, the Hyper-V setup will prevent guests from successfully installing or running Windows 11. This issue often manifests when the hardware requirements for Windows 11 are not met, leading to failure in the provisioning stages of the virtual machines. System administrators need to verify that their hardware aligns with the specifications outlined by Microsoft to avoid these installation challenges. Ensuring compatibility is crucial to seamless deployment and overall system functionality.",
+  "source_id": "99df16bd-9b4a-5c1c-588a-26d06df5ea07",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "99df16bd-9b4a-5c1c-588a-26d06df5ea07"
+  ],
+  "tags": [
+    "bare_metal_builds",
+    "Windows_11",
+    "Hyper-V",
+    "processor_compatibility"
+  ],
+  "node_id": "6b422948-a5ad-48dc-aab6-f8a2e0136a87",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the use after free vulnerability in Chromium that affects Microsoft Edge (Chromium-based), the following steps should be taken:\n\n1. Update your Microsoft Edge browser to version 127.0.2651.74.\n2. Confirm the update by clicking on the three dots in the upper-right corner of Edge, then navigate to Help > About Microsoft Edge to verify the current version.\n\n**Details**:\n- This update addresses the vulnerability which could potentially allow remote attackers to exploit heap corruption via crafted HTML pages.\n- Ensure you are running the latest version as mentioned above to protect against the identified security flaw.\n\n**Preconditions**:\n- Current software installation of Microsoft Edge (Chromium-based).\n- Check for updates regularly in Edge to maintain security posture.",
+  "source_id": "9531603d-3b7e-bffb-78e6-9fb0632b7471",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_v127_0_2651_74",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-6988",
+    "Chromium",
+    "HeapCorruption"
+  ],
+  "node_id": "e0fb6700-493e-4611-a573-9f18dd023f89",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "9531603d-3b7e-bffb-78e6-9fb0632b7471"
+  ],
+  "verification_status": "unverified"
+}

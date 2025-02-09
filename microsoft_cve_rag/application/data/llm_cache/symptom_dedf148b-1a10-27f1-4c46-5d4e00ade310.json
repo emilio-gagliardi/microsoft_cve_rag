@@ -1,0 +1,17 @@
+{
+  "symptom_label": "InsufficientFreeSpaceOnRecoveryPartition",
+  "description": "The system may face installation failures if the available free space on the recovery partition does not meet the required threshold. In this case, having only 300 MB of free space on a 750 MB recovery partition is inadequate. This can lead to difficulties in executing system updates or recovery operations, highlighting a potential issue for system administrators managing recovery partitions in environments running Windows-based systems.",
+  "source_id": "dedf148b-1a10-27f1-4c46-5d4e00ade310",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "recovery partition",
+    "free space",
+    "sysadmin tools",
+    "system updates"
+  ],
+  "node_id": "37021033-1bd2-4144-bd2c-916b8817c42e",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

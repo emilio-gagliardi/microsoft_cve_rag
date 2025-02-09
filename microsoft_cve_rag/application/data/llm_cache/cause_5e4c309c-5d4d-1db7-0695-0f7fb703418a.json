@@ -1,0 +1,18 @@
+{
+  "description": "The high-severity CPU bug identified affects the functionality of virtual machines (VMs), allowing malicious code executed within a VM to crash hypervisors. This exploit leads to unexpected behaviors, which can disrupt service and compromise the stability of virtual environments. The issue has been acknowledged by Intel, highlighting the critical nature of the bug's severity in enterprise setups. Users running affected systems are advised to apply the appropriate patches provided by Intel to mitigate this risk. For reference, ensure to monitor announcements related to build updates and utilize resources linked within Intel\u2019s knowledge base for detailed patching instructions.",
+  "source_id": "5e4c309c-5d4d-1db7-0695-0f7fb703418a",
+  "source_type": "PatchManagementPost",
+  "cause_label": "HighSeverityCpuBugAffectsVMPerformance",
+  "tags": [
+    "cpu",
+    "hypervisor",
+    "vm",
+    "intel",
+    "patch"
+  ],
+  "node_id": "83f6b88b-9954-4ccd-815e-418063e19e02",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,22 @@
+{
+  "tool_label": "fsutil_volume_diskfree_command",
+  "description": "**Tool Overview**:\n\nThe `fsutil` command is a built-in Windows utility that allows administrators to manage file system properties and configurations directly from the command line. One of its functionalities is to determine the available space on a specified disk volume, which is particularly useful for troubleshooting partition issues, especially when dealing with the Windows Recovery Environment (WinRE).\n\n**Usage**:\n\nTo check the free disk space on the WinRE partition, you can use the following command:  \n```cmd\nfsutil volume diskfree \\\\?\\globalroot\\Device\\HarddiskVolumeX\n```\nReplace `X` with the appropriate volume number corresponding to your WinRE partition. This command provides detailed information regarding total space, free space, and used space, making it easier to manage disk configurations.\n\n1. **Backup**: Always back up critical data before manipulating partitions.  \n2. **Adjacent Partitions**: Ensure the WinRE partition is adjacent to the main partition (e.g., C:) for resizing tasks.  \n3. **Validation**: Use the provided command to validate the partition sizes before attempting any resizing.\n\nThis method can resolve various issues related to the inability to re-size the C: drive.",
+  "source_id": "e0764359-f601-b2e7-2a63-eaf06ae961c4",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e0764359-f601-b2e7-2a63-eaf06ae961c4"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/fsutil",
+  "tags": [
+    "Windows",
+    "fsutil",
+    "command-line",
+    "disk management"
+  ],
+  "node_id": "18cf924c-576a-4fca-9ae4-550924724387",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

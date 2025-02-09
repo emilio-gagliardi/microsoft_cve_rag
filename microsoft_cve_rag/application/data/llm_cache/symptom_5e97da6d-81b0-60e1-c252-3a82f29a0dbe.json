@@ -1,0 +1,20 @@
+{
+  "symptom_label": "win11_requires_tpm_chip_for_test_vms",
+  "description": "Windows 11 requires a TPM chip for installation and operation, creating possible complications in virtual environments. Without proper configuration, virtual machines (VMs) may fail to meet the necessary requirements leading to deployment issues. Specifically, vTPM integration in virtualization platforms like vSphere is essential for creating Windows 11 test VMs. Failure to implement these requirements could result in compatibility problems, hindering functionality, and impacting productivity. Relevant information regarding this topic can be tracked to ongoing discussions and future updates as stated in user experiences shared in forums.",
+  "source_id": "5e97da6d-81b0-60e1-c252-3a82f29a0dbe",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "5e97da6d-81b0-60e1-c252-3a82f29a0dbe"
+  ],
+  "tags": [
+    "Windows 11",
+    "TPM chip",
+    "vTPM",
+    "virtual machines"
+  ],
+  "node_id": "a7af0a2e-02f9-4c90-ad4b-4a182d801fef",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_browser_fails_to_execute_scripts",
+  "description": "End users may experience issues with script execution in Microsoft Edge versions 129.0.2792.65 and 128.0.2739.97 due to an inappropriate implementation in the V8 engine. This behavior manifests as pages failing to load properly, where interactive elements or scripts do not respond as expected. Users might notice that they are unable to access certain features or that websites behave inconsistently, leading to frustration and a decrease in productivity. As a result, it is recommended that users update their browsers to the latest versions mentioned in KB-129.0.2792.65 and KB-128.0.2739.97 to resolve these issues effectively. It is crucial for system administrators to ensure that the user base is operating on the updated builds to minimize the impact on user experience.",
+  "source_id": "143b506c-c9dc-cced-e9f5-d521a01e8ad4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "143b506c-c9dc-cced-e9f5-d521a01e8ad4"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "V8 Engine",
+    "Script Execution",
+    "Browser Update"
+  ],
+  "node_id": "bb6cb5f7-82ad-4f2a-9053-d04d7f2b7947",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

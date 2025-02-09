@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the elevation of privilege vulnerability in the Windows File Server Resource Management Service associated with CVE-2024-26216:\n\n1. Apply the updates listed in the KB articles KB-5036910, KB-5036909, KB-5036899, and KB-5036896.\n2. Restart your system after installation to ensure all changes take effect.\n\n**Details**:\n- These updates address the 'Improper Link Resolution Before File Access' vulnerability, allowing exploitation through elevated privileges.\n- For manual installation, refer to the official Microsoft Update Catalog or access the updates through Windows Update.\n\n**Preconditions**:\n- Ensure you are running a compatible version of Windows that supports these updates.\n- Backup critical data before proceeding with the installation of these updates.",
+  "source_id": "a7ce6bdd-cf81-0f70-b3c6-710204ca6b65",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_elevation_of_privilege_vulnerability_cve202426216",
+  "tags": [
+    "KB5036910",
+    "KB5036909",
+    "WindowsFileServer",
+    "CVE-2024-26216"
+  ],
+  "node_id": "e7cad226-735e-430b-aa7a-d4871ba8c324",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "a7ce6bdd-cf81-0f70-b3c6-710204ca6b65"
+  ]
+}

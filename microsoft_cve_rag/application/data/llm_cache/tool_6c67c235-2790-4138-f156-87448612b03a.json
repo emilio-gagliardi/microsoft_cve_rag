@@ -1,0 +1,20 @@
+{
+  "tool_label": "AutomatedWinReUpdate",
+  "description": "This process automates the updating of the Windows Recovery Environment (WinRE) as part of the latest cumulative updates for Windows 11. With this tool, no additional steps are required for supported systems, as the updates are handled through Windows Update and Windows Server Update Services (WSUS). The automation covers multiple Windows 11 versions, including 23h2 and 22h2 for both x64 and arm64 architectures. By integrating WinRE updates into the cumulative update process, this tool significantly simplifies system maintenance and recovery preparations.",
+  "source_id": "6c67c235-2790-4138-f156-87448612b03a",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em09478c8d-da22-4c77-9648-cc610203a805%40e53fc1c0.com",
+  "tool_url": "",
+  "tags": [
+    "Windows11",
+    "AutomatedUpdates",
+    "WinRE",
+    "WSUS",
+    "CumulativeUpdates"
+  ],
+  "node_id": "21839e88-7770-473d-a267-cff653989a83",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

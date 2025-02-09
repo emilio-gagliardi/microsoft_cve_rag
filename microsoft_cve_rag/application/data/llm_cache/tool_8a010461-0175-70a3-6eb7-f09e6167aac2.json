@@ -1,0 +1,21 @@
+{
+  "tool_label": "xz_utils_security_check",
+  "description": "**Tool Overview**:\n\nThe xz Utils tool is a data compression library and utility primarily used for compressing files.\n\n**Details**:\n\nMalicious code has been identified in xz Utils, a tool that has been in use for an extended period. This becomes particularly relevant for system administrators who deploy or maintain systems relying on xz Utils for file compression. It is crucial to ensure your version of xz Utils is free from malicious alterations.\n\n1. Verify your xz Utils installation.\n2. Update to the latest, verified version to avoid security risks.\n3. Monitor systems for any signs of malicious activity related to this utility.\n4. Stay informed about updates and patches from trusted sources to mitigate potential threats that arise from compromised tools.",
+  "source_id": "8a010461-0175-70a3-6eb7-f09e6167aac2",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "8a010461-0175-70a3-6eb7-f09e6167aac2"
+  ],
+  "source_url": "https://apple.news/a9xzzkmgvsqoqwrhzsotu-q",
+  "tool_url": "https://tukaani.org/xz/",
+  "tags": [
+    "compression",
+    "security",
+    "xz utilities"
+  ],
+  "node_id": "4a335cd0-d44d-46ed-a90e-07209ab0471d",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

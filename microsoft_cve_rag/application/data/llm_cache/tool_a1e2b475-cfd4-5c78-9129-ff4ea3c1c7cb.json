@@ -1,0 +1,22 @@
+{
+  "tool_label": "deploying_windows_uefi_ca_2023_certificate",
+  "description": "**Tool Overview**:\n\nThe tool described in the post refers to Microsoft's support documentation regarding deploying Windows UEFI certificates for the 2023 certification authority. This information is crucial for system administrators tasked with maintaining the integrity and security of UEFI firmware, specifically in scenarios involving secure boot.\n\n**Details**:\n\n1. The tool provides essential instructions and guidelines for integrating the new certificates into existing environments.\n2. It outlines the prerequisites for deployment, ensuring that systems are compatible with the UEFI specification.\n3. Step-by-step processes guide administrators through the installation and validation of certificates in a secure boot configuration.\n4. It's designed for use in enterprise environments where secure boot configurations must be strictly managed.\n5. This tool directly supports compliance with security policies that mandate the use of verified software and firmware during system startup.",
+  "source_id": "a1e2b475-cfd4-5c78-9129-ff4ea3c1c7cb",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "a1e2b475-cfd4-5c78-9129-ff4ea3c1c7cb"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAGN5iah%2B5kKT%2BTc8cexnXRsFMBq_roYpBeP2Z%3DgCUq26ufkPkQ%40mail.gmail.com",
+  "tool_url": "https://support.microsoft.com/en-us/topic/kb5036210-deploying-windows-uefi-ca-2023-certificate",
+  "tags": [
+    "UEFI",
+    "certificate",
+    "deployment",
+    "LLM Synthesized"
+  ],
+  "node_id": "3348717d-d1c7-4261-95d2-f51433b8c332",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

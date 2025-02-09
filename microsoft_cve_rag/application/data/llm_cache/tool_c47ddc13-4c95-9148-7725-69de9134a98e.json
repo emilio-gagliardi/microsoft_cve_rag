@@ -1,0 +1,21 @@
+{
+  "tool_label": "trusted_compute_base_vulnerability_fix",
+  "description": "**Tool Overview**: This solution addresses the trusted compute base elevation of privilege vulnerability identified as CVE-2024-21304. This vulnerability allows an attacker with local access to elevate privileges within the affected system, potentially compromising sensitive information. The components affected by this security flaw are not exposed to network attacks, requiring local access for exploitation. **Details**: To mitigate this vulnerability, it is essential to apply the relevant software updates detailed in the post or security guidelines provided by Microsoft. Users should ensure that all security patches, especially those associated with KB-5034763, are installed to enhance system protection. Monitoring for unauthorized local access attempts can also help in identifying potential exploitation of this vulnerability.",
+  "source_id": "c47ddc13-4c95-9148-7725-69de9134a98e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c47ddc13-4c95-9148-7725-69de9134a98e"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-21304",
+  "tool_url": "",
+  "tags": [
+    "elevation_of_privilege",
+    "security_update",
+    "CVE-2024-21304"
+  ],
+  "node_id": "0937f085-009b-43e1-8aee-23e44e5f3392",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

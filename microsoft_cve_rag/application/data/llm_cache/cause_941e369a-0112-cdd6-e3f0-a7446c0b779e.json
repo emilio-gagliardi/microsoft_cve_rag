@@ -1,0 +1,21 @@
+{
+  "description": "The issue arises from an incorrect security user interface in the download feature of Chromium prior to version 129.0.6668.58. This flaw allows remote attackers to perform UI spoofing by convincing users to conduct specific UI gestures on a crafted HTML page, potentially leading to security breaches.",
+  "cause_label": "chromium_incorrect_security_ui_in_downloads",
+  "source_id": "941e369a-0112-cdd6-e3f0-a7446c0b779e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "941e369a-0112-cdd6-e3f0-a7446c0b779e"
+  ],
+  "tags": [
+    "chromium",
+    "Microsoft Edge",
+    "UI spoofing",
+    "vulnerability"
+  ],
+  "node_id": "611c7016-7e7a-4424-b1fe-53c69e9b89d1",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

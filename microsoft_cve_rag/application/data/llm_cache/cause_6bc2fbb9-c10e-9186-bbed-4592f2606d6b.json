@@ -1,0 +1,21 @@
+{
+  "description": "The issue arises from a use-after-free condition in the Windows Win32 kernel subsystem, which can lead to elevation of privilege for an attacker. Specifically, if an object is freed while still being referenced, it can be reallocated and manipulated by an attacker to gain unauthorized access.",
+  "cause_label": "windows_win32_kernel_use_after_free_elevation_privilege",
+  "source_id": "6bc2fbb9-c10e-9186-bbed-4592f2606d6b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "6bc2fbb9-c10e-9186-bbed-4592f2606d6b"
+  ],
+  "tags": [
+    "elevation of privilege",
+    "use after free",
+    "Windows kernel",
+    "CVE-2024-30049"
+  ],
+  "node_id": "b67c9475-2b0d-4c19-ab15-b02e519c089e",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

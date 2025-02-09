@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the printing issues associated with the printing nightmare vulnerability, follow these steps:\n\n1. Disable SMB1 protocol on your network to enhance security and prevent exploitation of potential vectors.\n2. Ensure that printing VLANs are established to segregate print servers from the general user network.\n3. Consider disabling the print spooler services if not in active use, to further reduce the attack surface.\n\n**Details**:\n- Disabling SMB1 is crucial as it is an outdated protocol with known vulnerabilities that can be exploited.\n- Implementing VLANs for printing helps in controlling and securing the path data takes within production networks.\n- Regularly review and update your firmware to ensure any patches are applied, helping to secure your printing infrastructure. (LLM Synthesized)",
+  "source_id": "6325eb14-9158-b179-a748-984496a593ba",
+  "source_type": "PatchManagementPost",
+  "fix_label": "MitigatePrintingNightmareVulnerability",
+  "tags": [
+    "SMB1",
+    "NetworkSecurity",
+    "PrintInfrastructure",
+    "LLM Synthesized"
+  ],
+  "node_id": "2f09bdf1-7c48-47be-a1bd-3031653de17a",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "6325eb14-9158-b179-a748-984496a593ba"
+  ]
+}

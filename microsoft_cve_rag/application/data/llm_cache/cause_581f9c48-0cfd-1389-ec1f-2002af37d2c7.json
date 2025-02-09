@@ -1,0 +1,22 @@
+{
+  "description": "The underlying cause relates to the updates concerning Windows Certificate-based authentication (KB5014754) and security hardening measures associated with CVE-2023-36871. The default behavior post-installation of updates on server 2019 and above has shifted to selecting strong mapping using x509issuerserialnumber instead of weak mapping, with implications for authentication processes. Additionally, due to CVE-2023-36871, Microsoft has enforced a policy where machines not updated with security patches released post-July 2023 will not be allowed to accept Windows Hello authentication requests, potentially disrupting single sign-on experiences for users. This change emphasizes the need for robust maintenance and regular update deployments on affected systems to prevent authentication failures. The consequences of these updates necessitate a comprehensive review of active directory configurations and Windows security patching protocols as future updates approach, particularly with respect to final enforcement transitioning in 2025.",
+  "source_id": "581f9c48-0cfd-1389-ec1f-2002af37d2c7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "581f9c48-0cfd-1389-ec1f-2002af37d2c7"
+  ],
+  "cause_label": "change_in_certificate_mapping_behavior",
+  "tags": [
+    "Windows",
+    "security",
+    "authentication",
+    "CVE-2023-36871",
+    "patch management",
+    "KB5014754"
+  ],
+  "node_id": "f05f3bbc-1596-4423-88d6-52a8f3e26c69",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

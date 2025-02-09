@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Online Certificate Status Protocol (OCSP) server denial of service vulnerability (CVE-2024-38068):\n\n1. Download and apply the relevant update packages based on your system's build number.\n2. Restart your system after installation to ensure the changes take effect.\n\n**Details**:\n- This update is crucial to mitigate resource consumption issues that could lead to a denial of service.\n- Update packages related to this vulnerability include:\n  - Windows 11 Version 23H2: KB5040442\n  - Windows 11 Version 22H2: KB5040442\n  - Windows 11 Version 21H2: KB5040431\n  - Windows 10 for x64-based Systems: KB5040448\n  - Ensure the system running Windows 10 or 11 is updated to the specified build numbers.\n- For manual installation, download the update packages from the official catalog:\n  - [KB5040431](https://catalog.update.microsoft.com/Search.aspx?q=KB5040431)\n  - [KB5040448](https://catalog.update.microsoft.com/Search.aspx?q=KB5040448)\n  - [KB5040427](https://catalog.update.microsoft.com/Search.aspx?q=KB5040427)\n  - [KB5040442](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442).\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "2560da5c-e96a-9b58-717b-cfba2a3b817e",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb5040442_kb5040431_kb5040448_for_ocsp_dos",
+  "tags": [
+    "KB5040442",
+    "KB5040431",
+    "KB5040448",
+    "OCSP"
+  ],
+  "node_id": "622cc84f-9abb-401e-a241-dc587417ee12",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "2560da5c-e96a-9b58-717b-cfba2a3b817e"
+  ],
+  "verification_status": "unverified"
+}

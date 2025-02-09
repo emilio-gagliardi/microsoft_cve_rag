@@ -1,0 +1,22 @@
+{
+  "description": "The issue arises due to a heap-based buffer overflow, enabling attackers to bypass secure boot. The failure mode is traced back to incorrect memory handling in the affected product versions, which allows for unauthorized modification of critical system components.",
+  "cause_label": "secure_boot_bypass_due_to_heap_buffer_overflow",
+  "source_id": "50a28561-6870-092a-1cee-f1e17db794bd",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "50a28561-6870-092a-1cee-f1e17db794bd"
+  ],
+  "tags": [
+    "CVE-2024-38065",
+    "Windows",
+    "Secure Boot",
+    "Heap Buffer Overflow",
+    "CWE-122"
+  ],
+  "node_id": "e62976e7-5e53-4a58-b3da-ca5964d20adf",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

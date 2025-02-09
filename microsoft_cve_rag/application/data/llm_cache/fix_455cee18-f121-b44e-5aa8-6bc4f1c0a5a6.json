@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the type confusion vulnerability in V8 for Microsoft Edge (Chromium-based), users should ensure that they are using the latest version of the browser. Here\u2019s how:\n\n1. Open your Microsoft Edge browser.\n2. Click on the three dots (...) in the upper right corner.\n3. Navigate to **Help and Feedback** and select **About Microsoft Edge**.\n4. Confirm that the version reflects either 129.0.2792.65 or any newer incremental updates that address the vulnerability.\n\n**Details**:\n- This update resolves the type confusion issue that could lead to out-of-bounds memory access utilized by remote attackers.\n- The fixed versions include Microsoft Edge (Chromium-based) 129.0.2792.65 and 128.0.2739.97, released on September 26, 2024.\n- For detailed release notes, please check the Microsoft Edge update guide. \n\n**Preconditions**:\n- Ensure that your current Microsoft Edge is running a build that supports these updates. Backup useful data before proceeding with any update actions. (LLM Synthesized)",
+  "source_id": "455cee18-f121-b44e-5aa8-6bc4f1c0a5a6",
+  "source_type": "MSRCPost",
+  "fix_label": "upgrade_microsoft_edge_to_resolve_v8_type_confusion",
+  "tags": [
+    "EdgeChromium",
+    "CVE20249122",
+    "TypeConfusion",
+    "BrowserUpdate"
+  ],
+  "node_id": "613c72dc-d883-4101-bbb4-73b45d9f8e8c",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "455cee18-f121-b44e-5aa8-6bc4f1c0a5a6"
+  ],
+  "verification_status": "unverified"
+}

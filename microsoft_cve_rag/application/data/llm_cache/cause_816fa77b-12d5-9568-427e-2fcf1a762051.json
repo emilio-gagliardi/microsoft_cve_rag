@@ -1,0 +1,21 @@
+{
+  "description": "The Windows Layer-2 Bridge network driver contains a flaw that allows for an out-of-bounds read, which can lead to a denial of service when exploited. This occurs in the network stack due to improper handling of data boundaries, affecting systems on the same network segment as the attacker. The vulnerability is specifically linked to how the driver interacts with local network protocols, potentially allowing repeated attacks without needing user interaction.",
+  "cause_label": "windows_layer_2_bridge_out_of_bounds_read",
+  "source_id": "816fa77b-12d5-9568-427e-2fcf1a762051",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "816fa77b-12d5-9568-427e-2fcf1a762051"
+  ],
+  "tags": [
+    "Windows",
+    "Denial of Service",
+    "Network Driver",
+    "Out-of-Bounds"
+  ],
+  "node_id": "f32e2024-2a1b-4d42-b110-1b43d5b59625",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

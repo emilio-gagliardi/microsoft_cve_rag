@@ -1,0 +1,20 @@
+{
+  "tool_label": "ESULicenseManagement",
+  "description": "**Tool Overview**:\n\nESU License Management is a process to manage and implement Extended Security Updates for Windows operating systems, specifically designed for environments that have not migrated from older versions like Windows 7.\n\n**Functionality**:\nThis tool allows system administrators to ensure that only compliant systems with proper ESU licenses can receive crucial updates, thereby minimizing the risk of failed installations. It involves checking the licensing status before proceeding with update installations and effectively managing system access based on license compliance. The tool is beneficial for organizations still dependent on legacy systems while formulating migration strategies and cost evaluations.\n \n**Usage**:\nAdministrators should verify their ESU licenses and implement this management tool to facilitate a seamless update process. Failure to have valid licenses results in failed updates and potential security vulnerabilities.\n\n**Note**: For detailed guidance and additional context, refer to the Fix description provided in the linked blog.",
+  "source_id": "5d0eee21-19eb-2950-1da4-e7c01c63cb57",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em5e3dbcd2-b5c2-42da-b1ab-5395995e5465%40e4f6628d.com",
+  "tool_url": "https://blog.0patch.com/2023/08/three-more-years-of-critical-security.html",
+  "tags": [
+    "ESU",
+    "Windows7",
+    "license management",
+    "update installation",
+    "migration"
+  ],
+  "node_id": "08f349af-69a4-4618-9c25-3b0393e4d7f8",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "critical",
+  "entity_type": "Tool"
+}

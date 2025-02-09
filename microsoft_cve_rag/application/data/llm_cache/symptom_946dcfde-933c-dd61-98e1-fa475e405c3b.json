@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_hosts_experiencing_system_crashes_due_to_channel_file",
+  "description": "Affected Windows hosts may experience system crashes caused by a problematic channel file associated with the Falcon content update. This issue leads to broken functionality within the CrowdStrike Falcon platform, specifically impacting sensors on Windows OS environments. Users may notice that after the problematic channel file is processed, the system may enter a Blue Screen of Death (BSOD) state, disrupting normal operations. Although the quarantine action is intended to mitigate further incidents, there may still be instances of BSOD occurring sporadically post-remediation due to timing issues in file processing. Administrators are encouraged to follow recommended procedures for optimal remediation, including initiating a support case for the proper quarantine action to prevent content-triggered crashes on Windows hosts.",
+  "source_id": "946dcfde-933c-dd61-98e1-fa475e405c3b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "946dcfde-933c-dd61-98e1-fa475e405c3b"
+  ],
+  "tags": [
+    "crowdstrike",
+    "falcon content update",
+    "windows",
+    "system crash"
+  ],
+  "node_id": "869ee8ce-f8a7-4145-8396-e88a4f3558b5",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

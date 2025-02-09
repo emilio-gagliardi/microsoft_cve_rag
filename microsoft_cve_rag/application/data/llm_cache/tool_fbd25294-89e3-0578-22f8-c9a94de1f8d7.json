@@ -1,0 +1,23 @@
+{
+  "tool_label": "windows_server_installation_guidance_m365_support",
+  "description": "**Tool Overview**:\n\nThe Windows Server Installation Guidance is a comprehensive resource provided by Microsoft. It helps users understand the complexities and specific requirements when installing Windows Server in various environments, particularly in relation to M365 support. This guide is essential for IT professionals as it outlines necessary prerequisites, compatible configurations, and common installation issues that may arise due to incorrect settings or environmental variables. With detailed illustrations and clear instructions, users can ensure that they adhere to best practices while configuring Windows Servers to work seamlessly with Microsoft 365 applications.\n\n**Details**:\n\n1. **Purpose**: To assist IT professionals in efficiently installing and configuring Windows Server.\n2. **Compatibility**: Ensures that Windows Server installations are compliant with M365 applications.\n3. **Common Scenarios**: Covers multiple deployment scenarios and troubleshooting tips.\n4. **Updates**: Regularly updated with new information and best practices.\n5. **Accessibility**: Available online through the Microsoft Tech Community.\n\nFor more information, visit the official documentation.",
+  "source_id": "fbd25294-89e3-0578-22f8-c9a94de1f8d7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "fbd25294-89e3-0578-22f8-c9a94de1f8d7"
+  ],
+  "source_url": "https://techcommunity.microsoft.com/t5/windows-server-for-it-pro/windows-server-installation-guidance-m365-support-on",
+  "tool_url": "https://techcommunity.microsoft.com/t5/windows-server-for-it-pro/windows-server-installation-guidance-m365-support-on",
+  "tags": [
+    "Windows Server",
+    "M365 Support",
+    "Installation Guidance",
+    "Microsoft"
+  ],
+  "node_id": "0463c549-b74e-49ce-a12a-f27239be3218",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

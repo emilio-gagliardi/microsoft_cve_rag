@@ -1,0 +1,16 @@
+{
+  "description": "To address the issue detailed in CVE-2023-5485, it is necessary to update Microsoft Edge (Chromium-based) to version 118.0.2088.46, which incorporates the required security improvements. This version is part of the overall Chromium updates, which eliminates the inappropriate implementation in autofill that led to this vulnerability. Users can verify their current version by clicking on the three dots in the upper right corner of the Edge browser, selecting 'Help and feedback', and then 'About Microsoft Edge'. It is recommended to routinely check for updates to ensure the application is not only secure but also up to date. For more information, refer to the [Microsoft Security Update Guide](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-5485) and details regarding this version are documented in KB Article KB-118.0.2088.46.",
+  "source_id": "e3eab75d-757a-38b3-38b4-804dc383ac4a",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeToResolveAutofillIssue",
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "CVE-2023-5485"
+  ],
+  "node_id": "df3768f3-4bb4-4572-9610-22e799b3c4e4",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

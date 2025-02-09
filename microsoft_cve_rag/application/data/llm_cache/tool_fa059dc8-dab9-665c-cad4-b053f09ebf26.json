@@ -1,0 +1,22 @@
+{
+  "tool_label": "screenconnect_server_client_update",
+  "description": "**Tool Overview**:\n\nThe ScreenConnect server and its corresponding client must be updated concurrently to ensure compatibility and proper functionality. This tool effectively manages the relationship between the two components and facilitates a smooth update process.\n\n**Details**:\n\n1. Ensures the server and client versions are aligned with each other.\n2. Prevents potential issues arising from version mismatches during remote sessions.\n3. Provides a systematic approach to handling updates, minimizing downtime for users.\n4. Incorporates checks to confirm successful updates for both server and client modules.\n5. Useful for administrators seeking to maintain a stable remote access environment using ScreenConnect.",
+  "source_id": "fa059dc8-dab9-665c-cad4-b053f09ebf26",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "fa059dc8-dab9-665c-cad4-b053f09ebf26"
+  ],
+  "source_url": "N/A",
+  "tool_url": "N/A",
+  "tags": [
+    "ScreenConnect",
+    "update",
+    "remote access",
+    "management"
+  ],
+  "node_id": "ab174885-fed5-473d-9875-41e862945353",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

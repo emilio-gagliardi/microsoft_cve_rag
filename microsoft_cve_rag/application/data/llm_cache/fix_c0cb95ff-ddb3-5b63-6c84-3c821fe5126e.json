@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Microsoft ODBC driver remote code execution vulnerability (CVE-2024-21440), you should apply the relevant update packages available for your system version:\n\n1. Identify the version of Windows your system is running (Windows 10 or Windows 11).\n2. Download and install the appropriate KB updates from the links below corresponding to your system's architecture and version:\n   - For Windows 11 Version 23H2: [KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)\n   - For Windows 11 Version 22H2: [KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)\n   - For Windows 11 Version 21H2: [KB5035854](https://catalog.update.microsoft.com/Search.aspx?q=KB5035854)\n   - For Windows 10 (x64-based and 32-bit): [KB5035858](https://catalog.update.microsoft.com/Search.aspx?q=KB5035858)\n   - For Windows 10 Version 22H2: [KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845)\n3. Restart your system after the updates are installed to apply the changes.\n\n**Details**:\n- These updates resolve the remote code execution vulnerability associated with the Microsoft ODBC driver, identified by CVE-2024-21440.\n- Ensure that your system is compatible with the updates by checking the build numbers: \n   - Windows 11 Versions 23H2(10.0.22631.3296), 22H2(10.0.22621.3296), 21H2(10.0.22000.2836) or Windows 10 (various builds as listed).\n- Backup critical system data before applying updates to prevent any accidental data loss.\n",
+  "source_id": "c0cb95ff-ddb3-5b63-6c84-3c821fe5126e",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_odbc_driver_updates_to_resolve_cve202421440",
+  "tags": [
+    "KB5035858",
+    "KB5035853",
+    "RemoteCodeExecution",
+    "ODBCDriver"
+  ],
+  "node_id": "405633a9-c281-4207-a563-c41b67ebceb5",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c0cb95ff-ddb3-5b63-6c84-3c821fe5126e"
+  ]
+}

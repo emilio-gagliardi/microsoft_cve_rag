@@ -1,0 +1,20 @@
+{
+  "symptom_label": "OperationalExcellenceIsNotAchievedDueToLack",
+  "description": "The lack of continual improvement and operational excellence within an organization can lead to inefficiencies in systems management and support. This may result in outdated practices that fail to adhere to industry standards, potentially increasing the risk of errors in system operations. For effective enterprise management and to meet ongoing objectives, it is crucial to implement a robust monitoring and improvement strategy, guided by best practices and insights from KB articles such as KB200224 and KB10036.",
+  "source_id": "cfeed23c-24c1-8b05-b550-645464b8f9ba",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "cfeed23c-24c1-8b05-b550-645464b8f9ba"
+  ],
+  "tags": [
+    "OperationalExcellence",
+    "ContinuousImprovement",
+    "SystemManagement",
+    "IndustryBestPractices"
+  ],
+  "node_id": "54ceb05f-c13e-4678-9e2d-43697a7d5db3",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

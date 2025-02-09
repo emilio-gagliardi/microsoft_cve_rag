@@ -1,0 +1,16 @@
+{
+  "description": "To address CVE-2023-36014, users should update to Microsoft Edge (Chromium-based) version 119.0.2151.58, released on November 9, 2023. This update mitigates the risk associated with remote code execution vulnerabilities. The affected product builds include Microsoft Edge (Chromium-based) version 119.0.2151.58 and its Extended Stable version 118.0.2088.102. Users can check the update and remediation in KB Article KB-119.0.2151.58. It is crucial to ensure that all systems running the affected builds are updated to maintain operational security.",
+  "source_id": "65369b53-9b11-853c-ca19-0211b57d6fe5",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeToVersion119.0.2151.58",
+  "tags": [
+    "update",
+    "Microsoft Edge",
+    "CVE-2023-36014"
+  ],
+  "node_id": "54969351-d4b5-4ae5-8b1e-0c58b3828056",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix"
+}

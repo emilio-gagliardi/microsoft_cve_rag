@@ -1,0 +1,21 @@
+{
+  "symptom_label": "remote_code_execution_compromises_windows_telephony_service",
+  "description": "End users may experience unauthorized remote code execution on systems utilizing the Windows Telephony Service due to a vulnerability that allows attackers to exploit remote connections. This can lead to the execution of arbitrary code on affected devices, severely impacting their operational integrity and exposing sensitive data. Users on Windows Server 2025, as well as Windows Server 2012 R2, may notice system instability or potential data breaches affecting business continuity. The issue arises specifically for the builds noted, including 10.0.26100.2314 and 10.0.9600.22267, as documented in KB articles KB-5046696, KB-5046682, and relates to the CVE-2024-43627 advisory. System administrators should remain vigilant for signs of unauthorized access or performance degradation in the impacted environments.",
+  "source_id": "2c37c241-44b9-d6b3-3c6d-931f946a6042",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2c37c241-44b9-d6b3-3c6d-931f946a6042"
+  ],
+  "tags": [
+    "remote code execution",
+    "Windows Telephony Service",
+    "system stability",
+    "sensitive data exposure"
+  ],
+  "node_id": "e42671ea-bf1f-4eba-81c9-47d998200e84",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

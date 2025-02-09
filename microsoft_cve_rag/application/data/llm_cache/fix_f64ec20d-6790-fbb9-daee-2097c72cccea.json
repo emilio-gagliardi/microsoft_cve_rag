@@ -1,0 +1,16 @@
+{
+  "description": "To receive continued security updates for Windows Server 2012 R2 after Extended Support ended on October 10, 2023, it is essential to install the relevant updates. Begin by installing the November 2023 Servicing Stack Update (SSU) indicated by KB-5032308. Next, ensure you have the Extended Security Updates (ESU) Licensing Preparation Package installed, identified as KB-5017220. Following these installations, restart the Windows Update service using the command 'restart-service wuauserv -verbose -passthru'. Finally, conducting a rescan against Windows Update will allow for the retrieval of November security updates for the 2012 R2 environment. Detailed instructions can be found in the associated KB articles.",
+  "source_id": "f64ec20d-6790-fbb9-daee-2097c72cccea",
+  "source_type": "PatchManagementPost",
+  "fix_label": "InstallUpdatesForWindowsServer2012R2",
+  "tags": [
+    "Extended Security Updates",
+    "Windows Server",
+    "Patch Management"
+  ],
+  "node_id": "3190063f-3f50-42c8-81bc-bfe2689007c8",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

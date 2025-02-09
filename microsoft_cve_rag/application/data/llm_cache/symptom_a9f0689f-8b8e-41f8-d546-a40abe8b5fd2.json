@@ -1,0 +1,16 @@
+{
+  "symptom_label": "MicrosoftEdgeCrashesOnPDFFileOpen",
+  "description": "Users may experience crashes in Microsoft Edge (Chromium-based) version 118.0.2088.46 when attempting to open PDF files. This instability can result in unexpected shutdowns of the browser, disrupting the workflow and potentially causing data loss. The issue is addressed in KB-118.0.2088.46, released on October 13, 2023, and users are advised to update their browsers to maintain stability while handling PDF documents.",
+  "source_id": "a9f0689f-8b8e-41f8-d546-a40abe8b5fd2",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "ddee8927-813e-4754-aaa0-9297b49bba6f",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

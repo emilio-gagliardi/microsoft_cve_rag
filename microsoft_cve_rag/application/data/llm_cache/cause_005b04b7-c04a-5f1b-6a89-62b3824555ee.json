@@ -1,0 +1,17 @@
+{
+  "description": "The underlying cause of the issue described in the post relates to the HTTP/2 Rapid Reset Attack (CVE-2023-44487), which presents a significant vulnerability that affects web servers running Windows Server. This vulnerability allows an attacker to exploit the handling of RST streams, leading to denial of service. As stated in KB5031364 for Windows Server 2022 and KB5031361 for Windows Server 2019/2016, improper configuration of the 'http2maxclientresetsperminute' registry key could exacerbate the situation by allowing excessive RST streams to be processed. By default, this limit is set to 400 for Windows Server 2022 and 500 for earlier versions, which could enable an attacker to crash or hang the server by reaching this limit under controlled circumstances. Therefore, Microsoft strongly advises applying the latest updates and configuring the mentioned registry keys correctly to mitigate this risk.",
+  "source_id": "005b04b7-c04a-5f1b-6a89-62b3824555ee",
+  "source_type": "PatchManagementPost",
+  "cause_label": "HTTP2RapidResetAttackAffectsWebServers",
+  "tags": [
+    "vulnerability",
+    "http2",
+    "cve",
+    "patch management"
+  ],
+  "node_id": "a42349d2-9fea-42c2-92a3-7dc6dc7778c7",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

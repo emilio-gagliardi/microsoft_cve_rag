@@ -1,0 +1,16 @@
+{
+  "symptom_label": "AdminsReceiveUnexpectedOutboundEmailCopies",
+  "description": "Global tenant administrators may be unexpectedly receiving copies of outbound emails sent to external parties. These emails originate from other users within their organization, potentially confusing admins about their email activity. This behavior has raised concerns as it contributes to an increased volume of flagged potential spam messages, impacting the overall operation and trust in the Exchange Online environment.",
+  "source_id": "a0b90f3a-31e2-a3f9-df41-7e152a282476",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "email",
+    "ExchangeOnline",
+    "admin"
+  ],
+  "node_id": "5c0a59c6-0335-46f5-b884-7bb21ddbf48f",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

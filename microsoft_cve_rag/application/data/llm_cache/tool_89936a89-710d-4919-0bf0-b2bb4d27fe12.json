@@ -1,0 +1,23 @@
+{
+  "tool_label": "action1_vulnerability_digest",
+  "description": "**Tool Overview**:\n\nThe Action1 Vulnerability Digest is a comprehensive tool designed to summarize and report on vulnerabilities across various software, including core Microsoft products and third-party applications. \n\n**Details**:\n\nThis digest provides an updated summary of vulnerabilities, including zero-days and critical issues, in real-time. It can aggregate data from CVE reports and summarize threats such as those affecting Windows Kernel and Windows SmartScreen. Users can utilize this tool to quickly grasp the security landscape, particularly during significant patch events like Patch Tuesday. This resource can be essential for system administrators and security professionals who need to prioritize patch management activities effectively.\n\n1. Provides a real-time summary of vulnerabilities.\n2. Includes information on critical zero-day vulnerabilities.\n3. Covers a wide range of products from Microsoft and third-party vendors.\n4. It helps in prioritizing patch management efforts by highlighting high-severity issues.\n5. Users can navigate to the digest for a comprehensive summary.\n\n",
+  "source_id": "89936a89-710d-4919-0bf0-b2bb4d27fe12",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "89936a89-710d-4919-0bf0-b2bb4d27fe12"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/a0b862ec-21dc-43f7-a6b0-7f865c4da6a6n%40googlegroups.com",
+  "tool_url": "https://action1.com/",
+  "tags": [
+    "vulnerability management",
+    "CVE",
+    "real-time updates",
+    "vulnerability digest"
+  ],
+  "node_id": "83970aee-6e5b-4415-8307-746539999f8d",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "critical",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

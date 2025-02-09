@@ -1,0 +1,18 @@
+{
+  "symptom_label": "MicrosoftEdgeExperiencesHeapBufferOverflow",
+  "description": "After installing the security update for Microsoft Edge (Chromium-based) version 120.0.2210.91, users may notice browser instability due to the presence of a heap buffer overflow vulnerability in WebRTC. This issue, identified as CVE-2023-7024, could potentially lead to erratic behavior such as unexpected crashes, performance degradation, or unresponsiveness while using the browser. These symptoms can hinder normal browser operations, ultimately affecting productivity and user experience. Ensuring that the Edge browser is updated to the latest version is critical to mitigating these observable impacts stemming from the underlying security issue. For further details, users should reference KB-120.0.2210.91 to understand the full scope of the fix implemented.",
+  "source_id": "91387ad0-5d6d-9e5d-c410-2d67261620f9",
+  "source_type": "MSRCPost",
+  "tags": [
+    "browser",
+    "WebRTC",
+    "CVE-2023-7024",
+    "Microsoft Edge",
+    "heap buffer overflow"
+  ],
+  "node_id": "759e3e20-dc17-4354-8634-3b4ba6a16ece",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

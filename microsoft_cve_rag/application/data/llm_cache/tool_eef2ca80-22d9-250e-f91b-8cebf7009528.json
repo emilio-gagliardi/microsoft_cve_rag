@@ -1,0 +1,22 @@
+{
+  "tool_label": "RiochCopierCompanionApp",
+  "description": "The Rioch Copier Companion App is designed to enhance the functionality of Rioch copiers while integrating the use of V4 drivers. This app allows users to set up and manage copier settings more effectively. It serves to bridge the gap between traditional copier functionalities and modern desktop printing environments, ensuring that users can access all features without compatibility issues. The companion app also provides support for custom configurations that can be applied based on organizational needs. While this is a standalone application, details on specific functionalities and setup instructions can typically be found in the official documentation provided by Rioch.",
+  "source_id": "eef2ca80-22d9-250e-f91b-8cebf7009528",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "eef2ca80-22d9-250e-f91b-8cebf7009528"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAPEMYtFugznL5D041i29w8UMeJ8OkAh6v2QQERF7tE%2BJ5JJJ4Q%40mail.gmail.com",
+  "tool_url": "",
+  "tags": [
+    "Rioch",
+    "copier",
+    "V4 drivers",
+    "companion app"
+  ],
+  "node_id": "35eecac1-89da-4430-99fa-1e59f5b67687",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

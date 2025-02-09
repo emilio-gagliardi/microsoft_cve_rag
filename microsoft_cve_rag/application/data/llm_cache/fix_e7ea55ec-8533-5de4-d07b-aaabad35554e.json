@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the issue of incorrect printer identification that leads to the unnecessary installation of the 'HP Smart' app, follow these steps:\n\n1. Check the printer's settings in Windows to confirm the correct model is displayed.\n2. If the model is incorrect, remove the erroneous printer listing from the device settings.\n3. Restart your system to refresh printer recognition.\n4. Re-add the printer using the correct manufacturer and model information.\n\n**Details**:\n- This fix aims to prevent Windows from mistakenly assuming that an HP printer is in use and triggering the installation of associated applications. Make sure all drivers are up-to-date before adding the printer back to the system. This can help avoid similar problems in the future.",
+  "source_id": "e7ea55ec-8533-5de4-d07b-aaabad35554e",
+  "source_type": "PatchManagementPost",
+  "fix_label": "CorrectPrinterIdentificationToPreventHPAppInstallation",
+  "tags": [
+    "PrinterConfiguration",
+    "HP",
+    "Windows",
+    "LLM Synthesized"
+  ],
+  "node_id": "b85684cc-3571-4a8f-97d2-ee597c64067e",
+  "node_label": "Fix",
+  "reliability": "0.8",
+  "severity_type": "moderate",
+  "entity_type": "Fix"
+}

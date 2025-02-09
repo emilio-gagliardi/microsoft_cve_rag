@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_experiences_heap_buffer_overflow",
+  "description": "After updating to Microsoft Edge (Chromium-based) version 126.0.2592.56, users may experience unexpected browser behavior stemming from a heap buffer overflow vulnerability in tab groups. This issue can lead to instability within the browser environment, including potential crashes or erratic performance that could disrupt user tasks. Although the specific exploit requires user interaction with crafted HTML, the result may manifest as unresponsive tabs or sudden application closure, leaving users frustrated and unable to continue their work seamlessly. Administrators should be aware of these impacts and advise users to ensure they are on the latest version post-update to mitigate these risks. (KB-126.0.2592.56)",
+  "source_id": "8b9be79e-3b87-b25c-ac7c-6bf7eb329a03",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8b9be79e-3b87-b25c-ac7c-6bf7eb329a03"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Heap Buffer Overflow",
+    "Browser Performance",
+    "User Experience"
+  ],
+  "node_id": "8b128143-ea11-41eb-8b33-003d890c6ce7",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "description": "The Windows Resilient File System (ReFS) has an information disclosure flaw characterized by a buffer over-read, allowing unauthorized data retrieval, including initialized or uninitialized memory from the process heap. This issue can be exploited locally or through user interaction, particularly affecting file system operations where sensitive data could be at risk.",
+  "cause_label": "refs_buffer_over_read_information_disclosure",
+  "source_id": "f1c00a87-36fe-32df-16e6-3384f1b72e0b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f1c00a87-36fe-32df-16e6-3384f1b72e0b"
+  ],
+  "tags": [
+    "ReFS",
+    "Information Disclosure",
+    "Windows 11",
+    "Buffer over-read",
+    "CVE-2024-43500"
+  ],
+  "node_id": "dcc245e0-dea6-48a8-ad9a-e7b81cdd7c52",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

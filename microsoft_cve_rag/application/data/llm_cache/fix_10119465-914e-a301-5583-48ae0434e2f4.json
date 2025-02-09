@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the CVE-2024-11116 vulnerability, ensure that you are running the latest version of Microsoft Edge (Chromium-based).\n\n1. Open your Microsoft Edge browser.\n2. Click on the three dots (...) in the top-right corner.\n3. Navigate to Help and feedback > About Microsoft Edge.\n4. Confirm that the version displayed is at least 131.0.6778.69.\n\n**Details**:\n- This security update resolves an issue due to an inappropriate implementation in Blink, allowing a remote attacker to perform UI spoofing via a crafted HTML page.\n- Upgrade to Microsoft Edge version 131.0.2903.48 released on November 14, 2024, to mitigate this vulnerability and ensure safe browsing.\n- For more information about changes and features in this build, refer to the official release notes.\n\n**Preconditions**:\n- Ensure your device is connected to the internet.\n- It is advisable to back up any important browser data before proceeding with the update.",
+  "source_id": "10119465-914e-a301-5583-48ae0434e2f4",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_1310_6778_69",
+  "tags": [
+    "CVE20241116",
+    "MicrosoftEdge",
+    "Chromium",
+    "KB13102890348"
+  ],
+  "node_id": "a984f4f4-64c5-4b2b-a6b2-cde0e5359fd1",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "10119465-914e-a301-5583-48ae0434e2f4"
+  ],
+  "verification_status": "unverified"
+}

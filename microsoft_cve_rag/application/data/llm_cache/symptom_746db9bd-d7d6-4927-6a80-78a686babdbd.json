@@ -1,0 +1,21 @@
+{
+  "symptom_label": "excel_add_ins_do_not_load_after_update",
+  "description": "After installing the update referenced in KB5002653, Excel add-ins that were previously enabled may fail to load correctly upon reopening Excel. This issue has been confirmed internally by patch testers. Users need to perform a manual download and installation of KB4484305 from the Microsoft Download Center to resolve this issue. Specifically, this problem affects Excel 2016, and the manual fix is not available through the Microsoft Update Catalog or Configuration Manager. Any organization relying on specific Excel add-ins for functionality may experience operational disruptions until the manual fix is applied.",
+  "source_id": "746db9bd-d7d6-4927-6a80-78a686babdbd",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "746db9bd-d7d6-4927-6a80-78a686babdbd"
+  ],
+  "tags": [
+    "excel",
+    "add-ins",
+    "patch_management",
+    "update_issue"
+  ],
+  "node_id": "c940d4a8-9769-4d14-9af1-f57b8b808079",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

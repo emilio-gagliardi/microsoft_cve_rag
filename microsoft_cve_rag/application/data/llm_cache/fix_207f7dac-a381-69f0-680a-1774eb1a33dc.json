@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the use after free vulnerability identified as CVE-2024-6293 in browser software:\n\n1. Ensure you are running the latest version of Microsoft Edge (Chromium-based).\n2. Update to at least version 126.0.6478.127, which addresses this specific vulnerability.\n\n**Details**:\nThis security update mitigates the risk of potential exploitation via crafted HTML pages that could lead to heap corruption. It's crucial to verify the current version of your browser to ensure compliance with the latest security standards.\n\n**Preconditions**:\n- Backup browser data before updating.\n- Check for updates regularly to maintain browser security.",
+  "source_id": "207f7dac-a381-69f0-680a-1774eb1a33dc",
+  "source_type": "MSRCPost",
+  "fix_label": "upgrade_microsoft_edge_to_resolve_cve20246293",
+  "tags": [
+    "CVE20246293",
+    "MicrosoftEdge",
+    "ChromiumSecurity",
+    "HeapCorruption"
+  ],
+  "node_id": "48d03399-0c98-4d0c-b3c3-3b6eb2b66287",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "207f7dac-a381-69f0-680a-1774eb1a33dc"
+  ],
+  "verification_status": "unverified"
+}

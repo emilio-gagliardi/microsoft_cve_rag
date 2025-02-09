@@ -1,0 +1,17 @@
+{
+  "description": "The identified cause of the issue described in CVE-2023-36006 stems from a flaw in the Microsoft WDAC OLE DB provider for SQL Server, which allows remote code execution through manipulated networking packets. Specifically, this vulnerability arises when an authenticated user is tricked into connecting to a malicious SQL server, which can send specially crafted replies that exploit the flaw in the connection process. The severity of this vulnerability is compounded by the fact that it allows for execution of arbitrary code in the context of the user\u2019s application. The affected builds include various versions of Windows 10 and Windows 11 (build numbers: 10.0.10240.20345, 10.0.22000.2652, 10.0.19045.3803, etc.) and is documented under KB articles KB-5033379, KB-5033375, and KB-5033369. This scenario emphasizes the critical importance of secure SQL server connections and the implications of mistakenly trusting network communications.",
+  "cause_label": "FlawedOleDbProviderLeadsToRemoteExecution",
+  "source_id": "3ace2626-f40c-276f-0371-cb85ece0a855",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE-2023-36006",
+    "remote code execution",
+    "OLE DB",
+    "SQL Server"
+  ],
+  "node_id": "fef6ffd4-0af5-4247-bf62-9b10a069ed4e",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

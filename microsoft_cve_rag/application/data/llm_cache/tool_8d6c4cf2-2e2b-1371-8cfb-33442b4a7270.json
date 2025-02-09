@@ -1,0 +1,23 @@
+{
+  "tool_label": "microsoft_edge_chrome_vulnerability_update",
+  "description": "**Tool Overview**:\n\nThis tool provides insights into the recent updates released for Chrome and Microsoft Edge that address zero-day vulnerabilities. The updates are essential for maintaining security in environments that utilize these browsers, especially given the rapid release of patches in response to identified exploits. \n\n**Details**:\n1. **Purpose**: The tool assists system administrators in tracking and applying critical security updates for major web browsers.\n2. **Functionality**: It gathers information about the most recent CVEs affecting Chrome and Edge, and encourages immediate application of available patches.\n3. **Usage**: Regularly review the tool for updates on vulnerabilities and promptly apply patches during your routine maintenance schedule.\n4. **Prioritization**: Given the high CVSS scores of recent vulnerabilities, it emphasizes the importance of rapid deployment of security updates as part of a risk-based management strategy.\n5. **Communication**: The tool can facilitate internal communication within IT teams about urgency and priority based on detected threats.\n\n",
+  "source_id": "8d6c4cf2-2e2b-1371-8cfb-33442b4a7270",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "8d6c4cf2-2e2b-1371-8cfb-33442b4a7270"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em6d9ae79d-d44c-4773-b4ee-95c542a97cb2%4040d4bb04.com",
+  "tool_url": "",
+  "tags": [
+    "vulnerability",
+    "update",
+    "browser",
+    "security"
+  ],
+  "node_id": "07bcbb3a-ceec-4fbc-9615-587be78dbff7",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

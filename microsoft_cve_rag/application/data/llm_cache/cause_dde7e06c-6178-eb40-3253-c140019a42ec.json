@@ -1,0 +1,22 @@
+{
+  "description": "A use after free flaw in win32k that allows elevation of privilege, enabling attackers to exploit the vulnerability through local or remote means to gain system privileges.",
+  "cause_label": "win32k_use_after_free_vulnerability_elevation_privilege",
+  "source_id": "dde7e06c-6178-eb40-3253-c140019a42ec",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "dde7e06c-6178-eb40-3253-c140019a42ec"
+  ],
+  "tags": [
+    "elevation of privilege",
+    "CVE-2024-38059",
+    "win32k",
+    "use after free",
+    "vulnerability"
+  ],
+  "node_id": "f4efe12d-c080-4c8b-8a34-5a7758218a70",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

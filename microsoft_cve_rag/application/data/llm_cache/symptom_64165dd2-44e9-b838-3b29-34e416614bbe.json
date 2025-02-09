@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_remote_access_connection_manager_disclosure",
+  "description": "After applying the security updates identified in KB5037788, KB5037771, KB5037770, and KB5037768, users may experience instances where sensitive information is inadvertently exposed. This could manifest as unauthorized visibility of memory content, particularly heap memory, which could potentially disclose confidential details about user sessions or internal processes. End users and system administrators are likely to observe unusual behavior or data access notifications indicating information leakage. Affected build numbers include Windows 10 (various builds) and Windows Server editions, as described in the updates. The presence of this symptom might not be immediately apparent but could have serious implications for data integrity and confidentiality within organizational environments.",
+  "source_id": "64165dd2-44e9-b838-3b29-34e416614bbe",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "64165dd2-44e9-b838-3b29-34e416614bbe"
+  ],
+  "tags": [
+    "Windows 10",
+    "Windows Server",
+    "Information Disclosure",
+    "Heap Memory"
+  ],
+  "node_id": "0f82dd88-564c-4f45-b45e-045fc483f139",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

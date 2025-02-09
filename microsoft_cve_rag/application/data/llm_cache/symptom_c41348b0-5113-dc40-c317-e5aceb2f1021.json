@@ -1,0 +1,20 @@
+{
+  "symptom_label": "recover_partition_space_info_returned_by_powershell",
+  "description": "The post discusses utilizing PowerShell in administrative mode to retrieve information about the space available in the recovery partition. Admins can run the command 'get-volume' to display connected volume information, which includes two specific columns that indicate the partition size remaining and its total allocated size. This method is important for system administrators to ensure that the recovery partition has sufficient space, which is critical for recovery operations on Windows systems, particularly in the context of Windows 10, build 22H2 updates. Proper management of recovery partition space can help prevent issues during system restoration or recovery processes. While no specific KB article is referenced, utilizing PowerShell in this way aligns with best practices for system maintenance.",
+  "source_id": "c41348b0-5113-dc40-c317-e5aceb2f1021",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "c41348b0-5113-dc40-c317-e5aceb2f1021"
+  ],
+  "tags": [
+    "powershell",
+    "recovery_partition",
+    "system_management",
+    "windows_10"
+  ],
+  "node_id": "5faff64c-33a3-45e2-849f-d5c25e139788",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

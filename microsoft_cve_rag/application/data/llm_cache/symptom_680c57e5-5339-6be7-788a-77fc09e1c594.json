@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_kernel_elevation_of_privilege_exploit",
+  "description": "Users may experience unauthorized access or elevated privileges on systems running the vulnerable Windows components. This can manifest as abnormal behavior where a compromised application may perform actions intended for system-level processes. System administrators might notice unexpected changes in user permissions or altered access to sensitive resources, leading to possible data leaks or unauthorized actions performed on behalf of legitimate users. The affected products include various versions of Windows 10 and 11, with build numbers such as 10.0.22631.4460 and 10.0.26100.2314. For remediation, KB articles KB-5046696, KB-5046633, KB-5046617, and KB-5046613 provide further insights and necessary patches to mitigate the impact of this vulnerability.",
+  "source_id": "680c57e5-5339-6be7-788a-77fc09e1c594",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "680c57e5-5339-6be7-788a-77fc09e1c594"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Elevation of Privilege",
+    "User Permissions",
+    "Vulnerability Mitigation"
+  ],
+  "node_id": "03996dde-2f62-4195-b4d1-8738b0e5011b",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

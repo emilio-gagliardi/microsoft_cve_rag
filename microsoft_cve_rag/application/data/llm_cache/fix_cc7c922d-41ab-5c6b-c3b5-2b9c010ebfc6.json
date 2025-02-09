@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the content security policy vulnerability detailed in CVE-2024-1672:\n\n1. Ensure that Microsoft Edge (Chromium-based) is updated to version 122.0.2365.52 or later.\n2. Check for updates by navigating to:\n   - Click on the three dots (...) on the right-hand side of the browser window.\n   - Select 'Help and feedback'.\n   - Click 'About Microsoft Edge' to view the current version.\n   - If an update is available, follow the prompts to install it.\n\n**Details**:\n- This update addresses an inappropriate implementation in the content security policy, mitigating the risk of remote attackers bypassing controls via crafted HTML pages.\n- For more information on version updates, see the [Google Chrome releases](https://chromereleases.googleblog.com/2024).\n\n**Preconditions**:\n- Users must be using Microsoft Edge (Chromium-based) version 122.0.2365.52 or later to ensure protection from this vulnerability.\n",
+  "source_id": "cc7c922d-41ab-5c6b-c3b5-2b9c010ebfc6",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_122_0_2365_52",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-1672",
+    "ContentSecurityPolicy",
+    "Chromium"
+  ],
+  "node_id": "4c93c5a9-a229-46f4-94bf-e1f2b4b79932",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "cc7c922d-41ab-5c6b-c3b5-2b9c010ebfc6"
+  ]
+}

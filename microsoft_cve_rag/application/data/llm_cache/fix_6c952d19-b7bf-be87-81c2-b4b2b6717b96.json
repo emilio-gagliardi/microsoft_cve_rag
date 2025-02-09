@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the winlogon elevation of privilege vulnerability (CVE-2024-43583) affecting various Windows 10 and 11 versions:\n\n1. Download the appropriate KB update package from the Microsoft Update Catalog.\n   - For Windows 11 Version 24H2 (x64): [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284).\n   - For Windows 11 Version 23H2 (x64): [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285).\n   - For Windows 10 (x64): [KB5044286](https://catalog.update.microsoft.com/Search.aspx?q=KB5044286).\n   - For additional versions, refer to the respective update packages.\n\n2. Install the updates on the relevant systems.\n\n3. Restart the system to apply the changes effectively.\n\n**Details**:\nThis update addresses a vulnerability in winlogon that could allow an attacker to gain elevated privileges on the affected systems. Ensure all listed systems are updated accordingly to safeguard against this elevation of privilege attack.\nBackup critical data prior to installation to prevent any data loss during the process.",
+  "source_id": "6c952d19-b7bf-be87-81c2-b4b2b6717b96",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_winlogon_elevation_privilege_cve202443583",
+  "tags": [
+    "KB5044284",
+    "KB5044285",
+    "KB5044286",
+    "Windows11"
+  ],
+  "node_id": "1422df4e-eedd-42c5-8603-b1b023d01192",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "6c952d19-b7bf-be87-81c2-b4b2b6717b96"
+  ],
+  "verification_status": "unverified"
+}

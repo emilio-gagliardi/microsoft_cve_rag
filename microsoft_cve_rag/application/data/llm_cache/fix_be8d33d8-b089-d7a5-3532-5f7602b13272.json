@@ -1,0 +1,16 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Internet Connection Sharing (ICS) denial of service vulnerability (CVE-2023-35642), ensure your systems are updated with the relevant patches.\n\n1. Check the current build number of your Windows system.\n2. Download and apply the appropriate KB updates from the Microsoft Update Catalog.\n3. Reboot your system to apply the changes, ensuring that vulnerabilities are effectively mitigated.\n\n**Details**:\n- Multiple KB articles are available to address different Windows versions, namely: KB5033379, KB5033375, KB5033372, and KB5033369. \n- Update packages can be found at: \n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5033118  \n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5033422  \n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5033373  \n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5033379  \n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5033375  \n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5033369  \n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5033429  \n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5033433  \n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5033420  \n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5033383  \n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5033372\n\n**Preconditions**:\n- Ensure your system is running a supported version of Windows. \n- Backup critical data before proceeding with installations.\n",
+  "source_id": "be8d33d8-b089-d7a5-3532-5f7602b13272",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateWindowsToMitigateCVE202335642",
+  "tags": [
+    "PatchManagement",
+    "CVE202335642",
+    "Windows"
+  ],
+  "node_id": "5dda454c-b271-425f-b0e4-e7636b12a618",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix"
+}

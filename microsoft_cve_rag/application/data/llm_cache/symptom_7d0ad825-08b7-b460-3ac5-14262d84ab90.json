@@ -1,0 +1,22 @@
+{
+  "symptom_label": "bitlocker_bypass_leads_to_data_exposure",
+  "description": "Users may experience unauthorized access to sensitive data as a result of a bypass in the BitLocker security feature. This can lead to complete exposure of encrypted files, resulting in a total loss of confidentiality. The issue specifically affects several builds of Windows 10 and Windows 11, with a maximum severity rating classified as important. Systems impacted are those running builds such as Windows 11 Version 24H2 (10.0.26100.2033) through to Windows 10 Version 21H2 (10.0.22000.3260). Admins should consult KB articles KB5044285, KB5044284, KB5044280, and KB5044273 for guidance on remediation steps to mitigate this risk and secure confidential information.",
+  "source_id": "7d0ad825-08b7-b460-3ac5-14262d84ab90",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7d0ad825-08b7-b460-3ac5-14262d84ab90"
+  ],
+  "tags": [
+    "BitLocker",
+    "Data Exposure",
+    "Windows 10",
+    "Windows 11",
+    "Security Update"
+  ],
+  "node_id": "c9885937-0cc3-4c3c-b354-6595eb97ee6b",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

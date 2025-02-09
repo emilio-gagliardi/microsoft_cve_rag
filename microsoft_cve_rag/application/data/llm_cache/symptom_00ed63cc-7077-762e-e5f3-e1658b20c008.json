@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_defender_onboarding_fails_for_windows_11",
+  "description": "New devices running Windows 11 version 24H2 may experience issues when attempting to onboard to Microsoft Defender for Endpoint. IT administrators notice that devices are not being onboarded successfully, which leads to insufficient protection against threats. This issue affects all supported architectures and is related to the device's compliance status in the Microsoft Intune device compliance dashboard. Users may be blocked from accessing corporate resources if conditional access policies are configured to require Defender for Endpoint. The problem arises primarily when devices upgraded from Home SKU to Pro SKU do not automatically install the Defender for Endpoint agent, leaving the device unprotected. The known issue is documented in KB5043950.",
+  "source_id": "00ed63cc-7077-762e-e5f3-e1658b20c008",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "00ed63cc-7077-762e-e5f3-e1658b20c008"
+  ],
+  "tags": [
+    "Onboarding Issue",
+    "Microsoft Defender",
+    "Intune Compliance",
+    "Windows 11"
+  ],
+  "node_id": "507b371e-29d9-4e7b-8680-0d8558f8da93",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

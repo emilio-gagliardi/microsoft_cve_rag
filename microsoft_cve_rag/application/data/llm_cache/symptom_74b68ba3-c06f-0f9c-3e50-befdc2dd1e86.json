@@ -1,0 +1,16 @@
+{
+  "symptom_label": "WindowsRctPerformanceIssueCausesCompatibilityProblems",
+  "description": "The Windows RCT performance issue, as outlined in the context, has resulted in a compatibility problem with existing RCT files after the installation of the October 2023 cumulative update. This symptom may lead to failures in starting VMs, impacting their operational efficiency and reliability. System administrators should refer to the details shared by Karl on the Microsoft Tech Community, as well as monitor how this compatibility issue affects their environments in terms of performance and system stability.",
+  "source_id": "74b68ba3-c06f-0f9c-3e50-befdc2dd1e86",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows",
+    "RCT",
+    "PerformanceIssue"
+  ],
+  "node_id": "e8663bb0-49a4-41cb-b627-5acc793571c2",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

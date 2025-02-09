@@ -1,0 +1,21 @@
+{
+  "description": "The cause of the issue reported relates to the functionality of the update server assisted search feature in Outlook when operating in cached mode. After the installation of the March 2024 update, users encountered a scenario where the search functionality failed to operate correctly. This appears to be linked to specific registry settings that can disable features of the Outlook search functionality, thereby leading to the observed problems. The registry values for disabling the server-assisted search and suggestions need to be set to 1 to mitigate the issue. An in-depth report on the utilization of fast search in Outlook can be referenced in KB381195, which further discusses the interaction with Exchange Server's search capabilities.",
+  "source_id": "392c639d-80be-7502-a20d-b4a53be79a1c",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "392c639d-80be-7502-a20d-b4a53be79a1c"
+  ],
+  "cause_label": "outlook_search_issue_due_to_registry_settings",
+  "tags": [
+    "Outlook",
+    "cached mode",
+    "registry settings",
+    "search functionality",
+    "March 2024 update"
+  ],
+  "node_id": "eae8c488-274b-4bd8-8335-3601b26238c8",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

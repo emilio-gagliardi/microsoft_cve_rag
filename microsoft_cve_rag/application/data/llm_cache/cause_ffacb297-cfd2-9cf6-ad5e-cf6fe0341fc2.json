@@ -1,0 +1,23 @@
+{
+  "description": "Insufficient data validation in the installer of Google Chrome, affecting build numbers prior to 128.0.6613.84, allows local attackers to exploit the flaw for privilege escalation via malicious files.",
+  "cause_label": "chromium_insufficient_data_validation_in_installer",
+  "source_id": "ffacb297-cfd2-9cf6-ad5e-cf6fe0341fc2",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ffacb297-cfd2-9cf6-ad5e-cf6fe0341fc2"
+  ],
+  "tags": [
+    "CVE",
+    "Chrome",
+    "Microsoft Edge",
+    "Privilege Escalation",
+    "Installer",
+    "Validation"
+  ],
+  "node_id": "7c73e4cb-503f-43b9-8bc8-d85d810ff09f",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

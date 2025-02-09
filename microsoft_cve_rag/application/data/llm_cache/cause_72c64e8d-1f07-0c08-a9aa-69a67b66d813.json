@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause of this issue is an integer underflow (wrap or wraparound) that occurs within the Windows workstation service, which allows an attacker with low privileges to potentially escalate those privileges by exploiting the vulnerability through arbitrary memory writes and control flow hijacking.",
+  "cause_label": "windows_workstation_service_elevation_of_privilege_integer_underflow",
+  "source_id": "72c64e8d-1f07-0c08-a9aa-69a67b66d813",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "72c64e8d-1f07-0c08-a9aa-69a67b66d813"
+  ],
+  "tags": [
+    "CVE-2024-38050",
+    "Windows",
+    "Integer Underflow",
+    "Privilege Escalation"
+  ],
+  "node_id": "b2fafc71-a81e-4d8f-a59f-dcbd584d1aa3",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

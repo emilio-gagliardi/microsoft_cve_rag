@@ -1,0 +1,20 @@
+{
+  "description": "Remote procedure call runtime allows for a type confusion flaw, leading to potential remote code execution on the affected systems.",
+  "cause_label": "rpc_runtime_type_confusion_remote_code_execution",
+  "source_id": "1db4011c-da76-c148-9b51-9eac739dc57b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "1db4011c-da76-c148-9b51-9eac739dc57b"
+  ],
+  "tags": [
+    "CVE",
+    "RPC",
+    "remote code execution",
+    "type confusion"
+  ],
+  "node_id": "1acb49be-4fc5-499a-8ccb-27e6d17cc428",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

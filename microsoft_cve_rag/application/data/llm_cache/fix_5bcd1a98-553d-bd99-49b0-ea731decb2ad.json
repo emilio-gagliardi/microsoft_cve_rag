@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Kerberos security feature bypass vulnerability (CVE-2024-21427), apply the recommended updates as listed below:\n\n1. Identify the appropriate KB Article based on your system version:\n   - For Windows 11 Version 23H2: KB5035853\n   - For Windows 11 Version 22H2: KB5035853\n   - For Windows 11 Version 21H2: KB5035854\n   - For Windows 10 for x64-based Systems: KB5035858\n   - For Windows 10 for 32-bit Systems: KB5035858\n   - For Windows 10 Version 22H2 for x64-based Systems: KB5035845\n   - For Windows 10 Version 21H2 for x64-based Systems: KB5035845\n\n2. Download and install the update packages from the official Microsoft Update Catalog:\n   - [KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)\n   - [KB5035854](https://catalog.update.microsoft.com/Search.aspx?q=KB5035854)\n   - [KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845)\n   - [KB5035858](https://catalog.update.microsoft.com/Search.aspx?q=KB5035858)\n\n**Details**:\n- This update addresses the security feature bypass vulnerability affecting Windows Kerberos, which could be exploited to gain unauthorized access to security features.\n\n**Preconditions**:\n- Ensure your system is compatible with the respective Windows version.\n- Backup critical data before proceeding with the update installation.\n",
+  "source_id": "5bcd1a98-553d-bd99-49b0-ea731decb2ad",
+  "source_type": "MSRCPost",
+  "fix_label": "address_kerberos_security_feature_bypass_cve202421427",
+  "tags": [
+    "KB5035853",
+    "Windows11",
+    "CVE202421427",
+    "Kerberos"
+  ],
+  "node_id": "aa78dcec-c44d-4d8e-8217-371ed923fde2",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "5bcd1a98-553d-bd99-49b0-ea731decb2ad"
+  ]
+}

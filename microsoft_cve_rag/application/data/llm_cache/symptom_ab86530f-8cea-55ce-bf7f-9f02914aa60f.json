@@ -1,0 +1,16 @@
+{
+  "symptom_label": "AutoApprovalRuleSendsOutdatedPatchesToEdge",
+  "description": "The symptom indicates that an auto approval rule in SCCM (System Center Configuration Manager) results in the deployment of updated patches to Microsoft Edge only after a sync occurs. This behavior could potentially lead to outdated patches being applied if the sync is not timely, impacting the user experience and security posture of the affected product. Users may observe delayed patch deployments, which can leave the Edge browser vulnerable to known issues.",
+  "source_id": "ab86530f-8cea-55ce-bf7f-9f02914aa60f",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "auto approval",
+    "patch deployment",
+    "Microsoft Edge"
+  ],
+  "node_id": "3c9244e9-bc61-410f-9d92-724f0aaee39a",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

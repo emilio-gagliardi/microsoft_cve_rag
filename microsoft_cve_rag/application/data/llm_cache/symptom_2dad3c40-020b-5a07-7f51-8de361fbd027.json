@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_crashes_after_security_update",
+  "description": "After applying the security update KB-126.0.2592.56, Microsoft Edge (Chromium-based) may experience unexpected crashes or become unresponsive. Users might notice that the browser fails to load web pages, resulting in a frustrating experience. This instability could manifest after browsing for a period, leading to loss of any unsaved data. The problem specifically arises from type confusion in the V8 engine of the Chromium framework. System administrators should monitor user reports of crashes and implement the latest security update to mitigate these risks and maintain browser stability.",
+  "source_id": "2dad3c40-020b-5a07-7f51-8de361fbd027",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2dad3c40-020b-5a07-7f51-8de361fbd027"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Crash",
+    "Stability"
+  ],
+  "node_id": "7ec167a9-d0b9-41a2-a7d9-5b8cbd18445c",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

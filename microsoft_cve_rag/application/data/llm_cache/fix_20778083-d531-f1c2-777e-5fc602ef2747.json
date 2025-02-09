@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the BSOD (Blue Screen of Death) issues related to a recent CrowdStrike update, follow these steps:\n\n1. Boot Windows into Safe Mode or the Windows Recovery Environment.\n\n2. Navigate to the directory: `C:\\Windows\\System32\\Drivers\\CrowdStrike`.\n\n3. Locate the file matching `c-00000291*.sys` and delete it.\n\n4. Boot the host normally after the deletion.\n\n**Details**:\n- This fix removes a specific driver that appears to be causing the BSOD, allowing the system to boot without the issue. Ensure to revert any changes done for troubleshooting once stability is restored.",
+  "source_id": "20778083-d531-f1c2-777e-5fc602ef2747",
+  "source_type": "PatchManagementPost",
+  "fix_label": "remove_crowdstrike_driver_to_fix_bsod",
+  "tags": [
+    "CrowdStrike",
+    "BSOD",
+    "DriverRemoval"
+  ],
+  "node_id": "45edd934-d2aa-4233-bca2-8c6920f4307b",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "20778083-d531-f1c2-777e-5fc602ef2747"
+  ],
+  "verification_status": "unverified"
+}

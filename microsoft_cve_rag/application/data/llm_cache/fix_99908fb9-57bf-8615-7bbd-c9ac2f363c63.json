@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows themes spoofing vulnerability (CVE-2024-38030), ensure to apply the relevant updates based on your Windows version:\n\n1. For Windows 11 Version 23H2, download and install the update from: [KB5040442](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442).\n2. For Windows 10 Version 22H2, refer to the update found at: [KB5040427](https://catalog.update.microsoft.com/Search.aspx?q=KB5040427).\n3. For earlier versions like Windows 11 Version 21H2, download the patch from: [KB5040431](https://catalog.update.microsoft.com/Search.aspx?q=KB5040431).\n4. Restart your system to ensure that all changes take effect.\n\n**Details**:\nThis update addresses the spoofing vulnerability related to Windows themes, which could potentially expose sensitive information to unauthorized actors. Make sure to back up all critical data before performing the installation to prevent any potential data loss.\n\n**Preconditions**:\n- Ensure the system is running the specified version of Windows.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "99908fb9-57bf-8615-7bbd-c9ac2f363c63",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_themes_spoofing_cve202438030",
+  "tags": [
+    "KB5040442",
+    "Windows11",
+    "CVE202438030",
+    "Spoofing"
+  ],
+  "node_id": "a7e26a62-c788-41c2-90a6-dce3b6b439cf",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "99908fb9-57bf-8615-7bbd-c9ac2f363c63"
+  ],
+  "verification_status": "unverified"
+}

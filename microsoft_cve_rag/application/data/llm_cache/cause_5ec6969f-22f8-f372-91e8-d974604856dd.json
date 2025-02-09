@@ -1,0 +1,20 @@
+{
+  "description": "The win32k component contains an untrusted pointer dereference flaw that allows local attackers to exploit memory management vulnerabilities, potentially leading to elevation of privileges on affected systems.",
+  "cause_label": "win32k_untrusted_pointer_dereference_elevation",
+  "source_id": "5ec6969f-22f8-f372-91e8-d974604856dd",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5ec6969f-22f8-f372-91e8-d974604856dd"
+  ],
+  "tags": [
+    "CVE-2024-21346",
+    "win32k",
+    "elevation_of_privilege",
+    "CWE-822"
+  ],
+  "node_id": "8aa78587-f256-4b22-9e9c-8829c12410a8",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

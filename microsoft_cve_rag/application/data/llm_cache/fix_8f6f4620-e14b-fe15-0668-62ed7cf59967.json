@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows Kerberos information disclosure vulnerability (CVE-2024-43547):\n\n1. Ensure your system is running one of the following Windows versions:\n   - Windows 11 Version 24H2\n   - Windows 11 Version 23H2\n   - Windows 11 Version 22H2\n   - Windows 11 Version 21H2\n   - Windows 10 for x64-based Systems\n   - Windows 10 for 32-bit Systems\n2. Download and apply the relevant KB updates from the Microsoft Update Catalog:\n   - [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n   - [KB5044286](https://catalog.update.microsoft.com/Search.aspx?q=KB5044286)\n   - [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n   - [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280)\n3. Restart the system after applying updates to ensure all changes take effect.\n\n**Details**:\nThis update addresses a weakness in the handling of Kerberos, which could potentially allow an information disclosure attack. It is imperative to keep your system updated to prevent exploitation. Backup critical data before applying any updates to ensure data integrity.\n",
+  "source_id": "8f6f4620-e14b-fe15-0668-62ed7cf59967",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_kerberos_information_disclosure_cve202443547",
+  "tags": [
+    "KB5044285",
+    "Windows11",
+    "Kerberos",
+    "CVE202443547"
+  ],
+  "node_id": "df3d79f5-2922-4aac-abe3-2b402f6f7be9",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "8f6f4620-e14b-fe15-0668-62ed7cf59967"
+  ],
+  "verification_status": "unverified"
+}

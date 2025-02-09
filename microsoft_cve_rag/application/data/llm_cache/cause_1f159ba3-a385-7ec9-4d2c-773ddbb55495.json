@@ -1,0 +1,17 @@
+{
+  "description": "The cause of the issue is an inadvertent hardcoding of the Linux kernel's maximum core limit to eight cores, which occurred within a commit made in 2009 that added automated scaling functionalities for scheduler settings. This unexpected limitation has persisted for nearly two decades, resulting in operational inefficiencies for systems requiring higher core utilization. The oversight hampers the kernel\u2019s ability to effectively manage and scale across modern multicore processors. This specific misconfiguration affects various Linux distributions relying on the kernel, potentially leading to significant performance constraints in enterprise-scale environments.",
+  "source_id": "1f159ba3-a385-7ec9-4d2c-773ddbb55495",
+  "source_type": "PatchManagementPost",
+  "cause_label": "AccidentalHardcodingOfMaximumCoreLimit",
+  "tags": [
+    "patch management",
+    "Linux kernel",
+    "core limitation",
+    "performance issue"
+  ],
+  "node_id": "83e0b419-33fe-4c49-84c6-21590baf7db1",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

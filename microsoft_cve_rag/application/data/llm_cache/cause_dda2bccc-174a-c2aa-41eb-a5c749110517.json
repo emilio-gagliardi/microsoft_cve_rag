@@ -1,0 +1,22 @@
+{
+  "description": "The vulnerability in grub2 arises from improper validation of glyph dimensions within the bitmap when rendering specific unicode sequences. This flaw enables an attacker to execute a heap-based out-of-bounds write, potentially leading to memory corruption and allowing arbitrary code execution under certain circumstances.",
+  "cause_label": "grub2_heap_based_out_of_bounds_write_unicode",
+  "source_id": "dda2bccc-174a-c2aa-41eb-a5c749110517",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "dda2bccc-174a-c2aa-41eb-a5c749110517"
+  ],
+  "tags": [
+    "heap corruption",
+    "grub2",
+    "unicode",
+    "remote code execution",
+    "CVE-2022-3775"
+  ],
+  "node_id": "f5ca5247-14ff-4e00-8b32-da34eaed2ea4",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

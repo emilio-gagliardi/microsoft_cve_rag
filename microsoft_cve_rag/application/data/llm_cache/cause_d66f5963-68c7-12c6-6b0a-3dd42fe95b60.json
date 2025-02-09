@@ -1,0 +1,18 @@
+{
+  "description": "The underlying cause of CVE-2023-36027 is an elevation of privilege vulnerability within the Microsoft Edge browser based on Chromium. This issue arises due to flaws in the network stack and how the browser handles certain requests, allowing unauthorized attackers to execute code remotely. Specifically, to exploit this vulnerability, an attacker must first gain access to the system, followed by running a specially crafted application or persuading a local user to open a malicious file containing exploitable code. The vulnerability affects Microsoft Edge versions 119.0.2151.58 and 118.0.2088.102, as detailed in KB article KB-119.0.2151.58. The severity of this vulnerability is classified as important, given the conditions for successful exploitation and impact on confidentiality, integrity, and availability, which while possibly limited, still represent a significant risk if exploited alongside other vulnerabilities.",
+  "cause_label": "NetworkStackFlawEnablesRemotePrivilegeEscalation",
+  "source_id": "d66f5963-68c7-12c6-6b0a-3dd42fe95b60",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE",
+    "Microsoft Edge",
+    " vulnerabilities",
+    "elevation of privilege",
+    "security"
+  ],
+  "node_id": "7f32043b-8e3b-4f8e-8d71-9b50d3fea43e",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

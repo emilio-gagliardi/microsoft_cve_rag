@@ -1,0 +1,16 @@
+{
+  "symptom_label": "AuthenticatedUserSusceptibleToRemoteExecution",
+  "description": "Authenticated users attempting to connect to SQL servers may experience unauthorized remote code execution, leading to arbitrary code execution within their SQL client applications. This symptom is particularly prominent in environments using affected builds of Windows, specifically versions 10 (Builds 10.0.22631.2715, 10.0.19045.3693, 10.0.19041.3693) and Windows Server (Builds 6.2.9200.24569, 6.3.9600.21668). Users should refer to KB Articles KB-5032190, KB-5032192, KB-5032189, and KB-5032199 for further details and potential solutions online.",
+  "source_id": "ca95dfbb-607c-218c-56be-3433d77e2376",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "f7270476-d6b4-4c99-8069-74e2e97a15a1",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

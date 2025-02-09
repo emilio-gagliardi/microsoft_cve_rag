@@ -1,0 +1,24 @@
+{
+  "tool_label": "windows_creation_tool_for_recovery_media",
+  "description": "**Tool Overview**:\n\nThe Windows Creation Tool is a utility that allows users to create installation media for Windows operating systems. It is particularly useful in scenarios where a user cannot boot into Windows Recovery Environment (WinRE), as it provides an alternative method to access recovery options.\n\n**Details**:\n\n1. **Purpose**: The tool is designed to create bootable USB drives or DVDs for Windows installations or repairs.\n2. **Usage**: It guides the user through the steps of downloading the Windows image and selecting the appropriate installation medium (USB or DVD).\n3. **Recovery**: If the system fails to boot into recovery, users can use the media created with this tool to troubleshoot and repair their systems through WinRE.\n4. **Multi-version Support**: Users can create installation media for both Windows 10 and Windows 11 operating systems.\n5. **Additional Features**: The tool includes options to upgrade the current installation or perform a clean install, providing flexibility based on user needs.\n\n**Example**:\n```plaintext\n1. Download the Windows Creation Tool from the official Microsoft website.\n2. Run the tool and select 'Create installation media'.\n3. Choose the language, edition, and architecture.\n4. Select a USB flash drive or ISO file as the output.\n5. Follow the prompts to create the installation medium.\n```",
+  "source_id": "9925d2c0-1306-0450-4daa-686b9f603e0c",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "9925d2c0-1306-0450-4daa-686b9f603e0c"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAH6iNtq8XGy_DvFcaDOoATxGPDtrjy%3Dy6M%2BRK%2Bo48mh4kOhBMw%40mail.gmail.com",
+  "tool_url": "https://www.microsoft.com/en-us/software-download/windows10",
+  "tags": [
+    "Windows",
+    "Recovery",
+    "Installation",
+    "Creation Tool",
+    "LLM Synthesized"
+  ],
+  "node_id": "e8ef8e26-f9d6-47d5-996a-cb0467c951ce",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

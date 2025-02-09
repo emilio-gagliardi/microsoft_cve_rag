@@ -1,0 +1,21 @@
+{
+  "description": "A use after free condition in the media component of Chromium allowed for potential heap corruption, impacting Microsoft Edge that uses Chromium. The flaw existed prior to build version 131.0.6778.69, which has been patched in the latest versions.",
+  "cause_label": "chromium_use_after_free_in_media_component",
+  "source_id": "f15faf16-365a-f72f-6a34-5ae30ce408c1",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f15faf16-365a-f72f-6a34-5ae30ce408c1"
+  ],
+  "tags": [
+    "CVE-2024-11112",
+    "Chromium",
+    "Heap Corruption",
+    "Microsoft Edge"
+  ],
+  "node_id": "ec999bb8-cc65-42ed-bd0a-9419038ae8d8",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

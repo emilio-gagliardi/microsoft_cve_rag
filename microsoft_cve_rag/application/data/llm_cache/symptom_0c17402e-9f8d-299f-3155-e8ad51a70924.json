@@ -1,0 +1,16 @@
+{
+  "symptom_label": "WindowsBluetoothDriverRemoteCodeExecutionImpact",
+  "description": "Users may experience unauthorized access to system resources due to an exploitation of the Windows Bluetooth driver, potentially allowing remote code execution. This can lead to unpredictable behavior as attackers manipulate the affected system. Specifically, affected systems running Windows 11 versions 23H2 (10.0.22631.2861), 22H2 (10.0.22621.2861), and 21H2 (10.0.22000.2652) are impacted by this behavior, as detailed in the KB articles KB5033375 and KB5033369.",
+  "source_id": "0c17402e-9f8d-299f-3155-e8ad51a70924",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "a1b44e2f-a47d-4452-8d0d-16ddf44fb33c",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

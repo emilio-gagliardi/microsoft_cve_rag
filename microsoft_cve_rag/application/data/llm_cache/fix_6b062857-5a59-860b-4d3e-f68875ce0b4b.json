@@ -1,0 +1,16 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate CVE-2023-6347 regarding a use-after-free vulnerability in Mojo within Chromium:\n\n1. Update your Microsoft Edge browser to version 119.0.2151.97 or later.\n2. To check your version, click the three dots (...) in the upper right corner of the Edge window, select 'Help and Feedback', and then click 'About Microsoft Edge'.\n\n**Details**:\n- This update resolves the security vulnerability associated with CVE-2023-6347, ensuring that the Microsoft Edge (Chromium-based) browser is secure against exploitation.\n- Build Numbers to update to include:\n  - Microsoft Edge (Chromium-based): 119.0.2151.97\n  - Extended Stable: 118.0.2088.122, 119.0.2151.97.\n\n**Preconditions**:\n- Users should ensure they are running a compatible version of Microsoft Edge to apply the fix effectively.",
+  "source_id": "6b062857-5a59-860b-4d3e-f68875ce0b4b",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeToMitigateCVE20236347",
+  "tags": [
+    "CVE-2023-6347",
+    "MicrosoftEdge",
+    "Chromium"
+  ],
+  "node_id": "95d3e2d2-1d72-44cf-92a2-ad8548cb1b77",
+  "node_label": "Fix",
+  "reliability": "0.9",
+  "severity_type": "critical",
+  "entity_type": "Fix"
+}

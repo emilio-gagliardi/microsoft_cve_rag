@@ -1,0 +1,21 @@
+{
+  "symptom_label": "recovery_partition_free_space_affects_system_functionality",
+  "description": "The functionality of the recovery partition in Windows Server 2022 can be impacted by insufficient free space, rather than just the total size of the partition. This behavior can lead to system recovery issues where operations that rely on the recovery partition cannot complete successfully, particularly if the free space is below what is required for effective system recovery or repair processes. System administrators can use the PowerShell command 'Get-Volume' to check the free space remaining in the recovery partition. Relevant KB Article for this issue is KB-5034439. Understanding this distinction is critical for maintaining system integrity and ensuring that recovery operations perform as expected during critical system failures.",
+  "source_id": "d6c8bb51-813d-4b2f-ab0a-a55a73ae9da7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d6c8bb51-813d-4b2f-ab0a-a55a73ae9da7"
+  ],
+  "tags": [
+    "Windows Server 2022",
+    "recovery partition",
+    "PowerShell",
+    "system recovery"
+  ],
+  "node_id": "c3a0f3fb-dae1-47b8-9525-9aefc692936a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

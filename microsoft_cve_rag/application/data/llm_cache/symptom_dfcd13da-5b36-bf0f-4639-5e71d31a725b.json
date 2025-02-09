@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_lockdown_policy_bypass_affects_system_behavior",
+  "description": "After applying the security update identified in KB5040442, systems running Windows 11 versions 22H2 and 23H2, as well as various builds of Windows 10, may exhibit altered security behavior due to the bypass of the Windows Lockdown Policy (WLDP). Users might experience a loss of expected protection, allowing potentially unauthorized execution of certain applications, a condition which could manifest as unexpected application behavior or unauthorized access to restricted areas of the system. The inability to enforce the desired execution policy can lead to a false sense of security, as the system might allow applications that would otherwise be blocked by the WLDP to run, posing a risk to system integrity and security. Administrators should closely monitor affected systems for any unusual activity post-update to mitigate potential security risks.",
+  "source_id": "dfcd13da-5b36-bf0f-4639-5e71d31a725b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "dfcd13da-5b36-bf0f-4639-5e71d31a725b"
+  ],
+  "tags": [
+    "Windows",
+    "Security",
+    "Patch Management",
+    "System Integrity"
+  ],
+  "node_id": "bc79bfdf-ea1e-4463-8147-dfb6bd9100a8",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

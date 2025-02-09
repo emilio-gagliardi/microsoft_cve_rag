@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the elevation of privilege vulnerability identified as CVE-2024-26241, it is essential to apply the relevant updates available. Follow these steps to ensure your system is secure:\n\n1. Verify the system build number to ensure compatibility with the updates.\n2. Download and install the following KB Articles:\n   - KB-5036925\n   - KB-5036909\n   - KB-5036899\n   - KB-5036896\n   - KB-5036894\n   - KB-5036893\n   - KB-5036892\n3. Restart your system after installation to apply the changes.\n\n**Details**:\n- This vulnerability, categorized under CWE-416 (Use After Free), primarily impacts Windows systems and can lead to elevation of privileges by an attacker.\n- Ensure your system is running any of the affected build numbers before proceeding with the updates.\n- For further reference, you can consult the official documentation at: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-26241.",
+  "source_id": "b3bcbd92-2a59-d9d9-4048-74bb960b687d",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_for_cve_2024_26241_elevation_of_privilege",
+  "tags": [
+    "KB5036925",
+    "CVE202426241",
+    "ElevationOfPrivilege",
+    "WindowsUpdates"
+  ],
+  "node_id": "d27beeef-e027-4969-94d5-8bd95e7668e3",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b3bcbd92-2a59-d9d9-4048-74bb960b687d"
+  ]
+}

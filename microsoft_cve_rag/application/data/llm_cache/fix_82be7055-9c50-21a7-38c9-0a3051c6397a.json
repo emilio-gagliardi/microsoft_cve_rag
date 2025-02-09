@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the inappropriate implementation in navigations related to CVE-2024-9966:\n\n1. Update your Microsoft Edge (Chromium-based) to the latest version 130.0.6723.59 released on October 17, 2024.\n2. Verify the update by clicking on the three dots (...) in the top right corner of the browser, and navigate to Help and Feedback > About Microsoft Edge.\n\n**Details**:\n- This update resolves the security vulnerability in Chromium that could allow a remote attacker to bypass content security policies. After applying the update, Microsoft Edge (Chromium-based) will no longer be vulnerable to this CVE.\n- Please refer to the official Microsoft Update Guide for more information on the release: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-9966.\n\n**Preconditions**:\n- Ensure you are using the Chromium-based version of Microsoft Edge.\n- Regularly check for updates to maintain up-to-date security features.",
+  "source_id": "82be7055-9c50-21a7-38c9-0a3051c6397a",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_for_cve20249966_resolution",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20249966",
+    "Chromium",
+    "SecurityUpdate"
+  ],
+  "node_id": "cbe904de-1b94-44f3-a91f-10cc7661c846",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Fix",
+  "source_ids": [
+    "82be7055-9c50-21a7-38c9-0a3051c6397a"
+  ],
+  "verification_status": "unverified"
+}

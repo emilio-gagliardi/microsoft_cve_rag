@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_crashing_on_open_after_update",
+  "description": "After updating to Microsoft Edge version 131.0.2903.48, users may experience frequent crashes when attempting to open the browser. This behavior can manifest as the application abruptly closing without warning or failing to load entirely, leaving users unable to access web content. End users may notice unresponsive behavior before the application closes or, in some cases, may encounter an error message indicating that the browser has stopped working. Such symptoms could significantly disrupt productivity for users reliant on Edge for web browsing and application access, particularly in enterprise environments. To mitigate this, users should verify they are running the latest version of Edge and look for additional updates or fixes as outlined in related KB articles.",
+  "source_id": "56fbc5e0-5e12-fe3f-3cc2-4bf84a9a6b7a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "56fbc5e0-5e12-fe3f-3cc2-4bf84a9a6b7a"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "crashes",
+    "browser issues",
+    "productivity impact"
+  ],
+  "node_id": "c6cd8e64-8448-4502-9a16-1398fab5f3b5",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

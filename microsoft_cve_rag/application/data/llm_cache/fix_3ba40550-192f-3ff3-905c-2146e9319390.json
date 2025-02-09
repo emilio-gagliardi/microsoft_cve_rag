@@ -1,0 +1,16 @@
+{
+  "description": "To prevent the display of the Backup Reminder notification in the Windows operating system, a registry change can be utilized. This involves setting the 'BackupReminder' value located at 'HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Notifications\\Settings\\Windows.SystemToast' to a DWORD value of 0. By doing so, the notification will no longer appear, allowing for a cleaner user experience. This change is particularly helpful for users who prefer not to be reminded about backups frequently. It\u2019s advisable to back up the registry before making changes to avoid unintended consequences.",
+  "source_id": "3ba40550-192f-3ff3-905c-2146e9319390",
+  "source_type": "PatchManagementPost",
+  "fix_label": "DisableBackupReminderNotificationInRegistry",
+  "tags": [
+    "registry",
+    "notification",
+    "backup"
+  ],
+  "node_id": "1f483c7f-a6e0-482e-8df7-7e5e255fb579",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Fix"
+}

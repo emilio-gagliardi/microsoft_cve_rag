@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the loading issues with Excel add-ins after the installation of the November 12, 2024 security update (KB5002653):\n\n1. Manually download and install KB4484305 from the Microsoft Download Center.\n2. Choose the appropriate version for your system: 32-bit or 64-bit.\n\n**Details**:\n- This update addresses the issue where previously enabled add-ins do not load correctly in Excel 2016.\n- Ensure to check the update from the official Microsoft site, as it may not be available in the catalog or through Configuration Manager.\n- Verify that you have administrative privileges for installation to prevent permission issues. \n\n**Preconditions**:\n- It is recommended to back up your Excel configurations before proceeding with the installation to guard against data loss during this process.",
+  "source_id": "746db9bd-d7d6-4927-6a80-78a686babdbd",
+  "source_type": "PatchManagementPost",
+  "fix_label": "manual_install_kb4484305_resolve_excel_addin_issues",
+  "tags": [
+    "KB5002653",
+    "KB4484305",
+    "Excel2016",
+    "MicrosoftUpdate"
+  ],
+  "node_id": "04f09b9a-fc71-424c-8174-e580f0ae9fde",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "746db9bd-d7d6-4927-6a80-78a686babdbd"
+  ],
+  "verification_status": "unverified"
+}

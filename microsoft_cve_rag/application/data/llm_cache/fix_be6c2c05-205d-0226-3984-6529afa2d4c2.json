@@ -1,0 +1,16 @@
+{
+  "description": "To address the information disclosure issue identified by CVE-2023-36406, Microsoft has released several security updates. For Windows 11, the applicable updates are KB5032190 for versions 22H2 and 23H2 (build 10.0.22621.2715) and KB5032192 for version 21H2 (build 10.0.22000.2600). Additionally, Windows Server 2022 requires KB5032198 (build 10.0.20348.2113). Users should ensure they download the appropriate update packages from the Microsoft Update Catalog: https://catalog.update.microsoft.com/Search.aspx?q=KB5032190, https://catalog.update.microsoft.com/Search.aspx?q=KB5032192, and https://catalog.update.microsoft.com/Search.aspx?q=KB5032198. Upon applying these updates, restart the affected systems to fully implement the changes necessary to mitigate the identified risks.",
+  "source_id": "be6c2c05-205d-0226-3984-6529afa2d4c2",
+  "source_type": "MSRCPost",
+  "fix_label": "AddressCveInformationDisclosureIssues",
+  "tags": [
+    "security update",
+    "information disclosure",
+    "windows 11"
+  ],
+  "node_id": "ba089799-7bfd-40ea-bc0f-50aad4bb5c58",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

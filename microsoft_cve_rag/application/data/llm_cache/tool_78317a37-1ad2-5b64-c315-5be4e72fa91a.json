@@ -1,0 +1,22 @@
+{
+  "tool_label": "microsoft_dynamics_365_business_central_tool",
+  "description": "**Tool Overview**:\n\nThe Microsoft Dynamics 365 Business Central tool is a crucial application designed to assist users in managing business processes and data within the Dynamics 365 ecosystem. This tool ensures seamless operations for enterprises through enhanced functionality and security features. **Key Features**:\n\n1. Provides remote code execution capabilities to handle remote interactions with Dynamics 365 applications.\n2. Aids in managing and mitigating the risks associated with the deserialization of untrusted data, as highlighted in CVE-2024-35249.\n3. Integrates with Microsoft\u2019s security offerings to enable proactive responses to security vulnerabilities.\n\nUsers can utilize this tool by ensuring that their Dynamics 365 installations are up to date with the latest patches and security features to protect against potential threats. Regular monitoring and management are essential to maintain business continuity and data integrity.\n\n## **Details**:\n\nBy implementing the Microsoft Dynamics 365 Business Central tool, organizations can drive efficiency and safeguard their business environment against external threats. Keeping abreast of updates and utilizing the features provided by this tool will contribute to achieving a robust operational framework.\n\n",
+  "source_id": "78317a37-1ad2-5b64-c315-5be4e72fa91a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "78317a37-1ad2-5b64-c315-5be4e72fa91a"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-35249",
+  "tool_url": "",
+  "tags": [
+    "Microsoft Dynamics",
+    "Remote Code Execution",
+    "Business Central"
+  ],
+  "node_id": "84bfe18a-127f-4e68-abf6-ee2748600ba6",
+  "node_label": "Tool",
+  "reliability": 0.5,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

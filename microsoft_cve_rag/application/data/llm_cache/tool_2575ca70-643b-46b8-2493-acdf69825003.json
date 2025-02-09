@@ -1,0 +1,23 @@
+{
+  "tool_label": "google_ads_reports_app",
+  "description": "**Tool Overview**:\n\nThe Google Ads Reports app is designed to assist marketers in generating comprehensive marketing reports effortlessly. \n\n**Details**:\n\nThis app integrates various reporting modules that focus on Google Ads performance metrics, allowing users to create detailed reports based on predefined templates. Users can customize the reports to include specific metrics and filters to meet their business goals. This tool is particularly useful for analyzing campaign effectiveness, ROI, and other key performance indicators. Additionally, it can facilitate the sharing of findings with stakeholders quickly and efficiently.\n\nKey features include:\n1. **Module-Based Reporting**: Choose from various modules tailored to specific marketing needs.\n2. **Customizable Templates**: Adjust templates to match the unique aspects of every campaign.\n3. **User-Friendly Interface**: Simplifies the process of generating and downloading reports.\n4. **AI-Driven Assistance**: Integrates AI capabilities to suggest optimizations based on report data.",
+  "source_id": "2575ca70-643b-46b8-2493-acdf69825003",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "2575ca70-643b-46b8-2493-acdf69825003"
+  ],
+  "source_url": "N/A",
+  "tool_url": "N/A",
+  "tags": [
+    "AI",
+    "Google Ads",
+    "marketing reports",
+    "reporting tool"
+  ],
+  "node_id": "dfa72b2f-f6a2-41a0-8ba7-9fc6da6fed66",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "low",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

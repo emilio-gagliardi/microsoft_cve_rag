@@ -1,0 +1,22 @@
+{
+  "tool_label": "windows_10_extended_security_updates",
+  "description": "**Tool Overview**:\n\nWindows 10 Extended Security Updates (ESU) are designed for businesses and organizations to receive critical security patches after their standard support has expired. These updates ensure that users can maintain secure operations for older versions of Windows 10 without immediate upgrades.\n\n**Details**:\n\nThis tool is utilized in scenarios where legacy systems still function within an enterprise environment but cannot be upgraded to the latest version of Windows. It offers a subscription service that grants access to essential security updates for an extended period, generally three years after the end of support period. The Extended Security Updates can be essential in helping organizations manage risk by applying critical updates and patches that may address potential vulnerabilities.\n1. Updates are delivered automatically to ESU subscribers.\n2. Organizations can coordinate and plan gradual migrations to supported Windows versions without sacrificing security during the transition.\n3. Deployment requires the purchase of an ESU license, which can be done through Microsoft or authorized partners.\n4. Regular communication from Microsoft ensures that subscribers are kept informed about available updates and critical security fixes.\n5. Intended primarily for enterprise use, these updates help mitigate risks associated with common vulnerabilities in unsupported Windows versions.",
+  "source_id": "c6e19140-b9ba-6623-b8e9-a6a41f345ffa",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "c6e19140-b9ba-6623-b8e9-a6a41f345ffa"
+  ],
+  "source_url": "https://techcommunity.microsoft.com/t5/windows-it-pro-blog/when-to-use-windows-10-extended-security-updates/ba-p/4102628",
+  "tool_url": "https://techcommunity.microsoft.com/t5/windows-it-pro-blog/when-to-use-windows-10-extended-security-updates/ba-p/4102628",
+  "tags": [
+    "Windows 10",
+    "extended security updates",
+    "enterprise",
+    "patch management"
+  ],
+  "node_id": "1fe58c80-73db-40bc-9c0b-d3eb8c7b9509",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

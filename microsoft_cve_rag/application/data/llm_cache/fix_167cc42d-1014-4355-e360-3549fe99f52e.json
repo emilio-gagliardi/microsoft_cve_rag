@@ -1,0 +1,16 @@
+{
+  "description": "To mitigate the Citrixbleed vulnerability (CVE-2023-4966) affecting Citrix NetScaler ADC and Gateway, it is crucial to apply the available patches as soon as possible. Following the application of these patches, administrators must execute commands to terminate any active and persistent sessions to eliminate any risk of session token replay attacks. Organizations should utilize the vulnerability detections provided by Tenable to identify affected systems. This proactive approach ensures that potential exploits by threat actors, including those from LockBit and Medusa ransomware groups, are thwarted effectively. Monitoring the latest advisories and maintaining an updated security posture is essential.",
+  "source_id": "167cc42d-1014-4355-e360-3549fe99f52e",
+  "source_type": "PatchManagementPost",
+  "fix_label": "ApplyPatchesAndKillSessionsToMitigateThreat",
+  "tags": [
+    "Citrix",
+    "patching",
+    "remediation"
+  ],
+  "node_id": "35412855-a5f5-4094-b2b8-3e77386c9e11",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix"
+}

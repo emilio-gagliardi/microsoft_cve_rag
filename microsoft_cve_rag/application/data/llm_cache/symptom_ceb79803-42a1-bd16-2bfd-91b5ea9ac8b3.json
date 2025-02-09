@@ -1,0 +1,15 @@
+{
+  "symptom_label": "microsoft_install_service_elevation_privilege_issue",
+  "description": "Users may experience unauthorized access escalation issues when using the affected Microsoft products listed with build numbers: 10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, 10.0.22621.3447, and 10.0.10240.20596. This could lead to potential unintentional elevation of privileges for non-administrative users, impacting both software functionality and system security. Consequently, administrators may observe unusual behavior or increased permissions in environments where these updates have not been applied. End users may also find that their access levels appear to have changed without any formal authorization process, leading to confusion and potential security risks. The updates related to this issue are detailed in KB articles KB-5036925, KB-5036894, KB-5036893, and KB-5036892, which address the corresponding fixes for this issue.",
+  "source_id": "ceb79803-42a1-bd16-2bfd-91b5ea9ac8b3",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ceb79803-42a1-bd16-2bfd-91b5ea9ac8b3"
+  ],
+  "tags": [],
+  "node_id": "fb8b5fd1-811d-4c3b-9659-365fc590d718",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

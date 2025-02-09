@@ -1,0 +1,23 @@
+{
+  "tool_label": "windows_update_reset_script",
+  "description": "**Tool Overview**:\n\nThe Windows Update Reset Script is a script designed to troubleshoot and reset Windows Update components that may become corrupted or blocked. This tool addresses a variety of update issues effectively and automates tasks that would otherwise require manual intervention.\n\n**Details**:\n\n1. **Purpose**: It aims to clear out problematic cached data that can impede the successful installation of updates.\n2. **Functionality**: The script typically includes commands to stop Windows Update services, delete temporary files, and restart the services for a fresh attempt at updating.\n3. **Usage**: Users can run the script from an elevated PowerShell or command prompt window to resolve many common update errors experienced on Windows devices.\n4. **Availability**: While there may be many variations of such scripts available online, they all serve similar functions in restoring Windows Update operation. Without a specific recommendation, users should select one from reputable sources.\n5. **Importance**: Regular use of this reset script can significantly reduce downtime and troubleshooting effort when dealing with Windows Update failures.\n\n",
+  "source_id": "a51dca74-083d-b093-61f0-6b79e02194a4",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "a51dca74-083d-b093-61f0-6b79e02194a4"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/GV2PR03MB9355E110BDD05A8C0DD2386294242%40GV2PR03MB9355.eurprd03.prod.outlook.com",
+  "tool_url": "",
+  "tags": [
+    "Windows",
+    "Update",
+    "Reset",
+    "Script",
+    "Troubleshooting"
+  ],
+  "node_id": "36e71809-cbbf-4a83-9a62-270902984151",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

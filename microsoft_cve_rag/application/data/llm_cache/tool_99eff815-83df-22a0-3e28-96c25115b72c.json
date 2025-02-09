@@ -1,0 +1,23 @@
+{
+  "tool_label": "microsoft_edge_chromium_security_update",
+  "description": "**Tool Overview**:\n\nThis tool refers to the latest security updates applied to Microsoft Edge, which is based on the Chromium engine. **Details**:\n\n1. The security update includes fixes for vulnerabilities identified in the Chromium open source software, particularly CVE-2024-5498, which is a 'Use After Free' vulnerability in the presentation API.\n2. The updates are crucial as they address potential heap corruption issues that could allow remote attacks when a specially crafted HTML page is executed.\n3. Users are encouraged to check the Google Chrome release notes to understand the nature of these updates further.\n4. Ensuring that Microsoft Edge is updated to the latest version will help mitigate any risks arising from these vulnerabilities.\n5. Performing updates can usually be done through the browser by navigating to 'Settings' > 'About Microsoft Edge', where it automatically checks for updates.\n\n### References\n- Google Chrome Release Notes: Check frequently for the latest updates and security advisories pertinent to Edge as it relies on Chromium.\n\n",
+  "source_id": "99eff815-83df-22a0-3e28-96c25115b72c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "99eff815-83df-22a0-3e28-96c25115b72c"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-5498",
+  "tool_url": "",
+  "tags": [
+    "security update",
+    "chromium",
+    "Microsoft Edge",
+    "CVE-2024-5498"
+  ],
+  "node_id": "0d98df29-eb42-4cba-939c-0f1b1a0fbd27",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

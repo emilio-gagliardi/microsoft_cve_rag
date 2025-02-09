@@ -1,0 +1,16 @@
+{
+  "symptom_label": "WindowsElevatesPrivilegesCausingAccessIssues",
+  "description": "After the implementation of security updates KB-5032190, KB-5032189, and KB-5032192 across various Windows 10 and Windows 11 builds, users may experience unauthorized access to privileged resources, which could lead to unexpected behaviors. Specific builds impacted include Windows Server 2022 (build 10.0.25398.531), Windows 11 for x64-based systems and ARM64 (build 10.0.22621.2715), and Windows 10 for x64-based systems (build 10.0.19045.3693). This symptom manifests as a failure to secure files and settings, stemming from the elevated privilege issue outlined in the security updates.",
+  "source_id": "167203ed-071a-f048-9910-aa968168d4fe",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "ead3e446-cfea-48c9-b8e4-00ba080ceed0",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_crashes_due_to_heap_corruption",
+  "description": "Users may experience crashes or instability in Microsoft Edge (Chromium-based) version 128.0.2739.79 as a direct consequence of a use after free issue associated with the media router on devices running this build. This issue could result in unexpected endpoints shutting down during active browsing sessions or when certain media activities are initiated. Additionally, users may encounter application hangs or the browser failing to load webpages correctly, leading to frustrating interruptions in work. To mitigate these effects, it is recommended to ensure that the latest version has been installed in accordance with KB-128.0.2739.79, which resolves this underlying heap corruption flaw prior to utilizing the browser for critical tasks.",
+  "source_id": "39c54966-8408-008c-2aa5-db01f9a8d4f9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "39c54966-8408-008c-2aa5-db01f9a8d4f9"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Heap Corruption",
+    "Use After Free",
+    "User Experience"
+  ],
+  "node_id": "974edeba-db06-41fc-84f8-ffc565326a2e",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

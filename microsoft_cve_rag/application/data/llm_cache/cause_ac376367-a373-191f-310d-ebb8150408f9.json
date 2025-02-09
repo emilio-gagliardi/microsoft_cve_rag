@@ -1,0 +1,21 @@
+{
+  "description": "The issue arises from an integer overflow or wraparound condition in the Windows Resume Extensible Firmware Interface, enabling an attacker to bypass security features such as Secure Boot by exploiting this flaw locally or remotely without requiring user interaction.",
+  "cause_label": "windows_resume_extensible_firmware_integer_overflow",
+  "source_id": "ac376367-a373-191f-310d-ebb8150408f9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ac376367-a373-191f-310d-ebb8150408f9"
+  ],
+  "tags": [
+    "Windows",
+    "Firmware",
+    "Integer Overflow",
+    "CVE-2024-37976"
+  ],
+  "node_id": "2a9111fb-b440-4e14-a76f-57310c774508",
+  "node_label": "Cause",
+  "reliability": 0.08,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

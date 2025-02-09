@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows CNG Key Isolation Service elevation of privilege vulnerability (CVE-2024-30031):\n\n1. Download and apply the recommended updates for your version of Windows from the following links:\n   - [KB5037788](https://catalog.update.microsoft.com/Search.aspx?q=KB5037788) for Windows 10 and 32-bit systems.\n   - [KB5037771](https://catalog.update.microsoft.com/Search.aspx?q=KB5037771) for Windows 11 Version 22H2.\n   - [KB5037770](https://catalog.update.microsoft.com/Search.aspx?q=KB5037770) for Windows 11 Version 21H2.\n   - [KB5037768](https://catalog.update.microsoft.com/Search.aspx?q=KB5037768) for various Windows 10 and 11 versions.\n\n2. Restart your system after installation to ensure the changes take effect.\n\n**Details**:\nThis update addresses an elevation of privilege vulnerability in the Windows CNG Key Isolation Service by mitigating issues related to improper synchronization. It is crucial to apply the updates relevant to your system build as listed. \n\n**Preconditions**:\n- Ensure your system is one of the supported build numbers listed.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "8a531501-c62a-7090-214b-8940a862671f",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_elevation_privilege_windows_cng_service_cve202430031",
+  "tags": [
+    "KB5037788",
+    "Windows10",
+    "Windows11",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "3f53a682-0574-4c3c-9591-cf2159709518",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "8a531501-c62a-7090-214b-8940a862671f"
+  ],
+  "verification_status": "unverified"
+}

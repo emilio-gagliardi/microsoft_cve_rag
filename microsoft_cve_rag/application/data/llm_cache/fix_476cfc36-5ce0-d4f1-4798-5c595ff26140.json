@@ -1,0 +1,16 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the security vulnerability identified by CVE-2023-6511 in Chromium that affects Microsoft Edge (Chromium-based):\n\n1. Ensure you are using the latest version of Microsoft Edge.\n2. The relevant update is version 120.0.2210.61, which can be validated by:\n   - Opening Microsoft Edge.\n   - Clicking on the three dots (...) in the upper right corner.\n   - Selecting 'Help and feedback' followed by 'About Microsoft Edge'.\n\n**Details**:\n- This update addresses inappropriate implementation in Autofill, ensuring your browser is secure against related vulnerabilities.\n- The version was released on December 7, 2023. Thus, it's critical to check for updates regularly and ensure your browser is up to date to maintain security. \n\n**Preconditions**:\n- Ensure your system is running Microsoft Edge (Chromium-based) version 120.0.2210.61 or later to be protected against this vulnerability.",
+  "source_id": "476cfc36-5ce0-d4f1-4798-5c595ff26140",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeToVersion12002110",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2023-6511",
+    "SecurityUpdate"
+  ],
+  "node_id": "f6e5ed62-5df4-4bf9-92d1-4b6e1dd47503",
+  "node_label": "Fix",
+  "reliability": "0.9",
+  "severity_type": "critical",
+  "entity_type": "Fix"
+}

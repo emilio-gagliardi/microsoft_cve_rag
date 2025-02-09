@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the remote code execution vulnerability identified by CVE-2024-21307 within the Remote Desktop Client:\n\n1. Ensure your system is running the affected versions of Windows 10 or 11.\n2. Download and apply the necessary updates from the Microsoft Update Catalog:\n   - For Windows 10: [KB5034134](https://catalog.update.microsoft.com/Search.aspx?q=KB5034134)\n   - For Windows 11: [KB5034123](https://catalog.update.microsoft.com/Search.aspx?q=KB5034123)\n   - Refer to other relevant updates listed: [KB5034121](https://catalog.update.microsoft.com/Search.aspx?q=KB5034121), [KB5034122](https://catalog.update.microsoft.com/Search.aspx?q=KB5034122), [KB5034127](https://catalog.update.microsoft.com/Search.aspx?q=KB5034127).\n3. Restart your system after installation to ensure all updates are applied successfully.\n\n**Details**:\nThe updates address a critical issue related to remote code execution which may allow an attacker to exploit the Remote Desktop Client. Ensure all devices influenced by this vulnerability are updated as soon as possible to mitigate risks. \n\n**Preconditions**:\n- The system must be one of the affected builds specified in the update listings. \n- Backup critical data before proceeding with the update installations.",
+  "source_id": "8ca1419f-a3dc-be23-522a-0089b55a3cd3",
+  "source_type": "MSRCPost",
+  "fix_label": "MitigateRemoteDesktopClientRCECVE202421307",
+  "tags": [
+    "KB5034134",
+    "KB5034123",
+    "RemoteDesktopClient",
+    "RCE"
+  ],
+  "node_id": "d9e28bf5-b7b4-410b-8bc4-4c172169051c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

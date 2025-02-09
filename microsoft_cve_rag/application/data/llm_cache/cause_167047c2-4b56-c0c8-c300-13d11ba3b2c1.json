@@ -1,0 +1,23 @@
+{
+  "description": "The underlying cause identified in the patch management scenario revolves around known firmware issues that affect secure boot functionality. Specifically, it concerns devices that may fail to update the secure boot database (db) or database exchange (dbx) due to problems inherent in the firmware of certain manufacturers, including HP and Qualcomm. For instance, HP's Z4G4 workstation PCs are blocked from mitigation installations until an updated UEFI firmware is released. This issue extends to ARM64-based devices which are encountering compatibility challenges with Qualcomm firmware. As a result, Microsoft has indicated that affected TPM 2.0-based systems running Windows Server 2012 and Windows Server 2012 R2 will also not receive the necessary updates to deploy mitigations as of April 9, 2024. The KB articles specifically reference these firmware issues, notably KB-5025885 and KB-5016061, which provide further details about the implications of the security updates on affected systems.",
+  "source_id": "167047c2-4b56-c0c8-c300-13d11ba3b2c1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "167047c2-4b56-c0c8-c300-13d11ba3b2c1"
+  ],
+  "cause_label": "firmware_issues_affect_secure_boot_updates",
+  "tags": [
+    "secure boot",
+    "firmware",
+    "TPM 2.0",
+    "KB-5025885",
+    "KB-5016061",
+    "HP",
+    "Qualcomm"
+  ],
+  "node_id": "523e13f0-5260-43a0-9e16-bdde24c8ccb8",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

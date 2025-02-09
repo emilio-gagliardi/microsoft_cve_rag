@@ -1,0 +1,16 @@
+{
+  "symptom_label": "SystemExperiencesElevationOfPrivilegeIssues",
+  "description": "Users may experience issues related to privilege escalation in Windows 10 and Windows Server editions, including potential unauthorized access to system-level resources. This symptom relates to build numbers 10.0.10240.20345 and others mentioned, particularly under KB5033379. Administrators should monitor their systems running these builds for unexpected behavior indicating that users may inadvertently gain elevated privileges due to this flaw. For more detailed information, refer to the update package at https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-35633.",
+  "source_id": "179d2e08-655b-be56-e948-ddeefc617cf4",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "39b475f6-0ee4-4454-9f85-0305ba1ac6ea",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

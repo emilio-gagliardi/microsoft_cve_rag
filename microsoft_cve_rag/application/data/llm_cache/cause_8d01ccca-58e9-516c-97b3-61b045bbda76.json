@@ -1,0 +1,16 @@
+{
+  "description": "The identified issue stems from an inappropriate implementation in the autofill feature of the Chromium open-source software. This implementation flaw potentially exposes users to unwanted data exposure or mismanagement when using Microsoft Edge, which utilizes the underlying Chromium engine. The affected build numbers include 118.0.2088.46 for Microsoft Edge (Chromium-based), indicating that users running this version or prior versions should apply the latest updates to mitigate the risks posed by this vulnerability. The fix was documented in the corresponding KB article (KB-118.0.2088.46), ensuring that Microsoft Edge no longer inherits the flaw present in Chromium.",
+  "cause_label": "InappropriateAutofillImplementationInChromium",
+  "source_id": "8d01ccca-58e9-516c-97b3-61b045bbda76",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "716ed2c4-a287-4744-8daa-44ccc8ed0dbb",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

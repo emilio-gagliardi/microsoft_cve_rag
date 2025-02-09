@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the inappropriate implementation in V8, affecting Google Chrome, apply the security update for version 126.0.6478.114 or later:\n\n1. Ensure you are currently using Google Chrome version 126.0.2592.68 or higher.\n2. Update your browser to the latest version available from the official Google Chrome website.\n\n**Details**:\nThis update addresses a remote attack vector that allows for out-of-bounds memory access via a crafted HTML page, significantly reducing the risk of exploitation. For complete security, it\u2019s recommended to keep your browser updated regularly.\n\n**Preconditions**:\n- Ensure Google Chrome is installed on your system.\n- Backup any critical data before proceeding with updates.",
+  "source_id": "352bfa11-f94e-fcf0-f824-487631f555c5",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_v8_remotely_exploitable_out_of_bounds_access_cve20246101",
+  "tags": [
+    "CVE-2024-6101",
+    "GoogleChrome",
+    "V8Engine",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "7cd46536-4719-4a4c-bce4-d2b2410130dc",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "critical",
+  "entity_type": "Fix",
+  "source_ids": [
+    "352bfa11-f94e-fcf0-f824-487631f555c5"
+  ],
+  "verification_status": "unverified"
+}

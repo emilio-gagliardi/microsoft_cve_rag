@@ -1,0 +1,21 @@
+{
+  "description": "The installation issue encountered with KB-5034439 on Windows Server Standard 2022 can be traced back to a misconfiguration related to the recovery partition size. Despite the recovery partition being larger than 250MB, the system failed to recognize it adequately, leading to installation difficulties. This inconsistency may stem from improper partition settings or metadata, potentially causing the installer to incorrectly flag the recovery partition as insufficient. The user remedied this situation by employing a script to extend the Windows Recovery Environment (WinRE) partition, which subsequently allowed for the successful installation of the KB article without errors. Addressing the underlying partition configuration is critical to avoiding similar issues in future deployments.",
+  "source_id": "f3155a85-5401-a27f-e910-c6c380b5c4b1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "f3155a85-5401-a27f-e910-c6c380b5c4b1"
+  ],
+  "cause_label": "recovery_partition_size_misconfiguration",
+  "tags": [
+    "Windows Server 2022",
+    "KB-5034439",
+    "WinRE",
+    "partition management"
+  ],
+  "node_id": "1ad7dff9-8b48-403b-a3f5-d2cf617b46e4",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

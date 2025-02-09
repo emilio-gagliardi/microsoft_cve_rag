@@ -1,0 +1,16 @@
+{
+  "description": "The underlying cause of the installation failure error code 0x80070643 can be attributed to the misconfiguration of the recovery partition's location relative to the main operating system partition. Specifically, for Microsoft installations to function correctly, the recovery partition must be positioned to the right of the main operating system partition. If the recovery partition is instead located on the left, resizing becomes impossible as it would require creating a new partition while maintaining the integrity of the existing one. This misalignment leads to potential issues in the recovery process and results in an installation failure. Microsoft recommends that users ensure a recovery partition is available with a minimum of 250MB of free space to prevent these types of errors during updates or installs.",
+  "source_id": "fb665cf9-8f1d-d96c-28df-3dd2a85b0304",
+  "source_type": "PatchManagementPost",
+  "cause_label": "MisconfiguredRecoveryPartitionPositioning",
+  "tags": [
+    "recovery partition",
+    "installation error",
+    "partition configuration"
+  ],
+  "node_id": "b250420d-3906-4b02-98ed-8c31dd4db6c9",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

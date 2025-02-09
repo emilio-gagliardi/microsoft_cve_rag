@@ -1,0 +1,6 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the issue of Windows 11 22H2 machines not being offered November updates:\n\n1. Change the target version in the registry to ensure that the system recognizes the correct updates.\n   - Navigate to: `HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate`.\n   - Modify or add the following registry entries:\n     - `",
+  "node_id": "40a1f6b6-0782-4b00-b544-998f59c99701",
+  "source_id": "ec874ea5-bbdd-a9b2-3368-180f72d6f27c",
+  "entity_type": "Fix"
+}

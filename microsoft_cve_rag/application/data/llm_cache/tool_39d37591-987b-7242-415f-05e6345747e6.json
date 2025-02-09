@@ -1,0 +1,23 @@
+{
+  "tool_label": "offensivecon_security_presentation",
+  "description": "**Tool Overview**:\n\nThis presentation provides insights into security risks associated with secure boot processes. \n\n**Details**:\n\n1. The presentation hosted on GitHub by Microsoft\u2019s MSRC Security Research team focuses on potential vulnerabilities and attack vectors related to secure boot technology. \n2. It discusses the implications of secure boot security in a practical environment and includes recommendations for mitigating the identified risks. \n3. The presentation serves as an educational resource for system administrators and security professionals seeking to enhance their understanding of secure boot mechanisms. \n4. Users can leverage the information to align their security strategies and improve the resilience of their infrastructures against vulnerabilities.\n5. For more detailed insights, it\u2019s available for review in PDF format at the provided link.\n\nFor a deeper understanding, please refer to the documentation and analysis included in the presentation.",
+  "source_id": "39d37591-987b-7242-415f-05e6345747e6",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "39d37591-987b-7242-415f-05e6345747e6"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/emc2beeb8e-4e70-4801-b3db-ca7e2a111992%4040d4bb04.com",
+  "tool_url": "https://nbviewer.org/github/microsoft/msrc-security-research/blob/master/presentations/2024_05_offensivecon/offensivecon24_booting_with_caution_bdemirkapi.pdf",
+  "tags": [
+    "secure boot",
+    "presentation",
+    "security",
+    "risk assessment"
+  ],
+  "node_id": "25b66e55-2660-413e-9a70-bd45344f4b2b",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

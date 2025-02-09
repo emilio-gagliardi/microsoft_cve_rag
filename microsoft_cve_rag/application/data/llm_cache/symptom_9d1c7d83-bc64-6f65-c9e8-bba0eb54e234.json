@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_mobile_broadband_driver_denial_of_service",
+  "description": "After installing the security updates KB5044284, KB5044285, or KB5044273 on Windows platforms, users may experience a total loss of connectivity to resources managed by the impacted mobile broadband driver. This denial of service symptom can manifest as an inability to establish new network connections, forcing users to troubleshoot their network settings or repeatedly attempt to connect. Systems affected include Windows 11 versions 21H2, 22H2, 23H2, and 24H2, as well as Windows 10 versions 21H2 and 22H2 for different architectures. End users will observe that their devices fail to maintain stable network connectivity, leading to frustration and potential disruptions in their work processes.",
+  "source_id": "9d1c7d83-bc64-6f65-c9e8-bba0eb54e234",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "9d1c7d83-bc64-6f65-c9e8-bba0eb54e234"
+  ],
+  "tags": [
+    "Windows",
+    "Mobile Broadband",
+    "Network Connectivity",
+    "Denial of Service"
+  ],
+  "node_id": "58a7f724-f4bf-41d0-9bf9-2b71cb7729d3",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

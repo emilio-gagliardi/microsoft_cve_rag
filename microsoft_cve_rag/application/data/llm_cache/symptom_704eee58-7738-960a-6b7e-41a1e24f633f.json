@@ -1,0 +1,21 @@
+{
+  "symptom_label": "boot_failure_after_security_patch_installation",
+  "description": "After installing the security updates associated with KB-5036925, KB-5036894, KB-5036893, and KB-5036892, users may experience boot failures on systems running the affected Windows build numbers, including [10, 0, 19045, 4291], [10, 0, 19044, 4291], and others. This issue may present itself as the system failing to progress past the startup sequence, potentially leaving end users unable to access their desktops or applications. It is critical for system administrators to be aware of this symptom when deploying updates that might affect system stability. Organizations should prepare mitigation strategies for users who encounter this symptom, including a potential rollback of the updates if necessary. This symptom is classified under an 'important' severity type, reflecting the significant impact it could have on user productivity.",
+  "source_id": "704eee58-7738-960a-6b7e-41a1e24f633f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "704eee58-7738-960a-6b7e-41a1e24f633f"
+  ],
+  "tags": [
+    "boot failure",
+    "security update",
+    "system stability",
+    "Windows",
+    "KB Articles"
+  ],
+  "node_id": "946b554d-4f4a-470e-842a-abc475e06dfe",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

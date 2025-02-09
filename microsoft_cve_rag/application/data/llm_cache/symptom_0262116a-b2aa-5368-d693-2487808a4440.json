@@ -1,0 +1,16 @@
+{
+  "symptom_label": "RemoteConnectionDeniesAccessToResources",
+  "description": "After the application of updates related to KB-5032199, KB-5032192, KB-5032190, and KB-5032189 on systems running various builds including Windows 10 (10.0.22621.2715, 10.0.19045.3693) and Windows 11 (10.0.22621.2715), users may encounter significant access issues. Specifically, networked services may become unreachable, leading to persistent denials of access to critical resources. This symptom can result in enhanced downtime for services around the impacted systems until remediation is applied.",
+  "source_id": "0262116a-b2aa-5368-d693-2487808a4440",
+  "source_type": "MSRCPost",
+  "tags": [
+    "connection",
+    "access issue",
+    "resource denial"
+  ],
+  "node_id": "58b1fa0c-cf23-4b47-ae64-e79eaedcb127",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

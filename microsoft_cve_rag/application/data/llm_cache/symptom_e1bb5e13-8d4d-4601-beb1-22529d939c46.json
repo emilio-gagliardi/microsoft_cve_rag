@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_system_privileges_can_be_elevated_locally",
+  "description": "End users may notice unauthorized changes to system settings or configurations, as an attacker could exploit the vulnerability associated with the Windows ancillary function driver for Winsock (CVE-2024-43563) to gain elevation of privileges on affected systems. This can lead to unexpected behavior, such as processes running with elevated privileges without user consent. Users might experience modified files or settings that seem out of place, and they may encounter difficulties in performing administrative tasks if their expected permissions are altered. Affected products include various builds of Windows 10 and Windows 11, specifically builds 19045.5011, 26100.2033, 22631.4317, and others, as referenced in KB articles KB5044280, KB5044284, and KB5044285. This is particularly critical, as it can have serious implications for system integrity and data security.",
+  "source_id": "e1bb5e13-8d4d-4601-beb1-22529d939c46",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e1bb5e13-8d4d-4601-beb1-22529d939c46"
+  ],
+  "tags": [
+    "Windows",
+    "Privilege Escalation",
+    "CVE-2024-43563",
+    "System Administration"
+  ],
+  "node_id": "76031cc8-b0e8-41b0-9f8d-8b1e27d7e839",
+  "node_label": "Symptom",
+  "reliability": 0.25,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo continue receiving updates for Windows 11 version 22H2, users should be aware of the following deadlines regarding non-security updates:\n\n1. For the Enterprise, Education, IoT Enterprise, and Enterprise multi-session editions, the new end date for non-security updates is June 24, 2025.\n2. For Home, Pro, Pro Education, and Pro for Workstations editions, non-security preview updates will be available until June 26, 2024.\n3. After these dates, only cumulative monthly security updates will be provided for the supported editions of Windows 11 version 22H2.\n\n**Details**:\n- This adjustment allows more customers to leverage continuous innovations based on user feedback since the initial date communicated was February 27, 2024. Make sure to review the update schedule to align your deployment and patch management strategies accordingly.",
+  "source_id": "2a0ab27a-063c-edbc-038a-15f9a099815a",
+  "source_type": "PatchManagementPost",
+  "fix_label": "update_schedule_for_windows_11_version_22h2",
+  "tags": [
+    "KB5034765",
+    "Windows11",
+    "EndOfLife",
+    "UpdateManagement"
+  ],
+  "node_id": "cf13ce2e-f3ad-439e-b3ae-91831e794e38",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "2a0ab27a-063c-edbc-038a-15f9a099815a"
+  ]
+}

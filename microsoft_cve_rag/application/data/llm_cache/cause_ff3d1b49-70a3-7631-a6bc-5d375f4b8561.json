@@ -1,0 +1,20 @@
+{
+  "description": "The vulnerability is caused by external control of file path leading to manipulation of compressed folder contents. An attacker can exploit this by convincing a user to open a specially crafted file, leveraging a file tampering issue within Windows compressed folders.",
+  "cause_label": "windows_compressed_folder_path_tampering_vulnerability",
+  "source_id": "ff3d1b49-70a3-7631-a6bc-5d375f4b8561",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ff3d1b49-70a3-7631-a6bc-5d375f4b8561"
+  ],
+  "tags": [
+    "windows",
+    "file tampering",
+    "CVE-2024-38165"
+  ],
+  "node_id": "c07ee07c-d0d4-4cd7-b4a0-30538ea0bbd6",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

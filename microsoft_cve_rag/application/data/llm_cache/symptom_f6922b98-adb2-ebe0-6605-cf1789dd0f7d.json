@@ -1,0 +1,21 @@
+{
+  "symptom_label": "directaccess_incompatibility_with_windows_11_24h2",
+  "description": "DirectAccess is failing to operate as expected with Windows 11 build 24H2. This indicates that users relying on DirectAccess for remote connectivity may experience issues such as inability to establish a VPN connection or loss of access to corporate resources when attempting to use this feature on the latest Windows version. Reports from multiple users suggest that this is not an isolated incident but may be a broader compatibility issue affecting various deployments. System administrators are encouraged to review their DirectAccess configurations and consider the implications of this incompatibility on mobility solutions. Ongoing investigations are expected to yield more information regarding the situation, so stay updated on the latest developments.",
+  "source_id": "f6922b98-adb2-ebe0-6605-cf1789dd0f7d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "f6922b98-adb2-ebe0-6605-cf1789dd0f7d"
+  ],
+  "tags": [
+    "DirectAccess",
+    "Windows 11",
+    "24H2",
+    "mobility"
+  ],
+  "node_id": "c7481419-e0e4-4032-919e-796167e9f074",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

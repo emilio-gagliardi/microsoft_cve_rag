@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the security vulnerability identified as CVE-2024-6990 in Chromium, ensure that you are using the latest version of Microsoft Edge (Chromium-based).\n\n1. Open your Microsoft Edge browser.\n2. Click on the three dots (...) in the upper right corner.\n3. Select \"Help and feedback\" and then click on \"About Microsoft Edge\" to check for updates.\n4. If you're on an outdated version, Edge will automatically download the latest update.\n5. Restart your browser to apply the changes.\n\n**Details**:\nThis update eliminates potential out-of-bounds memory access due to uninitialized use in the Dawn component of Chromium, which could be exploited via crafted HTML pages. Ensure your version is at least 127.0.6533.88, released on August 1, 2024, to mitigate this issue.\n\n**Preconditions**:\n- Ensure that your Microsoft Edge (Chromium-based) browser is installed.\n- Backup important data in case of unexpected issues after the update.",
+  "source_id": "fa6fc0ee-010f-040c-040e-b5a4c752a998",
+  "source_type": "MSRCPost",
+  "fix_label": "upgrade_microsoft_edge_to_127_0_6533_88",
+  "tags": [
+    "KB-127.0.2651.86",
+    "MicrosoftEdge",
+    "Chromium",
+    "CVE-2024-6990"
+  ],
+  "node_id": "46783345-53ca-4d88-a8d4-90a965df5b9c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix",
+  "source_ids": [
+    "fa6fc0ee-010f-040c-040e-b5a4c752a998"
+  ],
+  "verification_status": "unverified"
+}

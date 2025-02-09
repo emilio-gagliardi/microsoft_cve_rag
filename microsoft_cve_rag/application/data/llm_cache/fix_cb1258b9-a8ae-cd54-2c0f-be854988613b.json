@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability in the Windows Line Printer Daemon (LPD) service associated with CVE-2024-38199:\n\n1. Download and install the appropriate KB update for your operating system version from the links below.\n2. Ensure to restart your system after installation to apply the changes.\n\n**Details**:\n- This vulnerability could allow attackers to execute arbitrary code on affected installations of Windows. The updates provided will address this flaw across several Windows 10 and Windows 11 versions.\n- Relevant KB articles include:\n  - KB5041571 for Windows 11 Version 21H2\n  - KB5041585 and KB5041580 for Windows 10 Version 22H2/21H2.\n- For manual installation, download the updates from:\n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5041782\n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5041585\n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5041580\n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5041592\n\n**Preconditions**:\n- Make sure your system is updated to one of the specified versions before applying these updates.\n- Backup critical data before proceeding with the installation.",
+  "source_id": "cb1258b9-a8ae-cd54-2c0f-be854988613b",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_windows_lpd_cve202438199",
+  "tags": [
+    "KB5041571",
+    "KB5041585",
+    "Windows11",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "2211e1ca-49ee-41b8-a138-1c08028b0ba6",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "cb1258b9-a8ae-cd54-2c0f-be854988613b"
+  ],
+  "verification_status": "unverified"
+}

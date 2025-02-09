@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the UI spoofing vulnerability in custom tabs of Google Chrome that affects Microsoft Edge (Chromium-based):\n\n1. Ensure you are running Microsoft Edge version 128.0.2739.42 or later.\n2. Update your Microsoft Edge browser via the update mechanism found in the browser settings.\n3. To check your current version, click on the three dots (...) in the top right corner, select 'Help and feedback', then click on 'About Microsoft Edge'.\n\n**Details**:\n- The update addresses the inappropriate implementation that could allow remote attacks via crafted HTML pages, thus ensuring the latest version of Microsoft Edge is secure.\n- For this release, download and apply the update by following the prompts within the Edge browser or by visiting the Edge update page. (LLM Synthesized)\n\n**Preconditions**:\n- Verify that you are on a compatible platform running Microsoft Edge based on Chromium.\n- Backup any critical data before proceeding with updates.",
+  "source_id": "3fd9aca7-4eb6-1e4a-fbe5-ee50f18f213b",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_128_0_2739_42",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-8034",
+    "ChromiumSecurity",
+    "128.0.2739.42"
+  ],
+  "node_id": "eba4ad8f-5cf8-4040-a9bb-3664886635d1",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "low",
+  "entity_type": "Fix",
+  "source_ids": [
+    "3fd9aca7-4eb6-1e4a-fbe5-ee50f18f213b"
+  ],
+  "verification_status": "unverified"
+}

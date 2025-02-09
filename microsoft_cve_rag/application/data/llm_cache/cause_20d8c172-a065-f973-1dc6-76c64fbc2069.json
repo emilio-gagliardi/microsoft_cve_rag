@@ -1,0 +1,21 @@
+{
+  "description": "A spoofing vulnerability in Microsoft Edge (Chromium-based) arises from insufficient UI warnings during dangerous operations, allowing attackers to bypass the permissions dialog when initiating downloads. The flaw is tied to the network stack, making it potentially exploitable from remote locations without requiring user permissions. Exploitation involves persuading the user to click a specially crafted URL, leading to limited information disclosure and integrity loss by redirecting users to malicious sites.",
+  "cause_label": "microsoft_edge_chromium_based_spoofing_vulnerability",
+  "source_id": "20d8c172-a065-f973-1dc6-76c64fbc2069",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "20d8c172-a065-f973-1dc6-76c64fbc2069"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Spoofing",
+    "CVE-2024-30058"
+  ],
+  "node_id": "0278f39a-1a30-4654-bf60-820fb1ba3530",
+  "node_label": "Cause",
+  "reliability": 80,
+  "severity_type": "low",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

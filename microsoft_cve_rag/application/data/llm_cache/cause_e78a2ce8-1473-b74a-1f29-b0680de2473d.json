@@ -1,0 +1,22 @@
+{
+  "description": "The Windows Fax Service is vulnerable due to untrusted pointer dereferencing, allowing remote code execution if this service is enabled and misconfigured. Attackers with low privileges can exploit this over the network to gain control of affected systems.",
+  "cause_label": "windows_fax_service_untrusted_pointer_dereference",
+  "source_id": "e78a2ce8-1473-b74a-1f29-b0680de2473d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e78a2ce8-1473-b74a-1f29-b0680de2473d"
+  ],
+  "tags": [
+    "remote code execution",
+    "Windows Fax Service",
+    "CVE-2024-38104",
+    "untrusted pointer",
+    "network vulnerability"
+  ],
+  "node_id": "7c7804ab-3de4-46f3-8943-057d87494e54",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

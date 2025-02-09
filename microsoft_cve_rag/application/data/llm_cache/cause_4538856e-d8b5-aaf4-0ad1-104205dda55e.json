@@ -1,0 +1,19 @@
+{
+  "description": "The cause of CVE-2023-5481 is an inappropriate implementation related to the downloads functionality in the Chromium open-source software. This vulnerability affects Microsoft Edge (Chromium-based) as it relies on Chromium code for its functioning. The specific build impacted is Microsoft Edge version 118.0.2088.46, which has responded to this issue. With this update, the implementation flaw has been addressed, ensuring Microsoft Edge is no longer vulnerable. Users are encouraged to refer to the associated KB article KB-118.0.2088.46 for further information on this remediation.",
+  "cause_label": "InappropriateImplementationInDownloadsFunctionality",
+  "source_id": "4538856e-d8b5-aaf4-0ad1-104205dda55e",
+  "source_type": "MSRCPost",
+  "tags": [
+    "security",
+    "CVE",
+    "vulnerability",
+    "patch",
+    "Chromium",
+    "downloads"
+  ],
+  "node_id": "8be5d290-e8d2-44ef-94e0-c4bc95929829",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

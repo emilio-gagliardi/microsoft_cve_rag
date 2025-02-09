@@ -1,0 +1,21 @@
+{
+  "symptom_label": "google_chrome_downloads_heap_corruption_crash",
+  "description": "Users may experience crashes in their Google Chrome browser (prior to version 127.0.6533.72) when attempting to download files, exhibiting a use after free condition that leads to instability. This behavior could manifest as the browser suddenly closing or failing to respond when accessing certain downloadable content. The issue is noted in Microsoft Edge (Chromium-based) up to version 127.0.2651.74, which integrates Chromium code vulnerable to this condition. End users and system administrators need to ensure that their browsers are updated to the latest version to prevent potential heap corruption and the resultant crashes. Affected systems can refer to KB-127.0.2651.74 for specific update guidance and mitigation steps.",
+  "source_id": "9531603d-3b7e-bffb-78e6-9fb0632b7471",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "9531603d-3b7e-bffb-78e6-9fb0632b7471"
+  ],
+  "tags": [
+    "Google Chrome",
+    "Microsoft Edge",
+    "Heap Corruption",
+    "Browser Crash"
+  ],
+  "node_id": "7c9e337c-a041-4f9c-9712-09dd4e3c424f",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

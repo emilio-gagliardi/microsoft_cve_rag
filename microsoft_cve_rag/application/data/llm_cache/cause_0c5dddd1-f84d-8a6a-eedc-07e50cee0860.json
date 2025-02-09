@@ -1,0 +1,21 @@
+{
+  "description": "The Win32k.sys driver contains a use after free flaw that allows a local authenticated attacker to gain elevated privileges, potentially leading to a compromise of the system. This occurs due to improper memory management when freeing objects, which can be exploited in both local and remote scenarios requiring minimal privileges.",
+  "cause_label": "win32k_use_after_free_elevation_of_privileges",
+  "source_id": "0c5dddd1-f84d-8a6a-eedc-07e50cee0860",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0c5dddd1-f84d-8a6a-eedc-07e50cee0860"
+  ],
+  "tags": [
+    "Win32k",
+    "Use After Free",
+    "Privilege Escalation",
+    "Kernel"
+  ],
+  "node_id": "4376aa40-7057-4e7c-bac1-f57efbb5d604",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

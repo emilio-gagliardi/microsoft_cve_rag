@@ -1,0 +1,23 @@
+{
+  "tool_label": "sccm_click_recovery_script",
+  "description": "**Tool Overview**:\n\nThis tool is a recovery script intended for scenarios where an errant SCCM (System Center Configuration Manager) click may cause a loss of data or system state in an enterprise environment, such as the case where the entire IT infrastructure of an institution was affected.\n\n**Details**:\n1. The script captures the current state of device configurations before changes are applied via SCCM.\n2. In the event of unintended changes, the script aims to restore devices to their last known good configuration.\n3. The tool can be customized to log all actions taken by SCCM, which is useful for auditing and recovery purposes.\n4. It is designed to be run during off-peak hours to minimize impact on business operations.\n5. Proper logging and notifications ensure that administrators are alerted to any issues during the recovery process.\n\nWhile this description is synthesized, it provides a plausible functionality that reflects an actionable recovery strategy based on observations from similar incidents in SCCM environments (LLM Synthesized).",
+  "source_id": "5c6bb5f1-19c3-eaaa-d7b0-83e801a0875e",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "5c6bb5f1-19c3-eaaa-d7b0-83e801a0875e"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/abf2ec71960e4ee68e8157281fe882c3%40MPECSInc.Ca",
+  "tool_url": "",
+  "tags": [
+    "SCCM",
+    "recovery",
+    "Enterprise IT",
+    "LLM Synthesized"
+  ],
+  "node_id": "ee75d77d-9cde-4ab9-8062-362de7549709",
+  "node_label": "Tool",
+  "reliability": 0.5,
+  "severity_type": "critical",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

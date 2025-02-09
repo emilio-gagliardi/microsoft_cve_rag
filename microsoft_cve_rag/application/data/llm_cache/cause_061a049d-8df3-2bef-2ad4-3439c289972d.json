@@ -1,0 +1,22 @@
+{
+  "description": "The issue arises from an integer underflow, specifically a wrap or wraparound condition in the secure boot process, which allows an unauthenticated attacker to bypass secure boot by taking advantage of specific protocol conditions within a limited administrative domain.",
+  "cause_label": "secure_boot_bypass_due_to_integer_underflow",
+  "source_id": "061a049d-8df3-2bef-2ad4-3439c289972d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "061a049d-8df3-2bef-2ad4-3439c289972d"
+  ],
+  "tags": [
+    "secure boot",
+    "integer underflow",
+    "CVE-2024-37981",
+    "vulnerability",
+    "Windows"
+  ],
+  "node_id": "5a955087-d913-4ced-baac-475616557d05",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

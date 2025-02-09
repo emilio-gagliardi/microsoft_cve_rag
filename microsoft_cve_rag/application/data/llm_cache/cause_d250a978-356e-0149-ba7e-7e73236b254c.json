@@ -1,0 +1,17 @@
+{
+  "description": "The root cause of the issue stems from a code regression introduced in a recent software update to iOS, iPadOS, and macOS. This regression specifically impacts the functionality of the Microsoft Enterprise SSO Plug-in, which is essential for enabling single sign-on (SSO) for Microsoft 365 services via browser SSO. Affected operating system versions include iOS/iPadOS 17.1.x and macOS 14.1.x. Users attempting to sign in using the Enterprise SSO Plug-in may experience failures due to this regression, particularly in environments utilizing Microsoft Entra ID and third-party mobile device management solutions, as they lack redundant fallback mechanisms for SSO. It's crucial for system administrators to evaluate the potential upgrade to these OS versions carefully, given the adverse impact on application access where browser SSO is utilized.",
+  "source_id": "d250a978-356e-0149-ba7e-7e73236b254c",
+  "source_type": "PatchManagementPost",
+  "cause_label": "WebkitUpdateCausesSSOFunctionalityIssues",
+  "tags": [
+    "sso",
+    "webkit",
+    "microsoft365",
+    "entraid"
+  ],
+  "node_id": "1fa29ecf-990d-4797-8b32-c0179b09bbd4",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

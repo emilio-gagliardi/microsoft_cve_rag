@@ -1,0 +1,16 @@
+{
+  "symptom_label": "Windows11Version23H2UpgradeIssues",
+  "description": "The upgrading process for Windows 11 versions 21H2 and 22H2 to version 23H2 is problematic due to the lack of a separate 'Enablement Package' in WSUS. Both versions will automatically transition to Windows 11, version 23H2 (KB5027397) via UUP. This includes full upgrades and cumulative updates which may affect the deployment and installation processes resulting in potential disruptions for end users during system upgrades.",
+  "source_id": "d9406526-9958-f750-ce60-b20a51942945",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "upgrade",
+    "windows11",
+    "patchmanagement"
+  ],
+  "node_id": "1eb1f65a-3539-4265-abe2-106fa0a93a87",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,23 @@
+{
+  "description": "A numeric truncation error in the kernel streaming WOW thunk service driver that allows local attackers to elevate privileges, gaining unauthorized access to system resources.",
+  "cause_label": "kernel_streaming_wow_thunk_service_numeric_truncation_error",
+  "source_id": "4c48fb25-ea4d-5de6-75a7-7cd753ba61e4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4c48fb25-ea4d-5de6-75a7-7cd753ba61e4"
+  ],
+  "tags": [
+    "CVE-2024-38125",
+    "numeric truncation",
+    "elevation of privilege",
+    "kernel streaming",
+    "Windows 11",
+    "Windows Server"
+  ],
+  "node_id": "45ee4b47-0963-4487-a7ac-80f573034386",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

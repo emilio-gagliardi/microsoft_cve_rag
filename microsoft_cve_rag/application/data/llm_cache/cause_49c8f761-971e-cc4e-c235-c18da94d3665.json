@@ -1,0 +1,20 @@
+{
+  "description": "An integer overflow condition in the Microsoft WDAC OLE DB Provider for SQL Server, facilitating remote code execution through crafted SQL replies to an authenticated user\u2019s SQL client application.",
+  "cause_label": "wdac_ole_db_integer_overflow_remote_code_execution",
+  "source_id": "49c8f761-971e-cc4e-c235-c18da94d3665",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "49c8f761-971e-cc4e-c235-c18da94d3665"
+  ],
+  "tags": [
+    "remote code execution",
+    "integer overflow",
+    "WDAC",
+    "OLE DB"
+  ],
+  "node_id": "b076a453-3262-45c5-9783-550ba90e822d",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

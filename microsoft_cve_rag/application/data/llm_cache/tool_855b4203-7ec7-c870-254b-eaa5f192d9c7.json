@@ -1,0 +1,22 @@
+{
+  "tool_label": "dism_dependency_management_tool",
+  "description": "**Tool Overview**:  \nDISM (Deployment Imaging Service and Management Tool) is a command-line tool provided by Microsoft that is used to service and manage Windows images, including Windows Recovery Environment and Windows PE.  \n\n**Details**:  \nDISM has become an essential tool for system administrators and IT professionals to maintain the integrity of Windows operating system images. It can be used to install, uninstall, configure, and update Windows features, packages, drivers, and international settings.  \n1. It can repair Windows images by scanning for corruption and applying fixes, often linked to dependencies on various files such as DLLs.  \n2. When using DISM, the command `DISM /Online /Cleanup-Image /ScanHealth` can be invoked to scan the current installation for issues.  \n3. Understanding where DISM providers are stored can help diagnose missing dependencies, as it assists systems in correctly loading required components.  \n4. Additionally, the integration with the latest Windows ADK (Assessment and Deployment Kit) provides a broader set of tools to enhance image deployment practices.  \n\nThis functionality highlights the crucial role of DISM in troubleshooting common Windows image issues.",
+  "source_id": "855b4203-7ec7-c870-254b-eaa5f192d9c7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "855b4203-7ec7-c870-254b-eaa5f192d9c7"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism-overview",
+  "tags": [
+    "DISM",
+    "Windows",
+    "image management",
+    "troubleshooting"
+  ],
+  "node_id": "04ebf632-bc8c-466a-a6c0-b517ac010789",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

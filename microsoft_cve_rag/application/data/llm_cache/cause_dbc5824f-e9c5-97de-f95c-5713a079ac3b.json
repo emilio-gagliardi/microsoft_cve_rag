@@ -1,0 +1,20 @@
+{
+  "description": "The underlying cause of the issue is a bias in the 521-bit ECDSA key type utilized by PuTTY. This specific key type presents a risk as it can potentially compromise the private key, leading to unauthorized access or manipulation. The problem has been linked to the cryptographic implementation in the software, which requires attention to prevent exploitation. The referenced post indicates that while the vulnerability is concerning, the good news is that it affects only this specific key type. Resolving this will involve updating or altering key configurations in PuTTY to ensure security against this bias, especially for environments relying on ECDSA keys.",
+  "source_id": "dbc5824f-e9c5-97de-f95c-5713a079ac3b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "dbc5824f-e9c5-97de-f95c-5713a079ac3b"
+  ],
+  "cause_label": "ecdsa_key_bias_compromises_private_key",
+  "tags": [
+    "PuTTY",
+    "ECDSA",
+    "cryptography",
+    "key management"
+  ],
+  "node_id": "b22fd4b8-64ed-4996-8ab7-a448f9094e83",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

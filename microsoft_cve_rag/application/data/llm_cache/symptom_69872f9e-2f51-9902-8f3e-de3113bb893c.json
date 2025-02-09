@@ -1,0 +1,18 @@
+{
+  "symptom_label": "MicrosoftEdgeExperiencesOutOfBoundsMemoryAccess",
+  "description": "Users may experience instability or unexpected behaviors within Microsoft Edge (Chromium-based) version 120.0.2210.144 due to an out-of-bounds memory access issue identified in the V8 JavaScript engine, as detailed in CVE-2024-0519. This malfunction can manifest as crashes or freezes when interacting with web applications that utilize complex scripts. The issue can arise particularly in scenarios where the browser is tasked with rendering dynamic content or executing intricate JavaScript, which may lead to significant disruptions in the user experience. It is crucial for system administrators and users to promptly update to the latest version of Microsoft Edge, released on January 17, 2024, to mitigate these impacts and restore stability to their browsing activities.",
+  "source_id": "69872f9e-2f51-9902-8f3e-de3113bb893c",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Microsoft Edge",
+    "Chrome",
+    "Memory Access",
+    "User Experience",
+    "Browser Stability"
+  ],
+  "node_id": "1a4be9c2-b1d3-4289-a0e6-143a19aafbfd",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

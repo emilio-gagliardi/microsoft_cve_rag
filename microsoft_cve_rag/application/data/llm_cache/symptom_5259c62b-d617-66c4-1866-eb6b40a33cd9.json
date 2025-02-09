@@ -1,0 +1,17 @@
+{
+  "symptom_label": "OngoingSecurityRiskDueToWinREPartition",
+  "description": "The absence of a Windows Recovery Environment (WinRE) partition results in an ongoing security risk for the platform, as updates related to WinRE become unnecessary. Without the recovery environment, systems are potentially vulnerable and may not benefit from critical recovery options. This could lead to challenges during system recovery or troubleshooting, particularly for organizations that rely on comprehensive backup and restore solutions to maintain operational integrity.",
+  "source_id": "5259c62b-d617-66c4-1866-eb6b40a33cd9",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "WinRE",
+    "SecurityRisk",
+    "PatchManagement",
+    "SystemRecovery"
+  ],
+  "node_id": "25ff4700-ee98-41ca-b0ec-b7c3a6ba2bf4",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

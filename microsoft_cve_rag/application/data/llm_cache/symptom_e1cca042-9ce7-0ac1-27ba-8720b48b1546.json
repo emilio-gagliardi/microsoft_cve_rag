@@ -1,0 +1,16 @@
+{
+  "symptom_label": "LocalPrivilegeEscalationInVMwareNixMachines",
+  "description": "The symptom indicates that there is a local privilege escalation vulnerability present in VMware environments hosting nix machines. This vulnerability allows unauthorized users to gain elevated privileges, potentially compromising the security and integrity of the system. Administrators are urged to update their VMware installations as outlined in the advisories VMSA-2023-0024 and VMSA-2023-0019 to mitigate these risks.",
+  "source_id": "e1cca042-9ce7-0ac1-27ba-8720b48b1546",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "local privilege escalation",
+    "vmware security",
+    "nix machines"
+  ],
+  "node_id": "9729899c-6804-49f3-8e31-16dbd6d127f4",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

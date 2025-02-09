@@ -1,0 +1,17 @@
+{
+  "description": "The cause of this issue is a flaw within the Windows Cloud Files Mini Filter Driver that allows for elevation of privilege. This vulnerability can be exploited locally, where an attacker with basic user capabilities could manipulate the system through direct interaction or user interaction to gain unauthorized privileges. The affected build numbers include Windows 10 (10.0.22621.2715), Windows 11 (10.0.22621.2715), and various Windows Server editions. Additionally, KB articles related to this issue include KB-5032190, KB-5032192, KB-5032199, and KB-5032189, which provide updates and patches to mitigate this vulnerability.",
+  "cause_label": "FlawInCloudFilesMiniFilterDriverPrivileges",
+  "source_id": "9002efcd-e0f3-b001-fca5-5d35df8cb93b",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Windows",
+    "elevation of privilege",
+    "cloud files",
+    "mini filter driver"
+  ],
+  "node_id": "bf0361e8-dd6c-4f97-9da7-6e0d07e04f12",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

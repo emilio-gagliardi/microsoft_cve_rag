@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the use after free vulnerability in Chromium utilized by Microsoft Edge, ensure that you update to the latest version of Microsoft Edge:\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) at the top right corner of the browser window.\n3. Select 'Help and feedback'.\n4. Click on 'About Microsoft Edge' to check for updates.\n5. If an update is available, the browser will automatically download and install it.\n6. Restart your browser to apply the updates.\n\n**Details**:\n- This addresses the CVE-2024-6777 vulnerability which could allow an attacker to exploit heap corruption via a malicious Chrome extension.\n- Ensure you are running Microsoft Edge version 126.0.2592.113 or later for protection against this vulnerability.\n\n**Preconditions**:\n- Ensure you have an active internet connection to download updates.\n- Backup important data before conducting software updates.",
+  "source_id": "a0a4fdd5-86bb-1459-3bee-bea39a496b31",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_126_0_2592_113",
+  "tags": [
+    "KB126",
+    "MicrosoftEdge",
+    "CVE20246777",
+    "UseAfterFree"
+  ],
+  "node_id": "e3336fda-bb89-434f-b4dc-d2656975a8c1",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "a0a4fdd5-86bb-1459-3bee-bea39a496b31"
+  ],
+  "verification_status": "unverified"
+}

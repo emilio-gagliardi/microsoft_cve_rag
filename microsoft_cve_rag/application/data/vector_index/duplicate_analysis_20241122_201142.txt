@@ -1,0 +1,10 @@
+Duplicate Vector Analysis Report - 20241122_201142
+================================================================================
+
+Summary:
+Total points: 354
+Unique texts: 0
+Unique document IDs: 0
+Unique vectors: 0
+Vectors with duplicates: 0
+

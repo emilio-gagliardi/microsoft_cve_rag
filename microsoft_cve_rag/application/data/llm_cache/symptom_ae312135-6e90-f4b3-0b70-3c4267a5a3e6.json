@@ -1,0 +1,16 @@
+{
+  "symptom_label": "SystemExperiencesRemoteCodeExecutionVulnerabilityImpact",
+  "description": "End users may encounter significant issues when utilizing the Windows Distributed File System (DFS) on affected builds, particularly those running version 10.0.22621.2715 (Windows 11 Version 22H2) and earlier builds like 10.0.19045.3693 (Windows 10 Version 22H2). This impact can manifest as unauthorized access to sensitive resources, system unresponsiveness, or potential data loss due to heap corruption that can result in arbitrary code execution. Users should reference KB-5032199, KB-5032192, KB-5032190, and KB-5032189 for more details on the necessary updates to mitigate these risks and maintain system integrity.",
+  "source_id": "ae312135-6e90-f4b3-0b70-3c4267a5a3e6",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "bdea2913-d313-48a8-a456-3da43aa49fc4",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

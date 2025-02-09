@@ -1,0 +1,17 @@
+{
+  "tool_label": "UseAction1ForPatchManagement",
+  "description": "Action1 is a patch management solution that automates the process of finding and applying updates. It features a vulnerability scanner that alerts users to CVE vulnerabilities and provides suggestions for resolution, simplifying patch management tasks for system administrators.",
+  "source_id": "39008ab6-a9f1-897c-8a07-9f6fa2b05d11",
+  "source_type": "PatchManagementPost",
+  "source_url": "https://groups.google.com/d/msgid/patchmanagement/MW4PR19MB6627C795D2EE1BDC6CAE80C9F8C5A%40MW4PR19MB6627.namprd19.prod.outlook.com",
+  "tags": [
+    "patch management",
+    "vulnerability scanner",
+    "automation"
+  ],
+  "node_id": "ecb7149e-dec0-456b-b826-9f2f55d541e1",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

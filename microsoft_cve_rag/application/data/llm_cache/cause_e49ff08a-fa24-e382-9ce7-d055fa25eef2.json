@@ -1,0 +1,22 @@
+{
+  "description": "The Windows Bluetooth driver has a heap-based buffer overflow that allows an attacker within proximity to exploit the vulnerability through crafted Bluetooth communications, leading to potential elevation of privileges in the affected system.",
+  "cause_label": "windows_bluetooth_driver_heap_buffer_overflow",
+  "source_id": "e49ff08a-fa24-e382-9ce7-d055fa25eef2",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e49ff08a-fa24-e382-9ce7-d055fa25eef2"
+  ],
+  "tags": [
+    "Bluetooth",
+    "Driver",
+    "Buffer Overflow",
+    "Windows",
+    "Privilege Escalation"
+  ],
+  "node_id": "5a5d2ffd-5ac0-4171-aa84-f6f2351c1c02",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

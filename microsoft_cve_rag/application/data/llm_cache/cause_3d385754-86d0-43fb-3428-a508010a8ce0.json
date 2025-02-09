@@ -1,0 +1,21 @@
+{
+  "description": "Inappropriate implementation in payments within Chromium prior to version 130.0.6723.58 allowed remote attackers to perform UI spoofing via specially crafted Chrome extensions when users engaged in specific UI gestures.",
+  "cause_label": "chromium_inappropriate_implementation_in_payments",
+  "source_id": "3d385754-86d0-43fb-3428-a508010a8ce0",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "3d385754-86d0-43fb-3428-a508010a8ce0"
+  ],
+  "tags": [
+    "chromium",
+    "UI spoofing",
+    "payments",
+    "remote attack"
+  ],
+  "node_id": "24d1ab9a-152b-4956-8a21-611e26855e29",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "low",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

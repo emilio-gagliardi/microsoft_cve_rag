@@ -1,0 +1,20 @@
+{
+  "description": "Heap-based buffer overflow in Microsoft WDAC OLE DB Provider for SQL Server, allowing remote code execution when a malicious SQL database is accessed by an authenticated user.",
+  "cause_label": "wdac_ole_db_provider_heap_buffer_overflow",
+  "source_id": "80dce7ea-5f07-dcd6-dae8-195451821299",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "80dce7ea-5f07-dcd6-dae8-195451821299"
+  ],
+  "tags": [
+    "remote code execution",
+    "heap-based buffer overflow",
+    "OLE DB",
+    "SQL Server"
+  ],
+  "node_id": "c741a899-a024-4d58-8af1-cea34dbc4164",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

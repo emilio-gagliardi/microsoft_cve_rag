@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause of the print-related issue in the environment is tied to the usage of Version 4 Print Drivers associated with Konica Copiers and the Papercut Print Release application. It appears that a particular bug or misconfiguration affects the interoperability between these drivers and the print management software, leading to unexpected print failures. This misalignment can result in significant disruptions to printing workflows and user frustration, particularly in environments heavily reliant on these specific print drivers. Regular monitoring and updates are necessary to address any compatibility issues as they arise. It's crucial for system administrators to reference KB Article KB43524 for possible solutions and workarounds related to this situation.",
+  "source_id": "40c46840-ffaf-c326-e53f-7b98235caf17",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "40c46840-ffaf-c326-e53f-7b98235caf17"
+  ],
+  "cause_label": "Version4PrintDriverMisconfigurationIssue",
+  "tags": [
+    "PrintManagement",
+    "Drivers",
+    "Misconfiguration",
+    "Papercut",
+    "Konica"
+  ],
+  "node_id": "d643569a-f9be-4f60-9d5c-b58822769474",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

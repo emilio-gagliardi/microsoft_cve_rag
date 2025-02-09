@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the out-of-bounds write vulnerability in the V8 engine utilized by Microsoft Edge (Chromium-based), updating to the latest version is critical.\n\n1. Ensure that your Microsoft Edge browser is updated to version 128.0.2739.63 or later.\n2. Verify your browser version by clicking on the three dots (...) in the top right corner of Microsoft Edge, selecting 'Help and feedback,' and then 'About Microsoft Edge.'\n\n**Details**:\nThis update addresses a security vulnerability that could potentially allow remote attackers to exploit heap corruption via specific HTML pages. Keeping your browser updated is essential for maintaining security posture against such vulnerabilities. \n\nFor manual inspection or further information, visit the Microsoft support lifecycle page.\n\n**Preconditions**:\n- Ensure that you are using Microsoft Edge (Chromium-based).\n- Backup necessary data and settings before performing updates.",
+  "source_id": "10443541-6e15-edea-321a-734ba64af313",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_128_0_2739_63",
+  "tags": [
+    "MicrosoftEdge",
+    "ChromiumVulnerability",
+    "CVE-2024-7970",
+    "KB-128.0.2739.63"
+  ],
+  "node_id": "87390ae6-7fc0-4666-97bd-439db6639ad0",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "10443541-6e15-edea-321a-734ba64af313"
+  ],
+  "verification_status": "unverified"
+}

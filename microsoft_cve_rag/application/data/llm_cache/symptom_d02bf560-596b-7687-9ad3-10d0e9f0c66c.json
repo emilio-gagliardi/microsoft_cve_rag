@@ -1,0 +1,22 @@
+{
+  "symptom_label": "remote_code_execution_on_rpc_host",
+  "description": "The remote desktop protocol server may allow an unauthenticated attacker to send malformed packets, potentially leading to remote code execution on the affected system. This can occur on multiple Windows 10 and Windows 11 builds, including 10.0.19044.5011 and 10.0.22621.4317, as referenced in KB articles such as KB-5044273 and KB-5044285. End users may notice abnormal behavior such as unauthorized actions executed on the server, leading to a complete compromise of server permissions and functionality. As a result, systems could experience significant operational disruptions, unauthorized access to sensitive information, or complete denial of service due to the malicious activities triggered by this code execution vulnerability.",
+  "source_id": "d02bf560-596b-7687-9ad3-10d0e9f0c66c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d02bf560-596b-7687-9ad3-10d0e9f0c66c"
+  ],
+  "tags": [
+    "Remote Desktop Protocol",
+    "Windows 10",
+    "Windows 11",
+    "Remote Code Execution",
+    "Critical"
+  ],
+  "node_id": "fce67da9-55ec-45a7-a027-c8d40a4e66da",
+  "node_label": "Symptom",
+  "reliability": 0.09,
+  "severity_type": "critical",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

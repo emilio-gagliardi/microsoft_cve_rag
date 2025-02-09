@@ -1,0 +1,18 @@
+{
+  "description": "The underlying cause of the Midnight Blizzard breach is tied to the AppRoleAssignment for MS Graph, specifically the readWrite.All app role which bypasses the consent process due to its design. This design flaw allows unauthorized access to sensitive data without the necessary administrative consent, enabling potential exploitation by malicious actors. The implications of this flaw are severe, as it raises significant security concerns about access control within Microsoft Graph applications. System administrators should review the authorization protocols in place, particularly regarding app roles, to identify vulnerabilities that align with the functionality outlined in related KB articles, such as potential configurations that could lead to similar breaches. This highlights the need for rigorous audit practices and proactive configurations that do not permit such dangerous behaviors.",
+  "source_id": "b9bf14a9-77f5-f4dd-81c8-9c8d201322ce",
+  "source_type": "PatchManagementPost",
+  "cause_label": "AppRoleAssignmentBypassesConsentProcess",
+  "tags": [
+    "MS Graph",
+    "Midnight Blizzard",
+    "App Role",
+    "Authorization",
+    "Security"
+  ],
+  "node_id": "01637695-4bb9-40fc-b07b-10fd259dddac",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

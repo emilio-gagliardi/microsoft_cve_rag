@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo address issues related to the recovery partition and prevent loss of the Windows Recovery Environment (WinRE) during partition modifications:\n\n1. Follow the manual steps outlined in the blog post, which are tailored to clarify your specific case involving the recovery partition's location.\n\n2. Ensure that you extract the install.wim file from the most recent ISO media after mounting it appropriately.\n\n3. Implement the planned code in the upcoming blog post, which includes steps to save WinRE prior to making any changes to the partitions. This should help mitigate the risk of losing access to recovery tools during adjustments.\n\n**Details**:\nPay close attention to the arrangement of partitions on your system, as the location of the recovery partition may impact the procedure. The goal is to prevent losing WinRE by securely backing it up before making any modification to the OS partitions. (LLM Synthesized)",
+  "source_id": "77a9f7a7-b79c-7c5b-2747-74dde6ac4aff",
+  "source_type": "PatchManagementPost",
+  "fix_label": "BackupWinREPartitionBeforeChanges",
+  "tags": [
+    "PartitionManagement",
+    "WinREBackup",
+    "BlogPostInstructions",
+    "LLM Synthesized"
+  ],
+  "node_id": "ecaa9bc9-44aa-48f9-ac37-88cddde49f9d",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

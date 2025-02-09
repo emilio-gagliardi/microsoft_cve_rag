@@ -1,0 +1,22 @@
+{
+  "symptom_label": "security_feature_bypass_via_url_path_manipulation",
+  "description": "End users may experience unexpected behavior when accessing web resources, where certain URLs appear to be granted higher privileges than intended due to a security feature bypass. This can lead to unauthorized access to sensitive data or functionalities within Microsoft Windows environments. The issue affects several Windows versions, including Windows 11 (build numbers 10.0.26100.1742, 10.0.22631.4169, 10.0.22621.4169), as outlined in KB Articles KB5043080, KB5043076, and KB5043064. Administrators might witness instances of altered access controls, where normal security restrictions do not apply, leading to confusion and potential security breaches. The observed impact includes a risk of information disclosure and unauthorized modifications, particularly affecting users who interact with crafted URLs.",
+  "source_id": "7f729fde-701e-3807-6dd3-b2f20bc98c3b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7f729fde-701e-3807-6dd3-b2f20bc98c3b"
+  ],
+  "tags": [
+    "Microsoft Windows",
+    "security feature bypass",
+    "access control",
+    "user interaction",
+    "web resource"
+  ],
+  "node_id": "b154d875-1be9-4edb-b379-d493c75a9c14",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

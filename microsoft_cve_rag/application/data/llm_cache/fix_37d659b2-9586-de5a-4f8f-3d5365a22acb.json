@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the elevation of privilege vulnerability in Microsoft Message Queuing (MSMQ), the following steps should be taken:\n\n1. Download and apply the relevant updates based on your system build from the official Windows Update catalog.\n2. Ensure that your system is running one of the impacted builds as listed below:\n   - Windows 11 Version 23H2 for x64-based Systems (10.0.22631.3155) \n   - Windows 11 Version 22H2 for x64-based Systems (10.0.22621.3155) \n   - Windows 11 Version 21H2 for x64-based Systems (10.0.22000.2777)\n   - Windows 10 for x64-based Systems (10.0.10240.20469) \n   - Windows 10 Version 22H2 for x64-based Systems (10.0.19045.4046)\n   - Windows 10 Version 21H2 for x64-based Systems (10.0.19044.4046)\n   - Windows 10 Version 22H2 for 32-bit Systems (10.0.19045.4046) \n3. Restart your system after installation to ensure the changes take effect.\n\n**Details**:\n- This update addresses a critical issue that could allow an attacker to gain elevated privileges on affected systems.\n- For manual installation, download the update packages using the following links:\n  - KB5034765: [Download Link](https://catalog.update.microsoft.com/Search.aspx?q=KB5034765)\n  - KB5034766: [Download Link](https://catalog.update.microsoft.com/Search.aspx?q=KB5034766)\n  - KB5034774: [Download Link](https://catalog.update.microsoft.com/Search.aspx?q=KB5034774)\n  - KB5034763: [Download Link](https://catalog.update.microsoft.com/Search.aspx?q=KB5034763)\n\n**Preconditions**:\n- Ensure your systems are running supported versions.\n- Backup critical data before proceeding with the updates.",
+  "source_id": "37d659b2-9586-de5a-4f8f-3d5365a22acb",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb5034763_and_related_updates_for_msmq_cve202421355",
+  "tags": [
+    "KB5034763",
+    "MSMQ",
+    "ElevationOfPrivilege",
+    "Important"
+  ],
+  "node_id": "f8e9b683-80d6-4eff-9f38-ee13927c3bcc",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "37d659b2-9586-de5a-4f8f-3d5365a22acb"
+  ]
+}

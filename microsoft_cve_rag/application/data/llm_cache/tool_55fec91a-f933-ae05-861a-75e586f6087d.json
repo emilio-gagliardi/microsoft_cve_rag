@@ -1,0 +1,19 @@
+{
+  "tool_label": "MicrosoftEdgeExploitMitigationTool",
+  "description": "The Microsoft Edge Exploit Mitigation Tool is designed to help administrators mitigate vulnerabilities such as CVE-2023-35618, which presents an elevation of privilege risk in the browser. By utilizing this tool, system administrators can apply specific configurations to enhance the security posture of Microsoft Edge against potential exploits. It supports proactive measures and can be integrated with existing security frameworks to monitor and restrict unauthorized elevation attempts. This tool provides a critical layer of defense by ensuring users can operate Microsoft Edge safely while receiving the latest security updates. The detailed explanation for this Tool is provided in the Fix description.",
+  "source_id": "55fec91a-f933-ae05-861a-75e586f6087d",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-35618",
+  "tool_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-35618",
+  "tags": [
+    "Microsoft Edge",
+    "exploit mitigation",
+    "elevation of privilege",
+    "security"
+  ],
+  "node_id": "559d34e0-5c9c-4478-a3c8-b7032a6b1992",
+  "node_label": "Tool",
+  "reliability": "0.7",
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

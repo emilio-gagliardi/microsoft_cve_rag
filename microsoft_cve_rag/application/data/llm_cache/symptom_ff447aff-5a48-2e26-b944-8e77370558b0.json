@@ -1,0 +1,20 @@
+{
+  "symptom_label": "dc_memory_leak_in_lsass_process_after_update",
+  "description": "Following the recent security update from March 2024, several reports have surfaced indicating a memory leak within the LSASS (Local Security Authority Subsystem Service) process on domain controllers (DCs). This leak may lead to potential performance degradation or system instability, particularly affecting any services reliant on secure authentication. Administrators should be on high alert as this issue could potentially expose privileged or confidential information stored in memory. It is crucial to monitor systems closely and review any applicable KB articles or updates for potential mitigation steps, such as KB4088764, which is relevant to this update. Given the critical role LSASS plays in security and access management, resolution of this issue is urgent for maintaining system integrity.",
+  "source_id": "ff447aff-5a48-2e26-b944-8e77370558b0",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "ff447aff-5a48-2e26-b944-8e77370558b0"
+  ],
+  "tags": [
+    "memory leak",
+    "LSASS",
+    "DCs",
+    "March 2024 update"
+  ],
+  "node_id": "c07699b6-39b3-4a56-aee8-88c9e8935c47",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

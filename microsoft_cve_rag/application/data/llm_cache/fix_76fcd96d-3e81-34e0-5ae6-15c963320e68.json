@@ -1,0 +1,16 @@
+{
+  "description": "To address the server-side request forgery (SSRF) vulnerability associated with the CreateAttachmentFromURI feature in Outlook Web App (OWA), it's critical to apply mitigation strategies as outlined in ZDI-CA-22101. Users and administrators should ensure they are running the latest patches provided for OWA to protect against potential exploitation via SSRF. The exploitation can occur when an attacker authenticates and uses the feature to create and send an email that unintentionally exposes sensitive internal information. Regularly reviewing and applying updates to OWA, as well as monitoring logs for unusual attachment requests, can help minimize risks. Refer to the detailed analysis on the Zero Day Initiative blog for more context and preventive measures.",
+  "source_id": "76fcd96d-3e81-34e0-5ae6-15c963320e68",
+  "source_type": "PatchManagementPost",
+  "fix_label": "MitigateServerSideRequestForgedAttachmentsRisk",
+  "tags": [
+    "OWA",
+    "SSRF",
+    "CreateAttachmentFromURI"
+  ],
+  "node_id": "3a8025a6-705f-4290-9b24-ba6f105bcc46",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix"
+}

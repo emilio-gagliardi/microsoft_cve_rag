@@ -1,0 +1,20 @@
+{
+  "symptom_label": "lsass_memory_leaks_due_to_kerberos_requests",
+  "description": "The system experiences memory leaks in the LSASS (Local Security Authority Subsystem Service) process specifically due to Kerberos authentication requests as indicated in this patch management post. This issue can lead to performance degradation and potential system instability, which are observable symptoms during high authentication scenarios, especially in domain controller environments. The new out-of-band (OOB) update aims to address this issue, ensuring smoother authentication operations. Such memory leaks can escalate resource usage, causing unexpected system behavior and require timely patching to mitigate risks. Administrators should remain vigilant for any build numbers and seek updates from Microsoft to rectify this issue as it affects critical infrastructure components.",
+  "source_id": "fba4e309-3491-74f3-ddf4-09af50cc245a",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "fba4e309-3491-74f3-ddf4-09af50cc245a"
+  ],
+  "tags": [
+    "Kerberos",
+    "LSASS",
+    "memory leak",
+    "update"
+  ],
+  "node_id": "8519a706-98f3-4a37-a14c-2ce2e21d6900",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "Elevation of privilege due to improper management of access rights in the Windows Error Reporting service, allowing an attacker with low-level privileges to gain higher system privileges by exploiting the misconfiguration.",
+  "cause_label": "windows_error_reporting_service_elevation_of_privilege",
+  "source_id": "337901cc-2975-e64a-5794-0e2b243e0110",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "337901cc-2975-e64a-5794-0e2b243e0110"
+  ],
+  "tags": [
+    "CVE",
+    "Windows",
+    "Elevation of Privilege",
+    "Access Rights",
+    "MSRC"
+  ],
+  "node_id": "4aa8a051-8707-4746-a20d-3a8d93eabb86",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

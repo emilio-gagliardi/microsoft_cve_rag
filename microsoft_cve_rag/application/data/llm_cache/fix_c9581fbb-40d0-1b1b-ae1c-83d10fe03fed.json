@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows kernel elevation of privilege vulnerability (CVE-2024-30068):\n\n1. Download and apply the relevant update package corresponding to your system version:\n   - For Windows 11 Version 23H2: [KB5039212](https://catalog.update.microsoft.com/Search.aspx?q=KB5039212)\n   - For Windows 11 Version 22H2: [KB5039212](https://catalog.update.microsoft.com/Search.aspx?q=KB5039212)\n   - For Windows 10 Version 22H2: [KB5039211](https://catalog.update.microsoft.com/Search.aspx?q=KB5039211)\n   - For Windows 10 Version 21H2: [KB5039211](https://catalog.update.microsoft.com/Search.aspx?q=KB5039211)\n\n2. Restart your system after the installation to ensure the updates remain effective.\n\n**Details**:\n- This update addresses the kernel flaw related to out-of-bounds read which could allow elevation of privilege.\n- Ensure that you have administrative privileges to install these updates.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "c9581fbb-40d0-1b1b-ae1c-83d10fe03fed",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_kernel_elevation_privilege_cve202430068",
+  "tags": [
+    "KB5039212",
+    "Windows11",
+    "KernelElevation",
+    "CVE202430068"
+  ],
+  "node_id": "768e9a8f-241c-4956-8fd9-a4bb7e5aa556",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c9581fbb-40d0-1b1b-ae1c-83d10fe03fed"
+  ],
+  "verification_status": "unverified"
+}

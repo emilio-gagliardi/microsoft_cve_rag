@@ -1,0 +1,19 @@
+{
+  "symptom_label": "windows_telephony_server_elevation_of_privilege",
+  "description": "Following the application of KB articles related to CVE-2024-21439, systems may exhibit an observable behavior where users find their access privileges unexpectedly elevated, potentially enabling unauthorized actions. This condition may arise from a race condition within the Windows Telephony Server on products including Windows Server 2012 and various builds of Windows 10 and Windows 11. Administrators might notice irregularities in user permissions or elevated access to resources that should remain restricted. The underlying issue can lead to a confusion in privilege assignments, which could further complicate user access and security management. It is crucial to closely monitor user activities and access levels after installing the updates to ensure no unauthorized privilege escalation occurs.",
+  "source_id": "8aa86096-0afb-2cd1-1ff4-1f40bcc496be",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8aa86096-0afb-2cd1-1ff4-1f40bcc496be"
+  ],
+  "tags": [
+    "elevation_of_privilege",
+    "windows_telephony_server",
+    "user_management"
+  ],
+  "node_id": "980b1d35-8266-4cb4-8cca-3b013129fc52",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

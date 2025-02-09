@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve issues related to VBS (Virtualization-Based Security) and Core Isolation, particularly with discrepancies caused by outdated UEFI/Bios versions:\n\n1. Install the UEFI update released in February 2024. This update addresses compatibility issues arising from older firmware versions.\n2. Follow manufacturer-specific instructions to ensure a successful update, as each system may have different requirements.\n\n**Details**:\n- It is essential to verify that the update aligns with your hardware specifications. \n- Confirm that your system is backed up prior to applying any updates to prevent data loss, as firmware changes may impact system settings. (LLM Synthesized)",
+  "source_id": "57e1d27a-4f79-3195-796e-abe604a68689",
+  "source_type": "PatchManagementPost",
+  "fix_label": "install_february_2024_uefi_update_resolve_vbs_issues",
+  "tags": [
+    "UEFIUpdate",
+    "CoreIsolation",
+    "VBS",
+    "FirmwareUpdate"
+  ],
+  "node_id": "74f878f9-252f-4ec7-9473-17a0e518b1e0",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "57e1d27a-4f79-3195-796e-abe604a68689"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "description": "The underlying cause for the issue of improperly removing a machine from the domain arises from insufficient procedural guidance when managing old machines in enterprise environments. By neglecting to rename the old machine just prior to its removal from the domain, administrators risk maintaining residual configurations that can conflict with new devices or lead to synchronization issues. This situation is compounded by a lack of established best practices for decommissioning devices, particularly when the old machine may still hold outdated or mismatched domain credentials. Implementing a straightforward renaming step could greatly reduce potential operational bottlenecks and help maintain domain integrity. This recommendation serves as a proactive strategy to safeguard against future deployment issues.",
+  "source_id": "1dd31186-c905-39df-2f09-6d90389f1498",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "1dd31186-c905-39df-2f09-6d90389f1498"
+  ],
+  "cause_label": "improper_machine_removal_causes_domain_issues",
+  "tags": [
+    "machine management",
+    "domain integrity",
+    "procedural guidance"
+  ],
+  "node_id": "7f4b024e-37b2-4ae4-8976-49deb205a4e9",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Cause"
+}

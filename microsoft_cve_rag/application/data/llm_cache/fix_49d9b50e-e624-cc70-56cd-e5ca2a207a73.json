@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the secure boot security feature bypass vulnerability associated with CVE-2024-28896, Microsoft has released multiple updates that should be applied depending on your Windows version:\n\n1. Identify your system's build number from the list below:\n   - [10, 0, 19045, 4291]\n   - [10, 0, 19044, 4291]\n   - [10, 0, 22631, 3447]\n   - [10, 0, 22000, 2899]\n   - [10, 0, 22621, 3447]\n   - [10, 0, 10240, 20596]\n\n2. Download and apply the appropriate KB articles:\n   - KB-5036925\n   - KB-5036894\n   - KB-5036893\n   - KB-5036892\n\n3. Restart your system after applying the updates to ensure that the changes take effect.\n\n**Details**:\n- These updates address the heap-based buffer overflow issue that can be exploited in secure boot scenarios, enhancing overall system security.\n- Ensure that your Windows version and build number corresponds to the listed updates before applying.\n- For detailed steps and additional information, visit the official update guide at: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-28896.",
+  "source_id": "49d9b50e-e624-cc70-56cd-e5ca2a207a73",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_secure_boot_bypass_cve202428896",
+  "tags": [
+    "KB5036925",
+    "Windows10",
+    "SecureBoot",
+    "CVE202428896"
+  ],
+  "node_id": "d9ad9f1e-95bf-406f-af8f-8906f4cd97b9",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "49d9b50e-e624-cc70-56cd-e5ca2a207a73"
+  ]
+}

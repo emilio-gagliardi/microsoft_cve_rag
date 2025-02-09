@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Microsoft Edge memory corruption vulnerability (CVE-2024-38218), it is recommended to apply the latest security updates available for your Microsoft Edge installation:\n\n1. Open Microsoft Edge and navigate to the Settings menu.\n2. Click on 'About Microsoft Edge' to check for updates. The browser will automatically search for and install any available updates.\n3. Restart Microsoft Edge after the updates have been applied to ensure the changes take effect.\n\n**Details**:\n- This update addresses memory corruption vulnerabilities which could lead to remote code execution.\n- For users running Microsoft Edge Chromium-based version 127.0.2651.98, ensure to update your installation to eliminate risks associated with this CVE. \n- For more information, refer to the official Microsoft update portal.\n\n**Preconditions**:\n- Ensure you are running Microsoft Edge (Chromium-based) version 127.0.2651.98.\n- Backup critical data before proceeding with the installation of any updates.",
+  "source_id": "75ca01b0-7d49-f6a3-07d8-7f1f451c4d68",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_edge_memory_corruption_cve202438218",
+  "tags": [
+    "CVE202438218",
+    "MicrosoftEdge",
+    "MemoryCorruption",
+    "Important"
+  ],
+  "node_id": "07730ca2-af4b-4192-8e06-8c6c0530c6e0",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "75ca01b0-7d49-f6a3-07d8-7f1f451c4d68"
+  ],
+  "verification_status": "unverified"
+}

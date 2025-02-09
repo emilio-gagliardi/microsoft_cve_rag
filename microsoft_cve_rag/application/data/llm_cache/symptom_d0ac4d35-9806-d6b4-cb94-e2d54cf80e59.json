@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_2019_failed_update_with_error_code_0xd000034",
+  "description": "Devices running Windows Server 2019 and LSTC editions of Windows 10 version 1809 may encounter issues while attempting to install the March 2024 security update, which was released on March 12, 2024. During the update process, users are experiencing a failure in the download phase that results in the error code '0xd000034'. This issue affects the installation process via the Windows Update and Windows Update for Business channels. Although workarounds are available, such as manually downloading the update from the Microsoft Update Catalog or utilizing Windows Server Update Services (WSUS), the core problem remains unresolved. A resolution to this error code is forthcoming, indicating a need for server administrators to monitor any updates on this situation.",
+  "source_id": "d0ac4d35-9806-d6b4-cb94-e2d54cf80e59",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d0ac4d35-9806-d6b4-cb94-e2d54cf80e59"
+  ],
+  "tags": [
+    "Windows Server 2019",
+    "update failure",
+    "error code",
+    "March 2024 security update"
+  ],
+  "node_id": "6e92c30c-17fc-438b-a711-0927373255a7",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

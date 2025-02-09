@@ -1,0 +1,23 @@
+{
+  "tool_label": "windows_resiliency_best_practices_guide",
+  "description": "**Tool Overview**:\n\nThe guide provides best practices for enhancing Windows resiliency.\n\n**Details**:\n\n1. The guide outlines effective strategies for maintaining system stability and reliability in various configurations.\n2. It emphasizes proactive measures and responses to potential system challenges.\n3. Aimed at IT professionals, it offers detailed methodologies for managing system updates and policies effectively.\n4. Specific case studies and examples are included to illustrate the practical implementation of its recommendations.\n5. The guide is continuously updated to reflect the latest trends and technologies in system management.\n\n**Usage**:\nThis guide serves as a comprehensive resource for system administrators looking to improve their practices in managing Windows environments. Regularly refer to it when planning updates or troubleshooting issues.",
+  "source_id": "f9c2e123-294b-cf06-f34a-516abaf8b2c8",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "f9c2e123-294b-cf06-f34a-516abaf8b2c8"
+  ],
+  "source_url": "https://techcommunity.microsoft.com/t5/windows-it-pro-blog/windows-resiliency-best-practices",
+  "tool_url": "https://techcommunity.microsoft.com/t5/windows-it-pro-blog/windows-resiliency-best-practices",
+  "tags": [
+    "resiliency",
+    "best practices",
+    "system administration",
+    "Windows"
+  ],
+  "node_id": "899ce80d-c554-42c6-8455-6395918957ad",
+  "node_label": "Tool",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,23 @@
+{
+  "symptom_label": "microsoft_edge_memory_access_issue_after_update",
+  "description": "After updating to Microsoft Edge version 127.0.2651.86, users may notice out-of-bounds memory access issues that could potentially lead to unexpected behavior. This could manifest as the browser crashing, freezing, or experiencing slow performance when trying to load certain web pages, particularly those that utilize web transport features. Users may also receive unusual error messages when attempting to interact with affected pages. As this issue concerns a critical vulnerability documented under CVE-2024-7255, it is crucial for users operating on earlier versions to update to the specified build to mitigate these risks. The KB article related to this update is KB-127.0.2651.86, which offers further insight into the details of the resolution.",
+  "source_id": "94967bbd-d0b7-61b0-c452-1763e413cc07",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "94967bbd-d0b7-61b0-c452-1763e413cc07"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "web transport",
+    "memory access",
+    "browser crash",
+    "performance",
+    "update"
+  ],
+  "node_id": "4c044dcc-ccf0-4612-b972-f60bf316725e",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

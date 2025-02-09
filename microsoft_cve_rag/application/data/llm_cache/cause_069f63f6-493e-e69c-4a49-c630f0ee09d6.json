@@ -1,0 +1,20 @@
+{
+  "description": "Insufficient policy enforcement in the download functionality of Chromium allowed remote attackers to bypass filesystem restrictions, presenting a risk in Microsoft Edge as it ingests Chromium components.",
+  "cause_label": "chromium_insufficient_policy_enforcement_in_download",
+  "source_id": "069f63f6-493e-e69c-4a49-c630f0ee09d6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "069f63f6-493e-e69c-4a49-c630f0ee09d6"
+  ],
+  "tags": [
+    "Chromium",
+    "Microsoft Edge",
+    "Remote Attack",
+    "File System Restrictions"
+  ],
+  "node_id": "9070ae41-fec3-4426-9f3b-01fba9ea9017",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause"
+}

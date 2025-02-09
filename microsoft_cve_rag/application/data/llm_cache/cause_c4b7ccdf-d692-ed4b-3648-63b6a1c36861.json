@@ -1,0 +1,21 @@
+{
+  "description": "Inappropriate implementation in FEDCM of Chromium allowed UI spoofing via crafted HTML, affecting Microsoft Edge (Chromium-based) earlier versions prior to 127.0.6533.72.",
+  "cause_label": "chromium_inappropriate_implementation_in_fedcm_ui_spoofing",
+  "source_id": "c4b7ccdf-d692-ed4b-3648-63b6a1c36861",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c4b7ccdf-d692-ed4b-3648-63b6a1c36861"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "UI Spoofing",
+    "FEDCM"
+  ],
+  "node_id": "dc8e45bd-fee6-4fad-8ec5-93d51317b3f4",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

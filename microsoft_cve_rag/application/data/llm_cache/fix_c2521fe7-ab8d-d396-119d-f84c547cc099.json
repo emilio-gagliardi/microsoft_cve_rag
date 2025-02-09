@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the use after free vulnerability in Microsoft Edge (Chromium-based):\n\n1. Ensure you are using the latest version of Microsoft Edge. \n2. The secure version to install is 126.0.2592.81 or later, released on June 27, 2024.\n\n**Details**:\n- This update resolves a heap corruption issue that could allow a remote attacker to exploit the browser via a crafted HTML page.\n- For more information on the release, check the Google Chrome updates as it is tied to the Chromium base used by Edge. \n- Users can confirm their browser version by navigating to the 'About Microsoft Edge' section in the browser menu.\n\n**Preconditions**:\n- Make sure your system is running a compatible version of Windows to support Microsoft Edge updates.\n- Backup any critical data prior to performing updates to ensure recovery if needed.",
+  "source_id": "c2521fe7-ab8d-d396-119d-f84c547cc099",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_chromium_to_1260992581",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-6290",
+    "Chromium",
+    "HeapCorruption"
+  ],
+  "node_id": "b8a269d9-5c51-441f-9ab6-30d4d0c090a0",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c2521fe7-ab8d-d396-119d-f84c547cc099"
+  ],
+  "verification_status": "unverified"
+}

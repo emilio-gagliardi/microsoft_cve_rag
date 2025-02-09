@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo protect against the Microsoft Edge (Chromium-based) security feature bypass vulnerability (CVE-2024-26163), updating the browser to the latest version is crucial:\n\n1. Open Microsoft Edge.\n2. Go to Settings > Help and feedback > About Microsoft Edge to automatically download and install the latest updates.\n3. Restart your browser after the update is completed to ensure all new features and security updates are active.\n\n**Details**:\n- Ensure Microsoft Edge (Chromium-based) is updated to version 122.0.2365.92 or higher.\n- For manual installation, you can download the update package from: https://catalog.update.microsoft.com/Search.aspx?q=KB26163.\n- It is recommended to regularly check for updates to maintain security against potential vulnerabilities.\n\n**Preconditions**:\n- Users should have administrative privileges to install updates.\n- Backup any important data before proceeding with updates, just to be safe.\n",
+  "source_id": "cdeee8ec-327e-8b93-9fbf-a5a88bb59024",
+  "source_type": "MSRCPost",
+  "fix_label": "update_edge_chromium_to_address_cve202426163",
+  "tags": [
+    "KB26163",
+    "MicrosoftEdge",
+    "CVE202426163",
+    "Chromium"
+  ],
+  "node_id": "736cf9bb-95a1-4423-8373-2c0dc4ddce31",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Fix",
+  "source_ids": [
+    "cdeee8ec-327e-8b93-9fbf-a5a88bb59024"
+  ]
+}

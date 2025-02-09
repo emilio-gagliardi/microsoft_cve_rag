@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_task_scheduler_privilege_elevation_risk",
+  "description": "Users may notice unexpected changes in application behavior or inappropriate access to system resources after applying updates referencing KB-5046696, KB-5046633, KB-5046617, and KB-5046613. This could manifest as unauthorized access to certain admin-only functions within Windows Task Scheduler or abnormal elevations of privileges, allowing less privileged users to access sensitive features. The affected builds include Windows 10 version 21H2 (10.0.19044.5131) and various Windows 11 versions (10.0.26100.2314, 10.0.22631.4460). Administrators might find logs indicating permission denials or privilege escalations that were not intended and occur despite standard user restrictions in place, leading to potential security concerns and requiring immediate attention.",
+  "source_id": "2803b099-713e-6efc-a853-152d057004fa",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2803b099-713e-6efc-a853-152d057004fa"
+  ],
+  "tags": [
+    "Windows",
+    "Task Scheduler",
+    "Privilege Escalation",
+    "Security Update"
+  ],
+  "node_id": "9c70e210-3799-4ad0-83ea-610c53dfe52b",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

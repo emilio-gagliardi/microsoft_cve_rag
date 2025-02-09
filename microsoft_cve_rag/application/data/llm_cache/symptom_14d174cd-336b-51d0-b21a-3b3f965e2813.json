@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_10_installs_kb5043064_fail_with_error_0x800f0840",
+  "description": "Windows 10 version 22H2 systems are experiencing a 0x800f0840 error during the installation of the September 2024 Cumulative Update (KB5043064) after the initial attempt that includes a restart. This issue has been noted by multiple users, indicating possible widespread impact among similar configurations. It appears that attempting to install the update a second time results in a successful installation, suggesting that the error may be transient rather than persistent. System administrators should be aware of this behavior as it impacts update deployment processes and may necessitate communication with end-users regarding possible workarounds. The issue's focus is primarily observed in x64-based systems running Windows 10 version 22H2.",
+  "source_id": "14d174cd-336b-51d0-b21a-3b3f965e2813",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "14d174cd-336b-51d0-b21a-3b3f965e2813"
+  ],
+  "tags": [
+    "windows 10",
+    "kb5043064",
+    "0x800f0840 error",
+    "cumulative update"
+  ],
+  "node_id": "c2f7a378-fd7d-4211-a396-96f8b83c69e4",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

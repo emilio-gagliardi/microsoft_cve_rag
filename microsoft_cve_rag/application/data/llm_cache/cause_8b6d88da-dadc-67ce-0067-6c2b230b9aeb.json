@@ -1,0 +1,22 @@
+{
+  "description": "A use after free condition in Microsoft Message Queuing (MSMQ) allows attackers to send specially crafted packets, leading to remote code execution on the server, thus resulting in critical vulnerabilities for affected builds including Windows 10 (various versions) and Windows 11.",
+  "cause_label": "msmq_use_after_free_remote_code_execution",
+  "source_id": "8b6d88da-dadc-67ce-0067-6c2b230b9aeb",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8b6d88da-dadc-67ce-0067-6c2b230b9aeb"
+  ],
+  "tags": [
+    "MSMQ",
+    "remote code execution",
+    "CVE-2024-30080",
+    "Windows",
+    "vulnerability"
+  ],
+  "node_id": "811d39fe-3808-4dea-8e86-a752054a6740",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "critical",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

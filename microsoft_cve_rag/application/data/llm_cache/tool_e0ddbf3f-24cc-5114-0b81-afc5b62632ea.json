@@ -1,0 +1,23 @@
+{
+  "tool_label": "broadcom_support_portal_product_downloads",
+  "description": "**Tool Overview**:\nThis tool refers to the Broadcom Support Portal, which provides detailed instructions on how to find product downloads, OEM custom images, patches, and add-ons. \n\n**Details**:\n1. **Product Downloads**: Users can access various software and firmware needed for Broadcom products.\n2. **OEM Custom Images**: The portal offers instructions for obtaining custom images tailored for OEMs.\n3. **Patches**: Security patches and updates related to Broadcom products are provided to ensure systems are secured against vulnerabilities.\n4. **Add-ons**: Additional resources or software that enhance or augment Broadcom products can be downloaded through the portal.\n5. **Navigation**: Users are guided on how to efficiently navigate through the portal to find the necessary resources.\n\nThis comprehensive approach helps system administrators manage and maintain Broadcom devices effectively.",
+  "source_id": "e0ddbf3f-24cc-5114-0b81-afc5b62632ea",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e0ddbf3f-24cc-5114-0b81-afc5b62632ea"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/1B9330F0-85B6-4351-9503-80555C150A9E%40gmail.com",
+  "tool_url": "https://www.broadcom.com/support",
+  "tags": [
+    "Broadcom",
+    "support",
+    "downloads",
+    "OEM"
+  ],
+  "node_id": "4fbd5b9f-5ea2-41d5-af22-e9138a6ae35d",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

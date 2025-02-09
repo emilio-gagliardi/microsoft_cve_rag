@@ -1,0 +1,16 @@
+{
+  "description": "To address the issue described in CVE-2023-5477, users should update Microsoft Edge (Chromium-based) to version 118.0.2088.46, which resolves the inappropriate implementation in the installer affecting Chromium. This update is automatically included in the security update guide published on October 13, 2023. Users can verify their current version of Microsoft Edge by clicking on the three dots in the top right corner, selecting 'Help and feedback', and then 'About Microsoft Edge'. The relevant KB article for this update is KB-118.0.2088.46. Ensure that your browser is updated to benefit from the security improvements introduced in this release.",
+  "source_id": "169598b1-b165-785c-aeb1-35777edd3b4a",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeToVersion1180208846",
+  "tags": [
+    "browser",
+    "security",
+    "update"
+  ],
+  "node_id": "76410ecb-d6cd-4cf1-a3e7-c046edcbb88f",
+  "node_label": "Fix",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

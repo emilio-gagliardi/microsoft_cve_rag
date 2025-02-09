@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_10_black_screen_after_recent_updates",
+  "description": "After applying recent updates, Windows 10 PCs are experiencing a black screen with a spinning circle during boot. The issue manifests as services that stop randomly, reporting an inability to locate the System32 directory. This behavior occurs despite the updates initially installing successfully and the machines appearing compliant. Further investigation reveals the Boot Configuration Data (BCD) may need to be rebuilt for the PCs to boot correctly. Notably, Windows 11 systems do not exhibit this problem, indicating a potential regression or compatibility issue specific to Windows 10 since the last production change on the 19th. No malware has been detected within the environment, suggesting this behavior is directly related to the recent updates.",
+  "source_id": "d7bd52fb-0482-34ef-a9aa-c53d24ce3b27",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d7bd52fb-0482-34ef-a9aa-c53d24ce3b27"
+  ],
+  "tags": [
+    "Windows 10",
+    "black screen",
+    "system boot",
+    "patch issues"
+  ],
+  "node_id": "a07ed9b6-1e1d-4d37-94c5-e5d296436c4a",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

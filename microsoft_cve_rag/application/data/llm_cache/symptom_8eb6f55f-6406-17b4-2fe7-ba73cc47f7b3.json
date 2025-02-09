@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_intermittent_crashes_after_update",
+  "description": "After updating to Microsoft Edge version 127.0.2651.74, users may experience intermittent crashes and instability within the browser. This update is critical as it addresses a use-after-free vulnerability associated with Chromium, which could lead to unexpected and erratic behaviors during usage. Users might notice the browser closing unexpectedly or freezing while loading web pages. Additionally, the issue may manifest as failed page loads, where the browser becomes unresponsive, necessitating a restart of the application. This symptom, prominent in systems utilizing the Chromium-based Edge, emphasizes the importance of keeping the browser updated to mitigate potential security risks and enhance overall stability.",
+  "source_id": "8eb6f55f-6406-17b4-2fe7-ba73cc47f7b3",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8eb6f55f-6406-17b4-2fe7-ba73cc47f7b3"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chrome",
+    "Browser Crashes",
+    "Chromium",
+    "CVE-2024-6989"
+  ],
+  "node_id": "9371ddb1-aead-4140-bb31-ca70d44bbdaf",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

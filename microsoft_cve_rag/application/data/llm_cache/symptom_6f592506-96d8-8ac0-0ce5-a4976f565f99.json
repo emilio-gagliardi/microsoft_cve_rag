@@ -1,0 +1,16 @@
+{
+  "symptom_label": "InternetConnectionSharingMayCauseRemoteCodeExecution",
+  "description": "End users may experience a significant risk of remote code execution due to a vulnerability associated with Internet Connection Sharing (ICS). When ICS is enabled, unauthorized access to sensitive data and system resources can occur, impacting the integrity and availability of the system. This issue affects various Windows builds, including Windows 10 versions (10.0.10240.x, 10.0.19041.3803, 10.0.22000.2652) and Windows 11 versions (10.0.22631.2861). For details, refer to KB-5033379, KB-5033375, KB-5033372, and KB-5033369.",
+  "source_id": "6f592506-96d8-8ac0-0ce5-a4976f565f99",
+  "source_type": "MSRCPost",
+  "tags": [
+    "security",
+    "ICS",
+    "remote code execution"
+  ],
+  "node_id": "54721e6c-01c5-4b7f-a3ca-30aed5872454",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

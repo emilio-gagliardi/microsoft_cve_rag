@@ -1,0 +1,24 @@
+{
+  "tool_label": "ivanti_product_patch_update",
+  "description": "**Tool Overview**:\n\nIvanti products require users to apply patches to mitigate vulnerabilities that may allow remote code execution. \n\n**Details**:\n1. Ivanti Avalanche, Neurons for ITSM, and Virtual Traffic Manager are affected by multiple vulnerabilities that require immediate patching.\n2. Users should apply appropriate updates provided by Ivanti to vulnerable systems after thorough testing.\n3. The patch management process must be ongoing to ensure all vulnerabilities are addressed correctly and timely.\n4. Regularly review and validate installed versions of Ivanti products to ensure compliance with the latest security updates.\n5. Utilize automated patch management tools to facilitate the timely application of software updates across enterprise assets.\n\n**Example Commands**:\n\nAssuming a PowerShell environment, script examples can be used to facilitate the update process (LLM Synthesized).\n\n```powershell\n# This is a synthesized PowerShell script for updating Ivanti products\nInvoke-Command -ScriptBlock { \n    # Importing the necessary module to manage Ivanti services\n    Import-Module IvantiManagement\n    # Check for installed versions of Ivanti products\n    Get-IvantiProductVersion | ForEach-Object { \n        # Trigger the update if the version is out of date\n        if ($_.Version -lt 'latest_version_number') { \n            Update-IvantiProduct -Name $_.Name\n        }\n    }\n}\n```",
+  "source_id": "e639b6dd-f6e8-d1d8-f93e-92a8c41b6cdd",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e639b6dd-f6e8-d1d8-f93e-92a8c41b6cdd"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAGaCHK7wnLgMQFKYRhat%3DJzD7mZyaZkhhujN5WE%3DDeAUGXvu4w%40mail.gmail.com",
+  "tool_url": null,
+  "tags": [
+    "Ivanti",
+    "patch management",
+    "CVE",
+    "automation",
+    "LLMSynthesized"
+  ],
+  "node_id": "189b0821-127f-4355-bbf0-8a4b90adad56",
+  "node_label": "Tool",
+  "reliability": 0.5,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

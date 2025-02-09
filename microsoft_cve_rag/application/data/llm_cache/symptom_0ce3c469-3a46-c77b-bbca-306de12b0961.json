@@ -1,0 +1,21 @@
+{
+  "symptom_label": "remote_code_execution_occurs_after_patch_installation",
+  "description": "After installing the security updates outlined in KB5037771, KB5037770, and KB5037768, users may experience incidents of remote code execution on affected systems. This symptom manifests as unexpected behaviors in applications that rely on the Windows Mobile Broadband driver. Specifically, devices running the Windows 10 and Windows 11 operating systems, including versions 22H2 and 23H2, may become susceptible to unauthorized remote commands. The impacted systems are identified by build numbers such as 10.0.19045.4412 and 10.0.22631.3593. Administrators should monitor for unusual alerts or functionalities following the application of these updates to mitigate exposure to this critical issue.",
+  "source_id": "0ce3c469-3a46-c77b-bbca-306de12b0961",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0ce3c469-3a46-c77b-bbca-306de12b0961"
+  ],
+  "tags": [
+    "Windows 10",
+    "Windows 11",
+    "Remote Code Execution",
+    "Patch Management"
+  ],
+  "node_id": "2dc17c47-010a-4fb3-a571-36af4ec771e6",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

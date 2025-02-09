@@ -1,0 +1,22 @@
+{
+  "description": "Inappropriate implementation in navigation within Chromium prior to version 122.0.6261.57, allowing remote attackers to bypass navigation restrictions via crafted HTML pages, affecting Microsoft Edge (Chromium-based) that consumes Chromium.",
+  "cause_label": "chromium_inappropriate_navigation_implementation_bypass",
+  "source_id": "9bbbb693-312c-b174-1e8d-8a885d05b059",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "9bbbb693-312c-b174-1e8d-8a885d05b059"
+  ],
+  "tags": [
+    "CVE-2024-1674",
+    "Chromium",
+    "Microsoft Edge",
+    "Navigation",
+    "HTML",
+    "Bypass"
+  ],
+  "node_id": "72aa2af0-6610-49ca-97a3-e34fc43edc9c",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "moderate",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,20 @@
+{
+  "symptom_label": "outlook_replacement_leads_to_feature_loss",
+  "description": "Users are experiencing a transition to a new version of Outlook that lacks essential features available in the currently utilized full-blown version found in Microsoft 365. This change could prevent access to the hosted email on Exchange due to future lack of support for older versions such as Outlook 2019. The impending update may leave users without crucial tools necessary for their business operations, thereby impacting productivity negatively. Furthermore, the forced upgrade to a featureless version compromises workflows and could interfere with effective email management. Documentation indicates potential connectivity limitations that may result in service disruptions for critical business applications.",
+  "source_id": "e3f1ee80-61ee-80cb-a4cc-65c16c095eb3",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e3f1ee80-61ee-80cb-a4cc-65c16c095eb3"
+  ],
+  "tags": [
+    "outlook",
+    "microsoft365",
+    "feature_loss",
+    "email_management"
+  ],
+  "node_id": "c92ce37a-b8af-45bf-a15a-af0cd32456fb",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

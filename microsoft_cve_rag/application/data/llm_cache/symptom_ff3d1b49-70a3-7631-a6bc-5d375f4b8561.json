@@ -1,0 +1,22 @@
+{
+  "symptom_label": "user_opening_file_leads_to_folder_tampering",
+  "description": "When users open specially crafted files, they may experience tampering with Windows compressed folders. This behavior occurs across Windows 11 versions 23H2 (10.0.22631.3880) and 22H2 (10.0.22621.3880), as documented in KB5040442. Users may not immediately notice the tampering unless they specifically verify the integrity of the files within the compressed folders. This symptom indicates a concern for file integrity when handling compressed files, especially if maliciously crafted files are opened by the user. The potential risks involved highlight the importance of ensuring proper usage of file-handling applications and caution during file interactions.",
+  "source_id": "ff3d1b49-70a3-7631-a6bc-5d375f4b8561",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ff3d1b49-70a3-7631-a6bc-5d375f4b8561"
+  ],
+  "tags": [
+    "Windows 11",
+    "Tampering",
+    "File Integrity",
+    "Security Update",
+    "KB5040442"
+  ],
+  "node_id": "cf118ea4-300d-49ae-bd98-9be6831441f1",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

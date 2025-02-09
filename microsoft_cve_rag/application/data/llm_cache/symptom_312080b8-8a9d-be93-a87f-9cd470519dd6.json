@@ -1,0 +1,18 @@
+{
+  "symptom_label": "SensitiveDataMayBeExposedThroughMonitoring",
+  "description": "Users may experience a risk of sensitive data exposure when interacting with the Microsoft Local Security Authority Subsystem Service due to an information disclosure vulnerability (CVE-2024-20692). If successfully exploited, attackers who can monitor network traffic could retrieve sensitive information in plaintext, which may lead to further security incidents. This issue affects various Windows builds, including Windows 10 versions 21H2 and 22H2 (KB5034122, KB5034121), and Windows 11 builds (KB5034123, KB5034171). System administrators should be vigilant about network security and mitigate risks associated with user interactions on Active Directory domain controllers, especially in networks where this vulnerability may be exploitable. The implications of this vulnerability underline the necessity for robust security practices in enterprise environments.",
+  "source_id": "312080b8-8a9d-be93-a87f-9cd470519dd6",
+  "source_type": "MSRCPost",
+  "tags": [
+    "information disclosure",
+    "network monitoring",
+    "sensitive data",
+    "Windows",
+    "CVE-2024-20692"
+  ],
+  "node_id": "a0aa1426-7e1a-4ae1-b649-d7ff93cbd7d2",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

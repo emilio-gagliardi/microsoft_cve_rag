@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the use after free vulnerability in Chromium, ensure you are running the latest version of Microsoft Edge (Chromium-based).\n\n1. Open your Microsoft Edge browser.\n2. Click on the three dots (...) in the top right corner of the window.\n3. Select 'Help and feedback'.\n4. Click on 'About Microsoft Edge' to view the current version.\n5. If your version is lower than 127.0.6533.72, update your browser as follows:\n   - Check for updates in the same 'About Microsoft Edge' section, and apply any available updates.\n\n**Details**:\n- This update resolves security vulnerabilities identified in previous versions.\n- Ensure your Microsoft Edge version is at least 127.0.2651.74 to avoid exploitation of the vulnerability (CVE-2024-6998).\n- Regularly check for updates to provide continuous protection. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure your system is running Microsoft Edge (Chromium-based).\n- Backup critical work before proceeding with updates.",
+  "source_id": "286e675b-b5c5-2130-7dd8-7b6c398ce7cc",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_127_0_6533_72",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-6998",
+    "Chromium",
+    "LLM Synthesized"
+  ],
+  "node_id": "5c81cbb2-8d9b-48e5-a9a3-6af22025d1fc",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "286e675b-b5c5-2130-7dd8-7b6c398ce7cc"
+  ],
+  "verification_status": "unverified"
+}

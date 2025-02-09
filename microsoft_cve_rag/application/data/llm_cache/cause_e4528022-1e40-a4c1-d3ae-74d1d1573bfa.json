@@ -1,0 +1,20 @@
+{
+  "description": "The Microsoft Edge (Chromium-based) webview2 component has improper neutralization of input during web page generation, allowing for cross-site scripting (XSS) attacks. This flaw can enable spoofing attacks where malicious scripts execute in the victim's browser, particularly when a user opens a malicious file.",
+  "cause_label": "microsoft_edge_chromium_improper_neutralization_xss",
+  "source_id": "e4528022-1e40-a4c1-d3ae-74d1d1573bfa",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e4528022-1e40-a4c1-d3ae-74d1d1573bfa"
+  ],
+  "tags": [
+    "CVE-2024-29049",
+    "spoofing",
+    "XSS",
+    "webview2"
+  ],
+  "node_id": "fbd8325e-aaa3-4291-aac6-29422edd041f",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "moderate",
+  "entity_type": "Cause"
+}

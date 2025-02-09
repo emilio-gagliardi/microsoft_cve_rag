@@ -1,0 +1,18 @@
+{
+  "description": "The underlying issue stems from a change implemented in the kdcsvc.dll file by the 2023-10 cumulative update for Microsoft Server Operating System version 21H2 (KB5031364). This update adversely affects previous versions of AuthLite used on 2022 Domain Controllers, leading to failures in booting and user authentication. As a result, unpatched Domain Controllers may be unable to authenticate users, causing significant operational disruptions. Users are instructed to upgrade to AuthLite version 2.4.14 or newer to mitigate these issues. Additionally, because the problem primarily impacts 2022 DCs, a broader policy of ensuring all Domain Controllers are running the same build is recommended to prevent future discrepancies.",
+  "source_id": "139df8a9-4477-506f-39f5-103fb6f8b9e9",
+  "source_type": "PatchManagementPost",
+  "cause_label": "KdcsvcDllUpdateBreaksAuthLiteFunctionality",
+  "tags": [
+    "authlite",
+    "kdcsvc.dll",
+    "mfa",
+    "patching",
+    "server2022"
+  ],
+  "node_id": "581af5e9-471b-4f1e-8b82-6150ca84b31d",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

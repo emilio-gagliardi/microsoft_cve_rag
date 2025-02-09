@@ -1,0 +1,20 @@
+{
+  "description": "A race condition in the Windows Telephony server allows elevation of privilege due to improper synchronization when accessing shared resources, potentially leading to exploitation of sensitive data stored in incorrectly locked memory.",
+  "cause_label": "windows_telephony_server_race_condition_exploitation",
+  "source_id": "d07543e5-de7d-f625-8da8-e5baaf3580bc",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d07543e5-de7d-f625-8da8-e5baaf3580bc"
+  ],
+  "tags": [
+    "Windows",
+    "Telephony",
+    "Privilege Escalation",
+    "Race Condition"
+  ],
+  "node_id": "712ee377-34e5-4108-8086-b871875a5fe5",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

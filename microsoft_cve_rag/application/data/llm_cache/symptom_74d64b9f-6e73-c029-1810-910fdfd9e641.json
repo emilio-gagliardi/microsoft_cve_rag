@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_update_stack_elevation_privilege_issue",
+  "description": "End users may experience unexpected system behavior after installing updates. In particular, following the March 12, 2024 update (KB-5035858, KB-5035854, KB-5035853, KB-5035845) for Windows 10 and Windows Server 2012 through Windows Server 2016, users may notice intermittent access issues or unexpected privilege escalations. These behaviors may manifest as denial of access to certain files or features that previously functioned normally, leading to confusion and potential workflow disruptions. Build numbers affected include 10.0.19045.4170 for Windows 10 and 10.0.14393.6796 for Windows Server 2016 among others. System administrators should monitor user feedback closely after applying the updates as they may seek assistance regarding these symptoms.",
+  "source_id": "74d64b9f-6e73-c029-1810-910fdfd9e641",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "74d64b9f-6e73-c029-1810-910fdfd9e641"
+  ],
+  "tags": [
+    "Windows",
+    "Update",
+    "Privilege Escalation",
+    "Issue"
+  ],
+  "node_id": "c647e862-6a76-4f0a-a23e-d5f09ab226f9",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

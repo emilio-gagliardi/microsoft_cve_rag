@@ -1,0 +1,19 @@
+{
+  "tool_label": "Office2016UpdateDownloadLinks",
+  "description": "A collection of downloadable links for the latest security and non-security updates for Office 2016 versions. This tool is essential for system administrators seeking to ensure all products in the Office suite are up to date with the latest patches. The download links are organized for both x64 and x86 architectures, allowing for easy access and implementation of updates across various deployment strategies. The links provided can be stored and referenced as part of a regular update process to keep all office-related applications secure and functional. It is especially useful for product suites that may require additional maintenance to address specific patch applicability rules.",
+  "source_id": "cdb88a68-d0b9-9236-344f-2b750cfc3bad",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/...",
+  "tool_url": "https://github.com/abbodi1406/whd/raw/master/files/office2016-x64.txt",
+  "tags": [
+    "Office",
+    "update",
+    "download",
+    "security"
+  ],
+  "node_id": "79e38db6-ee5e-401b-9a6e-c016cfd6d1de",
+  "node_label": "Tool",
+  "reliability": "0.8",
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

@@ -1,0 +1,17 @@
+{
+  "symptom_label": "KernelMemoryContentsExposedToUserModeProcess",
+  "description": "A successful exploitation of the information disclosure vulnerability (CVE-2023-36398) can lead to the exposure of kernel memory contents to a user mode process. This potentially allows attackers to read sensitive data from the kernel without requiring elevated privileges. Applicable systems affected by this issue include various Windows 10 and Windows 11 builds (e.g., 10.0.22621.2715, 10.0.19043.3693) as detailed in KB articles KB5032199, KB5032192, KB5032190, and KB5032189, which have relevant security updates available. For more details, visit the Microsoft Security Response Center at https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-36398.",
+  "source_id": "9be7a8d3-46cf-5f0c-d2fc-12f608138616",
+  "source_type": "MSRCPost",
+  "tags": [
+    "information disclosure",
+    "kernel memory",
+    "Windows",
+    "security update"
+  ],
+  "node_id": "541a7e40-c60b-4ba0-910c-bb9cb7e6211c",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

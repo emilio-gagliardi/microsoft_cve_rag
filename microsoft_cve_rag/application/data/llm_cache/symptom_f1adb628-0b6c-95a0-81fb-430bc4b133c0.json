@@ -1,0 +1,17 @@
+{
+  "symptom_label": "WindowsUpdateIncorrectlyNamedForVersion21H2",
+  "description": "A patch for Windows 11 version 21H2 has been improperly labeled, causing confusion among system administrators and users. Instead of the expected naming convention for updates of 'windows10.0-kb5022370', it is referred to with an incorrect prefix. This mismatch can lead to difficulties in identifying the correct patches to apply and may result in compliance and update management issues. Reference is made to KB-5022370 for more information on this update error.",
+  "source_id": "f1adb628-0b6c-95a0-81fb-430bc4b133c0",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows 11",
+    "patch management",
+    "update naming",
+    "KB-5022370"
+  ],
+  "node_id": "fc679f81-c9aa-4bbb-9781-bc922b9a0f24",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Resume Extensible Firmware Interface Security Feature Bypass vulnerability (CVE-2024-37982):\n\n1. Download and apply the following updates relevant to your system version:\n   - For Windows 11 Version 24H2 (x64): [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n   - For Windows 11 Version 23H2 (x64): [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - For Windows 11 Version 22H2 (x64): [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - For Windows 11 Version 21H2 (x64): [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280)\n   - For Windows 10 (x64): [KB5044286](https://catalog.update.microsoft.com/Search.aspx?q=KB5044286)\n   - For Windows 10 (32-bit): [KB5044286](https://catalog.update.microsoft.com/Search.aspx?q=KB5044286)\n   - For Windows 10 Version 22H2 (x64): [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n   - For Windows 10 Version 21H2 (x64): [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n   - For Windows 10 Version 22H2 (32-bit): [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n   - For Windows 10 Version 21H2 (32-bit): [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n\n2. Restart your system to ensure the patches take effect. \n\n**Details**:\n- These updates resolve a specific security feature bypass vulnerability within the Windows Resume Extensible Firmware Interface.\n- If applicable, apply updates corresponding to the specific build number of your system to ensure compatibility.\n\n**Preconditions**:\n- Ensure the system is running a version compatible with the updates.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "cda857f1-00d9-748d-6228-be7ecaba6e2a",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_for_windows_resume_firmware_cve202437982",
+  "tags": [
+    "KB5044284",
+    "KB5044285",
+    "Windows11",
+    "CVE202437982"
+  ],
+  "node_id": "fe2fc44c-636f-4026-a42f-c080b99c7a01",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "cda857f1-00d9-748d-6228-be7ecaba6e2a"
+  ],
+  "verification_status": "unverified"
+}

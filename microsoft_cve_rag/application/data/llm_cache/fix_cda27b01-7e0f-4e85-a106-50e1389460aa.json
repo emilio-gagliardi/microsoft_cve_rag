@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo manage Windows 10 upgrade processes effectively within an Active Directory (AD) environment:\n\n1. Create an AD machine group specifically for Windows 10 systems instead of relying on individual Organizational Units (OUs).\n2. Utilize this machine group to filter updates and upgrades.\n3. Monitor the group; when Windows 10 machines are upgraded and removed, the associated machine group will automatically be purged.\n\n**Details**:\nThis method streamlines the upgrade management process and ensures that only relevant systems are targeted for updates, reducing administrative overhead. (LLM Synthesized)\n",
+  "source_id": "cda27b01-7e0f-4e85-a106-50e1389460aa",
+  "source_type": "PatchManagementPost",
+  "fix_label": "manage_windows_10_upgrade_process_ad_group",
+  "tags": [
+    "ActiveDirectory",
+    "Windows10",
+    "UpgradeManagement",
+    "LLM Synthesized"
+  ],
+  "node_id": "1aa2e3cc-1f7e-4718-b875-5a21fdb59f64",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "cda27b01-7e0f-4e85-a106-50e1389460aa"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "The Windows Kerberos implementation contains a flaw in its authentication mechanism, allowing attackers to bypass security features through impersonation, leading to unauthorized access and potential manipulation of resources.",
+  "cause_label": "windows_kerberos_authentication_mechanism_bypass",
+  "source_id": "5bcd1a98-553d-bd99-49b0-ea731decb2ad",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5bcd1a98-553d-bd99-49b0-ea731decb2ad"
+  ],
+  "tags": [
+    "CVE",
+    "Kerberos",
+    "authentication",
+    "bypass",
+    "Windows"
+  ],
+  "node_id": "7ac0d690-9acd-4246-8bc3-d37751c2a693",
+  "node_label": "Cause",
+  "reliability": 9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

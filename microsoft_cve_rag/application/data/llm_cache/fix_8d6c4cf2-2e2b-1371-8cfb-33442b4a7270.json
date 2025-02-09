@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate critical vulnerabilities addressed in the May Patch Tuesday updates:\n\n1. Ensure that your systems are up-to-date with the latest patches released by Microsoft, specifically addressing the vulnerabilities CVE-2024-30051 and CVE-2024-30040.\n2. For browsers, prioritize updating Google Chrome and Microsoft Edge to resolve associated zero-day vulnerabilities, including CVE-2024-4671 and CVE-2024-4761.\n\n**Details**:\n- The elevation of privilege vulnerability (CVE-2024-30051) in the Windows DWM core library is crucial, as it can allow attackers to gain system privileges.\n- The security feature bypass vulnerability (CVE-2024-30040) also poses risks by potentially allowing attackers to bypass mitigations in Microsoft 365 and Office applications.\n- It is recommended to assess the impact of these vulnerabilities and apply the patches as a high-priority task to secure enterprise environments against possible exploits.\n",
+  "source_id": "8d6c4cf2-2e2b-1371-8cfb-33442b4a7270",
+  "source_type": "PatchManagementPost",
+  "fix_label": "address_critical_windows_edge_vulnerabilities_cve202430051_cve20243040",
+  "tags": [
+    "CVE-2024-30051",
+    "CVE-2024-30040",
+    "CVE-2024-4671",
+    "CVE-2024-4761"
+  ],
+  "node_id": "b2f9db6b-fe0b-4482-8193-78943d5dea24",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "8d6c4cf2-2e2b-1371-8cfb-33442b4a7270"
+  ],
+  "verification_status": "unverified"
+}

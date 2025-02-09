@@ -1,0 +1,23 @@
+{
+  "symptom_label": "windows_graphics_component_elevation_of_privilege",
+  "description": "After installing the security updates associated with KB5043076, KB5043067, and KB5043064, users may experience unexpected behavior where certain applications that rely on the Windows Graphics Component fail to operate correctly. This can manifest as application crashes or hanging when rendering graphical content. Home users and enterprise environments may notice that productivity applications such as Microsoft Office are less responsive or may freeze during intensive graphical tasks. The affected builds include Windows 11 Versions 23H2 (10.0.22631.4169) and 22H2 (10.0.22621.4169), and Windows 10 Versions 22H2 (10.0.19045.4894) and 21H2 (10.0.19044.4894). System administrators should monitor for these symptoms following deployment of the associated updates.",
+  "source_id": "0983b1c5-edf2-4ce1-8492-094585b2fa96",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0983b1c5-edf2-4ce1-8492-094585b2fa96"
+  ],
+  "tags": [
+    "Windows",
+    "Graphics",
+    "Elevation of Privilege",
+    "KB5043076",
+    "KB5043067",
+    "KB5043064"
+  ],
+  "node_id": "ebe5d803-bf4f-43e6-b372-68896ad404b2",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

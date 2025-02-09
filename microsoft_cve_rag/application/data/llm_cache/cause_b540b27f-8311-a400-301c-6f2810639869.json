@@ -1,0 +1,18 @@
+{
+  "description": "The cause of the issue described in CVE-2024-0224 is a 'use after free' memory management flaw in the WebAudio component of the Chromium open source software. This flaw occurs when a program continues to reference a memory location after it has been freed, potentially leading to arbitrary code execution or memory corruption. In this specific case, the affected software is Microsoft Edge, which relies on the Chromium engine for its functionality. The problem is inherent to the Chromium codebase, which is updated regularly but can sometimes inherit vulnerabilities present in the underlying open source components. The fixed version of Microsoft Edge is 120.0.2210.121, which mitigates this vulnerability by correcting the memory handling within the WebAudio framework.",
+  "cause_label": "UseAfterFreeInWebAudio",
+  "source_id": "b540b27f-8311-a400-301c-6f2810639869",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Chromium",
+    "Microsoft Edge",
+    "WebAudio",
+    "memory management",
+    "vulnerability"
+  ],
+  "node_id": "26cc8480-d92f-4d0f-8bec-91d94e814204",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

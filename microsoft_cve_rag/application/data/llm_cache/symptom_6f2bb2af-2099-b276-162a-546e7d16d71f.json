@@ -1,0 +1,21 @@
+{
+  "symptom_label": "bitlocker_recovery_access_failures_in_command_prompt",
+  "description": "The issue reported concerns a single machine that utilizes BitLocker for encryption. The system administrator is unable to access the command prompt or the BitLocker recovery options despite multiple attempts. When navigating through the advanced recovery options, the user consistently faces an unresponsive screen, indicating that the expected recovery tools are inaccessible. Without access to these recovery methods, there may be a risk of needing to wipe the machine entirely to regain functionality. This situation pertains specifically to BitLocker on this Windows machine, impacting the recovery process essential for restoring access to encrypted data.",
+  "source_id": "6f2bb2af-2099-b276-162a-546e7d16d71f",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "6f2bb2af-2099-b276-162a-546e7d16d71f"
+  ],
+  "tags": [
+    "bitlocker",
+    "recovery options",
+    "command prompt",
+    "encryption"
+  ],
+  "node_id": "5797f337-6aab-431f-bb85-35743c6d8507",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,23 @@
+{
+  "tool_label": "ventoy_boot_iso_or_wim_files",
+  "description": "**Tool Overview**:\n\nVentoy is an open-source tool to create bootable USB drives for ISO/WIM files. It provides a simple interface and allows users to boot multiple ISO files from a single USB drive. Unlike traditional methods, you do not need to repeatedly format the USB drive to add new boot images. Simply copy the ISO/WIM files onto the USB drive, and Ventoy can boot them directly. This flexibility makes it an excellent choice for IT professionals needing to deploy various operating systems and utilities without the hassle of remaking bootable media.\n\n**Details**:\n\n1. Supports booting ISO/WIM files directly from USB.\n2. Allows for multiple files on a single USB stick.\n3. No need for repeated formatting when adding or removing ISO/WIM files.\n4. User-friendly interface and efficient performance.\n5. Ideal for creating installations of Windows or Linux distributions quickly.",
+  "source_id": "bd2a3543-2237-ed8f-9b1c-f5d85a348d1e",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "bd2a3543-2237-ed8f-9b1c-f5d85a348d1e"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://ventoy.net",
+  "tags": [
+    "booting",
+    "USB",
+    "multi-iso",
+    "deployment"
+  ],
+  "node_id": "8128cddd-115f-49e3-8d4a-37572432850b",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

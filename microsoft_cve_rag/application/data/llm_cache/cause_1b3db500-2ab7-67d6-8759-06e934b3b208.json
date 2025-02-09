@@ -1,0 +1,16 @@
+{
+  "description": "The CVE-2023-36036 vulnerability in the Windows cloud files mini filter driver is an elevation of privilege issue that affects Microsoft Windows 10 and later versions. It has a low complexity of exploitation, requiring only local access without high-level privileges or user interaction. An attacker exploiting this vulnerability can gain system-level privileges, which poses a significant risk, especially in cases where initial access has been achieved via phishing. Microsoft has classified this as a critical zero-day vulnerability with a CVSS score of 7.8, emphasizing the need for immediate updates to mitigate its exploitation in active attacks. Failure to install the recommended updates could lead to a compromise of system security and integrity.",
+  "source_id": "1b3db500-2ab7-67d6-8759-06e934b3b208",
+  "source_type": "PatchManagementPost",
+  "cause_label": "CloudFilesMiniFilterDriverElevationOfPrivilege",
+  "tags": [
+    "elevation_of_privilege",
+    "windows",
+    "zero_day"
+  ],
+  "node_id": "76678040-e0d5-4632-942d-a2ede391066b",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

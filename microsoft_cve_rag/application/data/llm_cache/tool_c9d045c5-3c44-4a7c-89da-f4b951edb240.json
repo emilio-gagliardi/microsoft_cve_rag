@@ -1,0 +1,23 @@
+{
+  "tool_label": "windows_ole_remote_code_execution_tool",
+  "description": "**Tool Overview**:\n\nThe Windows OLE Remote Code Execution tool is designed to help system administrators diagnose and address vulnerabilities related to Windows OLE that may be exploited by attackers due to a heap-based buffer overflow. This tool can aid in identifying instances of the vulnerability within the network and assessing the potential impact. \n\n**Details**:\nThis tool allows administrators to perform a variety of functions, including:\n1. Scanning environments for vulnerable components that rely on OLE technology.\n2. Generating reports that outline vulnerabilities by build numbers and severity.\n3. Providing remediation guidance based on findings from the scan. \n\nTo use this tool, administrators should ensure they have appropriate permissions and understand network configurations to properly execute scans. Instructions and parameters can be adjusted as needed during operation.",
+  "source_id": "c9d045c5-3c44-4a7c-89da-f4b951edb240",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c9d045c5-3c44-4a7c-89da-f4b951edb240"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30077",
+  "tool_url": "",
+  "tags": [
+    "vulnerability",
+    "OLE",
+    "remote code execution",
+    "buffer overflow"
+  ],
+  "node_id": "a85e3026-05bb-4651-b11e-4d581020965e",
+  "node_label": "Tool",
+  "reliability": 0.5,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

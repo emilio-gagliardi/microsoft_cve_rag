@@ -1,0 +1,19 @@
+{
+  "tool_label": "CheckMicrosoftEdgeVersion",
+  "description": "The Check Microsoft Edge Version tool helps users verify the current version of their Microsoft Edge browser to ensure it is updated and no longer vulnerable to known security issues. Users can access this information by clicking on the three dots at the right-hand side of the browser window, selecting 'Help and feedback', and then choosing 'About Microsoft Edge'. This process reveals the version information, including the stable and extended stable versions. Maintaining an up-to-date browser version is vital for protecting against vulnerabilities like those found in CVE-2023-6348. Users should ensure that they regularly check their browser version against the latest releases to stay secure.",
+  "source_id": "c89ba8b0-d117-7ee9-3682-e4667667343e",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-6348",
+  "tool_url": "https://support.microsoft.com/en-us/topic/update-microsoft-edge-828dba87-38b8-a32e-90c0-595d4daf49bb",
+  "tags": [
+    "Edge",
+    "VersionCheck",
+    "Security",
+    "Updates"
+  ],
+  "node_id": "1412b8ac-40e6-4e2d-aad8-fcb5facd89a2",
+  "node_label": "Tool",
+  "reliability": "0.9",
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

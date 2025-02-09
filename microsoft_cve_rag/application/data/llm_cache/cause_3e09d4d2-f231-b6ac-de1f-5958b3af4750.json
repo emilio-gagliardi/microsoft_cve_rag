@@ -1,0 +1,21 @@
+{
+  "description": "The kernel streaming service driver has an improper input validation issue that an attacker can exploit locally or via user interaction to gain elevation of privilege on affected builds.",
+  "cause_label": "kernel_streaming_service_driver_improper_input_validation",
+  "source_id": "3e09d4d2-f231-b6ac-de1f-5958b3af4750",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "3e09d4d2-f231-b6ac-de1f-5958b3af4750"
+  ],
+  "tags": [
+    "CVE-2024-38243",
+    "Windows",
+    "Privilege Escalation",
+    "Improper Input Validation"
+  ],
+  "node_id": "b43d67f6-2fcc-4a67-af3a-70c15460fa2e",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the secure boot security feature bypass vulnerability (CVE-2024-37987):\n\n1. Download and apply the appropriate KB updates from the Microsoft Update Catalog based on your Windows version:\n   - For Windows 11 Version 23H2: [KB5040442](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442)\n   - For Windows 11 Version 22H2: [KB5040442](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442)\n   - For Windows 11 Version 21H2: [KB5040431](https://catalog.update.microsoft.com/Search.aspx?q=KB5040431)\n   - For Windows 10 Version 22H2: [KB5040427](https://catalog.update.microsoft.com/Search.aspx?q=KB5040427)\n   - For Windows 10 Version 21H2: [KB5040427](https://catalog.update.microsoft.com/Search.aspx?q=KB5040427)\n\n2. Restart your system after the installation of the KB updates to ensure the changes take effect.\n\n**Details**:\nThis security update resolves a vulnerability involving a secure boot feature bypass, classified as having a maximum severity of 'important'. The updates aim to eliminate potential exploit pathways briefed in the vulnerability description. Backup relevant data and configurations before proceeding with the installation.\n",
+  "source_id": "0386b050-5434-3425-3628-66245d47faff",
+  "source_type": "MSRCPost",
+  "fix_label": "address_secure_boot_bypass_cve202437987_updates",
+  "tags": [
+    "KB5040442",
+    "KB5040431",
+    "Windows10",
+    "Windows11"
+  ],
+  "node_id": "3e6fd983-66c3-4bd0-89e2-b1898e3f77cf",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "0386b050-5434-3425-3628-66245d47faff"
+  ],
+  "verification_status": "unverified"
+}

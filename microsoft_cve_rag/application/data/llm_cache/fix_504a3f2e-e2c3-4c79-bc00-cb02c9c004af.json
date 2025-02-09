@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the issue of missing endpoint protection policies on co-managed devices after applying a Configuration Manager update:\n\n1. Reference the following short-term mitigation guides until a long-term fix is deployed:\n   - Microsoft Endpoint Configuration Manager release notes on endpoint protection: [Release Notes](https://learn.microsoft.com/en-us/mem/configmgr/core/servers/deploy/install/release-notes)\n   - Known issue documentation for hotfix 2309: [Hotfix 2309 Known Issue](https://learn.microsoft.com/en-us/mem/configmgr/hotfix/2309/25858444)\n   - Known issue documentation for hotfix 2403: [Hotfix 2403 Known Issue](https://learn.microsoft.com/en-us/mem/configmgr/hotfix/2403/26186448)\n\n**Details**:\n- This issue specifically affects devices managed by Microsoft Intune that updated to Microsoft Configuration Manager version 2403 or 2309 HFRU, resulting in the removal of endpoint protection policies.\n- A fix is expected to begin deployment on May 13, 2024, and should resolve the issue by May 17, 2024. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure that you have administrative rights to apply the short-term mitigations mentioned in the guides.",
+  "source_id": "504a3f2e-e2c3-4c79-bc00-cb02c9c004af",
+  "source_type": "PatchManagementPost",
+  "fix_label": "retain_endpoint_protection_policies_after_configuration_manager_update",
+  "tags": [
+    "MicrosoftIntune",
+    "EndpointProtection",
+    "ConfigurationManager",
+    "LLM Synthesized"
+  ],
+  "node_id": "eed24177-8fb7-4d56-8491-a3de848fe5bb",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "504a3f2e-e2c3-4c79-bc00-cb02c9c004af"
+  ],
+  "verification_status": "unverified"
+}

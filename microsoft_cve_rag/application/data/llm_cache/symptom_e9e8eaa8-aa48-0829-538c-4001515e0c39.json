@@ -1,0 +1,21 @@
+{
+  "symptom_label": "in_place_upgrade_fails_due_to_mount_issue",
+  "description": "The observed issue arises when attempting to perform an in-place upgrade of Windows using a mounted ISO file. Administrators may encounter failures during the upgrade process, particularly when the required setup parameters are not correctly configured or when the drive letter is misidentified. This can lead to failed installations, causing downtime and necessitating a troubleshooting effort. The use of PowerShell to mount the ISO and identify the correct drive letter is crucial for success. When these setup parameters are not followed, the installation process may hang or terminate unexpectedly, severely disrupting system maintenance routines.",
+  "source_id": "e9e8eaa8-aa48-0829-538c-4001515e0c39",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e9e8eaa8-aa48-0829-538c-4001515e0c39"
+  ],
+  "tags": [
+    "in-place upgrade",
+    "ISO mounting",
+    "PowerShell",
+    "setup parameters"
+  ],
+  "node_id": "b89638fd-434d-48c6-b55d-c0d3dd235655",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

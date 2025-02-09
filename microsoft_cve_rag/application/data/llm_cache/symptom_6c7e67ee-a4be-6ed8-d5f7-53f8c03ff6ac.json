@@ -1,0 +1,22 @@
+{
+  "symptom_label": "secure_boot_bypass_leads_to_risk_exposure",
+  "description": "After applying the security update with KB5040442, KB5040431, or KB5040427 on systems with build numbers 10.0.22631.3880, 10.0.22621.3880, 10.0.19045.4651, or 10.0.19044.4651, users may experience an unauthorized bypass of the secure boot process. This could manifest as unexpected system behavior where security protocols do not engage as intended during system startup, potentially exposing sensitive data and system integrity to unauthorized access. Administrators may notice irregularities in the boot sequence, such as faster boot times or the lack of expected security checks, which could indicate the vulnerability being exploited, allowing certain malicious actions to be performed without detection. It's crucial for users and administrators to monitor system logs and access controls closely following the update to identify any abnormal access patterns or potential breaches. Immediate remediation actions should be considered to mitigate risks stemming from this exposure.",
+  "source_id": "6c7e67ee-a4be-6ed8-d5f7-53f8c03ff6ac",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "6c7e67ee-a4be-6ed8-d5f7-53f8c03ff6ac"
+  ],
+  "tags": [
+    "Windows 10",
+    "Windows 11",
+    "Security Update",
+    "Secure Boot",
+    "Patch Management"
+  ],
+  "node_id": "2f0f2634-6d7c-4e5f-8f03-c1f839feb965",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

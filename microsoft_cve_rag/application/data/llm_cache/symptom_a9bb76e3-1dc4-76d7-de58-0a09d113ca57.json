@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_graphics_component_elevation_of_privilege",
+  "description": "After applying the updates KB5043080, KB5043076, KB5043067, and KB5043064, users may experience unexpected behavior related to the Windows graphics components across various builds, specifically highlighted in Windows 10 and 11 systems. These symptoms could include a sudden loss of system privileges during operation or elevated access being granted unexpectedly, potentially leading to unintentional modifications to configuration settings or user data. The affected Windows builds include 10.0.19044.4894, 10.0.22000.3197, 10.0.22631.4169, and 10.0.26100.1742. System administrators should observe for any reports from users about strange interactions or changes occurring without clear trigger actions and ensure all security updates are consistently applied to mitigate risks. As per the security responses, the severity of these issues is classified as important, meaning they should be addressed promptly to prevent exploitation of the graphics component.",
+  "source_id": "a9bb76e3-1dc4-76d7-de58-0a09d113ca57",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a9bb76e3-1dc4-76d7-de58-0a09d113ca57"
+  ],
+  "tags": [
+    "windows",
+    "graphics",
+    "elevation_of_privilege"
+  ],
+  "node_id": "0401691c-0d20-418a-8bd7-ef395127b4af",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

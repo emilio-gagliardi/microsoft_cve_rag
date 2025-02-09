@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Microsoft Windows Codecs Library information disclosure vulnerability (CVE-2024-38056):\n\n1. Download and install the latest security updates from the Microsoft Update Catalog as specified in the KB Articles below.\n2. Confirm that your system is running one of the following affected builds to ensure compatibility:\n   - Windows 11 Version 23H2: 10.0.22631.3880\n   - Windows 11 Version 22H2: 10.0.22621.3880\n   - Windows 10 Version 22H2: 10.0.19045.4651\n   - Windows 10 Version 21H2: 10.0.19044.4651\n3. Restart your system after installation for the changes to take effect.\n\n**Details**:\n- This update addresses an out-of-bounds read vulnerability that could lead to information disclosure.\n- For manual installation, visit the following links for the respective KB Articles:\n  - [KB5040442](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442)\n  - [KB5040431](https://catalog.update.microsoft.com/Search.aspx?q=KB5040431)\n  - [KB5040427](https://catalog.update.microsoft.com/Search.aspx?q=KB5040427)\n\n**Preconditions**:\n- Ensure the system is updated to the eligible Windows version specified.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "93dfd70f-e167-4b04-8eca-582a0928e8a7",
+  "source_type": "MSRCPost",
+  "fix_label": "address_windows_codecs_information_disclosure_cve202438056",
+  "tags": [
+    "KB5040442",
+    "Windows10",
+    "Windows11",
+    "CVE202438056"
+  ],
+  "node_id": "418960e2-8cc6-4e03-a802-bfb43b50ea51",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "93dfd70f-e167-4b04-8eca-582a0928e8a7"
+  ],
+  "verification_status": "unverified"
+}

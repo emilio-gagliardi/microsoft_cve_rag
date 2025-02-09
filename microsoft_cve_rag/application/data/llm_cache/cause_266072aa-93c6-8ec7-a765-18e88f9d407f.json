@@ -1,0 +1,21 @@
+{
+  "description": "The issue arises from a race condition in the Windows Resource Manager's PSM service extension, leading to improper synchronization when accessing shared resources. This vulnerability allows for sensitive data storage in incorrectly locked memory, coupled with the risk of use-after-free scenarios, enabling attackers to escalate privileges from local to system-level.",
+  "cause_label": "windows_resource_manager_race_condition_in_psm_service",
+  "source_id": "266072aa-93c6-8ec7-a765-18e88f9d407f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "266072aa-93c6-8ec7-a765-18e88f9d407f"
+  ],
+  "tags": [
+    "CVE-2024-38137",
+    "elevation of privilege",
+    "Windows 11",
+    "Windows 10"
+  ],
+  "node_id": "a0065708-9d4b-45e9-82b9-8ebebef68842",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

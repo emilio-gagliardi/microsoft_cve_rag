@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the elevation of privilege vulnerability in the Windows Telephony Server:\n\n1. Apply the relevant KB updates based on your build number. Refer to the KB articles: \n   - KB-5036925\n   - KB-5036910\n   - KB-5036899\n   - KB-5036894\n   - KB-5036893\n   - KB-5036892\n\n2. Verify your system build number:\n   - 10.0.19045.4291\n   - 10.0.19044.4291\n   - 10.0.22631.3447\n   - 10.0.22000.2899\n   - 10.0.22621.3447\n   - 10.0.10240.20596\n\n3. After installation of the updates, restart your system to ensure that the changes take effect.\n\n**Details**:\nThis update addresses a heap-based buffer overflow in the Windows Telephony Server, which can potentially allow for elevation of privilege attacks. Ensure all related KB updates are installed to fully secure systems affected by this CVE. Backup any critical data before proceeding with the installations.",
+  "source_id": "f1b80228-3af8-89da-beba-1f09f79ee5c7",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_elevation_of_privilege_in_windows_telephony_server_cve202426239",
+  "tags": [
+    "KB5036925",
+    "KB5036910",
+    "ElevationOfPrivilege",
+    "CVE202426239"
+  ],
+  "node_id": "29faf82f-d4ce-4997-97fa-97909133af7a",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "f1b80228-3af8-89da-beba-1f09f79ee5c7"
+  ]
+}

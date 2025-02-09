@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_print_spooler_causes_privilege_elevation",
+  "description": "End users may experience unexpected behaviors when interacting with the Windows Print Spooler service, particularly pertaining to privilege escalation. Users could potentially gain unauthorized elevated privileges when the spooler fails to enforce appropriate security controls. This may manifest as unauthorized access to sensitive resources or even the ability to modify system settings that should be restricted. Such an issue may lead users to notice system functionalities that don't behave as expected, especially when utilizing print services across various Windows versions, including 10 and 11, with associated build numbers and KB articles such as KB-5044285 and KB-5044284. Administrators and users alike may find their ability to safeguard administrative functions compromised as a result of this behavior, leading to concerns around the integrity and confidentiality of their systems.",
+  "source_id": "8a66cfa7-d541-958c-9e06-5ea804fdc7ab",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8a66cfa7-d541-958c-9e06-5ea804fdc7ab"
+  ],
+  "tags": [
+    "Windows",
+    "Print Spooler",
+    "Privilege Escalation",
+    "User Impact"
+  ],
+  "node_id": "5e640357-0e51-4ab6-a405-61d3d5fe22f6",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

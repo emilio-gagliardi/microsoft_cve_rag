@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_mobile_broadband_driver_denial_of_service",
+  "description": "Users experience a total loss of availability when using the Windows mobile broadband driver, impacting network connectivity. This condition can be persistent, meaning that once accessed through the vulnerable component, the resources become entirely unavailable until a successful remediating action is performed. End users may notice that they are unable to establish new network connections, or existing connections drop unexpectedly as a result of the security issue. This issue affects multiple Windows builds including 10 versions (such as 10.0.19045.5011) and 11 versions (like 10.0.22631.4317) with relevant KB Article IDs indicating necessary security updates such as KB-5044285 and KB-5044273. System administrators should prioritize addressing this symptom in affected environments to restore network functionality and ensure uninterrupted connectivity.",
+  "source_id": "23c74b4e-4d41-b00f-dbc4-65722c6a0135",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "23c74b4e-4d41-b00f-dbc4-65722c6a0135"
+  ],
+  "tags": [
+    "windows",
+    "broadband",
+    "denial_of_service",
+    "network",
+    "connectivity"
+  ],
+  "node_id": "8c4bfa89-7c68-4621-8641-3da71b1bd783",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

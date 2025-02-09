@@ -1,0 +1,21 @@
+{
+  "description": "Heap-based buffer overflow in Microsoft WDAC OLE DB Provider for SQL Server allows remote code execution under certain conditions involving improper handling of memory allocations.",
+  "cause_label": "wdac_ole_db_provider_heap_buffer_overflow",
+  "source_id": "51056699-a501-f032-4ee4-ba1a0e87646b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "51056699-a501-f032-4ee4-ba1a0e87646b"
+  ],
+  "tags": [
+    "CVE",
+    "remote_code_execution",
+    "buffer_overflow",
+    "Microsoft",
+    "WDAC"
+  ],
+  "node_id": "ff377a60-395a-4d13-a759-3c28e9d1a304",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

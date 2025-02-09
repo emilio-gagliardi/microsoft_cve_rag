@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Microsoft Edge (Chromium-based) spoofing vulnerability CVE-2024-38156:\n\n1. Download and apply the KB38156 update from the official Windows Update catalog.\n2. Ensure your Microsoft Edge is updated to version 126.0.2592.102 or later.\n3. Restart your browser after installation to ensure changes take effect.\n\n**Details**:\n- This update resolves the spoofing vulnerability that may allow an attacker to exploit improper neutralization of input during web page generation ('Cross-site Scripting').\n- For manual installation, download the update package from: https://catalog.update.microsoft.com/Search.aspx?q=KB38156.\n\n**Preconditions**:\n- Ensure Microsoft Edge (Chromium-based) is on one of the affected build numbers listed above.\n- Backup any important browser data before proceeding with the update.",
+  "source_id": "bd6002cf-22a3-04e8-2a0c-629f1235ca67",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_chromium_based_edge_spoofing_cve202438156",
+  "tags": [
+    "KB38156",
+    "ChromiumEdge",
+    "CVE202438156",
+    "CrossSiteScripting"
+  ],
+  "node_id": "30c8e0ad-46db-49a5-9a6b-01252df2abe7",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "bd6002cf-22a3-04e8-2a0c-629f1235ca67"
+  ],
+  "verification_status": "unverified"
+}

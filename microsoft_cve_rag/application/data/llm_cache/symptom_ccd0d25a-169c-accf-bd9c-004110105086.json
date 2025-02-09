@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_experiences_heap_corruption_issue",
+  "description": "After updating to Microsoft Edge (Chromium-based) version 131.0.2903.48, users may observe instability characterized by crashes or unexpected behaviors when accessing certain web pages. This behavior is attributed to a use-after-free vulnerability in accessibility features within the Chromium codebase, prior to version 131.0.6778.69. Users might experience noticeable performance degradation or application crashes while interacting with web content that involves complex accessibility elements. It is critical to apply the latest security updates to ensure the stability and security of the Edge browser. This update mitigates potential exploitation of the heap corruption issue that could be triggered by compromised web pages.",
+  "source_id": "ccd0d25a-169c-accf-bd9c-004110105086",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ccd0d25a-169c-accf-bd9c-004110105086"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Heap Corruption",
+    "Security Update",
+    "Browser Stability"
+  ],
+  "node_id": "edca7eb4-5d2d-4f31-b693-2a69f6dfcf37",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

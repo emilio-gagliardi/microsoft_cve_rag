@@ -1,0 +1,21 @@
+{
+  "description": "Out-of-bounds write in Dawn within Chromium prior to version 130.0.6723.92 that allowed for remote attackers to exploit this memory issue via crafted HTML pages.",
+  "cause_label": "chromium_out_of_bounds_write_in_dawn",
+  "source_id": "4b821358-838a-ffdd-86c5-22e7e033c9e4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4b821358-838a-ffdd-86c5-22e7e033c9e4"
+  ],
+  "tags": [
+    "CVE-2024-10487",
+    "Chromium",
+    "Microsoft Edge",
+    "Memory Vulnerability"
+  ],
+  "node_id": "a795538d-02b3-46de-a426-58d13ec8bdbe",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "fix_label": "update_microsoft_edge_to_125_0_2535_67",
+  "description": "**Fix Overview**:\n\nTo mitigate the type confusion vulnerability in the Chromium engine affecting Microsoft Edge:\n\n1. Ensure your Microsoft Edge browser is updated to version 125.0.2535.67 or later.\n2. To check your current version, open Microsoft Edge and click the three dots (...) in the top right corner.\n3. Navigate to 'Help and feedback' and select 'About Microsoft Edge' to view the installed version.\n4. If your version is earlier than 125.0.2535.67, update it through your normal update mechanisms.\n\n**Details**:\n- This update addresses a critical vulnerability in the V8 engine of Chromium, which could allow a remote attacker to perform arbitrary read/write operations if exploited.\n- Ensure your current version is not lower than 125.0.6422.76 (the stable Chromium version) to maintain security.\n- Visit [Google Chrome Releases](https://chromereleases.googleblog.com/) for the complete update history and additional information.\n\n**Preconditions**:\n- You must have administrative privileges to check and perform updates on the browser.\n- Backup important data before proceeding with updates.",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-5158",
+    "Chromium",
+    "TypeConfusion"
+  ],
+  "node_id": "7b230b77-9115-4c51-bf2e-b979272f3a56",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "source_id": "e9713b05-cd1b-4963-6bf1-8d3686a127fb",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e9713b05-cd1b-4963-6bf1-8d3686a127fb"
+  ],
+  "verification_status": "unverified"
+}

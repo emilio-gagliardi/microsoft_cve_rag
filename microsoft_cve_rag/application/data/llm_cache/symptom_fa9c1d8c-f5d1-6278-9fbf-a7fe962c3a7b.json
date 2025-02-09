@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_cloud_files_mini_filter_driver_elevation_of_privilege",
+  "description": "After installing the update associated with KB5039212, users may experience unexpected behavior indicating improper access controls within the Windows Cloud Files Mini Filter driver. This issue manifests as elevation of privileges, where legitimate users can perform actions that typically require elevated permissions, leading to potential unauthorized access to sensitive data. System administrators should monitor for unauthorized changes or access attempts post-update across affected builds including Windows 10 Version 22H2 (10.0.19043.4529), Windows 11 Version 22H2 (10.0.22621.3737), and others listed. It is crucial to address these observable impacts swiftly to maintain system integrity and security, while assuring users that their environment remains stable and secure.",
+  "source_id": "fa9c1d8c-f5d1-6278-9fbf-a7fe962c3a7b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "fa9c1d8c-f5d1-6278-9fbf-a7fe962c3a7b"
+  ],
+  "tags": [
+    "Windows",
+    "Cloud Files",
+    "Elevated Privileges",
+    "Driver Issues",
+    "Patch Management"
+  ],
+  "node_id": "6a970b22-449b-420b-bf32-48d3a0047661",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

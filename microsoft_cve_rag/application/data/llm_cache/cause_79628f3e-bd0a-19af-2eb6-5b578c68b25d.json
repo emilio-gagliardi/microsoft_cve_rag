@@ -1,0 +1,20 @@
+{
+  "description": "Type confusion in V8 within Chromium allows exploitation through crafted HTML, affecting Microsoft Edge versions based on Chromium prior to build 122.0.6261.94.",
+  "cause_label": "chromium_type_confusion_in_v8_object_corruption",
+  "source_id": "79628f3e-bd0a-19af-2eb6-5b578c68b25d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "79628f3e-bd0a-19af-2eb6-5b578c68b25d"
+  ],
+  "tags": [
+    "chromium",
+    "microsoft edge",
+    "type confusion",
+    "V8"
+  ],
+  "node_id": "83778377-ecd6-4562-96fb-6988890fb396",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

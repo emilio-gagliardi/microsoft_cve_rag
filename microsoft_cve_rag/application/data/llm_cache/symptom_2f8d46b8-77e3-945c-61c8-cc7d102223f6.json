@@ -1,0 +1,16 @@
+{
+  "symptom_label": "LinuxPrivilegeEscalationThroughBufferOverflowExploit",
+  "description": "This symptom involves a significant vulnerability allowing local privilege escalation on various Linux distributions due to a buffer overflow in the glibc dynamic loader's processing of tunables. Specifically, this issue, identified as CVE-2023-4911, affects default installations of Fedora 37 and 38, as well as Ubuntu 22.04 and 23.04, Debian 12 and 13. The exploit can lead to full root privileges, creating a critical risk for affected systems if a reliable exploit is published by third-party researchers.",
+  "source_id": "2f8d46b8-77e3-945c-61c8-cc7d102223f6",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Linux",
+    "PrivilegeEscalation",
+    "Vulnerability"
+  ],
+  "node_id": "e0308fdc-2fc6-472a-ace4-9dda34426744",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

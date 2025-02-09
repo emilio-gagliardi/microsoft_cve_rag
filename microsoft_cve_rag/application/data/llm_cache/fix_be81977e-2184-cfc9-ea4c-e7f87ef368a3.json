@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Perception Service elevation of privilege vulnerability (CVE-2024-35265) affecting various Windows versions:\n\n1. Download and apply the relevant update package for your system version from the official update catalog.\n   - For Windows 11 Version 23H2 (x64): [KB5039212](https://catalog.update.microsoft.com/Search.aspx?q=KB5039212)\n   - For Windows 11 Version 22H2 (x64): [KB5039212](https://catalog.update.microsoft.com/Search.aspx?q=KB5039212)\n   - For Windows 10 Version 22H2 (x64): [KB5039211](https://catalog.update.microsoft.com/Search.aspx?q=KB5039211)\n   - For Windows 10 Version 21H2 (x64): [KB5039211](https://catalog.update.microsoft.com/Search.aspx?q=KB5039211)\n\n2. Restart your system after installation to ensure the changes take effect, addressing the race condition vulnerability.\n\n**Details**:\n- This update resolves a time-of-check time-of-use (TOCTOU) race condition, which could allow local actors to elevate privileges within the system.\n- Ensure the system matches one of the specified build numbers before proceeding with the update installation.\n- Backup any critical data prior to applying updates to prevent data loss in case of issues during installation.",
+  "source_id": "be81977e-2184-cfc9-ea4c-e7f87ef368a3",
+  "source_type": "MSRCPost",
+  "fix_label": "address_windows_perception_service_elevation_privilege",
+  "tags": [
+    "KB5039212",
+    "CVE202435265",
+    "Windows10",
+    "Windows11"
+  ],
+  "node_id": "4f071402-0aa6-43c8-916c-dbf6cd5ce533",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "be81977e-2184-cfc9-ea4c-e7f87ef368a3"
+  ],
+  "verification_status": "unverified"
+}

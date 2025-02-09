@@ -1,0 +1,16 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the elevation of privilege vulnerability associated with CVE-2023-36696:\n\n1. Identify your Windows version and build number based on the list below:\n   - Windows 11 for x64-based Systems: 10.0.17763.5206, 10.0.20348.2159, 10.0.25398.584\n   - Windows 11 Version 23H2 for x64-based Systems: 10.0.22631.2861\n   - Windows 11 Version 22H2 for x64-based Systems: 10.0.22621.2861\n   - Windows 11 Version 21H2 for x64-based Systems: 10.0.22000.2652\n   - Windows 10 for x64-based Systems: 10.0.17763.5206\n   - Windows 10 for 32-bit Systems: 10.0.17763.5206\n   - Windows 10 Version 22H2 for x64-based Systems: 10.0.19045.3803\n   - Windows 10 Version 21H2 for x64-based Systems: 10.0.19041.3803\n\n2. Download and apply the appropriate KB update from the official Microsoft Update Catalog:\n   - KB5033375: [Download Here](https://catalog.update.microsoft.com/Search.aspx?q=KB5033375)\n   - KB5033369: [Download Here](https://catalog.update.microsoft.com/Search.aspx?q=KB5033369)\n   - KB5033372: [Download Here](https://catalog.update.microsoft.com/Search.aspx?q=KB5033372)\n   - KB5033383: [Download Here](https://catalog.update.microsoft.com/Search.aspx?q=KB5033383)\n   - KB5033371: [Download Here](https://catalog.update.microsoft.com/Search.aspx?q=KB5033371)\n\n3. Restart your system after installation to ensure all changes take effect.\n\n**Details**:\nThis update addresses vulnerabilities that could allow an attacker to gain elevated privileges on the system, impacting overall security. Make sure that you are running an affected version of Windows before applying these updates.\n\n**Preconditions**:\n- Ensure administrative privileges to perform the update installation.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "738168f3-a60e-7543-5676-747c4ca2cf4b",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplyKBSolutionForCVE-2023-36696",
+  "tags": [
+    "CVE-2023-36696",
+    "ElevationOfPrivilege",
+    "WindowsUpdates"
+  ],
+  "node_id": "ab3006d3-ad88-49d2-b1b8-5b9e8a70f7b2",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the Windows Graphics Component elevation of privilege vulnerability (CVE-2024-38250), apply the relevant updates for your system version:\n\n1. Identify your current Windows version from the list provided below.\n2. \u4e0b\u8f7d and apply the appropriate KB update from the official Microsoft Update Catalog.\n3. Restart your system after the update installation to ensure the changes take effect.\n\n**Details**:\n- This update addresses a buffer over-read vulnerability, which could allow attackers to elevate privileges. \n- Ensure your system matches one of the following build numbers:\n  - Windows 11 Version 23H2 for x64-based Systems: 10.0.22631.4169\n  - Windows 11 Version 22H2 for x64-based Systems: 10.0.22621.4169\n  - Windows 11 Version 21H2 for x64-based Systems: 10.0.22000.3197\n  - Windows 10 for x64-based Systems: 10.0.10240.20766\n  - Windows 10 Version 22H2 for x64-based Systems: 10.0.19045.4894\n  - Windows 10 Version 21H2 for x64-based Systems: 10.0.19044.4894\n\n**Update Packages**:\n- For Windows 11 Version 23H2: [KB5043076](https://catalog.update.microsoft.com/Search.aspx?q=KB5043076)\n- For Windows 10 Version 22H2: [KB5043064](https://catalog.update.microsoft.com/Search.aspx?q=KB5043064)\n- For Windows 10 Version 21H2: [KB5043067](https://catalog.update.microsoft.com/Search.aspx?q=KB5043067)\n- For Windows 10 for x64-based Systems: [KB5043083](https://catalog.update.microsoft.com/Search.aspx?q=KB5043083).\n\n**Preconditions**:\n- Confirm your Windows version and architecture before proceeding.\n- Backup data before applying updates to prevent data loss in case of issues during installation.",
+  "source_id": "0983b1c5-edf2-4ce1-8492-094585b2fa96",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb5043067_kb5043083_kb5043076_for_graphics_vulnerability",
+  "tags": [
+    "KB5043076",
+    "KB5043067",
+    "KB5043064",
+    "CVE-2024-38250"
+  ],
+  "node_id": "a24af85b-1038-435b-a81c-7026bec1d122",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "0983b1c5-edf2-4ce1-8492-094585b2fa96"
+  ],
+  "verification_status": "unverified"
+}

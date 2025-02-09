@@ -1,0 +1,21 @@
+{
+  "description": "Heap buffer overflow in fonts within Chromium prior to version 128.0.6613.84, exploited via crafted HTML by a remote attacker, impacting Microsoft Edge due to its reliance on Chromium components.",
+  "cause_label": "chromium_heap_buffer_overflow_in_fonts",
+  "source_id": "cf629b22-1c22-0c90-e132-e0cd4e6dddb6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "cf629b22-1c22-0c90-e132-e0cd4e6dddb6"
+  ],
+  "tags": [
+    "CVE",
+    "Chromium",
+    "Heap Overflow",
+    "Microsoft Edge"
+  ],
+  "node_id": "c1230d3e-6012-493d-85d7-07dff91e3bab",
+  "node_label": "Cause",
+  "reliability": 0.05,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

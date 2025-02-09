@@ -1,0 +1,20 @@
+{
+  "description": "A use after free vulnerability in Windows Defender Credential Guard, allowing elevation of privilege due to improper memory management.",
+  "cause_label": "windows_defender_credential_guard_use_after_free",
+  "source_id": "a010991a-4f97-9e18-243a-b828fc09d9f6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a010991a-4f97-9e18-243a-b828fc09d9f6"
+  ],
+  "tags": [
+    "Windows Defender",
+    "Credential Guard",
+    "Use After Free",
+    "Elevation of Privilege"
+  ],
+  "node_id": "dffe467e-d01a-4e5f-aeb4-cb07c969c50d",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

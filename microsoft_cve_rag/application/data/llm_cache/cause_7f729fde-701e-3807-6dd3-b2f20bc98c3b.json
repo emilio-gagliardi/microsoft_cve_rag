@@ -1,0 +1,21 @@
+{
+  "description": "The vulnerability arises from improper resolution of path equivalence in Windows security zone mapping, allowing an attacker to construct a URL that is interpreted as belonging to a more privileged zone, thereby bypassing security features. This can exploit local access through read/write/execute capabilities or require user interaction to trigger actions that exploit the vulnerability.",
+  "cause_label": "windows_security_zone_mapping_bypass_vulnerability",
+  "source_id": "7f729fde-701e-3807-6dd3-b2f20bc98c3b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7f729fde-701e-3807-6dd3-b2f20bc98c3b"
+  ],
+  "tags": [
+    "Windows",
+    "Security",
+    "Feature Bypass",
+    "CVE-2024-30073"
+  ],
+  "node_id": "823de7f4-cdb0-4613-ab1a-7ac1cd805447",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,16 @@
+{
+  "symptom_label": "AdmxFileDocumentationIssueInModernWindowsLaps",
+  "description": "An issue exists in the current ADMX files documentation for modern Windows LAPS, which could lead to confusion or improper configuration among system administrators transitioning from legacy LAPS. Users may find outdated or inaccurate information that affects the deployment and functionality of the modern Windows LAPS, potentially impacting security and device management processes. It is recommended to monitor for updates regarding this documentation issue until a fix is provided in future releases.",
+  "source_id": "ab4f035d-3168-b804-c44d-b1215745e18f",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "WindowsLAPS",
+    "ADMXDocumentation",
+    "LegacyTransition"
+  ],
+  "node_id": "2991004f-e545-46bf-959b-ecdf166f016b",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

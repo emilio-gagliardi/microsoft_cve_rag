@@ -1,0 +1,20 @@
+{
+  "symptom_label": "headphones_not_detected_after_windows_11_upgrade",
+  "description": "After upgrading to Windows 11, users experience an issue where their headphones are not detected by the Realtek Waves MAXX Audio software. The system only recognizes 'speakers/headphone' as the output device, regardless of whether the headphones are plugged in. The software does not show options for headphones, and the connection appears non-responsive. Attempts to resolve this by reinstalling the appropriate audio drivers and software from the Dell support site, particularly for Windows 11, have proven ineffective. The issue may have originated during the upgrade process from Windows 10, and the auto-sensing audio jack on the laptop could potentially be faulty, possibly requiring hardware intervention if a simple adapter does not resolve the problem.",
+  "source_id": "391eeb35-d6dc-c85d-b792-d0d1e4bf3b22",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "391eeb35-d6dc-c85d-b792-d0d1e4bf3b22"
+  ],
+  "tags": [
+    "Realtek",
+    "Waves MAXX Audio",
+    "Windows 11",
+    "audio jack issue"
+  ],
+  "node_id": "596c3d43-ae73-48a4-a002-07002e073eab",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

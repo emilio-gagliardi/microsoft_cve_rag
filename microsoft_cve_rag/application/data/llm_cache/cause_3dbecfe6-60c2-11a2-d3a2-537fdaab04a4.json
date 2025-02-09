@@ -1,0 +1,18 @@
+{
+  "description": "The core cause of CVE-2023-36003 is a flaw in the XAML diagnostics component that allows for elevation of privilege. This vulnerability is primarily due to improper handling of read/write and execute capabilities, enabling an authorized user to exploit the system locally or through social engineering techniques that involve convincing other users to execute malicious files. The impacted software builds include 10.0.10240.20345, 10.0.19041.3803, 10.0.22000.2652, and 10.0.22631.2861. Relevant KB articles providing further details are KB-5033379, KB-5033375, KB-5033372, and KB-5033369.",
+  "cause_label": "XamlDiagnosticsFlawEnablesPrivilegeEscalation",
+  "source_id": "3dbecfe6-60c2-11a2-d3a2-537fdaab04a4",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE",
+    "XAML",
+    "elevation of privilege",
+    "security",
+    "Microsoft"
+  ],
+  "node_id": "c451bc7f-1fdb-4471-a57b-b70deedaf3fa",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

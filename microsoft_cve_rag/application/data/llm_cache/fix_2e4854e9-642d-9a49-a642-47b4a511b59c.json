@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the information disclosure vulnerability (CVE-2024-43554) in Windows kernel-mode drivers, apply the relevant updates as provided by Microsoft. This encompasses various build versions of Windows 11 and Windows 10.\n\n1. Identify your Windows version and build number.\n2. Download and install the appropriate KB update:\n   - For Windows 11 Version 24H2, apply: **KB5044284**.  \n   - For Windows 11 Version 23H2, apply: **KB5044285**.  \n   - For Windows 11 Version 22H2, apply: **KB5044285**.  \n   - For Windows 11 Version 21H2, apply: **KB5044280**.  \n   - For Windows 10 (x64 and 32-bit), apply: **KB5044286**.  \n   - For Windows 10 Version 22H2 and Version 21H2 (x64 and 32-bit): apply **KB5044273**.\n3. Restart the system to ensure all updates are applied effectively.\n\n**Details**:\nThis fix addresses a kernel vulnerability that may lead to information disclosure, ensuring sensitive data is not improperly exposed. For direct download access to the updates, visit the Microsoft Update Catalog:\n- [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n- [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n- [KB5044286](https://catalog.update.microsoft.com/Search.aspx?q=KB5044286)\n- [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n- [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280)\n\n**Preconditions**:\n- Ensure your system is on the supported Windows version.\n- Backup critical data prior to applying updates to mitigate any potential disruption.\n",
+  "source_id": "2e4854e9-642d-9a49-a642-47b4a511b59c",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_information_disclosure_kernel_driver_cve202443554",
+  "tags": [
+    "KB5044285",
+    "Windows11",
+    "KernelModeDrivers",
+    "CVE202443554"
+  ],
+  "node_id": "ac23af5a-a2b5-4b4d-b9dd-e02a016633cc",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "2e4854e9-642d-9a49-a642-47b4a511b59c"
+  ],
+  "verification_status": "unverified"
+}

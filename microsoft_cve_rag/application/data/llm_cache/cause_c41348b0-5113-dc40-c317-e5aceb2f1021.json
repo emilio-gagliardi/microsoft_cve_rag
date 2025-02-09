@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause of the issue with the Recovery partition not displaying the correct free space could stem from a misconfiguration in how the partition sizes are reported by Windows. This can occur due to discrepancies in how the partition information is queried through PowerShell, particularly if the command used is not run in admin mode or if there are insufficient permissions to access partition details. Additionally, the methodology for calculating free space could be implemented incorrectly, leading to misleading results displayed to administrators. Ensuring that the correct PowerShell command `get-volume` is being used, with appropriate privileges, is crucial to retrieve accurate data. This is particularly relevant for users of Windows 10 build versions that may have specific KB articles applicable, such as KB5034441, affecting partition management functionalities.",
+  "source_id": "c41348b0-5113-dc40-c317-e5aceb2f1021",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "c41348b0-5113-dc40-c317-e5aceb2f1021"
+  ],
+  "cause_label": "misconfiguration_in_partition_size_reporting",
+  "tags": [
+    "Windows 10",
+    "PowerShell",
+    "Recovery Partition",
+    "Disk Management",
+    "KB5034441"
+  ],
+  "node_id": "8cb85e31-7187-4ee2-a195-4b5b2f1c85d0",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

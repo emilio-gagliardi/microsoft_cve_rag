@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Microsoft Message Queuing (MSMQ) elevation of privilege vulnerability identified by CVE-2024-21405:\n\n1. Download and apply the KB5034763 update for your Windows version from the official Microsoft Update Catalog.\n2. Restart your system after installation to ensure changes take effect.\n\n**Details**:\n- This update resolves the vulnerability by properly securing sensitive data storage in memory, mitigating potential attacks that could lead to elevated privileges.\n- For manual installation, download the update packages from the following links:\n  - Windows 10 Version 22H2: [KB5034763](https://catalog.update.microsoft.com/Search.aspx?q=KB5034763)\n  - For other versions: [KB5034765](https://catalog.update.microsoft.com/Search.aspx?q=KB5034765), [KB5034766](https://catalog.update.microsoft.com/Search.aspx?q=KB5034766), [KB5034774](https://catalog.update.microsoft.com/Search.aspx?q=KB5034774).\n\n**Preconditions**:\n- Ensure your system is running one of the affected Windows versions.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "ef3b562f-945e-9390-2412-4f4172c66403",
+  "source_type": "MSRCPost",
+  "fix_label": "address_msmq_elevation_privilege_cve202421405",
+  "tags": [
+    "Windows10",
+    "Windows11",
+    "CVE202421405",
+    "MSMQ"
+  ],
+  "node_id": "179d5bbe-a2f2-4213-bc9f-ed6c72683c69",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "ef3b562f-945e-9390-2412-4f4172c66403"
+  ]
+}

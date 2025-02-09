@@ -1,0 +1,16 @@
+{
+  "symptom_label": "RemoteCodeExecutionThroughMaliciousSqlConnection",
+  "description": "Users may experience unexpected behaviors after connecting their SQL client applications to a potentially malicious SQL server, which could allow an attacker to execute arbitrary code. This issue is observable when the system behaves erratically, resulting in application crashes or unauthorized access to system resources. The affected build numbers include Windows 10 (10.0.10240.20345, 10.0.19041.3803) and Windows Server 2012 (6.3.9600.21715). Relevant KB articles include KB-5033379 and KB-5033369.",
+  "source_id": "35c9e0b3-03a6-fcf2-4a65-641acbd59f59",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "17c1e322-dd3e-4b30-a36d-3a3961bd5475",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

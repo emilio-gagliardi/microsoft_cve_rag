@@ -1,0 +1,22 @@
+{
+  "description": "Denial of service due to sensitive data being stored in improperly locked memory, allowing exploiters to create a race condition that disrupts system availability.",
+  "cause_label": "vhdx_denial_of_service_due_to_improper_memory_locking",
+  "source_id": "e9e4bac5-e92b-7527-1b7a-82ad54fbd92f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e9e4bac5-e92b-7527-1b7a-82ad54fbd92f"
+  ],
+  "tags": [
+    "CVE-2024-38264",
+    "CWE-591",
+    "vhdx",
+    "denial_of_service",
+    "sensitive_data"
+  ],
+  "node_id": "5ecf7830-35b5-42b5-b6d4-0ae18f449676",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

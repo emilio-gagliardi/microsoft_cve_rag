@@ -1,0 +1,22 @@
+{
+  "description": "An out-of-bounds read flaw in the NAT implementation leading to potential denial of service, where attackers can exploit this remotely over the network due to improper bounds checking while processing translation requests.",
+  "cause_label": "nat_out_of_bounds_read_denial_of_service",
+  "source_id": "2e814c42-aa8c-5d0a-7aad-717775fe6c74",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2e814c42-aa8c-5d0a-7aad-717775fe6c74"
+  ],
+  "tags": [
+    "CVE",
+    "Denial of Service",
+    "Out-of-bounds Read",
+    "NAT",
+    "Windows"
+  ],
+  "node_id": "28fb23fe-2729-484f-93ea-9321f9a42ea4",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

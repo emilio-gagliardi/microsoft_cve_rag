@@ -1,0 +1,16 @@
+{
+  "description": "For users affected by the last Chrome update, if a profile was signed in, simply click the profile icon in the top right corner, select 'Add', and sign back in to restore access. If the profile wasn't signed in, look for user data in local directories for Chrome, Chrome Beta, Chrome Canary, or Chromium. The following paths are useful: %localappdata%\\google\\chrome\\user data, %localappdata%\\google\\chrome beta\\user data, %localappdata%\\google\\chrome sxs\\user data, and %localappdata%\\chromium\\user data. These steps help in reinstating access to the Chrome profile affected by the update.",
+  "source_id": "9678acc6-e04d-bcc0-b2cf-8a92792a3940",
+  "source_type": "PatchManagementPost",
+  "fix_label": "RestoreChromeProfileAfterUpdateIntervention",
+  "tags": [
+    "Chrome",
+    "UserData",
+    "ProfileRecovery"
+  ],
+  "node_id": "5e7d4c7a-8949-46ef-ba52-c8a333e61996",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

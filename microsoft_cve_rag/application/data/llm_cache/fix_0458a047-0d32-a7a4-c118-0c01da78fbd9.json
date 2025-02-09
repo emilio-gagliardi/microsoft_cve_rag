@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Distributed File System (DFS) remote code execution vulnerability (CVE-2024-29066):\n\n1. Install the KB-5036896 update released on April 9, 2024.\n2. Restart your system after installation to apply the changes.\n\n**Details**:\n- This update resolves a remote code execution vulnerability in the Windows DFS, which could allow an attacker to gain all resources within the impacted component.\n- Ensure that you have administrative privileges to install this update.\n- Backup critical data before proceeding to avoid any potential data loss.\n\nFor more detailed installation steps, see the official guide at: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-29066.",
+  "source_id": "0458a047-0d32-a7a4-c118-0c01da78fbd9",
+  "source_type": "MSRCPost",
+  "fix_label": "address_remote_code_execution_windows_dfs_cve202429066",
+  "tags": [
+    "KB5036896",
+    "RemoteCodeExecution",
+    "WindowsDFS",
+    "CVE202429066"
+  ],
+  "node_id": "c419af9e-ff47-44e4-a942-e1a1c42ab449",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "0458a047-0d32-a7a4-c118-0c01da78fbd9"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "description": "Type confusion in Microsoft Edge (Chromium-based) allows for access of resources using incompatible types, potentially leading to remote code execution if a user interacts with malicious links.",
+  "cause_label": "microsoft_edge_type_confusion_remote_code_execution",
+  "source_id": "bc3471af-b4df-4adb-1ccb-0bf208e273cc",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "bc3471af-b4df-4adb-1ccb-0bf208e273cc"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "remote code execution",
+    "type confusion",
+    "CVE-2024-43596"
+  ],
+  "node_id": "85d08ce7-c18d-4d2f-8565-f39e14e431ae",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "description": "A memory corruption issue in Microsoft Edge caused by type confusion, leading to potential remote code execution vulnerabilities. This flaw arises when incompatible types are accessed, allowing attackers to exploit the memory space and execute arbitrary code locally.",
+  "cause_label": "edge_memory_corruption_due_to_type_confusion",
+  "source_id": "75ca01b0-7d49-f6a3-07d8-7f1f451c4d68",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "75ca01b0-7d49-f6a3-07d8-7f1f451c4d68"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "CVE-2024-38218",
+    "memory corruption",
+    "type confusion",
+    "remote code execution"
+  ],
+  "node_id": "dd54d85c-b692-4ed6-aab2-b973f09fed18",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

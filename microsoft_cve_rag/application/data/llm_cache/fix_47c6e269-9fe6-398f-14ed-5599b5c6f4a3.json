@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the zero-day exploit issue in ESXi versions, you'll want to ensure that you are utilizing the latest security patches from VMware as they become available.\n\n1. Regularly check the VMware security advisories for any updates related to ESXi versions 7 and 8.\n2. Once a patch is released, schedule an immediate deployment to protect your systems.\n3. Test the patch in a staging environment if possible before rolling it out to production to minimize risks.\n\n**Details**:\n- VMware typically publishes patches and updates on their official site. Keeping your systems up-to-date is crucial for security. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure you have administrative privileges to apply patches within your ESXi environment.\n- Backup your virtual machines and configurations prior to applying any patches to prevent any data loss.",
+  "source_id": "47c6e269-9fe6-398f-14ed-5599b5c6f4a3",
+  "source_type": "PatchManagementPost",
+  "fix_label": "mitigate_vmware_esxi_shell_service_exploit",
+  "tags": [
+    "VMware",
+    "ESXi",
+    "ZeroDayExploit",
+    "LLM Synthesized"
+  ],
+  "node_id": "a371ab71-2fed-41c0-a7b7-29b85d242eb0",
+  "node_label": "Fix",
+  "reliability": 0.5,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "47c6e269-9fe6-398f-14ed-5599b5c6f4a3"
+  ],
+  "verification_status": "unverified"
+}

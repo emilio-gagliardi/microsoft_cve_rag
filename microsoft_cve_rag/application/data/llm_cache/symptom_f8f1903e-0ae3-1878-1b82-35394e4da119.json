@@ -1,0 +1,21 @@
+{
+  "symptom_label": "chrome_inconsistent_ui_behavior_due_to_xss",
+  "description": "End users might experience unexpected behavior in the Microsoft Edge browser, specifically when interacting with the omnibox. This could manifest as erroneous data displays or unanticipated actions triggered by crafted UI gestures. Users may notice that scripts or HTML content is injected in a way that disrupts their usual browsing experience, potentially leading to confusion or loss of trust in the integrity of the browser. The affected versions are Microsoft Edge (Chromium-based) version 129.0.2792.52 and the previous version 129.0.6668.58, as indicated in the corresponding security update (KB-129.0.2792.52). This behavior is a direct result of the exploit identified in CVE-2024-8907, which originated from insufficient data validation.",
+  "source_id": "f8f1903e-0ae3-1878-1b82-35394e4da119",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f8f1903e-0ae3-1878-1b82-35394e4da119"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "CVE-2024-8907",
+    "UI Behavior"
+  ],
+  "node_id": "688f4e86-a870-4ce6-87df-c19434481ad3",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

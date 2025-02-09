@@ -1,0 +1,20 @@
+{
+  "symptom_label": "aduc_access_issues_for_standard_user_accounts",
+  "description": "System administrators may encounter issues where standard user accounts lack the necessary rights to perform tasks in Active Directory Users and Computers (ADUC), particularly when managing computer accounts in the default computer container. This can manifest as an inability to create or delete computer accounts, resulting in challenges when reusing computer names during domain joins. The absence of proper permissions can hinder tech staff from managing computer accounts effectively. The workaround detailed involves granting specific rights to standard user accounts, allowing them to delete from the default computer container, which is essential for operational continuity within the domain. This solution emphasizes the importance of correctly delegating permissions to facilitate domain management tasks without excessive privileges.",
+  "source_id": "6f0a42a3-b6fe-6eb9-5df9-16f4ca108691",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "6f0a42a3-b6fe-6eb9-5df9-16f4ca108691"
+  ],
+  "tags": [
+    "Active Directory",
+    "User Permissions",
+    "Domain Management",
+    "Standard User Rights"
+  ],
+  "node_id": "625b8500-0ce8-449c-95ef-b17c57886a64",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

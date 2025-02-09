@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the secure boot security feature bypass vulnerability (CVE-2024-37989):\n\n1. Download and install the relevant KB updates based on your operating system build from the Microsoft Update Catalog.\n\n2. Restart your system after installation to ensure the changes take effect.\n\n**Details**:\n- The updates for Windows 11 and Windows 10 can be applied through the following links:\n  - [KB5040442](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442)\n  - [KB5040431](https://catalog.update.microsoft.com/Search.aspx?q=KB5040431)\n  - [KB5040448](https://catalog.update.microsoft.com/Search.aspx?q=KB5040448)\n  - [KB5040427](https://catalog.update.microsoft.com/Search.aspx?q=KB5040427)\n- This vulnerability involves improper handling of length parameter inconsistencies that could allow bypassing secure boot features.\n\n**Preconditions**:\n- Ensure the system is on a supported build that is affected by this vulnerability.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "c9021cbc-5a1b-9a56-d0db-35aba1ae2a67",
+  "source_type": "MSRCPost",
+  "fix_label": "resolve_secure_boot_bypass_cve202437989",
+  "tags": [
+    "KB5040442",
+    "CVE202437989",
+    "SecureBoot",
+    "Windows10Windows11"
+  ],
+  "node_id": "1d5a34ff-b438-4b87-9b9d-ab8033d7eaaa",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c9021cbc-5a1b-9a56-d0db-35aba1ae2a67"
+  ],
+  "verification_status": "unverified"
+}

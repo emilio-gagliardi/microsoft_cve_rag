@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability in the Windows Mobile Broadband Driver (CVE-2024-29997), apply the following updates:\n\n1. Identify your Windows version and architecture from the list below:\n   - Windows 11 Version 23H2 for x64-based Systems: 10.0.22631.3593\n   - Windows 11 Version 22H2 for x64-based Systems: 10.0.22621.3593\n   - Windows 11 Version 21H2 for x64-based Systems: 10.0.22000.2960\n   - Windows 10 Version 22H2 for x64-based Systems: 10.0.19045.4412\n   - Windows 10 Version 21H2 for x64-based Systems: 10.0.19044.4412\n   - Windows 10 Version 22H2 for 32-bit Systems: 10.0.19045.4412\n   - Windows 10 Version 21H2 for 32-bit Systems: 10.0.19044.4412, 10.0.22000.2960\n\n2. Download the appropriate KB update based on your Windows version:\n   - For Windows 11 Version 23H2 or 22H2, use [KB5037771](https://catalog.update.microsoft.com/Search.aspx?q=KB5037771).\n   - For Windows 11 Version 21H2, use [KB5037770](https://catalog.update.microsoft.com/Search.aspx?q=KB5037770).\n   - For Windows 10 Version 22H2 or 21H2, use [KB5037768](https://catalog.update.microsoft.com/Search.aspx?q=KB5037768).\n\n3. Install the updates as per the instructions provided in the downloaded package.\n4. Restart your system to ensure the changes take effect.\n\n**Details**:\nThis update addresses the integer overflow or wraparound issue within the Windows Mobile Broadband Driver, helping to prevent potential exploitation by attackers with physical access to the device.\n\n**Preconditions**:\n- Ensure you are aware of your system's current Windows version and architecture.\n- Backup any critical data before the update process to avoid data loss.",
+  "source_id": "b170229f-73a8-408e-6199-ee409fabf3e8",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_windows_mobile_broadband_driver",
+  "tags": [
+    "KB5037771",
+    "Windows11",
+    "RemoteCodeExecution",
+    "DriverUpdate"
+  ],
+  "node_id": "52c2eb97-050a-4aad-bca6-b688764160ed",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b170229f-73a8-408e-6199-ee409fabf3e8"
+  ],
+  "verification_status": "unverified"
+}

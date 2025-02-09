@@ -1,0 +1,16 @@
+{
+  "symptom_label": "UserMayClickMaliciousUrlCausingIntegrityIssues",
+  "description": "Users may experience unexpected integrity issues when browsing with Microsoft Edge (Chromium-based) version 119.0.2151.72 due to a spoofing vulnerability. This can happen if a user clicks on a specially crafted URL, which would allow an attacker to bypass warnings on permission messages when visiting potentially malicious websites. The issue is documented under KB-119.0.2151.72, with build numbers including 119.0.2151.72 for Microsoft Edge and extended stable builds such as 118.0.2088.109.",
+  "source_id": "7387c3c6-49cf-9b89-eb90-5696c068ea36",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "6ddf5bfc-842d-4b4a-8aea-0e6865415044",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

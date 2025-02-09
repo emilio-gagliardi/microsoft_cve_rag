@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the information disclosure vulnerability in Windows themes (CVE-2024-20691), apply the following security updates:\n\n1. For Windows 11 Version 23H2, download and apply the KB5034123 update from the official Microsoft Update Catalog.\n2. For Windows 10 Version 22H2, download and apply the KB5034122 update from the official Microsoft Update Catalog.\n3. For Windows 10 Version 21H2, download and apply updates KB5034121 and KB5034122.\n4. For Windows Server 2022 and Server 2019, apply KB5034129 and KB5034127 respectively.\n\n**Details**:\nThese updates remedy the information disclosure issue by patching the vulnerable components involved. Scheduled maintenance and updates should be conducted regularly to ensure systems are protected against discovered vulnerabilities. \n\n**Preconditions**:\n- Ensure the system is one of the affected builds (e.g., Windows 11, Windows 10, Windows Server versions).\n- Backup critical data before proceeding with updates.\n\nFor manual installation, download the update packages from:\n- [KB5034123](https://catalog.update.microsoft.com/Search.aspx?q=KB5034123)\n- [KB5034122](https://catalog.update.microsoft.com/Search.aspx?q=KB5034122)\n- [KB5034121](https://catalog.update.microsoft.com/Search.aspx?q=KB5034121)\n- [KB5034129](https://catalog.update.microsoft.com/Search.aspx?q=KB5034129)\n- [KB5034127](https://catalog.update.microsoft.com/Search.aspx?q=KB5034127)\n- Additional updates as needed.\n\nThis approach ensures the mitigation of risks associated with this vulnerability.",
+  "source_id": "c000e8fc-557a-c032-b37d-1a6852480f30",
+  "source_type": "MSRCPost",
+  "fix_label": "MitigateInformationDisclosureWindowsThemesCVE202420691",
+  "tags": [
+    "KB5034123",
+    "KB5034122",
+    "Windows11",
+    "InformationDisclosure"
+  ],
+  "node_id": "e13f1a95-a858-4854-9f0f-03bce62e8213",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

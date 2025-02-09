@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_11_reboots_due_to_security_update_issue",
+  "description": "End users may experience unexpected reboots on Windows 11 systems following the application of a specific security update. This behavior can disrupt workflow and lead to data loss if users are actively working on their devices during the reboot. System administrators should be aware of this issue as it indicates potential instability in the current build of the operating system triggered by the updates. Users may report system instability or unexplained reboots occurring shortly after the update process completes. It is advisable to review the associated updates and their impact on system behavior to mitigate such occurrences.",
+  "source_id": "5e56b5e7-2cb7-4770-9051-99447fa8ada5",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "5e56b5e7-2cb7-4770-9051-99447fa8ada5"
+  ],
+  "tags": [
+    "Windows 11",
+    "reboot issue",
+    "security update",
+    "patch management"
+  ],
+  "node_id": "19b627e9-5547-48c1-819b-90b37a1bc868",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

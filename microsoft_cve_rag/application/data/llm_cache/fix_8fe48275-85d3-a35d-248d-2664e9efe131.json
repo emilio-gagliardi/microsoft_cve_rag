@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows USB video class system driver elevation of privilege vulnerability (CVE-2024-43638), it is crucial to apply the relevant updates provided by Microsoft. These updates resolve the out-of-bounds read issue in the driver, minimizing the risk of potential exploits.\n\n1. Access the Microsoft Update Catalog using the links below to obtain the applicable updates for your system build.\n2. Download and install the following KB articles based on your Windows version:\n   - Windows 11 Version 24H2: [KB5046617](https://catalog.update.microsoft.com/Search.aspx?q=KB5046617)\n   - Windows 11 Version 23H2: [KB5046633](https://catalog.update.microsoft.com/Search.aspx?q=KB5046633)\n   - Windows 10 Version 22H2 for x64-based Systems: [KB5046613](https://catalog.update.microsoft.com/Search.aspx?q=KB5046613)\n   - Windows 10 for x64-based Systems: [KB5046665](https://catalog.update.microsoft.com/Search.aspx?q=KB5046665)\n3. Restart your system after installation to apply these updates.\n\n**Details**:\n- Ensure that you verify the build numbers of your Windows installation to match the correct KB articles listed above.\n- It is recommended to backup important data before proceeding with the installations to avoid any data loss.\n\n**Preconditions**:\n- Confirm that your system is running one of the specified Windows versions mentioned in the build numbers.\n- Administrative privileges are necessary to install the updates.",
+  "source_id": "8fe48275-85d3-a35d-248d-2664e9efe131",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_for_windows_usb_video_driver",
+  "tags": [
+    "KB5046617",
+    "Windows11",
+    "Windows10",
+    "USBDriver"
+  ],
+  "node_id": "c98a9845-4bc0-4866-bd71-550c2d641d8c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "8fe48275-85d3-a35d-248d-2664e9efe131"
+  ],
+  "verification_status": "unverified"
+}

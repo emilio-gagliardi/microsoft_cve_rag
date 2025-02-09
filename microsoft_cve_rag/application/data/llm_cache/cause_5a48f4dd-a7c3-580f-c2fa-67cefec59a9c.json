@@ -1,0 +1,21 @@
+{
+  "description": "The Microsoft ODBC Driver for SQL Server has a numeric truncation error that can lead to remote code execution when handling specially crafted responses from an SQL server. Exploitation requires authenticated users to connect to a malicious SQL database, enabling arbitrary code execution in the context of the user's client application.",
+  "cause_label": "odbc_driver_numeric_truncation_error",
+  "source_id": "5a48f4dd-a7c3-580f-c2fa-67cefec59a9c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5a48f4dd-a7c3-580f-c2fa-67cefec59a9c"
+  ],
+  "tags": [
+    "Microsoft",
+    "ODBC",
+    "remote code execution",
+    "numeric truncation",
+    "CVE-2024-21451"
+  ],
+  "node_id": "bb1be22c-e0db-493e-b769-0951c6782dee",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

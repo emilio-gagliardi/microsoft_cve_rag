@@ -1,0 +1,22 @@
+{
+  "description": "The Windows client-side caching mechanism has a flaw related to out-of-bounds read conditions that allows an attacker to elevate privileges on affected systems without user interaction. This condition arises from improper handling of memory access, leading to unauthorized data exposure and potential system control gain.",
+  "cause_label": "windows_client_side_caching_out_of_bounds_read",
+  "source_id": "494143d7-f945-44a2-0ad3-a326426196e1",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "494143d7-f945-44a2-0ad3-a326426196e1"
+  ],
+  "tags": [
+    "CVE-2024-43644",
+    "Windows",
+    "Out-of-bounds Read",
+    "Elevation of Privilege",
+    "Caching"
+  ],
+  "node_id": "2deeb81c-7eec-4aaf-9a05-a22c44672610",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

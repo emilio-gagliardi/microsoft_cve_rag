@@ -1,0 +1,16 @@
+{
+  "symptom_label": "WsusNotSeeingWindows11CumulativeUpdates",
+  "description": "The system is experiencing an issue where Windows Server Update Services (WSUS) does not detect the latest cumulative updates for Windows 11, specifically the 2023-10 dynamic cumulative update referenced as KB5031358. Despite the update being flagged as critical and approved for deployment, Windows 11 systems report being fully patched and lacking any required updates. This situation could leave systems vulnerable, as administrators might assume their systems are secure when they are not receiving necessary updates.",
+  "source_id": "5e4985d6-30d4-daaf-278d-32316d9ebb25",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "WSUS",
+    "Windows 11",
+    "Patch Management"
+  ],
+  "node_id": "68741f55-f61f-4ec6-8425-04aff2cf950e",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

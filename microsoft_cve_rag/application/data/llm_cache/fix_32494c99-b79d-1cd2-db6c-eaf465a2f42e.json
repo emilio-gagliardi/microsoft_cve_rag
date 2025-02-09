@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows cryptographic services remote code execution vulnerability (CVE-2024-30020), it's crucial to apply the appropriate updates based on your system configuration.\n\n1. Identify your Windows version and build number.\n2. Download and install the relevant update from the update catalog:\n   - For Windows 10 (x64): [KB5037788](https://catalog.update.microsoft.com/Search.aspx?q=KB5037788)\n   - For Windows 10 (32-bit): [KB5037788](https://catalog.update.microsoft.com/Search.aspx?q=KB5037788)\n   - For Windows 11 (22H2 & 23H2 x64): [KB5037771](https://catalog.update.microsoft.com/Search.aspx?q=KB5037771)\n   - For Windows 11 (21H2): [KB5037770](https://catalog.update.microsoft.com/Search.aspx?q=KB5037770)\n   - For Windows 10 Version 22H2: [KB5037768](https://catalog.update.microsoft.com/Search.aspx?q=KB5037768)\n3. Restart your system after installation to ensure that changes take effect.\n\n**Details**:\n- The updates correct improper certificate validation and heap-based buffer overflow vulnerabilities that could lead to remote code execution.\n- Ensure that all critical data is backed up before proceeding with the update installation.",
+  "source_id": "32494c99-b79d-1cd2-db6c-eaf465a2f42e",
+  "source_type": "MSRCPost",
+  "fix_label": "address_remote_code_execution_cve202430020",
+  "tags": [
+    "KB5037788",
+    "Windows10",
+    "Windows11",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "66a864f1-0cec-4fd9-a0fb-0161653a001b",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "32494c99-b79d-1cd2-db6c-eaf465a2f42e"
+  ],
+  "verification_status": "unverified"
+}

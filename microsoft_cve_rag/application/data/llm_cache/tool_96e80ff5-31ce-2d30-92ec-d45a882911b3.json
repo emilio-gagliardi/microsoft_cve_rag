@@ -1,0 +1,22 @@
+{
+  "tool_label": "current_version_download_microsoft_links",
+  "description": "**Tool Overview**:\n\nThe current version download from Microsoft links allows users to access the most up-to-date software version for their systems. This tool is crucial for keeping applications aligned with the latest security and functionality updates.\n\n**Details**:\n\nThis resource connects users to the latest version of software published by Microsoft, which is essential for addressing vulnerabilities associated with CVE vulnerabilities like CVE-2024-43590. By providing the correct build number, users can ensure they are downloading the necessary version to mitigate risks in their environment. This is particularly important when sporadic updates have been made to existing CVE references, reinforcing the need for verification through official links provided by Microsoft.\n\nUsers can follow these steps to utilize the tool:\n1. Visit the relevant Microsoft download page.\n2. Ensure you have the build number correct (14.40.33816 in this case).\n3. Download the software that correlates with the specified CVE to maintain system integrity.",
+  "source_id": "96e80ff5-31ce-2d30-92ec-d45a882911b3",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "96e80ff5-31ce-2d30-92ec-d45a882911b3"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://www.microsoft.com/en-us/download",
+  "tags": [
+    "Microsoft",
+    "software update",
+    "CVE mitigation"
+  ],
+  "node_id": "48da3323-38ea-4954-b40a-430642f3aa57",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "critical",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

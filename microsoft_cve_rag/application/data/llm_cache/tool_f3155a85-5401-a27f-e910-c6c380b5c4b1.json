@@ -1,0 +1,23 @@
+{
+  "tool_label": "extend_windows_re_partition_script",
+  "description": "**Tool Overview**:\n\nThis script is designed to extend the Windows Recovery Environment (Windows RE) partition, allowing for successful installation of various updates, including KB articles. It is particularly useful when users face issues related to insufficient recovery partition size, even when the partition is already larger than the typical minimum size.\n\n**Details**:\n\n1. The script automates the resizing process of the Windows RE partition without harming existing data.\n2. It ensures that the partition is correctly configured, which is essential for the installation of system updates and recovery images.\n3. Users can find the script details and usage instructions on Microsoft's official documentation, which provides a comprehensive guide on partition management.\n4. By using this tool, system administrators can prevent common issues associated with recovery partitions, ensuring a smoother update experience.\n5. The effectiveness of the script is evidenced by its successful operation in similar scenarios as reported by users.\n\n**Usage**:\n1. Refer to the official guide on extending the Windows RE partition.\n2. Follow the provided steps to execute the script in your environment.\n3. Monitor the recovery partition size before and after executing the tool to ensure proper allocation.\n\n**Starting the Script**:\n```powershell\n# Example command to execute the script\nInvoke-Expression \"path_to_your_script.ps1\"\n```",
+  "source_id": "f3155a85-5401-a27f-e910-c6c380b5c4b1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "f3155a85-5401-a27f-e910-c6c380b5c4b1"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/YT2PR01MB62890CE52C0E0BDC381741DCBA112%40YT2PR01MB6289.CANPRD01.PROD.OUTLOOK.COM",
+  "tool_url": "https://learn.microsoft.com/en-gb/windows-hardware/manufacture/desktop/add-update-to-winre?view=windows-11#extend-the-windows-re-partition",
+  "tags": [
+    "Windows RE",
+    "partition management",
+    "scripting",
+    "LLM Synthesized"
+  ],
+  "node_id": "7f3801a1-6081-4da4-8501-44f40b8fc563",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

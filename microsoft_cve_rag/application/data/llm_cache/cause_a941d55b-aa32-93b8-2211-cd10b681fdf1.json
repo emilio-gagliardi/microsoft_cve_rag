@@ -1,0 +1,20 @@
+{
+  "description": "The underlying cause of the dc issue was identified and addressed through an out-of-band (OOB) update specifically designed for domain controllers (DCs). The Microsoft guidance prescribed the installation of this update exclusively on the affected DCs to mitigate further complications. Following the deployment of the OOB update, the issue was reported to be resolved effectively. This fix is anticipated to be included in the April updates and subsequent cumulative updates (CUs), ensuring widespread availability and implementation. Moreover, Ivanti's Security Controls incorporated this OOB update into their catalog, simplifying the deployment process as it was effectively pushed to the DCs post-implementation.",
+  "source_id": "a941d55b-aa32-93b8-2211-cd10b681fdf1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "a941d55b-aa32-93b8-2211-cd10b681fdf1"
+  ],
+  "cause_label": "oob_update_resolves_domain_controller_issue",
+  "tags": [
+    "OOB update",
+    "domain controllers",
+    "patch management",
+    "April updates"
+  ],
+  "node_id": "a9b66334-7c71-4fba-a79b-4db46b34159a",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

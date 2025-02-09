@@ -1,0 +1,23 @@
+{
+  "tool_label": "microsoft_speech_api_remote_code_execution_tool",
+  "description": "**Tool Overview**:\n\nThe Microsoft Speech Application Programming Interface (SAPI) could potentially allow attackers to execute code remotely due to a vulnerability classified as CVE-2024-30097. While a direct tool isn't detailed, understanding SAPI's functionalities and how to utilize it in a secure manner is essential for enterprise environments. \n\n**Details**:\n1. The vulnerability relates to a double free condition in the SAPI, which can lead to remote code execution if exploited.\n2. Organizations using SAPI should implement best practices for configuration and exposure, ensuring that unnecessary services are disabled.\n3. Tools that monitor and control network interactions of SAPI can provide additional layers of security against potential remote exploitation.\n4. Regular audits and updates should be part of the strategy to maintain the health of systems utilizing SAPI.\n5. Engage with Microsoft's documentation to stay current on mitigations related to SAPI vulnerabilities.",
+  "source_id": "916d177f-86f5-a8a7-0108-d66a2a50d3af",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "916d177f-86f5-a8a7-0108-d66a2a50d3af"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30097",
+  "tool_url": "",
+  "tags": [
+    "API",
+    "remote_code_execution",
+    "vulnerability",
+    "SAPI"
+  ],
+  "node_id": "765e0cd2-7443-424e-92b4-e99a1a71f2a0",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

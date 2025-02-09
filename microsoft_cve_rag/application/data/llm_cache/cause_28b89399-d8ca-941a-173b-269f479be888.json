@@ -1,0 +1,20 @@
+{
+  "description": "The root cause of the issue involving Windows 11 devices was the inadvertent inclusion of an outdated version of the Microsoft Defender for Endpoint detection sensor (MsSense.exe) in the cumulative updates (LCU) released in September and October, as well as the preview update package KB5041587 from August. This outdated sensor caused functionality issues for users who had updated their devices, leading to difficulties when attempting to utilize the latest features of Microsoft Defender XDR. The issue was identified during the upgrade process to Windows 11, version 24H2, which was designed to enhance system security and performance. The team has since resolved the issue by deploying a fix, but further investigation is ongoing to ensure such a misconfiguration does not recur in future updates.",
+  "source_id": "28b89399-d8ca-941a-173b-269f479be888",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "28b89399-d8ca-941a-173b-269f479be888"
+  ],
+  "cause_label": "old_sensor_included_in_windows_update",
+  "tags": [
+    "microsoft defender",
+    "windows 11",
+    "patch management"
+  ],
+  "node_id": "c880b49f-8719-419f-8ac8-128d7d351643",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

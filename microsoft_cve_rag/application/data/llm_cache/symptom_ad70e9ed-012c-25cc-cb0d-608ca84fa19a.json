@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_11_experiences_reboot_delay_after_updates",
+  "description": "After completing the update installation process for Windows 11 Pro, users report experiencing delays during the reboot sequence. Specifically, after a manual restart is initiated, the system completes the installation with an initial reboot, followed by another reboot, resulting in a total of two restarts when the initial restart is counted. After successfully installing updates, which include .NET and the April 2024 cumulative update with the servicing stack update, there is a noticeable delay upon logging in, particularly at the welcome screen where the spinning asterisk appears for 15 to 20 seconds, compared to the normal routine logon which only takes about 3 to 4 seconds. The issue is particularly relevant to systems running on a 256GB SSD with a GPT primary disk configuration, affected by the 'Pending Restart Required' condition after updates have been downloaded and installed. Users may find this delay in the reboot cycle to be disruptive to their workflow, especially in an enterprise environment where efficiency is crucial.",
+  "source_id": "ad70e9ed-012c-25cc-cb0d-608ca84fa19a",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "ad70e9ed-012c-25cc-cb0d-608ca84fa19a"
+  ],
+  "tags": [
+    "windows 11",
+    "update reboot delay",
+    "authentication delay",
+    "windows update"
+  ],
+  "node_id": "46041e15-4a42-4741-8bfa-143b785bb588",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

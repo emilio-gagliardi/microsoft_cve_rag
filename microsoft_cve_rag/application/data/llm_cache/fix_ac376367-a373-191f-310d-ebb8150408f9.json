@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Resume Extensible Firmware Interface (EFI) security feature bypass vulnerability (CVE-2024-37976):\n\n1. Apply the relevant KB updates based on your Windows version from the official Microsoft Update Catalog.\n\n   - Windows 11 Version 24H2: [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n   - Windows 11 Version 23H2: [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - Windows 11 Version 22H2: [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - Windows 11 Version 21H2: [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280)\n   - Windows 10 Version 22H2: [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n   - Windows 10 Version 21H2: [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n\n2. Ensure that you restart your system after installation to apply the changes.\n\n**Details**:\n- The updates address the integer overflow vulnerability impacting the Windows resume feature.\n- Important to ensure your system is updated to the respective Windows version to receive the appropriate patch.\n- Backup critical data before proceeding with any updates.\n\n**Preconditions**:\n- Confirm your Windows version and architecture (x64 or 32-bit) to select the correct KB.\n",
+  "source_id": "ac376367-a373-191f-310d-ebb8150408f9",
+  "source_type": "MSRCPost",
+  "fix_label": "address_windows_resume_efi_security_bypass_cve202437976",
+  "tags": [
+    "KB5044284",
+    "Windows11",
+    "EFISecurity",
+    "LLM Synthesized"
+  ],
+  "node_id": "d4342843-1201-4e5c-887a-d2bb60d1d700",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "ac376367-a373-191f-310d-ebb8150408f9"
+  ],
+  "verification_status": "unverified"
+}

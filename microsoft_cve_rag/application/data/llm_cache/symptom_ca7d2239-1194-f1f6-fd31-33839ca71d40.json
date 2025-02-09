@@ -1,0 +1,16 @@
+{
+  "symptom_label": "BitlockerIncorrectlyReportsErrorCode65000",
+  "description": "Certain environments using Microsoft BitLocker may incorrectly display a 65000 error in the 'Require device encryption' setting when the 'Enforce drive encryption type on operating system drives' or 'Enforce drive encryption on fixed drives' policies are enabled with either 'Full encryption' or 'Used space only'. This issue affects Windows 10 and Windows 11 devices managed via Microsoft Intune and may also impact third-party Mobile Device Management (MDM) solutions. It is important to note that this is a reporting issue and does not affect the actual drive encryption process or the reporting of other BitLocker-related problems.",
+  "source_id": "ca7d2239-1194-f1f6-fd31-33839ca71d40",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "BitLocker",
+    "Compliance",
+    "MDM"
+  ],
+  "node_id": "fd3427f4-768d-4e1a-bc3a-3b9143894133",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the http.sys denial of service vulnerability (CVE-2024-26219):\n\n1. Download and apply the updates from the KB articles listed below.\n2. Ensure all relevant systems are restarted to apply the changes.\n\n**Details**:\n- The solution includes the following KB article updates: KB-5036894, KB-5036893, and KB-5036892.\n- These updates are applicable to various builds of Windows, specifically:\n  - Windows 10, version 19045, build 4291\n  - Windows 10, version 19044, build 4291\n  - Windows 10, version 22631, build 3447\n  - Windows 10, version 22000, build 2899\n  - Windows 10, version 22621, build 3447\n- Be sure to back up critical data before applying updates to prevent any potential data loss.",
+  "source_id": "5c215087-3c4d-4b51-e8d1-69d040bf7aa6",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_to_resolve_http_sys_dos",
+  "tags": [
+    "KB5036894",
+    "KB5036893",
+    "Windows10",
+    "DoS"
+  ],
+  "node_id": "302215e7-e450-4450-962b-cd13a021eb8e",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "5c215087-3c4d-4b51-e8d1-69d040bf7aa6"
+  ]
+}

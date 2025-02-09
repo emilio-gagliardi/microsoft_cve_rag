@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the elevation of privilege vulnerability identified as CVE-2024-35254 in the Azure Monitor Agent:\n\n1. Ensure that you have the latest version of the Azure Monitor Agent installed.\n2. Apply the corresponding security update by referencing the provided KB Article: KB-1.26.0.\n3. Restart the Azure Monitor Agent to implement the changes and ensure its secure operation.\n\n**Details**:\n- This update addresses the improper link resolution issue before file access that could lead to elevated privileges on the system. \n- For additional details, reference the Microsoft Security Response Center post: [MSRC CVE-2024-35254](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-35254).\n\n**Preconditions**:\n- Verify that you are operating the Azure Monitor Agent.\n- Backup critical configurations before applying updates.",
+  "source_id": "785446f9-06d6-8157-0f07-3b733743c8dd",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_elevation_of_privilege_in_azure_monitor_agent_cve202435254",
+  "tags": [
+    "AzureMonitorAgent",
+    "CVE202435254",
+    "KB-1.26.0",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "64f4cff2-f14f-45f9-9dc3-eaaa42cc04c9",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "785446f9-06d6-8157-0f07-3b733743c8dd"
+  ],
+  "verification_status": "unverified"
+}

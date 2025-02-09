@@ -1,0 +1,22 @@
+{
+  "description": "The secure boot feature bypass is caused by a heap-based buffer overflow, where an attacker with adjacent network access can exploit the vulnerability to bypass secure boot functionalities. This occurs due to flaws in the handling of network stack components, allowing unauthorized manipulation leading to potential risks of system integrity and confidentiality.",
+  "cause_label": "secure_boot_feature_bypass_heap_buffer_overflow",
+  "source_id": "c4b81307-cfef-4855-63ff-e606cf190460",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c4b81307-cfef-4855-63ff-e606cf190460"
+  ],
+  "tags": [
+    "security",
+    "vulnerability",
+    "CVE-2024-37977",
+    "buffer overflow",
+    "secure boot"
+  ],
+  "node_id": "8006bf6f-668e-4fd1-8305-11a6a63c2114",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

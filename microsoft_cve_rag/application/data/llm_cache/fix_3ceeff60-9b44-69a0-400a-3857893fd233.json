@@ -1,0 +1,16 @@
+{
+  "description": "To address the oversight with the registry key related to Kerberos protocol changes, manually set the registry key that was previously altered by the update process. Ensure that it is configured to prevent issues caused during the 'full enforcement' phase activated by the October 10 update, as the system will ignore any such manual changes moving forward. This procedure is critical for maintaining the desired configurations and service continuity. For more detailed guidance, refer to KB Article 5020805, which addresses management of these Kerberos changes directly. This action is particularly relevant for systems affected by CVE-2022-37967.",
+  "source_id": "3ceeff60-9b44-69a0-400a-3857893fd233",
+  "source_type": "PatchManagementPost",
+  "fix_label": "ManuallySetRegistryKeyForKerberosChanges",
+  "tags": [
+    "Kerberos",
+    "Registry",
+    "Patch Management"
+  ],
+  "node_id": "9ecd0623-6d23-4499-b5b1-d6f4163efbc8",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

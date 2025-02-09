@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows kernel elevation of privilege vulnerability CVE-2024-43630, follow these steps:\n\n1. Download the necessary updates from the Microsoft Update Catalog using the following links:\n   - KB5046696: [Download here](https://catalog.update.microsoft.com/Search.aspx?q=KB5046696)\n   - KB5046617: [Download here](https://catalog.update.microsoft.com/Search.aspx?q=KB5046617)\n   - KB5046613: [Download here](https://catalog.update.microsoft.com/Search.aspx?q=KB5046613)\n\n2. Install the updates applicable to your system:\n   - For Windows 11 Version 24H2 for x64-based Systems, install KB5046617.\n   - For Windows 10 Version 22H2 (both x64 and 32-bit), install KB5046613.\n   - For Windows 10 Version 21H2 (both x64 and 32-bit), also install KB5046613.\n\n3. Restart your system after the installation to ensure all changes take effect.\n\n**Details**:\n- This fix addresses a stack-based buffer overflow vulnerability that could lead to elevation of privilege if successfully exploited. \n- It is crucial to ensure that your system is updated to the correct version before applying the updates.\n- Backup critical data before proceeding with the installation to prevent any data loss should an issue arise during the process.",
+  "source_id": "fca5fc60-de3f-e6cf-3ee0-baada456b8c4",
+  "source_type": "MSRCPost",
+  "fix_label": "address_windows_kernel_elevation_privilege_cve202443630",
+  "tags": [
+    "CVE202443630",
+    "Windows10",
+    "Windows11",
+    "KernelUpdate"
+  ],
+  "node_id": "feef1b2b-6550-4d19-90a3-968575ad9c0c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "fca5fc60-de3f-e6cf-3ee0-baada456b8c4"
+  ],
+  "verification_status": "unverified"
+}

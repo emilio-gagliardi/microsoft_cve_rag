@@ -1,0 +1,21 @@
+{
+  "description": "Inappropriate implementation in V8 within the Chromium open source software affecting Microsoft Edge (Chromium-based) builds prior to 129.0.2792.79, which led to the identified security issue.",
+  "cause_label": "chromium_inappropriate_implementation_in_v8",
+  "source_id": "c1bdd19d-2114-49fb-658d-1fed3e76f14e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c1bdd19d-2114-49fb-658d-1fed3e76f14e"
+  ],
+  "tags": [
+    "CVE-2024-9370",
+    "Chromium",
+    "Microsoft Edge",
+    "V8"
+  ],
+  "node_id": "c18712db-886a-4526-a808-bd70e0c45df4",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

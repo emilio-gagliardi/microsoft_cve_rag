@@ -1,0 +1,18 @@
+{
+  "description": "The underlying cause of the issue stems from a missing security update for various versions of Windows, specifically related to the vulnerability identified as CVE-2024-20666. This vulnerability affects multiple builds across Windows 10 and 11, including Windows 11 Version 23H2 for x64-based and ARM64-based systems, as well as older versions like Windows 10 Version 21H2. The failure to deliver this patch not only increases the risk of exploitation but may also lead to operational inconsistencies across enterprise deployments that rely on various build numbers. The Microsoft Knowledge Base articles, including KB20666, detail the specific updates required to mitigate this risk and ensure that all systems are secured against the identified vulnerabilities.",
+  "source_id": "41781d13-e3e3-e17d-7ef4-43eb5f65634a",
+  "source_type": "PatchManagementPost",
+  "cause_label": "MissingSecurityUpdateExposesMultipleBuilds",
+  "tags": [
+    "CVE-2024-20666",
+    "Windows 11",
+    "Windows Server 2022",
+    "security update",
+    "patch management"
+  ],
+  "node_id": "a7e8369c-4914-4166-88de-7b55ada9bc9a",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

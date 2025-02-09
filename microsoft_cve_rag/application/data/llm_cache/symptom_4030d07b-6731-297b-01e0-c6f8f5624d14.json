@@ -1,0 +1,17 @@
+{
+  "symptom_label": "RecoveryPartitionNotConfiguredForUefiBoot",
+  "description": "The symptom suggests misconfiguration of the recovery partition, particularly when dealing with UEFI systems. If the recovery partition is not properly located at the end of the disk or formatted according to UEFI specifications, it could lead to failures in recovery operations or booting issues. This is particularly relevant if the automation script provided on GitHub failed to execute as intended, impacting the system's ability to recover from failures efficiently.",
+  "source_id": "4030d07b-6731-297b-01e0-c6f8f5624d14",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "UEFI",
+    "RecoveryPartition",
+    "Automation",
+    "Configuration"
+  ],
+  "node_id": "0632d3cd-ef9c-4d66-a986-148f507d8a7e",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

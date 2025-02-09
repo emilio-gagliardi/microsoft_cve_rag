@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the denial of service vulnerability in the Windows Mobile Broadband driver (CVE-2024-43559):\n\n1. Download and install the appropriate update package from the official Microsoft Update Catalog based on your operating system version.\n\n   - For Windows 11 Version 24H2, apply KB5044284: [Update Package](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n   - For Windows 11 Version 23H2, apply KB5044285: [Update Package](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - For Windows 11 Version 22H2, apply KB5044280: [Update Package](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280)\n   - For Windows 10 Version 22H2, apply KB5044273: [Update Package](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n\n2. Restart your system after installation to ensure the changes take effect.\n\n**Details**:\n- This update addresses a NULL pointer dereference issue that could lead to a denial of service in the Mobile Broadband driver.\n- The vulnerability has been rated with an importance severity level due to its impact.\n\n**Preconditions**:\n- Ensure the system is running one of the specified Windows versions.\n- Backup critical data before proceeding with the update installation.\n",
+  "source_id": "2094e2c9-5973-1840-dd2a-ef00cc7da048",
+  "source_type": "MSRCPost",
+  "fix_label": "address_windows_mobile_broadband_dos_cve202443559",
+  "tags": [
+    "KB5044284",
+    "KB5044285",
+    "KB5044280",
+    "KB5044273"
+  ],
+  "node_id": "fd2e5ca0-3670-44e1-b6d2-fea9d342f89c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "2094e2c9-5973-1840-dd2a-ef00cc7da048"
+  ],
+  "verification_status": "unverified"
+}

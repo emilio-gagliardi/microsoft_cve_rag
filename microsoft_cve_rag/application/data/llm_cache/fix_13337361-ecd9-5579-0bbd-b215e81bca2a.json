@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nWhen encountering rebooting issues with a device that uses BitLocker:\n\n1. If a reboot does not resolve the issue, ensure you have the BitLocker recovery key available.\n2. If the recovery key is unavailable and BitLocker is not necessary, consider disabling BitLocker prior to reinstalling the device.\n3. If disabling BitLocker is not an option and access to the recovery key is uncertain, plan on reinstalling the operating system to regain functionality.\n\n**Details**:\n- The recovery key can often be found under the user's Entra ID or Microsoft account, which might complicate access for some users.\n- Disabling BitLocker can mitigate panic during unforeseen boot issues, especially in standalone scenarios.\n",
+  "source_id": "13337361-ecd9-5579-0bbd-b215e81bca2a",
+  "source_type": "PatchManagementPost",
+  "fix_label": "reinstall_device_and_disable_bitlocker_if_needed",
+  "tags": [
+    "BitLocker",
+    "Reinstall",
+    "RecoveryKey",
+    "LLM Synthesized"
+  ],
+  "node_id": "25984111-8efe-4f70-ba1e-eb3a29d58a9e",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "13337361-ecd9-5579-0bbd-b215e81bca2a"
+  ],
+  "verification_status": "unverified"
+}

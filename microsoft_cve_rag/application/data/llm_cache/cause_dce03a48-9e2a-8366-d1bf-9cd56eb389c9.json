@@ -1,0 +1,16 @@
+{
+  "description": "The underlying cause of CVE-2023-36391 is a flaw within the Local Security Authority Subsystem Service (LSASS) that allows for elevation of privilege. This vulnerability occurs because the LSASS component is insufficiently protected, enabling an attacker with basic user privileges to exploit it locally or through user interaction. The vulnerability does not require elevated permissions for exploitation, and an attacker could gain system-level privileges upon successful exploitation. The issue primarily affects Windows 11 version 23H2, specifically build number 10.0.22631.2861, as indicated in the referenced KB article KB5033375.",
+  "cause_label": "LSASSFlawEnablesPrivilegeEscalationAttack",
+  "source_id": "dce03a48-9e2a-8366-d1bf-9cd56eb389c9",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "ad4bb9a6-208f-4270-b5f3-f91b43ec76e2",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

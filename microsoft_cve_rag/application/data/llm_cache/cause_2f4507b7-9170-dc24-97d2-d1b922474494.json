@@ -1,0 +1,20 @@
+{
+  "description": "The core cause of the issue relates to a licensing check that was previously preventing successful upgrades to the latest version of the ScreenConnect server. This limitation has been addressed in version 23. 9. 10, which removes the problematic licensing check. The upgrade path provided by ConnectWise allows users with older installations, dating back as far as 2011, to upgrade seamlessly. However, even with this upgrade path, some users may still experience extension issues during the upgrade process, indicating potential misconfiguration or compatibility issues. Therefore, it is recommended that users facing difficulties reach out to support for further assistance in resolving these upgrade-related concerns.",
+  "source_id": "2f4507b7-9170-dc24-97d2-d1b922474494",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "2f4507b7-9170-dc24-97d2-d1b922474494"
+  ],
+  "cause_label": "licensing_check_prevents_successful_upgrade",
+  "tags": [
+    "ScreenConnect",
+    "upgrade",
+    "licensing",
+    "ConnectWise"
+  ],
+  "node_id": "43eef848-7d10-4c32-92db-9ac92d1ac235",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

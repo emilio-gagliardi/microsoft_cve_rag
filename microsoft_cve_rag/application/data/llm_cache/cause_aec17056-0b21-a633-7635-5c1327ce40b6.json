@@ -1,0 +1,20 @@
+{
+  "description": "The issue is due to an out-of-bounds write in the V8 JavaScript engine of Chromium, allowing remote attackers to access memory outside of allocated buffers via crafted HTML content. This flaw exists in versions prior to Google Chrome 122.0.6261.111, impacting Microsoft Edge as it utilizes the Chromium framework.",
+  "cause_label": "chromium_out_of_bounds_write_in_v8_memory_access",
+  "source_id": "aec17056-0b21-a633-7635-5c1327ce40b6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "aec17056-0b21-a633-7635-5c1327ce40b6"
+  ],
+  "tags": [
+    "out_of_bounds",
+    "memory_access",
+    "chromium",
+    "v8"
+  ],
+  "node_id": "0cf0c5d9-2e1f-4ee7-9e5a-676038a8deaa",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

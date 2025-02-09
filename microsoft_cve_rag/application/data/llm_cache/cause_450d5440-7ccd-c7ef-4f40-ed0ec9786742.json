@@ -1,0 +1,20 @@
+{
+  "description": "The issue arises from an out-of-bounds read in the Windows DWM core library, potentially leading to information disclosure. This flaw affects multiple Windows builds, making it critical for experts to verify their systems for vulnerability mitigation.",
+  "cause_label": "windows_dwm_core_library_out_of_bounds_read",
+  "source_id": "450d5440-7ccd-c7ef-4f40-ed0ec9786742",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "450d5440-7ccd-c7ef-4f40-ed0ec9786742"
+  ],
+  "tags": [
+    "Windows",
+    "DWM",
+    "information disclosure",
+    "CVE-2024-26172"
+  ],
+  "node_id": "c3814556-899a-47dd-b776-6a24403237a2",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

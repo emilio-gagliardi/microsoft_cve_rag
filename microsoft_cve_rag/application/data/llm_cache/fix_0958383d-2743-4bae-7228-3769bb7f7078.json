@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the information disclosure vulnerability (CVE-2024-21311) in Windows cryptographic services:\n\n1. Download and apply the relevant security update corresponding to your product version. Refer to the URLs below for direct download:\n   - Windows Server 2012 R2: [KB5034171](https://catalog.update.microsoft.com/Search.aspx?q=KB5034171)\n   - Windows 10 Version 22H2 for x64-based Systems: [KB5034122](https://catalog.update.microsoft.com/Search.aspx?q=KB5034122)\n   - Windows 11 Version 23H2 for x64-based Systems: [KB5034123](https://catalog.update.microsoft.com/Search.aspx?q=KB5034123)\n   - Other relevant updates can be found through the provided links.\n\n2. After downloading the updates, apply them by following the installation prompts.\n3. Restart your system to ensure the updates are fully integrated.\n\n**Details**:\n- The updates address the specific vulnerability allowing potential information disclosure. Ensure all updates are installed to maintain system security.\n- For further details regarding supported software, consult the Microsoft support lifecycle.\n\n**Preconditions**:\n- Ensure your system is on a supported version for the updates listed.\n- Backup critical data before applying updates to prevent data loss in case of failure during the update process.\n",
+  "source_id": "0958383d-2743-4bae-7228-3769bb7f7078",
+  "source_type": "MSRCPost",
+  "fix_label": "MitigateInformationDisclosureWindowsCryptographicServicesCVE202421311",
+  "tags": [
+    "KB5034171",
+    "WindowsServer",
+    "CryptographicServices",
+    "LLM Synthesized"
+  ],
+  "node_id": "dbda7c9a-8736-46f7-a582-f5b611e46ab0",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

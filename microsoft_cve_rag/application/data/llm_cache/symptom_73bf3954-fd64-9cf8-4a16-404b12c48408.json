@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_elevation_of_privilege_results_in_access_issues",
+  "description": "The Windows operating system experiences critical disruptions in user access control due to an elevation of privilege vulnerability identified as CVE-2024-21371. Affected builds include Windows 11 Versions 22H2 and 23H2 (10.0.22631.3155, 10.0.22000.2777) as well as Windows 10 Versions 21H2 and 22H2 (10.0.19044.4046, 10.0.19045.4046) along with older builds like 10.0.10240.20469. Users may intermittently find that their permissions are temporarily elevated, allowing unauthorized actions that should be restricted, which poses a risk of data integrity and security. This abnormal behavior may result in unauthorized file access or changes, significantly impacting system administration and user data security, thereby necessitating immediate remediation measures as detailed in KB-5034763.",
+  "source_id": "73bf3954-fd64-9cf8-4a16-404b12c48408",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "73bf3954-fd64-9cf8-4a16-404b12c48408"
+  ],
+  "tags": [
+    "Windows",
+    "elevation of privilege",
+    "access control",
+    "system administration",
+    "user permissions"
+  ],
+  "node_id": "ec5e927b-24b5-4cfd-b203-b4d9d10713a8",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

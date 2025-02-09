@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the security vulnerability identified by CVE-2024-7256 in Microsoft Edge (Chromium-based), ensure that you update to the latest version of the browser.\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) in the top right corner.\n3. Navigate to 'Help and feedback'.\n4. Click on 'About Microsoft Edge' to view your current version.\n5. If your version is lower than 127.0.6533.88, please update to the latest stable release 127.0.2651.86 or later.\n\n**Details**:\n- This update addresses insufficient data validation vulnerabilities that could allow remote code execution via crafted HTML pages.\n- Ensure all settings are properly configured to receive the latest updates automatically.\n\n**Preconditions**:\n- Ensure that you are running a supported version of Microsoft Edge.\n- Backup your browser settings and data before performing the update.",
+  "source_id": "70495938-9477-18fa-17f9-6e221a1b3dbf",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_resolve_cve20247256",
+  "tags": [
+    "CVE-2024-7256",
+    "MicrosoftEdge",
+    "ChromiumVulnerability",
+    "DataValidation"
+  ],
+  "node_id": "ec1ac8f1-cd21-45bf-8ebf-65cb84621e70",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "70495938-9477-18fa-17f9-6e221a1b3dbf"
+  ],
+  "verification_status": "unverified"
+}

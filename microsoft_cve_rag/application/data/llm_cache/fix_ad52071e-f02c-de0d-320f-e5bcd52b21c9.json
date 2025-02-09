@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo streamline the installation process for updating the WinRE partition while addressing security vulnerabilities:\n\n1. Download the PowerShell script available at the following link: [KB-5034957](https://support.microsoft.com/en-us/topic/kb5034957-updating-the-winre-partition-on-deployed-devices-to-address-security-vulnerabilities-in-cve-2024-20666-0190331b-1ca3-42d8-8a55-7fc406910c10).\n2. Execute the script in a PowerShell environment to automatically handle the whole installation process, including partition resizing.\n\n**Details**:\n- This approach simplifies maintenance on deployed devices by automating necessary system updates to the WinRE partition.\n- Ensure you run the script with administrative privileges to allow changes to the system configuration.\n",
+  "source_id": "ad52071e-f02c-de0d-320f-e5bcd52b21c9",
+  "source_type": "PatchManagementPost",
+  "fix_label": "UpdateWinREPartitionAutomateInstallation",
+  "tags": [
+    "KB5034957",
+    "WinREUpdate",
+    "PowerShell",
+    "CVE202420666"
+  ],
+  "node_id": "dde81cb6-20cd-4303-86b3-0d95a748a3f4",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

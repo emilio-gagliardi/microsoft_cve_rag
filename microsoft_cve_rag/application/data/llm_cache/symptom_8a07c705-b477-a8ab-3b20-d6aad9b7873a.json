@@ -1,0 +1,20 @@
+{
+  "symptom_label": "inability_to_install_kb5034441_due_insufficient_space",
+  "description": "The inability to install the January 2024 update KB5034441 on Windows 10 22H2 can be traced to insufficient space in the WinRE (Windows Recovery Environment) recovery partition. Administrators are required to verify the recovery partition's status, size, and free space to resolve the installation issue. It is recommended to use disk management tools or PowerShell commands to check the location of the recovery partition and ensure it is enabled. Resizing the recovery partition may be necessary to accommodate the update, as outlined in KB5034441. This symptom is particularly bothersome for system administrators managing systems upgrading from earlier versions like 20H2 or 21H1, making it crucial to perform status checks before proceeding with the installation.",
+  "source_id": "8a07c705-b477-a8ab-3b20-d6aad9b7873a",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "8a07c705-b477-a8ab-3b20-d6aad9b7873a"
+  ],
+  "tags": [
+    "windows_10",
+    "update_installation",
+    "winre_partition",
+    "kb5034441"
+  ],
+  "node_id": "f37fa607-c4b6-4d07-a547-9737052d2a48",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

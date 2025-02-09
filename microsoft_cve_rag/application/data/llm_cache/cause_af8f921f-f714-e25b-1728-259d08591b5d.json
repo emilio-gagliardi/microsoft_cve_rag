@@ -1,0 +1,21 @@
+{
+  "description": "A flaw in the Windows kernel allows unauthorized access to sensitive information, leading to potential information disclosure. Exploitation may occur locally through physical access or remotely with low privileges and without user interaction. Specifically, an attacker could access one byte of kernel memory, revealing sensitive data.",
+  "cause_label": "windows_kernel_information_disclosure_vulnerability",
+  "source_id": "af8f921f-f714-e25b-1728-259d08591b5d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "af8f921f-f714-e25b-1728-259d08591b5d"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Information Disclosure",
+    "CVE-2024-38041"
+  ],
+  "node_id": "bae4f69f-8bf3-46d3-8c58-9b1f2a25050f",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

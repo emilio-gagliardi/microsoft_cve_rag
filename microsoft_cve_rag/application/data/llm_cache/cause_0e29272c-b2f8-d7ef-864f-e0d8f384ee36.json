@@ -1,0 +1,20 @@
+{
+  "description": "A race condition in the Windows USB print driver allows elevation of privilege due to improper synchronization among shared resources, leading to potential buffer over-read scenarios.",
+  "cause_label": "windows_usb_print_driver_elevation_of_privilege_race_condition",
+  "source_id": "0e29272c-b2f8-d7ef-864f-e0d8f384ee36",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0e29272c-b2f8-d7ef-864f-e0d8f384ee36"
+  ],
+  "tags": [
+    "CVE",
+    "elevation of privilege",
+    "Windows",
+    "USB print driver"
+  ],
+  "node_id": "1148ff04-ec2e-411d-9ded-013e61192b16",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

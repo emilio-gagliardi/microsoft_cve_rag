@@ -1,0 +1,23 @@
+{
+  "tool_label": "crowdstrike_falcon_agent",
+  "description": "**Tool Overview**:\n\nThe CrowdStrike Falcon agent is a lightweight endpoint security solution designed to provide advanced threat detection and response capabilities. It uses machine learning and behavioral analysis to prevent and respond to sophisticated cybersecurity threats that target Windows endpoints. \n\n**Details**:\n\n1. **Installation**: The agent can be deployed across multiple platforms, ensuring consistent protection.\n2. **Functionality**: It continuously monitors endpoint activity to identify and mitigate threats in real-time.\n3. **Recovery Operations**: In case of incidents, it provides recovery options to restore systems to a previous state. \n4. **Integration**: The agent integrates seamlessly with existing security tools to enhance overall security posture.\n5. **Management Console**: Administrators can use the management console to configure settings, monitor status, and respond to incidents from a centralized location.",
+  "source_id": "e1cc58ac-47a1-0452-b582-ae55c593a160",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e1cc58ac-47a1-0452-b582-ae55c593a160"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/PH0PR01MB7349542CC876CA975BCC2826B7AF2%40PH0PR01MB7349.prod.exchangelabs.com",
+  "tool_url": "https://www.crowdstrike.com/product/falcon-endpoint-protection/",
+  "tags": [
+    "endpoint_security",
+    "threat_detection",
+    "CrowdStrike",
+    "Windows"
+  ],
+  "node_id": "d53c8e5d-9cf2-48b0-b248-91f886d5befa",
+  "node_label": "Tool",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

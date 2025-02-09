@@ -1,0 +1,22 @@
+{
+  "symptom_label": "secure_boot_feature_bypass_may_occur",
+  "description": "End users may experience a situation where secure boot functionality is bypassed following the application of the security update associated with KB5040442 on Windows 11, particularly in build numbers 10.0.22631.3880 and 10.0.22621.3880. This bypass can lead to unauthorized access to critical system resources or configurations, which may not be immediately visible but could compromise system integrity. Administrators should monitor systems after updating for any unauthorized changes or potential exploitation due to the compromised secure boot feature. This issue primarily affects Windows 11 versions 23H2 and 22H2 for x64 and ARM64 systems.",
+  "source_id": "1a9f16de-b689-6969-d7d9-d687801ceef9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "1a9f16de-b689-6969-d7d9-d687801ceef9"
+  ],
+  "tags": [
+    "Windows 11",
+    "Secure Boot",
+    "Security Update",
+    "KB5040442",
+    "Integrity Risk"
+  ],
+  "node_id": "927a5706-4801-4c48-97da-bcc6a181ee70",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_crashes_after_chrome_update",
+  "description": "After updating to Microsoft Edge version 127.0.2651.98, users experience crashes during usage. This issue is particularly observed when navigating to web pages that utilize features affected by the CVE-2024-7533 vulnerability, implying instability due to the underlying changes in the Chromium base. Administrators may notice that instances of Edge become unresponsive and may require manual termination or restarting of the browser. It is critical for users to verify that they are running the latest version to ensure the best performance and security posture, as having an outdated version can lead to these operational issues. Users can refer to KB-127.0.2651.98 for further details on the resolution and updates.",
+  "source_id": "e90e0316-f355-3908-d94f-726a25364475",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e90e0316-f355-3908-d94f-726a25364475"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "update",
+    "CVE-2024-7533",
+    "crash"
+  ],
+  "node_id": "7fa4be18-0999-48f0-a712-9ed730229424",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

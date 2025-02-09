@@ -1,0 +1,22 @@
+{
+  "tool_label": "visual_studio_build_info_tool",
+  "description": "**Tool Overview**:\n\nThis tool assists in tracking and retrieving build information for Visual Studio applications. It is aimed at software developers and system administrators who need to manage various build numbers and associated patches.\n\n**Functionality**:\n\nThis resource allows you to:\n1. Query the latest build information directly related to Visual Studio.\n2. Cross-reference build numbers with associated patches and updates.\n3. Integrate with existing workflows for continuous integration and deployment (CI/CD).\n4. Keep track of specific patches related to common CVEs impacting Visual Studio.\n5. Generate reports on build status and related patches for auditing purposes.\n\nConstructing a reliable toolset that includes this functionality aids in ensuring your development environment remains stable and up to date with security practices.",
+  "source_id": "6694a88e-47d5-2621-30c5-0ea11b856480",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "6694a88e-47d5-2621-30c5-0ea11b856480"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAGaCHK5FAJ-BcjK_mGuWZsRLSwmPiV7E5mHkoNfC2OPGkYN%3DMw%40mail.gmail.com",
+  "tool_url": "",
+  "tags": [
+    "Visual Studio",
+    "Patch Management",
+    "Build Information",
+    "LLM Synthesized"
+  ],
+  "node_id": "c14ab680-b23f-4912-87aa-20c0fcbab72a",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

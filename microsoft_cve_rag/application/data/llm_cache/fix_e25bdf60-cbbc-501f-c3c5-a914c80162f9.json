@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows OLE remote code execution vulnerability (CVE-2024-38152), the following update packages should be applied across supported Windows versions:\n\n1. Download and install the relevant KB updates based on your operating system version:\n   - For Windows 11 Version 24H2: [KB5041571](https://catalog.update.microsoft.com/Search.aspx?q=KB5041571)\n   - For Windows 11 Version 23H2: [KB5041585](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585)\n   - For Windows 11 Version 22H2: [KB5041585](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585)\n   - For Windows 11 Version 21H2: [KB5041592](https://catalog.update.microsoft.com/Search.aspx?q=KB5041592)\n   - For Windows 10 (x64): [KB5041782](https://catalog.update.microsoft.com/Search.aspx?q=KB5041782)\n   - For Windows 10 (32-bit): [KB5041782](https://catalog.update.microsoft.com/Search.aspx?q=KB5041782)\n   - For Windows 10 Version 22H2: [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n   - For Windows 10 Version 21H2: [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n\n**Details**:\n- This update resolves a heap-based buffer overflow issue that could allow remote code execution if an attacker successfully exploited this vulnerability. \n- Ensure that your system is running an applicable build of Windows 10 or 11.\n\n**Preconditions**:\n- User must have administrative privileges to perform the update installation.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "e25bdf60-cbbc-501f-c3c5-a914c80162f9",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_for_ole_remote_code_execution",
+  "tags": [
+    "KB5041571",
+    "KB5041585",
+    "KB5041580",
+    "KB5041782"
+  ],
+  "node_id": "4f6980ec-d07b-4f0d-87dd-15987c9a6f3c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e25bdf60-cbbc-501f-c3c5-a914c80162f9"
+  ],
+  "verification_status": "unverified"
+}

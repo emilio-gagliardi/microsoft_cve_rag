@@ -1,0 +1,23 @@
+{
+  "tool_label": "azure_update_manager_via_arc",
+  "description": "**Tool Overview**:\n\nAzure Update Manager via Arc is a cloud-based service that simplifies the update process for on-premises SQL Server instances. This tool provides instance-based updates, making it easier to manage updates for software directly from the Azure portal.\n\n**Details**:\n\nAzure Update Manager allows organizations to efficiently manage their SQL Server updates through a centralized interface. Users with software assurance on SQL Server can leverage this tool for a more streamlined process. The following functionalities are key to this tool:\n1. Enabling instance-based updates for on-premises SQL Servers.\n2. Helping users understand the release and support order of updates.\n3. Fetching relevant links and update details corresponding to the specific configuration.\n4. Providing insights and recommendations for proper update management.\n\nIncorporating Azure Update Manager via Arc enables a more organized and less cumbersome update process, ultimately contributing to more secure and updated SQL environments.",
+  "source_id": "1d51a50d-4d05-c782-da79-4136416ea6cc",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "1d51a50d-4d05-c782-da79-4136416ea6cc"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://docs.microsoft.com/en-us/azure/automation/management/azure-update-manager",
+  "tags": [
+    "Azure",
+    "Update Manager",
+    "SQL Server",
+    "instance-based updates"
+  ],
+  "node_id": "e159bb51-beda-43db-993f-e67cb67b8efd",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

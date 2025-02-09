@@ -1,0 +1,16 @@
+{
+  "description": "To resolve the issue where virtual machines may not start due to existing .RCT files from backups, it is necessary to either delete or rename those files. This action clears any potential conflicts caused by the residual files preventing the VMs from initializing properly. It is advised to conduct this operation with consideration of any business disruptions, ideally outside of regular working hours. By managing these files, system administrators can ensure that their virtual environments remain functional and accessible. This targeted approach will contribute to maintaining overall system health and performance.",
+  "source_id": "0e81648c-537e-7bec-52dc-448d7babfe9a",
+  "source_type": "PatchManagementPost",
+  "fix_label": "DeleteOrRenameRCTFilesToStartVMs",
+  "tags": [
+    "virtual machines",
+    "file management",
+    "system maintenance"
+  ],
+  "node_id": "9987492a-6e97-42fd-8f52-3d299ff67282",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

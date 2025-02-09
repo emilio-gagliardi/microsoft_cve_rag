@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the heap buffer overflow vulnerability (CVE-2024-7973) in the PDFium component of Google Chrome, ensure that you are using the latest version of Microsoft Edge (Chromium-based).\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) in the upper right corner of the browser.\n3. Navigate to 'Help and feedback'.\n4. Select 'About Microsoft Edge' to check if you are running version 128.0.2739.42 or later.\n\nIf you are using an older version, update your browser to this stable version or later to mitigate the risk associated with this vulnerability.\n\n**Details**:\n- This update addresses a specific heap buffer overflow issue that could allow a remote attacker to perform unauthorized memory accesses via crafted PDF files.\n- For additional information about your browser\u2019s version, refer to the official Microsoft Edge documentation and release notes.\n\n**Preconditions**:\n- Ensure that you are accessing the internet through Microsoft Edge (Chromium-based).\n- Regularly check for updates to maintain the latest browser version for optimal security.",
+  "source_id": "1c1bc2ad-2086-b7c4-83aa-87c462caf0dc",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_128_0_2739_42",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-7973",
+    "HeapBufferOverflow",
+    "Chromium"
+  ],
+  "node_id": "e307ccdd-9b82-4ef8-a8b7-dd13d77c29c4",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "1c1bc2ad-2086-b7c4-83aa-87c462caf0dc"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,17 @@
+{
+  "symptom_label": "UnexpectedPrivilegesDetectedInActiveDirectoryAudit",
+  "description": "The symptom indicates that unexpected privileges may arise within Active Directory during the audit phase, specifically when audit mode does not adequately detect and report these anomalies over a defined time period. This can lead to potential issues within user access controls and permissions management, impacting system security and operational integrity. The KB Article ID for further reference is KB-5008383, which also discusses upcoming changes to enforcement mode scheduled for January 9, 2024, and emphasizes the importance of addressing these unexpected scenarios through support channels.",
+  "source_id": "5149bf75-6fad-efb3-80f5-bb87378fa65f",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Active Directory",
+    "Audit Mode",
+    "Permissions",
+    "Enforcement Mode"
+  ],
+  "node_id": "dd11b44a-6006-4247-9ad3-2730f323c981",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

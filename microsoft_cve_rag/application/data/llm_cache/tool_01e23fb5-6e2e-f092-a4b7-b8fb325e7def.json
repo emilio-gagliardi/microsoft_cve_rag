@@ -1,0 +1,19 @@
+{
+  "tool_label": "AdobeSecurityUpdate",
+  "description": "Adobe Security Update Tool provides security updates for various Adobe products including Adobe ColdFusion, Adobe RoboHelp Server, Adobe Acrobat, and others. The updates are essential for maintaining application security and addressing vulnerabilities.",
+  "synthesized_code": null,
+  "source_id": "01e23fb5-6e2e-f092-a4b7-b8fb325e7def",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAGN5iagFGqGDuh6Qov-33m2yVYp4DqNy8uye897%2B7mvhCcCfUw%40mail.gmail.com",
+  "tool_url": "https://helpx.adobe.com/security.html",
+  "tags": [
+    "security",
+    "Adobe",
+    "updates"
+  ],
+  "node_id": "7baf12c7-755c-4dc5-b887-b209da99e80f",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "critical",
+  "entity_type": "Tool"
+}

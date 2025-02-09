@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_system_files_replaced_with_outdated_versions",
+  "description": "After experiencing an elevation of privilege vulnerability, systems running Windows 10, Windows 11, and Windows Server (build numbers including 19044, 19045, 22000, and 22621) might exhibit unexpected behavior where current versions of system files are swapped out for outdated versions. This observable behavior often leads to previously mitigated vulnerabilities reappearing, resulting in an overall compromise of the system's security posture. During this process, users may notice unusual application crashes, system instability, or poor performance due to the integrity issues introduced by reverting to older system files. Furthermore, the presence of these outdated files may hinder the proper functioning of virtualization-based security features, complicating access to data and potentially exfiltrating sensitive information. To address such issues, it is recommended to monitor the system closely, particularly for signs of regression in expected performance or new vulnerabilities becoming apparent while awaiting the release of mitigation updates detailed in KB-5041585.",
+  "source_id": "c6390a49-6cea-4592-f7fd-1bac405d28f1",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c6390a49-6cea-4592-f7fd-1bac405d28f1"
+  ],
+  "tags": [
+    "Windows",
+    "Privilege Escalation",
+    "System Integrity",
+    "Virtualization",
+    "Security"
+  ],
+  "node_id": "3519e87e-a26a-4acf-bf4d-22171955605b",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

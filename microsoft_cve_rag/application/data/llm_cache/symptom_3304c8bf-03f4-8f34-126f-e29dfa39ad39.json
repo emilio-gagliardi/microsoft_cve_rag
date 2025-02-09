@@ -1,0 +1,21 @@
+{
+  "symptom_label": "server_2016_missing_july_2017_cumulative_update",
+  "description": "Several Server 2016 installations are not reflecting the installation of the July 2017 Cumulative Update, identified by KB4025339. Despite having multiple cumulative updates installed afterward, these servers lack the specified update which could lead to potential compliance and security gaps as flagged by external scanning tools like Tenable. This discrepancy suggests possible issues in patch deployment or tracking within the organization\u2019s update strategy. System administrators must ensure that all critical updates are consistently applied to maintain optimal security and performance on their servers. This oversight may also impact the overall risk assessment of the systems in question.",
+  "source_id": "3304c8bf-03f4-8f34-126f-e29dfa39ad39",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "3304c8bf-03f4-8f34-126f-e29dfa39ad39"
+  ],
+  "tags": [
+    "cumulative_update",
+    "patch_management",
+    "server_2016",
+    "kb4025339"
+  ],
+  "node_id": "79ad909a-54a7-4142-aecf-c8fe6973b4e1",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

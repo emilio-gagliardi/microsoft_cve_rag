@@ -1,0 +1,21 @@
+{
+  "description": "The issue arises from an out-of-bounds read vulnerability in Adobe software utilized by Microsoft Edge (Chromium-based). This flaw allows attackers to potentially disclose sensitive memory information, bypassing mitigations like Address Space Layout Randomization (ASLR). Exploitation requires user interaction, as a victim must open a malicious file, which triggers the vulnerability to leak memory contents.",
+  "cause_label": "adobe_out_of_bounds_read_exploited_in_edge",
+  "source_id": "ae8489fc-7159-af75-4686-263f8f563de0",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ae8489fc-7159-af75-4686-263f8f563de0"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Adobe",
+    "CVE-2024-39379",
+    "Out-of-bounds Read"
+  ],
+  "node_id": "6c254bc1-6453-4891-8dc8-1ec05c0515ab",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

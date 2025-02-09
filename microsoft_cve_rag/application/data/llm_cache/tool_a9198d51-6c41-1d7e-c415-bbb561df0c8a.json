@@ -1,0 +1,17 @@
+{
+  "tool_label": "ViewBrowserVersionInMicrosoftEdge",
+  "description": "To check the version of Microsoft Edge, users should open their browser and click on the three dots located on the top-right corner of the window. From the dropdown menu, select 'Help and feedback', then click on 'About Microsoft Edge'. This section will display the current version of Microsoft Edge in use, ensuring that it is updated and not vulnerable to specific security issues.",
+  "source_id": "a9198d51-6c41-1d7e-c415-bbb561df0c8a",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-44323",
+  "tags": [
+    "version",
+    "browser",
+    "microsoft edge"
+  ],
+  "node_id": "865ac375-76ca-48cc-bb39-e21b0b484532",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

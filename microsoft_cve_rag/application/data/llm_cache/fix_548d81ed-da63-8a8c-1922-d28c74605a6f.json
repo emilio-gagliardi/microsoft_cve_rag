@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Filtering Platform elevation of privilege vulnerability CVE-2024-38034:\n\n1. Download and apply the relevant update package for your Windows version from the official Microsoft Update Catalog.\n2. Ensure your system is up to date with the latest patches available.\n3. Restart your system after installation to ensure that all updates are properly applied.\n\n**Details**:\n- The updates resolve the integer overflow or wraparound vulnerability that could allow attackers to elevate privileges on affected systems.\n- Update packages can be found at the following URLs:\n  - [KB5040442](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442)\n  - [KB5040431](https://catalog.update.microsoft.com/Search.aspx?q=KB5040431)\n  - [KB5040427](https://catalog.update.microsoft.com/Search.aspx?q=KB5040427)\n  - [KB5040448](https://catalog.update.microsoft.com/Search.aspx?q=KB5040448)\n\n**Preconditions**:\n- Ensure the system is running a supported version of Windows.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "548d81ed-da63-8a8c-1922-d28c74605a6f",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_filtering_platform_elevation_privilege_cve202438034",
+  "tags": [
+    "KB5040442",
+    "Windows11",
+    "ElevationOfPrivilege",
+    "IntegerOverflow"
+  ],
+  "node_id": "4356182e-3841-4594-89de-d2710137f6fb",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "548d81ed-da63-8a8c-1922-d28c74605a6f"
+  ],
+  "verification_status": "unverified"
+}

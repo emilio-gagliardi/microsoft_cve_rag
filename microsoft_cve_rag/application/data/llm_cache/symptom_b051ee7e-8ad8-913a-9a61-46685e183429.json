@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_11_update_starts_with_target_gpo_only",
+  "description": "When the target version Group Policy Object (GPO) is utilized for managing Windows 11 updates, it may only prevent prompts and reminders from Windows Update for users, rather than stopping the upgrades themselves. If the Windows 11 update is approved within the Windows Server Update Services (WSUS) for compatible hardware, it can still automatically upgrade the systems without regard for the GPO settings. This behavior leads to scenarios where Windows 11 machines unexpectedly upgrade, despite administrative efforts to manage the update process. To mitigate this issue, it has been suggested to create a secondary WSUS group specifically for Windows 11 machines, allowing more granular control over which updates get approved for installation. Administrators should be conscious of these implications when configuring update policies and consider the potential impact on user workflows.",
+  "source_id": "b051ee7e-8ad8-913a-9a61-46685e183429",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "b051ee7e-8ad8-913a-9a61-46685e183429"
+  ],
+  "tags": [
+    "windows_11_updates",
+    "target_version_gpo",
+    "wsus_management",
+    "update_control"
+  ],
+  "node_id": "8df7ac85-d1ae-4402-85d1-6cbb5fe9dc22",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

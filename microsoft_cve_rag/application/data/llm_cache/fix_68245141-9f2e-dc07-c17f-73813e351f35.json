@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows kernel elevation of privilege vulnerability (CVE-2024-43511), the following updates should be applied:\n\n1. Download and install the relevant update packages for your version of Windows from the official Microsoft Update Catalog.\n2. Ensure that the system is restarted after each installation to apply the changes effectively.\n\n**Details**:\n- This vulnerability is associated with a time-of-check time-of-use (TOCTOU) race condition that could allow an attacker to gain system privileges.\n- Update packages can be obtained through the following links:\n  - Windows 11 Version 24H2: [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n  - Windows 11 Version 23H2: [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n  - Windows 10 for x64-based Systems: [KB5044286](https://catalog.update.microsoft.com/Search.aspx?q=KB5044286)\n  - Windows 10 Version 22H2: [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n  - Windows 11 Version 21H2: [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280).\n\n**Preconditions**:\n- Ensure the system meets the minimum build numbers for the updates being applied.\n- Backup critical data before proceeding with installation to prevent any data loss.\n",
+  "source_id": "68245141-9f2e-dc07-c17f-73813e351f35",
+  "source_type": "MSRCPost",
+  "fix_label": "install_kbs_for_windows_kernel_elevation_cve202443511",
+  "tags": [
+    "KB5044284",
+    "KB5044285",
+    "KB5044286",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "68267d78-c737-4133-953f-d4fe7c84bac5",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "68245141-9f2e-dc07-c17f-73813e351f35"
+  ],
+  "verification_status": "unverified"
+}

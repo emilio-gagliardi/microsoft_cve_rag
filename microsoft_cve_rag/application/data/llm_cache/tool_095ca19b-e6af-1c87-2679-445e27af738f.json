@@ -1,0 +1,22 @@
+{
+  "tool_label": "ExploitationMitigationTool",
+  "description": "**Tool Overview**:\n\nThis tool is designed to provide a method for mitigating the potential exploit associated with CVE-2024-21337 in Windows environments. It helps administrators evaluate and counteract the specific vulnerabilities by applying set configurations or running scripted remedies. \n\n**Details**:\n1. Assists in diagnosing systems potentially affected by the vulnerability.\n2. Offers actionable steps to adjust configurations that limit exposure.\n3. May include command-line functionality to quickly initiate updates.\n4. Streamlines the process of confirming the secure state of devices.\n5. The detailed explanation for this Tool is provided in the Fix description.",
+  "source_id": "095ca19b-e6af-1c87-2679-445e27af738f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "095ca19b-e6af-1c87-2679-445e27af738f"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-21337",
+  "tool_url": "",
+  "tags": [
+    "mitigation",
+    "exploit",
+    "diagnosis",
+    "Windows"
+  ],
+  "node_id": "1b9cf0e3-27f1-4051-bcff-8c20be2c5d81",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

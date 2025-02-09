@@ -1,0 +1,21 @@
+{
+  "description": "A spoofing vulnerability occurs due to improper handling of Windows theme files, allowing an attacker to launch a malicious theme that deceives users into believing it is legitimate, potentially leading to unauthorized access to sensitive information.",
+  "cause_label": "windows_theme_spoofing_vulnerability_exploitation",
+  "source_id": "99908fb9-57bf-8615-7bbd-c9ac2f363c63",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "99908fb9-57bf-8615-7bbd-c9ac2f363c63"
+  ],
+  "tags": [
+    "Windows",
+    "Spoofing",
+    "Themes",
+    "CVE-2024-38030"
+  ],
+  "node_id": "2b5af214-1a56-49c1-9e9f-bdac15e32521",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

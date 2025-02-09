@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_code_integrity_guard_bypass_issue",
+  "description": "After applying the security updates associated with KB articles KB5044284, KB5044285, and KB5044273, users may experience a grave issue where the Windows Code Integrity Guard (CIG) fails to enforce integrity checks on potentially malicious files. This bypass can lead to an authenticated attacker successfully replacing valid file content with arbitrary alterations, thereby compromising system security. Systems running Windows 11 (versions 24H2, 23H2, and 22H2) and Windows 10 (versions 22H2 and 21H2) can be affected. The observable behavior for administrators and end-users could manifest as unexpected behaviors in file integrity or unexpected system responses when accessing altered files. This situation poses a significant risk as it compromises the reliability of the integrity checks meant to protect the operating system from unauthorized alterations.",
+  "source_id": "7a7215d5-6ef7-bed1-286c-be9b599675dc",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7a7215d5-6ef7-bed1-286c-be9b599675dc"
+  ],
+  "tags": [
+    "Windows",
+    "Code Integrity",
+    "Security Update",
+    "File Integrity"
+  ],
+  "node_id": "b04ff297-9f8f-4b5e-b6c0-e7d2ca9c5332",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

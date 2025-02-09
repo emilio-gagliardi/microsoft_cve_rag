@@ -1,0 +1,22 @@
+{
+  "description": "An out-of-bounds read flaw in the Microsoft Windows SCSI class system file could allow an attacker to elevate their privileges by manipulating memory access outside defined limits. This flaw occurs due to failures in bounds checking in the SCSI system driver, leading to unauthorized access to kernel memory addresses.",
+  "cause_label": "windows_scsi_class_system_file_out_of_bounds_read",
+  "source_id": "f8715e26-b7a8-254d-0c0a-2e8d116f17b4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f8715e26-b7a8-254d-0c0a-2e8d116f17b4"
+  ],
+  "tags": [
+    "CVE-2024-29994",
+    "elevation of privilege",
+    "Windows",
+    "SCSI",
+    "out-of-bounds"
+  ],
+  "node_id": "6fb09572-d2a4-48de-bbd7-04d865007c4f",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

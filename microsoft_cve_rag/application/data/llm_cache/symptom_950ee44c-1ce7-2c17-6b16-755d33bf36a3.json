@@ -1,0 +1,22 @@
+{
+  "symptom_label": "network_communication_interruption_due_to_tcp_ip_issue",
+  "description": "System administrators may observe intermittent network communication failures on systems configured with the affected Windows TCP/IP component. This symptom arises following the installation of security updates related to CVE-2024-38045, which impacts various Windows 10 and Windows 11 build numbers, including 10.0.26100.1742, 10.0.22631.4169, and 10.0.19045.4894. Users might experience difficulty maintaining consistent connections, leading to service disruption or loss of connectivity. This behavior can greatly affect user productivity and access to critical network resources. Relevant updates are provided under KB5043080, KB5043076, and others for the affected builds, making it essential for administrators to apply these updates to prevent ongoing issues.",
+  "source_id": "950ee44c-1ce7-2c17-6b16-755d33bf36a3",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "950ee44c-1ce7-2c17-6b16-755d33bf36a3"
+  ],
+  "tags": [
+    "network",
+    "communication",
+    "windows",
+    "update",
+    "tcp/ip"
+  ],
+  "node_id": "d11ddb8f-5f4c-4229-86db-79cadbf192ed",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

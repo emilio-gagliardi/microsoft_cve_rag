@@ -565,7 +565,10 @@ async def load_patch_posts_graph_db(patch_posts: pd.DataFrame):
                         record[datetime_field] = record[
                             datetime_field
                         ].to_pydatetime()
-
+            for field in ["keywords", "noun_chunks"]:
+                if field in record and isinstance(record[field], list):
+                    if len(record[field]) == 1 and isinstance(record[field][0], list):
+                        record[field] = record[field][0]
             # Check for thread_id and lookup emails
             if "thread_id" in record and record["thread_id"]:
                 thread_id = record["thread_id"]

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "elevation_of_privilege_on_windows_kernel",
+  "description": "Users may experience unexpected escalations of privilege when operating on systems with Windows 10 (builds 10.0.19043.4529, 10.0.22631.3737), Windows 11 (build 10.0.22621.3737), and other specified builds. This behavior leads to situations where limited user capabilities are compromised, enabling unauthorized access to sensitive information or system control. Users might notice unauthorized changes to system settings or unexpected access to resources that usually require higher permissions, undermining the integrity and confidentiality of the system. This can also result in significant impacts on overall system behavior and user trust. For further details, refer to KB-5039212 regarding this issue.",
+  "source_id": "7dcff449-26c6-37a9-736d-3d295bdaba0f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7dcff449-26c6-37a9-736d-3d295bdaba0f"
+  ],
+  "tags": [
+    "Windows",
+    "elevation_of_privilege",
+    "KB-5039212",
+    "MSRC"
+  ],
+  "node_id": "7c296828-d9b4-4ff6-adc9-dcae6c71705c",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

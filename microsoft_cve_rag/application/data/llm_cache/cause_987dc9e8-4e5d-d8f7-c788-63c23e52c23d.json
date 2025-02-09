@@ -1,0 +1,22 @@
+{
+  "description": "Elevation of privilege vulnerability due to double free condition in the Windows Resilient File System (Refs). This flaw allows an attacker to exploit the system locally and gain unauthorized access to resources by leveraging improperly managed memory, potentially leading to system privileges being acquired.",
+  "cause_label": "windows_resilient_file_system_double_free_condition",
+  "source_id": "987dc9e8-4e5d-d8f7-c788-63c23e52c23d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "987dc9e8-4e5d-d8f7-c788-63c23e52c23d"
+  ],
+  "tags": [
+    "CVE-2024-43514",
+    "Windows",
+    "Privilege Escalation",
+    "Double Free",
+    "Refs"
+  ],
+  "node_id": "db9b6c3c-66bf-4d6a-8619-a31239988583",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

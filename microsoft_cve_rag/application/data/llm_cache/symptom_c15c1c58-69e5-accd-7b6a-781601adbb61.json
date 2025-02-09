@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_hyper_v_virtual_disk_privilege_elevation",
+  "description": "After applying the security updates detailed in KB5046696, KB5046633, and KB5046617 for Windows Server 2025 and Windows 11 (versions 24H2, 23H2, and 22H2), systems may exhibit observable behaviors related to privilege escalation. Users may notice unexpected access permissions where authenticated users can gain elevated privileges on shared virtual disks. This could result in system configurations being altered without proper authorization, potentially leading to a critical security risk. Furthermore, system administrators may find it challenging to manage access controls effectively, which can affect the security posture of virtualized environments. Users might experience unauthorized actions on their configurations and applications, heightening the necessity for immediate administrative oversight.",
+  "source_id": "c15c1c58-69e5-accd-7b6a-781601adbb61",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c15c1c58-69e5-accd-7b6a-781601adbb61"
+  ],
+  "tags": [
+    "Windows Server 2025",
+    "Windows 11",
+    "Hyper-V",
+    "privilege escalation",
+    "virtual disks"
+  ],
+  "node_id": "ffa4e955-c20c-4642-aad5-84220197da98",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

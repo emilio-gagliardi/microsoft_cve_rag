@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability in the Microsoft WDAC OLE DB provider for SQL Server (CVE-2024-21367):\n\n1. Identify the version of Windows in use from the list below:\n   - Windows 11 Version 23H2: 10.0.22631.3155\n   - Windows 11 Version 22H2: 10.0.22621.3155\n   - Windows 11 Version 21H2: 10.0.22000.2777\n   - Windows 10 for x64-based Systems: 10.0.10240.20469\n   - Windows 10 for 32-bit Systems: 10.0.10240.20469\n   - Windows 10 Version 22H2: 10.0.19045.4046\n   - Windows 10 Version 21H2: 10.0.19044.4046\n\n2. Download and install the appropriate KB update from the links below:\n   - [KB5034765 for Windows 11 Version 23H2](https://catalog.update.microsoft.com/Search.aspx?q=KB5034765)\n   - [KB5034765 for Windows 11 Version 22H2](https://catalog.update.microsoft.com/Search.aspx?q=KB5034765)\n   - [KB5034766 for Windows 11 Version 21H2](https://catalog.update.microsoft.com/Search.aspx?q=KB5034766)\n   - [KB5034774 for Windows 10](https://catalog.update.microsoft.com/Search.aspx?q=KB5034774)\n\n3. Restart your system to apply the updates and ensure full resolution of potential vulnerabilities.\n\n**Details**:\n- This update addresses a CWE-122 heap-based buffer overflow which can lead to remote code execution if successfully exploited.\n- Always ensure to backup your critical data before applying system updates.\n\n**Preconditions**:\n- Ensure the system is running a version of Windows compatible with the updates listed above.",
+  "source_id": "bb2d09db-62f5-2d58-1c24-ead7423d72a8",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_cve202421367",
+  "tags": [
+    "KB5034765",
+    "KB5034766",
+    "Windows10",
+    "Windows11"
+  ],
+  "node_id": "7832c125-f3bd-4a48-a954-4a7de4a082ec",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "bb2d09db-62f5-2d58-1c24-ead7423d72a8"
+  ]
+}

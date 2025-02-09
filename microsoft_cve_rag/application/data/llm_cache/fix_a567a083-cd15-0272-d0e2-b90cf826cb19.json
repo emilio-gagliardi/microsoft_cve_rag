@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the integer overflow vulnerability in Skia affecting Microsoft Edge (Chromium-based):\n\n1. Ensure your browser is updated to the latest version - Microsoft Edge version 129.0.2792.65 or 128.0.2739.97 dates released on September 26, 2024, and September 27, 2024, respectively.\n2. Check your current version by navigating to the three dots in the upper right corner of Microsoft Edge, selecting 'Help and Feedback', and then 'About Microsoft Edge'.\n\n**Details**:\n- This update addresses a high-severity vulnerability that allowed remote attackers to perform out-of-bounds memory writes via specially crafted HTML pages.\n- The update is essential to safeguarding your system against potential exploitation through this vector. \n\nFor a comprehensive review of Microsoft Edge updates, please refer to the [Microsoft Security Update Guide](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-9123).",
+  "source_id": "a567a083-cd15-0272-d0e2-b90cf826cb19",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_129_0_2792_65",
+  "tags": [
+    "KB129",
+    "MicrosoftEdge",
+    "CVE20249123",
+    "Chromium"
+  ],
+  "node_id": "41e8a66c-4d4c-43a0-b5ff-d59925fc7888",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "a567a083-cd15-0272-d0e2-b90cf826cb19"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "games_fail_to_start_after_kb5044384_install",
+  "description": "After the installation of KB5044384, some games may not start or may stop responding. This issue arises due to incompatibility with a third-party DRM component that certain games rely upon. The update includes changes to support these specific games in the interim while their developers work to resolve the DRM-related concerns. Affected applications may need to be run in administrator mode to operate properly. Additionally, other apps like Quick Assist, Microsoft Teams, and Windows Narrator have known issues where they do not initiate successfully without elevated permissions.",
+  "source_id": "e88dae04-f8c5-fad8-245f-eaa5088cbde2",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e88dae04-f8c5-fad8-245f-eaa5088cbde2"
+  ],
+  "tags": [
+    "DRM issue",
+    "game startup failure",
+    "update impact",
+    "KB5044384"
+  ],
+  "node_id": "94997a5a-797b-42b1-b515-ad18445d0031",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

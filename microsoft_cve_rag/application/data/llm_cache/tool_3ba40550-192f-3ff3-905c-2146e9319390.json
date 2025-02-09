@@ -1,0 +1,17 @@
+{
+  "tool_label": "RegistryChangeToStopNotificationDisplay",
+  "description": "This tool involves modifying a registry key to disable specific notifications in Windows. By setting the 'BackupReminder' value to 0 in the Windows registry, users can prevent the display of backup reminder notifications.",
+  "source_id": "3ba40550-192f-3ff3-905c-2146e9319390",
+  "source_type": "PatchManagementPost",
+  "source_url": "https://groups.google.com/d/msgid/patchmanagement/BLAPR20MB38425A182124B029DDAF59A7B9CAA%40BLAPR20MB3842.namprd20.prod.outlook.com",
+  "tags": [
+    "registry",
+    "notifications",
+    "windows"
+  ],
+  "node_id": "1d07f3bc-114e-4388-a657-73949cd2882c",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "low",
+  "entity_type": "Tool"
+}

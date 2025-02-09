@@ -1,0 +1,21 @@
+{
+  "description": "The cause of this issue is linked to an untrusted pointer dereference in the secure boot feature, which allows an attacker with local network access to bypass security measures. This vulnerability arises due to the mishandling of memory pointers, particularly when a component is vulnerable to malicious alterations during the boot-up process. The component's exposure to adjacent network attacks (like from Bluetooth or local IP subnets) exacerbates the risk, enabling potential exploitation without needing prior authorization or complex conditions.",
+  "cause_label": "secure_boot_feature_bypass_due_to_pointer_dereference",
+  "source_id": "b782986e-f356-198e-117b-266844d41024",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b782986e-f356-198e-117b-266844d41024"
+  ],
+  "tags": [
+    "secure boot",
+    "pointer dereference",
+    "vulnerability",
+    "CVE-2024-37969"
+  ],
+  "node_id": "e100737e-2d99-45c6-a03b-cf2147613743",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

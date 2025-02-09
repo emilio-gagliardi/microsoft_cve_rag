@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_shows_intermittent_crashes_after_update",
+  "description": "Following the installation of Microsoft Edge version 129.0.2792.65, users may experience intermittent crashes when navigating web pages. This behavior appears to be directly linked to a use after free issue identified in Chromium, which affects Chromium-based applications like Microsoft Edge. Users might notice that the browser unexpectedly closes or fails to load certain content, leading to frustration and productivity disruption. The crashes can occur during routine tasks such as browsing or accessing web applications. The issue is critical for users relying heavily on web access for their workflows, and they must ensure they are running the latest build to mitigate these effects as documented in KB-129.0.2792.65.",
+  "source_id": "45f3f6ae-6bc1-3792-9109-d266aba97ece",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "45f3f6ae-6bc1-3792-9109-d266aba97ece"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Browser Crashes",
+    "User Experience"
+  ],
+  "node_id": "e81ec1c2-3d37-4cad-a140-ff6ff3b4e89a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "description": "The vulnerability arises from a 'Use After Free' flaw in the Windows Hyper-V component, which allows an attacker to exploit a memory management issue that can result in denial of service. Specifically, this flaw manifests when an attacker manipulates a Hyper-V guest to disrupt the functionality of the Hyper-V host, leading to total loss of access to affected resources.",
+  "cause_label": "windows_hyper_v_use_after_free_denial_of_service",
+  "source_id": "9615bc2c-19b3-1493-1fc7-12316f962481",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "9615bc2c-19b3-1493-1fc7-12316f962481"
+  ],
+  "tags": [
+    "Windows",
+    "Hyper-V",
+    "Denial of Service",
+    "Use After Free",
+    "CVE-2024-38235"
+  ],
+  "node_id": "fc0aaf9e-d5c7-4ede-8da8-07186181925a",
+  "node_label": "Cause",
+  "reliability": 0.08,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

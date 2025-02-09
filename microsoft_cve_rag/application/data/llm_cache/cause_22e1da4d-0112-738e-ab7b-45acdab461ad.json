@@ -1,0 +1,20 @@
+{
+  "description": "The underlying cause for the failure of the auto-update mechanism is the absence of .NET Framework version 4.7.1 on the server. Based on the provided Microsoft documentation, the next version of the application requires this specific version of .NET to function properly. Without it, the system's update process is unable to proceed, resulting in the automatic updates not being applied as expected. Therefore, systems administrators need to ensure that .NET 4.7.1 is installed before relying on the auto-update functionality. This serves as a reminder to regularly check for and fulfill pre-requisites for software updates in Microsoft environments.",
+  "source_id": "22e1da4d-0112-738e-ab7b-45acdab461ad",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "22e1da4d-0112-738e-ab7b-45acdab461ad"
+  ],
+  "cause_label": "missing_dotnet_version_halts_auto_update",
+  "tags": [
+    ".NET Framework",
+    "auto update",
+    "update management",
+    "system configuration"
+  ],
+  "node_id": "d4935306-2717-4278-b7e0-09ee1d64707c",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

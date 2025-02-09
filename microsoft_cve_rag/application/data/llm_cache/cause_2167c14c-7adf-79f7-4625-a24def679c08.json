@@ -1,0 +1,21 @@
+{
+  "description": "An integer overflow occurs in the `genericreader::parsenumber()` function of the Tencent RapidJSON library when it parses JSON text from a crafted file, allowing attackers to achieve privilege escalation if they can trick a user into opening a malicious file.",
+  "cause_label": "rapidjson_integer_overflow_in_genericreader_parsenumber",
+  "source_id": "2167c14c-7adf-79f7-4625-a24def679c08",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2167c14c-7adf-79f7-4625-a24def679c08"
+  ],
+  "tags": [
+    "RapidJSON",
+    "Integer Overflow",
+    "Privilege Escalation",
+    "CVE-2024-39684"
+  ],
+  "node_id": "099755a2-0d31-445a-b924-bbf964a32f69",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

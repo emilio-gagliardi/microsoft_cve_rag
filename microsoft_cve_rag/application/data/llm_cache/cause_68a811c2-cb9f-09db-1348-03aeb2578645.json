@@ -1,0 +1,17 @@
+{
+  "description": "The cause of the issue described in CVE-2023-36024 is an elevation of privilege vulnerability in Microsoft Edge (Chromium-based) versions 119.0.2151.58 and 118.0.2088.102. This vulnerability can be traced back to the way the browser handles specially crafted files. An attacker can exploit this vulnerability by convincing a user to open a specially crafted file, leading to a potential browser sandbox escape. This lack of proper restrictions allows unauthorized users to execute code remotely, which can compromise the integrity and confidentiality of a system. The remediation can be found in Microsoft Knowledge Base article KB-119.0.2151.58, which provides details on security updates necessary to mitigate the issue.",
+  "cause_label": "ElevationOfPrivilegeInMicrosoftEdge",
+  "source_id": "68a811c2-cb9f-09db-1348-03aeb2578645",
+  "source_type": "MSRCPost",
+  "tags": [
+    "elevation privilege",
+    "Microsoft Edge",
+    "vulnerability",
+    "security update"
+  ],
+  "node_id": "69ef98e5-61a2-4eaf-9563-1714ced952fc",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

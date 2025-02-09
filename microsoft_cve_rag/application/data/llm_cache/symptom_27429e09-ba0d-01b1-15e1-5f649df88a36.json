@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_unresponsive_due_to_chrome_extension",
+  "description": "In Microsoft Edge (Chromium-based) version 131.0.2903.48, users may experience unresponsiveness when interacting with the browser due to issues stemming from improperly implemented functionality in underlying Chromium components. This could manifest as the browser freezing unexpectedly or becoming slow to respond while executing tasks related to web page rendering and browsing. Following the installation of this update, which addresses CVE-2024-11110, users are advised to refresh or restart their browser to ensure optimum performance. It's important to consider this issue as it might disrupt productivity, especially in environments relying on the web for vital operations. Users can verify that they are protected by checking their version against the latest Chrome security updates documented in the provided KB articles, specifically KB-131.0.2903.48.",
+  "source_id": "27429e09-ba0d-01b1-15e1-5f649df88a36",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "27429e09-ba0d-01b1-15e1-5f649df88a36"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "CVE-2024-11110",
+    "Browser Performance",
+    "Web Security"
+  ],
+  "node_id": "4950c003-1476-434a-85cf-4738e31a4f38",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

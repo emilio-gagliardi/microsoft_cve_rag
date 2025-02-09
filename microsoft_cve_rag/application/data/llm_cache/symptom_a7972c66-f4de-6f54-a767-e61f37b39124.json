@@ -1,0 +1,17 @@
+{
+  "symptom_label": "WindowsReportsIncorrectServicePackBuildNumber",
+  "description": "After the January 9th patch for Windows 11, versions 22621.3007 and 22631.3007, users experience a discrepancy in the reported service pack build number, which is showing as 3000 instead of the expected 3007. This issue has been observed consistently across multiple devices running fully updated installations of Windows 11, including the latest January update. The modification date of the WinRE.wim file indicates it was updated correctly with the security patch, yet the build number reported remains lower, leading to confusion regarding the actual status of the updates applied.",
+  "source_id": "a7972c66-f4de-6f54-a767-e61f37b39124",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows11",
+    "PatchManagement",
+    "ServicePack",
+    "BuildNumber"
+  ],
+  "node_id": "f6f53a95-59f6-410e-96f6-02b1b2e5e466",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

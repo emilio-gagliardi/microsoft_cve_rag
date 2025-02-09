@@ -1,0 +1,19 @@
+{
+  "tool_label": "MicrosoftEdgeVersionCheck",
+  "description": "Microsoft Edge Version Check is a built-in functionality within the Microsoft Edge web browser that allows users to verify the current version of their browser. Users can access this feature by clicking on the three dots (...) in the top right corner to open the menu. From there, they should navigate to 'Help and feedback' and then select 'About Microsoft Edge'. This will display the version information of the browser, ensuring that users are aware of whether they are using the latest version that addresses known vulnerabilities such as CVE-2023-6512. Staying updated with the most recent browser version is vital for maintaining security and performance.",
+  "source_id": "312e043d-7c78-4825-550d-fd76d6782315",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-6512",
+  "tool_url": "https://support.microsoft.com/en-us/microsoft-edge/view-your-version-of-microsoft-edge-e7f47a79-3a8b-4b6b-9ca2-eb93762a257f",
+  "tags": [
+    "browser",
+    "version",
+    "edge",
+    "security"
+  ],
+  "node_id": "e51e162a-2ed9-4d96-9384-232d8aed77b4",
+  "node_label": "Tool",
+  "reliability": "0.9",
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

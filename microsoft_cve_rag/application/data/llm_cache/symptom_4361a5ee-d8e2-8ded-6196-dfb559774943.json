@@ -1,0 +1,22 @@
+{
+  "symptom_label": "mshtml_platform_misrepresentation_of_critical_information",
+  "description": "Users may experience a misrepresentation of critical information when interacting with applications that utilize the MSHTML platform. This could manifest as incorrect display of data or alerts that do not accurately reflect the state of files or resources. Users, particularly those using systems with builds 10.0.26100.1742 and earlier, may find that important indicators or notifications are not presented correctly, leading to confusion or inappropriate responses to alerts. Affected KB articles include KB5043080 for Windows 11 and KB5043064 for Windows 10. This misrepresentation can severely impact user decision-making in high-stakes environments, where accurate information is crucial.",
+  "source_id": "4361a5ee-d8e2-8ded-6196-dfb559774943",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4361a5ee-d8e2-8ded-6196-dfb559774943"
+  ],
+  "tags": [
+    "Microsoft",
+    "MSHTML",
+    "Windows",
+    "Error Message",
+    "User Interface"
+  ],
+  "node_id": "23597370-9629-4a23-b66b-70318460bafc",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

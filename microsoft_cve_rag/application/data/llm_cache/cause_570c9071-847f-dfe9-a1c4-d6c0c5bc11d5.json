@@ -1,0 +1,21 @@
+{
+  "description": "The issue stems from configuration settings within Microsoft Edge, particularly the \"ShowMicrosoftRewards\" policy and several related features. These settings, such as \"LocalBrowserDataShareEnabled\", \"WebWidgetAllowed\", \"EdgeShoppingAssistantEnabled\", and \"HubsSidebarEnabled\" represent default behaviors that may not align with the security or performance expectations of organizations. Disabling these features can mitigate risks associated with data sharing and enhance user experience by preventing unnecessary distractions. To effectively manage Microsoft Edge in enterprise environments, administrators should evaluate these options based on specific organizational needs and compliance requirements. Upcoming updates may provide further improvements or alterations to default settings for better security management.",
+  "source_id": "570c9071-847f-dfe9-a1c4-d6c0c5bc11d5",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "570c9071-847f-dfe9-a1c4-d6c0c5bc11d5"
+  ],
+  "cause_label": "configuration_settings_affect_edge_performance",
+  "tags": [
+    "Edge",
+    "Configuration",
+    "Policies",
+    "User Experience"
+  ],
+  "node_id": "d8c2d906-21ea-48bf-a896-6fae09395c96",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

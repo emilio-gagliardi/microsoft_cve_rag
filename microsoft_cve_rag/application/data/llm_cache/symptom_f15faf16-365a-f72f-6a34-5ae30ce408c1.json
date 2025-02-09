@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_crashes_after_security_update",
+  "description": "After updating to Microsoft Edge version 131.0.2903.48, users may experience unexpected browser crashes, particularly when interacting with media content. This issue is related to a use-after-free vulnerability that was addressed in this security update. Users running previous versions of Microsoft Edge, especially those based on earlier Chromium builds, could face instability when handling multimedia elements on web pages. As the update informs users that they are now using a version of Edge that mitigates this vulnerability, those experiencing crashes should ensure their browser is updated to the specified build. Therefore, active monitoring for browser behavior post-update is recommended, which can significantly affect user productivity and experience.",
+  "source_id": "f15faf16-365a-f72f-6a34-5ae30ce408c1",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f15faf16-365a-f72f-6a34-5ae30ce408c1"
+  ],
+  "tags": [
+    "microsoft_edge",
+    "browser_crash",
+    "media_handling",
+    "security_update"
+  ],
+  "node_id": "119f5470-aad7-41e5-b617-0fd8aaff78a4",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

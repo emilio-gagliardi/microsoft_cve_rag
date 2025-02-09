@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the type confusion vulnerability (CVE-2024-7969) in Chromium which is consumed by Microsoft Edge (Chromium-based), it is crucial to update your Microsoft Edge browser to the latest available version. This is how to ensure your system is secure:\n\n1. Open the Microsoft Edge browser.\n2. Click on the three dots (...) at the upper right corner.\n3. Navigate to 'Help and feedback'.\n4. Select 'About Microsoft Edge' to check the current version and ensure it is updated to 128.0.2739.42 or higher.\n5. If not updated, follow the prompts to download and install the latest version.\n\n**Details**:\n- This update addresses a significant vulnerability that could allow remote attackers to exploit heap corruption via a crafted HTML page.\n- Regular updates are essential to maintain security and functionality.\n\n**Preconditions**:\n- Ensure you are currently using the Microsoft Edge (Chromium-based) browser.\n- Backup any important work before proceeding with the update to avoid loss of data.",
+  "source_id": "651787f4-46d8-c438-76e2-37bc7305ec71",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_resolve_chrome_cve20247969",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20247969",
+    "Chromium",
+    "Update"
+  ],
+  "node_id": "9ce0e64d-ad43-419e-af91-3b1dd9539760",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "651787f4-46d8-c438-76e2-37bc7305ec71"
+  ],
+  "verification_status": "unverified"
+}

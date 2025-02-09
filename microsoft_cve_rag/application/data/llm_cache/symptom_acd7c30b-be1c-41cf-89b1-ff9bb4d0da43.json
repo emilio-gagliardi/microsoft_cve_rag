@@ -1,0 +1,21 @@
+{
+  "symptom_label": "office_apps_return_http_errors_on_local_files",
+  "description": "Office applications, specifically Excel and Word, exhibit abnormal behavior when users attempt to access local files for digital signatures. Users report encountering HTTP error messages, specifically 404, 504, or 502 errors, despite the fact that the target files are stored locally. This error can be linked to the 'optional connected experiences' setting within Office applications, which when disabled, resolves the web-related errors. Additional issues may arise from multiple authentication sessions across different tenancies, which are corrected by clearing the browser cache and rebooting the system. These behaviors indicate potential connectivity and authentication misconfigurations within Microsoft Office applications.",
+  "source_id": "acd7c30b-be1c-41cf-89b1-ff9bb4d0da43",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "acd7c30b-be1c-41cf-89b1-ff9bb4d0da43"
+  ],
+  "tags": [
+    "Office 365",
+    "HTTP errors",
+    "authentication issues",
+    "Excel and Word"
+  ],
+  "node_id": "9b1ca58d-3d54-4e2b-bdaf-fbf36f5ee1fa",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

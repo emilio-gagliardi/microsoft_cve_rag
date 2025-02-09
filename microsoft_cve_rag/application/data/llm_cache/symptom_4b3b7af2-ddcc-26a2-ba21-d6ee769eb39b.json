@@ -1,0 +1,22 @@
+{
+  "symptom_label": "domain_admin_privileges_can_be_exploited_remotely",
+  "description": "Users may experience unauthorized access to sensitive system resources, indicating a potential elevation of privilege that allows attackers to gain domain administrator privileges. This could manifest as unexpected changes in system configurations or unauthorized access attempts, which may alert system administrators to irregular activity. The issue relates to vulnerable builds, such as Windows 10 (versions 21H2 and 22H2) and Windows 11 (version 22H2), which are impacted by the reported vulnerability (CVE-2024-38061). The associated KB articles (KB5040442, KB5040431, KB5040427) document necessary updates that aim to mitigate these risks. Administrators should be vigilant for any indicators of privilege escalation or abnormal access patterns as part of their security posture.",
+  "source_id": "4b3b7af2-ddcc-26a2-ba21-d6ee769eb39b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4b3b7af2-ddcc-26a2-ba21-d6ee769eb39b"
+  ],
+  "tags": [
+    "privilege escalation",
+    "elevation of privilege",
+    "Windows 10",
+    "Windows 11",
+    "system administration"
+  ],
+  "node_id": "39712f40-ee23-4483-8fb0-408e8d47470b",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

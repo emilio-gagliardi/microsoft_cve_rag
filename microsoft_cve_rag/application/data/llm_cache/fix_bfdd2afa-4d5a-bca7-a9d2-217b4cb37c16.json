@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows kernel elevation of privilege vulnerability (CVE-2024-26218), apply the following updates:\n\n1. Identify the correct update package based on your system's build numbers:\n   - For build [10, 0, 19045, 4291], apply KB-5036910.\n   - For build [10, 0, 19044, 4291], apply KB-5036894.\n   - For build [10, 0, 22631, 3447], apply KB-5036893.\n   - For build [10, 0, 22000, 2899], apply KB-5036892.\n   \n2. Download the updates from the Microsoft Update Catalog.\n\n3. Install the updates and restart your system to apply the changes.\n\n**Details**:\n- Ensure the correct update is applied corresponding to your system's build number to effectively mitigate the vulnerability.\n- For more information, refer to the official update guide: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-26218.\n\n**Preconditions**:\n- Verify system build number prior to applying the updates.\n- Backup critical data before proceeding with the installation.",
+  "source_id": "bfdd2afa-4d5a-bca7-a9d2-217b4cb37c16",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_updates_for_kernel_elevation_privilege_cve202426218",
+  "tags": [
+    "KB5036910",
+    "KernelPrivilegeEscalation",
+    "CVE202426218",
+    "WindowsUpdates"
+  ],
+  "node_id": "8cb06a59-1bef-4fc8-9847-10fe7d2df8b9",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "bfdd2afa-4d5a-bca7-a9d2-217b4cb37c16"
+  ]
+}

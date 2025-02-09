@@ -1,0 +1,21 @@
+{
+  "description": "Heap-based buffer overflow in the win32k component allows local attackers to elevate privileges via manipulated inputs, impacting confidentiality, integrity, and availability.",
+  "cause_label": "win32k_heap_buffer_overflow_elevation_of_privilege",
+  "source_id": "c6559efe-2755-b393-6687-3bd35dc04e40",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c6559efe-2755-b393-6687-3bd35dc04e40"
+  ],
+  "tags": [
+    "CVE-2024-30091",
+    "Windows",
+    "Heap Overflow",
+    "Privilege Escalation"
+  ],
+  "node_id": "d83741b7-f408-4224-b7a3-c59b413a0f70",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

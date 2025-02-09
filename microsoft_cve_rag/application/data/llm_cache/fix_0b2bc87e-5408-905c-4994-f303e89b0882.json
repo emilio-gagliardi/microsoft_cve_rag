@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the remote code execution vulnerability identified as CVE-2024-30102 in Microsoft Office:\n\n1. Download and apply the appropriate security update from the Microsoft Security Update Guide linked below.\n2. Restart Microsoft Office applications after installation to ensure the updates take effect.\n\n**Details**:\nApplying this update mitigates the risk of exploitation related to the use after free vulnerability, which could allow an attacker to execute arbitrary code on affected installations. To ensure your system is secure, regularly check for updates and apply them as they become available. You can refer to the update package information in the following link: [Microsoft Security Update Guide](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30102).\n\n**Preconditions**:\n- Ensure Microsoft Office is installed on your system.\n- Backup important documents before proceeding with the update installation.",
+  "source_id": "0b2bc87e-5408-905c-4994-f303e89b0882",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_security_update_for_office_cve202430102",
+  "tags": [
+    "MicrosoftOffice",
+    "CVE202430102",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "35459b20-58f7-403d-9af6-f7dce62da045",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "0b2bc87e-5408-905c-4994-f303e89b0882"
+  ],
+  "verification_status": "unverified"
+}

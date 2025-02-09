@@ -1,0 +1,16 @@
+{
+  "symptom_label": "CitrixBleedAllowsUnauthorizedAccessToTokens",
+  "description": "A critical vulnerability in Citrix NetScaler Application Delivery Controller (ADC) and Gateway, known as CitrixBleed (CVE-2023-4966), enables unauthenticated remote attackers to exploit valid session tokens. This exploit allows bypassing authentication mechanisms, posing severe risks to user sessions and data security. Immediate remediation through available patches is crucial to mitigate these threats, which include actions like terminating active sessions to prevent abuse of stolen session tokens.",
+  "source_id": "167cc42d-1014-4355-e360-3549fe99f52e",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Citrix",
+    "vulnerability",
+    "authentication"
+  ],
+  "node_id": "87a8542f-4c75-43b1-8e53-788361551e84",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

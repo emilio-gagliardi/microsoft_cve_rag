@@ -1,0 +1,16 @@
+{
+  "description": "To address the identified issue associated with CVE-2023-5478, users of Microsoft Edge (Chromium-based) should ensure they are running version 118.0.2088.46, which was released on October 13, 2023. This update incorporates fixes from the underlying Chromium open-source software that mitigates the risk related to autofill. Users can verify their browser's version by clicking the three dots in the top right corner, selecting 'Help and Feedback', and then 'About Microsoft Edge'. Following this verification, users should apply any necessary updates to reach the specified build. For detailed release notes, users should refer to the article linked in the Microsoft Security Response Center update guide for CVE-2023-5478.",
+  "source_id": "8d01ccca-58e9-516c-97b3-61b045bbda76",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeToVersion1180208846",
+  "tags": [
+    "CVE-2023-5478",
+    "Microsoft Edge",
+    "Chromium-based"
+  ],
+  "node_id": "18bff76f-23ea-46d5-9eed-7eee6d2d549b",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

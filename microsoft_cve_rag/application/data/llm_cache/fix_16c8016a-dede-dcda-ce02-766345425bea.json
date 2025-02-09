@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo prevent Microsoft Teams from automatically starting upon installation, configure the group policy settings using the 365 ADMX templates.\n\n1. Access the Group Policy Management Console (GPMC).\n2. Import the 365 ADMX templates into your policy definitions if not already available.\n3. Locate the specific group policy setting for Teams.\n4. Enable the setting prior to installation of Teams to ensure the application does not autostart.\n\n**Details**:\n- Ensure that the group policy setting is enabled before deploying the Teams installation.\n- This approach allows administrators to manage how applications behave in an enterprise environment effectively.",
+  "source_id": "16c8016a-dede-dcda-ce02-766345425bea",
+  "source_type": "PatchManagementPost",
+  "fix_label": "configure_group_policy_for_teams_autostart_control",
+  "tags": [
+    "GroupPolicy",
+    "MicrosoftTeams",
+    "ADMXTemplates"
+  ],
+  "node_id": "2fef3fa1-5285-41f3-92a8-cef2615a2ed7",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "16c8016a-dede-dcda-ce02-766345425bea"
+  ],
+  "verification_status": "unverified"
+}

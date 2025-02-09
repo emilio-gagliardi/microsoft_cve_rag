@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the out-of-bounds read vulnerability in the Windows Cryptographic Services: \n\n1. Download and install the relevant KB updates for your Windows version from the official Microsoft Update Catalog.\n2. Ensure your system is restarted post-installation to enable the patch effects.\n\n**Details**:\n- This update addresses the information disclosure caused by the vulnerability CVE-2024-30016.\n- Specific KB Articles to apply include:\n  - KB5037788 for Windows 10 x64\n  - KB5037771 for Windows 11 Version 23H2\n  - KB5037770 for Windows 11 Version 21H2\n  - KB5037768 for Windows 10 Version 22H2\n- Update packages can be found at:\n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5037788\n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5037771\n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5037770\n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5037768\n\n**Preconditions**:\n- Ensure your system is one of the supported builds listed in the context, and backup critical data before proceeding with the update installation.\n",
+  "source_id": "de0ee030-a834-cea3-b0ab-831c437e60a9",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_out_of_bounds_read_cve202430016",
+  "tags": [
+    "KB5037788",
+    "Windows10",
+    "Windows11",
+    "CVE202430016"
+  ],
+  "node_id": "219e2efd-b1de-4fb2-9fb4-73b33407e423",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "de0ee030-a834-cea3-b0ab-831c437e60a9"
+  ],
+  "verification_status": "unverified"
+}

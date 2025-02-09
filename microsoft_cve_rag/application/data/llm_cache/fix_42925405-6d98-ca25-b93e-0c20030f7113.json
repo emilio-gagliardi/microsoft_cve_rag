@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the clipboard virtual channel extension remote code execution vulnerability (CVE-2024-38131):\n\n1. Download and apply the relevant updates for your Windows version from the provided links.\n2. Ensure that your system is running one of the supported build versions as listed below:\n   - Windows 11 Version 24H2\n   - Windows 11 Version 23H2\n   - Windows 11 Version 22H2\n   - Windows 11 Version 21H2\n   - Windows 10 for x64-based Systems and 32-bit Systems.\n3. Restart your system after the installation to ensure the updates take effect.\n\n**Details**:\n- This update resolves remote code execution vulnerabilities associated with the clipboard virtual channel extension.\n- For manual installation, use the following update packages based on your OS version:\n  - [KB5041782](https://catalog.update.microsoft.com/Search.aspx?q=KB5041782)\n  - [KB5041585](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585)\n  - [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n  - [KB5041571](https://catalog.update.microsoft.com/Search.aspx?q=KB5041571)\n  - [KB5041592](https://catalog.update.microsoft.com/Search.aspx?q=KB5041592)\n\n**Preconditions**:\n- Ensure compatibility with the specified Windows versions.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "42925405-6d98-ca25-b93e-0c20030f7113",
+  "source_type": "MSRCPost",
+  "fix_label": "address_clipboard_virtual_channel_remote_code_execution",
+  "tags": [
+    "KB5041782",
+    "Windows10",
+    "ClipboardVulnerability",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "ce355405-ba8f-4768-9941-5b96dd4291b3",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "42925405-6d98-ca25-b93e-0c20030f7113"
+  ],
+  "verification_status": "unverified"
+}

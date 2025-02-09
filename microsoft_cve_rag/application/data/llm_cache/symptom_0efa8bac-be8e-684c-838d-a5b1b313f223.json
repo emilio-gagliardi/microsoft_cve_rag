@@ -1,0 +1,16 @@
+{
+  "symptom_label": "EdgeMayNotFunctionWithOlderVersionsInstalled",
+  "description": "Users may experience issues with Microsoft Edge (Chromium-based) if they are running versions prior to 118.0.2088.46. The browser may exhibit erratic behavior, unresponsiveness, or may fail to load certain content correctly due to known vulnerabilities. This version specifically addresses the issues related to CVE-2023-5475, and users are encouraged to update to ensure smooth functionality. For full details, refer to KB-118.0.2088.46.",
+  "source_id": "0efa8bac-be8e-684c-838d-a5b1b313f223",
+  "source_type": "MSRCPost",
+  "tags": [
+    "browser",
+    "update",
+    "Microsoft Edge"
+  ],
+  "node_id": "cdc14451-aa4d-4d4d-81ee-d17643600a9f",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

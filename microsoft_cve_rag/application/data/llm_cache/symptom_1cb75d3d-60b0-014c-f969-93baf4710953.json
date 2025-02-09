@@ -1,0 +1,22 @@
+{
+  "symptom_label": "bitlocker_data_access_bypassed_on_physical_access",
+  "description": "After the exploitation of the BitLocker vulnerability (CVE-2024-38058), systems may exhibit the alarming symptom of unauthorized access to encrypted data under specific physical conditions. This incident occurs when an attacker with physical access manipulates the vulnerable equipment, leading to potential exposure of confidential and sensitive information stored within the disk drive. All affected builds of Windows 10 and Windows 11 could find their device encryption mechanisms compromised, raising serious concerns for data integrity and confidentiality. The impacted build numbers include Windows 10 (10.0.17763.6054, 10.0.14393.7159) and Windows 11 (10.0.22621.3880, 10.0.22000.3079), underlining the relevance of applying the patches associated with KB5040442, KB5040431, and KB5040427 to mitigate these risks. System administrators should be particularly vigilant in environments where physical security cannot be guaranteed, as this vulnerability can allow attackers to access sensitive information without needing a prior authorized user session.",
+  "source_id": "1cb75d3d-60b0-014c-f969-93baf4710953",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "1cb75d3d-60b0-014c-f969-93baf4710953"
+  ],
+  "tags": [
+    "BitLocker",
+    "data exposure",
+    "encryption",
+    "Windows 10",
+    "Windows 11"
+  ],
+  "node_id": "7e4a609b-56e4-46e2-bde3-d3c3e3fa3041",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

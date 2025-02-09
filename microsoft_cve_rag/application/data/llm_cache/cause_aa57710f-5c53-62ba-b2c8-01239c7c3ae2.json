@@ -1,0 +1,21 @@
+{
+  "description": "Insufficient validation of untrusted input in the safe browsing feature of Chromium (prior to version 127.0.6533.72) allows remote attackers to bypass discretionary access control via malicious file interactions, affecting Microsoft Edge, which relies on Chromium.",
+  "cause_label": "chromium_insufficient_input_validation_in_safe_browsing",
+  "source_id": "aa57710f-5c53-62ba-b2c8-01239c7c3ae2",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "aa57710f-5c53-62ba-b2c8-01239c7c3ae2"
+  ],
+  "tags": [
+    "CVE-2024-7004",
+    "Chromium",
+    "Microsoft Edge",
+    "Input Validation"
+  ],
+  "node_id": "18e995a3-9f1a-495c-a02e-2dae037ed360",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "low",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the use after free vulnerability in the Chromium engine utilized by Microsoft Edge, ensure that you are running the latest version of Microsoft Edge:\n\n1. Open Microsoft Edge on your device.\n2. Click on the three dots (\u2026) in the top right corner of the window.\n3. Select 'Help and feedback' from the dropdown menu.\n4. Click on 'About Microsoft Edge' to check your current version.\n5. If your version is lower than 127.0.6533.73, update your browser to the latest version available.\n\n**Details**:\n- The required version to mitigate this issue is Microsoft Edge Version 127.0.2651.74 or later.\n- This update addresses the use after free vulnerability, which could potentially lead to heap corruption and could be exploited remotely via crafted HTML content.\n- For more information on Microsoft Edge updates, refer to the update guide or the official Microsoft site.\n\n**Preconditions**:\n- Ensure you have administrative access to perform updates.\n- Backup any critical data prior to updating the browser.",
+  "source_id": "ef144901-63ca-d96c-99ca-0270064783c3",
+  "source_type": "MSRCPost",
+  "fix_label": "upgrade_microsoft_edge_to_version_127_0_2651_74",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-6991",
+    "UseAfterFree",
+    "Chromium"
+  ],
+  "node_id": "d9efadc6-6de7-45fc-914a-d1036411a4f3",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "ef144901-63ca-d96c-99ca-0270064783c3"
+  ],
+  "verification_status": "unverified"
+}

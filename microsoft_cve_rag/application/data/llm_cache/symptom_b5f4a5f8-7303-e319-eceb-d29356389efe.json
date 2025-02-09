@@ -1,0 +1,22 @@
+{
+  "symptom_label": "elevation_of_privilege_on_remote_access_manager",
+  "description": "Users may experience unauthorized access to system privileges after exploiting a vulnerability in the Windows Remote Access Connection Manager. This can lead to unauthorized modifications of critical system files and configurations, raising security concerns within the organization. Systems affected include Windows 10 versions 21H2 and 22H2 (build numbers 10.0.19044.4894 and 10.0.19045.4894, respectively), as well as Windows 11 versions 22H2 and 24H2 (build numbers 10.0.22621.4169 and 10.0.26100.1742). Relevant KB articles are KB5043064, KB5043067, KB5043076, and KB5043080. Administrators should ensure that the latest security updates are applied to mitigate these risks.",
+  "source_id": "b5f4a5f8-7303-e319-eceb-d29356389efe",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b5f4a5f8-7303-e319-eceb-d29356389efe"
+  ],
+  "tags": [
+    "Windows 10",
+    "Windows 11",
+    "Remote Access",
+    "Security Update",
+    "Elevation of Privilege"
+  ],
+  "node_id": "6aee0ce0-9768-4462-a22a-7a3534c053af",
+  "node_label": "Symptom",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

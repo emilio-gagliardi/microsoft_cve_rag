@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the secure boot security feature bypass vulnerability identified in CVE-2024-28919:\n\n1. Ensure your system is running one of the supported build numbers listed below.\n2. Download and apply the relevant KB updates from Microsoft's update guide to secure the system.\n3. Reboot your system to finalize the installation and activate the security changes.\n\n**Details**:\n- This fix addresses critical protection mechanism failures which could lead to unauthorized access.\n- For manual installations, find the appropriate updates at the Microsoft update catalog: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-28919.\n- Make sure to check the applicable KB articles for specific guidance and further details.\n\n**Supported build numbers**:\n- 10.0.19045.4291\n- 10.0.19044.4291\n- 10.0.22631.3447\n- 10.0.22000.2899\n- 10.0.22621.3447\n- 10.0.10240.20596\n\n**Preconditions**:\n- Confirm your system's build number is supported.\n- Backup critical data before proceeding with the update installations.\n",
+  "source_id": "2bbc0438-d730-e4c6-e494-687eaa025d27",
+  "source_type": "MSRCPost",
+  "fix_label": "secure_boot_bypass_mitigation_with_kb_updates",
+  "tags": [
+    "KB5036925",
+    "KB5036894",
+    "KB5036893",
+    "KB5036892"
+  ],
+  "node_id": "107bd1f2-97b4-45a9-8228-b9b3682f215c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "2bbc0438-d730-e4c6-e494-687eaa025d27"
+  ]
+}

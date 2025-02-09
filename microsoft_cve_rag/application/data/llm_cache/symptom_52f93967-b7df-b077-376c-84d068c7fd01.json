@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_kernel_elevation_of_privilege_occurs",
+  "description": "After applying the security update identified by KB5039212, users may experience a scenario where system privileges are unexpectedly elevated, potentially allowing unauthorized access to system functions. This observable behavior can lead to applications executing with higher permissions than intended, posing risks to data integrity and system stability. The issue primarily affects systems running Windows 10 and Windows 11 across various build numbers, including 10.0.19043.4529 and 10.0.22631.3737. System administrators should monitor for reports of escalated privileges and investigate any unexpected behavior following the update installation. This condition can undermine the intended security measures and necessitate immediate remediation.",
+  "source_id": "52f93967-b7df-b077-376c-84d068c7fd01",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "52f93967-b7df-b077-376c-84d068c7fd01"
+  ],
+  "tags": [
+    "Windows",
+    "Security Update",
+    "Privilege Escalation",
+    "KB5039212"
+  ],
+  "node_id": "02b08f17-4ffb-4a51-8972-3228d605627a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

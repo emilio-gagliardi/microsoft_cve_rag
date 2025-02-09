@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the out-of-bounds memory access vulnerability in the Chromium framework utilized by Microsoft Edge:\n\n1. Update Microsoft Edge to the latest version (128.0.2739.42) to ensure that the vulnerability is mitigated.\n2. Visit the official Microsoft Edge website or use the built-in update feature to download the latest version.\n\n**Details**:\n- This update resolves a critical security flaw related to memory access that could allow remote code execution through specially crafted web pages. \n- For users: To check your version of Microsoft Edge, click on the three dots (...) in the upper right corner, then select Help and Feedback > About Microsoft Edge.\n- Ensure regular updates are enabled in your browser settings for ongoing protection against security vulnerabilities.",
+  "source_id": "669ab56d-33b6-e5df-32b2-9c682ecf1cdb",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_address_memory_access_cve20247966",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20247966",
+    "OutOfBoundsMemoryAccess",
+    "Chromium"
+  ],
+  "node_id": "0152605e-820e-49a5-88d5-5f7471d7b5ec",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix",
+  "source_ids": [
+    "669ab56d-33b6-e5df-32b2-9c682ecf1cdb"
+  ],
+  "verification_status": "unverified"
+}

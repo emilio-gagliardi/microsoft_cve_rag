@@ -1,0 +1,20 @@
+{
+  "symptom_label": "increased_license_count_due_to_dhcp_configuration",
+  "description": "The deployment of the DHCP service on non-domain controllers leads to an increased license count and administrative overhead. When Windows servers are chosen to handle DHCP, particularly in situations where dynamic updates are required, organizations may face difficulties if they attempt to run DHCP on network devices like firewalls or switches, which typically do not support such functionality. This challenge is exacerbated in scenarios with multiple remote locations operating on limited bandwidth, potentially stretching server resources further. Administrators must carefully consider the implications of their DHCP deployment strategy as it affects both licensing costs and management workload in a Windows environment.",
+  "source_id": "6684a44b-dd6a-d8bc-ce74-17c44138c02e",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "6684a44b-dd6a-d8bc-ce74-17c44138c02e"
+  ],
+  "tags": [
+    "DHCP",
+    "Windows Server",
+    "license management",
+    "administrative overhead"
+  ],
+  "node_id": "73178cd6-21a5-462b-b2cb-730f93e39274",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

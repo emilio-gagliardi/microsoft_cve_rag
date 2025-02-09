@@ -1,0 +1,20 @@
+{
+  "description": "Improper link resolution before file access, allowing local attackers to exploit the update stack in Windows, resulting in elevation of privilege. This vulnerability arises from the way Windows handles symbolic links and prompts within its update mechanism, permitting an attacker with local access to potentially escalate privileges through manipulated links.",
+  "cause_label": "windows_update_stack_improper_link_resolution",
+  "source_id": "74d64b9f-6e73-c029-1810-910fdfd9e641",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "74d64b9f-6e73-c029-1810-910fdfd9e641"
+  ],
+  "tags": [
+    "CVE-2024-21432",
+    "Windows Update",
+    "Privilege Escalation",
+    "Link Resolution"
+  ],
+  "node_id": "e5b6bc10-15ec-41da-9a54-f951735eb60d",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

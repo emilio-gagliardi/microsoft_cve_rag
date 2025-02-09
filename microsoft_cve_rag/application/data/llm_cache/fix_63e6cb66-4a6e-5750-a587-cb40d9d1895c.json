@@ -1,0 +1,16 @@
+{
+  "description": "To address CVE-2023-5218, users should update to Microsoft Edge (Chromium-based) version 118.0.2088.46, as this version mitigates the identified use after free condition in site isolation. Users can check their current version by clicking the three dots in the upper right corner of the browser and navigating to 'Help and Feedback' > 'About Microsoft Edge'. This update has been released as of October 13, 2023, and is documented for its improvements over previous versions. For more details, refer to the source link: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-5218.",
+  "source_id": "63e6cb66-4a6e-5750-a587-cb40d9d1895c",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeToVersion118.0.2088.46",
+  "tags": [
+    "Edge",
+    "Chromium",
+    "CVE-2023-5218"
+  ],
+  "node_id": "10ea67b6-5f71-43f4-a1f6-1fd3893235c3",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

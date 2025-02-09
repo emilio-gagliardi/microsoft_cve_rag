@@ -1,0 +1,17 @@
+{
+  "symptom_label": "Server2016VulnerableWithoutPatchesAvailable",
+  "description": "Servers running Windows Server 2016 and 2019 are vulnerable to security issues outlined in CVE-2024-20666. Microsoft has not provided direct patches for these versions, resulting in a need for manual intervention to address the security vulnerabilities. Administrators must utilize the latest Windows Safe OS Dynamic Update from the Microsoft Update Catalog and apply the Windows Recovery Environment (WinRE) update, as detailed in KB-5034957, to mitigate risks associated with these vulnerabilities.",
+  "source_id": "d6fd539c-feac-328a-6b21-3946641f0b7a",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "WindowsServer2016",
+    "WindowsServer2019",
+    "PatchManagement",
+    "SecurityUpdate"
+  ],
+  "node_id": "69e9d98a-ecbe-4691-b8b7-f395a4fb9a5c",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

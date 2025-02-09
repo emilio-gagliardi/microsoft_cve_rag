@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Microsoft Windows Codecs Library information disclosure vulnerability (CVE-2024-38055):\n\n1. Apply the appropriate KB updates for your operating system version by visiting the links below.\n2. Restart your system to ensure the updates take effect.\n\n**Details**:\n- This update addresses improper input validation that could lead to information disclosure vulnerabilities.\n- Ensure your system is running the corresponding build number, as listed below:\n  - Windows 11 Version 23H2: 10.0.22631.3880 (Install KB5040442)\n  - Windows 11 Version 22H2: 10.0.22621.3880 (Install KB5040442)\n  - Windows 11 Version 21H2: 10.0.22000.3079 (Install KB5040431)\n  - Windows 10 Version 22H2: 10.0.19045.4651 (Install KB5040427)\n\n**Update Packages**:\n- [KB5040442](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442)\n- [KB5040431](https://catalog.update.microsoft.com/Search.aspx?q=KB5040431)\n- [KB5040427](https://catalog.update.microsoft.com/Search.aspx?q=KB5040427)\n- [KB5040448](https://catalog.update.microsoft.com/Search.aspx?q=KB5040448)\n\n**Preconditions**:\n- Verify that your system is running one of the supported build versions.\n- Backup critical data before proceeding with the updates.",
+  "source_id": "3901562e-d2f9-d54a-f88e-4a00bb9db792",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_information_disclosure_windows_codecs_library_cve202438055",
+  "tags": [
+    "KB5040442",
+    "KB5040431",
+    "WindowsCodecs",
+    "CVE202438055"
+  ],
+  "node_id": "6ab3de78-7e04-4149-bd2c-96389c72127b",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "3901562e-d2f9-d54a-f88e-4a00bb9db792"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,19 @@
+{
+  "tool_label": "WindowsKernelPrivilegeEscalationMitigation",
+  "description": "**Tool Overview**:\n\nA resource aimed at addressing the Windows kernel elevation of privilege vulnerability (CVE-2024-20698). This tool assists system administrators in mitigating the risks associated with vulnerabilities by providing actionable guidance on configurations and security measures that can be adopted. \n\n**Details**:\n1. The tool encompasses recommended security updates and configuration changes to limit exploitability of the vulnerability. \n2. It may include patches and specific commands to check system integrity and apply security policies effectively.\n3. While detailed instructions may vary depending on the OS version, it is essential for administrators to stay informed of the latest updates.\n4. Consider using monitoring tools to track and audit system activities following the application of any fixes.\n5. The detailed explanation for this Tool is provided in the Fix description.",
+  "source_id": "4bd7c340-76b6-3178-afd9-8414519da3c1",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-20698",
+  "tool_url": "",
+  "tags": [
+    "Windows",
+    "privilege escalation",
+    "kernel",
+    "important"
+  ],
+  "node_id": "0fbbdf83-eabe-48cb-a608-358da08fb64c",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "The underlying issue in this context arises from an uninitialized use within the Dawn component of Chrome, which permits remote attackers to exploit this flaw for potential out-of-bounds memory access. This situation is specifically relevant to versions of Chromium before 127.0.6533.88, affecting both Google Chrome on Android and Microsoft Edge, as it utilizes Chromium's open-source framework.",
+  "cause_label": "chromium_uninitialized_use_in_dawn_memory_access",
+  "source_id": "fa6fc0ee-010f-040c-040e-b5a4c752a998",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "fa6fc0ee-010f-040c-040e-b5a4c752a998"
+  ],
+  "tags": [
+    "CVE-2024-6990",
+    "Chromium",
+    "Microsoft Edge",
+    "Use of Uninitialized Variable"
+  ],
+  "node_id": "4557249f-70b8-479c-9c75-37c70b39535b",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

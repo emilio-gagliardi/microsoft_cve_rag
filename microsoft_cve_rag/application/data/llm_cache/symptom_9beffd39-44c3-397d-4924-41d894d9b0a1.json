@@ -1,0 +1,17 @@
+{
+  "symptom_label": "UrlRewritingCausesLinkedEmailDisruption",
+  "description": "The observed symptom is a disruption caused by a solution that rewrites URLs within messages. This can lead to inconsistency in the original links, potentially affecting how end users access resources such as Microsoft Tech Community. It is particularly relevant for organizations utilizing Microsoft email services, where URL rewriting could result in incorrect redirection or broken links, thereby impacting user access to crucial resources and documentation.",
+  "source_id": "9beffd39-44c3-397d-4924-41d894d9b0a1",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "URLRewriting",
+    "EmailDisruption",
+    "TechCommunityAccess",
+    "LinkManagement"
+  ],
+  "node_id": "88b644ab-2cf4-4deb-884b-7ca1811746d1",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

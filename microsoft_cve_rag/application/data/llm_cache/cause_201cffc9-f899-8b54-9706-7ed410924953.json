@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause of the remote code execution vulnerability is a double free condition in Windows Multipoint Services, allowing memory to be freed multiple times without proper safeguards, leading to potential exploitation via network packets. This situation arises specifically when the service is restarted or stopped by an admin user, creating an avenue for unauthenticated attackers to execute arbitrary code on the server via crafted requests.",
+  "cause_label": "windows_multipoint_services_double_free_condition",
+  "source_id": "201cffc9-f899-8b54-9706-7ed410924953",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "201cffc9-f899-8b54-9706-7ed410924953"
+  ],
+  "tags": [
+    "Windows",
+    "Multipoint Services",
+    "Remote Code Execution",
+    "CVE-2024-30013"
+  ],
+  "node_id": "c48c2f50-c3fd-43c0-b892-0715bfcc1da5",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

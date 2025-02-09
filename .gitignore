@@ -25,12 +25,14 @@ neomodel-basics-docs.txt
 
 # Ignore all Jupyter notebook files
 notebooks/
-data/
-!microsoft_cve_rag/application/data/pair_programming/cascade_notes.md
-!microsoft_cve_rag/application/data/debug/
-!microsoft_cve_rag/application/data/debug/patch_nov-3-4-2023.json
-!microsoft_cve_rag/application/data/debug/patch_posts_debug.json
-!microsoft_cve_rag/application/data/templates/weekly_kb_report/kb_report_project_details.md
+
+data/debug_hash_files/
+data/graph_db/
+data/llm_cache/
+data/llm_usage/
+data/vectot_index/
+data/graph_db_backup/
+
 package docs/
 
 # windsurf rules

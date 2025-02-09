@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the inappropriate implementation vulnerability in Microsoft Edge, ensure that you are running the latest version that incorporates the fixes from the Chromium project.\n\n1. Open your Microsoft Edge browser.\n2. Click on the three dots (...) located at the top right corner of the window.\n3. Navigate to 'Help and feedback'.\n4. Click on 'About Microsoft Edge' to view the current version.\n5. If your version is not 130.0.6723.69 or later, please update your browser.\n\n**Details**:\n- This fix addresses a vulnerability that allowed remote attackers to bypass site isolation via a crafted Chrome extension relevant to Chromium-based browsers.\n- Ensure your environment is updated to Microsoft Edge (Chromium-based) version 130.0.2849.56 or higher.\n- This update involves an automatic check for updates whenever the browser is launched; therefore, regular checks are recommendable to ensure security patches are applied promptly.\n\n**Preconditions**:\n- Check that your Microsoft Edge browser is opened and functioning.\n- Backup important data and close unnecessary tabs before proceeding with updates.",
+  "source_id": "0b2e7d34-5a19-ef73-9182-e41aafece9ad",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_130_0_6723_69",
+  "tags": [
+    "CVE-2024-10229",
+    "MicrosoftEdge",
+    "Chromium",
+    "LLM Synthesized"
+  ],
+  "node_id": "4c9a77ef-afe4-491c-9abb-da3e4e866707",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "0b2e7d34-5a19-ef73-9182-e41aafece9ad"
+  ],
+  "verification_status": "unverified"
+}

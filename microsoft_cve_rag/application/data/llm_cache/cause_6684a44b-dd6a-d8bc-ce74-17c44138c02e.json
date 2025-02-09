@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause highlighted in this post revolves around the complexity of managing DHCP services on Windows servers, especially regarding domain controllers (DCs). The message indicates that running DHCP on non-DC servers significantly increases the licensing overhead and administrative burden. The author states that typical network devices like firewalls or switches lack the capability to perform dynamic updates, complicating the management in environments with limited bandwidth. Moreover, the practice of removing the DHCP service from DCs is questioned, indicating a potential oversight in the considerations around permissions and management ease. The context implies that without a thorough understanding of resource allocation and network demands, administrators may struggle with performance issues in these configurations. Overall, this scenario paints a picture of misconfiguration risks and the need for strategic planning in Windows environments.",
+  "source_id": "6684a44b-dd6a-d8bc-ce74-17c44138c02e",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "6684a44b-dd6a-d8bc-ce74-17c44138c02e"
+  ],
+  "cause_label": "increased_license_count_due_to_dhcp_management",
+  "tags": [
+    "DHCP",
+    "Windows Server",
+    "Dynamic Updates",
+    "Licensing",
+    "Administrative Overhead"
+  ],
+  "node_id": "f3eeec5a-eca7-43a2-ac70-da70a9eb1a40",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

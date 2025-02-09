@@ -1,0 +1,23 @@
+{
+  "symptom_label": "grub2_heap_corruption_causes_system_unavailability",
+  "description": "After installing security updates associated with KB-5041592, KB-5041585, KB-5041580, and KB-5041571 on systems running affected builds of Grub2, users may experience significant unavailability issues. Specifically, the system may fail to boot correctly or become unresponsive, which is a direct consequence of the heap-based out-of-bounds write issue identified in CVE-2022-3775. This impact presents in various Windows 10 and Windows 11 versions, including build numbers 10.0.19044.4780, 10.0.19045.4780, and 10.0.26100.1457. System administrators should monitor for these behaviors post-update to ensure operational integrity and minimize service outages.",
+  "source_id": "dda2bccc-174a-c2aa-41eb-a5c749110517",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "dda2bccc-174a-c2aa-41eb-a5c749110517"
+  ],
+  "tags": [
+    "Grub2",
+    "heap corruption",
+    "system unavailability",
+    "security patch",
+    "Windows",
+    "CVE-2022-3775"
+  ],
+  "node_id": "8e7972d1-3999-49d9-b6a9-9eefab529dc8",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

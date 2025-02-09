@@ -1,0 +1,17 @@
+{
+  "symptom_label": "NetworkIntermittentlyLosesCommunicationWithPeapServer",
+  "description": "Users may experience intermittent loss of network communication when connected to systems using the Microsoft Protected Extensible Authentication Protocol (PEAP). This issue is particularly observed on Windows 10 versions 1607, 21H2, and 22H2, as well as Windows Server 2016 and 2022. The problem can be exacerbated in environments utilizing network policies configured to allow PEAP, resulting in errors related to authentication and connectivity. For further details, refer to the security updates KB5032199, KB5032192, KB5032190, and KB5032189, applicable to builds including 10.0.10240.20308, 10.0.19045.3693, and 10.0.22621.2715, among others.",
+  "source_id": "2d538a4e-07e2-3ea2-348a-29a43bcd3523",
+  "source_type": "MSRCPost",
+  "tags": [
+    "network",
+    "connectivity",
+    "PEAP",
+    "Windows"
+  ],
+  "node_id": "fa781dff-341e-4ec0-964b-3ee1abf86ebf",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

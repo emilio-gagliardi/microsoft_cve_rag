@@ -1,0 +1,16 @@
+{
+  "symptom_label": "OptionalFeatureInstallationFailsUsingWindowsFeatures",
+  "description": "End users may experience issues when trying to enable optional features in Windows due to a lack of access to the 'Windows Features' window. This symptom is observed when navigating through the Start menu and searching for 'optionalfeatures', wherein the expected list of features does not load or fails to enable. The specific feature in question is the 'Microsoft-Windows-TS-OptionalComponents-Package', which, when checked, does not complete the installation process as anticipated, impacting the overall system functionality.",
+  "source_id": "a29aa418-3011-9f8d-9690-63683d0eca4b",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "optional feature",
+    "Windows installation",
+    "TS components"
+  ],
+  "node_id": "37c8f039-4890-4cab-94d8-298d17d0a07e",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

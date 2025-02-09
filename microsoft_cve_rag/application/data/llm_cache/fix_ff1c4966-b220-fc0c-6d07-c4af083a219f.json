@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo improve VPN performance on Windows 11 laptops, ensure that the Routing and Remote Access service is enabled and started. This service is crucial for optimizing network routing and can alleviate significant slowdowns experienced during remote access.\n\n1. Open the 'Run' dialog by pressing `Windows + R` keys.\n2. Type `services.msc` and press Enter to open the Services window.\n3. In the Services window, locate 'Routing and Remote Access'.\n4. Right-click on it and select 'Properties'.\n5. Set the Startup type to 'Automatic', and click 'Start' to enable the service if it is currently stopped.\n6. Click 'OK' to apply the changes.\n\n**Details**:\nOnce enabled, this service should help in achieving better VPN performance and mitigate the crawling problem noted when Windows 11 was first implemented on laptops. Monitoring the performance post-configuration adjustments can further validate the effectiveness of this fix.",
+  "source_id": "ff1c4966-b220-fc0c-6d07-c4af083a219f",
+  "source_type": "PatchManagementPost",
+  "fix_label": "enable_routing_remote_access_vpn_performance",
+  "tags": [
+    "Windows11",
+    "VPN",
+    "RoutingAndRemoteAccess",
+    "LLM Synthesized"
+  ],
+  "node_id": "68c94dec-15ff-4127-afb2-f74cf6e57281",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "ff1c4966-b220-fc0c-6d07-c4af083a219f"
+  ],
+  "verification_status": "unverified"
+}

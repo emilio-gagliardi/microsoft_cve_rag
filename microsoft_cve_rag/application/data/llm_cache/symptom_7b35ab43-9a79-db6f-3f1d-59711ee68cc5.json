@@ -1,0 +1,21 @@
+{
+  "symptom_label": "outlook_experiencing_performance_issues_post_update",
+  "description": "Following the recent update to Outlook, users experienced notable performance issues that affected their ability to use the application effectively. This was confirmed by Microsoft, indicating it was a recognized issue which lasted only a day before a solution was implemented. Users attempting to access features within Outlook reported slow response times and delays, significantly hampering productivity. This symptom may result in frustration among users who rely on Outlook for daily communication and scheduling tasks. System administrators should ensure that their environments are updated to include the latest patches that address this performance issue.",
+  "source_id": "7b35ab43-9a79-db6f-3f1d-59711ee68cc5",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "7b35ab43-9a79-db6f-3f1d-59711ee68cc5"
+  ],
+  "tags": [
+    "Outlook",
+    "performance",
+    "issues",
+    "update"
+  ],
+  "node_id": "3431580a-980b-47c2-bb6c-573749292eb2",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

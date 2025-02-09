@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows Registry elevation of privilege vulnerability (CVE-2024-43641), it is crucial to apply the necessary updates for your specific version of Windows:\n\n1. Identify your Windows version and build number from the list below:\n   - Windows 11 Version 24H2 for x64-based Systems: 10.0.26100.2314 (Update: KB5046617)\n   - Windows 11 Version 23H2 for x64-based Systems: 10.0.22631.4460 (Update: KB5046633)\n   - Windows 10 Version 22H2 for x64-based Systems: 10.0.19045.5131 (Update: KB5046613)\n   - Additional versions are also available for other configurations according to the provided update package links.\n\n2. Download the appropriate update package from the Microsoft Update Catalog:\n   - [KB5046617](https://catalog.update.microsoft.com/Search.aspx?q=KB5046617)\n   - [KB5046633](https://catalog.update.microsoft.com/Search.aspx?q=KB5046633)\n   - [KB5046613](https://catalog.update.microsoft.com/Search.aspx?q=KB5046613)\n   - [KB5046665](https://catalog.update.microsoft.com/Search.aspx?q=KB5046665)\n\n3. Follow the installation instructions for your system to ensure successful application of the updates.\n\n**Details**:\n- This update resolves an integer overflow or wraparound vulnerability that may allow elevation of privilege if successfully exploited.\n- It is important to note that users may need administrative rights to install these updates.\n\n**Preconditions**:\n- Ensure the system is of the indicated version before proceeding with the update installation.\n- Backup critical data before proceeding with any system changes.",
+  "source_id": "292c3417-435e-c73e-0cca-7b1784c56270",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_updates_for_registry_elevation_privilege_cve202443641",
+  "tags": [
+    "KB5046617",
+    "KB5046633",
+    "KB5046613",
+    "Windows10Windows11"
+  ],
+  "node_id": "59a662ee-a7ef-4e0e-b1d3-7ece7472dbd1",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "292c3417-435e-c73e-0cca-7b1784c56270"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "description": "The vulnerability in Microsoft Edge (Chromium-based) arises from a flaw that allows unauthorized access to personally identifiable information (PII) through the exploitation of specially crafted files. This condition is exacerbated by the requirement of user interaction, where the user must open a maliciously crafted file delivered via email or a compromised website, allowing an attacker to read information that should remain confidential.",
+  "cause_label": "edge_chromium_information_disclosure_due_to_file_exploitation",
+  "source_id": "0aac5d31-448b-9406-0c10-7c766be0e992",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0aac5d31-448b-9406-0c10-7c766be0e992"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "CVE-2024-49025",
+    "information disclosure",
+    "PII",
+    "exploitation"
+  ],
+  "node_id": "e2ec71e8-1657-4830-a75a-c667d00d1905",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

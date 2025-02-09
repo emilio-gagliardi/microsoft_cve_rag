@@ -1,0 +1,22 @@
+{
+  "symptom_label": "unauthorized_access_possible_due_to_secure_boot_bypass",
+  "description": "Users may observe an increased risk of unauthorized access to sensitive resources as the secure boot feature becomes vulnerable. This could manifest in the form of unexpected behaviors, such as unauthorized modifications or exposure of critical data. Systems running affected builds, including Windows 10 (versions 21H2 and 22H2) and Windows 11 (versions 21H2 and 22H2), may indicate a failure to maintain system integrity. The issue is related to the CVE-2024-37970 vulnerability, noted for potentially allowing local attackers to bypass secure boot measures. Administrators are urged to consult KB articles KB5040442, KB5040431, and KB5040427 for guidance on remediation. This scenario underscores the importance of staying updated with security patches to safeguard against potential exploitation.",
+  "source_id": "b914d3ac-a770-b8f3-3b2f-b761f9c73cee",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b914d3ac-a770-b8f3-3b2f-b761f9c73cee"
+  ],
+  "tags": [
+    "security",
+    "access control",
+    "Windows",
+    "system integrity",
+    "patch management"
+  ],
+  "node_id": "e72e8039-d680-49ca-ad37-cf378c9638bd",
+  "node_label": "Symptom",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

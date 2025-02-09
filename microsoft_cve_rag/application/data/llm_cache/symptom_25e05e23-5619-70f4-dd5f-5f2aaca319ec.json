@@ -1,0 +1,16 @@
+{
+  "symptom_label": "HpComputersStuckInBootLoopAfterUpdate",
+  "description": "HP computers that do not have BIOS released after September may experience a significant issue by getting stuck in a boot loop. This problem necessitates the replacement of the motherboard, indicating a critical failure in the hardware's interaction with recent updates. While the exact cumulative update (CU) causing this behavior is unclear, it has been suggested that updates since July may potentially lead to this symptom, highlighting the need for system administrators to evaluate the impact on their devices.",
+  "source_id": "25e05e23-5619-70f4-dd5f-5f2aaca319ec",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "HP",
+    "boot loop",
+    "BIOS"
+  ],
+  "node_id": "bab208da-5e85-4cad-a990-82e97808e382",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

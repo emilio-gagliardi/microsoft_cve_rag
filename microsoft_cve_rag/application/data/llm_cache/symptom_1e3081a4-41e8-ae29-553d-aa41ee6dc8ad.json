@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_kernel_memory_access_elevation_vulnerability",
+  "description": "End users may experience unexpected system behaviors due to an elevation of privilege vulnerability in the NT OS kernel associated with CVE-2024-43553. This vulnerability allows an attacker to potentially gain kernel memory access, which could lead to unauthorized control over impacted systems. Users running Windows 10 (build 10.0.14393.7428) and Windows 11 (build 10.0.26100.2033), among others, could see effects such as the unauthorized modification of system files, leading to integrity risks where files can be altered maliciously. The KB articles related to this update include KB5044285 for Windows 11 Version 23H2 and KB5044286 for Windows 10 for x64-based systems, highlighting the importance of applying the patch to prevent serious consequences that may affect overall system performance and security.",
+  "source_id": "1e3081a4-41e8-ae29-553d-aa41ee6dc8ad",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "1e3081a4-41e8-ae29-553d-aa41ee6dc8ad"
+  ],
+  "tags": [
+    "CVE-2024-43553",
+    "Windows 10",
+    "Windows 11",
+    "elevation of privilege",
+    "kernel memory access"
+  ],
+  "node_id": "8bccd919-445b-4960-8255-25bc1d82faac",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

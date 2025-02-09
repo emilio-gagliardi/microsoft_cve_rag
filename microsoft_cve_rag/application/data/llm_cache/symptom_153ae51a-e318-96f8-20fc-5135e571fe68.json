@@ -1,0 +1,21 @@
+{
+  "symptom_label": "server_2019_2016_dynamic_updates_missing",
+  "description": "Users are experiencing confusion regarding the application of dynamic updates for Windows Server 2019 and 2016, as there are no specific entries listed on the Safe OS Dynamic Updates page. Additionally, the Microsoft Security Response Center (MSRC) article indicates potential issues affecting these operating systems, but the lack of documented updates has led to uncertainty among administrators. Particularly, administrators are uncertain whether to apply Windows 10 1809 packages for Server 2019 and Windows 10 1607 packages for Server 2016, creating a risk for unpatched vulnerabilities. This situation can lead to inconsistent patch management practices, which might jeopardize system stability and security across the enterprise. The recommended KB articles, KB-5034439 and KB-5034235, apply specifically to Windows Server 2022, further complicating the patching strategy for older versions.",
+  "source_id": "153ae51a-e318-96f8-20fc-5135e571fe68",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "153ae51a-e318-96f8-20fc-5135e571fe68"
+  ],
+  "tags": [
+    "Windows Server 2016",
+    "Windows Server 2019",
+    "dynamic updates",
+    "patch management"
+  ],
+  "node_id": "6e3b6f32-0a47-4869-a774-416f8bcb68f5",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

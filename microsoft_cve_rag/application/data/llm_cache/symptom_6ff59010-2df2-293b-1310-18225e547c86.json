@@ -1,0 +1,21 @@
+{
+  "symptom_label": "elevation_of_privilege_in_remote_access_service",
+  "description": "Users may experience unauthorized access or elevated permissions within their system, particularly affecting Windows versions 10 and 11 with build numbers 10.0.22631.3880, 10.0.22621.3880, 10.0.19045.4651, and 10.0.19044.4651. Notifications regarding privileges changing or unusual system behaviors might be noticed, indicating that an attacker could gain higher than intended access to system resources, potentially impacting the integrity and confidentiality of user data. Additionally, system administrators should be vigilant for any unusual modifications to files or unauthorized system settings, which could signal exploitation attempts. For detailed mitigation and remediation, KB articles such as KB5040442, KB5040431, and KB5040427 provide guidance on addressing this elevated privilege issue.",
+  "source_id": "6ff59010-2df2-293b-1310-18225e547c86",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "6ff59010-2df2-293b-1310-18225e547c86"
+  ],
+  "tags": [
+    "Windows",
+    "Elevation of Privilege",
+    "Remote Access",
+    "System Administrator"
+  ],
+  "node_id": "7cd2f002-ea0a-48b1-9f0e-08e3c0e81767",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

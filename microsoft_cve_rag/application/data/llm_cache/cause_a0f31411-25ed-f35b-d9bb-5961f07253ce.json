@@ -1,0 +1,22 @@
+{
+  "description": "Type confusion in the V8 engine of Chromium, allowing potential out-of-bounds memory access via crafted web content, impacting Microsoft Edge due to its reliance on Chromium.",
+  "cause_label": "chromium_type_confusion_in_v8_engine",
+  "source_id": "a0f31411-25ed-f35b-d9bb-5961f07253ce",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a0f31411-25ed-f35b-d9bb-5961f07253ce"
+  ],
+  "tags": [
+    "CVE-2024-5833",
+    "Chromium",
+    "V8 Engine",
+    "Type Confusion",
+    "Microsoft Edge"
+  ],
+  "node_id": "5544a929-f3ef-4d86-aa04-c760649969e2",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

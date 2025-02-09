@@ -1,0 +1,16 @@
+{
+  "symptom_label": "EsxiHostsFailToStartAfterPatchInstallation",
+  "description": "The symptom involves a failure of ESXi hosts, specifically those on versions 7.0.x and below, to start after installing the October 2023 update referenced in KB-5031364. This issue negatively impacts the virtualization environment, preventing virtual machines from launching properly, which can disrupt operations. Administrators using affected versions are advised to review the relevant Veeam article for potential resolutions and workarounds.",
+  "source_id": "3af413c7-e531-2347-87bc-b74dd11cd5ad",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "esxi",
+    "patch",
+    "virtualization"
+  ],
+  "node_id": "6770bf4f-24a4-441c-a533-85fdc8431a1a",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

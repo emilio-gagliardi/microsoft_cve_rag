@@ -1,0 +1,20 @@
+{
+  "tool_label": "MSGraphAppRoleBypass",
+  "description": "The MSGraphAppRoleBypass tool addresses the issue of bypassing the consent process for the MS Graph app role 'AppRoleAssignment.ReadWrite.All'. This functionality is explicitly highlighted as a significant security concern, particularly in the context of the recent Midnight Blizzard breach. This tool allows administrators to grant admin consent to API programmatically, providing an interface to handle these permissions more securely despite the inherent risks. **The detailed explanation for this Tool is provided in the Fix description.**",
+  "source_id": "b9bf14a9-77f5-f4dd-81c8-9c8d201322ce",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em0fb512db-8bf3-4d4a-9f3b-88344eb5dbc7%4015784bd3.com",
+  "tool_url": "https://winsmarts.com/how-to-grant-admin-consent-to-an-api-programmatically-e32f4a100e9d",
+  "tags": [
+    "MS Graph",
+    "api",
+    "admin consent",
+    "security",
+    "LLMSynthesized"
+  ],
+  "node_id": "aba8ed94-2469-489f-8394-06980d795a84",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "critical",
+  "entity_type": "Tool"
+}

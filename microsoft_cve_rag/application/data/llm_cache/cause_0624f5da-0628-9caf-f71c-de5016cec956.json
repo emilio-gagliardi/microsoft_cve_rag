@@ -1,0 +1,20 @@
+{
+  "description": "The Windows Installer component has an improper privilege management flaw that allows an attacker with low privileges to exploit the system locally and gain elevated privileges due to inadequate access control mechanisms.",
+  "cause_label": "windows_installer_improper_privilege_management",
+  "source_id": "0624f5da-0628-9caf-f71c-de5016cec956",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0624f5da-0628-9caf-f71c-de5016cec956"
+  ],
+  "tags": [
+    "Windows Installer",
+    "Privilege Management",
+    "CVE-2024-38014"
+  ],
+  "node_id": "d024c1c9-e8cc-4a05-bae7-7cb2ef1e2920",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

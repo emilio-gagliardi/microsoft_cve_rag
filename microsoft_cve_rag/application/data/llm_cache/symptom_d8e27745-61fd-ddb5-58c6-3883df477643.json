@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_upgrade_installation_assistant_not_successful",
+  "description": "The post describes issues with the usage of the Windows 11 Installation Assistant, specifically its command line options for downloading and installing Windows updates. Users may face challenges when attempting to utilize built-in switches of the Installation Assistant to upgrade systems. This problem appears to be particularly relevant for build numbers related to Windows 11 upgrades, as indicated by the mentioned links to Microsoft's documentation concerning command-line options. The user expresses that despite attempting these command line techniques, they have not achieved success in executing an upgrade, indicating potential reliability issues with automated upgrade processes. The mention of KB3932100 might suggest that this knowledge base article could contain additional troubleshooting or related information for the encountered issues.",
+  "source_id": "d8e27745-61fd-ddb5-58c6-3883df477643",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d8e27745-61fd-ddb5-58c6-3883df477643"
+  ],
+  "tags": [
+    "Windows 11",
+    "Installation Assistant",
+    "Command Line",
+    "Upgrade Issues"
+  ],
+  "node_id": "216393d7-13c0-4ecd-b6a4-0c1109ab5036",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Microsoft Message Queuing (MSMQ) remote code execution vulnerability (CVE-2024-26232), it is essential to apply the relevant updates as referenced in the KB articles listed below:\n\n1. Review the build numbers associated with your Windows version:\n   - [10.0.19045.4291]\n   - [10.0.19044.4291]\n   - [10.0.22631.3447]\n   - [10.0.22000.2899]\n   - [10.0.22621.3447]\n   - [10.0.10240.20596]\n\n2. Download and apply the updates from the Microsoft Update Catalog corresponding to the listed KB articles:\n   - KB-5036925\n   - KB-5036909\n   - KB-5036899\n   - KB-5036896\n   - KB-5036894\n   - KB-5036893\n   - KB-5036892\n\n**Details**:\n- These updates address access-related vulnerabilities in MSMQ, which could allow for remote code execution.\n- Always ensure to back up your system before applying updates to prevent any data loss.\n- For more information, visit [Microsoft's update guide](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-26232).",
+  "source_id": "673cec44-b6fd-7256-9a64-2acbb5e509d7",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_updates_for_msmq_remote_code_execution_cve202426232",
+  "tags": [
+    "KB-5036925",
+    "RemoteCodeExecution",
+    "MSMQ",
+    "CVE-2024-26232"
+  ],
+  "node_id": "b5779231-3b2c-46c7-81ca-09a4fa17060c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "673cec44-b6fd-7256-9a64-2acbb5e509d7"
+  ]
+}

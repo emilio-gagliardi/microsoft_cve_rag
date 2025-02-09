@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the denial of service vulnerability associated with Windows Network Address Translation (NAT) for CVE-2024-38132:\n\n1. Download and apply the relevant update from the Microsoft Update Catalog for your Windows version based on the following build numbers:\n   - Windows 11 Version 24H2: KB5041571\n   - Windows 11 Version 23H2: KB5041585\n   - Windows 10 Version 22H2 (x64 and 32-bit): KB5041580\n   - Windows 10 Version 21H2 (x64 and 32-bit): KB5041782\n\n2. Restart your system after the installation to ensure updates take effect.\n\n**Details**:\n- These updates address the out-of-bounds read issue that can lead to a denial of service situation. You can obtain the updates using the following links:\n   - [KB5041782 Update](https://catalog.update.microsoft.com/Search.aspx?q=KB5041782)\n   - [KB5041585 Update](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585)\n   - [KB5041580 Update](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n   - [KB5041592 Update](https://catalog.update.microsoft.com/Search.aspx?q=KB5041592)\n- Ensure that your system is one of the applicable versions before proceeding with the updates.\n\n**Preconditions**:\n- Verify that your Windows build matches the applicable update listed.\n- Backup any critical data before applying the update.",
+  "source_id": "de4f014d-ea8d-5c9c-ba3e-76afc0e1d6c7",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_nat_denial_of_service_cve202438132",
+  "tags": [
+    "KB5041571",
+    "KB5041585",
+    "KB5041580",
+    "KB5041782"
+  ],
+  "node_id": "6bd18df8-58b8-4993-9898-5f437e6bf0cd",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "de4f014d-ea8d-5c9c-ba3e-76afc0e1d6c7"
+  ],
+  "verification_status": "unverified"
+}

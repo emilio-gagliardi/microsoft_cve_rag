@@ -1,0 +1,23 @@
+{
+  "description": "The underlying issue is a Use After Free condition in Microsoft Edge (Chromium-based) that allows an attacker to elevate privileges by exploiting memory management flaws. This occurs when the application continues to use memory after it has been freed, leading to potential arbitrary code execution.",
+  "cause_label": "microsoft_edge_use_after_free_elevation_of_privilege",
+  "source_id": "6434edff-5cb3-181b-26a2-426fafe7738b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "6434edff-5cb3-181b-26a2-426fafe7738b"
+  ],
+  "tags": [
+    "Microsoft",
+    "Edge",
+    "Chromium",
+    "CVE-2024-43472",
+    "Use After Free",
+    "Privilege Escalation"
+  ],
+  "node_id": "304496e7-397a-4043-8158-dc7cb0ce6e18",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,18 @@
+{
+  "description": "The vulnerability described is linked to an elevation of privilege issue in the Microsoft Common Log File System. This problem arises due to a flaw in how privileges are managed on systems running certain builds of Windows. Specifically, the vulnerable component allows for local access to system functions without the need for specialized knowledge or user interaction, making it susceptible to exploitation by an attacker with basic user capabilities. Systems impacted under this CVE include a range of Windows 10 and Windows 11 builds - notably those prior to the January 2024 updates listed in the KB articles. The flaw enables an attacker to gain higher system privileges than intended, thus modifying files and settings that should be protected.",
+  "cause_label": "PrivilegeManagementFlawAllowsLocalExploitation",
+  "source_id": "acca3194-b5dc-c6e8-8c39-5450fe582cfb",
+  "source_type": "MSRCPost",
+  "tags": [
+    "elevation of privilege",
+    "Windows 10",
+    "Windows 11",
+    "Common Log File System",
+    "system security"
+  ],
+  "node_id": "27d22a62-560a-45b0-8b00-f514fdc8fc60",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,20 @@
+{
+  "symptom_label": "devices_enter_bitlocker_recovery_due_to_update",
+  "description": "Some devices may experience a transition into BitLocker recovery mode after installing the mitigations associated with KB-5025885 and KB-5016061. This symptom particularly affects systems that utilize secure boot functionality and TPM 2.0-based configurations, most notably in environments where firmware updates do not proceed smoothly. Users are advised to retain a copy of their BitLocker recovery keys as the loss of access to encrypted data may occur unexpectedly during these updates. Furthermore, specific device manufacturers like HP and ARM64-based Qualcomm devices are noted for potential issues that may block the mitigation installation, exacerbating the likelihood of facing BitLocker recovery prompts. It is essential for administrators to ensure firmware updates are applied appropriately before the mitigation process to avoid such interruptions.",
+  "source_id": "167047c2-4b56-c0c8-c300-13d11ba3b2c1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "167047c2-4b56-c0c8-c300-13d11ba3b2c1"
+  ],
+  "tags": [
+    "BitLocker",
+    "TPM",
+    "Secure Boot",
+    "Firmware Issues"
+  ],
+  "node_id": "24aba52c-85bb-4f85-bd8c-a04c92785ec9",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

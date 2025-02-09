@@ -1,0 +1,21 @@
+{
+  "description": "The Windows OCSP server vulnerability results from uncontrolled resource consumption, allowing attackers to exploit the OSCP protocol and create a denial of service condition. This occurs due to a flaw in resource management in the affected builds listed, potentially allowing external attackers to consume server resources remotely, impacting service availability.",
+  "cause_label": "windows_ocsp_server_uncontrolled_resource_consumption",
+  "source_id": "2560da5c-e96a-9b58-717b-cfba2a3b817e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2560da5c-e96a-9b58-717b-cfba2a3b817e"
+  ],
+  "tags": [
+    "OCSP",
+    "Denial of Service",
+    "Windows",
+    "Resource Management"
+  ],
+  "node_id": "8a1e5bab-5735-4a0c-854a-f36ccc657d27",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

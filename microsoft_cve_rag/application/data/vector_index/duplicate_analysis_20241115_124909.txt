@@ -1,0 +1,3618 @@
+Duplicate Vector Analysis Report - 20241115_124909
+================================================================================
+
+Summary:
+Total points: 258
+Unique texts: 84
+Unique document IDs: 5
+Unique vectors: 5
+Vectors with duplicates: 5
+
+
+DUPLICATE VECTOR: [0.0495, -0.0563, -0.0060, -0.0169, -0.0296...]
+This exact vector appears 64 times in Qdrant
+Full Vector: (0.049502634, -0.056269445, -0.0060280194, -0.016939519, -0.02962312, 0.0082474835, 0.04288581, -0.030024922, -0.002189235, -0.019662183, 0.053283494, 0.023949295, 0.009035137, 0.027981441, -0.041121963, -0.013324763, 0.028740702, -0.017442387, -0.028071975, 0.0006436746, 0.020416476, -0.032415006, 0.019962035, -0.0045340396, 0.008243667, 0.015807599, -8.392396e-06, -0.04375252, -0.04379394, 0.008703097, -0.012697118, 0.024150556, -0.0064595146, 0.0045249853, 0.03322605, -0.0022633143, -0.019505084, -0.038864054, 0.0046626497, -0.02993903, 0.0034225823, 0.03181657, 0.025643326, 0.06241225, -0.005750052, 0.01668478, -0.01080839, 0.022124933, 0.024248295, -0.013692016, 0.025304427, -0.044463206, 0.030381279, -0.031137146, -0.023953013, -0.012177249, 0.024827907, 0.03539581, 0.012095365, -0.012969655, -0.017689819, -0.023828289, -0.05172264, -0.022555651, 0.011455852, 0.029594112, 0.040968724, -0.012472115, 0.029899368, 0.0154767465, 0.002592707, 0.0051036924, -0.024125068, 0.02638655, 0.053516142, -0.017350916, -0.007648728, 0.012057691, 0.030634943, 0.019658154, 0.0041475277, -0.03167265, -0.0073372065, -0.0058663273, 0.040338747, 0.014807998, 0.094037905, -0.011641106, -0.008026212, -0.004887188, 0.009422833, -0.028102655, 0.02668271, 0.014741483, -0.039956637, 0.015436568, -0.013776368, -0.018547518, 0.024499048, -0.0037390483, -0.03228427, -0.035475392, -0.010237404, 0.022079542, 0.012443169, 0.012961475, 0.010538537, 0.003409221, -0.016381063, 0.016696464, -0.012893627, -0.044755727, -0.018129423, -0.03733597, 0.046394397, -0.0128062125, -0.014356742, -0.016162893, -0.030133706, 0.017964123, 0.022247512, 0.018578913, 0.008884734, -0.094293736, -0.030562716, 0.058743924, 0.03344543, -0.057679556, 0.011692276, 0.020446476, -0.0012292896, 0.0037767587, 0.042351946, 0.002194571, -0.050932076, 0.025320364, -0.09143706, -0.07927095, 0.07723314, 0.018292349, 0.030419543, -0.04614553, 0.014434134, -0.006410214, 0.04581466, 0.010117, 0.019003363, -0.027580582, -0.04809924, -0.01654102, -0.010490265, -0.00320197, -0.05316073, -0.010952646, -0.016415207, -0.0786319, 0.03196296, -0.002322398, -0.0036321399, -0.007479919, -0.02382015, -0.0039682966, 0.01589414, -0.028908102, -0.046009105, -0.012197144, 0.05638664, 0.004671885, -0.011534698, 0.010498943, -0.03631621, 0.002308689, 0.00061852887, 0.03715206, -0.012388193, 0.036259107, 0.023207782, -0.046790004, -0.03039311, -0.013123248, -0.02144815, -0.028807333, 0.0035948518, 0.0069660163, -0.020460721, 0.045935914, 0.0023213066, -0.018038878, 0.0371172, -0.042467777, -0.008844546, -0.052877903, 0.043011546, -0.011747845, -0.048662733, 0.027790746, -0.04682712, 0.011042295, 0.02294372, 0.007823985, 0.026354391, -0.049538862, 0.050220963, -0.01978317, -0.011651442, 0.01052638, -0.025922667, -0.016782204, -0.010159573, -0.02969454, 0.0006624674, 0.033786483, -0.025763135, 0.00044058944, -0.03728046, 0.03438805, -0.022288943, 0.030530626, -0.0068960045, 0.019161507, -0.044337884, -0.011186677, 0.040238578, 0.016820045, 0.03484634, -0.022854375, -0.029486971, -0.000102089376, -0.010185889, 0.0019091276, -0.029002821, -0.06347159, -0.00013977745, -0.025434196, 0.007863428, 0.0458488, 0.025215913, 0.015746145, 0.0161234, -0.019011602, 0.052739084, 0.02094564, 0.0711872, 0.03196599, 0.0017192076, 0.031856447, 0.007350715, -0.009488251, -0.0016171918, 0.03249337, -0.010210834, 0.0032796292, 0.040277712, -0.0035554273, -0.009491144, 0.007813715, 0.038045295, -0.042890422, 0.014319343, 0.030949688, -0.00258979, -0.038910504, -0.014061468, 0.011009253, 0.018328885, 0.03473509, -0.0017105843, -0.006389461, 0.06622656, 0.022222396, -0.0022021788, -0.02420186, -0.03918444, -0.00075344706, -0.0027151934, 0.053666588, -0.056231756, 0.011690933, 0.017556787, -0.0007555255, -0.013152443, -0.011598876, -0.0092414245, 0.025241006, -0.018653955, 0.005862457, -0.003447823, 0.003767248, 0.03347576, 0.0659775, -0.01087028, 0.026495012, 0.033236496, -0.010591523, -0.0064911023, -0.010244731, 0.008789983, 0.016890371, -0.0038793846, 0.030045731, 0.020271128, -0.0028485751, -0.004853346, -0.038673244, 0.011141628, -0.002970196, -0.060851928, -0.028997818, -0.031130956, 0.006386791, -0.029743617, 0.04302561, -0.0012317551, -0.00028669683, -0.08444618, -0.054840606, 0.0053404053, 0.007585453, -0.006717526, -0.021907533, 0.02059387, 0.030420037, -0.02018603, 0.006518981, -0.012299797, 0.0058349944, -0.07311295, -0.03287682, 0.011010848, 0.035045028, 0.007116861, -0.017449409, 0.05114426, -0.0022371942, -0.0168237, -0.0059387023, 0.053764656, 0.01682009, -0.031754415, 0.022079699, 0.035122287, 0.0012232322, -0.012341389, -0.02440025, -0.0074494677, 0.001465547, -0.020685853, 0.014431791, -0.0039639245, 0.024873227, 0.011864319, 0.02784643, 0.005609616, -0.07519362, 0.010158208, 0.0070663174, 0.042458758, -0.035636302, -0.004766676, 0.06844423, 0.009364916, -0.020409556, 0.0020242827, -0.035550866, -0.05037208, -0.033493318, -0.010208672, 0.031579994, 0.0015500837, 0.025478095, 0.0076399804, 0.018708143, -0.03641338, 0.002518191, -0.07353335, -0.019047316, -0.032984618, 0.027558051, 0.004372183, -0.0048303483, 0.053370778, -0.042536233, -0.026615886, -0.011571042, -0.05659185, 0.007730862, 0.0490577, 0.018497841, -0.032256912, -0.042988867, 0.013485226, 0.024702426, 0.004476691, 0.0292016, -0.0013345307, -0.013931817, 0.0058053345, 0.013775384, -0.03832215, -0.0035330707, 0.05719559, 0.08208681, 0.0038851162, 0.00622446, 0.001213225, 0.029258655, 0.009855163, -0.050982073, -0.00042194495, -0.0077974987, 0.049852006, 0.011163827, -0.017540347, -0.025041036, -0.0412158, -0.007193169, -0.050969016, -0.024806296, -0.004739496, 0.020601392, 0.042970754, -0.009983821, -0.016649818, 0.007731047, 0.021645961, 0.022060186, -0.008501123, 0.046513587, 0.009550466, -0.01154777, 0.029399222, 0.01625135, -0.0017281573, -0.037887037, 0.010661503, 0.018079663, 0.025188655, -0.046361033, 0.033240814, 0.0047396, 0.03766376, -0.029902987, 0.01434516, -0.0333975, 0.03462958, 0.011766273, 0.00029579303, -0.025343008, 0.049183413, 0.0527058, 0.023995096, 0.052157115, 0.0065533933, -0.013096896, -0.10490519, -0.055805907, -0.046199232, 0.06634879, -0.024037242, -0.014850372, -0.019533824, -0.014352942, -0.015261719, 0.014541111, 0.021033801, 0.0065472824, 0.06000829, -0.026293121, -0.024043458, -0.03960195, -0.03260534, -0.010293619, -0.0038255735, -0.0045359214, -0.023288658, 0.036628634, 0.013434626, -0.028119335, 0.0028523975, -0.005181776, -0.01911267, -0.011381281, 0.04783291, -0.05142778, -0.06477587, 0.011794813, -0.0042192065, 0.006720923, 0.022303443, -0.0566627, 0.029010711, 0.028401023, 0.037041854, 0.0026085419, 0.0040930747, -0.04382819, 0.010472731, 0.008199659, 0.057308484, 0.016809119, -0.009669171, -0.020872062, 0.008039528, 0.028714392, 0.0071755294, -0.012710779, 0.0015563503, 0.006795364, 0.01020794, -0.061237913, 0.039521698, 0.015549027, 0.00448353, 0.021799888, 0.034514125, 0.0074824993, 0.019861137, 0.0010711008, -0.0006298528, -0.012065938, 0.040725537, -0.053979434, -0.018741313, 0.00072907604, -0.03722901, -0.044318136, 0.047385953, 0.0428783, 0.050178327, -0.0009516106, 0.006653126, -0.008659228, 0.0009226442, 0.005854004, 0.0517631, -0.02589767, -0.012561441, -0.017861843, 0.021844631, -0.0017821481, -0.06916247, 0.024358308, 0.0027033247, 0.0179133, -0.000793513, -0.011170245, -0.05514677, -0.06196634, -0.038308494, 0.009026986, -0.0009901859, -0.013637582, -0.006661701, -0.0052700657, -0.014651481, -0.027579157, 0.00010040838, 0.014505699, -0.030688265, -0.011513672, 0.010767643, 0.031314243, 0.049374398, 0.033992972, 0.0004332208, -0.015696058, 0.0049463087, 0.050433043, -0.035377912, -0.045871828, 0.021485683, -0.031715557, 0.010415457, -0.012838083, -0.013858937, 0.026793996, 0.00017890584, -0.0097799385, -0.023651924, 0.024405263, -0.05278765, -0.03759924, 0.024922859, 0.0045492165, 0.024690926, -0.014672008, 0.024171714, 0.0033399225, 0.047509156, -0.037359037, 0.0070623597, 0.103637196, -0.051781356, 0.023039784, -0.00754933, -0.034862697, 0.040407516, 0.009550951, -0.0074837236, -0.01824609, -0.015523058, 0.011419143, -0.0014459367, -0.07960951, 0.017170887, 0.03270961, -0.024467766, 0.062754095, 0.012374327, -0.031013964, -0.026788091, -0.02280932, 0.016857056, -0.002759662, 0.022216467, 0.024687797, -0.0050839377, -0.015034275, 0.0064025912, 0.017470542, -0.014812786, 0.0041403244, 0.035712283, -0.012871076, 0.04670448, -0.07540859, 0.004881901, 0.035345018, -0.020455003, -0.0046276907, 0.016424797, 0.0133571755, -0.027904425, 0.0044194898, -0.00018508315, -0.03234481, -0.05651486, -0.041872025, 0.028156633, 0.018146906, -0.006246489, 0.0041568317, -0.023770938, 0.017370805, -0.03857083, 0.0010937932, -0.070580214, -0.06925093, -0.027507659, 0.024077037, -0.03226456, 0.03809398, 0.008490077, 0.007072815, 0.02109796, -0.029806785, 0.023922484, -0.049540382, 0.03345398, 0.004369704, 0.049730632, 0.02547616, -0.02213776, -0.03240413, 0.026426643, 0.19800569, 0.029891254, -0.02183577, -0.031944863, -0.011088394, 0.03929805, -0.012970247, 0.065621234, -0.03340206, -0.004584707, -0.022417774, 0.017072672, 0.025525587, 0.043371055, 0.04246648, 0.02204303, -0.021518681, 0.03922301, -0.010238763, 0.0009470772, -0.011315422, 0.008099031, -0.038125273, -0.068439275, 0.0020833039, 0.0010920031, 0.004432596, -0.034074828, -0.005990577, 0.02582444, 0.039218172, 0.026783207, -0.009986981, 0.03042691, 0.06417657, 0.033383913, 0.05072339, 0.038928755, 0.018761663, 0.05667154, 0.047060657, 0.0059633413, -0.053755995, -0.025283225, -0.03228983, 0.043451883, -0.011477166, 0.0051914183, -0.03541373, -0.0073173586, 0.014080057, -0.04456913, -0.027041527, -0.028390776, -0.008713779, 0.016665785, 0.020875257, 0.008065773, -0.015090564, -0.0057631326, 0.012453309, -0.025471868, -0.0077085732, -0.0032101604, 0.0037501217, -0.01192167, -0.026643045, 0.0385861, 0.009945012, -0.008159712, -0.027726077, -0.014748822, 0.012748528, -0.020557238, 0.009064426, -0.02852534, -0.015057225, 0.007198416, 0.01959567, 0.0034941966, -0.008942451, -0.011198897, -0.00050893985, -0.028764425, -0.03242549, -0.016737146, -0.014564391, 0.0007471848, -0.03440784, -0.0073372135, 0.022815846, 0.100804105, -0.030511945, -0.01275446, -0.067651674, 0.056010623, 0.025056446, 0.028434394, 0.022018861, 0.031656157, -0.012761551, 0.059018668, 0.004120788, -0.0046080574, -0.028830757, -0.03088453, 0.028003385, -0.01612302, -0.06390238, 0.048802435, 0.0013916073, 0.037842404, 0.051291037, 0.0112322485, -0.04359037, -0.008285759, -0.0043998943, -0.05285601, 0.012294689, -0.01991251, 0.0086841555, -0.0057010986, -0.014155118, -0.002008977, 0.0082872985, 0.011620285, 0.0051818783, 0.020902712, 0.025765127, -0.05182124, 0.032107256, -0.027612334, 0.03854499, -0.0169125, 0.042074718, -0.029181426, 0.013941132, 0.051707532, -0.026784802, -0.009203579, -0.0034561125, -0.06075517, -0.0025980312, 0.020822242, 0.015893515, 0.027062371, -0.032482218, 0.047725163, 0.0229818, 0.0058722473, -0.065000765, -0.0350664, -0.038187984, -0.0113269435, -0.0060781776, 0.05618116, 0.06143134, -0.022685045, 0.036532022, -0.044611946, 0.020609688, -0.00052052544, -0.03684715, -0.010775349, 0.013416809, -0.04301601, 0.024352532, 0.014147923, -0.0009176783, 0.03666677, 0.036712058, -0.026744137, 0.0002256053, 0.0084911, -0.060460113, -0.047789108, 0.018356243, -0.033614278, -0.0480158, -0.011252225, 0.005135502, 0.03797654, -0.055638578, 0.040333413, -0.02710128, 0.01441265, -0.03774947, 0.048246995, -0.01750514, -0.02793651, -0.00032703643, -0.018292936, 0.018501518, 0.024200717, 0.0067630378, -0.05537197, 0.048690435, -0.0029928912, 0.0075085345, -0.021284832, 0.048357975, 0.0034751403, 0.027430048, 0.09767551, -0.008842176, -0.057265688, -0.0125553375, 0.01788894, 0.009252415, 0.0057438933, 0.009490757, 0.03743824, 0.024584824, -0.0031950593, -0.02437169, 0.053271767, 0.042892303, 0.0018935163, -0.044708777, 0.026403952, 0.04600242, -0.01831181, 0.021724472, 0.023105104, -0.011150564, -0.0045203664, 0.045451257, -0.032845024, -0.0016305725, -0.08220796, 0.05371168, -0.03291015, -0.06385521, 0.021232, -0.017506734, -0.07460784, 0.032229748, -0.0066883443, 0.06313174, -0.020732157, 0.03903355, 0.0014546211, -0.022770258, -0.008659495, -0.03885708, 0.015491544, -0.029594194, 0.06897873, -0.012742686, 0.03356762, -0.014201656, -0.00026671553, 0.06919764, 0.0129324, -0.0024426116, -0.0017485052, 0.013245029, -0.025595026, -0.027784077, 0.021321068, 0.021094978, 0.03784099, -0.010410234, 0.02786117, -0.06652411, 0.04022844, 0.038303547, -0.037397526, 0.02807366, -0.013837107, 0.0010259796, 0.0014074784, 0.009313318, -0.008859821, -0.009166986, -0.0015099952, 0.011501845, -0.0025460338, 0.009573376, 0.016384264, -0.015090133, 0.02644742, -0.014722166, 0.045242224, 0.0114347255, -0.05268243, -0.0073728864, 0.0057001687, -0.009368285, 0.09470286, 0.041963376, -0.021757612, 0.026653556, 0.026360463, 0.031123416, -0.043381087, -0.008036894, 0.045318123, -0.03290148, 0.011372408, 0.048411414, 0.01928656, 0.051642172, -0.015110774, -0.047771588, -0.018565243, -0.015300919, -0.0071098614, -0.05839538, -0.028558303, 0.0077851396, 0.042158306, -0.01662528, 0.019619992, 0.026916929, -0.017896112, 0.02268643, 0.02034766, 0.027034005, 0.014198918, -0.013397008, -0.044981014, -0.006653775, 0.031392757, 0.07614862, 0.011354421, 0.028269457, 0.006472134, 0.012623923, 0.0030084648, -0.021220487, 0.007938255, -0.013699202, -0.04925726, 0.0016961765, 0.020968396, 0.012906464, -0.0084480895, -0.008004682, -0.0008479775, -0.032709617, 0.03828959, 0.024125474, -0.057567243, 0.029752107, -0.017889215, -0.03500581, -0.021899467, 0.008494492, -0.010038014, -0.0053203017, 0.00099184, 0.044601228, 0.015649116, -0.035661925, 0.003337523, -0.008825306, -0.010429203, 0.00038309448)
+--------------------------------------------------------------------------------
+Distribution of Points with this vector:
+
+Text chunk: What does that mean for this vulnerability? 
+...
+- Stored 6 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Report Confidence 
+ 
+Confirmed 
+Detailed reports exist, or functional reproduction is possible (func...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: An attacker who successfully exploited this vulnerability could bypass Secure Boot. 
+...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Privileges Required 
+ 
+Low 
+The attacker is authorized with (i.e., requires) privileges that provide...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: An authenticated attacker could exploit this vulnerability with LAN access. 
+...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: For example, a successful attack may require an attacker to: gather knowledge about the environment ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Updates 
+ CVSS 
+ 
+Release date Descending 
+ 
+Edit columns 
+ 
+Download 
+ 
+Filters 
+Release date 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: In no event shall Microsoft Corporation or its suppliers be liable for any damages whatsoever includ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: This can mean an attack must be launched from the same shared physical (e.g., Bluetooth or IEEE 802....
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Publicly disclosed 
+Exploited 
+Exploitability assessment 
+No 
+No 
+Exploitation Less Likely 
+Accordin...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Either the vendor has issued an official patch, or an upgrade is available. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Security Updates 
+To determine the support lifecycle for your software, see the  
+Microsoft Support ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: FAQ 
+According to the CVSS metric, the attack vector is adjacent (AV:A). ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk:  
+ 
+Temporal score metrics 
+(3) 
+Exploit Code Maturity 
+This metric measures the likelihood of the...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Confidentiality 
+ 
+High 
+There is total loss of confidentiality, resulting in all resources within t...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: According to the CVSS metric, user interaction is required (UI:R) and privileges required are none (...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Alternatively, only some files can be modified, but malicious modification would present a direct, s...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: For example, the attacker is able to modify any/all files protected by the impacted component. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: According to the CVSS metric, the attack complexity is high (AC:H). ...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: To determine the support lifecycle for your software, see the  
+Microsoft Support Lifecycle 
+. 
+ ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Integrity 
+ 
+High 
+There is a total loss of integrity, or a complete loss of protection. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: How could an attacker successfully exploit this vulnerability? 
+...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Availability 
+ 
+High 
+There is total loss of availability, resulting in the attacker being able to f...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Secure Boot Security Feature Bypass Vulnerability  
+ 
+CVE-2024-26184 
+ 
+Security Vulnerability 
+Rele...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: What kind of security feature could be bypassed by successfully exploiting this vulnerability? 
+...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Updates 
+ CVSS 
+ 
+Release date Descending 
+ 
+Edit columns 
+ 
+Download 
+ 
+Filters 
+Release date 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Unproven 
+No exploit code is available, or an exploit is theoretical. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: In this case, the vulnerable component and the impacted component are either the same, or both are m...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Microsoft disclaims all warranties, either express or implied, including the warranties of merchanta...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Azure Yang 
+ with  
+Kunlun Lab 
+Microsoft recognizes the efforts of those in the security community ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Some states do not allow the exclusion or limitation of liability for consequential or incidental da...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: User Interaction 
+ 
+Required 
+Successful exploitation of this vulnerability requires a user to take ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: The following table provides an  
+exploitability assessment 
+ for this vulnerability at the time of ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Please see  
+Common Vulnerability Scoring System 
+ for more information on the definition of these m...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Scope 
+ 
+Unchanged 
+An exploited vulnerability can only affect resources managed by the same securit...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: See  
+Acknowledgements 
+ for more information. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: To exploit the vulnerability, an attacker who has physical access or Administrative rights to a targ...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: The assessment of this metric excludes any requirements for user interaction in order to exploit the...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Alternatively, access to only some restricted information is obtained, but the disclosed information...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: If a specific configuration is required for an attack to succeed, the Base metrics should be scored ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: An unauthorized attacker must wait for a user to initiate a connection. 
+...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: That is, a successful attack cannot be accomplished at will, but requires the attacker to invest in ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Successful exploitation of this vulnerability requires an attacker to gather information specific to...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Alternatively, the attacker has the ability to deny some availability, but the loss of availability ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Alternatively, an attacker with Low privileges may have the ability to cause an impact only to non-s...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Such conditions may require the collection of more information about the target or computational exc...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Source code is available to independently verify the assertions of the research, or the author or ve...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Remediation Level 
+ 
+Official Fix 
+A complete vendor solution is available. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: High 
+A successful attack depends on conditions beyond the attacker's control. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: version 
+revisionDate 
+description 
+1.0 
+9 Jul 2024 
+Information published. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['ab69b1d1-5b81-0269-30b6-5cf7d0df5953']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+================================================================================
+
+DUPLICATE VECTOR: [0.0429, -0.0614, -0.0192, -0.0393, -0.0373...]
+This exact vector appears 59 times in Qdrant
+Full Vector: (0.042885985, -0.06142447, -0.019174088, -0.039327875, -0.03728996, 0.0038017305, 0.024567489, -0.036549155, 0.013700335, -0.01459432, 0.049016416, 0.019524815, 0.025587885, 0.027385453, -0.034877654, -0.020892007, 0.036780454, -0.013554014, -0.01770044, 0.0023075256, 0.004620918, -0.015217876, 0.01254016, -0.009600373, 0.0049159527, 0.03794804, -0.0024665978, -0.042548053, -0.03641154, 0.027399756, -0.013021136, 0.015825525, -0.0037536924, -0.008429486, 0.04869408, -0.017456263, -0.03347078, -0.048576582, -0.0043866686, -0.021508185, -0.013417713, 0.027599528, 0.025791962, 0.07943896, -0.0033202698, 0.02668673, -0.023717357, 0.026617821, 0.026868917, -0.0010036337, 0.042170793, -0.03524299, 0.03195478, -0.042459052, -0.022487216, -0.004931096, 0.02472034, 0.040183373, 0.0014020025, -0.015870184, -0.014102249, -0.022386493, -0.036340266, -0.017507356, 0.00867404, 0.04795417, 0.041593876, -0.0039986465, 0.021997109, 0.0047473204, -0.008211149, 0.013445089, -0.015791003, 0.025660548, 0.064452864, -0.012334618, -0.0014322542, 0.011750311, 0.02086936, 0.020449387, -0.02486795, -0.03078096, -0.0041121007, -0.0014925993, 0.061502755, 0.023090092, 0.08785688, -0.005194451, -0.0041878484, -0.014314871, 0.011534917, -0.02254397, 0.034196246, 0.036358744, -0.0361195, 0.0147633515, -0.012693947, -0.003977514, 0.022607379, -0.021884114, -0.0146181015, -0.0311495, -0.012306929, 0.014088329, 0.016473334, 0.010562693, 0.008510171, -0.021205246, -0.01685639, 0.013665203, -0.015548694, -0.037501674, -0.017102066, -0.025879875, 0.08317495, -0.021757433, -0.01216791, 0.00027290895, -0.016120575, 0.011708119, 0.03127812, 0.016483137, 0.006385221, -0.07711224, -0.027514668, 0.0530808, 0.03580985, -0.04970563, -0.00045422633, 0.022567313, 0.0023443107, 0.03364447, 0.047789868, -0.0132042905, -0.052441213, 0.026074175, -0.09130957, -0.10026827, 0.093976624, 0.037070453, 0.015677117, -0.06496997, -0.010709311, 0.005859358, 0.05107267, -0.008059319, 0.018390097, -0.01528243, -0.03950358, -0.027317053, -0.00315936, -0.01134049, -0.0599986, -0.016605781, -0.009861592, -0.05972125, 0.014629834, 0.0056031803, -0.010799668, 0.0024542636, -0.017604982, -0.014323703, 0.015689407, -0.014371641, -0.054071102, -0.0077544684, 0.058483213, 0.012041703, -0.012779016, 0.020474924, -0.049122047, 0.0150576085, 0.0122931, 0.031499136, -0.005109861, 0.024505207, 0.010292942, -0.04230923, -0.0122843115, 0.0007635056, -0.042696107, -0.017056983, 0.019283, 0.018402014, -0.016847756, 0.045270193, 0.007263354, -0.004757211, 0.033595648, -0.042826466, -0.011910444, -0.052785635, 0.03263574, -0.0037786707, -0.037888687, 0.02405989, -0.055959497, 0.01793734, 0.038494613, 0.015972067, 0.006765716, -0.04252213, 0.053383183, 0.0013187024, -0.0035717306, 0.02983702, -0.007364269, -0.021770582, -0.019612508, -0.03588143, -0.014493277, 0.012832464, -0.027978146, -0.0024611645, -0.016411625, 0.031408623, -0.013165416, 0.028036077, -0.011720941, 0.014558884, -0.03955284, 0.00027281741, 0.04573359, 0.025931437, 0.021422539, -0.02430628, -0.029977404, 0.0063984534, -0.020480812, 0.0041437354, -0.04951326, -0.05084841, 0.015526891, -0.03837354, -0.008335192, 0.025586944, 0.030345365, 0.014612452, 0.010550259, -0.0063548516, 0.07453346, 0.007006999, 0.060145915, 0.026561126, 0.003225698, 0.027144257, 0.011601664, -0.0139566595, -0.0011771286, 0.039228942, 0.005791066, 0.00040722312, 0.045149703, 0.0014869525, -0.0073640044, 0.012704347, 0.030837484, -0.027066808, 0.012952969, 0.022356637, 0.012609216, -0.04096523, -0.020683495, 0.013716096, 0.026374927, 0.025841657, 0.00518601, 0.010788973, 0.06256249, 0.022366514, -0.010243542, -0.01100463, -0.043841656, -0.00032340613, -0.016177492, 0.03557283, -0.057587326, -0.0073124073, 0.0054884413, 0.0094023505, -0.027035298, -0.008076664, -0.027457705, 0.02365807, -0.013112655, -0.0023363363, -0.0027454447, -0.001328837, 0.036062717, 0.06083339, -0.029143184, 0.037915092, 0.037958447, -0.0042941533, -0.019158142, 0.009473433, 0.0111524565, 0.0013784323, -0.011866054, 0.03112196, 0.0021302563, -0.008768369, -0.008735654, -0.031963326, 0.017739754, -0.008553684, -0.052979726, -0.03264677, -0.021394119, 0.013163397, -0.025232626, 0.036498114, -0.013664439, -0.009658766, -0.094805144, -0.05256504, 0.00758796, 0.0027138698, 0.00022941433, -0.02413993, 0.021683006, 0.022949897, -0.016083827, -0.007830833, 0.012785643, 0.005110219, -0.062064774, -0.04407185, -0.016108803, 0.0233638, -0.004642198, -0.026617272, 0.05815945, 0.00093688595, -0.024962034, -0.0010404917, 0.0658465, 0.007556623, -0.03658794, 0.00061266654, 0.041826647, 0.0078002987, -0.012024161, -0.017129352, -0.008615197, 0.007037334, -0.032049414, 0.0019258267, 0.0072117215, 0.028213121, 0.027563702, 0.03882857, -0.0012392031, -0.05239294, -0.0039711357, 0.011197116, 0.040059265, -0.036346775, -0.0078211175, 0.0545532, 0.007295054, -0.009368172, 0.005369202, -0.03526765, -0.03765402, -0.033142608, -0.0045317723, 0.03777309, 0.005886332, -0.013343604, 0.009822988, 0.0153968595, -0.0071978867, -0.009557969, -0.05264294, -0.01063191, -0.051303983, 0.0055347094, 0.020372758, -0.018684762, 0.039433993, -0.035316177, -0.048473544, -0.012002527, -0.04593966, 0.016692916, 0.026765421, 0.009559507, -0.046015628, -0.050470375, -0.011523486, 0.014432406, 0.0035824417, 0.019712543, -0.011651239, -0.01652096, -0.00052198773, 0.020310685, -0.034596924, 0.005994153, 0.078079365, 0.07130264, 0.011110527, 0.027462374, -0.0023113338, 0.035336804, -0.010098819, -0.051867694, 0.0034030937, 0.007846153, 0.03814112, 0.007993203, -0.010174565, -0.023676053, -0.018300356, -0.008497925, -0.045352086, -0.027336609, -0.009038152, 0.02819488, 0.03015682, -0.0069216858, -0.0018299712, -0.0049982895, 0.027505416, 0.026664931, -0.01099329, 0.03892116, 0.0056437775, -0.017106619, 0.036566146, 0.005708743, 0.00088572025, -0.029984288, 0.018690169, 0.02963765, 0.03134327, -0.03869038, 0.023994068, 0.00027404522, 0.03583068, -0.031548295, -0.0046072397, -0.04128794, 0.019389348, 0.0016262004, -0.0015253287, -0.025687395, 0.03956361, 0.049065467, 0.02064288, 0.029278269, -0.008015054, -0.014522213, -0.10732826, -0.05902824, -0.052564006, 0.06670349, -0.02070767, -0.0013093431, -0.009632205, -0.019454112, -0.017441232, 0.025004622, 0.015267365, -0.0031115974, 0.06638765, -0.026604006, -0.019247055, -0.056673564, -0.034998186, -0.017628511, 0.014752216, -0.0013778976, -0.017040148, 0.021958452, 0.014071482, -0.043021645, -0.004326193, -0.011474154, -0.04354877, -0.027939325, 0.04027499, -0.05170431, -0.040414423, 0.022393808, 0.006518925, 0.014927346, 0.031743303, -0.047712293, 0.035667278, 0.04265884, 0.048362, 0.011007682, 0.007818005, -0.032949504, 0.01578899, 0.024017783, 0.034870155, 0.005477102, 0.00083597604, -0.02658031, 0.012454144, 0.027929936, 0.007841668, -0.025592912, 0.016653098, 0.018840535, -0.0014006916, -0.050857108, 0.044237763, -0.007889909, 0.0044641206, 0.014740966, 0.04519123, 0.002890407, 0.01028564, -0.0098041715, 0.011065628, -0.014633528, 0.021280523, -0.07280852, -0.016217517, 0.0030253634, -0.05222371, -0.04211732, 0.056421615, 0.051468838, 0.046167795, -0.0012416295, 0.027788889, -0.0019345464, -0.00065702945, 0.0070220884, 0.06368956, -0.023916768, -0.0038658057, -0.022288905, 0.024538904, -0.009552601, -0.077211745, 0.043070186, 0.016027551, 0.008575633, -0.005669452, -0.0040277373, -0.04228375, -0.055741068, -0.017973278, 0.008716566, -0.0036067276, -0.015198014, -0.010456576, -0.0054978314, -0.0019602855, -0.046746284, 0.011894943, 0.013807427, -0.031679682, -0.019725166, -0.006033957, 0.027813485, 0.053649668, 0.036307532, 0.008025341, -0.012543946, 0.010149243, 0.04620905, -0.014629478, -0.048115678, 0.017284265, -0.034729123, 0.013325653, 0.0039853277, -0.008828925, 0.038194723, -0.004780827, -0.017829731, -0.022815952, 0.015280825, -0.042858697, -0.035013735, 0.021610443, -0.002222599, 0.019307198, -0.0059704995, 0.015673641, -0.006919151, 0.04054355, -0.026437523, 0.0111022685, 0.0930488, -0.059588924, 0.031955898, -0.013843356, -0.0132065825, 0.03346744, -0.0148171075, -0.02069208, -0.03508642, -0.017067287, 0.025131352, 0.0085085165, -0.06842297, 0.031387743, 0.027509881, -0.026350874, 0.06881217, 0.0129449945, -7.2871308e-06, -0.025233965, -0.020435464, 0.02276734, -0.016200949, 0.02630375, 0.02710599, -0.0006596536, -0.013574942, 0.0009234528, 0.020909717, -0.015102544, -0.017166091, 0.029432252, -0.015598408, 0.045028053, -0.07751809, 0.007217196, 0.027293826, -0.03746775, 0.005520335, 0.01709997, 0.020203358, -0.03289191, -0.0149078425, -0.011579888, -0.043659426, -0.04466577, -0.04271458, 0.032655306, 0.008842213, -0.0070579066, -0.0021630235, -0.01980149, 0.041867297, -0.031166747, 0.006121636, -0.0705389, -0.060601998, -0.01573157, 0.021576593, -0.038044035, 0.043062385, 0.0154712675, 0.026149983, 0.006760436, -0.021158634, 0.014095383, -0.015225512, 0.025576636, 0.0051327124, 0.058459952, 0.033458885, -0.022032741, -0.046930823, 0.015372271, 0.20684056, 0.019348633, -0.02401954, -0.027162217, -0.011752051, 0.03348427, -0.0275378, 0.076376066, -0.031693548, 0.009969154, -0.022034913, 0.011519229, 0.02028753, 0.035557788, 0.0353703, 0.04140125, -0.018965898, 0.008758763, -0.0062603736, -0.0019872994, 0.005022155, 0.020794563, -0.060577456, -0.067129984, 0.0029541603, -0.0018835256, -0.0044408897, -0.046745073, -0.005236213, 0.025553564, 0.033105653, 0.0064646653, -0.02086023, 0.03033129, 0.06114727, 0.026931955, 0.066509955, 0.05671043, 0.025630713, 0.040832672, 0.0485504, -0.0007208886, -0.04819529, -0.018099053, -0.03781227, 0.038886067, -0.013408634, 0.008729938, -0.031612568, -0.019930685, 0.03207266, -0.043811977, -0.006249383, -0.034061383, -0.010797022, 0.03580613, 0.014029092, -0.010403592, 0.0009557584, -0.0028902094, 0.015716804, -0.039136264, -0.010152429, -0.0073643266, -0.0032567268, -0.033298258, -0.05092154, 0.07455549, 0.021763707, -0.009664627, -0.027956227, -0.026951673, 0.018356154, -0.017173352, 0.0057719303, -0.036315378, -0.019842703, 0.01885591, 0.02890177, 0.008429595, -0.010110233, -0.0068772077, 0.006038829, -0.014573495, -0.033886988, -0.020793516, -0.013469464, 0.0033563592, -0.03931072, -0.0042232405, -0.006286049, 0.11322595, -0.0053852624, -0.0072721615, -0.062092755, 0.04625888, 0.003960278, 0.02821219, 0.01669441, 0.025527643, -0.011316334, 0.0580005, 0.022379858, -0.01048015, -0.030646212, -0.031039272, 0.044304337, -0.032893263, -0.07738247, 0.045826122, -0.010764569, 0.013614845, 0.052115466, -0.010887726, -0.043848623, 0.0029996815, -0.011166128, -0.047392007, 0.002225075, -0.0139694465, 0.015258472, -0.005219712, 0.0036365392, 0.006592778, 0.024292963, 0.0045120036, 0.011395184, 0.018158818, 0.0047117677, -0.038784157, 0.028291592, -0.028263567, 0.016700685, -0.010950903, 0.032864247, -0.051531155, -0.0046851775, 0.026953135, -0.03055986, -0.036610723, 0.00022220562, -0.053483248, -0.0047718594, 0.021054318, 0.016696805, 0.02666217, -0.01874546, 0.047562536, 0.029286254, 0.02606362, -0.041596457, -0.031944886, -0.02948897, -0.0038627246, -0.0060922685, 0.048630316, 0.053043645, -0.032196686, 0.015927618, -0.03207576, 0.023191053, 0.0071478947, -0.014025827, 0.0031547716, 0.0045387372, -0.03888293, 0.036955547, 0.00804155, 0.0064358343, 0.04471833, 0.018454943, -0.023867058, -0.009672886, 0.018753875, -0.06429116, -0.046507053, 0.026295342, -0.039857026, -0.045133337, -0.010402758, 0.0026610352, 0.042548295, -0.06355834, 0.019843627, -0.027218351, 0.019040179, -0.033553798, 0.035800867, -0.011227185, -0.02037645, -0.011437152, -0.011529776, 0.016545456, 0.01685021, 0.0010028189, -0.05115331, 0.047548093, -0.005056954, 0.0005007723, -0.013896499, 0.052559048, -0.006328118, 0.04235812, 0.07501692, -0.026794858, -0.04589013, -0.018343482, 0.024156608, 0.01757895, 0.011610924, -0.008701844, 0.030482804, 0.03001757, 0.0077545773, -0.027908726, 0.048103325, 0.036551647, 0.0004947289, -0.027336212, 0.022546146, 0.05464763, -0.0075022746, 0.01978783, 0.014386827, -0.013597969, -0.007439152, 0.033093724, -0.019158516, -0.008822198, -0.06543138, 0.048459686, -0.040279746, -0.046638116, 0.0039096544, -0.02100968, -0.0669988, 0.025832066, -0.013183252, 0.05938972, -0.02830322, 0.04479181, -0.0042328513, -0.011480748, -0.010110873, -0.03174188, 0.01480038, -0.044140775, 0.066204585, -0.011529945, 0.02186395, -0.017460397, 0.012496885, 0.04959472, -0.0048691807, 0.014936721, 0.016491197, 0.0065830206, -0.04142581, -0.022644669, 0.035036307, 0.0043195235, 0.041254792, -0.012799187, 0.015625814, -0.06397162, 0.03503481, 0.020912, -0.041693997, 0.05437548, -0.01482415, 0.027184907, -0.0023986113, -0.0005325155, -0.017816572, 0.008483481, -0.01454264, 0.011317714, -0.007433534, -0.00963569, 0.029728938, -0.004806464, 0.033672307, -0.027958443, 0.040916197, 0.0123924315, -0.05584706, -0.0060481373, 0.0027572413, -0.0010104812, 0.09527682, 0.040741432, -0.008730907, 0.019084306, 0.0033828923, 0.03494103, -0.053653855, -0.00038798104, 0.03642937, -0.013673981, 0.0168204, 0.057574663, 0.03951955, 0.0437253, 0.017469091, -0.055987895, -0.03032706, 0.00017615822, -0.014066952, -0.04611796, -0.0192578, 0.013365167, 0.04217583, -0.018241785, 0.014061349, 0.032373264, -0.030651694, 0.010295952, 0.00081768684, 0.01753637, 0.0175498, -0.01810219, -0.05392228, 0.005149625, 0.021691535, 0.07721468, 0.02782028, 0.03143276, 0.020056395, -0.0010463629, 0.019144328, 0.0014200013, 0.004952918, -0.021528697, -0.045838647, 0.003274427, 0.027498927, 0.0058540213, 0.000164306, -0.005646637, 0.0010956666, -0.032315858, 0.03952151, 0.0081353355, -0.057918712, 0.015288098, -0.0060195583, -0.029994177, -0.019106856, -0.008005895, -0.014424095, -0.02988933, 0.0019087553, 0.04276885, 0.015154421, -0.017314238, 0.017409997, -0.016758572, 0.0095993625, 0.006056632)
+--------------------------------------------------------------------------------
+Distribution of Points with this vector:
+
+Text chunk: Integrity 
+ 
+High 
+There is a total loss of integrity, or a complete loss of protection. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Privileges Required 
+ 
+None 
+The attacker is unauthorized prior to attack, and therefore does not re...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Successful exploitation of this vulnerability requires an attacker to obtain special or uncommon har...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: The following table provides an  
+exploitability assessment 
+ for this vulnerability at the time of ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Some states do not allow the exclusion or limitation of liability for consequential or incidental da...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Microsoft Xbox Remote Code Execution Vulnerability  
+ 
+CVE-2024-38032 
+ 
+Security Vulnerability 
+Rel...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Either the vendor has issued an official patch, or an upgrade is available. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Alternatively, only some files can be modified, but malicious modification would present a direct, s...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: According to the CVSS metric, user interaction is required (UI:R). ...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: According to the CVSS metric, the attack complexity is high (AC:H). ...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: An unauthenticated attacker could send a malicious networking packet to an adjacent system that is e...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: The user would have to click on a specially crafted URL to be compromised by the attacker. 
+...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Unproven 
+No exploit code is available, or an exploit is theoretical. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Availability 
+ 
+High 
+There is total loss of availability, resulting in the attacker being able to f...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: What does that mean for this vulnerability? 
+...
+- Stored 4 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Alternatively, access to only some restricted information is obtained, but the disclosed information...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Remediation Level 
+ 
+Official Fix 
+A complete vendor solution is available. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Wei in Kunlun Lab with  
+Cyber KunLun 
+Microsoft recognizes the efforts of those in the security com...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: FAQ 
+According to the CVSS metric, the attack complexity is high (AC:H). ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: See  
+Acknowledgements 
+ for more information. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: In this case, the vulnerable component and the impacted component are either the same, or both are m...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Such conditions may require the collection of more information about the target or computational exc...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Updates 
+ CVSS 
+ 
+Release date Descending 
+ 
+Edit columns 
+ 
+Download 
+ 
+Filters 
+Release date 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk:  
+ 
+Temporal score metrics 
+(3) 
+Exploit Code Maturity 
+This metric measures the likelihood of the...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Publicly disclosed 
+Exploited 
+Exploitability assessment 
+No 
+No 
+Exploitation Less Likely 
+Accordin...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: version 
+revisionDate 
+description 
+1.0 
+9 Jul 2024 
+Information published. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: What interaction would the user have to do? 
+...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Report Confidence 
+ 
+Confirmed 
+Detailed reports exist, or functional reproduction is possible (func...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Scope 
+ 
+Unchanged 
+An exploited vulnerability can only affect resources managed by the same securit...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Source code is available to independently verify the assertions of the research, or the author or ve...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: If a specific configuration is required for an attack to succeed, the Base metrics should be scored ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: User Interaction 
+ 
+Required 
+Successful exploitation of this vulnerability requires a user to take ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Security Updates 
+To determine the support lifecycle for your software, see the  
+Microsoft Support ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: The assessment of this metric excludes any requirements for user interaction in order to exploit the...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: To determine the support lifecycle for your software, see the  
+Microsoft Support Lifecycle 
+. 
+ ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Microsoft disclaims all warranties, either express or implied, including the warranties of merchanta...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: For example, the attacker is able to modify any/all files protected by the impacted component. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Successful exploitation of this vulnerability requires an attacker to gather information specific to...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Please see  
+Common Vulnerability Scoring System 
+ for more information on the definition of these m...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: That is, a successful attack cannot be accomplished at will, but requires the attacker to invest in ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: How could an attacker exploit the vulnerability? 
+...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Alternatively, the attacker has the ability to deny some availability, but the loss of availability ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Updates 
+ CVSS 
+ 
+Release date Descending 
+ 
+Edit columns 
+ 
+Download 
+ 
+Filters 
+Release date 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: For example, a successful attack may require an attacker to: gather knowledge about the environment ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Confidentiality 
+ 
+High 
+There is total loss of confidentiality, resulting in all resources within t...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: High 
+A successful attack depends on conditions beyond the attacker's control. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: In no event shall Microsoft Corporation or its suppliers be liable for any damages whatsoever includ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: This can mean an attack must be launched from the same shared physical (e.g., Bluetooth or IEEE 802....
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['b6428eaf-8702-5fc2-c53a-6ddf1581acb7']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+================================================================================
+
+DUPLICATE VECTOR: [0.0450, -0.0543, -0.0277, -0.0433, -0.0382...]
+This exact vector appears 53 times in Qdrant
+Full Vector: (0.04502837, -0.054332536, -0.027671658, -0.043282963, -0.038218904, -0.0077686026, 0.015048957, -0.03449268, 0.03319162, -0.035475202, 0.04763209, 0.02755078, 0.017147828, 0.021679407, -0.02412329, -0.0039445586, 0.047639363, -0.01750142, -0.01400743, 0.028372485, -0.011961583, -0.02926824, 0.0066385996, -0.021703348, 0.003733923, 0.02849288, -0.0053926785, -0.06574379, -0.0005230317, 0.04298876, -0.019894147, 0.014613508, 0.011562716, -0.019773947, 0.021998703, -0.041826993, -0.025472408, -0.04724229, 0.009160356, -0.017081106, 0.0042021233, 0.0010076815, -0.012785787, 0.08744371, -0.0017742601, 0.02130107, -0.026298504, 0.010253962, -0.0034070301, -0.020437345, 0.042053945, -0.032766465, 0.025784273, -0.043936115, -0.02336793, 0.0037285548, 0.038444318, 0.039290596, 0.01852185, -0.034518704, -0.025723359, -0.02275866, -0.021278005, -0.0134137515, -0.008912787, 0.06944313, 0.01295259, 0.018590918, 0.027725393, 0.014052716, 0.020663602, 0.024225026, -0.01137751, 0.01252621, 0.034619857, -0.013187222, -0.014735437, -0.0073008253, 0.013136916, 0.019450918, -0.033182014, -0.016469318, -0.0029129346, -0.0051279175, 0.08501473, 0.014007156, 0.08898681, -0.0070610517, -0.011198067, -0.026901552, 0.018948019, -0.020309974, 0.021848248, 0.02860853, -0.035641946, 0.034248095, -0.02599253, -0.001710842, 0.014423517, -0.02257732, 0.026756512, -0.030834604, 0.0050092116, 0.030290756, 0.004863765, 0.0011395066, -0.013280338, -0.01985628, -0.0047179046, 0.005982797, -0.041766234, -0.011932801, -0.028260179, -0.006082048, 0.091589995, -0.051767245, -0.030337987, 0.020935759, -0.0029733158, 0.011163855, 0.040046804, 0.00330819, 0.021961294, -0.05705121, -0.013292666, 0.05214497, 0.04360838, -0.062038634, -0.010460178, 0.01116744, -0.011470371, 0.010237558, 0.030690638, 0.0004442562, -0.059684813, 0.013825749, -0.11249968, -0.111018315, 0.08298528, 0.03879681, 0.018519737, -0.05850699, -0.01356035, 0.0362512, 0.060392037, 0.00427029, 0.012644418, -0.0058179637, -0.025552725, -0.028570827, -0.0020498903, -0.04191506, -0.06458462, -0.008221705, 1.836761e-05, -0.050403986, 0.01432675, 0.026091576, -0.005852887, -0.019083822, -0.014067097, 0.010678756, -0.011172153, -0.005054185, -0.07094057, 0.0036609939, 0.032179028, 0.003372374, 0.0050943866, 0.04659515, -0.04866679, 0.019784935, 0.029173732, 0.01744147, 0.0064919237, 0.0104716495, 0.002145677, -0.040865183, 0.0043818895, -0.022147255, -0.034084126, 0.0037107777, 0.0050366456, 0.011275533, 0.011897347, 0.051944092, -0.0018874942, -0.00180387, 0.056472305, -0.03405939, -0.031626344, -0.03856991, 0.027011292, -0.010554523, -0.035560288, 0.021485763, -0.03631343, 0.017837372, 0.0154021345, 0.025578463, -0.008546206, -0.028834045, 0.0329391, 0.0017849233, 0.0023072495, 0.030672848, -0.0114249755, -0.019240404, -0.0032218557, -0.024407508, -0.036760557, 0.012931605, -0.031653505, -0.0007978497, 0.0005573507, 0.03474441, 0.013838429, -0.0048163245, -0.0055888793, -0.007599323, -0.049045686, -0.005675041, 0.062152054, 0.036928087, 0.015476924, -0.03106608, 0.0005315948, -0.011952627, -0.020235978, 0.025117144, -0.047792073, -0.041875366, 0.039234705, -0.038591914, -0.037263826, 0.0064271707, 0.046491317, 0.003989437, 0.002470733, 0.012730612, 0.0917117, 0.0070475875, 0.062018894, 0.020951431, 0.002574678, 0.016759379, 0.008820399, 0.0031451387, -0.010327652, 0.03859536, 0.014181508, 0.019886654, 0.060448207, -0.020521842, -0.008454571, 0.015145904, 0.037155166, -0.031219965, 0.025994278, 0.0044211172, -0.000242651, -0.02626481, -0.0012506159, 0.020569993, 0.04362006, 0.0012607322, 0.005038202, 0.005332309, 0.06121634, -0.0011252231, -0.013590695, -0.012793434, -0.0690405, -0.005054657, 0.003249664, 0.055413786, -0.05757474, -0.026031423, 0.024209872, -0.008952678, -0.05349014, -0.0051882295, -0.038675148, 0.029181397, -0.020815596, 0.0091998605, 0.005229466, -0.009936266, 0.03527151, 0.021732038, -0.03732662, 0.027070448, 0.022758888, -0.017280001, -0.021827674, 0.021721167, 0.010214651, -0.0069594453, -0.027908098, 0.029344538, -0.0059014773, -0.007604474, -0.015883055, -0.0013149707, 0.019697348, -0.010227094, -0.06472648, 0.0023108197, -0.032884177, 0.01607017, -0.048688322, 0.009239587, -0.0074627455, -0.0034397594, -0.092393495, -0.034457132, 0.0074240733, 0.008729029, 0.010499736, -0.037328918, 0.03547137, -0.00254499, 0.010029528, -0.0019371721, 0.01130985, -0.040198885, -0.050831348, -0.023447338, -0.060798813, 0.011530557, 0.015388104, -0.027686372, 0.05917305, 0.010044796, -0.021621369, -0.01544812, 0.08358077, 0.008074977, -0.01687387, -0.010761908, 0.026865486, 0.00063492433, 0.0033589988, 0.04119369, -0.0038041077, 0.022666132, -0.0066033592, -0.013118304, 0.027882976, 0.03740282, 0.028705997, 0.055123135, -0.00043970585, -0.030356, -0.0024627184, -0.004812221, -0.00026704822, -0.047575004, -0.018419098, 0.043925762, -0.0040400713, -0.023141831, 0.0015151125, -0.031257067, -0.02805907, -0.018599337, -0.011852075, 0.018860085, 0.0038672546, -0.002695825, 0.0006552764, 0.036792308, -0.014551913, -0.008693144, -0.04811901, -0.014508872, -0.06619336, -0.0012725636, 0.038656477, -0.020131417, 0.020207442, -0.029423565, -0.05060811, -0.008699068, -0.011001134, 0.035088785, 0.02176409, 0.011660377, -0.043506015, -0.015438485, -0.012413763, 0.021668239, -0.026988761, -0.0035168845, -0.020608116, -0.017968157, 0.00034837198, 0.02437041, -0.024440492, -0.012353309, 0.06149885, 0.037350994, 0.001919794, 0.035093244, 0.008510079, 0.02076184, -0.0043526413, -0.021839987, 0.014888331, -0.0016887189, 0.02458602, 0.012785057, -0.005732637, -0.020863285, -0.01822006, -0.029436534, -0.02844635, -0.028343996, -0.02957025, 0.019275662, 0.006982031, -0.014588698, -0.0014612697, -0.005423998, 0.03474208, 0.014277265, 0.036923956, 0.0060262247, -0.010582757, -0.009685667, 0.05983242, -0.012793672, -0.01462972, -0.013043496, 0.024371915, 0.00456893, 0.044256534, -0.020575225, -0.00634143, 0.014937744, 0.012051329, 0.0065229298, -0.033687096, -0.052012846, 0.01286539, 0.022302026, -0.038675897, 0.008002432, -0.01910869, 0.05113919, 0.021059873, 0.015956229, -0.002287157, -0.01274195, -0.111418135, -0.055227835, -0.027622605, 0.07393412, -0.026376853, 0.00758376, -0.022838175, 0.029830623, -0.022111373, 0.00499865, 0.018073423, 0.024426376, 0.060576916, -0.026805982, 0.016458344, -0.031927392, -0.00752297, -0.0059566437, 0.03725923, -0.0042100605, -0.0056811725, -0.004025015, 0.022556322, -0.021474104, 0.007946733, 0.028692337, -0.02232934, -0.036695074, 0.051851235, -0.034497175, -0.048192084, 0.014404162, 0.018192563, -0.0107149575, 0.03499854, -0.05910788, 0.038027555, 0.04796601, 0.05851262, 0.022152413, 0.017533574, -0.018788775, 0.057982437, 0.02102915, 0.019674689, 0.0005659777, 0.000767317, -0.029923346, -0.002772381, 0.009102838, -0.012436754, -0.050651193, 0.0118159205, 0.0169344, -0.017611975, -0.014909004, 0.0752007, -0.034689322, 0.0080465665, 0.0035447183, 0.04656003, -0.015394229, -0.009991963, -0.0037917206, 0.018734202, -0.028832251, -0.0035097892, -0.07315863, -0.029329605, -0.014432804, -0.03658, -0.048340857, 0.03280107, 0.03569614, 0.031546947, 0.03886594, 0.031000853, -0.03777189, 0.008645809, 0.026239395, 0.07594545, -0.028754985, -0.015230927, -0.03522228, -0.00039031476, 0.021013873, -0.06773023, 0.049648732, 0.025711864, -0.0039611435, -0.004989005, -0.021044215, -0.02734715, -0.050252687, -0.029680235, -0.018893907, -0.0111125335, -0.03187396, 0.030699734, 0.011967913, -0.0038677999, -0.020784903, 0.023199836, -0.0058189807, -0.045457087, 0.0019425497, -0.030867077, -0.0008119031, 0.057270356, 0.031319052, -0.007357361, -0.019141639, -0.0061708754, 0.022908127, -0.018325076, -0.040169384, 0.00040146997, -0.018814135, -0.0024662183, 0.01563234, 0.009616997, 0.036129672, -0.02762311, -0.005781121, -0.007927183, 0.040707257, -0.009631288, -0.01948718, 0.03673772, 0.01129234, 0.011964558, -0.045364104, 0.009875719, -0.024639435, 0.034228183, -0.041297007, 0.008339543, 0.08994536, -0.029647661, 0.046531267, 0.009331497, -0.019910416, 0.020691067, 0.0005633735, -0.021470474, -0.046242964, 0.0011638424, 0.0022381046, 0.0041448046, -0.06436025, 0.010976631, 0.03765748, -0.0086252, 0.055470902, 0.045408882, 0.0206436, -0.019517427, -0.033185206, 0.03699611, -0.026513355, 0.023576884, -0.012853829, 0.01992224, -0.002076582, 0.0084524825, 0.012302131, -0.002417876, -0.008784705, 0.02314534, -0.02359988, 0.03216782, -0.046318423, -0.03211101, 0.023880182, -0.05183196, -0.01397441, 0.030722743, 0.022527901, -0.008247373, -0.02383062, -0.012290583, -0.047888275, -0.021206947, -0.032108806, 0.060564153, -0.025305383, -0.022151696, -0.0040410766, -0.011907087, 0.019594915, -0.015378278, 0.017356936, -0.063619845, -0.04024893, -0.017139737, 0.0028583126, 0.0030409691, 0.05007234, 0.027048536, 0.022699807, 0.01021135, -0.0025328607, 0.039224736, 0.03334011, 0.030355025, 0.006005537, 0.09979985, 0.011568985, -0.027157059, -0.03999154, -0.017180258, 0.17149901, 0.006180925, -0.06194909, -0.01240814, -0.017628066, 0.033306684, 0.0022197634, 0.05386408, -0.059576456, -0.009268878, -0.0063128714, 0.04427996, 0.008750875, 0.04945287, 0.018787257, 0.06298053, -0.01533639, -0.005174495, 0.005532505, 0.00034421252, 0.00028332561, 0.020622008, -0.06847761, -0.065790065, 0.008261279, -0.035762385, -0.018535264, -0.02601671, 0.005197073, 0.031138545, 0.011157412, -0.028400231, -0.022898637, 0.028422026, 0.030381035, 0.013841184, 0.057310738, 0.05306737, 0.033112448, 0.0077089844, 0.0640385, -0.015232455, -0.04422943, -0.00468273, -0.06754212, 0.065638535, 0.0017581795, 0.0071207047, -0.019761207, 0.004026707, 0.038515646, -0.049737852, 0.005424208, -0.03886918, -0.0066714333, 0.007254723, -0.0021589661, -0.020961449, -0.005938172, -0.007062389, 0.005397006, -0.032910436, -0.0042978046, -0.025036447, 0.038699154, -0.024512334, -0.0323779, 0.06324657, 0.005966662, -0.005485002, -0.0079943845, 0.011360748, 0.036587346, -0.017423943, 0.03725794, -0.04875064, -0.016575266, 0.009577536, 0.029942432, -0.008694681, -0.042622667, 0.0008383435, -0.0041046063, 0.002342725, -0.024326459, -0.0062334794, -0.0045043863, 0.020680573, -0.036624506, -0.0016469589, -0.023182545, 0.10356593, 0.022640815, 0.010736812, -0.009198093, 0.035254214, -0.016590588, 0.032576185, -0.003567894, 0.022698019, 0.0107614575, 0.035841707, -0.0101516815, -0.0038241684, -0.03440362, -0.041320715, 0.009118963, -0.014784775, -0.065018326, 0.019728003, -0.00086449395, 0.010472897, 0.015234261, -0.024312653, -0.042961657, -0.0007673896, -0.023018204, -0.044509523, -0.0028626947, 0.009742599, 0.009761929, 0.0071698725, 0.013046434, 0.021491483, 0.019296175, -0.03154276, 0.011599672, 0.045993183, 0.0009902326, -0.054871816, 0.034120474, -0.009932246, 0.013077937, -0.025947746, 0.03880551, -0.07104944, 0.008034921, 0.028826047, -0.02371665, -0.024182081, 0.0076178527, -0.06466639, 0.002814535, 0.040893957, 0.012121601, 0.06107063, -0.014593437, 0.032719493, 0.03760851, 0.018245023, -0.008789032, -0.021406185, 0.021747516, 0.025483767, -0.009573218, 0.060121123, 0.02778647, -0.039430555, -0.0057792957, -0.016507808, 0.027914751, 0.020022238, -0.010265233, 0.02185378, 0.03140261, -0.033092044, 0.033898327, -0.00051049143, 0.017129445, 0.04568529, 0.00804773, -0.0032522483, -0.008992288, 0.0051483735, -0.07212638, -0.032078877, 0.007707143, -0.03283907, -0.023169842, -0.021070467, 0.003708212, 0.042181525, -0.07081478, 0.0053006094, -0.011348269, -0.002394088, -0.019621292, 0.039957814, 0.004760965, -0.031931188, -0.009108265, -0.013714992, 0.0391082, 0.013899292, -0.016617415, -0.04824543, 0.0542948, 7.8308745e-05, 0.0031801658, -0.035822995, 0.03704986, 0.01078881, 0.030243782, 0.048053924, -0.030135982, -0.0432407, -0.008653533, 0.050487746, 0.027224991, 0.033394154, -0.016739218, 0.0023318764, 0.004908493, -0.011395356, -0.003927347, 0.034825094, 0.036657944, 0.02941939, -0.030361377, 0.012383421, 0.036318857, -0.0117207905, -0.0050909356, 0.02169339, -0.018757623, 0.011029151, 0.024636546, -0.05417601, -0.012155268, -0.048938595, 0.041023027, -0.03836293, -0.037625894, 0.012025099, 0.004989293, -0.044044327, 0.04373745, 0.012253418, 0.029398886, 0.0064839306, -0.008150483, -0.022640668, -0.01515286, 0.0012897822, -0.014407056, -0.008427806, -0.05426037, 0.056273043, -0.004440379, 0.024076335, 0.021910347, 0.01740471, 0.035594083, 0.008519255, 0.036026124, 0.028936468, -0.008078557, -0.03357607, -0.052412614, -0.0004534525, -0.009370388, 0.044315223, -0.011848227, 0.020668317, -0.07261796, 0.03947465, -0.0015114809, -0.06369075, 0.046667315, 0.017462658, 0.010337701, 0.00022162414, -0.031999547, -0.011803444, 0.021584244, -0.00048505253, -0.0019951973, -0.017292045, -0.01525028, 0.031158341, 0.0039825593, 0.06005531, -0.017175721, 0.055473574, -0.024097387, -0.030544858, -0.022227267, -0.02706854, 0.011629722, 0.079080194, 0.022009587, 0.021653824, 0.029013114, 0.011629795, 0.021968119, -0.05708804, -0.00038706165, 0.027297668, -0.028936382, 0.025947904, 0.07231491, 0.031020511, 0.021978494, 0.005586981, -0.051028065, -0.03194215, 0.02318801, -0.0009156426, -0.0588344, -0.009017547, -0.017940303, 0.044792093, -0.039609, 0.016114559, 0.057577655, -0.0086273765, 0.025250906, -0.010853562, -0.00565698, 0.0103461025, -0.012931312, -0.02563075, 0.016952446, -0.0055238083, 0.02372045, 0.02891087, 0.0079045985, 0.039741825, -0.0026514481, 0.0013278914, 0.015092889, 0.013012544, 0.008578182, -0.0520743, 0.01228558, 0.042816542, -0.017689392, 0.011391928, 0.0028349569, 0.009537491, -0.04558176, 0.06213049, -0.014923155, -0.04529378, 0.03137701, 0.010321661, -0.034327574, -0.02001141, -0.03622231, -0.015776992, -0.025056215, -0.020140745, 0.057189286, 0.017876975, -0.005229474, 0.027898736, -0.025996024, 0.03269111, -0.008849825)
+--------------------------------------------------------------------------------
+Distribution of Points with this vector:
+
+Text chunk: See  
+Acknowledgements 
+ for more information. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Integrity 
+ 
+High 
+There is a total loss of integrity, or a complete loss of protection. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Xbox Wireless Adapter Remote Code Execution Vulnerability  
+ 
+CVE-2024-38078 
+ 
+Security Vulnerabili...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Please see  
+Common Vulnerability Scoring System 
+ for more information on the definition of these m...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: According to the CVSS metric, the attack vector is adjacent (AV:A). ...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: FAQ 
+According to the CVSS metric, the attack complexity is high (AC:H). ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: In no event shall Microsoft Corporation or its suppliers be liable for any damages whatsoever includ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Publicly disclosed 
+Exploited 
+Exploitability assessment 
+No 
+No 
+Exploitation Less Likely 
+Accordin...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: In this case, the vulnerable component and the impacted component are either the same, or both are m...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: What does that mean for this vulnerability? 
+...
+- Stored 4 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: That is, a successful attack cannot be accomplished at will, but requires the attacker to invest in ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: For example, the attacker is able to modify any/all files protected by the impacted component. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: To determine the support lifecycle for your software, see the  
+Microsoft Support Lifecycle 
+. 
+ ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Some states do not allow the exclusion or limitation of liability for consequential or incidental da...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Successful exploitation of this vulnerability requires an attacker to gather information specific to...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: For example, a successful attack may require an attacker to: gather knowledge about the environment ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Remediation Level 
+ 
+Official Fix 
+A complete vendor solution is available. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk:  
+ 
+Temporal score metrics 
+(3) 
+Exploit Code Maturity 
+This metric measures the likelihood of the...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: User Interaction 
+ 
+None 
+The vulnerable system can be exploited without any interaction from any us...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Such conditions may require the collection of more information about the target or computational exc...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Availability 
+ 
+High 
+There is total loss of availability, resulting in the attacker being able to f...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: If a specific configuration is required for an attack to succeed, the Base metrics should be scored ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Alternatively, the attacker has the ability to deny some availability, but the loss of availability ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: version 
+revisionDate 
+description 
+1.0 
+9 Jul 2024 
+Information published. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Wei in Kunlun Lab with  
+Cyber KunLun 
+Microsoft recognizes the efforts of those in the security com...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: How could an attacker exploit the vulnerability? 
+...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: An unauthenticated attacker could send a malicious networking packet to an adjacent system that is e...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: The assessment of this metric excludes any requirements for user interaction in order to exploit the...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: High 
+A successful attack depends on conditions beyond the attacker's control. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Source code is available to independently verify the assertions of the research, or the author or ve...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Privileges Required 
+ 
+None 
+The attacker is unauthorized prior to attack, and therefore does not re...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Either the vendor has issued an official patch, or an upgrade is available. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: This can mean an attack must be launched from the same shared physical (e.g., Bluetooth or IEEE 802....
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Updates 
+ CVSS 
+ 
+Release date Descending 
+ 
+Edit columns 
+ 
+Download 
+ 
+Filters 
+Release date 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Unproven 
+No exploit code is available, or an exploit is theoretical. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Exploiting this vulnerability requires an attacker to be within proximity of the target system to se...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: The following table provides an  
+exploitability assessment 
+ for this vulnerability at the time of ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Alternatively, access to only some restricted information is obtained, but the disclosed information...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Confidentiality 
+ 
+High 
+There is total loss of confidentiality, resulting in all resources within t...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Scope 
+ 
+Unchanged 
+An exploited vulnerability can only affect resources managed by the same securit...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Microsoft disclaims all warranties, either express or implied, including the warranties of merchanta...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Alternatively, only some files can be modified, but malicious modification would present a direct, s...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Report Confidence 
+ 
+Confirmed 
+Detailed reports exist, or functional reproduction is possible (func...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Security Updates 
+To determine the support lifecycle for your software, see the  
+Microsoft Support ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Updates 
+ CVSS 
+ 
+Release date Descending 
+ 
+Edit columns 
+ 
+Download 
+ 
+Filters 
+Release date 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['0f1d8e15-b370-9835-3aef-3daf96e59f06']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+================================================================================
+
+DUPLICATE VECTOR: [0.0421, -0.0570, -0.0035, -0.0643, -0.0234...]
+This exact vector appears 41 times in Qdrant
+Full Vector: (0.04209159, -0.056959398, -0.0035206054, -0.06425982, -0.023445401, 0.0010982086, 0.045410477, -0.0124121625, 0.015562594, -0.04089228, 0.06571008, 0.04197933, 0.04182772, 0.02227318, -0.02952429, 0.02071609, 0.016012218, 0.0012492214, 0.026209788, 0.013387588, 0.02652369, -0.02411231, 0.0071622618, -0.005386474, -0.010432146, 0.049927812, 0.019992812, -0.032603133, -0.023473753, 0.031344917, -0.0014156462, 0.02082863, 0.0060740607, 0.019013822, 0.034158144, -0.029781261, -0.0074266745, -0.05394923, 0.0090240715, -0.039656974, 0.0043786457, 0.028087119, 0.028910093, 0.07062162, 0.012500795, 0.012868332, 0.017775746, 0.0008988278, -0.005012312, -0.04098154, 0.02413961, -0.029493276, 0.045858234, -0.018635256, 0.0047391397, 0.019554386, 0.015309884, 0.051344667, 0.024113957, -0.0029675022, -0.06750554, -0.02390367, -0.013198615, -0.01466609, -0.031370636, 0.06234105, 0.016695706, -0.001879257, 0.004738756, 0.0025987024, 0.018403921, 0.012278295, -0.022519127, 0.016008155, 0.05561911, -0.007455751, -0.0026690455, -0.019764956, 0.03320666, 0.010689846, -0.0007113214, -0.03549291, -0.0068391175, -0.010852767, 0.08108232, -0.0045130653, 0.10605429, 0.023275824, 0.00838782, -0.0145885525, -0.0132740885, -0.00802569, 0.034732684, -0.0066907713, -0.041257452, 0.0059273723, -0.018267343, 0.0057416838, 0.026829297, 0.023564268, 0.0034642874, -0.025474906, -0.0037397537, 0.060523976, 0.025087867, 0.0073138783, 0.005360476, -0.012638924, -0.007978871, -0.0010616769, -0.010227914, -0.028328147, -0.007652072, -0.039768633, 0.038929336, -0.015059218, 0.0037372306, -0.011766107, 0.0011366358, -0.024838742, 0.012690557, -0.010338087, 0.00039093106, -0.07801366, -0.023490591, 0.03910736, 0.050865855, -0.02037145, 0.0009850174, 0.0027979577, 0.019395309, -0.00059192185, 0.037450433, -0.0063287006, -0.041499138, 0.030301282, -0.112238735, -0.076315194, 0.08032851, 0.046304595, 0.0027397922, -0.04009892, -0.023430375, 0.013181793, 0.05667512, 0.014350434, 0.029778626, 0.0337647, -0.046452586, -0.019440722, -0.025859894, 0.019158874, -0.065396205, 0.029139157, -0.023457276, -0.0772611, 0.0022469866, -0.01589199, -0.023770764, -0.0043454804, -0.0018559246, 0.0013344825, 0.0018451839, -0.019971047, -0.03142634, -0.0017853517, 0.07538485, 0.012647905, 0.0049619507, 0.03654439, -0.049770735, 0.021610726, 0.00978575, 0.020836677, 0.028329087, 0.026337337, -0.005076385, -0.06929972, -0.0076405737, -0.0106395455, -0.02102676, -0.041315835, 0.015242056, 0.009663822, -0.006564564, 0.045351863, -0.021956643, 0.00074682914, 0.030238185, -0.06344343, -0.0022914337, -0.07164643, 0.023262247, -0.02210444, -0.023777856, 0.03201666, -0.062286697, 0.0020220268, 0.041990608, 0.045204304, 0.03438218, -0.03957327, 0.08001507, -0.044059057, 0.03383036, -0.010228337, -0.018880008, -0.02513169, -0.0019867264, -0.00953103, -0.0100220395, 0.045120515, -0.022718806, -0.0020922713, -0.0055235643, 0.04276955, -0.023848642, 0.038115475, -0.015484721, 0.028764533, -0.028492307, 0.03188126, 0.019231273, 0.044491712, -0.0128434785, -0.018080914, -0.011628075, -0.018777529, -0.0054793353, 0.0048715156, -0.031148145, -0.043052252, 0.026704293, -0.017355355, -0.015444033, 0.030813118, 0.04038872, 0.008050679, -0.0079539, 0.005296701, 0.048983373, 0.012255134, 0.074042216, 0.0039811423, 0.013326574, 0.0372048, -0.0026018107, 0.01103975, 0.010870741, 0.02746204, 0.007690434, -0.006270281, 0.044233117, -0.015789054, -0.042568717, -0.0036123062, 0.041231688, -0.011277432, -0.0019983482, 0.047926754, 0.0130405165, -0.025381373, -0.014370488, -0.027410725, 0.014936532, 0.0036863368, -0.014935449, -0.034221265, 0.060430758, 0.001619344, 0.026667712, -0.0446623, -0.056538213, 0.004346187, 0.0011203032, 0.03401055, -0.059512854, -0.018319031, -0.019055583, 0.009558333, -0.038569547, -0.006773573, -0.02430275, -0.0094592525, -0.037948646, 0.008834248, -0.018661559, -0.010550386, 0.06823782, 0.068467654, -0.013928087, 0.025074255, 0.029229518, -0.047044422, -0.018808147, 0.0071832123, 0.01829326, -0.012465684, -0.020646865, 0.046608314, 0.0053572897, 0.015184559, 0.008674705, 0.019986447, 0.01646094, -0.018624552, -0.03357722, -0.014545436, -0.02213864, 0.014388616, -0.012806138, 0.017781204, -0.0070022917, -0.016407548, -0.091865726, -0.036749568, -0.016916212, 0.008286569, 0.013460333, -0.03317621, 0.02299667, 0.023582691, -0.010078273, -0.015319906, -0.031026851, 0.022835704, -0.03827268, -0.032083105, -0.00464285, 0.060636695, -0.01325857, -0.017832953, 0.019308811, 0.006252316, -0.030969972, -0.00813693, 0.04485491, -0.008255692, -0.018384745, 0.016367177, 0.02617144, 0.01734562, 0.0248227, 0.004920755, 0.016579174, 0.02625671, -0.014227471, 0.033068243, -0.006250738, 0.019292241, -0.012161051, 0.030435018, 0.016207494, -0.05826761, 0.012290369, 0.023633132, 0.024123676, -0.062562995, 0.016671367, 0.04880241, 0.01913868, -0.019378392, -0.008588867, -0.020367116, -0.05592732, -0.03361219, -0.018343132, 0.075548775, -0.004508173, 0.013272783, -0.033299, 0.011433399, -0.006121374, -0.0052915197, -0.0705863, -0.0071536056, -0.04613531, 0.0353906, -0.00029429002, -0.019038219, 0.028350843, -0.01966867, -0.02830279, -0.013482925, -0.030709239, 0.01328872, 0.035006505, 0.052011874, -0.048983146, -0.021299573, -0.007919564, 0.012114788, 0.003878179, 0.0019676583, -0.022779465, 0.0002854839, 0.0017489805, -0.005154916, -0.024420615, -0.019198418, 0.06458718, 0.06328802, 0.0071240175, 0.03319225, -0.002830996, 0.034387562, -0.011524435, -0.036493022, 0.04029589, 0.028563552, 0.057400372, 0.003006109, -0.0010755372, -0.047086257, -0.007969978, 0.0025259645, -0.035644107, -0.0036321809, -0.0021634675, 0.033250064, 0.03436207, -0.04575838, -0.0055159284, -0.010062586, 0.0020339577, 0.04705656, -0.0017240625, 0.019027263, 0.009322608, -0.019506035, 0.073175676, 0.011626466, 0.012394683, -0.034872875, -0.0076044593, -0.01372869, 0.034790684, -0.05256327, -0.04981858, 0.008472001, 0.011501585, 0.0052739745, 0.0025678512, -0.045472063, 0.005957945, 0.0024148324, 0.007003342, 0.0048116934, 0.01661686, 0.09723961, 0.024535995, 0.040092744, -0.005527136, -0.012173336, -0.103104524, -0.0700608, -0.03157885, 0.04347608, -0.019406445, -0.013991529, -0.0143522965, 0.002169855, 0.006369752, 0.017988615, 0.003900136, -0.022747716, 0.044683006, -0.024346974, 0.018699413, -0.054781538, -0.032473225, -0.034736548, 0.023659404, -0.01479818, 0.0047338707, 0.00052348466, 0.009789861, -0.001561871, -0.0061285235, -0.0014589395, -0.030769998, 0.004197113, 0.036771655, -0.029562231, -0.054139573, 0.015429591, -0.002706869, -0.006566064, 0.00586112, -0.059716683, 0.033356052, 0.022609241, 0.018982347, -0.007997324, -0.005029639, 0.005995541, 0.023412867, 0.02603487, 0.038694393, -0.00064343004, 0.009481223, -0.010499572, -0.006261034, 0.0034219825, 0.03457613, -0.018184692, -0.0042400938, -0.008333156, -0.0082670795, -0.03309495, 0.08489641, 0.004320984, -0.00095498137, 0.012679201, 0.054387722, 0.017695744, -0.005453591, 0.0022706797, -0.006708982, -0.026812185, 0.013074317, -0.043257613, 0.02955357, 0.003221477, -0.03422067, -0.03777567, 0.043729555, 0.007069483, -0.0015318635, 0.0029014803, 0.01894775, 0.016115624, 0.024299415, 0.03603592, 0.06698442, -0.034331977, -0.007821268, -0.019110797, 0.02171556, 0.02702153, -0.08660654, 0.050830394, 0.009387643, 0.024975047, -0.015599492, -0.035099417, -0.05143621, -0.050172295, -0.0238905, 0.0017204245, -0.010478594, -0.058095027, -0.022033881, -0.012926687, -0.006692758, -0.041533906, 0.031844717, 0.023190314, -0.0044550374, -0.020111974, -0.011008687, 0.021287221, 0.046258662, 0.009453498, -0.00951115, 0.003028818, -0.0034674786, 0.02697627, -0.041633103, -0.0419554, 0.029278597, -0.025690394, 0.0065115853, -0.0025385844, -0.014892991, 0.026436018, -0.02416306, -0.0072809462, -0.037195507, 0.0002982403, -0.004919226, -0.05817309, 0.016854502, 0.000111706555, -0.0020282038, -0.036447726, -0.0009330377, -0.030754535, 0.044666406, -0.027691685, 0.0057891766, 0.08907317, -0.05897173, 0.04314505, 0.00485681, -0.0336789, 0.012926643, 0.0053646653, -0.026169641, -0.015393399, -0.02152744, 0.006418781, 0.004242071, -0.05991264, 0.044694964, 0.04404343, -0.017388348, 0.028109806, 0.013882608, 0.009492945, -0.023165375, -0.016090287, -0.0044707647, 0.022173943, 0.006984607, -0.006814721, -0.000221784, -0.0032363844, -0.005133861, 0.0052868347, -0.003821149, 0.016871592, 0.0485816, -0.021432038, 0.042340804, -0.067546204, -0.007938091, 0.04602453, -0.030354708, -0.015634673, 0.013719725, -0.026754629, -0.018843334, 0.0018170947, -0.006496549, -0.04290749, -0.054265343, -0.005329889, 0.004095051, -0.0007146742, -0.012778545, 0.013097709, 0.008474381, 0.020897202, -0.006625165, -0.0045580333, -0.058426842, -0.045322273, -0.031786624, 0.0011602005, -0.030664183, 0.02929944, 0.031340633, 0.0012622601, 0.016790364, -0.01530927, 0.011759904, -0.043104593, 0.043375716, 0.02478798, 0.04801594, 0.035103727, -0.02827467, -0.06524121, -7.1402676e-05, 0.17208771, 0.044262305, -0.041627914, -0.051512748, -0.018002274, 0.05569997, 0.0106801335, 0.045082726, -0.03352086, 0.0062406897, -0.042711817, -0.007844871, 0.020321527, 0.04458021, 0.02406234, 0.036695004, -0.028455032, 0.01582087, -0.018887417, 0.008794173, 0.014079011, -0.011308089, -0.06123173, -0.083755605, 0.011247605, -0.029607257, -0.021187086, -0.04935654, -0.004470963, 0.047968972, 0.03491281, -0.0018242053, 0.019412102, -0.0072640316, 0.018728293, 0.0066568917, 0.044806276, 0.03973129, 0.040599298, 0.050719023, 0.05516965, 0.017704256, -0.048159685, -0.01599984, -0.04360518, 0.03337939, -0.013882583, 0.020849781, -0.00026628305, 0.014375553, 0.030687092, -0.04433091, -0.014895275, -0.04704035, -0.012597044, 0.005208079, -0.00023117024, -0.008604242, -0.050362207, -0.011209937, 0.01794215, -0.042457454, 0.011252496, -0.03139065, -0.020028716, -0.032474898, -0.047605734, 0.040919226, 0.036358565, -0.03283266, -0.037749913, 0.022257956, 0.018526765, -0.03810525, 0.004157161, -0.03755098, -0.01853345, 0.029316574, 0.008377657, 0.008354711, -0.030808901, 0.007057087, 0.004267468, 7.816082e-05, -0.033724364, -0.027201038, -0.011739106, -0.008216072, -0.009029488, -0.008215074, 0.0051368643, 0.07881707, -0.005781754, 0.0018409125, -0.03049446, 0.07979926, -0.008120011, 0.017067261, 0.017037878, 0.040140435, -0.0050996756, 0.029299261, -0.013793642, 0.006163881, -0.026854327, -0.024008851, 0.010462778, -0.031675503, -0.053998873, 0.023440653, 0.036599357, 0.036887817, 0.012907563, -0.0069283503, -0.056552295, 0.012432016, -0.03222572, -0.069131576, 0.016130077, -0.032990914, 0.0129675865, 0.019866874, -0.007402234, 0.0047445777, 0.012269026, -0.015763395, 0.00808466, 0.010250396, 0.0019097937, -0.053974345, 0.0068702404, -0.014160414, 0.044073246, -0.011813414, 0.023907036, -0.042347968, -0.016647557, 0.026488746, -0.032329615, -0.029950034, 0.030980818, -0.053344738, -0.022152476, 0.048630506, 0.041675817, 0.022712471, -0.016972294, 0.034822363, 0.00015862955, 0.013399674, -0.030104836, -0.01874999, -0.022137886, 0.0063195727, -0.015946504, 0.073701136, 0.05930393, -0.0073632123, 0.016767565, -0.021040188, 0.017079908, 0.00429954, -0.04333901, -0.003038147, 0.0041907905, -0.02861661, 0.031866595, -0.01955949, -0.01334797, 0.017331854, 0.021195106, -0.016837755, -0.0091046095, -0.017089117, -0.068156525, -0.014353573, 0.022135137, -0.009390172, -0.04558041, -0.030071735, -0.038146567, 0.023876455, -0.051980946, 0.030679664, -0.0243125, 0.034578767, -0.005468572, 0.041717388, 0.0024132368, -0.007569869, -0.015415335, 0.012776868, 0.030199477, 0.024120636, 0.001392808, -0.050373785, 0.024975518, 0.002035421, 0.019490693, -0.050587077, 0.040969655, 0.05998505, 0.016076254, 0.05554518, -0.0093700085, -0.03949732, 0.012603439, 0.020457832, 0.025012063, 0.028872086, -0.005929516, 0.013170361, 0.007220798, 0.005708569, -0.04580413, 0.04907797, 0.019834682, 0.011648311, -0.037200157, 0.025227342, 0.05334213, 0.024965538, 0.03387381, 0.0029811778, -0.021433404, -0.009215215, 0.047672782, -0.0026069868, 0.015617085, -0.062279943, 0.026627244, -0.0345047, -0.051064212, 0.004015462, -0.0033038948, -0.074147575, 0.022215998, -0.012082626, 0.046567187, -0.0046266722, 0.01602366, -0.012677987, -0.012957802, 0.026757153, -0.028433206, 0.025588457, -0.03361381, 0.05666303, -0.011103039, 0.031841226, 0.010250169, 0.0037563571, 0.05094004, 0.018147921, 0.04429066, 0.010108087, -0.019455347, 0.003182952, -0.018490639, 0.01852076, 0.015155882, 0.04379883, 0.016451452, 0.028552193, -0.0611913, 0.0039838976, 0.022852099, -0.056424163, 0.010899344, 0.032222558, 0.010625613, 0.006793101, -0.013233468, -0.035308417, 0.008095888, 0.02555483, -0.017079309, -0.008561969, 0.0102858925, 0.029171223, -0.004286655, 0.029201671, -0.036746398, 0.03519621, 0.028383728, -0.0626147, -0.031973153, 0.00053236727, 0.004781902, 0.03451843, 0.034349617, 0.0026593388, 0.04438392, -0.017446319, 0.021273805, -0.081553794, 0.005757699, 0.05015009, -0.059586037, 0.017698564, 0.051474586, 0.027305784, 0.04229135, 0.03370478, -0.02762071, -0.01999005, -0.0017976427, -0.0033161803, -0.017493227, -0.015192413, -0.012347046, 0.020882102, -0.010522166, 0.0400616, 0.03293355, -0.00055748073, 0.028493118, -0.008289624, 0.022449944, 0.0028548539, -0.012671839, -0.022989767, -0.016621036, -0.008802862, 0.067945644, 0.0092521515, -0.00026801863, 0.0020022434, -0.027781174, -0.0029069823, -0.022659814, -0.0022210404, -0.005751526, -0.05427731, -0.01514692, 0.027190065, 0.011917324, 0.010910195, 0.009807699, -0.0018831746, -0.057170168, 0.04807782, 0.011948092, -0.06036388, 0.0291205, 0.013358265, -0.016750053, -0.031327784, 0.06381918, 0.010367331, -0.020814465, 0.0057763057, 0.023267597, -0.018360293, 0.016928645, 0.0012896796, -0.010058505, 0.010232226, -0.015493147)
+--------------------------------------------------------------------------------
+Distribution of Points with this vector:
+
+Text chunk:  
+ 
+Temporal score metrics 
+(3) 
+Exploit Code Maturity 
+This metric measures the likelihood of the...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Availability 
+ 
+High 
+There is total loss of availability, resulting in the attacker being able to f...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Alternatively, only some files can be modified, but malicious modification would present a direct, s...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Confidentiality 
+ 
+High 
+There is total loss of confidentiality, resulting in all resources within t...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: FAQ 
+What privileges could be gained by an attacker who successfully exploited this vulnerability? 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Either: the attacker exploits the vulnerability by accessing the target system locally (e.g., keyboa...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: An attacker who successfully exploited this vulnerability could gain SYSTEM privileges. 
+...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Remediation Level 
+ 
+Official Fix 
+A complete vendor solution is available. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: In this case, the vulnerable component and the impacted component are either the same, or both are m...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: version 
+revisionDate 
+description 
+1.0 
+9 Jul 2024 
+Information published. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Report Confidence 
+ 
+Confirmed 
+Detailed reports exist, or functional reproduction is possible (func...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Microsoft disclaims all warranties, either express or implied, including the warranties of merchanta...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Updates 
+ CVSS 
+ 
+Release date Descending 
+ 
+Edit columns 
+ 
+Download 
+ 
+Filters 
+Release date 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Anonymous 
+Microsoft recognizes the efforts of those in the security community who help us protect c...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: The following table provides an  
+exploitability assessment 
+ for this vulnerability at the time of ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Security Updates 
+To determine the support lifecycle for your software, see the  
+Microsoft Support ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Unproven 
+No exploit code is available, or an exploit is theoretical. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Scope 
+ 
+Unchanged 
+An exploited vulnerability can only affect resources managed by the same securit...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: To determine the support lifecycle for your software, see the  
+Microsoft Support Lifecycle 
+. 
+ ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Such conditions may require the collection of more information about the target or computational exc...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Some states do not allow the exclusion or limitation of liability for consequential or incidental da...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: The assessment of this metric excludes any requirements for user interaction in order to exploit the...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Publicly disclosed 
+Exploited 
+Exploitability assessment 
+No 
+Yes 
+Exploitation Detected 
+What privi...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Privileges Required 
+ 
+Low 
+The attacker is authorized with (i.e., requires) privileges that provide...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Either the vendor has issued an official patch, or an upgrade is available. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Alternatively, access to only some restricted information is obtained, but the disclosed information...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: An attacker can expect repeatable success against the vulnerable component. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: User Interaction 
+ 
+None 
+The vulnerable system can be exploited without any interaction from any us...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Integrity 
+ 
+High 
+There is a total loss of integrity, or a complete loss of protection. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Low 
+Specialized access conditions or extenuating circumstances do not exist. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Source code is available to independently verify the assertions of the research, or the author or ve...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Please see  
+Common Vulnerability Scoring System 
+ for more information on the definition of these m...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Windows Hyper-V Elevation of Privilege Vulnerability  
+ 
+CVE-2024-38080 
+ 
+Security Vulnerability 
+R...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: If a specific configuration is required for an attack to succeed, the Base metrics should be scored ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Alternatively, an attacker with Low privileges may have the ability to cause an impact only to non-s...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Updates 
+ CVSS 
+ 
+Release date Descending 
+ 
+Edit columns 
+ 
+Download 
+ 
+Filters 
+Release date 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: In no event shall Microsoft Corporation or its suppliers be liable for any damages whatsoever includ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Alternatively, the attacker has the ability to deny some availability, but the loss of availability ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: For example, the attacker is able to modify any/all files protected by the impacted component. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: See  
+Acknowledgements 
+ for more information. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['f539d0ab-6a7d-96c5-b6d4-670ef143dcbe']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+================================================================================
+
+DUPLICATE VECTOR: [0.0466, -0.0595, -0.0113, -0.0374, -0.0379...]
+This exact vector appears 41 times in Qdrant
+Full Vector: (0.0466146, -0.059464213, -0.011314535, -0.03735657, -0.037886806, 0.011256711, 0.028508205, -0.033963427, 0.0030105845, -0.023839714, 0.04668667, 0.025389627, 0.029136075, 0.029907474, -0.044699408, -0.006743856, 0.035600446, 0.005117379, 0.0015068963, -0.0034775469, 0.008313023, -0.018767415, 0.013389477, -0.0030618408, 0.0006338289, 0.028837005, 0.0020004713, -0.040801246, -0.047443867, 0.026122745, -0.014459612, 0.026871614, -0.009727661, -0.0020988253, 0.05193722, -0.007183113, -0.023946267, -0.053901706, 0.006555725, -0.033622745, -0.0041487594, 0.038530212, 0.039832182, 0.068743534, 0.00046788424, 0.017221514, -0.003223791, 0.012963091, 0.010553504, -0.011868985, 0.022893827, -0.03421224, 0.019735498, -0.031712495, -0.022646284, -0.004637112, 0.011384361, 0.03688993, 0.01644197, -0.004406627, -0.02650584, -0.022357302, -0.039880723, -0.016655078, 0.004671725, 0.032845326, 0.04763674, -0.008366478, 0.03472369, 0.0034766183, -0.012402525, 0.007564782, -0.018566841, 0.022279581, 0.051742718, -0.003868383, -0.0083583, 0.012835951, 0.027045665, 0.017930696, -0.01780099, -0.030060884, -0.012891889, -0.013259198, 0.07289233, 0.022030728, 0.09638017, 0.003742243, -0.005622078, -0.005109383, 0.009626814, -0.021457799, 0.030234346, 0.020274904, -0.029736228, -0.00073692604, -0.01757683, 0.0028670444, 0.015517835, -0.0048021697, -0.023617925, -0.030644214, -0.013535698, 0.027057039, 0.006944295, 0.013067932, 0.014859595, -0.012078387, -0.010468369, 0.0019389859, -0.0069767367, -0.046408486, -0.00063948455, -0.038395416, 0.06074688, -0.004280338, -0.0055873683, -0.0067773694, -0.018045232, 0.013994294, 0.027191399, 0.007536203, 0.001895394, -0.08613839, -0.038296707, 0.059102215, 0.043493867, -0.04331869, -0.0020381704, 0.022543117, 0.01373189, 0.027421843, 0.047514893, -0.013652156, -0.051708136, 0.022039672, -0.086144395, -0.089208044, 0.082948186, 0.028439507, 0.016560476, -0.058217652, -0.016662398, 0.0019013669, 0.045628574, -0.003769261, 0.017007517, -0.0047648903, -0.036059003, -0.019011565, -0.007417402, 0.009449951, -0.059180558, -0.00653237, -0.010724269, -0.06927676, 0.024826458, -0.0028972465, -0.011993141, 0.00784667, -0.025435286, -0.005540922, 0.012517903, -0.0273114, -0.037824858, -0.0035642483, 0.062359266, 0.0033331471, -0.009684586, 0.009365769, -0.038004596, 0.003609038, 0.0028855936, 0.03437379, -0.0019391329, 0.032954756, 0.0080459835, -0.06751106, -0.016642233, 0.0033005378, -0.034448344, -0.026752664, 0.014291478, 0.013103448, -0.015582231, 0.048023917, -0.0012899409, -0.011686591, 0.022500888, -0.05866594, -0.0101725655, -0.07458613, 0.031433817, -0.0049579977, -0.048671268, 0.031830035, -0.05337248, -0.00060186745, 0.03159636, 0.017539322, 0.0337585, -0.04571072, 0.054214798, -0.019315448, -0.008567041, 0.015047404, -0.0027056846, -0.023378031, -0.018595815, -0.041763846, -0.0038320068, 0.030100007, -0.02548506, 0.008334781, -0.0150679825, 0.042191695, -0.023597833, 0.04095291, -0.0048389654, 0.018337447, -0.032743484, 0.010785515, 0.037803244, 0.027515132, 0.026399901, -0.031960804, -0.03186938, 0.0055788793, -0.029102178, 0.009539332, -0.031050587, -0.046696275, 0.0047516096, -0.0320674, -0.007546251, 0.037778594, 0.022657506, 0.021693638, 0.0064867046, -0.0035217921, 0.05469079, 0.013821826, 0.077497795, 0.032734092, -0.0013368216, 0.030583149, 0.008516316, -0.01748601, 0.009322863, 0.036347378, 0.016219545, 0.0006547106, 0.042771913, 0.0013778054, -0.028960416, 0.01725747, 0.045604967, -0.028977321, 0.009361792, 0.026080854, 0.0008073765, -0.036542058, -0.014538236, -0.0029242844, 0.019377526, 0.014704444, -0.008268712, -0.0095143495, 0.06488808, 0.013063887, 0.008476392, -0.017646436, -0.05546599, 0.0029860092, -0.00014819502, 0.042437516, -0.05670048, 0.006869929, -0.0015432491, 0.0077751563, -0.017112674, -0.003363281, -0.014526972, 0.027101668, -0.013781996, 0.0020566434, -0.013916889, -0.009422822, 0.03929266, 0.07137995, -0.017961517, 0.02342647, 0.03691887, -0.01397884, -0.016309552, -0.0007435061, 0.014369646, 0.0008197257, -0.005800736, 0.024689786, 0.015283723, 0.0070960918, 0.0013141644, -0.024986058, 0.010156815, 0.0004860777, -0.055914946, -0.04227861, -0.024551922, 0.018487925, -0.021542301, 0.039710872, -0.015187895, -0.0049440516, -0.09609728, -0.04875704, 0.0018635716, 0.009229752, 0.00732409, -0.02893298, 0.014485287, 0.022183027, -0.024323748, -0.0127000855, -0.005486719, 0.010773252, -0.07276222, -0.04442055, 0.008426206, 0.038710646, -0.0045144362, -0.028657429, 0.048373353, -0.00809869, -0.02258638, -0.0017769155, 0.06686459, 0.00047158904, -0.020964291, 0.015150692, 0.041933153, 0.008289102, -0.022321535, -0.01854046, 0.0009711144, 0.011987661, -0.0073102224, 0.015910823, -0.00033297413, 0.026936019, 0.00964133, 0.041380476, 0.0071333693, -0.061589964, -0.003025946, 0.007974209, 0.03316624, -0.030491712, -0.0029331238, 0.049128246, 0.01714432, -0.03260587, 0.00060174847, -0.03844772, -0.04607745, -0.033998165, 0.005543854, 0.05057905, -0.008057142, 0.0042116623, 0.0029826458, 0.013161885, -0.025997687, -0.00057139905, -0.06374914, -0.0014946574, -0.037851516, 0.016185252, -0.0017374227, -0.0017804368, 0.040486895, -0.038218793, -0.048536938, -0.016134406, -0.050317556, 0.013474635, 0.028142087, 0.016922878, -0.039791226, -0.050466966, 0.0017618668, 0.020029692, 0.0033664922, 0.019508826, -0.012525799, -0.010373875, 0.0071789464, 0.013676804, -0.022944652, -0.0070550656, 0.068290204, 0.07117817, 0.018570203, 0.024234269, -0.0013733992, 0.0353294, -0.017097702, -0.058250066, 0.0071625146, -0.003110245, 0.043284573, 0.004950383, -0.016577587, -0.029050604, -0.02404061, -0.0052095293, -0.03532388, -0.013080468, -0.0057757394, 0.010793461, 0.04052876, -0.018661808, -0.012977732, 0.0065107467, 0.02304253, 0.021398075, -0.0209789, 0.03297698, 0.006697237, -0.006458792, 0.039147314, 0.001283847, 0.0053552133, -0.04784435, 0.011578637, 0.01981909, 0.029837126, -0.05283857, 0.022684274, 0.013226746, 0.028165555, -0.03373248, -0.00589037, -0.026884593, 0.026421024, 5.1999476e-05, -0.0019990269, -0.020647457, 0.04455229, 0.04508485, 0.021443434, 0.04084601, 0.0012547148, -0.0004916585, -0.09784222, -0.061841454, -0.045443725, 0.06729961, -0.023580126, -0.0076451856, -0.023213213, -0.018491073, -0.011909243, 0.026698612, 0.00838812, -0.0025585121, 0.05751991, -0.044156488, -0.015765054, -0.05898998, -0.03420098, -0.02193882, 0.009748261, -0.008788425, -0.015990296, 0.017678468, 0.010274805, -0.03690786, -0.0078038457, 0.00015400692, -0.030866148, -0.007247143, 0.04052006, -0.050662886, -0.051666457, 0.01690845, 0.0029207596, 0.019418482, 0.018231979, -0.05030916, 0.03095628, 0.039560772, 0.047382873, -0.01768038, 0.009763609, -0.026170114, 0.008586665, 0.023304684, 0.037935838, 0.018354803, -0.005209615, -0.03160481, 0.01710994, 0.020352345, 0.032584608, -0.017074, 0.010173863, 0.0006052402, 0.0019323928, -0.053262394, 0.05582042, -0.0011409271, 0.00070490007, 0.03127194, 0.04103116, 0.009862413, 0.015308953, -0.007442071, 5.62178e-05, -0.004828862, 0.04095363, -0.069478564, -0.010296429, 0.005772369, -0.05692965, -0.048016153, 0.04664153, 0.04452674, 0.042337213, -0.0037654785, 0.014940129, 0.00821742, 0.007206361, 0.016932376, 0.058385856, -0.018013423, -0.0020216506, -0.021091972, 0.024284568, 0.006409679, -0.075729065, 0.053634528, 0.0027206033, 0.015477958, 0.0021900705, -0.0048986482, -0.0548258, -0.05927904, -0.019843733, 0.010550184, -0.00013131656, -0.02094986, -0.013298327, -0.005360392, -0.013664055, -0.04698332, 0.009530567, 0.018656665, -0.031532798, -0.027591385, 0.0039827693, 0.033535935, 0.03854897, 0.031076819, -1.0244286e-05, -0.011575624, 0.013874148, 0.03745461, -0.01908862, -0.05176033, 0.030166328, -0.02890746, 0.014036688, -0.0013842747, -0.014207533, 0.034576207, -0.0071285996, -0.011550331, -0.034782227, 0.025517767, -0.03791485, -0.043348808, 0.023836521, -0.0018746121, 0.014548344, -0.009055847, 0.017031662, -0.01426643, 0.038671166, -0.030646252, 0.008632586, 0.097645015, -0.065895915, 0.029528312, -0.0019016123, -0.017197436, 0.03194947, 0.0014617512, -0.014618811, -0.033512447, -0.0320051, 0.025755553, 0.015113211, -0.06872868, 0.02424427, 0.034496874, -0.021973206, 0.069865674, 0.009292313, -0.0024934607, -0.03098576, -0.019440107, 0.01495529, -0.0051647327, 0.006390076, 0.02770158, -0.01122548, -0.020798897, 0.017681131, 0.01401867, -0.012962392, -0.002089632, 0.027355978, -0.006471599, 0.05448958, -0.0787525, -0.0050010816, 0.02921941, -0.030583762, -1.826938e-05, 0.025848674, 0.010919479, -0.019261977, -0.009803526, -0.007230141, -0.028372243, -0.05922762, -0.040659342, 0.027098304, 0.012697745, -0.011767892, 0.0015584539, -0.0011479352, 0.036409188, -0.034323074, 0.00025025092, -0.052465003, -0.07554345, -0.029133882, 0.024019068, -0.049895823, 0.03754723, -0.0006402148, 0.018304035, 0.020113826, -0.016196504, 0.0065143513, -0.04032618, 0.032081857, 0.013809769, 0.049996458, 0.0491754, -0.02509402, -0.05791251, 0.015544684, 0.20491719, 0.033072267, -0.017938294, -0.03482476, -0.016785316, 0.05568235, -0.017406816, 0.06326817, -0.023173237, 0.011727897, -0.030584168, -0.00049692177, 0.02039324, 0.039943393, 0.04577122, 0.04403103, -0.006672655, 0.013295536, -0.015725171, 0.009891803, -0.0013119603, 0.017053442, -0.04995851, -0.07235768, 0.011798662, 0.010790281, -0.0059335795, -0.04361037, -0.00051324896, 0.032056212, 0.03488675, 0.001020322, -0.009994782, 0.022950029, 0.05108076, 0.034450028, 0.06394665, 0.048502192, 0.019771308, 0.058313828, 0.047338873, 5.4255e-06, -0.03575816, -0.022305205, -0.027196605, 0.032479245, -0.006728569, -0.0016974582, -0.0302491, -0.013367317, 0.02867827, -0.05144262, -0.01762451, -0.040218227, -0.018711438, 0.042067613, 0.010739583, 0.0020697173, -0.009734922, -0.0014498911, 0.0109726535, -0.042947687, -0.005402187, -0.010691497, -0.025380924, -0.033090428, -0.042288102, 0.04730372, 0.027700275, -0.010187741, -0.03091073, -0.027176928, 0.010998273, -0.030734958, -0.010167539, -0.031081114, -0.010869886, 0.016611516, 0.026412303, -0.007687764, -0.014250594, -0.00901949, 0.0005529537, -0.028473355, -0.031404536, -0.017255826, -0.010288929, 6.146849e-05, -0.023147117, -0.01202983, 0.012474731, 0.10909681, -0.019936692, -0.00880958, -0.0461437, 0.061244424, 0.009994084, 0.019574022, 0.021527108, 0.023868725, -0.019944292, 0.05821225, 0.016778, 0.00034477914, -0.025542675, -0.02588835, 0.04423332, -0.033113297, -0.06363398, 0.046836738, -0.010133771, 0.039270625, 0.050231513, 0.001999259, -0.048022095, -0.0015010516, -0.010108278, -0.043532923, 0.010997651, -0.027565869, 0.015002281, 0.0065124957, -0.008703876, 0.0076329997, 0.015425328, 0.009069552, 0.0043665646, 0.013196766, 0.0062402883, -0.046820313, 0.022740318, -0.025821596, 0.032720283, -0.017397258, 0.033059582, -0.045159984, -0.0019572875, 0.04997374, -0.023753574, -0.0269305, 0.019199787, -0.049344935, -0.0078058657, 0.024902856, 0.027103897, 0.023668943, -0.02588856, 0.03713284, 0.01608655, 0.014912942, -0.060595874, -0.021881266, -0.046084307, -0.021255886, -0.0052535925, 0.056528162, 0.06376489, -0.020777943, 0.016066095, -0.04147019, 0.010054072, 3.1717966e-05, -0.03341896, 0.014312454, -0.0105777485, -0.035688363, 0.034082636, 0.008862633, -0.00094390515, 0.046258464, 0.018146796, -0.019386556, -0.01505238, 0.0060757585, -0.064292185, -0.0462224, 0.026706243, -0.027936036, -0.054241218, -0.009731856, -4.83917e-05, 0.04017187, -0.057197683, 0.017446518, -0.021658525, 0.027970891, -0.033149194, 0.043370366, -0.012370233, -0.01774822, 0.004067774, -0.0067477985, 0.011381397, 0.013867741, 0.0018451182, -0.04767729, 0.045960445, -0.007267868, 0.004905921, -0.026949696, 0.05547526, 0.001918621, 0.035527557, 0.077907324, -0.02487406, -0.05287768, -0.010574722, 0.01513538, 0.017625876, 0.009173643, -0.00062909443, 0.041746594, 0.021007635, 0.0018683247, -0.026723415, 0.04940857, 0.026928099, 0.004218725, -0.036798425, 0.022139313, 0.049984373, 0.007890379, 0.021615036, 0.009986807, -0.024688164, -0.009818798, 0.045542873, -0.023594083, -0.0017854274, -0.073399685, 0.04754475, -0.035892148, -0.04214267, 0.008322775, -0.017640004, -0.070709094, 0.030958477, -0.008044483, 0.06479101, -0.005060316, 0.036528796, -0.0010597181, -0.023384193, 0.0028244369, -0.032429785, 0.022207052, -0.026929915, 0.06707838, -0.010223497, 0.033818893, -0.016195547, 0.010913276, 0.054443434, 0.011734865, 0.016802568, -0.0056018787, -0.0016264052, -0.021242384, -0.025334124, 0.027367458, 0.024187196, 0.04079975, -0.0053003733, 0.016152129, -0.06508832, 0.016823137, 0.031379305, -0.03623269, 0.036396164, -0.004320353, 0.007570892, 0.003505681, 0.011812953, -0.007334371, 0.004190955, -0.0034429948, 0.008259335, -0.008083241, 0.00058473775, 0.021783412, 0.0034477846, 0.03628811, -0.031714227, 0.04966608, 0.020227995, -0.05604559, -0.0073839948, 0.0050766254, -0.009787599, 0.09764813, 0.03817938, -0.01032324, 0.02120452, 0.0012387631, 0.04005572, -0.059894472, -0.00025853838, 0.046956185, -0.031164993, 0.011852589, 0.056914706, 0.022169461, 0.047915738, 0.015773587, -0.047207225, -0.03998236, -0.013338507, -0.003943649, -0.039162595, -0.025885288, 0.012564255, 0.0356214, -0.021170864, 0.02065537, 0.027324611, -0.02124354, 0.01591282, 0.010040129, 0.01965509, 0.019367818, -0.018577395, -0.04275061, 0.00033910564, 0.02273582, 0.07871464, 0.013301396, 0.021216031, -0.0003747437, -0.0026944205, 0.015191852, -0.011140666, 0.0017146384, -0.022455538, -0.043718003, -0.008829382, 0.020827232, 0.0069217435, -0.008808595, -0.0037746453, -0.0024005205, -0.049362008, 0.033641726, 0.016714724, -0.056326304, 0.019102238, -0.00756497, -0.025884295, -0.020596271, 0.015508219, -0.008085879, -0.026633477, 0.0122255, 0.03247764, 0.015818663, -0.0112521, 0.0066853506, -0.020770751, 0.005340098, -0.004275633)
+--------------------------------------------------------------------------------
+Distribution of Points with this vector:
+
+Text chunk: Alternatively, access to only some restricted information is obtained, but the disclosed information...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Alternatively, an attacker with Low privileges may have the ability to cause an impact only to non-s...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Win32k Elevation of Privilege Vulnerability  
+ 
+CVE-2024-38059 
+ 
+Security Vulnerability 
+Released: ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: The assessment of this metric excludes any requirements for user interaction in order to exploit the...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Please see  
+Common Vulnerability Scoring System 
+ for more information on the definition of these m...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Zhang WangJunJie, He YiSheng 
+ with  
+Hillstone Network Security Research Institute 
+Microsoft recog...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Remediation Level 
+ 
+Official Fix 
+A complete vendor solution is available. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Low 
+Specialized access conditions or extenuating circumstances do not exist. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: The following table provides an  
+exploitability assessment 
+ for this vulnerability at the time of ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Scope 
+ 
+Unchanged 
+An exploited vulnerability can only affect resources managed by the same securit...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: In this case, the vulnerable component and the impacted component are either the same, or both are m...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: If a specific configuration is required for an attack to succeed, the Base metrics should be scored ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: In no event shall Microsoft Corporation or its suppliers be liable for any damages whatsoever includ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: For example, the attacker is able to modify any/all files protected by the impacted component. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: User Interaction 
+ 
+None 
+The vulnerable system can be exploited without any interaction from any us...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Confidentiality 
+ 
+High 
+There is total loss of confidentiality, resulting in all resources within t...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Updates 
+ CVSS 
+ 
+Release date Descending 
+ 
+Edit columns 
+ 
+Download 
+ 
+Filters 
+Release date 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: An attacker who successfully exploited this vulnerability could gain SYSTEM privileges. 
+...
+- Stored 2 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Alternatively, the attacker has the ability to deny some availability, but the loss of availability ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Availability 
+ 
+High 
+There is total loss of availability, resulting in the attacker being able to f...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Either: the attacker exploits the vulnerability by accessing the target system locally (e.g., keyboa...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Privileges Required 
+ 
+Low 
+The attacker is authorized with (i.e., requires) privileges that provide...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Report Confidence 
+ 
+Confirmed 
+Detailed reports exist, or functional reproduction is possible (func...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk:  
+ 
+Temporal score metrics 
+(3) 
+Exploit Code Maturity 
+This metric measures the likelihood of the...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Such conditions may require the collection of more information about the target or computational exc...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Updates 
+ CVSS 
+ 
+Release date Descending 
+ 
+Edit columns 
+ 
+Download 
+ 
+Filters 
+Release date 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: An attacker can expect repeatable success against the vulnerable component. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Unproven 
+No exploit code is available, or an exploit is theoretical. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Security Updates 
+To determine the support lifecycle for your software, see the  
+Microsoft Support ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: To determine the support lifecycle for your software, see the  
+Microsoft Support Lifecycle 
+. 
+ ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Some states do not allow the exclusion or limitation of liability for consequential or incidental da...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Microsoft disclaims all warranties, either express or implied, including the warranties of merchanta...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: version 
+revisionDate 
+description 
+1.0 
+9 Jul 2024 
+Information published. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Either the vendor has issued an official patch, or an upgrade is available. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: See  
+Acknowledgements 
+ for more information. 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Integrity 
+ 
+High 
+There is a total loss of integrity, or a complete loss of protection. ...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Alternatively, only some files can be modified, but malicious modification would present a direct, s...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Publicly disclosed 
+Exploited 
+Exploitability assessment 
+No 
+No 
+Exploitation More Likely 
+What pri...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: FAQ 
+What privileges could be gained by an attacker who successfully exploited this vulnerability? 
+...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+Text chunk: Source code is available to independently verify the assertions of the research, or the author or ve...
+- Stored 1 times in Qdrant
+- Associated with 1 document(s): ['dde7e06c-6178-eb40-3253-c140019a42ec']
+- First few metadata entries:
+  {
+  "_node_type": "TextNode",
+  "adp_attack_complexity": "None",
+  "adp_attack_vector": "None",
+  "adp_availability": "None",
+  "adp_base_score": null,
+  "adp_base_score_num": null,
+  "adp_base_score_...
+
+================================================================================

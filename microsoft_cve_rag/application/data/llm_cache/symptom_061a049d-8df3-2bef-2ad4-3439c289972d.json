@@ -1,0 +1,22 @@
+{
+  "symptom_label": "unauthenticated_attacker_bypasses_secure_boot",
+  "description": "End users may experience a situation where the secure boot feature, a critical security measure, is rendered ineffective due to an underlying issue. This can lead to unauthorized access to the system as an unauthenticated attacker on the local area network (LAN) may exploit this vulnerability without requiring additional credentials or user interaction. Consequently, this could compromise the integrity and confidentiality of the system, as attackers could manipulate or access sensitive resources. The affected products include Windows 10 versions (22H2 for x64 and 32-bit, 21H2 for x64) and Windows 11 (version 23H2 for x64 and ARM64), with respective build numbers noted as 10.0.22631.3880, 10.0.19045.4651, and others. For further technical details, users should refer to the relevant KB articles KB5040442, KB5040431, and KB5040427 for information on the security updates that address this issue.",
+  "source_id": "061a049d-8df3-2bef-2ad4-3439c289972d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "061a049d-8df3-2bef-2ad4-3439c289972d"
+  ],
+  "tags": [
+    "secure boot",
+    "vulnerability",
+    "Windows 10",
+    "Windows 11",
+    "security update"
+  ],
+  "node_id": "2fe36758-7b57-492c-9731-6755040bc0c9",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

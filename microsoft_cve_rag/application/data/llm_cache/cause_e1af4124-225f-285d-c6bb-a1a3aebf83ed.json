@@ -1,0 +1,19 @@
+{
+  "description": "The root cause of the issue identified in CVE-2024-0517 is an Out of Bounds Write vulnerability located in the V8 engine of the Chromium open-source software, which is utilized by Microsoft Edge (Chromium-based). When data is written outside the intended memory boundaries, it can lead to undefined behavior, including memory corruption or the potential execution of arbitrary code. This flaw affects Microsoft Edge versions prior to 120.0.2210.144, which is addressed in the latest release. The vulnerability underscores the importance of maintaining up-to-date software and addressing dependencies that could introduce security risks. In this case, the necessary fix reflects timely updates that Microsoft Edge ingests from the Chromium project, thereby mitigating the risk associated with this vulnerability in the user environment.",
+  "cause_label": "OutOfBoundsWriteInV8Engine",
+  "source_id": "e1af4124-225f-285d-c6bb-a1a3aebf83ed",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "V8 Engine",
+    "Out of Bounds",
+    "Security Update",
+    "CVE-2024-0517"
+  ],
+  "node_id": "8cb8762f-1958-4600-807a-232c1bea62cf",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

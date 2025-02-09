@@ -1,0 +1,18 @@
+{
+  "description": "The underlying reason for the issue detailed in the post stems from a misconfiguration related to the positioning of the recovery partition relative to the OS partition. Specifically, when the recovery partition is placed on the left side of the OS partition, manual steps are required to restore functionalities such as Windows Recovery Environment (WinRE). During the testing phases, the author experienced a failure that led to the loss of the WinRE image file (winre.wim), necessitating restoration from the latest Windows installation ISO. This misconfiguration can lead to complications when attempting to restore recovery functions, which reinforces the importance of proper partition management in system recovery processes. The code intended for future publication aims to mitigate the risk of losing the WinRE by implementing a safeguard feature to preserve it before executing partition adjustments.",
+  "source_id": "77a9f7a7-b79c-7c5b-2747-74dde6ac4aff",
+  "source_type": "PatchManagementPost",
+  "cause_label": "MisconfigurationRecoveryPartitionPositionCausesLoss",
+  "tags": [
+    "Recovery Partition",
+    "OS Partition",
+    "WinRE",
+    "Configuration Management",
+    "Disaster Recovery"
+  ],
+  "node_id": "8c3cb704-1c23-4e4d-a803-772945c3af8d",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

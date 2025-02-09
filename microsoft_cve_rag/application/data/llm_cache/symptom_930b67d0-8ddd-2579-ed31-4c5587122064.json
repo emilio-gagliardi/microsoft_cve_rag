@@ -1,0 +1,20 @@
+{
+  "symptom_label": "microsoft_edge_policies_not_applying_correctly",
+  "description": "System administrators may experience issues with Microsoft Edge where specific policies are not being applied as expected. This could occur when configurations made via Intune or group policies fail to take effect, leading to inconsistencies in browser behavior for end-users. The problem often manifests in the inability to enforce security settings, such as default search engines or homepage settings, resulting in a degraded user experience. It's essential to check the ADM and ADMX files used for policy definitions, as improperly configured registry keys may prevent the intended application of these settings. Regularly reviewing the implementation of these policies ensures that systems conform to organizational requirements, thereby reducing administrative overhead.",
+  "source_id": "930b67d0-8ddd-2579-ed31-4c5587122064",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "930b67d0-8ddd-2579-ed31-4c5587122064"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Intune",
+    "Group Policy",
+    "Browser Management"
+  ],
+  "node_id": "9710cb95-6adb-4ddd-8765-ea4c09fd858d",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "Windows Kernel exposes sensitive information due to improper access controls, allowing an attacker to read registry keys without sufficient permissions.",
+  "cause_label": "windows_kernel_information_disclosure_due_to_access_control_flaw",
+  "source_id": "860ddf71-3956-3e58-cf71-b76c8ff9010b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "860ddf71-3956-3e58-cf71-b76c8ff9010b"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Information Disclosure",
+    "CVE-2024-26177"
+  ],
+  "node_id": "17c99c38-611f-49f6-a93d-33fa1722c9ed",
+  "node_label": "Cause",
+  "reliability": 85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,22 @@
+{
+  "tool_label": "connectwise_screenconnect_remote_access_tool",
+  "description": "**Tool Overview**: ConnectWise ScreenConnect is a remote access tool designed for remote control, support, and management of computers and devices across networks. It allows technicians to access a customer's device securely and provide support or troubleshoot issues effectively. ConnectWise ScreenConnect is particularly valuable in environments with remote workforce needs as it supports multiple connection types and provides advanced management features. \n\n**Details**:  \n1. **Remote Support**: Offers technicians the ability to connect remotely to client systems for troubleshooting without being physically present.  \n2. **File Transfer**: Facilitates quick and efficient file transfers between the technician and client, easing the updating or replacing of necessary files.  \n3. **Session Management**: Provides tools to manage and monitor ongoing sessions while allowing for collaboration between multiple technicians as needed.  \n4. **Security Features**: Includes robust security protocols, ensuring that all connections are secure and compliant with industry standards.  \n5. **Customizability**: Users can customize the tool according to their workflows and incorporate branding to enhance client interactions.",
+  "source_id": "4ec49e4b-315b-a3c3-79c9-d3eab063c04d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "4ec49e4b-315b-a3c3-79c9-d3eab063c04d"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/5ccd04a6-9186-4dbb-bb52-3a99bceb613fn%40googlegroups.com",
+  "tool_url": "https://www.connectwise.com/software/screenconnect",
+  "tags": [
+    "remote access",
+    "connectwise",
+    "support",
+    "RMM"
+  ],
+  "node_id": "77a8e5bb-ee8f-4e19-9151-18ac5b562cee",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Tool"
+}

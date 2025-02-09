@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_elevation_of_privilege_exploits_may_occur",
+  "description": "In affected systems running Windows 11 versions 23H2, 22H2, and 21H2, users may experience an increase in security alerts or concerns regarding unauthorized access. There could be instances where users notice unexpected system behaviors or disruptions in routine tasks, driven by the risks associated with untrusted pointer dereferencing vulnerabilities. Additionally, administrators might see unusual logs indicating attempts at privilege escalation or unauthorized access attempts, which can lead to compromised system integrity. Specifically, this issue may manifest itself through unexpected application crashes or performance degradation on the affected builds: 10.0.22631.3155 (Windows 11 23H2), 10.0.22621.3155 (Windows 11 22H2), and 10.0.22000.2777 (Windows 11 21H2), leading to a heightened state of operational risk until the issues are resolved through remediation indicated in KB articles: KB5034765 for 23H2 and 22H2, and KB5034766 for 21H2.",
+  "source_id": "5ec6969f-22f8-f372-91e8-d974604856dd",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5ec6969f-22f8-f372-91e8-d974604856dd"
+  ],
+  "tags": [
+    "Windows",
+    "Security",
+    "Elevation of Privilege",
+    "Windows 11",
+    "User Impact"
+  ],
+  "node_id": "dc3ed1cc-d154-4db3-bf04-e0de96916c23",
+  "node_label": "Symptom",
+  "reliability": 85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

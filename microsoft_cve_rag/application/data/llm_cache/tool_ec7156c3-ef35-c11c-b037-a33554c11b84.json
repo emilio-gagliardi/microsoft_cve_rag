@@ -1,0 +1,22 @@
+{
+  "node_id": "d2eaa4f4-5bc2-4171-a310-74ae2204bc4f",
+  "source_id": "e64b60ac-4dc6-07b6-4acb-f786caa997ef",
+  "entity_type": "Tool",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e64b60ac-4dc6-07b6-4acb-f786caa997ef",
+    "ec7156c3-ef35-c11c-b037-a33554c11b84"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em8ac74107-de7d-4313-a321-fecb54d6097b%40f7677745.com",
+  "tool_url": "",
+  "verification_status": "unverified",
+  "tool_label": "vulnerability_digest_action1_real_time_summary",
+  "description": "**Tool Overview**:\n\nThe Vulnerability Digest from Action1 provides a comprehensive, real-time summary of vulnerabilities affecting various software products, including Microsoft systems and third-party applications. This tool aggregates vulnerability information, including CVEs, to help administrators prioritize and respond to security threats efficiently.\n\n**Details**:\n\n1. It covers a wide range of products, including Google Chrome, Android, OpenSSH, and more.\n2. The tool notifies users of newly addressed vulnerabilities and zero-day exploits.\n3. Administrators can use this tool to track vulnerabilities across their environment and understand their severity and impact.\n4. The digest is continuously updated to reflect the latest security developments and proof of concepts available for specific CVEs.\n5. By leveraging this tool, organizations can enhance their patch management processes and maintain compliance with security standards.",
+  "reliability": 0.8,
+  "tags": [
+    "vulnerability",
+    "patch management",
+    "real-time summary",
+    "CVE tracking"
+  ]
+}

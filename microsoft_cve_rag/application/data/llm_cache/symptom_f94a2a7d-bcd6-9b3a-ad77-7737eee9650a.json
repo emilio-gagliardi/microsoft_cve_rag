@@ -1,0 +1,22 @@
+{
+  "symptom_label": "remote_code_execution_windows_mobile_broadband_driver",
+  "description": "Users may experience unauthorized command execution on their systems, primarily related to the Windows Mobile Broadband driver. This issue is particularly relevant for devices running Windows 11 Version 23H2 (Build 10.0.22631.3593) and similar versions of Windows 10. The problem arises due to a remote code execution vulnerability which can manifest when an attacker gains access via the vulnerable driver, leading to significant control over the device. As a consequence, administrators may observe unexpected behavior, erratic performance, or unauthorized access attempts, which can severely impact system integrity. Users of affected builds should refer to KB5037771, KB5037770, and KB5037768 for essential updates and solutions.",
+  "source_id": "f94a2a7d-bcd6-9b3a-ad77-7737eee9650a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f94a2a7d-bcd6-9b3a-ad77-7737eee9650a"
+  ],
+  "tags": [
+    "remote code execution",
+    "Windows Mobile Broadband",
+    "KB5037771",
+    "KB5037770",
+    "KB5037768"
+  ],
+  "node_id": "54700dd3-9a8b-44f0-8c04-256ed395c65a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

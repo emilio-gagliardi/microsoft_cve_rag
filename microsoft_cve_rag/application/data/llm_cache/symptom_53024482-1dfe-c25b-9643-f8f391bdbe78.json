@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_crashes_after_chrome_update",
+  "description": "After installing the latest Microsoft Edge (Chromium-based) security update (version 126.0.2592.56), users may experience crashes or unresponsiveness when navigating certain web pages. This issue arises from a type confusion vulnerability in Chromium, which could result in incorrect memory access and cause the browser to terminate unexpectedly. Users have reported that the Edge browser might display error messages indicating that it has stopped working or fails to load specific sites, disrupting user workflows. The problem particularly affects users who interact heavily with web applications that rely on advanced rendering capabilities. Affected users are encouraged to verify their build version and apply the recommended update to regain stability and security in their browsing experience.",
+  "source_id": "53024482-1dfe-c25b-9643-f8f391bdbe78",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "53024482-1dfe-c25b-9643-f8f391bdbe78"
+  ],
+  "tags": [
+    "microsoft_edge",
+    "chromium",
+    "security_update",
+    "browser_crash"
+  ],
+  "node_id": "d22e0869-6cc4-4743-804e-80e80f5fc84a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

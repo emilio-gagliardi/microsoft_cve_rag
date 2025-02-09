@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the elevation of privilege vulnerability in Windows Win32k (CVE-2024-38066):\n\n1. Download and apply the KB5040427 update for your respective Windows 10 version from the official Windows Update catalog.\n2. Ensure all user sessions are logged off before updating to avoid conflicts.\n3. Restart your system after installation to ensure changes take effect.\n\n**Details**:\n- This update mitigates the use-after-free vulnerability that could allow an attacker to gain elevated privileges.\n- The corresponding update package can be found at https://catalog.update.microsoft.com/Search.aspx?q=KB5040427.\n- Additional updates also exist under KB5040448 for version-specific applications.\n\n**Preconditions**:\n- Confirm the system is running a compatible build of Windows 10 (specifically for builds 10.0.19044.4651 and 10.0.19045.4651).\n- Backup critical data before proceeding with the update installation.\n",
+  "source_id": "5e76d7f8-35f5-c295-e1c9-2dc08a70e92d",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_elevation_of_privilege_win32k_cve202438066",
+  "tags": [
+    "KB5040427",
+    "Windows10",
+    "ElevationOfPrivilege",
+    "CWE416"
+  ],
+  "node_id": "34f28686-5efc-4bc4-a418-222adf3e897e",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "5e76d7f8-35f5-c295-e1c9-2dc08a70e92d"
+  ],
+  "verification_status": "unverified"
+}

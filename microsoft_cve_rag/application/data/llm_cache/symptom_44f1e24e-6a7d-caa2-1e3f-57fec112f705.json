@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_freezes_on_page_loaded_with_chrome",
+  "description": "Users of Microsoft Edge (Chromium-based) version 127.0.2651.98 may experience unexpected freezing or crashing when accessing webpages that utilize the V8 JavaScript engine prior to the implementation of security updates associated with CVE-2024-7550. This issue is a result of the underlying type confusion vulnerability in Chromium that potentially allows for heap corruption based on specially crafted HTML. Consequently, users might encounter situations where the browser becomes unresponsive, leading to interrupted browsing sessions and possible data loss. The latest stable version of Microsoft Edge, 127.0.6533.99, has resolved this issue, ensuring that users are no longer affected by such instability after installation of the appropriate updates. Administrators should encourage end users to verify their browser version to mitigate these observable disruptions.",
+  "source_id": "44f1e24e-6a7d-caa2-1e3f-57fec112f705",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "44f1e24e-6a7d-caa2-1e3f-57fec112f705"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "CVE-2024-7550",
+    "Browser Stability",
+    "Heap Corruption"
+  ],
+  "node_id": "48d6a67a-2222-452d-acba-53d26bfb3e60",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "information_disclosure_in_windows_cryptography",
+  "description": "The presence of a cryptographic information disclosure vulnerability in Windows could lead to unauthorized access to sensitive data. Users on affected systems may not have immediate visual indicators of the issue; however, if exploited, an attacker could retrieve critical information such as the content from operations involving OAEP decryption. This behavior effectively results in a total loss of confidentiality for the impacted systems, impacting various Windows 10 and 11 builds including 10.0.26100.2033 (KB5044284), 10.0.22631.4317 (KB5044285), and others detailed in the update logs. Administrators should remain vigilant for potentially suspicious activity that might suggest attempts to access protected resources, as the exploitation can occur locally or through user interaction, effectively expanding risk across systems governed by different security authorities.",
+  "source_id": "6d6e7bb3-c352-cb0e-cdd9-374ffc65d56a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "6d6e7bb3-c352-cb0e-cdd9-374ffc65d56a"
+  ],
+  "tags": [
+    "Windows",
+    "Cryptography",
+    "Information Disclosure",
+    "Security Update"
+  ],
+  "node_id": "182a50a2-1d77-4e5c-9a76-edc246894d9e",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

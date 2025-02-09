@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve client reporting issues with WSUS:\n\n1. Create custom indexes in the WSUS database as documented in the official Microsoft guide.\n2. Reindex the WSUS database using the relevant guidelines.\n3. If necessary, restart the WSUS website to refresh the connection.\n\n**Details**:\nThese steps are designed to enhance database performance and ensure that clients can successfully report to the WSUS server again. After applying these actions, ensure that the ReportingWebService is running correctly in the Event Log. (LLM Synthesized)",
+  "source_id": "65ac50bd-d085-f366-d58d-f931523e9701",
+  "source_type": "PatchManagementPost",
+  "fix_label": "restore_client_reporting_with_custom_indexes_wsus",
+  "tags": [
+    "WSUS",
+    "ClientReporting",
+    "CustomIndexes",
+    "LLM Synthesized"
+  ],
+  "node_id": "43874fa2-c2a1-4590-8cfb-f4d10a5bc2c8",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "65ac50bd-d085-f366-d58d-f931523e9701"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,23 @@
+{
+  "tool_label": "kb5037765_vpn_ntlm_functionality_fix",
+  "description": "**Tool Overview**:\n\nKB5037765 is a patch released by Microsoft aimed to address functionality issues related to VPN and NTLM following the April 2024 updates. \n\n**Details**:\n\nThis patch focuses on mitigating known issues introduced in previous builds, particularly those that impact network authentication and remote connectivity. It aims to restore stable operations for applications and services reliant on NTLM authentication. Administrators are advised to monitor the deployment of this update to ensure that connectivity is restored and that any lingering issues are addressed promptly.\n\n1. Applies specific fixes related to VPN connection reliability.  \n2. Addresses NTLM authentication failures that might have disrupted services post-update.  \n3. Ensures compatibility with various network configurations and setups that utilize VPN.\n4. Recommendations to evaluate the deployment performance and log any irregularities post-application of the update.",
+  "source_id": "90b25c64-d023-20ec-5fb6-6aee77e66df8",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "90b25c64-d023-20ec-5fb6-6aee77e66df8"
+  ],
+  "source_url": "https://learn.microsoft.com/en-us/windows/release-health/status-windows",
+  "tool_url": "https://learn.microsoft.com/en-us/windows/release-health/status-windows",
+  "tags": [
+    "patch",
+    "VPN",
+    "NTLM",
+    "issue resolution"
+  ],
+  "node_id": "a0914031-5c69-4839-835d-df6458f1aa4b",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the boot failure in VMware-based virtualization environments when using an x86-based processor with Secure Boot enabled:\n\n1. Refer to the guidance outlined in KB-5025885 for managing Windows Boot Manager revocations related to Secure Boot changes.\n2. Apply any necessary mitigations as specified in the article to restore boot functionality.\n\n**Details**:\n- Microsoft is coordinating with VMware to address this issue, so keep an eye on updates from both vendors.\n- Ensure that the mitigations do not conflict with other security configurations in your virtualization environment. (LLM Synthesized)\n",
+  "source_id": "9490824e-6d88-45bd-2d06-3ac713f4d104",
+  "source_type": "PatchManagementPost",
+  "fix_label": "restore_boot_vmware_secure_boot_issues",
+  "tags": [
+    "KB5025885",
+    "VMware",
+    "SecureBoot",
+    "BootFailure"
+  ],
+  "node_id": "bf65fd1d-1ddc-4547-ac39-b8443eed2ecd",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "9490824e-6d88-45bd-2d06-3ac713f4d104"
+  ],
+  "verification_status": "unverified"
+}

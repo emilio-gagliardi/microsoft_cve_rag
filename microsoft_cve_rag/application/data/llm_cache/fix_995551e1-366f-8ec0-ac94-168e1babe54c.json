@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the requirements for the new ADSync installation:\n\n1. Upgrade the .NET Framework to version 4.7.2, as it is a recommended update beyond the minimum required version of 4.7.1 for ADSync.\n2. Consider removing ADSync from your Domain Controller (DC) and relocating it to a non-DC system to potentially mitigate security concerns.\n\n**Details**:\nUpgrading to a more recent version of the .NET Framework can help ensure compatibility and improve security for ADSync operations. Relocating ADSync away from a DC may reduce the risk of exposure to vulnerabilities typically present in domain environments. (LLM Synthesized)",
+  "source_id": "995551e1-366f-8ec0-ac94-168e1babe54c",
+  "source_type": "PatchManagementPost",
+  "fix_label": "upgrade_dotnet_framework_ad_sync_installation",
+  "tags": [
+    "ADSync",
+    "DotNetFramework",
+    "Migration",
+    "LLM Synthesized"
+  ],
+  "node_id": "4c4c60c0-fe0d-4b33-a6f7-669ca978bd95",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "995551e1-366f-8ec0-ac94-168e1babe54c"
+  ]
+}

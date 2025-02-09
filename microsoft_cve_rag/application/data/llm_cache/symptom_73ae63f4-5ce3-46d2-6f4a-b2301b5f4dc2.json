@@ -1,0 +1,21 @@
+{
+  "symptom_label": "automation_update_management_not_showing_updates",
+  "description": "The system is experiencing issues where available updates are not displaying through automation update management or the 'check for updates' feature via sconfig. This behavior typically indicates a breakdown in communication with the update services and can lead to missing critical updates. Users have reported similar experiences, indicating that this issue may affect multiple setups using automation update management for systems running Windows Server 2019. A ticket has been opened with Microsoft; however, resolution appears to rely on a forthcoming fixed KB article, KB-5037765, to address the problem effectively.",
+  "source_id": "73ae63f4-5ce3-46d2-6f4a-b2301b5f4dc2",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "73ae63f4-5ce3-46d2-6f4a-b2301b5f4dc2"
+  ],
+  "tags": [
+    "update_management",
+    "windows_server_2019",
+    "patching_issues",
+    "kb_article"
+  ],
+  "node_id": "02eb0381-882a-4c57-b8f6-1ebc8826830f",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

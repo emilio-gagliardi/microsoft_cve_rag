@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo download the ISO and related keys for Microsoft 365 products:\n\n1. Log in to the Microsoft 365 admin center using your work account.\n2. Navigate to the left menu and select 'Billing' then 'Your Products'.\n3. Locate the ISO download option and keys listed in this section.\n\n**Details**:\n- Ensure that you have the necessary permissions on your work account to access the admin features.\n- The ISO download option will allow for installation/configuration of Microsoft 365 products as required.",
+  "source_id": "bafb3cb3-8466-cb06-c03b-c40ccd0e1704",
+  "source_type": "PatchManagementPost",
+  "fix_label": "access_iso_download_microsoft_365_admin_center",
+  "tags": [
+    "Microsoft365",
+    "ISODownload",
+    "AdminCenter",
+    "AccessKeys"
+  ],
+  "node_id": "f36b4854-a90b-4b1c-8d6e-1fbc69c5b19c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "bafb3cb3-8466-cb06-c03b-c40ccd0e1704"
+  ]
+}

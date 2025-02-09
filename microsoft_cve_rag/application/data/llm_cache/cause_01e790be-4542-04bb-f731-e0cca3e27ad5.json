@@ -1,0 +1,21 @@
+{
+  "description": "The vulnerability arises from a failure in the protection mechanisms of the Windows Mark of the Web feature, allowing exploitation via user interaction with a crafted file sent over the network. This results in bypassing the SmartScreen user experience, which is intended to enhance security against malicious files.",
+  "cause_label": "windows_mark_of_the_web_feature_bypass",
+  "source_id": "01e790be-4542-04bb-f731-e0cca3e27ad5",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "01e790be-4542-04bb-f731-e0cca3e27ad5"
+  ],
+  "tags": [
+    "Windows",
+    "Security",
+    "SmartScreen",
+    "CVE-2024-43487"
+  ],
+  "node_id": "934ec40a-cccb-4cf6-a6ff-dcaeb9368639",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

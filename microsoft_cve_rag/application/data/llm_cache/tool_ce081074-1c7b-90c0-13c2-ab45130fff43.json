@@ -1,0 +1,23 @@
+{
+  "tool_label": "administrative_templates_admx_windows_server2025",
+  "description": "**Tool Overview**:\n\nAdministrative Templates (ADMX) for Windows Server 2025 are XML-based files that define the policy settings available for configuration through Group Policy.\n\n**Details**:\n\nAdministrative Templates are vital for system administrators to manage user and computer configurations within a Windows environment effectively. The ADMX files are utilized within the Group Policy Management Console, allowing administrators to establish settings that apply uniformly across multiple systems. They serve as a repository to apply various policy settings, ensuring compliance and consistency in the organization's IT infrastructure. The templates simplify the management of user interfaces and set policies through clear definitions in an XML format.\n\n- **Functionality**: Assists in configuring Group Policy settings for Windows Server.\n- **Usage**: These templates are imported into Group Policy Objects (GPOs) for deployment in networked environments.\n- **Configuration**: Administrative templates are usually organized hierarchically to make navigation and selection intuitive for administrators.",
+  "source_id": "ce081074-1c7b-90c0-13c2-ab45130fff43",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "ce081074-1c7b-90c0-13c2-ab45130fff43"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CADgYyh2DSTzy1grXCzfaVWx%2BiMUYBAuNW7kXj%3D%3Dx_8s3fPQ7OA%40mail.gmail.com",
+  "tool_url": "",
+  "tags": [
+    "Windows Server",
+    "ADMX",
+    "Group Policy",
+    "administrative templates"
+  ],
+  "node_id": "1d4d475e-40fa-49f1-9271-986810216b34",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

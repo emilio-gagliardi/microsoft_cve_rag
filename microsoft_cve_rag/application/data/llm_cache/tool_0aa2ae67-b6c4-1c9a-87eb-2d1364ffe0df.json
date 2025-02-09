@@ -1,0 +1,23 @@
+{
+  "tool_label": "windows_11_build_26100_release_preview_channel",
+  "description": "**Tool Overview**:\n\nThe Windows 11 build 26100 is a version designated for the release preview channel, allowing users to test and evaluate the latest features before they roll out widely. This specific build is critical for organizations, particularly for senior systems administrators, as it enables the testing of updates that may impact existing systems. \n\n**Details**:\n\n1. This build provides access to enhancements and feedback features that can help organizations prepare for broader deployments.\n2. Participation in the release preview channel allows IT professionals to influence development by reporting bugs and providing feedback.\n3. Continuous updates in this channel ensure that workload compatibility is maintained across different environments.\n\nAdministrators are encouraged to monitor build updates and test accordingly to mitigate any disruption in business processes while capitalizing on new features.\n",
+  "source_id": "0aa2ae67-b6c4-1c9a-87eb-2d1364ffe0df",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "0aa2ae67-b6c4-1c9a-87eb-2d1364ffe0df"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://blogs.windows.com/insider/2024/06/21/release-preview-channel-windows-11-build-26100/",
+  "tags": [
+    "Windows 11",
+    "Insider Preview",
+    "build release",
+    "system administration"
+  ],
+  "node_id": "287d5e40-7c84-4e67-bfee-557e15490bf1",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

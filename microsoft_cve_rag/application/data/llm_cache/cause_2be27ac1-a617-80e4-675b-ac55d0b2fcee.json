@@ -1,0 +1,22 @@
+{
+  "description": "Type confusion in V8 engine of Chromium allows remote attackers to exploit heap corruption through crafted HTML pages in affected versions prior to 128.0.6613.84.",
+  "cause_label": "chromium_type_confusion_in_v8_engine_heap_corruption",
+  "source_id": "2be27ac1-a617-80e4-675b-ac55d0b2fcee",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2be27ac1-a617-80e4-675b-ac55d0b2fcee"
+  ],
+  "tags": [
+    "Chromium",
+    "V8",
+    "heap corruption",
+    "remote attack",
+    "HTML exploitation"
+  ],
+  "node_id": "7ad2371a-cc2f-463b-858e-8d923a43efcc",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

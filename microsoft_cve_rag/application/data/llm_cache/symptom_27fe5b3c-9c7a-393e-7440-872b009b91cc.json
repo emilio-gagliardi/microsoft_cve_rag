@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_performance_issue_after_update",
+  "description": "After updating Microsoft Edge (Chromium-based) to version 126.0.2592.56, users may experience performance issues such as slow browsing speeds and unresponsive tabs. This occurs as a residual effect of transitioning to this latest version, following the resolution of a significant security vulnerability detailed in KB-126.0.2592.56. Users may notice that specific web applications lag or behave unpredictably, impacting productivity. Frequent pauses during page loads or interactions can be frustrating, particularly for professionals relying on the performance of the browser for business-related tasks. If these symptoms arise post-update, users are advised to check for subsequent patches or updates that may address these performance concerns.",
+  "source_id": "27fe5b3c-9c7a-393e-7440-872b009b91cc",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "27fe5b3c-9c7a-393e-7440-872b009b91cc"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "performance",
+    "update",
+    "browser",
+    "KB-126.0.2592.56"
+  ],
+  "node_id": "fdcb0a11-c726-415a-b9aa-f2c08bba0216",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

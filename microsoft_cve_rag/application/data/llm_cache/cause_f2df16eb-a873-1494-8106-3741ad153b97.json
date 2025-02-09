@@ -1,0 +1,20 @@
+{
+  "description": "The Windows USB print driver has an improper null termination error, leading to a potential elevation of privilege. This flaw exists in specific builds of Windows, allowing attackers to exploit it locally to gain higher system privileges.",
+  "cause_label": "windows_usb_print_driver_improper_null_termination",
+  "source_id": "f2df16eb-a873-1494-8106-3741ad153b97",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f2df16eb-a873-1494-8106-3741ad153b97"
+  ],
+  "tags": [
+    "Windows",
+    "USB print driver",
+    "CVE-2024-21442",
+    "elevation of privilege"
+  ],
+  "node_id": "61056488-cc12-4dfc-84ac-795bd86a43d1",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

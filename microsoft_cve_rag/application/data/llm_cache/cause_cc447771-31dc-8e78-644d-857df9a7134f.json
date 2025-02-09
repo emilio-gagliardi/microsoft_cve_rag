@@ -1,0 +1,20 @@
+{
+  "description": "Improper implementation in navigation within Chromium allowed for input that could lead to cross-site scripting, enabling remote attackers to spoof security UI through crafted HTML pages. This issue existed in versions prior to 122.0.6261.57.",
+  "cause_label": "chromium_improper_input_handling_in_navigation",
+  "source_id": "cc447771-31dc-8e78-644d-857df9a7134f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "cc447771-31dc-8e78-644d-857df9a7134f"
+  ],
+  "tags": [
+    "CVE-2024-1676",
+    "Chromium",
+    "Microsoft Edge",
+    "Cross-site Scripting"
+  ],
+  "node_id": "60e31a0c-ab19-4b70-8378-5c4ba4caa5fe",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Cause"
+}

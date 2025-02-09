@@ -1,0 +1,22 @@
+{
+  "description": "A use after free condition in the Chromium-based Microsoft Edge browser, resulting from improper memory management where an object is accessed after it has been freed. This flaw allows remote attackers to exploit heap corruption via crafted HTML content, impacting versions prior to 127.0.6533.99.",
+  "cause_label": "chromium_use_after_free_heap_corruption",
+  "source_id": "e90e0316-f355-3908-d94f-726a25364475",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e90e0316-f355-3908-d94f-726a25364475"
+  ],
+  "tags": [
+    "CVE",
+    "Chromium",
+    "Microsoft Edge",
+    "Heap Corruption",
+    "Use After Free"
+  ],
+  "node_id": "42ff1c1b-6c18-48a1-9aa5-7212d98a53da",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

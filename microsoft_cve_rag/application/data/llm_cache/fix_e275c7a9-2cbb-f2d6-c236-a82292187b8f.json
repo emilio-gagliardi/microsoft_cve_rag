@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo disable the auto start function for Microsoft Teams across all users using Group Policy:\n\n1. Access the Group Policy Management Console.\n2. Create a new Group Policy Object (GPO) or edit an existing one.\n3. Navigate to the following registry key within the GPO:\n   `HKCU\\Software\\Classes\\LocalSettings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\SystemAppData\\msteams_8wekyb3d8bbwe\\TeamsTFWStartupTask`\n4. Set the value to `1` to disable auto start or `2` to enable it.\n5. Link the GPO to the desired Organizational Unit (OU) containing users.\n\n**Details**:\nThis method utilizes a registry key change to control the startup behavior of Microsoft Teams, ensuring a consistent user experience across the organization. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure you have administrative privileges to modify Group Policies.\n- Test the changes in a controlled environment before rolling out organization-wide.",
+  "source_id": "e275c7a9-2cbb-f2d6-c236-a82292187b8f",
+  "source_type": "PatchManagementPost",
+  "fix_label": "disable_auto_start_microsoft_teams_group_policy",
+  "tags": [
+    "MicrosoftTeams",
+    "GroupPolicy",
+    "RegistryChange",
+    "LLM Synthesized"
+  ],
+  "node_id": "e2fd5cf1-3818-44d8-89ba-b1a8f054a0d8",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e275c7a9-2cbb-f2d6-c236-a82292187b8f"
+  ],
+  "verification_status": "unverified"
+}

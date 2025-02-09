@@ -1,0 +1,21 @@
+{
+  "symptom_label": "product_categorization_error_affects_patch_access",
+  "description": "An observable issue has arisen involving the Microsoft Update API, where only patching programs leveraging this API experience disruptions due to incorrect product categorization. System administrators relying on this API might find that their patching processes are failing, which can lead to unpatched systems and potential exposure to vulnerabilities. The underlying metadata on the front end appears unaffected, creating confusion regarding the source of the issue. This situation illustrates the challenges of maintaining effective patch management when API access classifications are inaccurately defined. Systems that integrate with the Microsoft Update API and depend on proper product categorization for patching are particularly impacted, highlighting the critical nature of accurate configuration in such environments.",
+  "source_id": "f90f0530-057a-a0ed-85ba-f0a24cd3dbee",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "f90f0530-057a-a0ed-85ba-f0a24cd3dbee"
+  ],
+  "tags": [
+    "microsoft_update_api",
+    "patching",
+    "product_categorization",
+    "api_access"
+  ],
+  "node_id": "ef3c98ce-9273-47e6-a5bf-8a5953338d09",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

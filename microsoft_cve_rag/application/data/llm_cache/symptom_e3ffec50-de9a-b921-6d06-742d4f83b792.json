@@ -1,0 +1,20 @@
+{
+  "symptom_label": "cimi_disabled_due_to_driver_incompatibility",
+  "description": "Devices running Windows 11 Pro may experience core isolation memory integrity (CIMI) being disabled due to driver incompatibility issues. In this case, the compatibility of drivers, specifically for Bluetooth and other peripherals, has led to the automatic disabling of CIMI, which is crucial for enhancing system security. Despite the devices meeting the necessary specifications for Windows 11, including having TPM 2.0, the outdated drivers, dated back to 2015, do not support the required features for CIMI. These compatibility problems can hinder the performance and security posture of systems relying on core isolation for memory protection. The situation is documented under KB Article ID KB-5035853, which provides further insights for system administrators addressing similar challenges.",
+  "source_id": "e3ffec50-de9a-b921-6d06-742d4f83b792",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e3ffec50-de9a-b921-6d06-742d4f83b792"
+  ],
+  "tags": [
+    "core_isolation",
+    "memory_integrity",
+    "driver_incompatibility",
+    "windows_11"
+  ],
+  "node_id": "3714bc1c-b84c-4097-b40a-435639168a19",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

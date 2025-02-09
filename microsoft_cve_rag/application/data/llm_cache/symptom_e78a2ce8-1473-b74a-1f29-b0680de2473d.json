@@ -1,0 +1,22 @@
+{
+  "symptom_label": "remote_code_execution_via_windows_fax_service",
+  "description": "End users may experience unauthorized code execution on their systems as a consequence of vulnerabilities related to the Windows Fax Service. Specifically, systems running affected Windows versions including build numbers 10.0.22631.3880, 10.0.22621.3880, 10.0.19045.4651, and others may be at risk. As the Windows Fax Service operates over the network, potential outcomes include attackers gaining the ability to execute arbitrary commands remotely without any user interaction. This could lead to severe privacy breaches and compromise of local files, causing significant disruption to both individual users and the broader organizational environment. The risk is particularly critical for systems that have the Windows Fax Service enabled and properly configured. For detailed remediation steps, refer to the KB articles such as KB-5040442, KB-5040431, and KB-5040427.",
+  "source_id": "e78a2ce8-1473-b74a-1f29-b0680de2473d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e78a2ce8-1473-b74a-1f29-b0680de2473d"
+  ],
+  "tags": [
+    "Windows",
+    "Fax Service",
+    "Remote Code Execution",
+    "Important",
+    "Patch Management"
+  ],
+  "node_id": "8a8e133d-e849-4c62-b2c9-977e1dcf2ea0",
+  "node_label": "Symptom",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

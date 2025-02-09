@@ -1,0 +1,20 @@
+{
+  "symptom_label": "manual_task_required_for_secure_boot_keys",
+  "description": "There is an observable issue where a manual intervention is required to update Microsoft Secure Boot keys, particularly affecting systems utilizing Azure Hybrid and Windows Server deployments. This symptom becomes crucial as automation processes are disrupted, leading to increased administrative overhead and potential for misconfiguration. The relevant KB Article for more details on resolving this issue is KB4055324. Organizations should be aware that neglecting this manual task could lead to complications in system integrity and secure boot operations. As a result, the user experience and system reliability may be adversely impacted if the manual updates are not performed timely.",
+  "source_id": "8b8557f6-ce7e-7330-9d7c-08404a3da7c4",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "8b8557f6-ce7e-7330-9d7c-08404a3da7c4"
+  ],
+  "tags": [
+    "Secure Boot",
+    "Azure Hybrid",
+    "Windows Server",
+    "Manual Update"
+  ],
+  "node_id": "4af7d086-37e8-4f54-8863-fc74f0837f24",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

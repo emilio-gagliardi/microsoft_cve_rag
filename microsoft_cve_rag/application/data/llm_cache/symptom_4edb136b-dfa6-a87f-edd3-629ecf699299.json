@@ -1,0 +1,17 @@
+{
+  "symptom_label": "RdpConnectionIssuesForInternationalUsers",
+  "description": "International users connecting to client systems that are domain-joined may experience issues related to Remote Desktop Protocol (RDP) connections. This symptom is particularly evident when users attempt to connect via a VPN or Terminal Services Gateway (TSG). Misconfiguration or improper usage of the RDP client, especially in relation to the TSG option for bypassing local addresses, can complicate the connection process, leading to ineffective session establishment and subsequent remote access challenges.",
+  "source_id": "4edb136b-dfa6-a87f-edd3-629ecf699299",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "RDP",
+    "VPN",
+    "Terminal Services Gateway",
+    "International Users"
+  ],
+  "node_id": "7ecfd3eb-f23b-4dee-bcb0-be3993fc8131",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

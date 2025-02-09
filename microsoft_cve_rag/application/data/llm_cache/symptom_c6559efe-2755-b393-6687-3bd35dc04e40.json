@@ -1,0 +1,22 @@
+{
+  "symptom_label": "elevation_of_privilege_on_windows_systems",
+  "description": "After the installation of the security update KB-5039212, systems running Windows 10 and Windows 11, specifically builds 10.0.19043.4529, 10.0.22631.3737, 10.0.22621.3737, and 10.0.22000.3019, may experience unexpected elevation of privilege issues. Users may notice that applications run with higher privileges than intended, potentially leading to unauthorized access to sensitive files and settings. This behavior can manifest as unexpected changes to system configurations or application permissions. Administrators should be vigilant in monitoring user access shortly after applying this update to identify any irregularities resulting from this symptom. This issue is linked to the vulnerability identified as CVE-2024-30091, which indicates a critical need for monitoring following updates related to elevation of privilege vulnerabilities.",
+  "source_id": "c6559efe-2755-b393-6687-3bd35dc04e40",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c6559efe-2755-b393-6687-3bd35dc04e40"
+  ],
+  "tags": [
+    "Windows 10",
+    "Windows 11",
+    "elevation of privilege",
+    "KB-5039212",
+    "CVE-2024-30091"
+  ],
+  "node_id": "09912793-2d0e-420d-9731-30418c59bea0",
+  "node_label": "Symptom",
+  "reliability": 85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

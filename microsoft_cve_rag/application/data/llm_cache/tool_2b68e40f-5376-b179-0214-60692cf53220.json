@@ -1,0 +1,22 @@
+{
+  "tool_label": "windows_10_extended_security_updates_guide",
+  "description": "**Tool Overview**:\n\nThis guide provides instructions on when to utilize Windows 10 Extended Security Updates (ESUs). These updates are crucial for organizations that require additional security support for Windows 10 deployments that are no longer receiving standard updates.\n\n**Details**:\n\n1. **Purpose**: Intended for administrators managing unsupported Windows 10 versions to ensure continued security compliance.\n2. **Functionality**: The guide clarifies which scenarios warrant the use of ESUs, enhancing the security posture of legacy systems.\n3. **Configuration**: It includes information on how to implement these updates effectively without compromising system integrity.\n4. **Usage**: Administrators can reference the guide for best practices when deploying ESUs to minimize potential vulnerabilities.\n5. **Context**: Ensures organizations comply with security requirements when operating outdated software.\n",
+  "source_id": "2b68e40f-5376-b179-0214-60692cf53220",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "2b68e40f-5376-b179-0214-60692cf53220"
+  ],
+  "source_url": "https://techcommunity.microsoft.com/t5/windows-it-pro-blog/when-to-use-windows-10-extended-security-updates/ba-p/4102628",
+  "tool_url": "https://techcommunity.microsoft.com/t5/windows-it-pro-blog/when-to-use-windows-10-extended-security-updates/ba-p/4102628",
+  "tags": [
+    "Windows 10",
+    "ESU",
+    "security",
+    "updates"
+  ],
+  "node_id": "c38481e8-1873-4c1d-9ec8-207abc6447d8",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_unresponsive_due_to_build_issue",
+  "description": "Users may experience responsiveness issues with Microsoft Edge (Chromium-based) version 121.0.2277.113 and earlier versions like 120.0.2210.175. This can manifest as the browser freezing or not responding during normal operation, leading to frustration and potential data loss if users are unable to save their work. This symptom appears after the installation of the associated KB-121.0.2277.113 update and may affect multiple users across different environments. System administrators can verify the issue by checking the affected build numbers indicated in the update guide.",
+  "source_id": "65923399-e8f0-70e7-9b1b-9f25778df8a5",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "65923399-e8f0-70e7-9b1b-9f25778df8a5"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Browser Performance",
+    "End User Impact",
+    "Build 121.0.2277.113"
+  ],
+  "node_id": "ba16d284-400b-44c6-9cf0-e95c2dcc68bc",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "NST",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "user_experiences_elevation_of_privilege_access",
+  "description": "Following the installation of security updates, users may notice an increase in system privileges being available unexpectedly. This could allow unauthorized users to access sensitive resources or execute actions that should be restricted to higher privilege accounts. Specifically, systems running Windows 10 (builds 19044.4894, 22000.3197, 22631.4169, 26100.1742) and Windows 11 (build 22621.4169) may exhibit this behavior after applying updates referenced in KB-5043080, KB-5043076, KB-5043067, and KB-5043064. Administrators will need to monitor for any unauthorized access attempts that could stem from this condition, which highlights the need for immediate patching to mitigate potential exploitation.",
+  "source_id": "30cf4eb6-ef64-b7b6-bb07-44a1b8a14392",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "30cf4eb6-ef64-b7b6-bb07-44a1b8a14392"
+  ],
+  "tags": [
+    "Windows 10",
+    "Windows 11",
+    "Privilege Escalation",
+    "KB Updates"
+  ],
+  "node_id": "b395eed4-f6c5-45b2-a32f-c797bc3387d7",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

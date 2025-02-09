@@ -1,0 +1,22 @@
+{
+  "description": "The issue arises due to a misconfiguration in Excel 2016 following the installation of the security update KB5002653 on November 12, 2024. After this update, Excel add-ins that were previously enabled do not load correctly when the application is reopened. This problem was confirmed during internal testing by Microsoft patch testers. As a workaround, Microsoft recommends manually downloading and installing update KB4484305 from the Microsoft download center to restore add-in functionality. Notably, this fix is not available through the catalog or configuration manager, complicating the remedial steps for users.",
+  "source_id": "746db9bd-d7d6-4927-6a80-78a686babdbd",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "746db9bd-d7d6-4927-6a80-78a686babdbd"
+  ],
+  "cause_label": "excel_addins_not_loading_after_security_update",
+  "tags": [
+    "Excel",
+    "Patch Management",
+    "KB5002653",
+    "KB4484305",
+    "Office Updates"
+  ],
+  "node_id": "59a5d26b-8a9c-4f34-9792-6ccc79ed7f87",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

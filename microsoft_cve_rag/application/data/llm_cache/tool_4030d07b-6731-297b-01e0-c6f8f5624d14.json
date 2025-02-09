@@ -1,0 +1,19 @@
+{
+  "tool_label": "GithubScriptForRecoveryPartition",
+  "description": "This GitHub script is designed to manage the recovery partition of a disk in an automated manner. The script's functionality ensures that the recovery partition is placed correctly on disks formatted for UEFI, specifically at the end of the disk. It streamlines the recovery setup process which can otherwise be complex and time-consuming. By automating the positioning of the recovery partition, users can avoid manual errors and enhance system recovery efficiency. The detailed explanation for this Tool is provided in the Fix description.",
+  "source_id": "4030d07b-6731-297b-01e0-c6f8f5624d14",
+  "source_type": "PatchManagementPost",
+  "source_url": "N/A",
+  "tool_url": "https://github.com/your-repo-path",
+  "tags": [
+    "GitHub",
+    "recovery partition",
+    "automation",
+    "system recovery"
+  ],
+  "node_id": "dd11405c-9089-4ce8-ab45-f0e58ecca969",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "A heap buffer overflow caused by improper handling of layouts in Google Chrome prior to version 127.0.6533.72, which allowed potential exploitation via crafted HTML pages. This issue affects Microsoft Edge since it is based on the Chromium engine, specifically in version 127.0.2651.74, which resolves this vulnerability.",
+  "cause_label": "chromium_heap_buffer_overflow_in_layout_processing",
+  "source_id": "382e6f9a-fc05-04f5-1e3f-821c80ce9418",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "382e6f9a-fc05-04f5-1e3f-821c80ce9418"
+  ],
+  "tags": [
+    "CVE-2024-6994",
+    "heap buffer overflow",
+    "Chromium",
+    "Microsoft Edge"
+  ],
+  "node_id": "9f44e1d0-2b52-4af1-914c-c6ec569bceeb",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

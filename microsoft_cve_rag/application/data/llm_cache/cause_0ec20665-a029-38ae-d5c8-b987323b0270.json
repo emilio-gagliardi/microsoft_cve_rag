@@ -1,0 +1,21 @@
+{
+  "description": "Inappropriate implementation in the memory allocator of Chromium prior to version 126.0.6478.54, which could allow a remote attacker to exploit heap corruption via a crafted HTML page.",
+  "cause_label": "chromium_inappropriate_memory_allocator_implementation",
+  "source_id": "0ec20665-a029-38ae-d5c8-b987323b0270",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0ec20665-a029-38ae-d5c8-b987323b0270"
+  ],
+  "tags": [
+    "CVE-2024-5839",
+    "Chromium",
+    "MemoryAllocator",
+    "HeapCorruption"
+  ],
+  "node_id": "b47f3868-6bdd-4ec2-8f60-76501eb8903b",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

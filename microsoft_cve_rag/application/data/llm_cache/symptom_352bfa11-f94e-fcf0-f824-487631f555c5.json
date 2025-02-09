@@ -1,0 +1,22 @@
+{
+  "symptom_label": "chrome_allows_out_of_bounds_memory_access",
+  "description": "Users may experience unexpected behaviors in Google Chrome versions prior to 126.0.6478.114, due to an inappropriate implementation within the v8 engine. This may manifest as application crashes, instability during browsing sessions, or other erratic behaviors when interfacing with certain web pages. The issues arise when a crafted HTML page causes out-of-bounds memory access, which can lead to data corruption or potentially compromise user sessions. Users should be aware of potential system vulnerabilities, as this could affect sensitive operations and web transactions. Affected systems should be updated promptly to the recommended build to mitigate these risks as per KB-126.0.2592.68.",
+  "source_id": "352bfa11-f94e-fcf0-f824-487631f555c5",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "352bfa11-f94e-fcf0-f824-487631f555c5"
+  ],
+  "tags": [
+    "Google Chrome",
+    "v8 engine",
+    "memory access",
+    "out of bounds",
+    "browser stability"
+  ],
+  "node_id": "a4135c01-5089-4796-b3c2-61ec68fc0a19",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

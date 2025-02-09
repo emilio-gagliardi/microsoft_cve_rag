@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Resume Extensible Firmware Interface security feature bypass vulnerability (CVE-2024-37983), it is recommended to apply the latest updates for your Windows operating system version.\n\n1. Identify your Windows version and associated build number from the list provided in the update announcement.\n2. Download the appropriate KB update from the Microsoft Update Catalog using the links provided below.\n3. Install the update on your system.\n4. Restart your system to ensure that the updates take effect.\n\n**Details**:\n- The following KB articles address the specific builds:\n   - Windows 11 Version 24H2: [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - Windows 11 Version 23H2: [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n   - Windows 10 for x64-based Systems: [KB5044286](https://catalog.update.microsoft.com/Search.aspx?q=KB5044286)\n   - Additional required updates can be accessed through the links provided.\n- Ensure that your system is backed up before applying any updates to avoid data loss in case of unforeseen issues.",
+  "source_id": "8565a642-70b6-29fa-a688-591a04e65801",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_windows_updates_for_cve202437983_bypass",
+  "tags": [
+    "KB5044285",
+    "Windows11",
+    "Windows10",
+    "CVE202437983"
+  ],
+  "node_id": "7205ae51-62c1-4703-bee7-b64f49717b67",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "8565a642-70b6-29fa-a688-591a04e65801"
+  ],
+  "verification_status": "unverified"
+}

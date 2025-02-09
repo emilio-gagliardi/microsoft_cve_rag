@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_unexpected_close_due_to_heap_bug",
+  "description": "Users may experience unexpected closures of the Microsoft Edge browser (version 126.0.2592.56) when attempting to open or interact with PDF files. This issue arises from a use after free vulnerability in the Pdfium component of Chromium, which affects Edge due to its reliance on this open source software. Users might notice that the browser crashes without warning while loading certain PDF documents or may have difficulty opening these files altogether. To mitigate this behavior, ensure that the browser is updated to the latest version as outlined in KB-126.0.2592.56, as the fix addresses technical flaws within the Pdfium library intended to prevent heap corruption from crafted PDF files.",
+  "source_id": "b87721fd-b5ec-37c7-958a-282078ccf68c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b87721fd-b5ec-37c7-958a-282078ccf68c"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "PDF",
+    "crash",
+    "heap corruption"
+  ],
+  "node_id": "76445372-bb18-4249-a355-0a5dd140d2c1",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

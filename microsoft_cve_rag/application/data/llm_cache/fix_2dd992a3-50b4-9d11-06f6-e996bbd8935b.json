@@ -1,0 +1,16 @@
+{
+  "description": "To mitigate the issue related to CVE-2023-5473 in Microsoft Edge (Chromium-based), ensure that you are running the latest stable version of the browser, specifically build 118.0.2088.46, which was released on October 13, 2023. This version addresses the identified use-after-free vulnerability that could potentially allow for unintended code execution. Users should check their current version by clicking on the three dots in the upper-right corner of the Edge browser, selecting 'Help and feedback', and then 'About Microsoft Edge'. Maintaining up-to-date software is critical for security, so download the latest updates from the official Microsoft site if necessary. You can visit the Microsoft Security Response Center for additional details on this fix and recommendations regarding supported software versions.",
+  "source_id": "2dd992a3-50b4-9d11-06f6-e996bbd8935b",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeToResolveChromiumIssue",
+  "tags": [
+    "web browser",
+    "update",
+    "security"
+  ],
+  "node_id": "8f72784e-50b3-448e-9151-e41ef90ab6bd",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix"
+}

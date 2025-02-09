@@ -1,0 +1,16 @@
+{
+  "description": "To mitigate the identified issue in CVE-2023-5484, it is essential to update Microsoft Edge (Chromium-based) to the latest stable release version 118.0.2088.46. This patched version addresses the inappropriate implementation inherent in the navigation feature of the browser. Users can check their browser version by clicking on the three dots in the upper right corner and selecting 'Help and Feedback', then 'About Microsoft Edge'. For more information regarding the security update, refer to KB Article ID KB-118.0.2088.46, which details the changes made in this release. This update can be found and downloaded from the Microsoft Update Catalog and is critical to ensuring the application operates securely.",
+  "source_id": "a104b87a-07d8-83b7-2242-8dc9ca3bff4e",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeToAddressImplementationIssue",
+  "tags": [
+    "Microsoft Edge",
+    "Update",
+    "CVE"
+  ],
+  "node_id": "7b13d03c-d838-44d1-af75-b8999c938820",
+  "node_label": "Fix",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

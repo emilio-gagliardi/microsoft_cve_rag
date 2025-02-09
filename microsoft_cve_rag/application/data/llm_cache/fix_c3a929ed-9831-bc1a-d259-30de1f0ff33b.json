@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the security vulnerability identified as CVE-2024-7535 in Microsoft Edge (Chromium-based):\n\n1. Update Microsoft Edge to the latest stable version by downloading it from the official Microsoft website or through the browser's automatic update feature.\n\n2. Verify that the version is 127.0.6533.99 or higher, as this will include the necessary fixes to mitigate the out-of-bounds write issues in Chromium that could potentially allow remote code execution.\n\n**Details**:\n- The update resolves a critical vulnerability that impacted users of Microsoft Edge due to its dependence on the underlying Chromium engine. \n- For users, ensuring that their Edge browser is updated protects against exploits that may attempt to leverage this vulnerability. \n- You can check your current version by clicking on the three dots in the upper right corner, selecting 'Help and feedback', and then choosing 'About Microsoft Edge'.\n\n**Preconditions**:\n- Ensure your system is capable of running the latest version of Microsoft Edge.\n- Backup any important data before proceeding with updates, as unexpected issues may arise during installation.",
+  "source_id": "c3a929ed-9831-bc1a-d259-30de1f0ff33b",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_address_cve20247535",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20247535",
+    "ChromiumUpdate",
+    "OutOfBoundsWrite"
+  ],
+  "node_id": "4acf700d-f10c-4492-bce0-b14d86a096c5",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c3a929ed-9831-bc1a-d259-30de1f0ff33b"
+  ],
+  "verification_status": "unverified"
+}

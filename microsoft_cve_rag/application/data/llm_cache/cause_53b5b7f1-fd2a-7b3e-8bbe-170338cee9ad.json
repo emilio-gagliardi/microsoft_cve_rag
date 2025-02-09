@@ -1,0 +1,23 @@
+{
+  "description": "The Windows kernel contains an elevation of privilege vulnerability due to sensitive data being stored in improperly locked memory, allowing local attackers to gain system privileges through a race condition exploit.",
+  "cause_label": "windows_kernel_elevation_of_privilege_improper_memory_locking",
+  "source_id": "53b5b7f1-fd2a-7b3e-8bbe-170338cee9ad",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "53b5b7f1-fd2a-7b3e-8bbe-170338cee9ad"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Elevation of Privilege",
+    "CVE-2024-38106",
+    "Sensitive Data Storage",
+    "Improper Memory Locking"
+  ],
+  "node_id": "822a3a33-6fa4-4ba2-ae80-65a22134684b",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

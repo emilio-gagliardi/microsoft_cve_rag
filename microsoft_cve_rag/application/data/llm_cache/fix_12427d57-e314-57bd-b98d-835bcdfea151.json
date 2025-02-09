@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the Windows storage elevation of privilege vulnerability (CVE-2024-29052), ensure that the following updates are applied:\n\n1. Install KB-5036910.\n2. Install KB-5036909.\n3. Install KB-5036894.\n4. Install KB-5036893.\n5. Install KB-5036892.\n\n**Details**:\n- These updates address an improper privilege management issue in Windows, enhancing the security framework to prevent potential exploitation.\n- Ensure that your system's build number aligns with the supported ones: [10, 0, 19045, 4291], [10, 0, 19044, 4291], [10, 0, 22631, 3447], [10, 0, 22000, 2899], [10, 0, 22621, 3447].\n\n**Preconditions**:\n- Verify that your current Windows version matches the build numbers listed above before applying the updates.\n- Backup essential data prior to installation of the updates.",
+  "source_id": "12427d57-e314-57bd-b98d-835bcdfea151",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_to_resolve_privilege_management_issue",
+  "tags": [
+    "KB5036910",
+    "KB5036909",
+    "ElevationOfPrivilege",
+    "CVE-2024-29052"
+  ],
+  "node_id": "e28d1c40-79e3-4eb4-8580-f1a11b42228d",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "12427d57-e314-57bd-b98d-835bcdfea151"
+  ]
+}

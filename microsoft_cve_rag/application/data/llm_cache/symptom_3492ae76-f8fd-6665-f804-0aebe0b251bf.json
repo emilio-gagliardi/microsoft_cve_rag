@@ -1,0 +1,18 @@
+{
+  "symptom_label": "MessageQueuingDenialOfServiceImpact",
+  "description": "After applying the updates related to CVE-2024-20661, users may experience a complete denial of service on Microsoft Message Queuing services. This issue manifests as a loss of access to resources managed by the affected component, causing disruptions in communication and application functionality that relies on these services. In the case of Windows Server 2016, users might find that the services fail to respond even after multiple restart attempts, and critical applications that depend on message queuing may be rendered non-functional. These symptoms can persist until the underlying issue is remediated through the installation of the security updates referenced in KB5034134, KB5034123, KB5034122, and KB5034121. It's essential for system administrators to be aware of these observable behaviors following the update process, particularly in environments reliant on Microsoft Message Queuing for operations.",
+  "source_id": "3492ae76-f8fd-6665-f804-0aebe0b251bf",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Microsoft Message Queuing",
+    "Denial of Service",
+    "Windows Server",
+    "Patching",
+    "System Availability"
+  ],
+  "node_id": "0e17a583-a5de-4441-9921-46ab49e2e646",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "The cause of the issue is related to the management of SQL Server updates on-premises, which can be inefficient without the proper tools. In this case, the recommendation to utilize Azure Update Manager, particularly for instances with software assurance, highlights the reliance on outdated manual processes for applying updates. Azure Update Manager provides instance-based updates, allowing for a more streamlined and efficient update management process for SQL Server installations. Without this innovative approach, organizations may face operational delays, increased security risks, and difficulty maintaining compliance. The context implies that not leveraging tools like Azure Update Manager can lead to significant management overhead and potential lapses in timely patch application.",
+  "source_id": "1d51a50d-4d05-c782-da79-4136416ea6cc",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "1d51a50d-4d05-c782-da79-4136416ea6cc"
+  ],
+  "cause_label": "inefficient_update_management_on_prem_sql_server",
+  "tags": [
+    "Azure Update Manager",
+    "SQL Server",
+    "instance based updates",
+    "software assurance"
+  ],
+  "node_id": "5457a21d-7356-4005-8a52-39653b774e62",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

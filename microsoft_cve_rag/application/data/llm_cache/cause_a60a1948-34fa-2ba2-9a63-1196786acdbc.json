@@ -1,0 +1,22 @@
+{
+  "description": "The anti-malware scanning interface in jscript9legacy.dll is not activated when executed in cscript/wscript, allowing security features to be bypassed.",
+  "cause_label": "jscript_feature_bypass_in_cscript_wscript",
+  "source_id": "a60a1948-34fa-2ba2-9a63-1196786acdbc",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a60a1948-34fa-2ba2-9a63-1196786acdbc"
+  ],
+  "tags": [
+    "Windows",
+    "scripting engine",
+    "security feature bypass",
+    "jscript",
+    "malware"
+  ],
+  "node_id": "035e483c-a009-4a90-a7d8-37fa272f35ee",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

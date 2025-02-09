@@ -1,0 +1,20 @@
+{
+  "symptom_label": "robocopy_recopies_files_due_to_crc_mismatch",
+  "description": "Robocopy may erroneously recopy files due to a mismatch in the CRC check related to date and time, potentially leading to redundant file transfers. This behavior suggests that the tool uses CRC values based on the last modified date/time to determine if a file is newer. If there is a difference in the calculated CRC, Robocopy interprets this as the file being updated, prompting an unnecessary complete recopy of the file. This issue implicates the file copying process, especially when the DST (Daylight Savings Time) shift is in effect, which could mislead the checksum calculation. Administrators should be aware of this potential inefficiency and consider using the /dst switch to bypass this CRC check during such time shifts.",
+  "source_id": "0f015e57-e198-ea79-30a9-10beee3b12f3",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "0f015e57-e198-ea79-30a9-10beee3b12f3"
+  ],
+  "tags": [
+    "robocopy",
+    "file_transfer",
+    "CRC_check",
+    "time_shift"
+  ],
+  "node_id": "1f7f542f-e4b5-470a-9c7d-29adf308058d",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

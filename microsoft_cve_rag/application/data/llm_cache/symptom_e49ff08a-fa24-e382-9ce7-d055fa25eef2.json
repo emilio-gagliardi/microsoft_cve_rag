@@ -1,0 +1,22 @@
+{
+  "symptom_label": "elevation_of_privilege_due_to_bluetooth_vulnerability",
+  "description": "End users may experience unauthorized access issues following the installation of updates related to the Windows Bluetooth driver. After applying patches KB-5026382, KB-5026368, and KB-5026361, users could potentially find themselves at risk of elevation of privileges whereby attackers could exploit these vulnerabilities to gain system-level access. This situation might not only jeopardize the integrity of user data but also lead to unauthorized modifications in system settings. Observably, this could lead to unexpected behaviors such as system settings being altered without user consent, which might raise alarms among administrators monitoring system integrity. Moreover, the risk is particularly pronounced on systems running Windows 10 and Windows 11, indicating the need for urgent attention and remediation.",
+  "source_id": "e49ff08a-fa24-e382-9ce7-d055fa25eef2",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e49ff08a-fa24-e382-9ce7-d055fa25eef2"
+  ],
+  "tags": [
+    "Windows",
+    "Bluetooth",
+    "elevation of privilege",
+    "update",
+    "system integrity"
+  ],
+  "node_id": "775a0d6d-68b3-42e9-9f8d-4ad65472efaa",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

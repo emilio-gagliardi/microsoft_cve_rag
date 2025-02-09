@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows compressed folder tampering vulnerability (CVE-2024-26185):\n\n1. Download and apply the KB5035853 update from the official Windows Update catalog.\n2. Restart your system after installation to ensure the changes take effect.\n\n**Details**:\n- This update resolves the vulnerability affecting Windows compressed folders that could lead to tampering.\n- Ensure your system is running either Windows 11 Version 23H2 (10.0.22631.3296) or Version 22H2 (10.0.22621.3296).\n- Backup important data before proceeding with the update installation.\n- For manual installation, download the update package from: https://catalog.update.microsoft.com/Search.aspx?q=KB5035853.",
+  "source_id": "e1600a1f-c4aa-9dce-2e91-523487722687",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_compressed_folder_tampering_cve202426185",
+  "tags": [
+    "KB5035853",
+    "Windows11",
+    "CompressedFolder",
+    "CVE202426185"
+  ],
+  "node_id": "d2472a26-0354-44f0-a0b6-e777ed37fb33",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e1600a1f-c4aa-9dce-2e91-523487722687"
+  ]
+}

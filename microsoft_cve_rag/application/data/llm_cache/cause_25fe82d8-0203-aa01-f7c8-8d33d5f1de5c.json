@@ -1,0 +1,21 @@
+{
+  "description": "The issue appears to stem from a conflict related to Windows cumulative updates when applied to virtual machines and physical machines, particularly concerning the February and May updates. The user reported that after these updates, reverting to a previous version of the virtual machine (gold image) resolved the problem. Specifically, the Windows Defender ASR (Attack Surface Reduction) rules, enforced via Group Policy Object (GPO), also contributed to functionality issues within a virtual machine pool. This suggests a misconfiguration or incompatibility introduced by the updates or policies that were affecting system stability. The need for reverting and redeploying images indicates a persistent causative element in the configuration that needs further investigation for a permanent resolution.",
+  "source_id": "25fe82d8-0203-aa01-f7c8-8d33d5f1de5c",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "25fe82d8-0203-aa01-f7c8-8d33d5f1de5c"
+  ],
+  "cause_label": "windows_update_conflict_with_vm_configuration",
+  "tags": [
+    "Windows",
+    "Cumulative Update",
+    "Virtual Machines",
+    "ASR Rules"
+  ],
+  "node_id": "a5c28bb3-4c92-4d1d-8de8-93fdaeefc228",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "symptom_label": "intune_application_model_fails_to_increase_partition_size",
+  "description": "In Microsoft environments utilizing Intune, there may be issues with the recovery partition sizes not being automatically adjusted due to the current lack of automated fixes from Microsoft. This situation likely affects several thousand computers if a manual approach is not implemented. As referenced, users are turning to third-party scripts, such as MHimken's patch, to manually increase recovery partition sizes. The integration of this script with Intune's application model is critical for graceful restarts and the detection process, which needs to be monitored closely. Users dependent on automated solutions through Intune might find their recovery options stunted without this manual intervention.",
+  "source_id": "149fabb1-1640-0d41-4e49-f9fe223f78e9",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "149fabb1-1640-0d41-4e49-f9fe223f78e9"
+  ],
+  "tags": [
+    "Intune",
+    "PowerShell",
+    "recovery partition",
+    "patch management"
+  ],
+  "node_id": "a997e9e5-013d-4fbb-905c-7dda3fb34133",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,22 @@
+{
+  "description": "Improperly implemented security check in v8 engine of Google Chrome prior to build 126.0.6478.114 allows remote attackers to perform out of bounds memory access, leading to potential exploitation via crafted HTML pages.",
+  "cause_label": "chromium_improper_security_check_in_v8_engine",
+  "source_id": "352bfa11-f94e-fcf0-f824-487631f555c5",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "352bfa11-f94e-fcf0-f824-487631f555c5"
+  ],
+  "tags": [
+    "CVE",
+    "Chrome",
+    "v8",
+    "memory_access",
+    "security_check"
+  ],
+  "node_id": "df42a547-72a8-4def-b6c0-58ae517a0070",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

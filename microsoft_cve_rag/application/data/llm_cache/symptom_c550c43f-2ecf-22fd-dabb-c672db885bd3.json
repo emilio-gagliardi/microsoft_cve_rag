@@ -1,0 +1,22 @@
+{
+  "symptom_label": "system_experiences_elevation_of_privilege_issues",
+  "description": "After the installation of security update KB5039212, systems might exhibit behaviors related to elevation of privilege issues. Users on affected systems may find that unauthorized actions can be executed that should normally require higher user permissions. This could lead to unexpected access to files and settings, resulting in potential data exposure and integrity concerns. The observation may be noted across various build versions, including Windows Server 2016 and Windows 10 versions 21H2 and 22H2, affecting both x64 and 32-bit architectures. System administrators should be vigilant in monitoring behaviors suggesting unauthorized access or privilege escalation post-update.",
+  "source_id": "c550c43f-2ecf-22fd-dabb-c672db885bd3",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c550c43f-2ecf-22fd-dabb-c672db885bd3"
+  ],
+  "tags": [
+    "elevation of privilege",
+    "Windows 10",
+    "Windows Server",
+    "security update",
+    "KB5039212"
+  ],
+  "node_id": "a6083d93-5560-4dce-b54c-9a7593f8cde1",
+  "node_label": "Symptom",
+  "reliability": 85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,16 @@
+{
+  "symptom_label": "StartingVMsMayFailAfterPatchInstallation",
+  "description": "After the installation of the October 2023 cumulative update, starting ESXi VMs may fail if the hosts are not on version 8. This symptom indicates that the failure to start VMs is impacted by the compatibility of the ESXi version with recent updates. Administrators should verify that their ESXi hosts are updated to the required version to avoid operational penalties and service disruptions.",
+  "source_id": "4af4c8b5-de7e-797a-c39f-f1af5737bbc7",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "VMware",
+    "Hyper-V",
+    "ESXi"
+  ],
+  "node_id": "cd70d335-bb94-436e-ac7e-b878c1055dba",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

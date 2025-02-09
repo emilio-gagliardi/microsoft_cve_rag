@@ -1,0 +1,21 @@
+{
+  "symptom_label": "edge_performance_issues_after_update_to_121_0_2277_113",
+  "description": "After the application of the security update KB-121.0.2277.113 to Microsoft Edge (Chromium-based) version 121.0.2277.113, users may experience notable performance degradation. This could manifest as noticeable slowdowns during web browsing, where page load times increase significantly, causing frustration for end users. Some users may report unexpected browser crashes or freezes, particularly when accessing resource-intensive websites. There may be instances where certain features of the browser, such as video playback or extension functionality, do not operate as intended, impacting overall user experience. These symptoms particularly affect users who rely on the updated build for day-to-day tasks and can lead to decreased productivity.",
+  "source_id": "46817eb4-92a1-9403-e7ec-9c155dac4c16",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "46817eb4-92a1-9403-e7ec-9c155dac4c16"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "performance",
+    "impact",
+    "update",
+    "browser"
+  ],
+  "node_id": "85c73ffd-e760-43a4-98ae-fa308b51de2b",
+  "node_label": "Symptom",
+  "reliability": 9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

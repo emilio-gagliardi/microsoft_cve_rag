@@ -1,0 +1,16 @@
+{
+  "symptom_label": "EdgePerformanceReducedPostUpdateInstallation",
+  "description": "After installing the security update KB-119.0.2151.58 for Microsoft Edge (Chromium-based) version 119.0.2151.58, users may experience intermittent performance issues. These issues manifest as reduced application responsiveness, leading to occasional delays in task execution, which can significantly affect user productivity. The update was released on November 9, 2023, addressing a remote code execution vulnerability, while ensuring that performance remains available yet compromised during usage.",
+  "source_id": "65369b53-9b11-853c-ca19-0211b57d6fe5",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "1ace43ac-a78f-4c33-88c8-d75f1a624d4e",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

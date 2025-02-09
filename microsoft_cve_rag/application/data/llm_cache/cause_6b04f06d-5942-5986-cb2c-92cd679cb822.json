@@ -1,0 +1,22 @@
+{
+  "description": "The Windows Mobile Broadband Driver contains an out-of-bounds read flaw, which allows an attacker to exploit the component to cause a denial of service. This situation can arise when the driver processes requests from an adjacent network, potentially leading to high availability loss. This vulnerability affects multiple versions of Windows 10 and 11, with specific build numbers specified.",
+  "cause_label": "windows_mobile_broadband_driver_out_of_bounds_read",
+  "source_id": "6b04f06d-5942-5986-cb2c-92cd679cb822",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "6b04f06d-5942-5986-cb2c-92cd679cb822"
+  ],
+  "tags": [
+    "CVE-2024-43555",
+    "Windows",
+    "Mobile Broadband Driver",
+    "Denial of Service",
+    "Out-of-bounds Read"
+  ],
+  "node_id": "efa67b1c-e25f-427f-bdd7-678af88a75a0",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

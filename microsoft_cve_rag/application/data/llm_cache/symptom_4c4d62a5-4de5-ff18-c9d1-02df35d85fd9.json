@@ -1,0 +1,20 @@
+{
+  "symptom_label": "microsoft_edge_slow_response_after_update",
+  "description": "After updating to Microsoft Edge version 130.0.2849.68, users may experience slow response times while using the browser. This lag could manifest as delayed navigation, slow page loading, and noticeable stuttering during video playback. Additionally, users might encounter inconsistent performance, which can lead to frustration and decreased productivity. It's essential for system administrators to monitor user feedback and performance metrics closely after this update to ensure the user experience remains optimal. Reference KB-130.0.2849.68 for more details on the update.",
+  "source_id": "4c4d62a5-4de5-ff18-c9d1-02df35d85fd9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4c4d62a5-4de5-ff18-c9d1-02df35d85fd9"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Browser Performance",
+    "Update Impact"
+  ],
+  "node_id": "1ba8bf0e-79d5-467a-a2c7-5d648ddb4c1d",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

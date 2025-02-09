@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows Bluetooth driver information disclosure vulnerability (CVE-2024-38123):\n\n1. Download and apply the KB5041571 update from the official Windows Update catalog.\n2. Restart your system after the installation to ensure changes take effect.\n\n**Details**:\n- This update resolves the information disclosure aspect associated with out-of-bounds read vulnerabilities.\n- For manual installation, download the update package from: https://catalog.update.microsoft.com/Search.aspx?q=KB5041571.\n\n**Preconditions**:\n- Ensure your system is running Windows 11 Version 24H2.\n- Backup critical data before proceeding with the update installation.\n",
+  "source_id": "63e56b36-b6d7-3208-d916-edbe16fb0093",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb5041571_to_remediate_bluetooth_info_disclosure",
+  "tags": [
+    "KB5041571",
+    "Windows11",
+    "BluetoothDriver",
+    "InformationDisclosure"
+  ],
+  "node_id": "9e4bfa3c-b5ce-42e2-a2f3-27a00731fe48",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "63e56b36-b6d7-3208-d916-edbe16fb0093"
+  ],
+  "verification_status": "unverified"
+}

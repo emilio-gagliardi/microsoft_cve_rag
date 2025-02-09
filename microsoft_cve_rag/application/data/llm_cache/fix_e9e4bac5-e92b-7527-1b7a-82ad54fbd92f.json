@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Microsoft Virtual Hard Disk (VHDX) denial of service vulnerability (CVE-2024-38264):\n\n1. Identify the appropriate KB article based on your Windows version:\n   - For Windows 11 Version 24H2, install KB5046617.\n   - For Windows 11 Version 23H2, install KB5046633.\n   - For Windows 11 Version 22H2, also install KB5046633.\n\n2. Download the updates from the official Microsoft Update Catalog using the following links:\n   - [KB5046617](https://catalog.update.microsoft.com/Search.aspx?q=KB5046617)\n   - [KB5046633](https://catalog.update.microsoft.com/Search.aspx?q=KB5046633)\n\n3. Restart your system after the updates are applied to ensure all changes are effective.\n\n**Details**:\n- This issue has been classified with a maximum severity of 'important'. Addressing it can help prevent unauthorized access and potential service disruptions.\n- Ensure that your system is configured to receive updates automatically for the best protection.\n",
+  "source_id": "e9e4bac5-e92b-7527-1b7a-82ad54fbd92f",
+  "source_type": "MSRCPost",
+  "fix_label": "resolve_vhdx_denial_of_service_cve202438264",
+  "tags": [
+    "KB5046617",
+    "KB5046633",
+    "Windows11",
+    "RemoteExploitation"
+  ],
+  "node_id": "83493b0f-e14c-4007-9070-18023e2b3e96",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e9e4bac5-e92b-7527-1b7a-82ad54fbd92f"
+  ],
+  "verification_status": "unverified"
+}

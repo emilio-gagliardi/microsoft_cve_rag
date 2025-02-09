@@ -1,0 +1,21 @@
+{
+  "symptom_label": "lenovo_system_recovery_bootloader_compromise",
+  "description": "Users may experience unauthorized alterations to the boot manager in Lenovo systems running preloaded Windows 7 and 8 operating systems, specifically those sold between 2012 and 2014. This could result in unexpected behavior during system startup and may allow for privilege escalation by local attackers, leading to concerns about unauthorized access and control over the system. Affected build numbers include 10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, and 10.0.22621.3447. Administrators are advised to be vigilant for signs of boot manager modification. Related KB Articles include KB-5036910, KB-5036894, KB-5036893, and KB-5036892.",
+  "source_id": "128d20b8-6ac6-e563-ae80-559d82b66c86",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "128d20b8-6ac6-e563-ae80-559d82b66c86"
+  ],
+  "tags": [
+    "Lenovo",
+    "Windows 7",
+    "Windows 8",
+    "Bootloader",
+    "Privilege Escalation"
+  ],
+  "node_id": "2d78d712-13ab-4b1a-9275-b34ff7c66ea5",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

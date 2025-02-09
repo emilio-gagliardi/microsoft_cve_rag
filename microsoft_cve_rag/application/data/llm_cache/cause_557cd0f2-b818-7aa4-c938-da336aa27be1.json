@@ -1,0 +1,22 @@
+{
+  "description": "The Windows Wi-Fi driver contains an improper input validation issue that can be exploited to achieve remote code execution through malicious networking packets sent from an adjacent system.",
+  "cause_label": "windows_wifi_driver_improper_input_validation",
+  "source_id": "557cd0f2-b818-7aa4-c938-da336aa27be1",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "557cd0f2-b818-7aa4-c938-da336aa27be1"
+  ],
+  "tags": [
+    "Windows",
+    "Wi-Fi",
+    "Driver",
+    "Remote Code Execution",
+    "Improper Input Validation"
+  ],
+  "node_id": "43244b1e-3f23-49fe-b8da-eaa150b9130c",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

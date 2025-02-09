@@ -1,0 +1,21 @@
+{
+  "description": "Bypass of the secure boot feature due to protection mechanism failure, which may allow unauthorized access or modifications to the boot process and system integrity.",
+  "cause_label": "secure_boot_feature_bypass_due_to_mechanism_failure",
+  "source_id": "46684ff1-8cde-239e-97a9-131c08b26bc6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "46684ff1-8cde-239e-97a9-131c08b26bc6"
+  ],
+  "tags": [
+    "CVE-2024-28921",
+    "secure boot",
+    "protection mechanism",
+    "vulnerability",
+    "Windows"
+  ],
+  "node_id": "15ad73de-b2f7-436f-8204-9fe739138f24",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

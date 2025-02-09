@@ -1,0 +1,17 @@
+{
+  "tool_label": "ApplyWindowsUpdateForInformationDisclosureFix",
+  "description": "This tool refers to the Windows Update functionality that provides security patches for addressing vulnerabilities, including the specific one referenced in CVE-2023-36404. Users can find this tool by searching for Windows Update in the Windows Settings, or by visiting the Microsoft Update Catalog online. By applying these updates, end-users ensure their systems are safeguarded against potential information disclosure risks and maintain overall system integrity.",
+  "source_id": "41027221-101b-b53c-7beb-538937fc2c9b",
+  "source_type": "MSRCPost",
+  "source_url": "https://support.microsoft.com/en-us/windows/update-windows-10-4737d50e-6ec0-4be8-5852-abfe6086cb5b",
+  "tags": [
+    "update",
+    "windows",
+    "security"
+  ],
+  "node_id": "a3ff9e75-89a4-436e-99a6-a5fae5913bed",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

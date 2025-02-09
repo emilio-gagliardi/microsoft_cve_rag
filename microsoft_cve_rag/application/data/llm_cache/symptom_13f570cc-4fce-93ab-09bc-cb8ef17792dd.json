@@ -1,0 +1,17 @@
+{
+  "symptom_label": "MsTeamsClientInstallationFailsDueToUserPermissions",
+  "description": "The new Microsoft Teams client installation process can fail if the user lacks sufficient permissions. This issue arises particularly when organizations implement update policies that allow for the use of the new client while users are piloted for early adoption. If the client is uninstalled from the AppData folder, attempting to reinstall it may lead to a situation where the user is unable to install the necessary components, resulting in no functioning MS Teams installed on their profile.",
+  "source_id": "13f570cc-4fce-93ab-09bc-cb8ef17792dd",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "MicrosoftTeams",
+    "ClientInstallation",
+    "UserPermissions",
+    "UpdatePolicy"
+  ],
+  "node_id": "54b8c442-4bfc-4764-8824-22df0298e67d",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

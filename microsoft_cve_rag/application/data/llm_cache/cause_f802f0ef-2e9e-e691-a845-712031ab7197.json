@@ -1,0 +1,22 @@
+{
+  "description": "Use after free condition in the UI of Google Chrome on iOS versions prior to 130.0.6723.58, allowing a remote attacker to exploit heap corruption through crafted HTML pages.",
+  "cause_label": "chromium_use_after_free_in_ui_on_ios",
+  "source_id": "f802f0ef-2e9e-e691-a845-712031ab7197",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f802f0ef-2e9e-e691-a845-712031ab7197"
+  ],
+  "tags": [
+    "CVE-2024-9957",
+    "Google Chrome",
+    "Microsoft Edge",
+    "heap corruption",
+    "use after free"
+  ],
+  "node_id": "74aa9a20-08b4-443f-a7a0-4de6f0e07bfe",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,18 @@
+{
+  "symptom_label": "TotalLossOfAvailabilityDueToDoS",
+  "description": "The core observable behavior associated with the Microsoft AllJoyn API denial of service issue is a total loss of availability. This means that systems affected by the vulnerability may become entirely unresponsive, resulting in users being unable to access essential resources or services. End users may experience symptoms such as inability to connect to applications, delayed responses, or outright failures in service continuity while the vulnerability is exploited. Any attempts to use the impacted systems could lead to prolonged downtime until appropriate patches are applied. Relevant for systems running Windows 10 (various versions), Windows 11, and Windows Server across multiple build numbers, this issue highlights the critical need for timely updates as documented in KB5034134, KB5034123, KB5034122, and KB5034121.",
+  "source_id": "e8b1ed1b-5678-ef63-1054-dd0894b62813",
+  "source_type": "MSRCPost",
+  "tags": [
+    "denial of service",
+    "availability",
+    "Windows 10",
+    "Windows 11",
+    "Windows Server"
+  ],
+  "node_id": "08cf3efb-e052-47c0-8df2-01e3fb61a412",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

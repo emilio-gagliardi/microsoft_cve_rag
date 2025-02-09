@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the type confusion vulnerability in Chromium affecting Microsoft Edge:\n\n1. Ensure you are using the latest version of Microsoft Edge.\n2. Check for updates by clicking on the three dots (...) in the top right corner of the browser.\n3. Navigate to Help and Feedback, then select About Microsoft Edge to view the current version.\n4. If the version is not 126.0.6478.57 or higher, apply the update or download the latest version from the official website.\n\n**Details**:\n- This update addresses the out-of-bounds memory write vulnerability associated with CVE-2024-5830, ensuring that Microsoft Edge is no longer vulnerable. \n- Users should verify their build number matches or exceeds 126.0.6478.57 to maintain security. \n\n**Preconditions**:\n- Ensure that your system allows for browser updates and has internet access.\n- Backup any important data before applying updates if necessary.",
+  "source_id": "2dad3c40-020b-5a07-7f51-8de361fbd027",
+  "source_type": "MSRCPost",
+  "fix_label": "upgrade_microsoft_edge_to_version_126647857",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20245830",
+    "Chromium",
+    "TypeConfusion"
+  ],
+  "node_id": "a5a93480-1712-4a0b-988b-eac0f91f23b4",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "2dad3c40-020b-5a07-7f51-8de361fbd027"
+  ],
+  "verification_status": "unverified"
+}

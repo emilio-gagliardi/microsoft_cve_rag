@@ -1,0 +1,21 @@
+{
+  "symptom_label": "asus_models_experience_blue_screen_after_driver_update",
+  "description": "Users of certain ASUS commercial models have reported encountering a blue screen and crash issue following a driver update that took place between July 17 and July 23, 2024. This behavior indicates that the system is unable to operate correctly, likely caused by an incompatible or faulty driver introduced in the latest update. The technical team has identified this issue and has released a fix, which signifies that the malfunction was significant enough to warrant immediate attention. This type of crash can lead to data loss or interruption in operations, which is critical in enterprise environments. System administrators should ensure that their devices are updated with the latest fixes to mitigate these risks and maintain operational stability.",
+  "source_id": "29ec1869-3eeb-9dfa-7bc4-6626a0925654",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "29ec1869-3eeb-9dfa-7bc4-6626a0925654"
+  ],
+  "tags": [
+    "ASUS",
+    "blue screen",
+    "driver update",
+    "system crash"
+  ],
+  "node_id": "abc99a64-ab83-4cc8-b105-5dd89a1db642",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

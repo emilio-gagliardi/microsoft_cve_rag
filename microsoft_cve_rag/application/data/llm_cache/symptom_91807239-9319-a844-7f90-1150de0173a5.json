@@ -1,0 +1,20 @@
+{
+  "symptom_label": "ad_sync_not_auto_updating_due_to_net_version",
+  "description": "The Active Directory Sync (AD Sync) service is not automatically updating due to the .NET Framework version being outdated, specifically version 4.6.2. The user indicates that the AD Sync is currently running on a domain controller that is not the primary, and it has been stuck on version 2.2.1.0 since June 2023. It is suspected that updating the .NET Framework to version 4.7.1 or 4.7.2 may restore the automatic update functionality of AD Sync. This situation poses a risk of incompatibilities and unresolved issues in user synchronization, which could affect access and security measures across the domain. The inquiry into whether it is appropriate to install the new .NET versions on the domain controller implies considerations for operational integrity and dependency management in the system environment.",
+  "source_id": "91807239-9319-a844-7f90-1150de0173a5",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "91807239-9319-a844-7f90-1150de0173a5"
+  ],
+  "tags": [
+    "AD Sync",
+    ".NET Framework",
+    "auto update",
+    "version management"
+  ],
+  "node_id": "9b750e23-f177-4390-95e7-a255d0b92a57",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

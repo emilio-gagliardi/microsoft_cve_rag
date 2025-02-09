@@ -1,0 +1,18 @@
+{
+  "symptom_label": "BluetoothDevicePairsWithUnauthorizedAccessor",
+  "description": "Users may experience unauthorized Bluetooth pairing requests resulting in unintentional connections with potentially malicious devices. This occurs due to a spoofing vulnerability in the Microsoft Bluetooth driver affecting Windows 10 and Windows 11, specifically in versions 21H2, 22H2, and 23H2. As a consequence, the affected systems may present unexpected behavior such as the automatic or suggested pairing to devices that should not be trusted. Users could notice that their devices are connecting to unfamiliar Bluetooth accessories without their consent, leading to concerns about data integrity and device security. This vulnerability is associated with several KB articles, including KB5034123 for Windows 11 and KB5034122 for Windows 10, with build numbers like 10.0.22000.2713 and 10.0.19045.3930 demonstrating the affected environments.",
+  "source_id": "a8bd4c96-9476-efbf-0295-e50261e32a92",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Bluetooth",
+    "Windows 10",
+    "Windows 11",
+    "Spoofing",
+    "Security"
+  ],
+  "node_id": "7ed6bc57-57f9-4681-84ba-ca20da06f3ea",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_telephony_server_experiences_remote_code_execution",
+  "description": "After the application of security updates for the Windows Telephony Server associated with CVE-2024-43518, users may experience unexpected behavior wherein the server can be remotely exploited leading to potential code execution. This occurs due to a heap-based buffer overflow that may manifest as application crashes or unresponsive behavior, especially when connecting to malicious servers leveraging the Tapisnap.dll tool. Additionally, users may notice a decline in the server's responsiveness or interruptions in service, ultimately affecting communication and service availability. Affected products include Windows Server 2022 (build 20348.2762) and Windows Server 2019 (server core installation with several build numbers). Relevant KB articles include KB-5044281 and KB-5044277, guiding users on remediation.",
+  "source_id": "1434d352-dad7-0e9d-38e8-b6a8af9f224e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "1434d352-dad7-0e9d-38e8-b6a8af9f224e"
+  ],
+  "tags": [
+    "remote code execution",
+    "Windows Telephony Server",
+    "heap-based buffer overflow",
+    "server management",
+    "system instability"
+  ],
+  "node_id": "565f9f14-0502-4fc9-aa57-8cab0f70fdd4",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

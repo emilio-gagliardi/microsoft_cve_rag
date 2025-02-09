@@ -1,0 +1,21 @@
+{
+  "symptom_label": "bypass_secure_boot_feature_on_windows_systems",
+  "description": "End users may notice that the secure boot security feature is being bypassed on affected Windows systems, potentially exposing them to unauthorized access or modifications. This issue could manifest as an inability to confirm secure boot status during system diagnostics or unexpected behavior when attempting to boot into a secure state. System administrators might find that devices do not adhere to the expected security protocols, causing concern about the integrity of the operating environment. Users running Windows 10 and Windows 11 builds, specifically those noted in KB5040442, KB5040431, and KB5040427, may be particularly affected. The observed behavior could raise alarms regarding the overall security posture of system installations across the identified builds.",
+  "source_id": "d54e3cb4-0990-4e28-7faf-05a3db3bdb0e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d54e3cb4-0990-4e28-7faf-05a3db3bdb0e"
+  ],
+  "tags": [
+    "Secure Boot",
+    "Windows",
+    "Bypass",
+    "Security"
+  ],
+  "node_id": "54d987dc-bb33-4a3c-96df-0855e5776c7f",
+  "node_label": "Symptom",
+  "reliability": 0.25,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

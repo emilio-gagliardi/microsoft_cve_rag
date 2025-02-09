@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_updates_fail_install_due_to_documentation_gap",
+  "description": "End users are experiencing failures in Windows updates without any visible documentation of the issue. Specifically, this pertains to Windows 10 version 22H2 and is exemplified by the inability to locate relevant information on the Windows Release Health Dashboard. The absence of data in known or resolved issues sections leaves administrators without a clear understanding of the problem. As previously referenced, KB article KB5044285 has not been able to provide the necessary information, which complicates troubleshooting efforts for system administrators. Such gaps in documentation can lead to prolonged downtime and uncertainty, affecting overall system reliability.",
+  "source_id": "5f6c3340-706f-e804-53db-d092d624a668",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "5f6c3340-706f-e804-53db-d092d624a668"
+  ],
+  "tags": [
+    "windows_updates",
+    "error_code",
+    "documentation",
+    "troubleshooting"
+  ],
+  "node_id": "fb6cae96-285e-4462-9f17-046d0a141d93",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

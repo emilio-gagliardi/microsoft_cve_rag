@@ -1,0 +1,20 @@
+{
+  "symptom_label": "user_experiences_remote_code_execution_alerts",
+  "description": "Users may notice unexpected alerts or notifications when attempting to establish a connection to SQL databases. This occurs as a result of the underlying remote code execution vulnerability in the Microsoft WDAC OLE DB provider for SQL Server. For systems running affected builds, such as Windows 10 (10.0.19045.4046, 10.0.10240.20469) and Windows 11 (10.0.22631.3155, 10.0.22000.2777), they might find that their SQL client applications behave unpredictably, potentially displaying error messages or warnings about unsafe connections. In some scenarios, users could experience performance degradation or application crashes when attempting to connect to malicious SQL servers, leading to interruptions in their workflow. These behaviors provide critical indicators to system administrators that action is necessary, particularly those referencing KB-5034763, which outlines the criticality of addressing these vulnerabilities.",
+  "source_id": "dce11d36-cea7-ee8d-3f66-f3fc11d1ef4b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "dce11d36-cea7-ee8d-3f66-f3fc11d1ef4b"
+  ],
+  "tags": [
+    "Windows",
+    "SQL Server",
+    "Remote Code Execution",
+    "Error Alerts"
+  ],
+  "node_id": "d4ac3430-0207-440f-a454-60916316b199",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

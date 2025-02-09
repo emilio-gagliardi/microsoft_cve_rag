@@ -1,0 +1,21 @@
+{
+  "symptom_label": "secure_boot_enabled_bootloader_issue_with_certs",
+  "description": "The presence of both old and new CA certificates on systems can lead to inconsistencies when booting with Secure Boot enabled. This issue is particularly impactful on large deployments, such as in environments with close to 2000 endpoints. The application of updated UEFI CA 2023 certificates without proper management of old PCA 2011 certificates can result in boot failures or unexpected behavior. Administrators must ensure their production operating systems and recovery partitions are updated to address these certificate revocations, as indicated by KB-5025885. Ongoing documentation and careful change management are crucial to prevent recurring complications in the future.",
+  "source_id": "2ab10665-4af7-90ce-85df-95cc41eebbb5",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "2ab10665-4af7-90ce-85df-95cc41eebbb5"
+  ],
+  "tags": [
+    "secure_boot",
+    "CA_certificates",
+    "UEFI",
+    "bootloader"
+  ],
+  "node_id": "018c1d65-57ab-41ea-a67f-242bff67cdcb",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

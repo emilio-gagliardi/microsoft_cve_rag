@@ -1,0 +1,19 @@
+{
+  "tool_label": "WindowsTCPIPVulnerabilityMitigationTool",
+  "description": "**Tool Overview**:\n\nThis tool is designed to assist IT professionals in identifying and mitigating information disclosure vulnerabilities described in CVE-2024-21313 related to the Windows TCP/IP stack. **Functionality**:\n\n1. Scans the network interfaces for potential vulnerabilities.\n2. Provides recommendations for applying the latest security patches and configurations.\n3. Logs all findings for future reference and compliance audits.\n\n**Details**:\nThis tool aims to help organizations protect their networks from remote exploitation by ensuring that all TCP/IP vulnerabilities are addressed. By regularly utilizing this tool, system administrators can maintain a more secure Windows environment. For detailed instructions on how to implement this Tool, please refer to the Fix description.\n",
+  "source_id": "564baed8-eeea-7f28-7eb9-7deeb10b9c81",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-21313",
+  "tool_url": "",
+  "tags": [
+    "TCP/IP",
+    "vulnerability",
+    "information disclosure",
+    "LLM Synthesized"
+  ],
+  "node_id": "2cba7274-74e1-4a9b-b907-e2b99142f0b7",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

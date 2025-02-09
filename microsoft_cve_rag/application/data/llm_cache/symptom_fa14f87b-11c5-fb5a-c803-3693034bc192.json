@@ -1,0 +1,17 @@
+{
+  "symptom_label": "WinreWimNotPatchedAfterScriptRun",
+  "description": "The script intended for updating the Windows Recovery Environment (WinRE) partition fails to correctly apply the necessary patches for the vulnerabilities CVE-2022-41099 and CVE-2024-20666. It inaccurately determines that WinRE is patched by checking the version of bootmenuux.dll, leading administrators to believe the update has been successfully applied when it has not. This situation can leave systems vulnerable, as critical updates provided in KB-5034957 and KB-5034232 may not be implemented without modification to the script's logic.",
+  "source_id": "fa14f87b-11c5-fb5a-c803-3693034bc192",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "winre",
+    "patching",
+    "cve-2024-20666",
+    "kb-5034957"
+  ],
+  "node_id": "a1951c37-3642-4b81-976a-65cb86457384",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

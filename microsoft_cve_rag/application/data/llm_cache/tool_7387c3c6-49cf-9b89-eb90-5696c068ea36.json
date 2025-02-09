@@ -1,0 +1,19 @@
+{
+  "tool_label": "MicrosoftEdgeSecurityPatchTool",
+  "description": "The Microsoft Edge Security Patch Tool is a utility designed to address vulnerabilities such as CVE-2023-36026, which pertains to spoofing issues in Chromium-based Edge. This tool assists system administrators in deploying the latest security updates effectively. By applying necessary patches, it enhances the integrity and confidentiality of data processed by Edge, ensuring better protection against potential cyber threats. Utilization of this tool minimizes user interaction risks and aligns with best practices for maintaining a secure browser environment. The patching process is essential, especially as the tool mitigates the discovered spoofing vulnerabilities promptly and thoroughly.",
+  "source_id": "7387c3c6-49cf-9b89-eb90-5696c068ea36",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-36026",
+  "tool_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-36026",
+  "tags": [
+    "security",
+    "patching",
+    "Microsoft Edge",
+    "CVE-2023-36026"
+  ],
+  "node_id": "fb92e490-4fb9-4182-90c2-9fae0d63d205",
+  "node_label": "Tool",
+  "reliability": "0.9",
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

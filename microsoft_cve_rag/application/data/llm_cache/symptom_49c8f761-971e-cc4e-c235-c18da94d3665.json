@@ -1,0 +1,21 @@
+{
+  "symptom_label": "system_experiences_remote_code_execution_via_sql",
+  "description": "End users may experience unauthorized remote code execution when connecting to a malicious SQL database via their SQL client application. This occurs after a user is tricked into establishing a connection with the compromised database, which can lead to the execution of arbitrary code within the user's session. The issue primarily affects Windows 10 (builds 10.0.10240.20469, 10.0.19044.4046, 10.0.19045.4046), Windows 11 (version 23H2, build 10.0.22631.3155), and several versions of Windows Server 2016 and 2022. Users may not receive any immediate error messages, but they could notice unexpected behavior or performance issues indicative of the underlying exploitation. Refer to KB article KB5034763 for further details and remediation guidance.",
+  "source_id": "49c8f761-971e-cc4e-c235-c18da94d3665",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "49c8f761-971e-cc4e-c235-c18da94d3665"
+  ],
+  "tags": [
+    "SQL Server",
+    "Remote Code Execution",
+    "Windows 10",
+    "Windows 11",
+    "Windows Server"
+  ],
+  "node_id": "5d32a41c-0585-4957-8ad0-951c6fe75960",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

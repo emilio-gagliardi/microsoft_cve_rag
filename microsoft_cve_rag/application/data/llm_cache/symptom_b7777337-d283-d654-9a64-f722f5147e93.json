@@ -1,0 +1,17 @@
+{
+  "symptom_label": "InsufficientSpaceCausesPatchInstallFailure",
+  "description": "When trying to apply updates or patches, systems may encounter failures due to insufficient disk space. Specifically, if the available space is less than the required amount\u2014250 MB in this instance\u2014the installation process will not proceed successfully. This symptom typically manifests as an installation error when patches require more disk space than is available, which can affect systems running various builds that utilize patch management processes.",
+  "source_id": "b7777337-d283-d654-9a64-f722f5147e93",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "disk space",
+    "patch failure",
+    "system updates",
+    "PowerShell"
+  ],
+  "node_id": "6c87f11d-7868-4e1f-870a-8b50fb778269",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

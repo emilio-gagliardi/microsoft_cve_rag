@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_browsing_issues_after_update",
+  "description": "After installing the security update KB26163 for Microsoft Edge (Chromium-based) version 122.0.2365.92, users may experience browsing issues such as unexpected behavior when navigating to specific websites. This security feature bypass vulnerability could lead to potential errors or instability while using the browser, affecting the overall user experience. Users might notice issues with content security policy (CSP) bypassing or pop-up blockers not functioning as expected. Although the vulnerability is classified as low severity, the impact remains noticeable in terms of browsing integrity. Thus, it is advisable for users to ensure they have installed the recommended updates promptly to maintain a secure browsing environment.",
+  "source_id": "cdeee8ec-327e-8b93-9fbf-a5a88bb59024",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "cdeee8ec-327e-8b93-9fbf-a5a88bb59024"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Security Update",
+    "Browser Behavior",
+    "Patch Management"
+  ],
+  "node_id": "41464827-f34a-4df8-af00-7e1307f324e7",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "low",
+  "entity_type": "Symptom"
+}

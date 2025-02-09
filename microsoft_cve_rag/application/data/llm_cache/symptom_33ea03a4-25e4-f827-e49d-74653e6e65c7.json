@@ -1,0 +1,20 @@
+{
+  "symptom_label": "sfc_scannow_command_fails_to_repair_system_files",
+  "description": "When running the 'sfc /scannow' command to repair system files, users may encounter an issue where the command fails to complete successfully. This failure could lead to unresolved system stability problems, affecting various components of the Windows operating system. System administrators might notice discrepancies or errors that indicate a malfunction, which requires further investigation. If the repairs are insufficient, it can hamper routines for patch management and overall system reliability. It's crucial for teams to address this as part of their troubleshooting processes to maintain optimal performance.",
+  "source_id": "33ea03a4-25e4-f827-e49d-74653e6e65c7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "33ea03a4-25e4-f827-e49d-74653e6e65c7"
+  ],
+  "tags": [
+    "sfc",
+    "system_files",
+    "repair",
+    "troubleshooting"
+  ],
+  "node_id": "bd547b6a-835c-4e90-baca-7329ffb0d1a2",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,19 @@
+{
+  "description": "The core cause of CVE-2024-21316 is a security feature bypass in the Windows Server Key Distribution Service. This vulnerability arises when an attacker, possessing administrative privileges, generates an x509 certificate with an MD5 property. This configuration leads to a failure in certificate validation, allowing attackers to bypass critical security mechanisms. The exposed component is closely integrated with the network stack, enabling attackers outside of the immediate network to exploit this flaw. Consequently, once exploited, attackers can compromise the integrity and confidentiality of the affected systems resulting in severe security breaches.",
+  "cause_label": "AdminPrivilegesBypassCertificateValidation",
+  "source_id": "540a0327-9a57-a629-c65c-5720a72fd13f",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE-2024-21316",
+    "Windows Server",
+    "x509",
+    "certificate",
+    "MD5",
+    "security feature bypass"
+  ],
+  "node_id": "50057886-1a85-4065-81dd-fc75893450e9",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

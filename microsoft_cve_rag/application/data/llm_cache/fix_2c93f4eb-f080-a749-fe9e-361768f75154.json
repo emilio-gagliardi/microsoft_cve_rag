@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Visual Studio remote code execution vulnerability (CVE-2024-30052):\n\n1. Ensure that Visual Studio is updated to the latest version that includes the security patch for CVE-2024-30052.\n2. Regularly monitor the Microsoft Security Response Center for updates regarding any additional mitigations or patches.\n3. Apply appropriate configurations to limit unauthorized access to the Visual Studio environment.\n\n**Details**:\n- This vulnerability allows for remote code execution, which could compromise system integrity.\n- The fix is particularly important due to the nature of the impact where user interaction is required for exploitation.\n- For further information, refer to the Microsoft update guide at: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30052.\n\n**Preconditions**:\n- Ensure administrative privileges for applying updates.\n- Backup all critical projects and data before modifying any system configurations.",
+  "source_id": "2c93f4eb-f080-a749-fe9e-361768f75154",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_visual_studio_remote_code_execution_cve202430052",
+  "tags": [
+    "CVE202430052",
+    "VisualStudio",
+    "RemoteCodeExecution",
+    "KB161137"
+  ],
+  "node_id": "e02be506-5a3b-4c2f-bb4b-9f8fe9365346",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "2c93f4eb-f080-a749-fe9e-361768f75154"
+  ],
+  "verification_status": "unverified"
+}

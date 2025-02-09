@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the vulnerabilities associated with CVE-2024-9121 in Microsoft Edge (Chromium-based), it is crucial to update to the latest stable release of the browser:\n\n1. Open Microsoft Edge on your system.\n2. Click on the three dots (...) in the upper right corner of the window.\n3. Navigate to 'Help and feedback' and choose 'About Microsoft Edge'.\n4. The browser will automatically check for updates and install the latest version, if available.\n5. Ensure you are using the following version:\n   - Stable: 129.0.2792.65\n   - Extended Stable: 128.0.2739.97\n\n**Details**:\n- This update resolves the out-of-bounds write vulnerability initially present in the Chromium engine that could potentially allow remote attackers to gain access.\n- Refer to Microsoft's official support site for more guidance: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-9121.\n- Always ensure your browser is up to date to benefit from the latest security enhancements and fixes.\n\n**Preconditions**:\n- Ensure your system permits updates and you have an internet connection.\n- Backup important data before updating applications.",
+  "source_id": "143b506c-c9dc-cced-e9f5-d521a01e8ad4",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_chromium_to_version_129_0_2792_65",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-9121",
+    "Chromium",
+    "OutOfBoundsWrite"
+  ],
+  "node_id": "8cd06523-3fa0-4922-b1b8-115f5dc0c0d0",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "143b506c-c9dc-cced-e9f5-d521a01e8ad4"
+  ],
+  "verification_status": "unverified"
+}

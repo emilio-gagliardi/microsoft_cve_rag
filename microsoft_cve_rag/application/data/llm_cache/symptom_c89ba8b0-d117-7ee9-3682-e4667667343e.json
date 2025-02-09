@@ -1,0 +1,16 @@
+{
+  "symptom_label": "MicrosoftEdgeExperiencesTypeConfusionIssue",
+  "description": "After updating to Microsoft Edge (Chromium-based) version 119.0.2151.97, users might experience unexpected behaviors linked to type confusion issues in spellcheck functionality. This can manifest as inaccurate spell check results or the inability of the browser to process text input as intended. The update addressed the vulnerability against CVE-2023-6348, ensuring users' environments are more secure. For details, refer to KB-119.0.2151.97.",
+  "source_id": "c89ba8b0-d117-7ee9-3682-e4667667343e",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "1677efcd-a1c7-426b-9c18-0c64701c4b95",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

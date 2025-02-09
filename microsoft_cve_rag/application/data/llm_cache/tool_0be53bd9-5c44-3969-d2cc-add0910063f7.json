@@ -1,0 +1,23 @@
+{
+  "tool_label": "microsoft_intune_patch_management",
+  "description": "**Tool Overview**:\n\nMicrosoft Intune is a cloud-based service that helps manage and secure mobile devices and applications across an organization. It allows administrators to deploy patches and manage compliance settings effectively, ensuring devices remain updated and secure.\n\n**Details**:\n1. **Patch Deployment**: Intune enables the seamless deployment of patches across registered devices, reducing vulnerabilities related to outdated software.\n2. **Compliance Monitoring**: It provides features to monitor device compliance with organizational policies, allowing for easy reporting and remediation.\n3. **Remote Management**: Administrators can manage devices remotely, apply configuration updates, and enforce security policies directly from the Intune console.\n4. **User and Device Management**: It supports both user-based and device-based management to ensure flexibility in how resources are allocated and protected.\n5. **Integration with Other Microsoft Services**: Intune integrates with Azure Active Directory and other Microsoft services, facilitating broader enterprise management and security capabilities.\n\nFor more information, refer to the official documentation at [Microsoft Intune](https://learn.microsoft.com/en-us/mem/intune/fundamentals/what-is-intune).\n",
+  "source_id": "0be53bd9-5c44-3969-d2cc-add0910063f7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "0be53bd9-5c44-3969-d2cc-add0910063f7"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em3bd0b291-88ba-492f-95b9-bf7f17455e5a%40a4ddb925.com",
+  "tool_url": "https://learn.microsoft.com/en-us/mem/intune/fundamentals/what-is-intune",
+  "tags": [
+    "Intune",
+    "patch management",
+    "cloud management",
+    "device management"
+  ],
+  "node_id": "d7323473-9cac-45c7-9a13-8edaecca75a8",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

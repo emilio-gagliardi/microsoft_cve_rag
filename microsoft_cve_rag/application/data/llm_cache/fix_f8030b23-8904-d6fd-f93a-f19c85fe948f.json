@@ -1,0 +1,16 @@
+{
+  "description": "To address issues with spam emails being sent from your network, navigate to Microsoft's anti-spam management portal. Here, you should select the default anti-spam outbound policy. Look for the option that allows for the sending of copies of suspicious outbound emails and uncheck this setting. Finally, ensure to save your changes to implement this configuration. This adjustment helps reduce potential outbound spam incidents and improve overall email management.",
+  "source_id": "f8030b23-8904-d6fd-f93a-f19c85fe948f",
+  "source_type": "PatchManagementPost",
+  "fix_label": "UpdateAntiSpamOutboundPolicyToPreventRedundancy",
+  "tags": [
+    "email management",
+    "spam control",
+    "configuration"
+  ],
+  "node_id": "2fef3902-f9d3-4d11-8371-b1855fe10a73",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Fix"
+}

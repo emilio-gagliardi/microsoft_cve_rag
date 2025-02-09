@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo properly format and configure the Windows Recovery Environment (WinRE) partition:\n\n1. Use the following command within DiskPart to create the primary partition with the correct ID:\n   ```\n   create partition primary id=27\n   ```\n\n2. Apply a quick format to the partition by executing:\n   ```\n   format quick fs=ntfs label=\"Windows RE Tools\"\n   ```\n\n3. If your disk is MBR, set the partition ID after formatting:\n   ```\n   set id=27\n   ```\n\n4. Confirm the WinRE partition's presence by using:\n   ```\n   list vol\n   ```\n\n5. Exit DiskPart and enable the WinRE using the following command:\n   ```\n   reagentc /enable\n   ```\n\n**Details**:\n- Ensure you have administrative privileges while performing these commands.\n- It is advisable to review the instructions outlined in KB-5028997 to avoid confusion regarding the steps and commands necessary for configuring WinRE. (LLM Synthesized)",
+  "source_id": "db05b61b-17e3-94b4-e56e-1967bdffcd29",
+  "source_type": "PatchManagementPost",
+  "fix_label": "configure_winre_partition_using_diskpart_kb5028997",
+  "tags": [
+    "KB5028997",
+    "WinRE",
+    "DiskPart",
+    "LLM Synthesized"
+  ],
+  "node_id": "2337c64c-bf5f-4482-b871-124c5729d3a0",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "db05b61b-17e3-94b4-e56e-1967bdffcd29"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,19 @@
+{
+  "description": "The post indicates that there may be confusion around managing Adobe Acrobat Reader DC, particularly with the transition to a 64-bit version. The core cause stems from the lack of clarity regarding whether a new PowerShell function is necessary for managing the add/remove programs interface in Windows. The built-in cmdlet 'Get-Package' is suggested to been sufficient for retrieving detailed information about installed programs, which implies possible miscommunication or misunderstanding of the migration process. This confusion could be compounded by inadequate guidance in existing documentation regarding changes made during the migration. Properly addressing these concerns is essential for optimizing software management practices among administrators using Acrobat Reader DC during this transition phase.",
+  "source_id": "3fbe8728-83d7-cb38-d38e-b92921c00d3b",
+  "source_type": "PatchManagementPost",
+  "cause_label": "MisunderstandingOfAcrobat64BitMigrationProcess",
+  "tags": [
+    "Adobe",
+    "Acrobat Reader",
+    "PowerShell",
+    "get-package",
+    "64-bit migration",
+    "program management"
+  ],
+  "node_id": "9d443268-95de-4bd5-9060-646b9f7159bc",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Cause"
+}

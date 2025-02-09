@@ -1,0 +1,18 @@
+{
+  "tool_label": "ScapackageLevelLinkTool",
+  "description": "The ScapackageLevelLink tool is intended to ascertain and document any relevant links associated with SCAPackage levels for system administration purposes. Its goal is to assist administrators in identifying SCAPackage levels linked to particular builds or configurations. Although there is no specific functionality detailed in the provided text, its inferred utility lies in streamlining link verification relevant to SCAPackage in patch management scenarios. This tool can likely be integrated into various monitoring scripts or documentation efforts. Further context or examples would enhance clarity on its direct applications and usage.",
+  "source_id": "32e04646-7eab-8b92-53db-c0fbbc4f84c6",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/...",
+  "tool_url": "https://www.reddit.com/r/SCCM/comments/...",
+  "tags": [
+    "search",
+    "SCAPackage",
+    "link verification"
+  ],
+  "node_id": "e8ee2142-4216-476d-87e7-c7612556f0dc",
+  "node_label": "Tool",
+  "reliability": "0.6",
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

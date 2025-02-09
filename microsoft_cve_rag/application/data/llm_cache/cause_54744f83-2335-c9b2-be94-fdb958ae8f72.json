@@ -1,0 +1,23 @@
+{
+  "description": "The azure science virtual machine (DSVM) elevation of privilege vulnerability arises from an unauthorized actor being able to send specially crafted requests to the target machine, enabling access to sensitive information and potentially allowing impersonation of authorized users. This exploitation can happen remotely, as the vulnerable component is exposed to the network stack, and it requires high attack complexity due to the necessity of gathering specific environmental information prior to the attack.",
+  "cause_label": "azure_science_virtual_machine_elevation_of_privilege_exploit",
+  "source_id": "54744f83-2335-c9b2-be94-fdb958ae8f72",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "54744f83-2335-c9b2-be94-fdb958ae8f72"
+  ],
+  "tags": [
+    "CVE-2024-37325",
+    "elevation of privilege",
+    "DSVM",
+    "Azure",
+    "Linux",
+    "Ubuntu"
+  ],
+  "node_id": "914cfc16-30f5-4f4c-8365-312d6211694e",
+  "node_label": "Cause",
+  "reliability": 85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,19 @@
+{
+  "description": "The underlying cause of CVE-2023-36398 is an information disclosure vulnerability within the NTFS file system on Windows operating systems. This vulnerability arises from the mishandling of kernel memory accesses, allowing an attacker with basic user privileges to read sensitive data from kernel memory space. Specifically, the issue is present across multiple Windows builds including 10.0.22621.2715, 10.0.19045.3693, and earlier versions. Vulnerable systems are at risk of losing confidentiality, as attackers can elevate privileges and gain access to resources beyond their normal scope. This flaw has corresponding KB articles KB-5032199, KB-5032192, KB-5032190, and KB-5032189 addressing the vulnerability with mitigation strategies presented in recent updates.",
+  "cause_label": "NTFSInformationDisclosureVulnerabilityExposesKernelMemory",
+  "source_id": "9be7a8d3-46cf-5f0c-d2fc-12f608138616",
+  "source_type": "MSRCPost",
+  "tags": [
+    "NTFS",
+    "kernel",
+    "information disclosure",
+    "memory",
+    "Windows",
+    "CVE-2023-36398"
+  ],
+  "node_id": "a5cac42e-effa-4349-9675-0223d56f372a",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

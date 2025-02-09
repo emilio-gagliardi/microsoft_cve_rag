@@ -1,0 +1,16 @@
+{
+  "description": "The cause of CVE-2023-36403 is linked to a timing issue within the Windows kernel, specifically manifesting as a race condition. This race condition originates from improper handling of concurrent processes, allowing an attacker with low privileges to elevate their access to system-level privileges. This situation arises due to the local context in which the vulnerable component operates, making it susceptible to unauthorized attempts to manipulate privilege levels without direct user interaction. The affected builds include several Windows 10 and Windows 11 versions, notably including build numbers like 10.0.22631.2715 and 10.0.19045.3693. The corresponding KB Articles that detail the updates addressing this issue are KB-5032199, KB-5032192, KB-5032190, and KB-5032189.",
+  "cause_label": "RaceConditionInWindowsKernelPrivilegeEscalation",
+  "source_id": "e7508a95-ae72-5786-5262-7738ac1b6dd8",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE",
+    "WindowsKernel",
+    "PrivilegeEscalation"
+  ],
+  "node_id": "e102ed70-53a3-4e06-b743-2d0d7b87020a",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

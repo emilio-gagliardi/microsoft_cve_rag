@@ -1,0 +1,17 @@
+{
+  "symptom_label": "Windows10UpdateFailsOnNonTPMDevices",
+  "description": "A Windows 10 machine that lacks a Trusted Platform Module (TPM) encounters challenges when attempting to install updates that require enabling BitLocker, resulting in frustration for users. The absence of TPM prevents the activation of BitLocker, yet the update continues to be pushed to the system despite its incompatibility. This situation highlights the need for more intelligent update detection mechanisms to avoid unnecessary installation attempts on devices not equipped for the required functionalities.",
+  "source_id": "6d2be6f5-c151-51f8-a5e1-17fd24ac311f",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows 10",
+    "update failure",
+    "BitLocker",
+    "TPM"
+  ],
+  "node_id": "8d3e63ca-87ff-4688-8291-93054d5524e9",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

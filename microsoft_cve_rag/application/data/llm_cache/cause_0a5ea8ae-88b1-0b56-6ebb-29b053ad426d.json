@@ -1,0 +1,21 @@
+{
+  "description": "The cause is a use after free vulnerability in the Windows Power Dependency Coordinator, leading to potential elevation of privilege. This flaw occurs when memory is freed but still accessed, potentially allowing attackers to gain elevated system privileges if successfully exploited locally. The vulnerability affects multiple Windows 10 and 11 builds, indicating it is a significant issue across various installations.",
+  "cause_label": "windows_power_dependency_coordinator_use_after_free",
+  "source_id": "0a5ea8ae-88b1-0b56-6ebb-29b053ad426d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0a5ea8ae-88b1-0b56-6ebb-29b053ad426d"
+  ],
+  "tags": [
+    "elevation of privilege",
+    "use after free",
+    "Windows",
+    "CVE-2024-38107"
+  ],
+  "node_id": "ddb6c57f-1b68-4f80-986c-add4d63b716f",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

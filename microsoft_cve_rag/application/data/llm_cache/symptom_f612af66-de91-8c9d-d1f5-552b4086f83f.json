@@ -1,0 +1,22 @@
+{
+  "symptom_label": "sql_client_application_experiences_remote_code_execution",
+  "description": "Users may experience unexpected behavior within their SQL client applications due to a remote code execution vulnerability associated with the Microsoft WDAC OLE DB Provider for SQL Server. After being tricked into connecting to a malicious SQL database, users could find their applications executing arbitrary code, which may manifest as crashes, performance degradation, or unexpected application behavior. The issue is pertinent to various builds of Windows Server and Windows 10 as specified in KB article KB5034763. Administrators should monitor for abnormal functionality of SQL connections and any signs of unauthorized data access or system manipulation that could arise from this vulnerability, particularly on the affected systems listed: Windows 10 Version 22H2 for x64-based Systems (10.0.19045.4046).",
+  "source_id": "f612af66-de91-8c9d-d1f5-552b4086f83f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f612af66-de91-8c9d-d1f5-552b4086f83f"
+  ],
+  "tags": [
+    "remote code execution",
+    "SQL Server",
+    "Windows 10",
+    "Windows Server",
+    "WDAC",
+    "OLE DB"
+  ],
+  "node_id": "8195645a-ad45-4c33-94da-5b1d050c74ba",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

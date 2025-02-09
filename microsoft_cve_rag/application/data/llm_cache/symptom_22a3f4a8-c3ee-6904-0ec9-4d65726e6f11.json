@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_kernel_elevation_of_privilege_resulting_in_failure",
+  "description": "After applying the security updates referenced in KB5044273 and others related to the Windows kernel, users may observe an inability to execute certain administrative tasks successfully. Such tasks may include but are not limited to changing system settings or installing software, which previously functioned normally before the update. This symptom can lead to significant frustration for system administrators who rely on seamless operations for maintaining enterprise environments. The updates affect various Windows 10 and Windows 11 builds, including version 21H2 and above, causing an elevation of privilege failure that could disrupt workflow continuity. Users are advised to review system logs for any access issues that coincide with the installation of these updates.",
+  "source_id": "22a3f4a8-c3ee-6904-0ec9-4d65726e6f11",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "22a3f4a8-c3ee-6904-0ec9-4d65726e6f11"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Elevation of Privilege",
+    "Update Issue",
+    "KB5044273"
+  ],
+  "node_id": "f1bd2531-d7ca-4b56-a2a3-70bbefb482b1",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

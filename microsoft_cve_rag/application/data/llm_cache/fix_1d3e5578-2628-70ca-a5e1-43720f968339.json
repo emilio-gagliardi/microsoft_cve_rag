@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate issues related to the new Teams client rollout:\n\n1. Block the rollout of the new Teams client via the Teams admin panel.\n2. Monitor for any cases of Teams disappearing after implementing this block.\n\n**Details**:\nThis approach addresses potential conflicts that may arise from the new client being deployed or installed inadvertently. Given the issues encountered before the block, it suggests that either the new client or its deployment method may interfere with existing setups. Testing can be considered next year to evaluate and deploy the new client without similar conflicts. (LLM Synthesized)\n",
+  "source_id": "1d3e5578-2628-70ca-a5e1-43720f968339",
+  "source_type": "PatchManagementPost",
+  "fix_label": "MitigateTeamsClientDeploymentIssues",
+  "tags": [
+    "TeamsAdminPanel",
+    "ClientDeployment",
+    "BlockedRollout",
+    "LLM Synthesized"
+  ],
+  "node_id": "81a81e7c-3f02-4cd1-ab42-00f9e2668b42",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

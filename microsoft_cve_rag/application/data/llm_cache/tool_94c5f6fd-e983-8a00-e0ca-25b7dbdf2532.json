@@ -1,0 +1,17 @@
+{
+  "tool_label": "null",
+  "description": "null",
+  "source_id": "94c5f6fd-e983-8a00-e0ca-25b7dbdf2532",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "94c5f6fd-e983-8a00-e0ca-25b7dbdf2532"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-29061",
+  "tool_url": "null",
+  "tags": [],
+  "node_id": "6e314cd1-3aee-4006-ac18-d8b471c05cdd",
+  "node_label": "Tool",
+  "reliability": 0.0,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

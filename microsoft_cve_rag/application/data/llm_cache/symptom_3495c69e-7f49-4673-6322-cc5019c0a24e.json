@@ -1,0 +1,23 @@
+{
+  "symptom_label": "windows_hyperv_service_denial_of_service",
+  "description": "Following the installation of security updates identified in KB5046696 and KB5046633, users may experience a complete loss of availability in Windows Hyper-V environments. This denial of service can manifest as an inability to access virtual machines, which may become unresponsive or fail to start completely. The issue can affect all related build numbers, including 10.0.26100.2314 for Windows 11 Version 24H2 and 10.0.22631.4460 for Windows 11 Version 23H2. Administrators may also observe that existing connections to virtual machines are disrupted, presenting serious operational challenges. The impact is particularly significant for systems that rely heavily on virtualization for critical processes, as the potential for service interruptions may lead to loss of productivity and resource availability.",
+  "source_id": "3495c69e-7f49-4673-6322-cc5019c0a24e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "3495c69e-7f49-4673-6322-cc5019c0a24e"
+  ],
+  "tags": [
+    "Windows 11",
+    "Hyper-V",
+    "Denial of Service",
+    "Update",
+    "KB5046696",
+    "KB5046633"
+  ],
+  "node_id": "e94a476d-b2d1-457c-8eb3-89452155eb17",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

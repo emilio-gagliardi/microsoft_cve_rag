@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the elevation of privilege vulnerability (CVE-2024-49046) affecting Windows 10 and Windows 11:\n\n1. Download and apply the relevant updates corresponding to your operating system version from the Microsoft Update Catalog.\n2. Ensure your system is up-to-date by checking for additional updates in Windows Update after applying the patches.\n3. Restart your system after installation to ensure that all changes take effect.\n\n**Details**:\n- This fix addresses a time-of-check time-of-use (TOCTOU) race condition in the Windows Win32 kernel subsystem, which could allow an attacker to elevate privileges.\n- Ensure you download the appropriate KB articles for the specific build of your Windows version:\n  - Windows 11 Version 24H2: [KB5046617](https://catalog.update.microsoft.com/Search.aspx?q=KB5046617)\n  - Windows 11 Version 23H2: [KB5046633](https://catalog.update.microsoft.com/Search.aspx?q=KB5046633)\n  - Windows 10 Version 22H2: [KB5046665](https://catalog.update.microsoft.com/Search.aspx?q=KB5046665)\n\n**Preconditions**:\n- Verify Windows version before applying updates.\n- Backup critical data before proceeding with installations.",
+  "source_id": "680c57e5-5339-6be7-788a-77fc09e1c594",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_for_cve202449046_elevation_of_privilege",
+  "tags": [
+    "KB5046617",
+    "KB5046633",
+    "KB5046665",
+    "CVE202449046"
+  ],
+  "node_id": "d305c896-0eef-429a-baf1-cf9e6f90a335",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "680c57e5-5339-6be7-788a-77fc09e1c594"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "The issue stems from an integer overflow in the Windows Mobile Broadband driver, which allows remote code execution upon exploitation. This vulnerability enables an attacker to execute arbitrary code on the system when the driver is manipulated, particularly necessitating physical access to the device, where an attacker can connect a malicious USB device. The attack doesn\u2019t require user interaction, and exploitation can lead to high impacts on confidentiality, integrity, and availability.",
+  "cause_label": "windows_mobile_broadband_driver_integer_overflow",
+  "source_id": "9d284b1e-35ea-2916-08a8-4bf648e741e7",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "9d284b1e-35ea-2916-08a8-4bf648e741e7"
+  ],
+  "tags": [
+    "integer overflow",
+    "remote code execution",
+    "Windows Mobile Broadband Driver"
+  ],
+  "node_id": "e11a437b-ecee-4e7b-96dc-af9f48e2296a",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

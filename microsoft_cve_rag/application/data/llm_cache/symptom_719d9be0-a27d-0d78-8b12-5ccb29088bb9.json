@@ -1,0 +1,20 @@
+{
+  "symptom_label": "remote_code_execution_vulnerability_affects_system_access",
+  "description": "After the installation of security updates KB-5046617, KB-5046633, and others, systems running affected versions of Windows, including Windows 11 (Versions 24H2, 23H2, 22H2) and Windows 10 (Versions 22H2, 21H2), may experience challenges related to system access. Users could encounter unauthorized access attempts, leading to increased security risks. Additionally, active exploitation of the vulnerability could manifest as error messages or interruptions in service availability. The user could find that certain applications become unresponsive or that data leaks occur, suggesting attempts at arbitrary code execution by external entities. System administrators should monitor and scrutinize their environment to determine if unauthorized commands are executing post-update.",
+  "source_id": "719d9be0-a27d-0d78-8b12-5ccb29088bb9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "719d9be0-a27d-0d78-8b12-5ccb29088bb9"
+  ],
+  "tags": [
+    "Windows",
+    "Security Update",
+    "Remote Code Execution"
+  ],
+  "node_id": "83f18228-a7aa-474a-8d00-4635e02ee2a4",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows Mark of the Web security feature bypass vulnerability (CVE-2024-43487):\n\n1. Download and apply the appropriate KB5043064 or KB5043083 update from the official Microsoft Update catalog.\n2. Follow the installation prompts and restart your system to ensure the updates take effect.\n\n**Details**:\n- This update addresses the security feature bypass vulnerability which may allow unauthorized access.\n- Ensure your system is running one of the affected Windows 10 builds: 10.0.19044.4894 or 10.0.19045.4894.\n- For manual installation, download the update package from:\n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5043083\n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5043064.\n\n**Preconditions**:\n- Ensure the system is updated to the mentioned build numbers.\n- Backup critical data before proceeding with the installation.",
+  "source_id": "01e790be-4542-04bb-f731-e0cca3e27ad5",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_mark_of_the_web_security_bypass_cve202443487",
+  "tags": [
+    "KB5043064",
+    "KB5043083",
+    "Windows10",
+    "CVE202443487"
+  ],
+  "node_id": "d7be88cb-b76a-4051-87fd-c42d4e63cdd9",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "01e790be-4542-04bb-f731-e0cca3e27ad5"
+  ],
+  "verification_status": "unverified"
+}

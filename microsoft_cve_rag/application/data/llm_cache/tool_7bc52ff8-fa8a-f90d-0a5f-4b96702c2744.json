@@ -1,0 +1,19 @@
+{
+  "tool_label": "PatchManagementAssist",
+  "description": "PatchManagementAssist is a specialized tool designed to enhance the efficiency of patch management processes in enterprise environments. It streamlines the retrieval of critical build numbers and KB articles, ensuring that system administrators have quick access to relevant updates and security patches. The tool integrates with existing patch management solutions to provide comprehensive reports that assist in tracking and documenting updates applied across assets. With an intuitive user interface, administrators can customize their view to prioritize the information that matters most to their operations. This promotes proactive management of patches and reduces the risk associated with vulnerabilities.",
+  "source_id": "7bc52ff8-fa8a-f90d-0a5f-4b96702c2744",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em36c3eb71-0929-47e4-b882-ce3b47e6b370%40d44197a6.com",
+  "tool_url": "",
+  "tags": [
+    "patch management",
+    "enterprise",
+    "automation",
+    "LLMSynthesized"
+  ],
+  "node_id": "4b6734d2-0e77-4a23-9f54-c91324120616",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

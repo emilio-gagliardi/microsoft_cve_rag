@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo execute an automated upgrade of Windows 10 from a mounted ISO image:\n\n1. Copy the ISO image to your local machine.\n2. Execute the following PowerShell commands to set up the environment:\n   ```powershell\n   $isoimage = \"c:\\temp\\windows10-22h2.iso\"\n   # Set the drive letter\n   $driveletter = \"q:\"\n   # Mount the ISO without a drive letter\n   $diskimage = mount-diskimage -imagepath $isoimage -nodriveletter\n   # Get the ID for the mounted ISO\n   $volinfo = $diskimage | get-volume\n   # Set the drive letter for the mounted disk image\n   mountvol $driveletter $volinfo.uniqueid\n   ```\n3. Start the setup process with:\n   ```powershell\n   & q:\\setup.exe /auto upgrade /quiet /eula accept\n   ```\n\n**Details**:\n- This process automates the upgrade and requires administrative privileges.\n- After testing on a couple of machines, it can be wrapped in a foreach loop for batch processing. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure the ISO image is valid and located in the specified path.\n- Backup critical data before proceeding with the upgrade.",
+  "source_id": "d75d6677-62f2-eb00-9b00-62e96d536e4f",
+  "source_type": "PatchManagementPost",
+  "fix_label": "automate_windows_10_upgrade_from_iso",
+  "tags": [
+    "Windows10",
+    "ISOUpgrade",
+    "KB5041580",
+    "LLM Synthesized"
+  ],
+  "node_id": "47b79861-b8be-4494-918b-4b6b03b9c81c",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "d75d6677-62f2-eb00-9b00-62e96d536e4f"
+  ],
+  "verification_status": "unverified"
+}

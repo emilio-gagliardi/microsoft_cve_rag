@@ -1,0 +1,23 @@
+{
+  "tool_label": "hp_uefi_firmware_update_tool",
+  "description": "**Tool Overview**:\n\nThis is a specific firmware update tool provided by HP for their desktop workstations, particularly the HP Z4 G4 Workstation PCs. The tool is designed to resolve known firmware issues related to secure boot updates and mitigation installation, ensuring that systems can effectively apply necessary security mitigations and updates.\n\n**Details**:\n1. **Purpose**: The tool enables users to update their system's UEFI firmware, thereby addressing compatibility issues with secure boot. \n2. **Configuration**: Users should ensure they download the latest firmware available from the official HP support page, particularly for devices identified in specific firmware issues.\n3. **Usage**: It is recommended to always perform firmware updates prior to applying any system mitigations to avoid conflicts or failures during the update process.\n4. **Limitations**: The usage of this tool is crucial for systems with known firmware issues that impede secure boot updates. \n5. **Manufacturer Support**: HP provides continuous support for these tools, ensuring that any updated versions are readily available to users experiencing issues with secure boot on their devices.\n\nFor further assistance and downloads, please refer to the HP support official website.",
+  "source_id": "167047c2-4b56-c0c8-c300-13d11ba3b2c1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "167047c2-4b56-c0c8-c300-13d11ba3b2c1"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/emdad438eb-15ec-4b4e-8f59-832b2e967636%40a03cfa17.com",
+  "tool_url": "https://support.hp.com/en-us/drivers",
+  "tags": [
+    "HP",
+    "firmware",
+    "UEFI",
+    "secure boot",
+    "updating"
+  ],
+  "node_id": "70f9376e-46fe-43fe-a0a3-928ffd225a3b",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

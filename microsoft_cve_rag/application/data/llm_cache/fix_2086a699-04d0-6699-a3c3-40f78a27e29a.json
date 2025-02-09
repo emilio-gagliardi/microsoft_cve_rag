@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the secure boot security feature bypass vulnerability (CVE-2024-26168), it's essential to apply the relevant updates provided by Microsoft. These updates address potential risks associated with heap-based buffer overflow issues.\n\n1. Download and install the update packages: KB-5036925, KB-5036894, KB-5036893, and KB-5036892.\n2. Restart your system after installation to ensure the updates take effect.\n\n**Details**:\n- Ensure your system is running one of the supported build numbers: 10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, 10.0.22621.3447, or 10.0.10240.20596.\n- You can find more information about these updates in the Microsoft Knowledge Base under the corresponding KB IDs.\n\n**Preconditions**:\n- Verify that your system is eligible for the updates based on the build number.\n- Backup your data before applying the updates.",
+  "source_id": "2086a699-04d0-6699-a3c3-40f78a27e29a",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_secure_boot_feature_bypass_cve202426168",
+  "tags": [
+    "KB5036925",
+    "KB5036894",
+    "KB5036893",
+    "KB5036892"
+  ],
+  "node_id": "758dd5d8-435c-492e-adfc-7cf5639134c9",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "2086a699-04d0-6699-a3c3-40f78a27e29a"
+  ]
+}

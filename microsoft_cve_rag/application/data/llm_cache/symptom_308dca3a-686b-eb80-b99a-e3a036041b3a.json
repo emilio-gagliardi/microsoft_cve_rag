@@ -1,0 +1,16 @@
+{
+  "symptom_label": "MaliciousImagesCompromiseUefiBootProcess",
+  "description": "The symptom describes a vulnerability in UEFI boot processes for Windows and Linux devices, where attackers can exploit malicious logo images to gain unauthorized access or manipulate system functionality. Image parsers used within UEFI systems from major independent BIOS vendors (IBVs) contain critical vulnerabilities, potentially impacting a wide array of devices. This exposure may lead to complete control over the boot process or system takeover, highlighting significant risks associated with firmware security.",
+  "source_id": "308dca3a-686b-eb80-b99a-e3a036041b3a",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "UEFI",
+    "boot process",
+    "firmware vulnerability"
+  ],
+  "node_id": "924c7ef5-b9ba-47bd-92dc-c64bdcfe2f68",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

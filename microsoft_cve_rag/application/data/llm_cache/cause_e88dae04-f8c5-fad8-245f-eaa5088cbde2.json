@@ -1,0 +1,21 @@
+{
+  "description": "The cause of some games failing to start or becoming unresponsive after installing KB5044384 is due to a compatibility issue with a third-party DRM (Digital Rights Management) component used by those games. This update, referenced in KB5046613, modifies certain system functionalities to enhance support for these games while the game developers work to resolve the underlying DRM compatibility issues. It highlights a situation where software updates alter interactions with external components, leading to operational disruptions. The updates were made for OS builds 19044 and 19045. Game developers must ensure their DRM solutions align with the changes introduced by these updates to restore normal functionality.",
+  "source_id": "e88dae04-f8c5-fad8-245f-eaa5088cbde2",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e88dae04-f8c5-fad8-245f-eaa5088cbde2"
+  ],
+  "cause_label": "incompatible_third_party_drm_component_update",
+  "tags": [
+    "kb5044384",
+    "third_party_drm",
+    "game_compatibility",
+    "patch_management"
+  ],
+  "node_id": "0187c2d3-30cd-45b8-af55-2353260fb716",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

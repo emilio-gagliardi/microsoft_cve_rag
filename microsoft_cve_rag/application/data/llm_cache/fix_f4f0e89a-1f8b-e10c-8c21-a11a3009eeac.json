@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows Common Log File System Driver elevation of privilege vulnerability (CVE-2024-29996), apply the following updates:\n\n1. Download and install the appropriate KB articles based on your system version:\n   - For Windows 11 Version 23H2: [KB5037771](https://catalog.update.microsoft.com/Search.aspx?q=KB5037771)\n   - For Windows 11 Version 22H2: [KB5037771](https://catalog.update.microsoft.com/Search.aspx?q=KB5037771)\n   - For Windows 11 Version 21H2: [KB5037770](https://catalog.update.microsoft.com/Search.aspx?q=KB5037770)\n   - For Windows 10 Version 22H2 (x64 and 32-bit): [KB5037768](https://catalog.update.microsoft.com/Search.aspx?q=KB5037768)\n   - For Windows 10 Version 21H2 (x64 and 32-bit): [KB5037768](https://catalog.update.microsoft.com/Search.aspx?q=KB5037768)\n   - For Windows 10 (x64): [KB5037788](https://catalog.update.microsoft.com/Search.aspx?q=KB5037788)\n   - For Windows 10 (32-bit): [KB5037788](https://catalog.update.microsoft.com/Search.aspx?q=KB5037788)\n\n**Details**:\nThis update addresses the out-of-bounds read vulnerability that could be exploited to gain elevated privileges. Ensure that your system matches one of the specified builds before applying the updates. Backup critical data before proceeding with installations.\n",
+  "source_id": "f4f0e89a-1f8b-e10c-8c21-a11a3009eeac",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_common_log_file_system_driver_cve202429996",
+  "tags": [
+    "KB5037771",
+    "KB5037770",
+    "KB5037768",
+    "KB5037788"
+  ],
+  "node_id": "ff947366-3d70-4eab-ab47-a39d22b3ab5d",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "f4f0e89a-1f8b-e10c-8c21-a11a3009eeac"
+  ],
+  "verification_status": "unverified"
+}

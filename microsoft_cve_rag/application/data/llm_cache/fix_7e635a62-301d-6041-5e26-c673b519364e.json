@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the insufficient policy enforcement vulnerability in data transfer affecting Microsoft Edge (Chromium-based):\n\n1. Update your Microsoft Edge browser to the latest version, which resolves the vulnerability related to CVE-2024-7978.\n2. You can check your current version by clicking on the three dots (...) in the upper right corner, navigating to Help and Feedback, and selecting About Microsoft Edge.\n\n**Details**:\n- Ensure your Microsoft Edge browser is updated to version 128.0.2739.42 or later to mitigate this issue.\n- Regularly check for and apply updates to enhance security and performance.\n\nThis update ensures that Microsoft Edge is no longer susceptible to the vulnerability as described in the Chromium security reports. For more information on the release, please refer to the Google Chrome release notes. (LLM Synthesized)",
+  "source_id": "7e635a62-301d-6041-5e26-c673b519364e",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_resolve_chromium_cve20247978",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20247978",
+    "Chromium",
+    "BrowserUpdate"
+  ],
+  "node_id": "4f4332f8-1db0-4976-8bbd-6f25a941c9fe",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "7e635a62-301d-6041-5e26-c673b519364e"
+  ],
+  "verification_status": "unverified"
+}

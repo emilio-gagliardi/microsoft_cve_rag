@@ -1,0 +1,18 @@
+{
+  "description": "The underlying cause of the issue derives from the assumption that the primary disk is always disk 0. In approximately 15% of managed devices with configurations such as PCIe + SSD or SSD + HDD, the OS disk is not the primary disk, leading to misconfigurations. For example, some file servers may have the OS disk labeled as disk 4 instead of the expected disk 0. This incorrect disk configuration hampers recovery operations using Windows RE (WinRE) as it may be located on a different disk. Furthermore, clients utilizing dangerous multiple disk setups complicate OS recovery, especially when modifying disk configurations that do not align with WinRE's expectations helping further contribute to operational instability.",
+  "source_id": "34392dc6-6987-ab7d-38e4-e1c6893c036a",
+  "source_type": "PatchManagementPost",
+  "cause_label": "IncorrectDiskConfigurationAffectsWinRERecovery",
+  "tags": [
+    "disk setup",
+    "OS recovery",
+    "Windows RE",
+    "partitioning",
+    "configuration"
+  ],
+  "node_id": "8f1c420a-65e5-46ab-8953-e62c8ea68841",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

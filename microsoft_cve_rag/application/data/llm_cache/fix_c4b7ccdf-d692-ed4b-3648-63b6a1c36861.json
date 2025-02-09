@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the security vulnerability identified as CVE-2024-6999 in Chromium, users of Microsoft Edge (Chromium-based) should ensure they are running the latest version of the browser.\n\n1. Open your Microsoft Edge browser.\n2. Click on the three dots (...) in the upper right corner.\n3. Select 'Help and feedback'.\n4. Click on 'About Microsoft Edge' to view the version information.\n5. If your version is older than 127.0.6533.73, update your browser to 127.0.2651.74 or newer.\n\n**Details**:\n- This update addresses the issue of inappropriate implementation in the feed content management (fedcm) that could facilitate UI spoofing attacks when users interact with specific UI gestures on crafted HTML pages.\n- Ensure that auto-updates are enabled to automatically receive important security patches. If updates are not automatically applied, manually download the latest version from the official Microsoft Edge website. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure that you are using a version of Microsoft Edge that is Chromium-based.\n- Backup any important browser data before performing updates.",
+  "source_id": "c4b7ccdf-d692-ed4b-3648-63b6a1c36861",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_resolve_cve20246999",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20246999",
+    "ChromiumFlaw",
+    "UIspoofing"
+  ],
+  "node_id": "919663cc-02e9-4cf7-b613-ec2bc6183b25",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c4b7ccdf-d692-ed4b-3648-63b6a1c36861"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,16 @@
+{
+  "description": "To address the issue identified in CVE-2023-5481 regarding inappropriate implementation in downloads within the Microsoft Edge (Chromium-based) browser, users should update to the specific build version 118.0.2088.46. This release resolves the vulnerability and ensures enhanced security for users. For further details on the update, refer to the Microsoft Update Guide at https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-5481. Users can check their browser version by navigating to the help menu in Edge and selecting 'About Microsoft Edge'. This update is crucial for maintaining safe browsing practices and is effective immediately upon installation.",
+  "source_id": "4538856e-d8b5-aaf4-0ad1-104205dda55e",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeToMitigateCve20235481",
+  "tags": [
+    "MicrosoftEdge",
+    "Chromium",
+    "securityUpdate"
+  ],
+  "node_id": "0562f83d-1038-4822-b847-4fc0affed4fe",
+  "node_label": "Fix",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Error Reporting Service elevation of privilege vulnerability (CVE-2024-26169):\n\n1. Download and apply the updates corresponding to your Windows version from the official Microsoft Update Catalog linked below.\n2. Restart your system to implement the changes.\n\n**Details**:\n- The following updates are available to mitigate the issue:\n  - For Windows 10 Version 22H2 (x64): [KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845)\n  - For Windows 10 Version 21H2 (x64): [KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845)\n  - For Windows 10 (x64): [KB5035858](https://catalog.update.microsoft.com/Search.aspx?q=KB5035858)\n  - For Windows 11 Version 23H2 (x64): [KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)\n\n**Preconditions**:\n- Ensure your system is backed up before performing updates.\n- Check compatibility with your current Windows build numbers:\n  - 10.0.22631.3296 (Windows 11 Version 23H2)\n  - 10.0.22621.3296 (Windows 11 Version 22H2)\n  - 10.0.22000.2836 (Windows 11 Version 21H2)\n  - 10.0.10240.20526 (Windows 10 for x64 and 32-bit systems)\n\n",
+  "source_id": "337901cc-2975-e64a-5794-0e2b243e0110",
+  "source_type": "MSRCPost",
+  "fix_label": "address_windows_error_reporting_elevation_privilege_cve202426169",
+  "tags": [
+    "KB5035858",
+    "KB5035845",
+    "Windows10",
+    "Windows11"
+  ],
+  "node_id": "25ebfe0f-7ce0-40c6-8f1f-8b64a75b4e4b",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "337901cc-2975-e64a-5794-0e2b243e0110"
+  ]
+}

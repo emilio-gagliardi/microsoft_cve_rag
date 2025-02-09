@@ -1,0 +1,20 @@
+{
+  "symptom_label": "reader_application_consistently_patched_over_vulnerabilities",
+  "description": "The Reader application frequently requires patches due to significant vulnerabilities that are regularly announced. System administrators express concern about the reliability of installing Reader, given its history of being one of the most patched applications in their catalog. This indicates ongoing issues with security that could jeopardize the integrity of the systems where it is deployed. The stated apprehension suggests that the application's overall security posture is in question, necessitating a careful evaluation before installation. Such vulnerabilities amplify the need for effective patch management to mitigate potential risks.",
+  "source_id": "2808ce17-3749-04ae-b549-54bee879354c",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "2808ce17-3749-04ae-b549-54bee879354c"
+  ],
+  "tags": [
+    "Adobe Reader",
+    "patch management",
+    "vulnerability",
+    "software reliability"
+  ],
+  "node_id": "db975c4d-13a5-4deb-9187-93ab04d66fce",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

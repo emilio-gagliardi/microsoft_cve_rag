@@ -1,0 +1,21 @@
+{
+  "description": "An integer overflow due to insufficient input validation in the Windows Hyper-V component, allowing a local attacker to elevate privileges.",
+  "cause_label": "windows_hyper_v_integer_overflow_in_privilege_escalation",
+  "source_id": "f539d0ab-6a7d-96c5-b6d4-670ef143dcbe",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f539d0ab-6a7d-96c5-b6d4-670ef143dcbe"
+  ],
+  "tags": [
+    "Windows",
+    "Hyper-V",
+    "CVE-2024-38080",
+    "Integer Overflow"
+  ],
+  "node_id": "da101b9f-dbdf-408b-b96a-8ae8550d413f",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

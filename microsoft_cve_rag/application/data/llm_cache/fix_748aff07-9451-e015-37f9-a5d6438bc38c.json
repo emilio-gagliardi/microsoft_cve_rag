@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows graphics component elevation of privilege vulnerability (CVE-2024-38085), apply the following updates:\n\n1. For Windows 11 Version 23H2 and 22H2, download and apply KB5040442 from the official Windows Update catalog.\n\n2. For Windows 11 Version 21H2, install KB5040431.\n\n3. For Windows 10 Version 22H2 and 21H2, ensure that KB5040427 is applied.\n\n4. Verify that your system build numbers are among the following:\n   - 10.0.22631.3880 (Windows 11 23H2)\n   - 10.0.22621.3880 (Windows 11 22H2)\n   - 10.0.19045.4651 (Windows 10 22H2)\n   - 10.0.19044.4651 (Windows 10 21H2)\n\n**Details**:\n- This fix addresses the elevation of privilege vulnerability identified by CWE-416 (Use After Free) that could allow attackers to gain additional permissions.\n- Always ensure that systems are backed up before applying updates to prevent any potential data loss.\n- For manual installation, download the update packages from the following links:\n   - [KB5040442](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442)\n   - [KB5040431](https://catalog.update.microsoft.com/Search.aspx?q=KB5040431)\n   - [KB5040427](https://catalog.update.microsoft.com/Search.aspx?q=KB5040427)\n   - [KB5040448](https://catalog.update.microsoft.com/Search.aspx?q=KB5040448)\n\n(LLM Synthesized)",
+  "source_id": "748aff07-9451-e015-37f9-a5d6438bc38c",
+  "source_type": "MSRCPost",
+  "fix_label": "address_graphics_component_elevation_privilege_cve202438085",
+  "tags": [
+    "KB5040442",
+    "Windows11",
+    "Windows10",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "9ed5f3af-b632-4f6e-bb3a-1c474a004e50",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "748aff07-9451-e015-37f9-a5d6438bc38c"
+  ],
+  "verification_status": "unverified"
+}

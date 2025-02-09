@@ -1,0 +1,23 @@
+{
+  "tool_label": "microsoft_edge_security_update",
+  "description": "**Tool Overview**:\n\nMicrosoft Edge, based on the Chromium open-source platform, integrates various updates and security patches based on identified vulnerabilities. This specific update addresses CVE-2024-6291, a use-after-free vulnerability in SwiftShader. These updates are crucial for maintaining browser security against potential exploits that could allow remote attackers to cause heap corruption via crafted web content.\n\n**Details**:\n1. To ensure security, always use the latest version of Microsoft Edge, which incorporates the latest Chromium releases.\n2. The updates are typically released automatically or can be manually checked through the Edge settings.\n3. Security updates are essential to mitigate threats related to browser vulnerabilities, ensuring a safer browsing experience.\n4. Users should regularly check for these updates or follow the Microsoft Security Response Center for announcements on patch availability.",
+  "source_id": "e3c7c25d-39c7-2a28-4557-9e8d561a3b12",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e3c7c25d-39c7-2a28-4557-9e8d561a3b12"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-6291",
+  "tool_url": "https://www.microsoft.com/edge",
+  "tags": [
+    "Chromium",
+    "security",
+    "vulnerability",
+    "Edge"
+  ],
+  "node_id": "9b78ea1e-1f1f-455d-9c84-232445990b13",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

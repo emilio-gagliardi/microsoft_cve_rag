@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve issues with systems being unbootable after applying a Windows update, consider the following steps:\n\n1. Disable the ManageEngine application on the affected system.\n2. Reimage the machine to ensure a clean state and reapply necessary updates.\n\n**Details**:\nDisabling ManageEngine has been shown to prevent the conflict that arises from its proprietary software updates interacting with Windows updates, specifically version 19045.4353, affecting the BCD registry key. It's recommended to monitor for any further updates from ManageEngine that could mitigate this interaction. Backup any critical data before reimaging to prevent data loss. \n\nThis approach was successful in replicating the resolution of the unbootable systems. (LLM Synthesized)",
+  "source_id": "0886c626-f73c-49bd-0695-205759479b6b",
+  "source_type": "PatchManagementPost",
+  "fix_label": "mitigate_windows_update_interaction_manageengine",
+  "tags": [
+    "KB5036979",
+    "WindowsUpdate",
+    "ManageEngine",
+    "LLM Synthesized"
+  ],
+  "node_id": "0aaf784a-9e50-483a-a033-504f7d7f0bfc",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "0886c626-f73c-49bd-0695-205759479b6b"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "description": "The Windows mobile broadband driver has a NULL pointer dereference issue which may lead to a denial of service, primarily affecting the driver code when network stack operations are performed without proper null checks. This can potentially cause the driver to crash or become unresponsive, thereby denying access to the mobile broadband service.",
+  "cause_label": "windows_mobile_broadband_driver_null_pointer_dereference",
+  "source_id": "2094e2c9-5973-1840-dd2a-ef00cc7da048",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2094e2c9-5973-1840-dd2a-ef00cc7da048"
+  ],
+  "tags": [
+    "CVE-2024-43559",
+    "NULL Pointer Dereference",
+    "Denial of Service",
+    "Windows Mobile Broadband Driver",
+    "Network Stack"
+  ],
+  "node_id": "4bf03114-d4c2-42ad-be29-e300fca91792",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

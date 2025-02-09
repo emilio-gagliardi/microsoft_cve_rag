@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the use-after-free vulnerability (CVE-2024-0224) in Microsoft Edge (Chromium-based):\n\n1. Ensure your system is running Microsoft Edge version 120.0.2210.121 or later.\n2. If your Edge browser version is lower, update it by going to the browser settings and navigating to Help > About Microsoft Edge.\n3. Follow the prompts to install the latest updates.\n\n**Details**:\nThis update addresses a security vulnerability in the Web Audio API that could allow an attacker to execute arbitrary code. Keeping your browser updated mitigates this risk. Ensure you frequently check for updates to maintain system security and integrity.",
+  "source_id": "b540b27f-8311-a400-301c-6f2810639869",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeToCVE20240224Remediation",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20240224",
+    "Chromium",
+    "LLM Synthesized"
+  ],
+  "node_id": "c7db5f84-0ec3-4921-ba83-579e0fb36aa0",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

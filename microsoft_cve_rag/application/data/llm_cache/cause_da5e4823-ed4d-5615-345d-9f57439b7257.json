@@ -1,0 +1,22 @@
+{
+  "description": "The cause of the elevation of privilege vulnerability is identified as a 'Use After Free' flaw in the Windows graphics component. This flaw occurs when the software continues to use memory locations after they have been freed, allowing attackers to potentially manipulate the memory and gain unauthorized system privileges. This vulnerability is specific to the Windows graphics system and is exacerbated by its ability to be exploited with low-specialized access conditions, meaning it can be triggered by an attacker with basic user rights.",
+  "cause_label": "windows_graphics_component_use_after_free_flaw",
+  "source_id": "da5e4823-ed4d-5615-345d-9f57439b7257",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "da5e4823-ed4d-5615-345d-9f57439b7257"
+  ],
+  "tags": [
+    "Windows",
+    "Graphics Component",
+    "Elevation of Privilege",
+    "CVE-2024-43556",
+    "CWE-416"
+  ],
+  "node_id": "2a4ecc27-cc20-4e0a-956e-51a884104d6e",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

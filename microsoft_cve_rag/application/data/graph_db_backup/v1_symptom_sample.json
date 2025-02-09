@@ -1,0 +1,15 @@
+﻿[
+  {
+    "n": {
+      "identity": 1410,
+      "labels": [
+        "Symptom"
+      ],
+      "properties": {
+        "description": "Windows 10 login shows a spinning circle, indicating a slow login process.",
+        "id": "Windows10LoginSpinningCircle"
+      },
+      "elementId": "4:a88df59f-847f-4b99-bff0-53420b2dfe18:1410"
+    }
+  }
+]

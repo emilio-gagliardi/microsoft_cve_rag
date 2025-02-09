@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_crashes_on_vulnerable_build",
+  "description": "Users of Microsoft Edge (Chromium-based) version 128.0.2739.54 may experience application crashes due to type confusion vulnerabilities present in the V8 engine. This behavior is particularly noticeable when accessing certain web pages with complex JavaScript content, which may lead to instability and unexpected closure of the browser. The issue arises from the integration of an outdated Chromium component, as reflected in CVE-2024-8194. The security update released on September 11, 2024, effectively mitigates this risk with an upgraded build, 128.0.6613.113, which is recommended for all users. End users should ensure they are operating the latest version to avoid potential data loss and disruption while browsing.",
+  "source_id": "5a4aba9f-420e-9785-b63e-c16f290c1158",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5a4aba9f-420e-9785-b63e-c16f290c1158"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "browser crashes",
+    "CVE-2024-8194",
+    "V8 engine"
+  ],
+  "node_id": "a0d74f5e-f15a-4971-899a-ed02659f34f9",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

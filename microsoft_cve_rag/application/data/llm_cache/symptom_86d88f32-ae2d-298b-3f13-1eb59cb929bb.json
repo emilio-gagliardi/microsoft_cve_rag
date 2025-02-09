@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_users_experience_remote_code_execution_risk",
+  "description": "End users on affected Windows 11 systems may notice increased vulnerability to remote code execution when opening specially crafted files. Specifically, users operating on Windows 11 Version 23H2 (build 10.0.22631.3296) and Version 22H2 (build 10.0.22621.3296) face the risk of executing malicious DLLs that attackers may place in online or local network locations. If end users are tricked into executing these files, it could lead to significant security breaches. This is a serious concern, given that the impact is classified as important, indicating a need for immediate awareness and action from system administrators. For detailed guidance and updates on mitigating these risks, users should refer to KB5035853.",
+  "source_id": "86d88f32-ae2d-298b-3f13-1eb59cb929bb",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "86d88f32-ae2d-298b-3f13-1eb59cb929bb"
+  ],
+  "tags": [
+    "Windows",
+    "Remote Code Execution",
+    "Windows 11",
+    "User Impact",
+    "System Administration"
+  ],
+  "node_id": "be976b26-a4a8-4354-893a-d8144d92eb51",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

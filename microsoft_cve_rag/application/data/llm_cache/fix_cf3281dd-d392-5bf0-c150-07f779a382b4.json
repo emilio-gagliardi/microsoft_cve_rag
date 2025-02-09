@@ -1,0 +1,16 @@
+{
+  "description": "An update is now available to address the issues identified in CVE-2023-38545. System administrators should ensure that the latest patches provided in the Microsoft Update Catalog are deployed to affected systems. This update is crucial for mitigating potential impacts associated with the described vulnerabilities. It is recommended to regularly check the update guide linked for detailed instructions and to stay informed about any additional patches. Keeping systems updated helps maintain security and compliance across the enterprise environment.",
+  "source_id": "cf3281dd-d392-5bf0-c150-07f779a382b4",
+  "source_type": "PatchManagementPost",
+  "fix_label": "DeployUpdateToAddressCVE202338545",
+  "tags": [
+    "patching",
+    "CVE-2023-38545",
+    "update deployment"
+  ],
+  "node_id": "f3914e63-1643-4ec8-87c7-e37f3fca73ce",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "remote_attacker_can_execute_commands_on_printer",
+  "description": "A remote unauthenticated attacker can exploit existing printers or install new ones with malicious IPP URLs. This malicious action can lead to arbitrary command execution on the computer when a print job is initiated from that device. The potential for command execution poses significant risks, especially in environments where printers are integrated into sensitive business processes. The issue arises from the lack of adequate authentication for print job submissions, allowing attackers to take control when users attempt to print documents. It's critical for system administrators to review their print server configurations and apply necessary security patches to mitigate this vulnerability.",
+  "source_id": "9413c892-1b01-50eb-7663-6ddce05deebf",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "9413c892-1b01-50eb-7663-6ddce05deebf"
+  ],
+  "tags": [
+    "command_execution",
+    "printer_exploit",
+    "unauthenticated_access",
+    "print_server_security"
+  ],
+  "node_id": "0292386d-79a5-4222-a7b1-3e1822e000cf",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "critical",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

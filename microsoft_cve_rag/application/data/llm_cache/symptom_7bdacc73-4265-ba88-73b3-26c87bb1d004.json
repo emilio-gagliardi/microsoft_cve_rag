@@ -1,0 +1,20 @@
+{
+  "symptom_label": "dism_throws_193_error_indicating_registry_issues",
+  "description": "Windows 10 consumer systems are experiencing significant issues when attempting to install updates. The issue is specifically linked to a DISM error, '193', which arises due to underlying registry problems. This error prevents both Windows updates and repair installations from completing successfully. The user is seeking remote assistance, highlighting the difficulty in performing physical fixes or clean re-installs in the absence of physical access. This scenario underscores the importance of robust registry management to ensure smooth system operation and update compatibility.",
+  "source_id": "7bdacc73-4265-ba88-73b3-26c87bb1d004",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "7bdacc73-4265-ba88-73b3-26c87bb1d004"
+  ],
+  "tags": [
+    "Windows 10",
+    "DISM error",
+    "registry issue",
+    "update failure"
+  ],
+  "node_id": "68c48688-3d55-4873-a807-8833ae708b0c",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

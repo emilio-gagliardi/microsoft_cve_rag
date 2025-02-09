@@ -1,0 +1,22 @@
+{
+  "symptom_label": "elevation_of_privilege_via_windows_graphics_component",
+  "description": "End users may experience unexpected behavior where local privileges are escalated without their knowledge when using the Windows graphics component, particularly on systems running Windows 10 (build numbers: 10.0.19045.4651, 10.0.19044.4651, 10.0.22631.3880) and Windows 11 (build numbers: 10.0.22631.3880, 10.0.22621.3880). This can result in unauthorized access to system resources and potential manipulation of critical system files or settings. Users may not receive any error messages; instead, they could find changes in configurations or evidence of alterations in files that should not have been accessed. The behavior becomes apparent when performing routine tasks, revealing vulnerabilities that could lead to significant security risks. For detailed guidance, refer to KB articles KB-5040442, KB-5040431, or KB-5040427 for the respective builds affected.",
+  "source_id": "53477d9b-49a4-c0cf-db86-d3677380ffb4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "53477d9b-49a4-c0cf-db86-d3677380ffb4"
+  ],
+  "tags": [
+    "Windows",
+    "Graphics",
+    "Privilege Escalation",
+    "Windows 10",
+    "Windows 11"
+  ],
+  "node_id": "e287ee27-ed1d-4bea-a85a-f0b187200af2",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

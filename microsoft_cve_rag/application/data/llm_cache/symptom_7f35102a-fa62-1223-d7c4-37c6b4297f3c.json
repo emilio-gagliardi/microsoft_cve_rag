@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_unresponsive_after_chromium_update",
+  "description": "Users may experience unresponsiveness or lag in Microsoft Edge after updating to version 127.0.2651.74, which addresses the CVE-2024-7005 vulnerability. This observed behavior can occur because the underlying Chromium update aimed at improving safe browsing features may cause the browser to freeze during certain UI interactions. This is particularly noticeable when engaging with complex web applications that require dynamic input processing. Additionally, there may be instances where the browser fails to respond to user input, leading to frustration while accessing web content. As a workaround, users may need to restart the browser to restore functionality temporarily while waiting for subsequent updates to fully stabilize performance.",
+  "source_id": "7f35102a-fa62-1223-d7c4-37c6b4297f3c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7f35102a-fa62-1223-d7c4-37c6b4297f3c"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Performance",
+    "Browser Issues",
+    "CVE-2024-7005"
+  ],
+  "node_id": "da7848a1-294f-4cf3-af8c-bcb4e48e9c8f",
+  "node_label": "Symptom",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

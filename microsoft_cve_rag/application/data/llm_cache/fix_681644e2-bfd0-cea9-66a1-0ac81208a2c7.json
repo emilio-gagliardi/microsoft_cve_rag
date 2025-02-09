@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows kernel elevation of privilege vulnerability identified as CVE-2024-26182, apply the appropriate updates provided in KB-5035845, KB-5035849, or KB-5035855.\n\n1. Visit the Microsoft Update Catalog link: https://catalog.update.microsoft.com/Search.aspx?q=KB5035845.\n2. Download the corresponding update for your system's architecture (32-bit or 64-bit).\n3. Install the update and restart your system to complete the installation.\n\n**Details**:\n- Ensure your Windows version matches one of the affected builds, including 10.0.19045.4170 for Windows 10 Version 22H2 and 10.0.19044.4170 for Windows 10 Version 21H2.\n- Backup critical data before proceeding with the update installation to avoid any data loss or conflicts during the update process.\n\nThis update resolves critical vulnerabilities related to elevation of privilege in the Windows kernel, mitigating risks associated with unauthorized access. \n",
+  "source_id": "681644e2-bfd0-cea9-66a1-0ac81208a2c7",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb5035845_kb5035849_kb5035855_for_kernel_privilege_elevation",
+  "tags": [
+    "KB5035845",
+    "Windows10",
+    "ElevationOfPrivilege",
+    "CVE202426182"
+  ],
+  "node_id": "92f97788-e5e6-4e59-992f-c309f4ba35a5",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "681644e2-bfd0-cea9-66a1-0ac81208a2c7"
+  ]
+}

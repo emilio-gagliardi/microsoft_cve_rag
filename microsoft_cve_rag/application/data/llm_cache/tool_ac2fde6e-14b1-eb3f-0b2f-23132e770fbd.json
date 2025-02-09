@@ -1,0 +1,22 @@
+{
+  "tool_label": "PatchManagementAssistant",
+  "description": "The detailed explanation for this Tool is provided in the Fix description. PatchManagementAssistant is a proactive tool designed to assist administrators in managing updates and patches across enterprise environments. This tool simplifies the patch deployment process by automating the identification and scheduling of necessary updates. It provides detailed reports on patch status, ensuring that systems remain compliant with organizational policies. Furthermore, it integrates seamlessly with both on-premise and cloud deployments, enhancing operational efficiency.",
+  "source_id": "ac2fde6e-14b1-eb3f-0b2f-23132e770fbd",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "ac2fde6e-14b1-eb3f-0b2f-23132e770fbd"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://example.com/patchmanagementassistant",
+  "tags": [
+    "Patch Management",
+    "Automation",
+    "Compliance",
+    "LLMSynthesized"
+  ],
+  "node_id": "589aff03-1b7a-427f-8f3c-7e7d088348c5",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

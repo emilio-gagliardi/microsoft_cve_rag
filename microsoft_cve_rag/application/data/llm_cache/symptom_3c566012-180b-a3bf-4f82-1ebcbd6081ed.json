@@ -1,0 +1,20 @@
+{
+  "symptom_label": "data_leakage_from_copilot_in_windows_11",
+  "description": "Organizations utilizing Windows 10 and Windows 11 may face potential data leakage risks associated with the Microsoft Copilot features, particularly in the absence of adequate licensing, such as MS 365 E3, E5, A3, Business Standard, or Business Premium. The presence of multiple Copilot engines, including a standalone application, a Windows Search module, and a Microsoft Edge Hubs sidebar module, raises concerns about confidential data exposure. It has been noted that if users are not appropriately licensed, confidential company data may be unintentionally shared with Microsoft's Language Model, representing a serious risk. Administrators are advised to implement Group Policy Object (GPO) settings to disable these features, while ensuring they have the latest Administrative Templates for Windows 10 (22H2) and Windows 11 (23H2) to effectively enforce necessary policies. The GPO route must be properly configured to mitigate these risks and protect sensitive information.",
+  "source_id": "3c566012-180b-a3bf-4f82-1ebcbd6081ed",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "3c566012-180b-a3bf-4f82-1ebcbd6081ed"
+  ],
+  "tags": [
+    "disable copilot",
+    "ms 365 licensing",
+    "windows 10 22h2",
+    "windows 11 23h2"
+  ],
+  "node_id": "77b2c19a-df5a-4b3c-93c1-d2de535ab8df",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

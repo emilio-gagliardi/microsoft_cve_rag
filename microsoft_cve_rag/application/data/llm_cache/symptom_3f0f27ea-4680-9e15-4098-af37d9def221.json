@@ -1,0 +1,20 @@
+{
+  "symptom_label": "out_of_band_update_import_issue_with_patch_tools",
+  "description": "When an out-of-band (OOB) update is released, it may not carry an MSRC severity rating, leading to potential import challenges in patching tools that are not WSUS-based or backed. This can create confusion and inefficiencies for system administrators tasked with deploying updates. Without a clear severity rating, the urgency and applicability of the OOB update may go unnoticed, resulting in delayed patch management. The process of importing updates into non-WSUS environments could require additional manual intervention, complicating the patching workflow. This issue primarily affects environments utilizing incompatible patch management solutions, leading to potential vulnerabilities if critical updates are not deployed in a timely manner.",
+  "source_id": "3f0f27ea-4680-9e15-4098-af37d9def221",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "3f0f27ea-4680-9e15-4098-af37d9def221"
+  ],
+  "tags": [
+    "patch_management",
+    "WSUS",
+    "OOB_update",
+    "import_challenges"
+  ],
+  "node_id": "4342e2e0-2aa6-402a-92b9-6c70bc387c81",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

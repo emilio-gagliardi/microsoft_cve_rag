@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_remote_desktop_service_exposes_remote_code_execution",
+  "description": "The cumulative update released in July 2024 addressed the CVE-2024-38077, which relates to a remote code execution vulnerability in the Windows Remote Desktop Licensing Service. This vulnerability exists specifically when the remote desktop licensing service is installed on a server. If Windows servers within your environment utilize Remote Desktop Services but do not have the Remote Desktop Licensing feature installed, they are not exposed to this vulnerability. Therefore, it is crucial to ensure that the patch addressing this CVE is applied to all servers that have the required service installed. Misinterpretation of this vulnerability could lead organizations to erroneously believe that all Windows Servers accessible through RDP are at risk, highlighting the importance of clarity in vulnerability scope definition. Consulting the relevant KB article once available will provide additional guidance on patch applicability.",
+  "source_id": "596b77e0-9b0e-9caf-5c4b-4e08d087caf9",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "596b77e0-9b0e-9caf-5c4b-4e08d087caf9"
+  ],
+  "tags": [
+    "remote_code_execution",
+    "patch_management",
+    "windows_server",
+    "rdp"
+  ],
+  "node_id": "e9863e0a-ee74-4b9d-81ce-5fde539791c0",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

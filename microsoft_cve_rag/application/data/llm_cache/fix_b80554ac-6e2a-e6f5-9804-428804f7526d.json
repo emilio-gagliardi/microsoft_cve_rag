@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the Windows Cryptographic Services information disclosure vulnerability (CVE-2024-30096):\n\n1. Download and apply the KB5039212 update from the official Windows Update catalog.\n2. For systems running on older versions, ensure that the appropriate KB updates (KB5039211 or KB5039213) are also applied based on your build number.\n3. Restart your system to apply the changes and ensure all updates are taking effect.\n\n**Details**:\n- This update addresses an information disclosure risk where sensitive information might be exposed to unauthorized actors.\n- Users should apply these updates promptly to maintain the security and integrity of their systems.\n- Visit the following links for manual installation:\n   - https://catalog.update.microsoft.com/Search.aspx?q=KB5039211\n   - https://catalog.update.microsoft.com/Search.aspx?q=KB5039212\n   - https://catalog.update.microsoft.com/Search.aspx?q=KB5039213\n\n**Preconditions**:\n- Ensure the system corresponds with the appropriate Windows build and version.\n- Backup critical data before proceeding with any update installation.",
+  "source_id": "b80554ac-6e2a-e6f5-9804-428804f7526d",
+  "source_type": "MSRCPost",
+  "fix_label": "resolve_windows_cryptographic_services_information_disclosure_cve202430096",
+  "tags": [
+    "KB5039212",
+    "WindowsCryptographicServices",
+    "InformationDisclosure",
+    "LLM Synthesized"
+  ],
+  "node_id": "062d0015-f5f3-40b6-87ff-bc102a23cc26",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b80554ac-6e2a-e6f5-9804-428804f7526d"
+  ],
+  "verification_status": "unverified"
+}

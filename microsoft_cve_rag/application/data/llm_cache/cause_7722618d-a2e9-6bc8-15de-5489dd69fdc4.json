@@ -1,0 +1,16 @@
+{
+  "description": "The issue stems from an information disclosure vulnerability in the Microsoft Local Security Authority Subsystem Service (LSASS). This vulnerability allows an attacker to exploit the system locally, either through direct access to the console or via user interaction that triggers the exploit, potentially exposing uninitialized memory in the process heap. Notably, the CVE affects multiple builds of the Windows operating system, including those specified in the provided build numbers. It has been officially addressed in the updates listed under KB articles KB-5032199, KB-5032192, KB-5032190, and KB-5032189.",
+  "cause_label": "InformationDisclosureInLocalSecurityAuthority",
+  "source_id": "7722618d-a2e9-6bc8-15de-5489dd69fdc4",
+  "source_type": "MSRCPost",
+  "tags": [
+    "security",
+    "information",
+    "vulnerability"
+  ],
+  "node_id": "604411f0-b06c-4725-aa16-bbc25e6d0d20",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

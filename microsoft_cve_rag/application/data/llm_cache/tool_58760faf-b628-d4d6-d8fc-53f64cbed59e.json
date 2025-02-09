@@ -1,0 +1,23 @@
+{
+  "tool_label": "vmware_tools_enable_vtpm",
+  "description": "**Tool Overview**:\n\nThis tool refers to the configuration settings required within VMware environments to enable vTPM (Virtual Trusted Platform Module) on virtual machines (VMs) running Windows Server 2022 and an upcoming 2025 version. \n\n**Details**:\n\nTo ensure that your VM operates securely with enhanced protection features, you need to enable vTPM in vSphere. As part of the configuration, it's critical to use the latest VM version compatible with your host, ensuring the operating system version aligns correctly. Additionally, enabling UEFI (Unified Extensible Firmware Interface) is essential for this configuration, as it supports virtualization-based security (VBS) that enhances security measures within your Windows Server environment. Following these steps will prepare your systems for better security practices and compliance needs.\n\n- Enable vTPM in the virtual machine settings within vSphere.\n- Use the latest version of the VM that supports the correct OS version.\n- Ensure UEFI and VBS are enabled for added security features.",
+  "tool_url": "",
+  "source_id": "58760faf-b628-d4d6-d8fc-53f64cbed59e",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "58760faf-b628-d4d6-d8fc-53f64cbed59e"
+  ],
+  "source_url": "N/A",
+  "tags": [
+    "VMware",
+    "vTPM",
+    "security",
+    "Windows Server",
+    "virtualization"
+  ],
+  "node_id": "71a64454-bc3d-4586-8e00-70b7688c0cb1",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

@@ -1,0 +1,16 @@
+{
+  "symptom_label": "HpPrinterDriverInstallationFailsToTargetHardware",
+  "description": "There is an issue where HP is pushing a printer driver through Windows Update that does not correctly target its intended hardware ID, instead designating it as a 'local printer.' This improperly updates existing drivers and links to an application that downloads from the Microsoft Store, creating potential disruption for users who manage printer installations manually. The risk increases for systems where the MS Store and Windows Update access are not restricted, leading to challenges in maintaining an organized and secure driver deployment environment.",
+  "source_id": "ddd8af03-441b-a8c7-ae23-6f4fee6ddc4c",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "printer drivers",
+    "windows update",
+    "HP"
+  ],
+  "node_id": "ec556c56-bfda-4c3b-b8cd-77ae6e855f8c",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

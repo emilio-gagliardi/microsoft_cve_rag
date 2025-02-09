@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve issues with printer functioning on a Windows 10 Pro 22H2 system, utilize the Windows built-in troubleshooter. This tool can clean up conflicting printer names and restore proper functioning to the printing system.\n\n1. Open the Troubleshooter by navigating to Settings > Update & Security > Troubleshoot.\n2. Select 'Printer' from the list of troubleshooters and follow the on-screen instructions to clean up the printer names and configurations.\n\n**Details**:\n- The troubleshooter may take some time to complete the cleanup process effectively. \n- Ensure that any third-party printer management applications (like HP Smart) are uninstalled to prevent conflicts.\n- This method helps in redirecting print jobs accurately to the intended default printer.\n\n**Preconditions**:\n- No HP print management software should be installed on the system prior to running the troubleshooter for best results.",
+  "source_id": "d4ce28e4-a793-fad3-5908-24d8185f0212",
+  "source_type": "PatchManagementPost",
+  "fix_label": "ResolvePrinterFunctionalityWindows10Troubleshooter",
+  "tags": [
+    "Windows10",
+    "PrinterManagement",
+    "Troubleshoot",
+    "LLM Synthesized"
+  ],
+  "node_id": "f83ce20d-ee5b-4731-a56f-1950c9582c54",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

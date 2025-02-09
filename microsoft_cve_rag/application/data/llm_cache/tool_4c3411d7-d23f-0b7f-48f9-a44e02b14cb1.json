@@ -1,0 +1,24 @@
+{
+  "tool_label": "unknown_tool_for_cve_202438200",
+  "description": "**Tool Overview**:\n\nThis post mentions a possible tool for dealing with a specific CVE related to Microsoft Office and NTLMv2 hash exposure. However, the details regarding this tool are not explicitly defined in the text. It is crucial to refer to comprehensive documentation to identify effective mitigation resources.\n\n**Details**:\nThis tool may be utilized to address vulnerabilities stemming from NTLMv2 hash exposure associated with Microsoft Office flaws. Such functionality could encompass:\n1. Assessment of affected systems for existing vulnerabilities.\n2. Application of necessary patches or configurations to mitigate risks.\n3. Monitoring and remediation strategies to secure Windows environments against potential exploits.\n\nUsers are encouraged to consult relevant security bulletins or resources to obtain further information on application and context-specific usage.\n",
+  "source_id": "4c3411d7-d23f-0b7f-48f9-a44e02b14cb1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "4c3411d7-d23f-0b7f-48f9-a44e02b14cb1"
+  ],
+  "source_url": "https://securityonline.info/0-day-flaw",
+  "tool_url": "https://securityonline.info/0-day-flaw",
+  "tags": [
+    "CVE",
+    "NTLMv2",
+    "Microsoft Office",
+    "0-day",
+    "LLM Synthesized"
+  ],
+  "node_id": "763ac95f-cf49-4758-8222-8cf8ede69874",
+  "node_label": "Tool",
+  "reliability": 0.5,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

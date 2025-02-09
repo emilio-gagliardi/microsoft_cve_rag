@@ -1,0 +1,20 @@
+{
+  "symptom_label": "ldap_tls_setup_requires_public_certificate_authority",
+  "description": "When setting up LDAP over TLS for secure communication, the absence of a certificate from a reliable public certificate authority, such as Digicert, can lead to connectivity issues with domain controllers. This situation may cause failures in secure connections, resulting in potential downtimes or degraded service for applications relying on secure LDAP access. It is critical that the installed certificate contains all Fully Qualified Domain Names (FQDNs) of the domain controllers, ensuring proper validation and trust establishment during the TLS handshake. Additionally, for environments utilizing load balancers, proper configuration becomes essential for ensuring redundancy and reliability; without it, the system could suffer from intermittent connectivity issues. It is also worth noting that while round-robin DNS can distribute load, it does not provide the same level of reliability as a dedicated load balancer setup.",
+  "source_id": "4df7b62a-3cd5-d07a-702f-cf77928df2fd",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "4df7b62a-3cd5-d07a-702f-cf77928df2fd"
+  ],
+  "tags": [
+    "LDAP",
+    "certificate management",
+    "TLS",
+    "load balancer"
+  ],
+  "node_id": "43b94d65-c53c-407b-8bc9-d7be3ad2b352",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

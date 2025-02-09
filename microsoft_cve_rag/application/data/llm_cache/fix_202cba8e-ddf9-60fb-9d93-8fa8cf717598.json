@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the installation issues encountered with older OEM systems related to the WinRE update:\n\n1. Determine if BitLocker is enabled on your system.\n   - If **BitLocker is not enabled**, you can ignore this update and utilize tools available at www.blockapatch.com for further assistance.\n\n2. If **BitLocker is enabled**, follow the instructions provided in KB5028997 to manually resize your partition for the WinRE update installation. This involves a detailed set of instructions that may seem complex but are necessary for a successful installation.\n\n**Details**:\n- Ensure to backup any critical data before proceeding with these operations.\n- The instructions for resizing the partition can be found at the provided Microsoft support link. (LLM Synthesized)",
+  "source_id": "202cba8e-ddf9-60fb-9d93-8fa8cf717598",
+  "source_type": "PatchManagementPost",
+  "fix_label": "ResizePartitionForWinREUpdateInstallation",
+  "tags": [
+    "KB5028997",
+    "WinREUpdate",
+    "BitLocker",
+    "OlderOEMs"
+  ],
+  "node_id": "66981ed9-2d9d-47bb-97f2-24a3c2bada34",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

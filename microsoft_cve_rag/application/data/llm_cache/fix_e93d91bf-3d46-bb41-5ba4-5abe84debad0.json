@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo enhance the customer experience, it is recommended to upgrade to the latest version of ScreenConnect, which is version 23.9.10.8817. This version includes several fixes and removed previous license restrictions.\n\n1. Ensure your current version is at least 23.9.8, as this is the minimum version that addressed reported vulnerabilities.\n2. Upgrade to ScreenConnect version 23.9.10.8817 for optimal performance and security enhancements.\n\n**Details**:\n- By upgrading, partners not under maintenance can now access the latest features without license restrictions.\n- Always backup any necessary configurations or data before proceeding with the upgrade to avoid data loss.",
+  "source_id": "e93d91bf-3d46-bb41-5ba4-5abe84debad0",
+  "source_type": "PatchManagementPost",
+  "fix_label": "upgrade_screenconnect_to_version_23_9_10_8817",
+  "tags": [
+    "ScreenConnect",
+    "VersionUpgrade",
+    "CustomerExperience",
+    "LLM Synthesized"
+  ],
+  "node_id": "04fae30a-80da-41d7-beb8-b38be09b4177",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e93d91bf-3d46-bb41-5ba4-5abe84debad0"
+  ]
+}

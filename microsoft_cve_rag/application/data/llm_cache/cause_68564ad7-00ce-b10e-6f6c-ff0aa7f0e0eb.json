@@ -1,0 +1,18 @@
+{
+  "description": "The elevation of privilege vulnerability identified as CVE-2023-36705 occurs due to a flaw within the Windows Installer process. Specifically, this issue arises when the vulnerable component operates without adequate security constraints, allowing an attacker with basic user privileges to exploit the system locally. By accessing system functionality through local input methods or by tricking users into executing malicious content, an attacker can gain elevated privileges. This vulnerability spans multiple build versions including Windows 11 and certain Windows 10 builds like 10.0.22621.2715 and 10.0.19045.3693, and is documented in KB articles such as KB-5032199, KB-5032192, and KB-5032189. The broad impact can lead to loss of confidentiality and integrity across affected systems, allowing unauthorized access or modification of sensitive data.",
+  "cause_label": "WindowsInstallerFlawEnablesPrivilegeEscalation",
+  "source_id": "68564ad7-00ce-b10e-6f6c-ff0aa7f0e0eb",
+  "source_type": "MSRCPost",
+  "tags": [
+    "windows",
+    "elevation of privilege",
+    "installer",
+    "security",
+    "CVE-2023-36705"
+  ],
+  "node_id": "c4439ab6-239f-4c08-b8b3-328f1f945c89",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

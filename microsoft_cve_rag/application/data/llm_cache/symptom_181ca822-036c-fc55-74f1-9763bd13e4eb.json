@@ -1,0 +1,21 @@
+{
+  "symptom_label": "patch_installation_failed_for_multiple_machines",
+  "description": "A significant issue has been observed where 86 out of 600 machines are failing to install a specific patch, noted in KB-5041580. The failure is categorized as 'failed on 13' and 'downloaded or other on 73', indicating a substantial impact on patch deployment across the network. This problem raises concerns about the potential for future patches to also fail on these machines, especially given the timing of Patch Tuesday. Consequently, the only solution identified so far involves performing a tedious Repair Upgrade using an ISO created with the Media Creation Tool (MCT), which is a time-consuming process for system administrators managing multiple endpoints. A reliable approach to address the installation failure is critical to maintain system compliance and security updates.",
+  "source_id": "181ca822-036c-fc55-74f1-9763bd13e4eb",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "181ca822-036c-fc55-74f1-9763bd13e4eb"
+  ],
+  "tags": [
+    "patch_management",
+    "installation_failed",
+    "repair_upgrade",
+    "KB5041580"
+  ],
+  "node_id": "6f41e66b-fb98-435a-accb-ff4a8cf765b0",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

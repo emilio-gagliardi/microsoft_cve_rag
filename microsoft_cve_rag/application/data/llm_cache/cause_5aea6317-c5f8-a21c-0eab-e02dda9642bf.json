@@ -1,0 +1,21 @@
+{
+  "description": "The vulnerability arises from uncontrolled recursion in the secure boot functionality, allowing an attacker to bypass this security feature through local access or by leveraging user interaction. This bypass can expose the system to unauthorized actions affecting confidentiality, integrity, and availability.",
+  "cause_label": "secure_boot_feature_bypass_due_to_uncontrolled_recursion",
+  "source_id": "5aea6317-c5f8-a21c-0eab-e02dda9642bf",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5aea6317-c5f8-a21c-0eab-e02dda9642bf"
+  ],
+  "tags": [
+    "CVE-2024-37973",
+    "Uncontrolled Recursion",
+    "Secure Boot",
+    "Security Feature Bypass"
+  ],
+  "node_id": "4c52d289-bbca-4c68-b3d4-d6ad3235b108",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

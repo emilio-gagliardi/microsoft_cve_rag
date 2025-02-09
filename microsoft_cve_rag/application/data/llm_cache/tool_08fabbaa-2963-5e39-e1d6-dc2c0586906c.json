@@ -1,0 +1,23 @@
+{
+  "tool_label": "product_group_survey_for_patch_management",
+  "description": "**Tool Overview**:\n\nThis product group survey aims to gather insights and feedback from the patch management community regarding the upcoming transition where WSUS will cease providing drivers. \n\n**Details**:\n\n1. The survey is essential for identifying any potential pain points or concerns among users about the shift in driver distribution.\n2. Participants are encouraged to share their experiences and expectations to help direct the service adaptations that will follow WSUS's changes.\n3. Feedback collected through this survey can influence future enhancements and support related to patch management.\n4. It is particularly relevant for system administrators and IT professionals who rely on WSUS for driver provisioning.\n5. The findings may also lead to improved tools and solutions that better meet the users' needs during the transition phase.\n\n**Important Note**: Completing the survey is integral as WSUS is set to stop providing drivers on April 18, 2025, which is pivotal for planning and preparation for affected systems.",
+  "source_id": "08fabbaa-2963-5e39-e1d6-dc2c0586906c",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "08fabbaa-2963-5e39-e1d6-dc2c0586906c"
+  ],
+  "source_url": "N/A",
+  "tool_url": "N/A",
+  "tags": [
+    "WSUS",
+    "product survey",
+    "driver management",
+    "patch management"
+  ],
+  "node_id": "e4cc17ec-6f63-4db9-a773-8de4581e1f8d",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

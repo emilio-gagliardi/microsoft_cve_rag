@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_print_spooler_elevation_of_privilege",
+  "description": "End users may experience unexpected access issues with printing services due to the elevation of privilege vulnerability in the Windows Print Spooler. Systems running affected builds of Windows 11, Windows 10, or Windows Server are at risk, leading to potential unauthorized access or system misbehavior. Specifically, users on servers and desktop versions including Windows Server 2012 R2 (KB5041828), Windows 11 Version 24H2 (KB5041571), and Windows 10 Version 22H2 (KB5041580) may notice that print jobs fail to process correctly or that access controls do not align with expected permissions. This behavior indicates that sensitive data could be exposed or printer functions may not operate as intended, severely impacting productivity in enterprise environments.",
+  "source_id": "b831a29c-0f74-bb2d-feb7-35b7ea75e195",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b831a29c-0f74-bb2d-feb7-35b7ea75e195"
+  ],
+  "tags": [
+    "Windows",
+    "Print Spooler",
+    "Privilege Escalation",
+    "KB5041571",
+    "KB5041828"
+  ],
+  "node_id": "143c34fc-0e04-4b6f-bea6-f7134c33e616",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

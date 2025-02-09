@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the type confusion vulnerability (CVE-2024-7971) affecting Microsoft Edge (Chromium-based):\n\n1. Ensure you are using the latest version of Microsoft Edge.\n2. Update to Microsoft Edge version 128.0.2739.42 or later.\n\n**Details**:\n- This update resolves a critical vulnerability in the Chromium open-source software that Edge utilizes, thereby preventing potential exploitation through malicious HTML pages.\n- For verification of your browser version, click on the 3 dots ( ... ) in Edge, navigate to Help and feedback, and select About Microsoft Edge.\n\nKeep your browser updated to maintain security against known vulnerabilities and exploits in the wild.",
+  "source_id": "2be27ac1-a617-80e4-675b-ac55d0b2fcee",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_for_cve20247971_mitigation",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-7971",
+    "Chromium",
+    "TypeConfusion"
+  ],
+  "node_id": "9ddaf41e-51e6-405e-9457-6be531cd3034",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix",
+  "source_ids": [
+    "2be27ac1-a617-80e4-675b-ac55d0b2fcee"
+  ],
+  "verification_status": "unverified"
+}

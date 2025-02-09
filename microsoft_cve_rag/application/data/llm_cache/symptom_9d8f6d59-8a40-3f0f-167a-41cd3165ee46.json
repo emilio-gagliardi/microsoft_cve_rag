@@ -1,0 +1,21 @@
+{
+  "symptom_label": "bitlocker_prompt_for_recovery_due_to_secureboot",
+  "description": "Users are experiencing a BitLocker prompt for the recovery key on Dell Precision Mobile Workstations due to changes in SecureBoot settings. This symptom has been noted specifically on older hardware, around seven years old, indicating that the machines may not be handling the SecureBoot state changes properly. The issue appears isolated to these older devices, as no other machines in the network have reported similar prompts. The situation may require log retrieval for further investigation to understand what caused the hardware to be dropped from the trusted list. Administrators may need to look into the firmware settings and update policies regarding SecureBoot to prevent future occurrences.",
+  "source_id": "9d8f6d59-8a40-3f0f-167a-41cd3165ee46",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "9d8f6d59-8a40-3f0f-167a-41cd3165ee46"
+  ],
+  "tags": [
+    "BitLocker",
+    "SecureBoot",
+    "Dell Workstations",
+    "Hardware Issues"
+  ],
+  "node_id": "ece84cde-2dba-4d6e-9641-f01f0a112b3c",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

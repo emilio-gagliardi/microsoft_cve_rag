@@ -1,0 +1,18 @@
+{
+  "description": "The cause of the elevation of privilege vulnerability identified in CVE-2024-21310 stems from the design flaw in the Windows Cloud Files Mini Filter Driver. This driver is responsible for managing file interactions in a cloud environment, and certain inadequate checks or controls allow for unauthorized access to system-level privileges. This means that a user with basic privileges could execute local commands that escalate their permissions, leading to potential manipulation of sensitive files and system configurations. The risk is elevated when end users interact with malicious documents or programs, potentially triggering the exploit through social engineering techniques. The systems impacted include various versions of Windows 10 and Windows 11, specifically build numbers from 19044, 19045, 22000, and 22631, as detailed in the corresponding KB articles KB-5034121, KB-5034122, and KB-5034123.",
+  "cause_label": "DesignFlawInCloudFilesDriver",
+  "source_id": "723d9242-3f98-7e9a-edc3-a784a080889a",
+  "source_type": "MSRCPost",
+  "tags": [
+    "elevation_of_privilege",
+    "cloud_files",
+    "windows",
+    "driver_flaw",
+    "operating_system"
+  ],
+  "node_id": "ab7e3943-90df-44e8-9a84-6579c1744f4c",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

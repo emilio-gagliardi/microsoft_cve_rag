@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_kernel_elevation_of_privilege_issue",
+  "description": "After applying the updates related to Windows kernel elevation of privilege (KB-5035959 and others), users may experience unexpected behaviors indicating issues with access permissions. This can manifest as applications and processes not launching correctly due to unauthorized privilege errors, or unexpected prompts for administrative approval when executing routine tasks. Additionally, affected systems could show delayed responses during user access requests, leading to disruptions in workflow. These symptoms could be particularly prevalent in Windows Server 2012, Windows 10 (various versions), and Windows 11 installations with specific build numbers mentioned, potentially affecting overall system usability and user productivity.",
+  "source_id": "17511528-1634-80f6-6fcd-8903cfc8b7cd",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "17511528-1634-80f6-6fcd-8903cfc8b7cd"
+  ],
+  "tags": [
+    "elevation_of_privilege",
+    "Windows",
+    "kernel",
+    "end_user_impact"
+  ],
+  "node_id": "233edc1a-5440-4985-bb2d-d78b32aa42bc",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the CVE-2024-5836 vulnerability found in Chromium, ensure you are using the updated Microsoft Edge (Chromium-based) browser to mitigate the risk associated with this inappropriate implementation in devtools.\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) on the right-hand side of the window.\n3. Navigate to 'Help and feedback'.\n4. Click on 'About Microsoft Edge' to check your version.\n5. Update to the latest version if you are running anything below 126.0.6478.57.\n\n**Details**:\n- The security update addresses vulnerabilities that may allow attackers to execute arbitrary code through malicious extensions.\n- Ensure that your browser version is 126.0.2592.56 or later.\n\n**Preconditions**:\n- Ensure that you have administrative privileges if the update requires installation permissions.\n- Backup any critical data before proceeding with browser updates.",
+  "source_id": "27fe5b3c-9c7a-393e-7440-872b009b91cc",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_resolve_chromium_cve20245836",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20245836",
+    "Chromium",
+    "Update"
+  ],
+  "node_id": "715eccf9-6f3b-4ce2-b53a-8617a08e3582",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "27fe5b3c-9c7a-393e-7440-872b009b91cc"
+  ],
+  "verification_status": "unverified"
+}

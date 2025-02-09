@@ -1,0 +1,18 @@
+{
+  "description": "The underlying issue identified in CVE-2024-0222 is a 'use after free' vulnerability that occurs within the ANGLE (Almost Native Graphics Layer Engine) component of the Chromium codebase. This type of flaw typically arises due to improper handling of memory that has already been freed. Specifically, when an application tries to use a memory location that has been released, it may lead to exploitable states or crashes. In the context of Microsoft Edge (Chromium-based), this issue affects versions based on Chromium, including the build 120.0.2210.121. The corrective measure was to ensure that the software properly manages memory allocations and deallocations, thereby mitigating the associated risks of accessing freed memory blocks. This vulnerability is significant as it could allow an attacker to execute arbitrary code within the context of a vulnerable application, emphasizing the necessity for timely updates and patches.",
+  "cause_label": "UseAfterFreeVulnerabilityInANGLE",
+  "source_id": "b04d240e-d0c0-2d2d-2101-b8f69759ef0d",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE",
+    "Chromium",
+    "MemoryManagement",
+    "Edge",
+    "ANGLE"
+  ],
+  "node_id": "62efb848-d1a5-4f84-9557-a549f2acd2fa",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

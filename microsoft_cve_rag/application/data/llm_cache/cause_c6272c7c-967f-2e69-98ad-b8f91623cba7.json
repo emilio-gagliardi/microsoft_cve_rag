@@ -1,0 +1,21 @@
+{
+  "description": "Improper neutralization of input in the MSHTML platform led to cross-site scripting (CWE-79), allowing attackers to spoof content through manipulated web page generation.",
+  "cause_label": "mshtml_improper_neutralization_of_input_xss",
+  "source_id": "c6272c7c-967f-2e69-98ad-b8f91623cba7",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c6272c7c-967f-2e69-98ad-b8f91623cba7"
+  ],
+  "tags": [
+    "MSHTML",
+    "CWE-79",
+    "Cross-site Scripting",
+    "Spoofing"
+  ],
+  "node_id": "b224cbae-37df-4e12-9b69-4105b66dab70",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

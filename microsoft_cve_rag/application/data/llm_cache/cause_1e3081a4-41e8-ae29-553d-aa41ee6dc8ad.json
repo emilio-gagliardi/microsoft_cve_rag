@@ -1,0 +1,20 @@
+{
+  "description": "Untrusted pointer dereference in the NT OS kernel allows local attackers to gain elevation of privilege, exploiting race conditions and accessing kernel memory.",
+  "cause_label": "nt_os_kernel_untrusted_pointer_dereference",
+  "source_id": "1e3081a4-41e8-ae29-553d-aa41ee6dc8ad",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "1e3081a4-41e8-ae29-553d-aa41ee6dc8ad"
+  ],
+  "tags": [
+    "elevation of privilege",
+    "NT OS kernel",
+    "CVE-2024-43553"
+  ],
+  "node_id": "2fb9fa34-139c-48c2-ab60-13190ca9493a",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

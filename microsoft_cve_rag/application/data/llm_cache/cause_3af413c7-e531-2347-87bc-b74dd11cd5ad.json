@@ -1,0 +1,18 @@
+{
+  "description": "The issue stems from a recent update (KB-5031364) which caused virtual machines to fail to start specifically on ESXi hosts running version 7.0.x and below. This behavior likely arises from a misconfiguration or compatibility issue introduced by the update, rendering these specific build numbers unable to manage virtual machine boots correctly. The Veeam article referenced highlights this limitation and provides insight into the operational impact exclusive to these versions. System administrators are advised to assess their environments for this build before implementing the patch to avoid unexpected outages. Continued monitoring and subsequent updates following this patch may be necessary to resolve lingering issues.",
+  "source_id": "3af413c7-e531-2347-87bc-b74dd11cd5ad",
+  "source_type": "PatchManagementPost",
+  "cause_label": "RecentUpdateImpactsVirtualMachineStartup",
+  "tags": [
+    "ESXi",
+    "update",
+    "KB-5031364",
+    "virtual machines",
+    "fail to start"
+  ],
+  "node_id": "382463bb-fc37-454c-8005-3ce21393c4cb",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

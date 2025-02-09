@@ -1,0 +1,23 @@
+{
+  "tool_label": "boot_wims_management_tool",
+  "description": "**Tool Overview**:\n\nThis tool is designed for managing Windows Imaging Format (WIM) files specifically related to boot configurations.\n\n**Details**:\n\nThe Boot WIM Management Tool allows administrators to handle bootable WIM images effectively. It comes with functionalities such as:\n1. Creating new WIM images for deployment purposes.\n2. Modifying existing WIM files to include additional drivers or applications.\n3. Validating the integrity of WIM files to ensure they are not corrupted.\nThis tool simplifies the arduous task of configuring boot images for mass deployments in enterprise environments, making it essential for system administrators.\n\nFurthermore, it integrates seamlessly with existing deployment frameworks, allowing for a more streamlined imaging process. Each operation comes with straightforward commands to facilitate ease of use.\n",
+  "source_id": "7efb9aa7-5469-6ff8-af4d-dec0ec452a26",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "7efb9aa7-5469-6ff8-af4d-dec0ec452a26"
+  ],
+  "source_url": "https://can01.safelinks.protection.outlook.com/?url=https%3a%2f%2f2pintsoftware.com%2fnews%2fdetails%2fkb5025885-and-boot-wims&data=05%7c02%7cemail",
+  "tool_url": "https://2pintsoftware.com/news/details/kb5025885-and-boot-wims",
+  "tags": [
+    "WIM",
+    "boot management",
+    "deployment",
+    "Windows"
+  ],
+  "node_id": "38032b47-6cab-4bb9-acc9-47090fe30887",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the use after free vulnerability in Chromium that affects Microsoft Edge (Chromium-based), ensure you are using the latest version of the browser:\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) in the upper right corner.\n3. Navigate to Help and Feedback.\n4. Click on About Microsoft Edge to check your current version.\n5. If your version is prior to 129.0.6668.70, please update your browser to the latest version (129.0.2792.65 is recommended) to eliminate the vulnerability.\n\n**Details**:\n- This update addresses the CVE-2024-9120 vulnerability linked to potential heap corruption, making your browsing experience more secure.\n- To download the latest version, visit the Microsoft Edge download page or use built-in update functionalities.\n\n**Preconditions**:\n- Ensure you are connected to the internet to download updates.\n- Backup any sensitive data before proceeding with system updates to avoid data loss.",
+  "source_id": "45f3f6ae-6bc1-3792-9109-d266aba97ece",
+  "source_type": "MSRCPost",
+  "fix_label": "upgrade_microsoft_edge_to_129_0_2792_65",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20249120",
+    "Chromium",
+    "HeapCorruption"
+  ],
+  "node_id": "6f72495b-a4df-49e8-9722-fce94fcbb76d",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "45f3f6ae-6bc1-3792-9109-d266aba97ece"
+  ],
+  "verification_status": "unverified"
+}

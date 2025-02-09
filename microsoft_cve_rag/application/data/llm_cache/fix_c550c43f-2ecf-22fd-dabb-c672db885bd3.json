@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows kernel elevation of privilege vulnerability (CVE-2024-30099), it is essential to apply the relevant updates provided by Microsoft.\n\n1. Identify your Windows version and build number to determine the appropriate update.\n2. Download and apply the specific KB update from the official Microsoft Update Catalog links provided below.\n3. Restart your system after installation to ensure that the changes take effect.\n\n**Details**:\n- This update mitigates a critical time-of-check time-of-use (TOCTOU) race condition that could enable escalation of privileges. \n- Ensure your system architecture (x64-based or 32-bit) is accounted for when applying the updates.\n\n**Preconditions**:\n- It is recommended to backup critical data before proceeding with the installation of updates.\n- Ensure you are connected to the internet to download updates.\n\nUpdate Packages:\n- For Windows 10 and Windows 11, apply the following updates:\n  - [KB5039211](https://catalog.update.microsoft.com/Search.aspx?q=KB5039211)\n  - [KB5039212](https://catalog.update.microsoft.com/Search.aspx?q=KB5039212)\n  - [KB5039213](https://catalog.update.microsoft.com/Search.aspx?q=KB5039213)\n  - [KB5039225](https://catalog.update.microsoft.com/Search.aspx?q=KB5039225)\n\nReview your installed updates after completion to confirm successful installation. ",
+  "source_id": "c550c43f-2ecf-22fd-dabb-c672db885bd3",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_for_kernel_privilege_escalation",
+  "tags": [
+    "KB5039211",
+    "KB5039212",
+    "CVE202430099",
+    "Windows"
+  ],
+  "node_id": "f96b9ca5-34e0-4351-a41c-25f801f9f6bb",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c550c43f-2ecf-22fd-dabb-c672db885bd3"
+  ],
+  "verification_status": "unverified"
+}

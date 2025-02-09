@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_unsuitable_ui_spoofing_experience",
+  "description": "Users may experience UI spoofing within Microsoft Edge (Chromium-based) version 130.0.2849.46 and prior builds. This can result in misleading visual elements that could confuse users, as a result of an inappropriate implementation in the Picture-in-Picture feature. These deceptive interfaces can potentially trick users into believing they are interacting with legitimate browser components, resulting in an uncomfortable and unintuitive browsing experience. To avoid this issue, it is advised that users update to the latest version of Microsoft Edge (130.0.6723.59), which resolves this concern and enhances overall user trust in the interface. The update is detailed in KB-130.0.2849.46 and aims to secure the browsing environment.",
+  "source_id": "2e2bedd2-c814-8960-2769-2c9264748172",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2e2bedd2-c814-8960-2769-2c9264748172"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "UI Spoofing",
+    "Chromium",
+    "Update",
+    "User Experience"
+  ],
+  "node_id": "bf5e3dec-c0a3-463e-827e-bd1b570c397f",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

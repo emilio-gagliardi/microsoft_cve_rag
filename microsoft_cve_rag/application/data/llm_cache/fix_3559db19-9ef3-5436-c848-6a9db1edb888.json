@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability associated with CVE-2024-26205:\n\n1. Download and install the updates provided in the KB articles:\n   - KB-5036925\n   - KB-5036894\n   - KB-5036893\n   - KB-5036892\n\n2. Ensure that your systems run on the specified build numbers to ensure compatibility with the updates.\n\n**Details**:\n- This vulnerability affects the Windows Routing and Remote Access Service (RRAS) and can lead to severe security risks if not addressed.\n- For manual installation, check the update package availability through the official Microsoft Update Catalog.\n- The following build numbers are addressed in this update: \n  [10, 0, 19045, 4291], [10, 0, 19044, 4291], [10, 0, 22631, 3447], [10, 0, 22000, 2899], [10, 0, 22621, 3447], [10, 0, 10240, 20596].\n\n**Preconditions**:\n- Verify system compatibility with the above-listed builds.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "3559db19-9ef3-5436-c848-6a9db1edb888",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_rras_remote_code_execution_cve202426205",
+  "tags": [
+    "KB5036925",
+    "RRAS",
+    "RemoteCodeExecution",
+    "CVE202426205"
+  ],
+  "node_id": "9c5a488f-d716-4336-a3de-54d12749a310",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "3559db19-9ef3-5436-c848-6a9db1edb888"
+  ]
+}

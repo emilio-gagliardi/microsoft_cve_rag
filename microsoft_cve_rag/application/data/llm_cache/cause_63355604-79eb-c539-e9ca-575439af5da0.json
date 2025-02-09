@@ -1,0 +1,21 @@
+{
+  "description": "The Windows Text Services Framework contains a missing authorization flaw allowing low-privileged users to elevate privileges to medium or high integrity levels through manipulated access to the system, potentially unbinding components from their intended access restrictions.",
+  "cause_label": "windows_text_services_framework_missing_authorization",
+  "source_id": "63355604-79eb-c539-e9ca-575439af5da0",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "63355604-79eb-c539-e9ca-575439af5da0"
+  ],
+  "tags": [
+    "CVE-2024-21417",
+    "Windows",
+    "Text Services Framework",
+    "Elevation of Privilege"
+  ],
+  "node_id": "304b04fb-5320-484e-923a-3bcfb209c80a",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,18 @@
+{
+  "description": "The underlying cause of CVE-2024-0223 is a heap buffer overflow in the ANGLE component of the Chromium project. This flaw occurred due to improper handling of memory allocations, which can allow an attacker to manipulate memory beyond the bounds allocated for a given object, potentially leading to arbitrary code execution. This vulnerability impacts Microsoft Edge (Chromium-based) versions that leverage this open-source component. Specifically, the affected build of Microsoft Edge is 120.0.2210.121, which ingests the compromised Chromium codebase. To mitigate this vulnerability, users are advised to upgrade to the secure version of Microsoft Edge that addresses the issue, as detailed in the security update documentation.",
+  "cause_label": "HeapBufferOverflowInANGLEComponent",
+  "source_id": "3cc20140-cd19-5089-5ba7-dfa30504a18a",
+  "source_type": "MSRCPost",
+  "tags": [
+    "buffer overflow",
+    "Chromium",
+    "Microsoft Edge",
+    "memory management",
+    "vulnerability"
+  ],
+  "node_id": "bba7d410-aad7-4420-8d3e-e8cd905c5b1e",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_may_experience_heap_corruption",
+  "description": "Users of Microsoft Edge (Chromium-based) version 128.0.2739.42 may encounter instability and unexpected behaviors due to a use-after-free condition related to the autofill functionality. This security issue, identified by CVE-2024-7968, previously allowed remote attackers to potentially compromise the browser through manipulated HTML pages, leading to heap corruption. Following the latest security update released on August 22, 2024, it is essential for users to ensure their browser is updated to this version to mitigate any risk of such disruptions. The problematic versions have since been addressed, but users should remain vigilant in monitoring for any irregularities in browser performance post-update, including unexpected crashes or data loss during autofill operations.",
+  "source_id": "a7c3ee65-5e88-94fa-83b4-606fca022f2b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a7c3ee65-5e88-94fa-83b4-606fca022f2b"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "CVE-2024-7968",
+    "Chrome",
+    "Autofill",
+    "Heap Corruption"
+  ],
+  "node_id": "54bc15dc-33d9-4224-bd9a-936e66b24d78",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_dwm_core_library_elevation_of_privilege",
+  "description": "After applying the security update for Windows DWM Core Library, systems may display unexpected elevation of privileges, leading to unauthorized access to sensitive system components. This could manifest as abnormal behavior when executing tasks that require user permissions, where an attacker might exploit the update process to gain higher system privileges. Users on affected build numbers, specifically Windows 10 and Windows 11 versions like 10.0.19044.5131 or 10.0.26100.2314 noted instabilities in executing administrative tasks without prior consent. Aldo, the update indicated in KB-5046617 reveals potential changes in user-imposed security boundaries, further complicating user interactions with critical system settings. System administrators may notice an increased frequency of issues related to user account control prompts, potentially indicating unauthorized attempts to elevate permissions.",
+  "source_id": "78ad02da-27d4-a3cd-d2c0-acc3ee556195",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "78ad02da-27d4-a3cd-d2c0-acc3ee556195"
+  ],
+  "tags": [
+    "elevation of privilege",
+    "DWM",
+    "Windows 10",
+    "Windows 11",
+    "security update"
+  ],
+  "node_id": "734ba18a-b0e4-4077-9397-36a00c9ec8a1",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

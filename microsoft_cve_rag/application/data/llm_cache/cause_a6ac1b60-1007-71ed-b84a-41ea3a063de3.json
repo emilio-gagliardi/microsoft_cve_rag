@@ -1,0 +1,18 @@
+{
+  "description": "The cause of the issue stems from a design change in the user interface of the Copilot feature in Windows. The change involves relocating the Copilot icon to the far-right side of the system tray on the taskbar, intending to enhance user accessibility and visibility. This relocation is accompanied by the default deactivation of the 'show the desktop' behavior for this area, leading users to potentially perceive a change in expected functionality. Users may inadvertently find that clicking the far-right corner no longer minimizes all windows, which can lead to confusion. The change is documented as part of Windows updates and can be found in the related build numbers and KB articles, although specific KB article IDs are not listed in the provided context.",
+  "source_id": "a6ac1b60-1007-71ed-b84a-41ea3a063de3",
+  "source_type": "PatchManagementPost",
+  "cause_label": "UserInterfaceChangeAffectsDesktopInteraction",
+  "tags": [
+    "UI",
+    "Copilot",
+    "Windows",
+    "taskbar",
+    "accessibility"
+  ],
+  "node_id": "5c96d64d-3812-4b3d-abd6-b19540ff6211",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

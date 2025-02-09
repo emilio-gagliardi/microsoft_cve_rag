@@ -1,0 +1,20 @@
+{
+  "description": "A heap-based buffer overflow in the Windows CSC service allowing elevation of privilege.",
+  "cause_label": "windows_csc_service_heap_buffer_overflow",
+  "source_id": "8dd45e46-6e53-da07-4c35-5a6b1b218b39",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8dd45e46-6e53-da07-4c35-5a6b1b218b39"
+  ],
+  "tags": [
+    "CVE",
+    "Windows",
+    "Elevation of Privilege",
+    "Heap-based Buffer Overflow"
+  ],
+  "node_id": "05e2dae1-5dc4-495f-b295-a5723a2f4a4c",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

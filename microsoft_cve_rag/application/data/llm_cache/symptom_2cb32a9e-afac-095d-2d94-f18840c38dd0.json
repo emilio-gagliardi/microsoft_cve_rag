@@ -1,0 +1,16 @@
+{
+  "symptom_label": "SoftwareUpdateCatalogMissingReaderForInstallation",
+  "description": "The Central Bank of Ireland reports that version 23.006.20380 of the Reader is absent from the Software Update Catalog, impacting the deployment of critical updates. This situation has also affected the availability of new versions for Reader and Acrobat, leading to a gap in software maintenance for users reliant on these applications. Users have noted that, while Acrobat was added back to the catalog, the Reader remains unlisted, creating potential inconsistencies in application management.",
+  "source_id": "2cb32a9e-afac-095d-2d94-f18840c38dd0",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "software catalog",
+    "update management",
+    "reader version"
+  ],
+  "node_id": "22cdda0e-44dc-4995-b7d0-1a521917d457",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

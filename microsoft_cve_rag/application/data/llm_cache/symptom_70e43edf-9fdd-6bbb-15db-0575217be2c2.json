@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_authentication_information_leakage_issue",
+  "description": "End users may experience unauthorized exposure of sensitive information when accessing systems running affected builds of Windows. Specifically, in systems with Windows 10 (versions 21H2 and 22H2, build numbers 10.0.19044.4894 and 10.0.19045.4894, respectively) and Windows 11 (version 22H2, build number 10.0.22621.4169), there is a potential for sensitive data residing in the heap memory to be unintentionally disclosed. Users may not receive any direct errors or alerts, making detection of this issue complex. The vulnerability allows for confidential information to be read by attackers with local access or through social engineering, emphasizing the importance of immediate patching with the updates provided in KB5043064, KB5043067, and KB5043080. Administrators should remain vigilant regarding user activity and data access, particularly in environments running these specific Windows versions.",
+  "source_id": "70e43edf-9fdd-6bbb-15db-0575217be2c2",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "70e43edf-9fdd-6bbb-15db-0575217be2c2"
+  ],
+  "tags": [
+    "Windows",
+    "Authentication",
+    "Information Disclosure",
+    "Patch Management"
+  ],
+  "node_id": "546968ce-29c9-48d5-8c74-9a14dc7258c7",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

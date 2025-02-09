@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows SMB Denial of Service vulnerability (CVE-2024-43642):\n\n1. Download and apply the updates corresponding to your Windows version:\n   - For Windows 11 Version 24H2, refer to KB5046617.\n   - For Windows 11 Version 23H2, refer to KB5046633.\n   - For Windows 11 Version 22H2, also refer to KB5046633.\n2. Install the updates via Windows Update or by manually downloading the packages from the official Microsoft Update Catalog.\n3. Restart your system after installation to ensure the updates take effect.\n\n**Details**:\n- This series of updates address the 'Use After Free' vulnerability that could lead to denial of service.\n- Ensure your system matches one of the affected build numbers:\n   - Windows 11 Version 24H2 for x64-based Systems: 10.0.26100.2314\n   - Windows 11 Version 23H2 for x64-based Systems: 10.0.22631.4460\n   - Windows 11 Version 22H2 for x64-based Systems: 10.0.22621.4460.\n- For manual installations, use these links to download the updates:\n   - [KB5046617 Update Package](https://catalog.update.microsoft.com/Search.aspx?q=KB5046617)\n   - [KB5046633 Update Package](https://catalog.update.microsoft.com/Search.aspx?q=KB5046633).\n\n**Preconditions**:\n- Ensure the system is running one of the specified Windows versions.\n- Backup critical data before proceeding with the update installation.\n\n",
+  "source_id": "7b2b5aa5-40b0-0a5c-80d5-0eb37073906b",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_smb_denial_of_service_cve202443642",
+  "tags": [
+    "KB5046617",
+    "KB5046633",
+    "Windows11",
+    "DenialOfService"
+  ],
+  "node_id": "d4380107-5f03-42ab-8a91-d71e24d6ebe2",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "7b2b5aa5-40b0-0a5c-80d5-0eb37073906b"
+  ],
+  "verification_status": "unverified"
+}

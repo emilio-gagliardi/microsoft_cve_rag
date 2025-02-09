@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the issue of increasing recovery partition sizes on multiple computers:\n\n1. Utilize MHimken's Patch-WinRE script in your environment for manual integration.\n2. Employ Intune in conjunction with the PowerShell App Deployment Toolkit (PSADT) to automate the deployment process across several thousand systems.\n3. Monitor the deployment via Intune\u2019s application model to ensure graceful restarts and detection are performed correctly.\n\n**Details**:\nThis process allows for the effective management of recovery partition size adjustments without the need for Microsoft to automate the fix directly. Integrating the script with Intune enhances scalability and efficiency in managing system recovery configurations. (LLM Synthesized)",
+  "source_id": "149fabb1-1640-0d41-4e49-f9fe223f78e9",
+  "source_type": "PatchManagementPost",
+  "fix_label": "increase_recovery_partition_sizes_intune_deployment",
+  "tags": [
+    "Intune",
+    "PowerShell",
+    "MHimkensPatch",
+    "WindowsRecovery"
+  ],
+  "node_id": "219b504c-6064-4e29-9923-54d2af06dcb9",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "149fabb1-1640-0d41-4e49-f9fe223f78e9"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "description": "Inappropriate implementation in permissions in Chromium prior to version 128.0.6613.84, allowing UI spoofing via crafted HTML pages. This issue affects Microsoft Edge which is built on Chromium.",
+  "cause_label": "chromium_inappropriate_permissions_implementation",
+  "source_id": "166ccf3a-5993-73fc-2971-bf1451cbd130",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "166ccf3a-5993-73fc-2971-bf1451cbd130"
+  ],
+  "tags": [
+    "Chromium",
+    "Microsoft Edge",
+    "Permissions",
+    "UI Spoofing",
+    "HTML"
+  ],
+  "node_id": "be04918c-0cc5-4b39-a751-b80e7776a162",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

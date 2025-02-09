@@ -1,0 +1,20 @@
+{
+  "description": "The root cause of the issue stems from the need to clarify Google\u2019s Terms of Service, particularly around the use of generative AI, limitations of liability, and user responsibilities. These updates aim to enhance user understanding and compliance, reflecting changes in brand names and legal requirements, especially for users in the European Economic Area (EEA). Notably, the adjustments intend to ensure that users are aware of the implications of violating terms, which could include remedies beyond mere access suspension. The changes signify an evolution in service guidelines, indicating an effort to provide clearer definitions and conditions of service use. The administrative complexities faced by Google workspace resellers also highlight the changes impacting customer relationships associated with additional services access.",
+  "source_id": "ca8a62c5-1871-a64e-9368-895f7eaf064e",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "ca8a62c5-1871-a64e-9368-895f7eaf064e"
+  ],
+  "cause_label": "clarification_of_google_terms_of_service",
+  "tags": [
+    "google_terms",
+    "generative_ai",
+    "service_updates"
+  ],
+  "node_id": "7a14dc7d-63ac-463e-a373-40615c9e8e38",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

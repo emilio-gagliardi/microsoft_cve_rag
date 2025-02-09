@@ -1,0 +1,18 @@
+{
+  "description": "The underlying reason for the patching issues stemmed from the previous vulnerabilities associated with the BootMenuUX.dll and winload.exe files, linked to CVE-2022-4109 and CVE-2024-20666. These vulnerabilities necessitated utilizing a cumulative Safe OS update, which inadvertently patched the earlier CVE as well. The issue arose due to the improper usage of dism.exe for verifying the integrity of winre.wim, instead of directly inspecting its content. A generic Powershell function was provided to automate these checks on both Windows 10 and Server 2022 systems, highlighting the need for careful attention to how system files are checked for updates. The recommended approach emphasizes the importance of maintaining contemporary knowledge of relevant CVEs to ensure system integrity and security compliance.",
+  "source_id": "fafec1e1-c0c4-9129-aa31-2372d95a1970",
+  "source_type": "PatchManagementPost",
+  "cause_label": "PreviousCVELinkedToCumulativeUpdate",
+  "tags": [
+    "CVE-2022-4109",
+    "CVE-2024-20666",
+    "BootMenuUX.dll",
+    "winload.exe",
+    "PowershellAutomation"
+  ],
+  "node_id": "8b37cd62-2463-4733-b5db-36620407e555",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

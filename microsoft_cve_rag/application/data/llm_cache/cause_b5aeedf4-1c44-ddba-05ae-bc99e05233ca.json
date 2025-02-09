@@ -1,0 +1,20 @@
+{
+  "description": "Improper link resolution before file access in Microsoft Windows Server Backup, allowing elevation of privilege through direct access to system files.",
+  "cause_label": "windows_server_backup_improper_link_resolution",
+  "source_id": "b5aeedf4-1c44-ddba-05ae-bc99e05233ca",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b5aeedf4-1c44-ddba-05ae-bc99e05233ca"
+  ],
+  "tags": [
+    "elevation_of_privilege",
+    "windows_server_backup",
+    "exploit"
+  ],
+  "node_id": "4831b25b-6a31-4bed-aa58-0852d1de47ae",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

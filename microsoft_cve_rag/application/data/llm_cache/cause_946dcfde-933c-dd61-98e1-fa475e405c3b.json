@@ -1,0 +1,23 @@
+{
+  "description": "The underlying cause of the system crashes on Windows hosts is attributed to a problematic configuration file termed the 'channel file'. This specific file, part of the Falcon Content Update, can lead to Blue Screen of Death (BSOD) errors when processed by the sensor if not quarantined promptly. The remediation provided by CrowdStrike involves utilizing the built-in quarantine functionality to mitigate the risk of a system crash by removing this channel file before it can activate in the sensor. This remediation is crucial for affected Windows hosts that can connect to Crowstrike's cloud, as those running on other operating systems like macOS or Linux are not impacted. Users are advised to reboot their hosts post-remediation to ensure complete recovery from the issue, as the virus has a tendency to persist in active memory until actively mitigated.",
+  "source_id": "946dcfde-933c-dd61-98e1-fa475e405c3b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "946dcfde-933c-dd61-98e1-fa475e405c3b"
+  ],
+  "cause_label": "problematic_channel_file_leads_to_system_crash",
+  "tags": [
+    "falcon",
+    "content update",
+    "channel file",
+    "windows hosts",
+    "remediation",
+    "system crash"
+  ],
+  "node_id": "4de597e5-c3ba-40a7-a574-7f0100878647",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

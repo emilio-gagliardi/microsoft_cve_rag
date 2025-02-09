@@ -1,0 +1,17 @@
+{
+  "symptom_label": "RemoteCodeExecutionVulnerabilityInMicrosoftEdge",
+  "description": "Users may experience unexpected remote code execution risks in Microsoft Edge (Chromium-based) version 119.0.2151.58 and extended stable version 118.0.2088.102. This vulnerability could allow unauthorized users to run potentially harmful applications on the affected systems. For further details, refer to the security update KB-119.0.2151.58 which addresses this issue.",
+  "source_id": "d66f5963-68c7-12c6-6b0a-3dd42fe95b60",
+  "source_type": "MSRCPost",
+  "tags": [
+    "security",
+    "update",
+    "Microsoft Edge",
+    "CVE-2023-36027"
+  ],
+  "node_id": "8b117b43-b1d6-4dbf-af52-7be440ee61e7",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

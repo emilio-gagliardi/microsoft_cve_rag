@@ -1,0 +1,22 @@
+{
+  "description": "The issue is caused by a use after free vulnerability in web authentication within the Chromium open-source software, affecting Microsoft Edge versions prior to 130.0.6723.58. A remote attacker could exploit this flaw via a crafted HTML page, leading to potential heap corruption.",
+  "cause_label": "chromium_use_after_free_in_webauthentication",
+  "source_id": "931da968-5bb8-f180-3c58-026f92f049ed",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "931da968-5bb8-f180-3c58-026f92f049ed"
+  ],
+  "tags": [
+    "CVE-2024-9955",
+    "Chromium",
+    "Microsoft Edge",
+    "Use After Free",
+    "Heap Corruption"
+  ],
+  "node_id": "e1915aa0-0f4c-41fd-819c-f6b9d9fc989b",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "description": "The vulnerability arises from a use-after-free condition in the Windows vmswitch component, where the memory allocated to objects is freed but still accessed by attackers. This flaw allows an attacker with low privileges in a Hyper-V guest to send crafted networking requests that trigger this condition, leading to arbitrary code execution on the host environment.",
+  "cause_label": "windows_vmswitch_use_after_free_elevation_of_privilege",
+  "source_id": "005d2fdf-9a8b-4488-9a55-6d3b43e8f85d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "005d2fdf-9a8b-4488-9a55-6d3b43e8f85d"
+  ],
+  "tags": [
+    "Windows",
+    "Hyper-V",
+    "vmswitch",
+    "use after free",
+    "CVE-2024-43625"
+  ],
+  "node_id": "f9b82319-f4d6-4811-904b-d800d961bdce",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

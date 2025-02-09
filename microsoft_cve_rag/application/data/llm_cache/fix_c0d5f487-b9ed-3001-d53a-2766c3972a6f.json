@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the information disclosure vulnerability in Microsoft Edge (Chromium-based) CVE-2024-29987:\n\n1. Ensure Microsoft Edge is updated to version 124.0.2478.51 or later.\n2. Download the update package using the following link: [KB29987](https://catalog.update.microsoft.com/Search.aspx?q=KB29987).\n3. Install the update package to mitigate the vulnerability.\n\n**Details**:\n- This fix resolves an issue that allows unauthorized access to sensitive information within Microsoft Edge when exploited.\n- Ensure to perform the update in a secure manner, verifying the integrity of downloaded packages before installation.\n\n**Preconditions**:\n- Windows operating system compatible with the specified build of Microsoft Edge is required.\n- Backup critical browser data before proceeding with the update installation.",
+  "source_id": "c0d5f487-b9ed-3001-d53a-2766c3972a6f",
+  "source_type": "MSRCPost",
+  "fix_label": "address_information_disclosure_microsoft_edge_cve202429987",
+  "tags": [
+    "Edge",
+    "CVE-2024-29987",
+    "KB29987",
+    "Chromium"
+  ],
+  "node_id": "963309d0-ad06-45b2-aa12-8ab1c611c17b",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c0d5f487-b9ed-3001-d53a-2766c3972a6f"
+  ],
+  "verification_status": "unverified"
+}

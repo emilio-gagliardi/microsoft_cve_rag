@@ -1,0 +1,21 @@
+{
+  "description": "The scripting engine in Windows experiences type confusion, leading to memory corruption which can be exploited for remote code execution.",
+  "cause_label": "scripting_engine_memory_corruption_due_to_type_confusion",
+  "source_id": "1fa7b6e1-ad56-8bd9-6f78-1c51c1926237",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "1fa7b6e1-ad56-8bd9-6f78-1c51c1926237"
+  ],
+  "tags": [
+    "CVE-2024-38178",
+    "CWE-843",
+    "memory corruption",
+    "remote code execution"
+  ],
+  "node_id": "9fb6279a-9e0a-4656-b4ad-c3fb5e68cca4",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

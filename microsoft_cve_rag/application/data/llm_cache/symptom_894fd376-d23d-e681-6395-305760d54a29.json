@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_dns_information_leaks_heap_memory",
+  "description": "End users may experience data exposure issues as a result of a security patch related to a Windows DNS information disclosure vulnerability (CVE-2024-21377). Systems running affected builds, such as Windows 10 (various versions), Windows 11, and Windows Server 2016, 2019, and 2022, could potentially have sensitive information leaked from heap memory when the vulnerability is exploited. Users might notice unexpected behavior or reduced privacy, particularly when handling sensitive data, as the security patch does not entirely mitigate the risk of unauthorized access to disclosed information. Systems affected include build numbers like 10.0.19044.4046, 10.0.22631.3155, and others outlined in KB article KB-5034763. Administrators should monitor for unusual access patterns or security alerts that could indicate exploitation attempts, which may lead to compromised confidentiality.",
+  "source_id": "894fd376-d23d-e681-6395-305760d54a29",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "894fd376-d23d-e681-6395-305760d54a29"
+  ],
+  "tags": [
+    "Windows",
+    "DNS",
+    "Information Disclosure",
+    "Heap Memory",
+    "CVE-2024-21377"
+  ],
+  "node_id": "e7128cf4-970d-4d10-b9c8-0aa6f7a6719a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

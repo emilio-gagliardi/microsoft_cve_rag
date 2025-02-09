@@ -1,0 +1,15 @@
+{
+  "description": "The cause identified in the post relates to a misconfiguration regarding the necessary version of the .NET Framework required by the new Azure AD Sync (ADSync). Specifically, it indicates that ADSync requires at least .NET 4.7.1 for proper functionality, and the upgrade to version 4.7.2, while supported, might not address potential underlying security concerns related to ADSync being operated directly on a Domain Controller (DC). The recommendation to move ADSync to a non-DC system suggests there might be security implications when ADSync is run within a DC environment, which could expose sensitive aspects of the Active Directory setup to unnecessary risk. While the post does not cite specific vulnerabilities or an associated KB Article, the underlying implication hints at best practices for software deployment in enterprise scenarios, which is crucial for maintaining system integrity.",
+  "source_id": "995551e1-366f-8ec0-ac94-168e1babe54c",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "995551e1-366f-8ec0-ac94-168e1babe54c"
+  ],
+  "cause_label": "incorrect_dotnet_version_for_ad_sync",
+  "tags": [],
+  "node_id": "c03faf52-22d4-4000-b3fe-4652e1054f63",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

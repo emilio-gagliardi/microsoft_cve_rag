@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the vulnerability described in CVE-2024-6772 for Microsoft Edge (Chromium-based), follow these steps to update your browser:\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) on the top right corner of the window.\n3. Navigate to 'Help and feedback'.\n4. Click on 'About Microsoft Edge' to check for the latest version.\n5. Ensure the browser is updated to version 126.0.2592.113 or later.\n\n**Details**:\n- This update addresses the out-of-bounds write flaw in the V8 engine as identified by the CVE and ensures that your Microsoft Edge installation is no longer vulnerable.\n- The vulnerability could allow remote attackers to gain unauthorized access via crafted HTML pages. It is crucial to ensure your version is aligned with the updates released on July 18, 2024.\n\n**Preconditions**:\n- Ensure you are connected to the internet to allow for downloading updates.\n- Restart your browser after the update installation to apply changes.",
+  "source_id": "95b85ce5-0596-2ef9-ac5c-68e0734bb6d1",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_126_0_2592_113",
+  "tags": [
+    "CVE20246772",
+    "MicrosoftEdge",
+    "OutOfBoundsWrite",
+    "V8Engine"
+  ],
+  "node_id": "b5ae4bb1-a2d9-4d04-88a4-19008fae32b6",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "95b85ce5-0596-2ef9-ac5c-68e0734bb6d1"
+  ],
+  "verification_status": "unverified"
+}

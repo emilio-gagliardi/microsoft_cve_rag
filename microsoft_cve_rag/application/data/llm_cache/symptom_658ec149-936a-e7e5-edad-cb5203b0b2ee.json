@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_server_2019_kb5037765_fails_with_error_0x800f0982",
+  "description": "In a test environment consisting of German-language Windows Server 2019 machines, the update referenced as KB-5037765 has failed across multiple servers, consistently returning the error code 0x800f0982. This error code typically indicates issues with the localization of the update or discrepancies in the targeting of the updates for the specific language version of Windows Server. The failures occurred on five servers located at different sites, which include both domain controllers and member servers. This problem is noteworthy as it suggests a broader issue affecting systems with similar configurations and language settings, potentially requiring specific remediation steps for affected users. Administrators should be aware of the potential need to address localization issues when applying updates in multi-language environments.",
+  "source_id": "658ec149-936a-e7e5-edad-cb5203b0b2ee",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "658ec149-936a-e7e5-edad-cb5203b0b2ee"
+  ],
+  "tags": [
+    "windows_server_2019",
+    "kb5037765",
+    "error_0x800f0982",
+    "localization_issue"
+  ],
+  "node_id": "77c489cc-8b50-4719-a530-4a2660de1e4b",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

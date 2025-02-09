@@ -1,0 +1,21 @@
+{
+  "symptom_label": "winpe_issues_with_any_adk_version",
+  "description": "There are ongoing problems with WinPE that are unrelated to the version of the Windows Assessment and Deployment Kit (ADK) being used. This implies that regardless of the specific ADK installation, discrepancies or failures remain within the WinPE environment. Such issues could affect deployment processes significantly, potentially delaying system updates or configurations that rely on Windows Preinstallation Environment. This situation warrants immediate attention from system administrators to identify the root cause and establish resolution plans. It may also necessitate increased communication with Microsoft support to address the underlying problems impacting the WinPE functionalities.",
+  "source_id": "3c9bf070-2659-722d-8700-c13a4296725f",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "3c9bf070-2659-722d-8700-c13a4296725f"
+  ],
+  "tags": [
+    "winpe",
+    "adk",
+    "issues",
+    "deployment"
+  ],
+  "node_id": "50c64945-a686-4a70-a982-c24bf743de3c",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

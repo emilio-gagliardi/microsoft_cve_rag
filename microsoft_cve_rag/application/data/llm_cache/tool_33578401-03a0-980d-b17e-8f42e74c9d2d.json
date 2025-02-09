@@ -1,0 +1,23 @@
+{
+  "tool_label": "system_administrator_daily_work_life_survey",
+  "description": "**Tool Overview**:\n\nThe System Administrator Daily Work Life Survey is a resource designed to gather insights about the experiences of system administrators in their daily roles.\n\n**Details**:\nThis survey encourages participation from system administrators to better understand their work contexts, collaborative interactions, and the challenges they face. By collecting responses, the tool aims to identify common pain points and areas for improvement in the work environment. It is particularly focused on aspects such as job responsibilities, coworker interactions, and overall job satisfaction, thus giving administrators a voice in advocating for necessary changes.\n\nParticipants can take the survey via the provided link, which helps in compiling information that can be valuable for discussions around system administration practices and potential enhancements.",
+  "source_id": "33578401-03a0-980d-b17e-8f42e74c9d2d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "33578401-03a0-980d-b17e-8f42e74c9d2d"
+  ],
+  "source_url": "N/A",
+  "tool_url": "N/A",
+  "tags": [
+    "survey",
+    "system administration",
+    "work life",
+    "employee feedback"
+  ],
+  "node_id": "87efb246-a586-4a02-a65b-aa1b7bf58e12",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "low",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

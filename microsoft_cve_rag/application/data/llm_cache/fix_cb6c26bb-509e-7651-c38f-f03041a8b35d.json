@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows OLE remote code execution vulnerability (CVE-2024-21372):\n\n1. Download and install the relevant KB update based on your Windows version:\n   - [KB5034765 for Windows 11 Version 23H2]\n   - [KB5034763 for Windows 10 Version 22H2]\n   - [KB5034766 for Windows 11 Version 21H2]\n   - [KB5034774 for Windows 10 for x64 and 32-bit Systems]\n\n2. Follow the on-screen instructions to complete the installation.\n\n3. Restart your computer to ensure all updates take effect.\n\n**Details**:\n- This update addresses an integer overflow issue within Windows OLE that could allow remote code execution.\n- It is important to apply the patch promptly to safeguard against potential exploits.\n\nYou can find the update packages at the following links:\n- [KB5034765 Update Package](https://catalog.update.microsoft.com/Search.aspx?q=KB5034765)\n- [KB5034763 Update Package](https://catalog.update.microsoft.com/Search.aspx?q=KB5034763)\n- [KB5034766 Update Package](https://catalog.update.microsoft.com/Search.aspx?q=KB5034766)\n- [KB5034774 Update Package](https://catalog.update.microsoft.com/Search.aspx?q=KB5034774)\n\n**Preconditions**:\n- Ensure your Windows version aligns with the KB articles prior to installation.\n- Backup critical data before proceeding with the update.\n",
+  "source_id": "cb6c26bb-509e-7651-c38f-f03041a8b35d",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_ole_remote_code_execution_cve202421372",
+  "tags": [
+    "KB5034765",
+    "Windows11",
+    "OLEManagement",
+    "CVE202421372"
+  ],
+  "node_id": "2486435c-6177-46a9-8877-da195dd7ede1",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "cb6c26bb-509e-7651-c38f-f03041a8b35d"
+  ]
+}

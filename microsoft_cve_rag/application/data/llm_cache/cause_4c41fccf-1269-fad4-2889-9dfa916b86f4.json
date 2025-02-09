@@ -1,0 +1,21 @@
+{
+  "description": "Improper input validation in PowerShell allows elevation of privilege, enabling an attacker to gain unauthorized access to user-level capabilities or resources they should not normally control. This vulnerability exists across multiple Windows 10 and Windows 11 builds and is due to how PowerShell processes certain inputs without adequate validation checks, which can be exploited locally or remotely.",
+  "cause_label": "powershell_improper_input_validation_elevation_of_privilege",
+  "source_id": "4c41fccf-1269-fad4-2889-9dfa916b86f4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4c41fccf-1269-fad4-2889-9dfa916b86f4"
+  ],
+  "tags": [
+    "PowerShell",
+    "elevation of privilege",
+    "CWE-20",
+    "improper input validation"
+  ],
+  "node_id": "68a6ac98-c576-4968-94c0-1548ee45570e",
+  "node_label": "Cause",
+  "reliability": 0.05,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

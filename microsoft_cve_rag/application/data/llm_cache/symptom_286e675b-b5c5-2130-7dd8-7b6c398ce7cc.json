@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_browser_exhibits_unexpected_ui_behavior",
+  "description": "Users of Microsoft Edge (Chromium-based) version 127.0.2651.74 may notice unexpected UI behavior, manifesting as unusual interactions with the browser\u2019s interface elements. This is a consequence of a previously identified use-after-free vulnerability (CVE-2024-6998) in the Chromium engine, which impacts how the browser manages memory during user education processes. If users engage in specific UI gestures, they may experience erratic browser responses, potentially leading to freezing or unexpected closure of tabs. This behavior is particularly noticeable in interactive scenarios where the browser attempts to respond to user commands while the vulnerability is present. It is crucial for system administrators to ensure that end users update to the specified build to mitigate these anomalies.",
+  "source_id": "286e675b-b5c5-2130-7dd8-7b6c398ce7cc",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "286e675b-b5c5-2130-7dd8-7b6c398ce7cc"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Browser UI Behavior",
+    "User Experience"
+  ],
+  "node_id": "f8eeb1d8-8734-4a5c-81cd-541b0ee4c3ab",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

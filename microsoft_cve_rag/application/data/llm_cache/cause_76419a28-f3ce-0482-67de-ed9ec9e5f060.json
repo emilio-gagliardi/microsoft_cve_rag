@@ -1,0 +1,21 @@
+{
+  "description": "The Windows graphics component has a use after free flaw that allows local attackers to elevate privileges by exploiting memory mismanagement. This issue arises when the graphics system fails to properly handle deallocated memory, leading to unauthorized access to elevated system privileges. The vulnerability specifically impacts Windows 10 and Windows 11 builds stated.",
+  "cause_label": "windows_graphics_component_use_after_free_elevation",
+  "source_id": "76419a28-f3ce-0482-67de-ed9ec9e5f060",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "76419a28-f3ce-0482-67de-ed9ec9e5f060"
+  ],
+  "tags": [
+    "Windows",
+    "Graphics",
+    "Use After Free",
+    "CVE-2024-38249"
+  ],
+  "node_id": "9e00da3e-5a62-4d80-9ad1-8c47f09ff44b",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

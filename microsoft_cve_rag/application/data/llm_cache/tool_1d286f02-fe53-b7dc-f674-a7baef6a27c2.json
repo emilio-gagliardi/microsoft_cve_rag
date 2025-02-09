@@ -1,0 +1,23 @@
+{
+  "tool_label": "scanner_siema_with_nvd_data",
+  "description": "**Tool Overview**:\n\nA scanner tool designed to integrate with the National Vulnerability Database (NVD) data to identify vulnerabilities in systems post-modification. This integration is critical after significant changes to CVE listings, especially following notable dates such as February 12th, when many CVEs were updated or altered.\n\n**Details**:\n\n1. The tool aids in parsing NVD data to keep vulnerability scanners updated and effective.\n2. It works in conjunction with a Security Information and Event Management (SIEM) system or Security Operations Center (SOC) to provide real-time threat assessments.\n3. Users can configure the scanner to automatically fetch the latest CVE changes from the NVD.\n4. Adjustments in the scanning methodology may be necessary based on these updates to ensure comprehensive coverage of potential vulnerabilities.\n5. Ensuring the scanner's compatibility with the new CVEs enhances organizational security posture and response effectiveness.",
+  "source_id": "1d286f02-fe53-b7dc-f674-a7baef6a27c2",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "1d286f02-fe53-b7dc-f674-a7baef6a27c2"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/056401da91e0%240f4123c0%242dc36b40%24%40ccbox.com",
+  "tool_url": "",
+  "tags": [
+    "scanner",
+    "NVD",
+    "vulnerability",
+    "SIEM"
+  ],
+  "node_id": "a2f8c5dd-6ceb-4efb-98ce-85619f511802",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

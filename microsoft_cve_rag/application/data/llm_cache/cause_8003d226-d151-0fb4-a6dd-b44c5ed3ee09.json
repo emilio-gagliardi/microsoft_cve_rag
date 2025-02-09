@@ -1,0 +1,18 @@
+{
+  "description": "The issue arises from an elevation of privilege vulnerability in the Windows kernel-mode driver. Specifically, this vulnerability allows local attackers to exploit the component by leveraging unchecked input or mishandled resources within the kernel mode. As the kernel functions with elevated permissions, an attacker gaining access can manipulate its behavior to execute unauthorized actions, which may result in the modification of files or resources critical to the system's integrity. This vulnerability is pervasive across several versions and builds of Windows, particularly affecting Windows 11 (various versions) and Windows Server 2022. Resolution of this issue necessitates applying the appropriate Microsoft patches outlined in the corresponding KB articles to mitigate the risk associated with the elevation of privileges on affected systems.",
+  "cause_label": "KernelModeDriverExploitsUncheckedInput",
+  "source_id": "8003d226-d151-0fb4-a6dd-b44c5ed3ee09",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Driver",
+    "Privilege Escalation",
+    "Security Update"
+  ],
+  "node_id": "9a97a6f6-6033-496f-bc97-abab462b720a",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

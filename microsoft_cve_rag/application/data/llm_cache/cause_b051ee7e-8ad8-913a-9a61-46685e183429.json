@@ -1,0 +1,22 @@
+{
+  "description": "The issue arises due to a misconfiguration in the Group Policy Object (GPO) related to the targeting of Windows 11 updates. Specifically, the 'target version GPO' only restricts the notification prompts and reminders for users, rather than actually blocking the upgrade from being applied. When the Windows 11 update is approved in Windows Server Update Services (WSUS), it can still be executed on compatible hardware, regardless of this GPO setting. This behavior can lead to unintended upgrades if not properly managed. To mitigate this, it is advised to create a secondary WSUS group specifically for Windows 11 machines and selectively approve the updates within that group to maintain control over the upgrade process.",
+  "source_id": "b051ee7e-8ad8-913a-9a61-46685e183429",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "b051ee7e-8ad8-913a-9a61-46685e183429"
+  ],
+  "cause_label": "misconfigured_gpo_allowing_unsolicited_upgrades",
+  "tags": [
+    "Windows 11",
+    "GPO",
+    "WSUS",
+    "Patch Management",
+    "Upgrade Control"
+  ],
+  "node_id": "0a10df62-59e6-460d-850b-3b860fc318ea",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

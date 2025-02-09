@@ -1,0 +1,22 @@
+{
+  "description": "Heap-based buffer overflow in the Kernel Streaming WOW Thunk Service Driver allows local attackers to exploit aggressive read/write access, potentially leading to elevation of privileges from standard user to system level on various Windows builds.",
+  "cause_label": "kernel_streaming_wow_thunk_service_buffer_overflow",
+  "source_id": "cbfb7d66-5f99-39be-7c1d-200f54d0db26",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "cbfb7d66-5f99-39be-7c1d-200f54d0db26"
+  ],
+  "tags": [
+    "elevation_of_privilege",
+    "buffer_overflow",
+    "windows",
+    "kernel_streaming",
+    "cve-2024-38237"
+  ],
+  "node_id": "00b01d5a-4f62-4ebf-bbf9-6645ac390a81",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

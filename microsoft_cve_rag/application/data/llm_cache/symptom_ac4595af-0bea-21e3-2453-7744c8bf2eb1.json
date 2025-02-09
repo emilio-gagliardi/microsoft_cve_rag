@@ -1,0 +1,20 @@
+{
+  "symptom_label": "UpgradeIssuesWithServer2012R2PatchManagement",
+  "description": "Users experience issues when performing upgrades on Windows Server 2012 R2 as part of patch management strategies. These problems can manifest as inability to successfully apply the latest updates or version migrations leading to system instability. Such symptoms can hinder the performance of applications and overall system functionality, requiring immediate attention from system administrators to ensure continuity of operations.",
+  "source_id": "ac4595af-0bea-21e3-2453-7744c8bf2eb1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "ac4595af-0bea-21e3-2453-7744c8bf2eb1"
+  ],
+  "tags": [
+    "WindowsServer2012R2",
+    "PatchManagement",
+    "UpgradeIssues",
+    "SystemStability"
+  ],
+  "node_id": "8f5130e1-d102-4ef3-a4f3-f5971a6c67e3",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

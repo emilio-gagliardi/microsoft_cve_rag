@@ -1,0 +1,19 @@
+{
+  "description": "An infinite loop condition in Windows Hyper-V causes denial of service by preventing system resource access, resulting in resource unavailability.",
+  "cause_label": "windows_hyper_v_infinite_loop_dos_condition",
+  "source_id": "521f68d3-66a0-2d6f-94ae-2c30d6e90a31",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "521f68d3-66a0-2d6f-94ae-2c30d6e90a31"
+  ],
+  "tags": [
+    "Windows Hyper-V",
+    "Denial of Service",
+    "CVE-2024-21408"
+  ],
+  "node_id": "9dbf80e9-a0d5-4da9-bbf6-d4b2893aee3a",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,20 @@
+{
+  "symptom_label": "screenconnect_allows_out_of_license_instances_installation",
+  "description": "The recent security update for ScreenConnect allows instances that are out of license to install the update. This behavior can lead to potential compliance issues, as unlicensed instances may operate within the environment without proper authorization. System administrators should be aware that, although the update includes bug fixes, the allowance for unlicensed installations raises administrative concerns in terms of software management and oversight. The context provided indicates that these changes are communicated in the release notes, highlighting the importance of reviewing release documentation for any operational implications. Regular checks on license compliance are advisable to mitigate risks associated with unauthorized installations.",
+  "source_id": "59fb438f-0f7a-3fe6-4805-3c8bf0e18ad1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "59fb438f-0f7a-3fe6-4805-3c8bf0e18ad1"
+  ],
+  "tags": [
+    "ScreenConnect",
+    "security update",
+    "license compliance",
+    "bug fix"
+  ],
+  "node_id": "d7cb0692-56ba-4c4c-a2b3-54e84f4d4396",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

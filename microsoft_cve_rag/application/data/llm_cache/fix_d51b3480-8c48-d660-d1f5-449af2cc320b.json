@@ -1,0 +1,16 @@
+{
+  "description": "To address installation issues with Windows 11, users can perform an upgrade to the next version via ISO (23h2) or conduct an in-place upgrade via ISO to install 22h2 over their existing setup. The in-place upgrade retains all user data while effectively refreshing the operating system, akin to a feature update. This method not only reinstalls Windows but also removes and reinstalls applications under user profiles, which may resolve persistent errors. It\u2019s advisable to backup any important data before proceeding with either of these upgrade methods to prevent data loss during the process.",
+  "source_id": "d51b3480-8c48-d660-d1f5-449af2cc320b",
+  "source_type": "PatchManagementPost",
+  "fix_label": "UpgradeToNextVersionViaIsoMethod",
+  "tags": [
+    "install",
+    "upgrade",
+    "Windows"
+  ],
+  "node_id": "65165773-6c82-4e32-ab72-b2db283448eb",
+  "node_label": "Fix",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

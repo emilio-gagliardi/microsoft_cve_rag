@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the denial of service vulnerability (CVE-2024-26212) affecting the DHCP server service, apply the relevant updates provided by Microsoft.\n\n1. Access Windows Update and check for the latest updates.\n2. Ensure the installation of the following KB articles for effective mitigation:\n   - KB-5036910\n   - KB-5036909\n   - KB-5036899\n   - KB-5036896\n3. Restart the DHCP server after installation to apply the updates.\n\n**Details**:\n- This vulnerability can potentially lead to complete denial of service, affecting system availability. Ensure that the system is regularly updated to safeguard against this and other vulnerabilities.\n- For further details, refer to the official Microsoft update guide related to this CVE: [Microsoft Update Guide](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-26212).\n\n**Preconditions**:\n- Make sure that you have administrative privileges to install updates.\n- Backup relevant data before proceeding with installations to prevent data loss.\n",
+  "source_id": "58d6d5f7-eafb-8575-5d4a-38938076463b",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_microsoft_updates_to_mitigate_dhcp_cve202426212",
+  "tags": [
+    "KB5036909",
+    "KB5036899",
+    "KB5036896",
+    "CVE202426212"
+  ],
+  "node_id": "94cff044-a5cc-4bde-a192-8bc264823a21",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "58d6d5f7-eafb-8575-5d4a-38938076463b"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "tool_label": "windows_release_health_website",
+  "description": "**Tool Overview**:\n\nThe Windows Release Health website is a comprehensive resource for monitoring updates regarding Windows operating system reliability, performance, and stability. It provides information about the latest known issues, feedback, and guidance on how to maintain optimal system functionality.\n\n**Details**:\n\nThis tool serves as an essential guide for system administrators and security professionals looking to stay informed about the latest updates concerning Windows releases. The website allows users to:\n1. Track real-time updates on Windows releases and known issues.\n2. Access detailed guidance on resolving performance-related incidents and errors.\n3. Engage with Microsoft support resources to gain insights and help.\n\nThe information provided on this website is critical for maintaining an organization\u2019s operational efficiency during system updates and patch management processes. It encourages proactive management of Windows environments to mitigate risks.\n",
+  "source_id": "27bb95d6-313e-5e91-67eb-9032688e9f8d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "27bb95d6-313e-5e91-67eb-9032688e9f8d"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em01bf3986-90d1-49aa-8150-fc4e89c91471%40aca25c6a.com",
+  "tool_url": "https://support.microsoft.com/en-us/windows/windows-release-health-c0e2b4e2-6a12-4e13-8ca5-6de6df3b8e42",
+  "tags": [
+    "Windows",
+    "release health",
+    "system management",
+    "patch management"
+  ],
+  "node_id": "d1b12b88-ab2a-48ae-9dd6-82a285148509",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

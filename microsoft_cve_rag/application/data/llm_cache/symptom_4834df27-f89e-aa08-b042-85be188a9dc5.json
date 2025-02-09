@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_10_update_causes_bitlocker_recovery_prompt",
+  "description": "After performing a Windows 10 update on a Surface Pro, users may experience an unexpected prompt requiring a BitLocker recovery key upon system startup. This occurs when the secure boot policy changes due to the update process, resulting in the BitLocker protection mechanism engaging. The system prompts the user with a message that states 'preparing BitLocker recovery' and requests the recovery key to proceed. In cases where users have issues entering the key, such as keyboard malfunctions, recovery access can become problematic. Additionally, users without an active Microsoft account may struggle to retrieve their recovery keys, leading to significant frustration and a potential loss of data access.",
+  "source_id": "4834df27-f89e-aa08-b042-85be188a9dc5",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "4834df27-f89e-aa08-b042-85be188a9dc5"
+  ],
+  "tags": [
+    "BitLocker",
+    "Windows 10",
+    "update issues",
+    "secure boot"
+  ],
+  "node_id": "d097d7de-a7d7-426f-921d-b8882e458434",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_storage_elevation_of_privilege_issue",
+  "description": "After the installation of security updates, users on affected Windows builds (specifically 10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, and 10.0.22621.3447) may experience unexpected elevation of privileges leading to unauthorized access issues within the storage subsystem. This abnormal behavior can cause applications to fail their access checks, thereby allowing standard users to gain elevated permissions inappropriately during storage operations. System administrators may notice discrepancies in application functionality, where routine tasks that previously required administrative rights can be executed by non-admin users. Additionally, this may lead end-users to have greater access than intended, thus compromising the integrity of data management processes. Reference KB articles (KB-5036910, KB-5036909, KB-5036894, KB-5036893, and KB-5036892) provide further insights into the necessary mitigations for this elevation of privilege issue.",
+  "source_id": "12427d57-e314-57bd-b98d-835bcdfea151",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "12427d57-e314-57bd-b98d-835bcdfea151"
+  ],
+  "tags": [
+    "Windows",
+    "Elevation of Privilege",
+    "Storage",
+    "Management"
+  ],
+  "node_id": "32e73897-b5b6-4b53-b1d0-657db00e04be",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

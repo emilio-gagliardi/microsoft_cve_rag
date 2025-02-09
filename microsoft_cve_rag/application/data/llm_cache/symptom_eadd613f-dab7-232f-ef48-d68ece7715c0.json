@@ -1,0 +1,17 @@
+{
+  "symptom_label": "AttackerAccessesBitlockerProtectedDrive",
+  "description": "The Windows recovery partition is vulnerable, allowing an attacker to boot under the operating system and gain access to data stored on a BitLocker protected hard drive. This issue particularly affects older Windows 10 installations where the recovery partition is small and located next to the C drive, making it difficult to resize. To address this, the update associated with KB5034441 requires a minimum of 250MB of free space and highlights the importance of ensuring a larger recovery partition size in future installations.",
+  "source_id": "eadd613f-dab7-232f-ef48-d68ece7715c0",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows10",
+    "Windows11",
+    "BitLocker",
+    "RecoveryPartition"
+  ],
+  "node_id": "f80f3ede-06a6-48aa-aa8a-0f10f0177f1c",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

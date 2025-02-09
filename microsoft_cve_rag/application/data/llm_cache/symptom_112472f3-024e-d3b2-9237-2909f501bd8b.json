@@ -1,0 +1,21 @@
+{
+  "symptom_label": "bitlocker_non_pause_issue_with_uefi_updates",
+  "description": "When UEFI firmware updates are applied, users may experience problems with BitLocker functionality, especially in scenarios where BitLocker has not been paused prior to the update. This can lead to systems becoming unbootable or prompting users for recovery keys, which can be problematic in enterprise environments where data security is paramount. The connection between the firmware update and BitLocker behavior appears to arise from changes in secure boot keys that may occur during the firmware update process. Care should be taken to follow best practices regarding BitLocker management, particularly with UEFI firmware updates provided by OEMs, to avoid downtimes and data accessibility issues. Related KB Article KB4055324 discusses these aspects further.",
+  "source_id": "112472f3-024e-d3b2-9237-2909f501bd8b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "112472f3-024e-d3b2-9237-2909f501bd8b"
+  ],
+  "tags": [
+    "BitLocker",
+    "UEFI Firmware",
+    "Secure Boot",
+    "Windows"
+  ],
+  "node_id": "fafdcca7-5262-4edc-9aeb-f21e90f686cc",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

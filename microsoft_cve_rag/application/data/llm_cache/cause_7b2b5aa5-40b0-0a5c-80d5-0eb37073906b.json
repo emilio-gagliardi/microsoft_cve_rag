@@ -1,0 +1,23 @@
+{
+  "description": "The identified vulnerability arises from a 'Use After Free' condition in the Windows SMB protocol, which allows attackers to potentially trigger a denial of service. This flaw can be exploited remotely, allowing an attacker to access the network stack without the need for prior authorization or user interaction, leading to a complete loss of service availability in affected systems. The specific affected builds include Windows 11 versions 24H2, 23H2, and 22H2, as well as Windows Server 2022 and 2025.",
+  "cause_label": "windows_smb_use_after_free_dos_condition",
+  "source_id": "7b2b5aa5-40b0-0a5c-80d5-0eb37073906b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7b2b5aa5-40b0-0a5c-80d5-0eb37073906b"
+  ],
+  "tags": [
+    "CVE-2024-43642",
+    "Denial of Service",
+    "Windows",
+    "SMB",
+    "Use After Free",
+    "Security Update"
+  ],
+  "node_id": "619c181d-6d4d-443f-9e93-5d0377bb9bed",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

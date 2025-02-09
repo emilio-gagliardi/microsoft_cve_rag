@@ -1,0 +1,21 @@
+{
+  "description": "Bypass of the secure boot feature due to a failure in the protection mechanism, affecting specified Windows builds.",
+  "cause_label": "secure_boot_bypass_due_to_protection_mechanism_failure",
+  "source_id": "e13c8813-9d33-c1af-f92d-22b1e27c0ece",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e13c8813-9d33-c1af-f92d-22b1e27c0ece"
+  ],
+  "tags": [
+    "CVE",
+    "Secure Boot",
+    "Windows",
+    "Vulnerability",
+    "Protection Mechanism Failure"
+  ],
+  "node_id": "149fbb37-e5d1-4bba-8773-baba93c86c32",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

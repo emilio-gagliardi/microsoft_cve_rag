@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_crashes_after_type_confusion_bug_fix",
+  "description": "After applying the security update for Microsoft Edge (Chromium-based) version 128.0.2739.79, users may experience intermittent crashes or freezes when accessing certain websites that utilize complex HTML elements. This unexpected behavior is likely due to underlying changes made to address the type confusion vulnerability identified in CVE-2024-8638. While the update is intended to enhance security and resolve the vulnerability, it may introduce instability in some environments, particularly where older web applications are still in use. End users may find that the browser closes unexpectedly or becomes unresponsive during critical tasks. Such issues can disrupt workflows and lead to frustration, prompting users to seek immediate resolutions, including rolling back updates or accessing browser alternatives, which affects overall productivity.",
+  "source_id": "fff9b518-2f6f-e2ac-074e-2e49c92db150",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "fff9b518-2f6f-e2ac-074e-2e49c92db150"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "browser crashes",
+    "CVE-2024-8638",
+    "type confusion",
+    "software update"
+  ],
+  "node_id": "9c8dc9b8-a491-47fb-b556-4b25c6850e9c",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

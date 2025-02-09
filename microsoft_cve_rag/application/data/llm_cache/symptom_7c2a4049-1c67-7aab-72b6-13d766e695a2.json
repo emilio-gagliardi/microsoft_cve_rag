@@ -1,0 +1,17 @@
+{
+  "symptom_label": "CitrixAvdFsLogixCompatibilityConcerns",
+  "description": "There are compatibility concerns with FSLogix when integrating with modern Teams in Citrix AVD environments. Users may experience issues related to performance and functionality as FSLogix does not appear fully ready to support modern Teams updates. This may result in increased WAN traffic for users who rely on these configurations, potentially affecting user experience and network performance.",
+  "source_id": "7c2a4049-1c67-7aab-72b6-13d766e695a2",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Intune",
+    "WindowsServer",
+    "CitrixAVD",
+    "FSLogix"
+  ],
+  "node_id": "bccac070-9ab7-42d0-8f82-d9e5a77d7093",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

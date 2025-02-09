@@ -1,0 +1,20 @@
+{
+  "symptom_label": "outlook_email_content_altered_without_detection",
+  "description": "An incident occurred where a user opened an email with altered contents in Microsoft Outlook, raising concerns about potential malware or phishing. Despite executing local virus and malware scans on the affected host and other systems on the same network, no threats were detected. The post mentions previously applied patches but does not provide clarity on their effectiveness regarding this incident. The author's initial suspicion points toward a historic exploit, namely the 'ropemaker,' which was reportedly not active in the wild but contributes to their concern. Overall, this situation indicates difficulties in recognizing compromised email content, stressing the need for vigilant monitoring and enhanced protective measures.",
+  "source_id": "28db0a45-9f23-2faa-3dd7-07dbf20f2907",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "28db0a45-9f23-2faa-3dd7-07dbf20f2907"
+  ],
+  "tags": [
+    "Outlook",
+    "Email Alteration",
+    "Malware Detection",
+    "Incident Response"
+  ],
+  "node_id": "0e2023e5-92fc-4992-8fcb-8de543abeffe",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo enhance the security feature set of your virtual machine (VM) on VMware, consider the following steps:\n\n1. Enable vTPM (Virtual Trusted Platform Module) in vSphere for the VM.\n2. Ensure you are using the latest VM version and the correct OS version for optimal compatibility.\n3. Enable UEFI (Unified Extensible Firmware Interface) and VBS (Virtualization-Based Security) settings on your VM. This combination is recommended for Windows Server 2022 and is expected to be applicable for 2025 releases soon.\n\n**Details**:\n- Enabling these security features helps ensure a more robust infrastructure.\n- Note that you cannot update VMware Tools from vCenter while VBS is enabled (this is by design). (LLM Synthesized)\n\n**Preconditions**:\n- Ensure that your infrastructure meets the hardware requirements for enabling vTPM and UEFI.",
+  "source_id": "58760faf-b628-d4d6-d8fc-53f64cbed59e",
+  "source_type": "PatchManagementPost",
+  "fix_label": "enable_vtpm_uefi_vbs_vmware_security",
+  "tags": [
+    "VMware",
+    "WindowsServer2022",
+    "SecurityFeatures",
+    "LLM Synthesized"
+  ],
+  "node_id": "85769239-bf2b-434d-8a07-cc8bcfb85799",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "58760faf-b628-d4d6-d8fc-53f64cbed59e"
+  ]
+}

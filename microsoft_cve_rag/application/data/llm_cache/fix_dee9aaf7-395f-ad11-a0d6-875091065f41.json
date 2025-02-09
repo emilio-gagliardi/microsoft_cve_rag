@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability in the Windows Mobile Broadband driver (CVE-2024-43523):\n\n1. Download the necessary KB updates relating to your Windows version.\n2. Apply the updates as per the installation instructions provided on the respective KB articles.\n3. Restart your system after the update to ensure all changes take effect.\n\n**Details**:\n- This update addresses the improper input validation and heap-based buffer overflow vulnerabilities that could potentially allow remote code execution.\n- Relevant update packages can be found at:\n  - [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n  - [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n  - [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n  - [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280).\n\n**Preconditions**:\n- Ensure that your system is updated to one of the supported Windows 10 or Windows 11 versions mentioned above.\n- Backup critical data before proceeding with the updates.",
+  "source_id": "dee9aaf7-395f-ad11-a0d6-875091065f41",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_in_mobile_broadband_driver",
+  "tags": [
+    "KB5044284",
+    "KB5044285",
+    "Windows10",
+    "Windows11"
+  ],
+  "node_id": "2d624216-136f-4bfe-a3dc-48ab0f334c79",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "dee9aaf7-395f-ad11-a0d6-875091065f41"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the installation failure associated with the KB5034441 security update due to the 0x80070643 error, ensure that the recovery partition is adequately sized prior to application of the update.\n\n1. Verify the size of the existing Windows Recovery Environment (WinRE) partition on your Windows 10 installation. It should be larger than 522 MB.\n2. If the partition is too small, use the Windows installation media to rebuild your system environment, ensuring that the recovery partition is correctly configured during the installation process.\n3. After ensuring the recovery partition is the appropriate size, attempt to apply the KB5034441 update again.\n\n**Details**:\n- A direct installation of Windows 10 using the latest ISO from Microsoft may inadvertently create an undersized recovery partition.\n- Rebuilding the environment from current ISOs is recommended to avoid this error during security updates. (LLM Synthesized)\n\n**Preconditions**:\n- Backup critical data before proceeding with any installation or reconfiguration.",
+  "source_id": "9793d5dd-7193-36fa-780a-d9306b1a1970",
+  "source_type": "PatchManagementPost",
+  "fix_label": "AddressWinREPartitionSizeKB5034441",
+  "tags": [
+    "KB5034441",
+    "Windows10",
+    "PartitionSize",
+    "InstallationError"
+  ],
+  "node_id": "21ad9b3f-0100-46ef-8ac5-9998cced161c",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_11_nonsecurity_updates_schedule_changes",
+  "description": "Users of Windows 11 version 22H2 may experience confusion regarding the timeline for non-security updates due to a recent change in end dates. Specifically, Windows 11 enterprise, education, IoT enterprise, and enterprise multi-session editions will now receive non-security updates until June 24, 2025, whereas home and pro editions will only continue to receive these updates until June 26, 2024. This shift in schedule, driven by user feedback, directly impacts system administrators' planning for patch management and deployment of updates. As of the revised schedule, after these end dates, only cumulative monthly security updates will be issued. It is crucial to consult KB Article 5034765 for specific details regarding the affected build numbers, 22621 and 22631, to ensure compliance and readiness for upcoming changes.",
+  "source_id": "2a0ab27a-063c-edbc-038a-15f9a099815a",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "2a0ab27a-063c-edbc-038a-15f9a099815a"
+  ],
+  "tags": [
+    "Windows 11",
+    "Patch Management",
+    "Update Schedule",
+    "KB5034765"
+  ],
+  "node_id": "69306cf7-1366-4acd-9b98-e28a09cf964e",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

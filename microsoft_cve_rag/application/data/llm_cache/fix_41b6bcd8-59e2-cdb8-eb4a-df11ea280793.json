@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the issue where Windows incorrectly identifies all printers as HP models, which subsequently triggers the installation of the 'HP Smart' app:\n\n1. Review and update the printer drivers to ensure correct identification of printer models.\n2. Check the printer settings in the Windows operating system to confirm that the correct manufacturer and model information is displayed.\n3. If necessary, uninstall the 'HP Smart' app to prevent it from being automatically installed due to misidentified printers.\n\n**Details**:\n- This fix involves ensuring that your printer drivers are up-to-date to avoid confusion in model identification. \n- Regular maintenance of printer settings can also assist in preventing similar issues from arising in the future. (LLM Synthesized)",
+  "source_id": "41b6bcd8-59e2-cdb8-eb4a-df11ea280793",
+  "source_type": "PatchManagementPost",
+  "fix_label": "ResolvePrinterIdentificationIssuesInWindows",
+  "tags": [
+    "PrinterManagement",
+    "HPModels",
+    "DeviceIdentification",
+    "LLM Synthesized"
+  ],
+  "node_id": "92a54838-9d95-446c-809e-94616472b9a9",
+  "node_label": "Fix",
+  "reliability": "0.6",
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_system_privileges_increased_after_update",
+  "description": "After applying the security update addressed in KB5040442 for Windows 11 Version 23H2, users may experience an unintentional elevation of system privileges. This can manifest as unauthorized access to system resources and settings that are typically protected, potentially leading to broader security implications. This behavior is observed specifically in systems with build number 10.0.22631.3880 and can also be noted in Windows 10 builds 10.0.19045.4651 and 10.0.19044.4651 linked to KB5040427. Users should remain vigilant for signs of unusual system behavior or access that deviates from expected permissions, particularly in enterprise environments where privileged access is a critical control area. This symptom arises as a result of the vulnerability concerning inadequate input validation addressed by the respective updates during the installation process.",
+  "source_id": "0b1b4559-3f26-b067-48ae-113ed8cb21f9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0b1b4559-3f26-b067-48ae-113ed8cb21f9"
+  ],
+  "tags": [
+    "Windows",
+    "Elevation of Privilege",
+    "Kernel Streaming",
+    "Security Update",
+    "Patch Management"
+  ],
+  "node_id": "3a642083-27bf-4b2f-92bf-191fe80db606",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

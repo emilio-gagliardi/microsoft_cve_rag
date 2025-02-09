@@ -1,0 +1,21 @@
+{
+  "symptom_label": "sccm_patch_deployment_issue_for_windows_servers",
+  "description": "The inability of SCCM to deploy updates to Windows Server 2019 instances when those updates are not marked as required can lead to unpatched systems. Administrators relying on SCCM for patch management may find that crucial updates do not automatically deploy, which can hinder compliance and expose systems to known issues. Furthermore, without clear visibility in the SCCM console about update status, it may be challenging to verify the patched state of these servers. The issue suggests a potential oversight in the patch management strategy by not factoring in updates that are necessary but not explicitly flagged. The related KB article for further details is KB-5037765.",
+  "source_id": "1ee3d083-3f38-9a43-0b8f-75aee27e131b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "1ee3d083-3f38-9a43-0b8f-75aee27e131b"
+  ],
+  "tags": [
+    "SCCM",
+    "patch management",
+    "Windows Server 2019",
+    "update deployment"
+  ],
+  "node_id": "b5ec3c7b-c1d3-4eab-8fb4-cd1a9c02dc92",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

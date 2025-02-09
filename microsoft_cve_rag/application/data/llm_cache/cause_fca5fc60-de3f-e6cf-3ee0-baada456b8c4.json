@@ -1,0 +1,22 @@
+{
+  "description": "The vulnerability is caused by a stack-based buffer overflow in the Windows kernel, allowing an attacker to elevate privileges locally or via user interaction. Exploitation requires access through read/write capabilities but does not necessitate user interaction, enabling unauthorized elevation of privileges on impacted systems.",
+  "cause_label": "windows_kernel_stack_based_buffer_overflow",
+  "source_id": "fca5fc60-de3f-e6cf-3ee0-baada456b8c4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "fca5fc60-de3f-e6cf-3ee0-baada456b8c4"
+  ],
+  "tags": [
+    "Windows",
+    "kernel",
+    "buffer overflow",
+    "elevation of privilege",
+    "CVE-2024-43630"
+  ],
+  "node_id": "88e51a52-5afd-4c61-af95-040aefec7a2e",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

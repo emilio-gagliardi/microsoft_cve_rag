@@ -1,0 +1,23 @@
+{
+  "tool_label": "eclypsium_firmware_update_tracking_tool",
+  "description": "**Tool Overview**:\n\nThe Eclypsium tool allows users to track firmware versions and their status for Lenovo devices, providing comprehensive information on integrity and configuration changes over time. \n\n**Details**:\nThis tool supports the monitoring of firmware vulnerabilities (CVEs) and facilitates the ability to push firmware updates directly from the platform. It gathers insights into firmware feature statuses and enables the management of configuration changes related to security and performance enhancements. This ensures that hardware vulnerabilities are mitigated effectively and that devices are kept up-to-date, thereby reducing the attack surface. The user interface likely includes options for scheduling updates and reviewing historical changes.\n\n**Usage**:\n1. Log into the Eclypsium platform.\n2. Navigate to the Lenovo device management section.\n3. Monitor firmware version updates and integrity statuses.\n4. Utilize the built-in tools to push necessary updates where applicable.",
+  "source_id": "fac649ad-4e74-7e0a-2e56-4cc106c988d7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "fac649ad-4e74-7e0a-2e56-4cc106c988d7"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://eclypsium.com",
+  "tags": [
+    "firmware",
+    "Lenovo",
+    "integrity",
+    "firmware updates",
+    "LLM Synthesized"
+  ],
+  "node_id": "c66fda24-3b33-43b0-b48d-68f7f9dfdeb3",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

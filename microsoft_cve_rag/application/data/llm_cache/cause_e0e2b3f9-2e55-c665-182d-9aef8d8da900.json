@@ -1,0 +1,17 @@
+{
+  "description": "The underlying cause of CVE-2023-35641 is a flaw in the Internet Connection Sharing (ICS) service that allows it to be exploited via remote code execution. An attacker can exploit this vulnerability by sending a specially crafted DHCP message to a ICS-enabled server, which can be located within the same network segment as the attacker. This attack is restricted to local network topologies, requiring that the attacker shares a network segment, such as a local subnet. It potentially results in high impacts across confidentiality, integrity, and availability, affecting various Windows products including builds 10.0.25398.584, 10.0.22000.2652, 10.0.19045.3803, and associated with KB articles such as KB-5033379 and KB-5033375.",
+  "cause_label": "InternetConnectionSharingFlawEnablesRemoteExecution",
+  "source_id": "e0e2b3f9-2e55-c665-182d-9aef8d8da900",
+  "source_type": "MSRCPost",
+  "tags": [
+    "ICS",
+    "remote code execution",
+    "vulnerability",
+    "CVE-2023-35641"
+  ],
+  "node_id": "9a7b497e-5b7e-4ffc-9240-0e14cb61179a",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

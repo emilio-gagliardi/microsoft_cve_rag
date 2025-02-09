@@ -1,0 +1,20 @@
+{
+  "description": "The patching issue stems from the miscommunication regarding the order of patch deployment for SQL servers. Specifically, if the actual cumulative update (CU) is intended to be installed first, one must ensure that it is deployed before applying any security patch. The current situation indicates that the security patch for SQL Server 2019 supersedes the CU; if both are deployed simultaneously, it may prevent the CU from being installed entirely. This leads to complications as the DBA's assertion that the CU needs installation conflicts with Microsoft's issuance of security patches for both installed and non-installed CUs. Proper coordination in patch management is essential to ensure all relevant updates are applied as intended, preventing any oversight that could result in outdated systems.",
+  "source_id": "33e06dd0-459f-afe7-44a7-995ff608cdb6",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "33e06dd0-459f-afe7-44a7-995ff608cdb6"
+  ],
+  "cause_label": "incorrect_patch_order_for_sql_updates",
+  "tags": [
+    "sql_server",
+    "patch_management",
+    "cu_installation",
+    "security_patch"
+  ],
+  "node_id": "d296b42a-1823-43ef-ab37-80083cf951a1",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

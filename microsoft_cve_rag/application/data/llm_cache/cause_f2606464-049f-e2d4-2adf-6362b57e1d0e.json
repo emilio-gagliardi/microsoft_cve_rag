@@ -1,0 +1,22 @@
+{
+  "description": "The cause of the issue identified in CVE-2024-35263 is related to an information disclosure vulnerability in Microsoft Dynamics 365 (on-premises), where sensitive information is exposed to unauthorized actors. This flaw results from the exposure of all data accessible by a logged-in user due to inadequate protections against unauthorized access. The vulnerability exists within the network stack, allowing remote exploitation without requiring elevated privileges.",
+  "cause_label": "dynamics_365_information_disclosure_remote_access",
+  "source_id": "f2606464-049f-e2d4-2adf-6362b57e1d0e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f2606464-049f-e2d4-2adf-6362b57e1d0e"
+  ],
+  "tags": [
+    "CVE-2024-35263",
+    "information disclosure",
+    "Dynamics 365",
+    "remote exploit",
+    "unauthorized access"
+  ],
+  "node_id": "de82683d-4993-4566-976e-6ed47afbf3da",
+  "node_label": "Cause",
+  "reliability": 9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,16 @@
+{
+  "symptom_label": "RemoteCodeExecutionAfterUserInteraction",
+  "description": "End users may experience unexpected behavior after interacting with a malicious file that exploits the underlying issue in the Windows user interface application core. This could lead to unauthorized remote code execution on systems running Windows 10 and Windows Server 2012 R2, including build numbers 10.0.22631.2715 and 6.3.9600.21668 respectively. Relevant updates include KB5032199, KB5032192, and KB5032189, which are critical for mitigating potential risks linked to this vulnerability.",
+  "source_id": "6bdbd676-2976-72cc-950c-7450f796b1e2",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "22f5529c-0a2f-4508-a269-7b19b51de4e6",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

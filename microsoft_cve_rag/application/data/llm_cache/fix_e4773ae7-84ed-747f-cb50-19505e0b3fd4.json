@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows kernel elevation of privilege vulnerability (CVE-2024-26176):\n\n1. Identify the appropriate Windows update package for your system version from the list below.\n2. Download and install the corresponding KB update mentioned.\n3. Restart your system to apply the changes.\n\n**Details**:\nThis update addresses the buffer over-read vulnerability that could allow an attacker to elevate privileges. \nEnsure that your system aligns with the provided build numbers and backup critical data before applying the updates.\n\n**Update Packages**:\n- Windows 11 Version 23H2: [KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)\n- Windows 11 Version 22H2: [KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)\n- Windows 11 Version 21H2: [KB5035854](https://catalog.update.microsoft.com/Search.aspx?q=KB5035854)\n- Windows 10 for x64-based Systems: [KB5035858](https://catalog.update.microsoft.com/Search.aspx?q=KB5035858)\n- Windows 10 for 32-bit Systems: [KB5035858](https://catalog.update.microsoft.com/Search.aspx?q=KB5035858)\n- Windows 10 Version 22H2: [KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845)\n- Windows 10 Version 21H2: [KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845)\n\n**Preconditions**:\n- Ensure your system is running one of the specified builds.\n- Backup critical data before applying updates.\n",
+  "source_id": "e4773ae7-84ed-747f-cb50-19505e0b3fd4",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_kernel_elevation_privilege_cve202426176",
+  "tags": [
+    "Windows11",
+    "Windows10",
+    "CVE202426176",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "e0c1ae37-dd92-43d8-be6d-38b87fde2a2a",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e4773ae7-84ed-747f-cb50-19505e0b3fd4"
+  ]
+}

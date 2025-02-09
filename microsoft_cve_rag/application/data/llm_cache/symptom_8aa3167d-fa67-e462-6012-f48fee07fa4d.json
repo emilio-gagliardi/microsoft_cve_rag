@@ -1,0 +1,21 @@
+{
+  "symptom_label": "gpos_caching_tightening_limiting_account_logons",
+  "description": "Excessive cached logons due to Group Policy Objects (GPOs) allowing up to ten cached credentials can lead to potential security risks. Security guidelines from Microsoft and NIST recommend reducing this number to zero to ensure a more secure login process for domain accounts. A user unlocking an account that is already logged on behaves differently than when attempting to log in without an active session, which can cause confusion among users. Implementing stricter cached logon policies may result in users facing challenges with domain logins, particularly when there are no active sessions. Administrative oversight in configuring GPO settings could impact user accessibility and organization-wide access management.",
+  "source_id": "8aa3167d-fa67-e462-6012-f48fee07fa4d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "8aa3167d-fa67-e462-6012-f48fee07fa4d"
+  ],
+  "tags": [
+    "cached_logons",
+    "gpo_settings",
+    "security_guidelines",
+    "domain_login"
+  ],
+  "node_id": "c4551d3d-949f-417c-8b94-1b14b2e2e483",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

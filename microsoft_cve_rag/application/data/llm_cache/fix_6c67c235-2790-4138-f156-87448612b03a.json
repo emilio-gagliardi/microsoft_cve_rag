@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo ensure the Windows Recovery Environment (WinRE) is updated automatically through the latest cumulative updates for Windows 11:\n\n1. Confirm that your system is running one of the following versions of Windows:\n   - Windows 11 version 23H2 for x64-based systems\n   - Windows 11 version 23H2 for ARM64-based systems\n   - Windows 11 version 22H2 for x64-based systems\n   - Windows 11 version 22H2 for ARM64-based systems\n\n2. Ensure that your system receives updates from Windows Update or WSUS, as the process for updating WinRE is now fully automated within the latest cumulative updates.\n\n3. If you have Windows 11 version 22H2, the WinRE updates are included in the update process.\n\n4. For further details or troubleshooting, you can check the version of the WinRE image using the Command Prompt with the following command to query applicable information:\n```powershell\n# Query WinRE Image\nreagentc /info\n```\n\n**Details**:\n- For any issues with the recovery environment, ensure that the system is fully updated through WSUS or Windows Update.\n\n- Reference the Microsoft Security Response Center (MSRC) for more information on the update process related to CVE-2024-20666: [MSRC Update Guide](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-20666).",
+  "source_id": "6c67c235-2790-4138-f156-87448612b03a",
+  "source_type": "PatchManagementPost",
+  "fix_label": "AutomateWinREUpdateWindows11CVE202420666",
+  "tags": [
+    "CVE-2024-20666",
+    "Windows11",
+    "WinREUpdate",
+    "AutomatedProcess"
+  ],
+  "node_id": "391e543c-618d-4638-8255-ac0bd2f009b7",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

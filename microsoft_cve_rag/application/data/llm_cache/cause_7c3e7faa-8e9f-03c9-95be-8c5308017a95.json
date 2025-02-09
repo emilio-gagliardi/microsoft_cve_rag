@@ -1,0 +1,21 @@
+{
+  "description": "Heap-based buffer overflow in the Windows kernel allows remote code execution. The issue arises due to improper handling of memory allocations, particularly in the way heap memory is managed. Attackers can exploit this flaw by manipulating memory operations that lead to memory corruption.",
+  "cause_label": "windows_kernel_heap_based_buffer_overflow",
+  "source_id": "7c3e7faa-8e9f-03c9-95be-8c5308017a95",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7c3e7faa-8e9f-03c9-95be-8c5308017a95"
+  ],
+  "tags": [
+    "remote code execution",
+    "Windows",
+    "kernel",
+    "heap",
+    "memory management"
+  ],
+  "node_id": "090f1e22-c2e6-42b4-9800-d4d2578d459b",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

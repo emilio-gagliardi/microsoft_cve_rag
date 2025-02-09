@@ -1,0 +1,20 @@
+{
+  "description": "The vulnerability arises from improper verification of cryptographic signatures during the account enrollment process in Windows Enroll Engine, allowing potential bypass of security features.",
+  "cause_label": "windows_enroll_engine_improper_signature_verification",
+  "source_id": "64efd1f7-cd5a-be1c-2740-00142f71e347",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "64efd1f7-cd5a-be1c-2740-00142f71e347"
+  ],
+  "tags": [
+    "CVE-2024-38069",
+    "Windows Security",
+    "Signature Verification"
+  ],
+  "node_id": "8048d43f-d094-4965-82db-3ae62450f453",
+  "node_label": "Cause",
+  "reliability": 0.05,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

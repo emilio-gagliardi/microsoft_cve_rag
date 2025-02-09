@@ -1,0 +1,21 @@
+{
+  "description": "Improper input validation in the Kernel Streaming WOW Thunk Service Driver may allow an attacker to elevate privileges on the system, particularly affecting Windows 10 and 11. This occurs in the context of accessing the target system locally or remotely through normal user privileges.",
+  "cause_label": "kernel_streaming_wow_thunk_service_driver_improper_input_validation",
+  "source_id": "0b1b4559-3f26-b067-48ae-113ed8cb21f9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0b1b4559-3f26-b067-48ae-113ed8cb21f9"
+  ],
+  "tags": [
+    "input_validation",
+    "privilege_escalation",
+    "kernel",
+    "Windows"
+  ],
+  "node_id": "c0da2921-3ee2-45b1-ac27-ae12e2ef6c42",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate information disclosure via local access for affected Intel processors:\n\n1. Ensure that the latest firmware update from Intel is installed on your system.\n2. Apply the corresponding Windows updates to enable the mitigation for CVE-2023-28746.\n\n**Details**:\n- The mitigation requires both firmware and Windows updates to be effective. Ensure all updates are installed as outlined in the Microsoft Security Update Guide.\n- The following KB articles are relevant for the updates: KB5035856, KB5035857, KB5035858, KB5035845, KB5035854, and KB5035853.\n- For manual installation, download the updates from the official Microsoft Update Catalog.\n\n**Preconditions**:\n- Confirm your Intel processor model is listed as affected.\n- Ensure your system is compatible with the latest firmware provided by Intel.\n- Backup critical data before proceeding with firmware and system updates.\n",
+  "source_id": "520a2250-30b1-8bb9-41c3-17d0dc62fbfa",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_information_disclosure_via_local_access_cve202328746",
+  "tags": [
+    "KB5035856",
+    "KB5035858",
+    "IntelProcessors",
+    "WindowsUpdate"
+  ],
+  "node_id": "15cb6e7b-c78a-4816-b9e5-aa464eaa39fc",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "520a2250-30b1-8bb9-41c3-17d0dc62fbfa"
+  ]
+}

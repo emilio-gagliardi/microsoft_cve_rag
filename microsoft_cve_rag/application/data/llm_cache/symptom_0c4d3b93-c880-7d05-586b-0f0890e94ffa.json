@@ -1,0 +1,21 @@
+{
+  "symptom_label": "ivanti_security_center_failures_due_to_patch_conflict",
+  "description": "Due to interactions with the November 12, 2024 .NET Framework cumulative update (KB5045936) on Windows 10, an observable symptom is the misreporting of October updates by the Ivanti Security Center. The registry indicates a change in the 'currentstate' of the October update from '112' to '80' after the installation of the November update. Consequently, Ivanti Security Center misidentifies the October update as missing, prompting repetitive and futile reinstallation attempts, which are ultimately unsuccessful since the update is already present. This conflict can cause confusion and operational delays within systems relying on accurate patch management reporting. System administrators should monitor this issue especially when dealing with multiple cumulative updates in Windows 10 environments.",
+  "source_id": "0c4d3b93-c880-7d05-586b-0f0890e94ffa",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "0c4d3b93-c880-7d05-586b-0f0890e94ffa"
+  ],
+  "tags": [
+    "Windows 10",
+    "Patch Management",
+    "Ivanti Security Center",
+    "Cumulative Updates"
+  ],
+  "node_id": "06e13b07-dc60-4142-89ca-e1aea2a44e5c",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,18 @@
+{
+  "symptom_label": "WindowsCryptographicServicesImpactPerformanceIssues",
+  "description": "Following the installation of security updates (KB5034134, KB5034123, KB5034122, and KB5034121) for Windows 10 and Windows 11 builds including 19044.3930, 19045.3930, 22000.2713, and 22631.3007, users may experience performance issues related to cryptographic services. This could manifest in delays during system operations, application response times becoming noticeably slower, or intermittent disruptions of service due to the handling of cryptographic operations. Such symptoms are particularly impactful in environments that rely heavily on secure communications, as these performance degradations could hinder user productivity and system reliability. System administrators should closely monitor performance metrics and user feedback following the application of these updates to identify any anomalies and respond accordingly.",
+  "source_id": "b8a5567a-f1d5-c119-c65b-35ec9c446992",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Windows10",
+    "Windows11",
+    "CryptographicServices",
+    "PerformanceIssues",
+    "PatchManagement"
+  ],
+  "node_id": "4a0adb85-f0b0-46d1-8c80-ca2fbc044cff",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

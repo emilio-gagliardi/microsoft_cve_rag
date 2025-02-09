@@ -1,0 +1,22 @@
+{
+  "description": "The vulnerability arises from an out-of-bounds read condition in the kernel streaming wow thunk service driver, which allows an attacker to elevate privileges on affected systems. Specifically, the flaw can be exploited locally by an attacker who has minimal privileges, leading to unauthorized access to system functions. The affected systems are identified as Windows 10 and Windows 11 builds, specifically those outlined in the KB articles 5041592, 5041585, 5041580, and 5041571.",
+  "cause_label": "kernel_streaming_wow_thunk_service_driver_out_of_bounds_read",
+  "source_id": "4317becb-07d4-09ef-6c1f-0588cef9801f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4317becb-07d4-09ef-6c1f-0588cef9801f"
+  ],
+  "tags": [
+    "elevation of privilege",
+    "out-of-bounds read",
+    "Windows",
+    "kernel streaming",
+    "CVE-2024-38134"
+  ],
+  "node_id": "a589a14e-445d-441d-8b8e-1bc2172d65bc",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

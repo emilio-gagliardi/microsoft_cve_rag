@@ -1,0 +1,20 @@
+{
+  "symptom_label": "powershell_task_sequence_state_machine_failure",
+  "description": "The proposed solution involves using a state machine implemented in PowerShell to manage patch processes. A potential issue arises if the state management fails to properly update the $runonce key, leading to incomplete patch application. This could result in systems not fully receiving the intended updates, which affects the reliability of Windows operating environments. It implies that the execution flow relying on the state may cease or loop incorrectly if not managed properly. Administrators should validate that the state transitions correctly reflect the completion of each patch application to avoid deployment issues. No specific build numbers or KB Article IDs are provided, suggesting this is a conceptual solution rather than addressing a known defect.",
+  "source_id": "926adc6b-6644-347e-4564-383bd08e2ce5",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "926adc6b-6644-347e-4564-383bd08e2ce5"
+  ],
+  "tags": [
+    "powershell",
+    "state_machine",
+    "task_sequence",
+    "patch_management"
+  ],
+  "node_id": "9c6f5290-f4e8-41ba-85f1-a5f512951752",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

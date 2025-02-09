@@ -1,0 +1,21 @@
+{
+  "description": "The issue arises from a use-after-free flaw in the Microsoft DWM core library, leading to elevated privileges for local attackers via specially crafted applications or malicious file interactions.",
+  "cause_label": "microsoft_dwm_core_library_use_after_free_vulnerability",
+  "source_id": "e5743bc6-374a-258e-13fd-a22df1a9126a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e5743bc6-374a-258e-13fd-a22df1a9126a"
+  ],
+  "tags": [
+    "CVE-2024-38147",
+    "Microsoft DWM",
+    "use-after-free",
+    "elevation of privilege"
+  ],
+  "node_id": "d9060b07-7b1a-4283-bffa-80af8300e8d8",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

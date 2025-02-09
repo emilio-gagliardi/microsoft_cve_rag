@@ -1,0 +1,21 @@
+{
+  "description": "The issue stems from a heap-based buffer overflow in the Windows Telephony Service, allowing remote code execution through network interactions. Specifically, if a user connects to a malicious server, it can return harmful data leading to arbitrary code execution on the client's system. This vulnerability affects builds 10.0.26100.2314, 10.0.22631.4460, 10.0.22621.4460, and incorporates KB articles KB-5046696, KB-5046633, KB-5046617, and KB-5046613, thus requiring a fix via official updates.",
+  "cause_label": "windows_telephony_service_heap_based_buffer_overflow",
+  "source_id": "2c37c241-44b9-d6b3-3c6d-931f946a6042",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2c37c241-44b9-d6b3-3c6d-931f946a6042"
+  ],
+  "tags": [
+    "remote code execution",
+    "heap-based buffer overflow",
+    "Windows Telephony Service",
+    "CVE-2024-43627"
+  ],
+  "node_id": "dd46f0f6-5475-46b9-a54a-d2a3b03d9ce9",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

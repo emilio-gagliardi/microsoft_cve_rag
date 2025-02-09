@@ -1,0 +1,16 @@
+{
+  "description": "To mitigate the SmartScreen security feature bypass described in CVE-2023-36025, administrators should apply the relevant updates provided in the Microsoft Knowledge Base articles. For Windows 10 and 11, updates KB5032199 and KB5032190 are critical, with build numbers ranging from 10.0.10240.20308 to 10.0.25398.531. Windows Server installations will require KB5032249, which addresses similar issues. Links to download the update packages can be found at https://catalog.update.microsoft.com/Search.aspx?q=KB5032199, https://catalog.update.microsoft.com/Search.aspx?q=KB5032190, and https://catalog.update.microsoft.com/Search.aspx?q=KB5032249 for the respective updates. It is essential to ensure systems are fully updated to reduce potential vulnerabilities related to SmartScreen's functionality.",
+  "source_id": "bf580211-bbab-123b-813d-126e8c481f12",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplyWindowsUpdatesForSmartScreenBypass",
+  "tags": [
+    "SmartScreen",
+    "WindowsUpdate",
+    "PatchManagement"
+  ],
+  "node_id": "88c10f08-45c9-495e-bed4-971decc656d4",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

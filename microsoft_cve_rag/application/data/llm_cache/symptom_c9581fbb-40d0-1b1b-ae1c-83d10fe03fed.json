@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_elevation_of_privilege_leads_to_control",
+  "description": "Following the application of the security update KB5039212, users may experience an elevation of privilege that allows system access beyond intended permissions. This means that a low-privileged user could execute an application that exploits underlying vulnerabilities, potentially gaining unauthorized access to resources or executing higher-privileged code on affected systems. The update is targeted at build versions 10.0.19043.4529, 10.0.22631.3737, 10.0.22621.3737, and 10.0.22000.3019. Administrators should monitor user activities as unauthorized changes may occur post-update, especially in environments where users can access the affected systems locally or through remote sessions. The reach of the elevation could lead to significant alterations in system integrity and unauthorized modifications, which should be accounted for in ongoing security assessments.",
+  "source_id": "c9581fbb-40d0-1b1b-ae1c-83d10fe03fed",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c9581fbb-40d0-1b1b-ae1c-83d10fe03fed"
+  ],
+  "tags": [
+    "elevation of privilege",
+    "Windows 10",
+    "Windows 11",
+    "security update",
+    "system integrity"
+  ],
+  "node_id": "21ad59c4-cfe5-4bb2-adc9-baa3addbe4fe",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

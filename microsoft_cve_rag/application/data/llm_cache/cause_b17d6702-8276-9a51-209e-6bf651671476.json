@@ -1,0 +1,22 @@
+{
+  "description": "The underlying issue stems from improper handling of file name paths in Microsoft OpenSSH, allowing an attacker to control file location and execute arbitrary commands remotely. This occurs when users are misled into executing a malicious file planted in a targeted environment, leveraging low privileges and requiring user interaction to activate the exploit.",
+  "cause_label": "openssh_external_control_of_file_name_path",
+  "source_id": "b17d6702-8276-9a51-209e-6bf651671476",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b17d6702-8276-9a51-209e-6bf651671476"
+  ],
+  "tags": [
+    "remote_code_execution",
+    "OpenSSH",
+    "Windows",
+    "CVE-2024-43615",
+    "CWE-73"
+  ],
+  "node_id": "eddfa3bb-95bc-499b-8d87-6dab00595662",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

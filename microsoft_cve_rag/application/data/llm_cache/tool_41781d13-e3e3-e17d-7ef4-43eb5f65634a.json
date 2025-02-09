@@ -1,0 +1,19 @@
+{
+  "tool_label": "WindowsUpdateTool",
+  "description": "The Windows Update Tool is designed to manage and deploy updates across a variety of Windows operating systems. It helps ensure that the latest security patches and feature updates are applied efficiently to systems within an organization. The tool assists IT administrators in monitoring the update status and automating the update process to minimize downtime. While the specifics for executing the tool vary depending on the environment, it generally involves commands to check for updates, apply them, and generate reports on update compliance. For detailed instructions on utilizing this tool, please refer to the update guide resources provided by Microsoft. The detailed explanation for this Tool is provided in the Fix description.",
+  "source_id": "41781d13-e3e3-e17d-7ef4-43eb5f65634a",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/SA0PR09MB7116CACF268980E52ACE8ED9A5AEA%40SA0PR09MB7116.namprd09.prod.outlook.com",
+  "tool_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-20666",
+  "tags": [
+    "WindowsUpdate",
+    "patchManagement",
+    "deployment",
+    "security"
+  ],
+  "node_id": "75f8095e-d568-4e49-86cd-fcc703e91849",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

@@ -1,0 +1,22 @@
+{
+  "description": "Heap-based buffer overflow in the Windows IP Routing Management Snap-in leading to remote code execution. An attacker could exploit this vulnerability over the network by sending crafted requests to the vulnerable component, resulting in arbitrary code execution without user interaction.",
+  "cause_label": "windows_ip_routing_management_snapin_heap_buffer_overflow",
+  "source_id": "798bad74-c8e3-6785-796a-5f32af5c8af6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "798bad74-c8e3-6785-796a-5f32af5c8af6"
+  ],
+  "tags": [
+    "CVE-2024-38116",
+    "Windows",
+    "Heap Overflow",
+    "Remote Code Execution",
+    "IP Routing"
+  ],
+  "node_id": "c3a039e5-b043-4db1-b338-f81ce24d5aba",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

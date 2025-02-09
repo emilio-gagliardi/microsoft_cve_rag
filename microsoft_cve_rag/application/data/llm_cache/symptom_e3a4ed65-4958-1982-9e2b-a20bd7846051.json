@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_kernel_elevation_of_privilege_allows_control",
+  "description": "After the installation of security updates related to KB5034763 for Windows 10 and its various build numbers, users may experience unauthorized access or control over the system. This elevation of privilege can result in significant discrepancies in user permissions, allowing unprivileged users to perform restricted operations, which is an alarming behavior seen in Windows 10 versions 22H2 and 21H2 and Windows 11 versions 23H2 and 22H2. Additionally, end-users might notice unusual application behavior or system processes attempting privileged actions that would typically require administrative rights. The impact could compromise both the integrity and confidentiality of user data, suggesting that system trustworthiness has been undermined, causing confusion and potential security risks for administrators managing this environment.",
+  "source_id": "e3a4ed65-4958-1982-9e2b-a20bd7846051",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e3a4ed65-4958-1982-9e2b-a20bd7846051"
+  ],
+  "tags": [
+    "elevation_of_privilege",
+    "windows_update",
+    "system_control",
+    "user_access"
+  ],
+  "node_id": "208244f6-f305-428e-ae94-30d128b530b6",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

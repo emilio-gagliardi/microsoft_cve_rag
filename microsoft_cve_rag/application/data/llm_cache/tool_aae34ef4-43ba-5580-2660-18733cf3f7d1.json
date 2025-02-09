@@ -1,0 +1,23 @@
+{
+  "tool_label": "directaccess_configuration_tool",
+  "description": "**Tool Overview**:\n\nThe DirectAccess Configuration Tool is designed to help system administrators set up and manage DirectAccess features in Windows Server environments. This tool simplifies the configuration process, providing a user-friendly interface that allows for the management of remote client access to network resources securely.\n\n**Details**:\n1. **Configuration Management**: The tool enables administrators to configure DirectAccess settings, including network policies and authentication options.\n2. **Monitoring Capabilities**: It also offers monitoring capabilities to ensure that DirectAccess clients are properly connected and can access necessary resources.\n3. **Troubleshooting**: Administrators can utilize built-in diagnostic tools to troubleshoot connectivity issues with DirectAccess clients effectively.\n4. **Documentation**: Comprehensive documentation is provided within the tool, guiding administrators through each step of the configuration and management processes.\n5. **User Interface**: The intuitive interface reduces the complexity typically associated with DirectAccess setup, allowing for quick deployment and adjustments as needed.",
+  "source_id": "aae34ef4-43ba-5580-2660-18733cf3f7d1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "aae34ef4-43ba-5580-2660-18733cf3f7d1"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/PH0PR01MB7349A1D46F529E026AB0ADE3B7812%40PH0PR01MB7349.prod.exchangelabs.com",
+  "tool_url": "",
+  "tags": [
+    "DirectAccess",
+    "Configuration",
+    "Management",
+    "Networking"
+  ],
+  "node_id": "e4e732ef-6804-40e2-9267-3e725a55c721",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

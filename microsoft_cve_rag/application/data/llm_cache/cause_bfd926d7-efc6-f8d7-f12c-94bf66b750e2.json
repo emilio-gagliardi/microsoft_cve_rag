@@ -1,0 +1,21 @@
+{
+  "description": "The post suggests a method for retrieving the BIOS revision details using PowerShell commands, specifically leveraging the Get-WmiObject cmdlet with win32_ComputerSystem and win32_bios. If this method fails to return accurate data, the underlying cause could stem from a misconfiguration in the BIOS settings or outdated drivers that hinder proper communication between the operating system and the hardware. Additionally, incorrect WMI repository state or issues within the Windows Management Instrumentation (WMI) service can lead to failures in executing these commands effectively, resulting in an inability to retrieve vital system information. Furthermore, environmental factors, such as permissions settings on the executing account, might restrict access to necessary hardware information. Utilizing updated builds and proper configuration can mitigate these issues and enhance overall system reliability.",
+  "source_id": "bfd926d7-efc6-f8d7-f12c-94bf66b750e2",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "bfd926d7-efc6-f8d7-f12c-94bf66b750e2"
+  ],
+  "cause_label": "misconfigured_wmi_service_prevents_bios_query",
+  "tags": [
+    "PowerShell",
+    "WMI",
+    "BIOS",
+    "Get-WmiObject",
+    "configuration"
+  ],
+  "node_id": "61c7f23c-687c-456a-8724-6035d5c954f2",
+  "node_label": "Cause",
+  "reliability": 0.75,
+  "severity_type": "moderate",
+  "entity_type": "Cause"
+}

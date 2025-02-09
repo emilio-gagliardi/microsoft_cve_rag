@@ -1,0 +1,21 @@
+{
+  "symptom_label": "configuration_manager_management_point_security_hardened",
+  "description": "An update is available for Configuration Manager (current branch, version 2403) that enhances the security of the management point and site server database connections. This patch addresses potential vulnerabilities in the system that could allow unauthorized access, thereby improving the overall security posture of Configuration Manager environments. The relevant KB articles identifying the update include KB-2916658 and KB-2196658. Administrators should be aware that applying this update is essential for maintaining secure communications in their configuration management tasks. Without this update, environments may remain susceptible to untrusted interactions between the management point and the database, thereby increasing security risks.",
+  "source_id": "940dec90-326e-1329-2d61-839ab2bdd44b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "940dec90-326e-1329-2d61-839ab2bdd44b"
+  ],
+  "tags": [
+    "Configuration Manager",
+    "Patch Management",
+    "Security Update",
+    "Management Point"
+  ],
+  "node_id": "5840a455-c887-4fe8-954a-b12d9a98a01a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

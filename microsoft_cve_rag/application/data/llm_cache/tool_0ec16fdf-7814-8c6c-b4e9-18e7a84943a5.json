@@ -1,0 +1,17 @@
+{
+  "tool_label": "ApplySecurityUpdateForWindowsProducts",
+  "description": "This tool, through the Microsoft Knowledge Base, provides security updates for various Windows operating systems, including Windows 10 and Windows 11. Administrators can acquire these updates to patch identified vulnerabilities, ensuring system integrity and availability. The updates relevant to CVE-2023-36399 are specifically provided in associated KB articles, making it easy for users to find and implement necessary security measures to protect their systems.",
+  "source_id": "0ec16fdf-7814-8c6c-b4e9-18e7a84943a5",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-36399",
+  "tags": [
+    "patch",
+    "update",
+    "CVE"
+  ],
+  "node_id": "6c219d80-0484-4762-9f51-e7128bd84aaa",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

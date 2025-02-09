@@ -1,0 +1,20 @@
+{
+  "description": "The vulnerability arises due to an untrusted pointer dereference in the Microsoft Brokering File System, which can lead to elevation of privilege. Successful exploitation requires an attacker to win a race condition, and it can be triggered by local access to the system, allowing the attacker to gain system privileges.",
+  "cause_label": "microsoft_brokering_file_system_untrusted_pointer_dereference",
+  "source_id": "e59aefce-4640-25f7-a595-08a1d06d6200",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e59aefce-4640-25f7-a595-08a1d06d6200"
+  ],
+  "tags": [
+    "CVE-2024-26213",
+    "elevation of privilege",
+    "untrusted pointer dereference",
+    "Microsoft Brokering File System"
+  ],
+  "node_id": "90583282-fb21-4015-9749-43626538241c",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

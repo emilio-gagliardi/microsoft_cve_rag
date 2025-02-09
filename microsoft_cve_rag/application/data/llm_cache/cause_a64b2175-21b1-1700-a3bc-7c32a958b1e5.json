@@ -1,0 +1,21 @@
+{
+  "description": "A use after free vulnerability in the Windows kernel-mode driver that allows an attacker with low privileges to potentially elevate their privileges by exploiting a race condition in memory management.",
+  "cause_label": "windows_kernel_mode_driver_use_after_free",
+  "source_id": "a64b2175-21b1-1700-a3bc-7c32a958b1e5",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a64b2175-21b1-1700-a3bc-7c32a958b1e5"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Privilege Escalation",
+    "CVE-2024-43535"
+  ],
+  "node_id": "9eabf312-a497-4e5e-948e-5c2e153cbb1f",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

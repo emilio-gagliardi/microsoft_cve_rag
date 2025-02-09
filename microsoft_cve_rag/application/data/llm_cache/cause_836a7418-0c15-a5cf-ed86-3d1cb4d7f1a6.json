@@ -1,0 +1,18 @@
+{
+  "description": "The issue stems from a misconfiguration or failure in the RCT (Replication Change Tracking) files on a Windows Server 2019 Hyper-V host when utilizing Microsoft\u2019s replication methods with Azure Site Recovery. In scenarios where these files become corrupted or non-functional, the affected virtual machines (VMs) experience disruption in replication and may not function as intended. The resolution involved deleting the problematic RCT files, which indicates that the root of the issue lies in their erroneous state rather than a fundamental defect in Azure Site Recovery itself. This approach is effective under the described conditions and can potentially be replicated in similar environments experiencing the same issue. However, further investigation into the preservation of data integrity during RCT deletions is necessary to avoid loss of business-critical information.",
+  "source_id": "836a7418-0c15-a5cf-ed86-3d1cb4d7f1a6",
+  "source_type": "PatchManagementPost",
+  "cause_label": "RCTFilesFailureRequiresDeletionToResolve",
+  "tags": [
+    "WindowsServer2019",
+    "AzureSiteRecovery",
+    "HyperV",
+    "Replication",
+    "Restore"
+  ],
+  "node_id": "1421b2f7-37be-4e25-820e-4123ce559bcc",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

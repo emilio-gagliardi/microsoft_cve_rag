@@ -1,0 +1,17 @@
+{
+  "description": "The underlying cause identified is the lack of a Trusted Platform Module (TPM) chip implementation in devices attempting to accept Windows 11 upgrades. When the TPM chip is disabled in the BIOS, the machine does not meet the hardware compatibility requirements set forth by Microsoft for Windows 11. Consequently, the update is not presented to the user, thus effectively blocking Windows 11 installation. This workaround can be useful for system administrators managing environments that are not ready to transition to the latest OS due to hardware limitations. Proper documentation like KB4023057 outlines the requirements for Windows 11, emphasizing the necessity of TPM for secure functionalities.",
+  "source_id": "aab95f90-1268-ed1e-deaf-001999553c8d",
+  "source_type": "PatchManagementPost",
+  "cause_label": "TPMDigitalSecurityFeatureDisablingUpgrade",
+  "tags": [
+    "Windows 11",
+    "TPM chip",
+    "compatibility",
+    "BIOS settings"
+  ],
+  "node_id": "8beb800b-2a18-46eb-aea7-8b9fc7402ec3",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

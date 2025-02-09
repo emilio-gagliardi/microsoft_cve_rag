@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_shows_ui_spoofing_issue",
+  "description": "Users of Microsoft Edge (Chromium-based) version 128.0.2739.42 may notice unauthorized UI changes due to an inappropriate implementation in views caused by a security vulnerability, specifically CVE-2024-7981. This can lead to potential confusion or misguided interactions within the browser as the appearance of certain interface elements could be manipulated against the user's expectation. These changes are particularly evident when users interact with crafted HTML pages, where elements may fail to render correctly or misleading information could be presented. The existence of this issue underscores the importance of updating to the latest version to mitigate any risk of exploitation while ensuring a consistent user experience. Users are encouraged to check their browser version and update to secure their browsing environment from such anomalies.",
+  "source_id": "1e4ef869-84bc-a1c9-3672-5b8002d15646",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "1e4ef869-84bc-a1c9-3672-5b8002d15646"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "CVE-2024-7981",
+    "browser vulnerability",
+    "UI issues",
+    "security update"
+  ],
+  "node_id": "bdc3bbe6-4e30-409d-ab22-e2562889667d",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

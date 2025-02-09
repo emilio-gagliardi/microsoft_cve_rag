@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_kernel_privilege_escalation_leads_to_data_compromise",
+  "description": "Upon the installation of the updates referenced in KB-5036925, KB-5036894, KB-5036893, and KB-5036892, users may experience unexpected behavior related to privilege elevation stemming from a kernel-related issue. This behavior can manifest as unauthorized access to system resources, potentially allowing less privileged users to gain elevated permissions. The affected systems may include various builds of Windows 10, specifically builds 19045.4291, 19044.4291, 22631.3447, 22000.2899, 22621.3447, and 10240.20596. Administrators should be vigilant for any signs of system instability or unusual account activity following patch application, as these could indicate attempts to exploit the underlying elevation of privilege vulnerability. Monitoring logs for anomalies is advisable to ensure the integrity of sensitive data and systems across environments.",
+  "source_id": "ab87ee91-51a9-4689-a362-ebea9c41d63e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ab87ee91-51a9-4689-a362-ebea9c41d63e"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Privilege Escalation",
+    "Data Security"
+  ],
+  "node_id": "c112c327-86c9-476d-80a4-ac7ea3742010",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

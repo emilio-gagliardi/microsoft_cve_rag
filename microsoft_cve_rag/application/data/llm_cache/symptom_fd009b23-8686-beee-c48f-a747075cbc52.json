@@ -1,0 +1,20 @@
+{
+  "symptom_label": "audio_driver_update_causes_input_selection_issue",
+  "description": "Updating audio drivers from non-manufacturer sources may result in issues with input selection on certain systems, particularly older models like Dell. Users have reported that after such updates, the ability to toggle input options through a built-in application is lost. Furthermore, reverting to officially provided Dell audio drivers, which are often limited to Windows 10, is suggested as a potential remedy. This issue primarily affects Windows environments, where proper driver compatibility is crucial for maintaining functionality. Such driver conflicts can lead to disruptions in the user experience during audio input management on affected devices.",
+  "source_id": "fd009b23-8686-beee-c48f-a747075cbc52",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "fd009b23-8686-beee-c48f-a747075cbc52"
+  ],
+  "tags": [
+    "audio",
+    "driver",
+    "input issue",
+    "Dell"
+  ],
+  "node_id": "ab3d3764-05cd-4e13-ad7b-30bad9f24413",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

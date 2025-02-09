@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_11_elevation_privilege_leads_to_errors",
+  "description": "Users of Windows 11 Version 24H2 with build number 10.0.26100.2033 may experience unexpected behavior related to privilege elevation. This can manifest as erratic access to system resources, where users find themselves unable to perform actions that typically require administrative rights. End users could notice that routine operations such as modifying settings or installing applications fail due to insufficient privileges, despite being logged in as an administrator. Additionally, there may be instances of error messages indicating that access is denied when attempting to perform standard user tasks. This behavior is associated with the security update identified by KB5044284, introduced to mitigate underlying threats but potentially leading to observable disruptions in user workflows.",
+  "source_id": "b97c42de-e625-2e03-8f9d-48e189a732a2",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b97c42de-e625-2e03-8f9d-48e189a732a2"
+  ],
+  "tags": [
+    "Windows 11",
+    "Privilege Elevation",
+    "Error Messages",
+    "User Experience"
+  ],
+  "node_id": "3e3343dc-ebc1-427d-8bf0-9d544563cfe3",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

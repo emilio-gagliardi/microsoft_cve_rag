@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_remote_access_disclosure_information_leak",
+  "description": "End users may experience unintentional exposure of sensitive information due to the Windows Remote Access Connection Manager vulnerability. If exploited, an attacker could read small portions of heap memory, potentially revealing confidential data. This situation creates a risk for organizational data integrity and confidentiality, affecting Windows 10 and Windows 11 versions as outlined in KB5039212, KB5039211, and related updates for specific build numbers, such as 10.0.22631.3737 and 10.0.19043.4529. System administrators should closely monitor affected systems for any unusual information disclosures that could impact user data security and privacy.",
+  "source_id": "84222604-f7e3-6281-6288-c8f4e68fdcc6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "84222604-f7e3-6281-6288-c8f4e68fdcc6"
+  ],
+  "tags": [
+    "information_disclosure",
+    "Windows",
+    "Remote Access",
+    "heap_memory"
+  ],
+  "node_id": "4912add6-6961-4c35-ad34-c56eca57f060",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

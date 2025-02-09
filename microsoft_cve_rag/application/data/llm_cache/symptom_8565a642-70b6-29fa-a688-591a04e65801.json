@@ -1,0 +1,24 @@
+{
+  "symptom_label": "secure_boot_bypass_after_system_update",
+  "description": "After applying the security updates associated with KB5044273, KB5044280, KB5044284, and KB5044285, users may observe that the system allows unauthorized changes to the secure boot configuration. This observable behavior poses a significant risk as it may enable attackers to execute untrusted code at boot time. This symptom is particularly critical for systems running Windows 10 (Build 10.0.19045.5011) and Windows 11 (Build 10.0.22621) that rely on secure boot as a layer of protection. System administrators should monitor for potential indicators of this bypass, as it can compromise the integrity of the startup environment. Users might not immediately notice this behavior without conducting specific tests to verify the secure boot mechanism.",
+  "source_id": "8565a642-70b6-29fa-a688-591a04e65801",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8565a642-70b6-29fa-a688-591a04e65801"
+  ],
+  "tags": [
+    "Windows",
+    "Secure Boot",
+    "System Update",
+    "Firmware",
+    "Windows 10",
+    "Windows 11",
+    "Security"
+  ],
+  "node_id": "b023dc2b-b5ad-44db-8160-b7db9998a1c8",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_crashes_after_chromium_update",
+  "description": "After upgrading to Microsoft Edge version 126.0.2592.113, users may experience system instability, leading to unexpected application crashes during general browsing activities. This has been linked to a known issue where the underlying Chromium's handling of type confusion in its V8 engine could cause the browser to terminate abnormally. This behavior is particularly evident when loading complex web applications or pages with heavy JavaScript content. The update intends to address previous vulnerabilities; however, users are advised to monitor for any performance-related anomalies. The impact is significant enough that administrators should evaluate end-user experiences post-update to ensure stability and functionality in their browsing environment.",
+  "source_id": "56b4779f-2140-2f6b-32ec-77e7dfc8b82c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "56b4779f-2140-2f6b-32ec-77e7dfc8b82c"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "V8 Engine",
+    "Browser Stability",
+    "Update Issues"
+  ],
+  "node_id": "cb22ba1f-2086-4585-86e3-28f372e3e1a2",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

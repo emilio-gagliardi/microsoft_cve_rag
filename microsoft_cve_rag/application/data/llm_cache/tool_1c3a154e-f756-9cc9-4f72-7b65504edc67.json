@@ -1,0 +1,20 @@
+{
+  "tool_label": "WinreCustomization",
+  "description": "WinreCustomization is a tool hosted on GitHub that assists users in customizing the Windows Recovery Environment (WinRE). This tool can be used to adjust various settings and scripts that run during the recovery process, allowing for enhancements and personalization according to administrative needs. By utilizing this tool, system administrators can streamline recovery operations and tailor recovery experiences for end-users. To access and utilize this tool effectively, users can refer to the GitHub repository for detailed documentation and usage guidelines.",
+  "source_id": "1c3a154e-f756-9cc9-4f72-7b65504edc67",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em01e61280-1bd8-4aca-9419-393fd241e043%40e53fc1c0.com",
+  "tool_url": "https://github.com/mhimken/winre-customization",
+  "tags": [
+    "WinRE",
+    "customization",
+    "Windows",
+    "recovery",
+    "GitHub"
+  ],
+  "node_id": "f0a23307-efe3-43f7-923a-912d454e5b3c",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

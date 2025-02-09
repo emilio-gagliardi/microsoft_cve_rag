@@ -1,0 +1,17 @@
+{
+  "symptom_label": "PartitionResizingFailureDuringWinreUpdateProcess",
+  "description": "The post indicates a potential issue with the installation process of the Windows Recovery Environment (WinRE) updating procedure. Specifically, users may encounter challenges if the PowerShell script provided in KB-5034957 does not properly handle partition resizing while updating deployed devices. This situation may lead to installation failures or incomplete updates, which can affect the overall functionality and security posture of the systems being managed.",
+  "source_id": "ad52071e-f02c-de0d-320f-e5bcd52b21c9",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "WinRE",
+    "PowerShell",
+    "PartitionResize",
+    "InstallationFailure"
+  ],
+  "node_id": "4d5b5745-d765-4b02-bc90-743e94f02848",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

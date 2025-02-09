@@ -1,0 +1,18 @@
+{
+  "description": "The core cause of CVE-2024-20660, referred to as an information disclosure vulnerability in Microsoft Message Queuing, stems from how data is handled in memory. Specifically, certain build versions of Windows allow unauthorized access to small portions of heap memory due to inadequate protection mechanisms. This condition is exacerbated by the fact that Microsoft's Message Queuing is bound to the network stack, making it possible for attackers to access this information remotely, potentially from the entirety of the internet. The underlying issue can be traced back to insufficient isolation controls within the processing of message queuing, which fails to guarantee confidentiality of sensitive data. Furthermore, the vulnerability does not require any user interaction for exploitation, meaning that the exposure can occur without any pre-conditions that the attacker must meet, only requiring basic user privileges.",
+  "cause_label": "HeapMemoryExposureAllowsRemoteInformationDisclosure",
+  "source_id": "f16811fc-16c2-7f34-ad1a-7b1b5c70535d",
+  "source_type": "MSRCPost",
+  "tags": [
+    "information disclosure",
+    "Microsoft Message Queuing",
+    "CVE-2024-20660",
+    "heap memory",
+    "network exposure"
+  ],
+  "node_id": "a33cec66-541e-4fea-9d1b-454d83545e70",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

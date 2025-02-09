@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_freezes_after_update_installation",
+  "description": "After updating to Microsoft Edge version 126.0.2592.113, users may experience freezing or unresponsive behavior within the browser. This observable symptom occurs especially when handling audio content, which is linked to the underlying use-after-free vulnerability previously present in earlier versions of Chromium. End users may notice that the browser becomes unresponsive during media playback or when interacting with web pages that use audio elements. The freezing behavior can disrupt normal browsing activities, leading to frustration and reduced productivity. This issue should be addressed by ensuring that all systems are updated to the latest build as indicated in KB-126.0.2592.113.",
+  "source_id": "a958ba4f-e2b6-63a1-0e2a-483cb18ae812",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a958ba4f-e2b6-63a1-0e2a-483cb18ae812"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "audio",
+    "unresponsive",
+    "freezing"
+  ],
+  "node_id": "247f92be-61e4-4c42-8b55-3fe5ce1b5358",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,19 @@
+{
+  "description": "The underlying reason for the issue relates to incorrect configuration of the Group Policy settings impacting the Microsoft Edge browser. Specifically, the modifications to the registry key that control the functionality and settings of Edge can lead to malfunctions in the browser's behavior and performance. This misalignment is a common pitfall when administrators overlook the interaction between Group Policy, registry settings, and the Edge build in use. The resolution for these issues may often refer to the guidance found in KB794151, which addresses scenarios involving registry keys and their behavior in managed environments. It's vital for administrators to ensure that appropriate policies are enforced while maintaining registry key integrity to prevent disruptions for end-users.",
+  "source_id": "919e504d-2f96-8ec6-574a-0bf216e74e71",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "919e504d-2f96-8ec6-574a-0bf216e74e71"
+  ],
+  "cause_label": "IncorrectGroupPolicyRegistryConfigurationIssues",
+  "tags": [
+    "MicrosoftEdge",
+    "GroupPolicy",
+    "RegistryKey"
+  ],
+  "node_id": "9e25307b-c9a0-4d7c-97b9-91ecc1c5783d",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

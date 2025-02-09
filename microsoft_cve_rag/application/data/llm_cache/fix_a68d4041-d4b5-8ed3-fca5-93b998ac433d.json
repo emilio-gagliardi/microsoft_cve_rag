@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Microsoft ActiveX Data Objects Remote Code Execution vulnerability (CVE-2024-43517), it is essential to apply the respective updates based on your Windows version:\n\n1. Download and install the appropriate KB updates from the Microsoft Update Catalog based on your system version:\n   - For Windows 11 Version 24H2: [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n   - For Windows 11 Version 23H2: [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - For Windows 11 Version 22H2: [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - For Windows 11 Version 21H2: [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280)\n   - For Windows 10 (64-bit and 32-bit): [KB5044286](https://catalog.update.microsoft.com/Search.aspx?q=KB5044286)\n   - For Windows 10 Version 22H2: [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n   - For Windows 10 Version 21H2: [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n\n2. Ensure that you restart your system after the installation process to make sure changes take effect.\n\n**Details**:\n- This update addresses a heap-based buffer overflow that could allow for unauthorized remote code execution.\n- Always ensure your system is fully backed up before applying updates, as unexpected issues can occur during the process.\n",
+  "source_id": "a68d4041-d4b5-8ed3-fca5-93b998ac433d",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_cumulative_updates_for_cve202443517",
+  "tags": [
+    "KB5044284",
+    "KB5044285",
+    "RemoteCodeExecution",
+    "WindowsUpdates"
+  ],
+  "node_id": "6da46731-ea1b-4d79-9168-8ad8a650fe52",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "a68d4041-d4b5-8ed3-fca5-93b998ac433d"
+  ],
+  "verification_status": "unverified"
+}

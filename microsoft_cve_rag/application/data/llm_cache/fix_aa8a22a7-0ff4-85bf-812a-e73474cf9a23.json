@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the elevation of privilege vulnerability associated with the Windows WLAN AutoConfig service (CVE-2024-38143):\n\n1. Download the appropriate update for your Windows version from the official Microsoft Update Catalog.\n2. Ensure your system meets the following build numbers before applying the updates:\n   - Windows 11 Version 24H2: 10.0.26100.1457\n   - Windows 11 Version 23H2: 10.0.22631.4037\n   - Windows 10 Version 22H2 for x64: 10.0.19045.4780\n3. Install the updates and restart your system to finalize the installation.\n\n**Details**:\n- The updates address a critical vulnerability that may allow malicious actors to elevate privileges and execute arbitrary code on the affected systems.\n- Relevant KB Articles:\n  - [KB5041592](https://catalog.update.microsoft.com/Search.aspx?q=KB5041592)\n  - [KB5041585](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585)\n  - [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n  - [KB5041571](https://catalog.update.microsoft.com/Search.aspx?q=KB5041571)\n- Backup critical data before proceeding with the installation of any updates. \n",
+  "source_id": "aa8a22a7-0ff4-85bf-812a-e73474cf9a23",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_wlan_autoconfig_service_cve202438143",
+  "tags": [
+    "KB5041592",
+    "KB5041585",
+    "Windows11",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "9e6063f5-38ea-488a-a3c5-3d1f6836188e",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "aa8a22a7-0ff4-85bf-812a-e73474cf9a23"
+  ],
+  "verification_status": "unverified"
+}

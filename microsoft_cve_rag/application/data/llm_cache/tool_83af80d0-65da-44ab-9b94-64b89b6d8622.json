@@ -1,0 +1,23 @@
+{
+  "tool_label": "huntress_reverse_engineering_tools",
+  "description": "**Tool Overview**:\n\nHuntress has developed tools for reverse engineering vulnerabilities within unpatched ScreenConnect servers.\n\n**Details**:\n\nThis suite of tools targets respective vulnerabilities disclosed by ConnectWise, specifically consisting of methods to uncover exploits that may allow full remote execution and unauthorized administration access. Huntress has not only engineered their tools but also actively engaged with clients to communicate the urgency of patching their systems. Here\u2019s how the tools can be utilized effectively:\n\n1. **Assessment**: Run Huntress tools on your servers to identify if they are vulnerable to the RCE exploit.\n2. **Mitigation**: Utilize the solutions provided by Huntress to patch known vulnerabilities or to shield their systems until proper updates are issued by the vendor.\n3. **Community Support**: Participate in inquiries through webinars organized by cybersecurity groups to share and gain insights about ongoing threats and solutions.\n\nThese capabilities serve as critical assets for Managed Service Providers (MSPs) facing imminent threats due to this exploit.",
+  "source_id": "83af80d0-65da-44ab-9b94-64b89b6d8622",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "83af80d0-65da-44ab-9b94-64b89b6d8622"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/IA2PR16MB64944FDF781E1CB9B7F49344F4572%40IA2PR16MB6494.namprd16.prod.outlook.com",
+  "tool_url": "https://www.huntresslabs.com/",
+  "tags": [
+    "reverse engineering",
+    "RCE",
+    "ScreenConnect",
+    "cybersecurity",
+    "Huntress"
+  ],
+  "node_id": "503c4b01-810d-4000-9211-771a7993bba1",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "critical",
+  "entity_type": "Tool"
+}

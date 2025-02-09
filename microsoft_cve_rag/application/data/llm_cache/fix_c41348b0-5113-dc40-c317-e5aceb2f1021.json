@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo identify free space in the recovery partition of Windows 10, you can utilize PowerShell in administrative mode:\n\n1. Open PowerShell with administrative privileges.\n2. Execute the following command:\n   \n```powershell\nGet-Volume\n```\n   \nThis command returns information in a column format for all connected volumes, where two specific columns display the partition's size remaining and the total size, helping you identify available free space.\n\n**Details**:\n- Running PowerShell as an administrator is essential for accessing all volume information.\n- Make sure to check for administrative access to facilitate this operation.\n",
+  "source_id": "c41348b0-5113-dc40-c317-e5aceb2f1021",
+  "source_type": "PatchManagementPost",
+  "fix_label": "retrieve_free_space_recovery_partition_powershell",
+  "tags": [
+    "PowerShell",
+    "Windows10",
+    "RecoveryPartition",
+    "LLM Synthesized"
+  ],
+  "node_id": "9517dedf-3da3-4149-9a01-60676228157d",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c41348b0-5113-dc40-c317-e5aceb2f1021"
+  ]
+}

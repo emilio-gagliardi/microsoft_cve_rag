@@ -1,0 +1,22 @@
+{
+  "description": "An integer overflow flaw in the layout processing of Google Chrome prior to version 129.0.6668.89, which allows remote exploitation of heap corruption through a crafted HTML page. This issue affects Chromium-based applications, such as Microsoft Edge, which relies on this open source software component.",
+  "cause_label": "chromium_integer_overflow_in_layout_processing",
+  "source_id": "44b93183-b774-16fd-7dde-108ef7f31aa4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "44b93183-b774-16fd-7dde-108ef7f31aa4"
+  ],
+  "tags": [
+    "CVE",
+    "Chromium",
+    "Integer Overflow",
+    "Heap Corruption",
+    "Microsoft Edge"
+  ],
+  "node_id": "5f8d880c-a2fd-4d11-b466-a93093498d82",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

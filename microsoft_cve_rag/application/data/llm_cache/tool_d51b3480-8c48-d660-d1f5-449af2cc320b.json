@@ -1,0 +1,18 @@
+{
+  "tool_label": "InPlaceUpgradeViaIsoTool",
+  "description": "The In Place Upgrade via ISO Tool is designed to facilitate the process of upgrading existing Windows installations to a newer version while preserving user data and applications. This method performs a reinstallation of the Windows operating system, effectively acting as a feature update. The tool can install the 22H2 version over an existing installation without removing user profiles or installed programs. This is particularly useful for administrators looking to upgrade systems efficiently without data loss. Detailed procedures for using this tool can typically be found in Windows upgrade documentation.",
+  "source_id": "d51b3480-8c48-d660-d1f5-449af2cc320b",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/...",
+  "tool_url": "https://learn.microsoft.com/en-us/windows/deployment/upgrade/windows-10-21h2-upgrade",
+  "tags": [
+    "WindowsUpgrade",
+    "ISO",
+    "FeatureUpdate"
+  ],
+  "node_id": "a83dc5c4-63e6-472b-b20f-e3ec2c19c9aa",
+  "node_label": "Tool",
+  "reliability": "0.6",
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

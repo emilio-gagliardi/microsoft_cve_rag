@@ -1,0 +1,16 @@
+{
+  "description": "The underlying cause identified in the post pertains to the need for a compatible Windows 11 22H2 Latest Cumulative Update (LCU) version. The recommended LCU version is 22621.2428, with a minimum requirement of 22621.2283. Using an incompatible or outdated LCU could result in issues when applying additional updates such as the EKB. This misconfiguration can lead to system instability or failed update processes due to version mismatches. Therefore, ensuring that the correct build numbers are used is critical for a successful patch deployment.",
+  "source_id": "dc7485ab-45fc-98b4-9101-53ab571a0dae",
+  "source_type": "PatchManagementPost",
+  "cause_label": "IncompatibleLCUVersionCausesUpdateFailure",
+  "tags": [
+    "patch management",
+    "Windows updates",
+    "cumulative updates"
+  ],
+  "node_id": "805df227-a6dd-4587-bb3f-5170f41f039f",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

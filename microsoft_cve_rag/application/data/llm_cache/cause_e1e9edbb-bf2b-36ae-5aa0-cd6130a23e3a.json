@@ -1,0 +1,17 @@
+{
+  "description": "The cause of CVE-2023-5486 stems from an inappropriate implementation in input handling within the Chromium open source software. This issue was recognized as affecting the functionality in Microsoft Edge, which builds upon the Chromium codebase. Specifically, Microsoft Edge version 118.0.2088.46 has integrated the updates to address this flaw, effectively mitigating the risk associated with this vulnerability. The problematic implementation was flagged and resolved in the Chromium project, which is critical as Edge relies heavily on Chromium's architecture. The specific updates to Edge have been documented in KB-118.0.2088.46 providing detailed guidance for system administrators and security professionals to understand the implications and necessary actions.",
+  "cause_label": "InappropriateInputImplementationInChromiumSoftware",
+  "source_id": "e1e9edbb-bf2b-36ae-5aa0-cd6130a23e3a",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE",
+    "Chromium",
+    "Edge",
+    "Microsoft"
+  ],
+  "node_id": "230d1a4f-30a3-41d6-b8fd-afb2015c5db7",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

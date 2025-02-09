@@ -1,0 +1,22 @@
+{
+  "tool_label": "sql_server_update_troubleshooting_link",
+  "description": "**Tool Overview**:\n\nThis resource provides links to Microsoft's documentation for troubleshooting SQL Server updates. It covers procedures for downloading and installing the latest updates for SQL Server instances. Users can navigate to the website to find relevant guidance and tools that may assist in ensuring their SQL Server environments are properly updated.\n\n**Details**:\n\n1. The first link directs users to a page that includes troubleshooting instructions related to SQL Server updates.\n2. It outlines the steps needed to download and install updates to maintain SQL Server\u2019s security and performance.\n3. This tool is invaluable for system administrators who manage SQL Server installations and need to ensure they stay up to date with the latest patches.\n4. Access to this resource allows for efficient troubleshooting and resolution of update-related issues.\n5. Proper and timely updates are crucial for maintaining security compliance and operational integrity in SQL Server environments.",
+  "source_id": "7648b56a-b0fd-30e3-925b-18357d3ed221",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "7648b56a-b0fd-30e3-925b-18357d3ed221"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/5ca297ca-8065-4d16-afb3-8b73d72476b1n%40googlegroups.com",
+  "tool_url": "https://learn.microsoft.com/en-us/troubleshoot/sql/releases/download-and-install-latest-updates",
+  "tags": [
+    "SQL Server",
+    "troubleshooting",
+    "updates",
+    "documentation"
+  ],
+  "node_id": "c0b1ffe9-5df2-4e41-8629-04dc2b6697fc",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

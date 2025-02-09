@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_may_execute_arbitrary_code",
+  "description": "After installing the security patch (KB-125.0.2535.85) for Microsoft Edge (Chromium-based) version 125.0.2535.85, users may observe unusual behaviors indicating potential risks related to arbitrary code execution. Such anomalies might manifest as sudden crashes, freezing of the browser, or unexpected prompts for permission, suggesting that the system has not properly mitigated the risks associated with the out-of-bounds write vulnerability in the Streams API. End users in this case might also experience instability or the browser attempting to execute harmful scripts when browsing certain domains. Monitoring these behaviors is crucial to maintain a secure browsing experience, especially after an update intended to address previously identified vulnerabilities.",
+  "source_id": "ac089024-82a4-9749-32fa-14945642b8bd",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ac089024-82a4-9749-32fa-14945642b8bd"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "user impact",
+    "security updates"
+  ],
+  "node_id": "f0427461-cb57-44c7-80a9-e5e063a3830e",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -2,8 +2,8 @@ import json
 import os
 
 # Define input and output paths
-input_path = r"C:\Users\emili\PycharmProjects\microsoft_cve_support_report\data\08_reporting\periodic_report_CVE_WEEKLY_v1\json\periodic_report_CVE_WEEKLY_v1_2025_01_21.json"
-output_path = r"C:\Users\emili\PycharmProjects\microsoft_cve_support_report\data\08_reporting\periodic_report_CVE_WEEKLY_v1\md\periodic_report_CVE_WEEKLY_v1_2025_01_21.md"
+input_path = r"C:\Users\emili\PycharmProjects\microsoft_cve_support_report\data\08_reporting\periodic_report_CVE_WEEKLY_v1\json\periodic_report_CVE_WEEKLY_v1_2025_02_04.json"
+output_path = r"C:\Users\emili\PycharmProjects\microsoft_cve_support_report\data\08_reporting\periodic_report_CVE_WEEKLY_v1\md\periodic_report_CVE_WEEKLY_v1_2025_02_04.md"
 
 # Keys to extract from each dict
 keys_to_extract = ["id", "post_id", "published", "revision", "post_type", "title", "description", "summary", "kb_article_pairs"]

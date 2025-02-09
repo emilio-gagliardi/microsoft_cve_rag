@@ -1,0 +1,17 @@
+{
+  "symptom_label": "MicrosoftEdgeExperiencesRenderingIssuesPostUpdate",
+  "description": "After applying the security update for Microsoft Edge (Chromium-based) version 120.0.2210.121, users may experience rendering problems when loading certain web pages. This could manifest as visual glitches, slow loading times, or incomplete page content. Users might find that specific features or functionalities within web applications are not behaving as expected. In some cases, these behaviors could lead to frustration and reduced productivity, especially for those relying on web-based tools and services. The issues arise due to the update interacting with the underlying Chromium components, as it was implemented to address a known vulnerability referenced in KB-120.0.2210.121.",
+  "source_id": "b04d240e-d0c0-2d2d-2101-b8f69759ef0d",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Rendering Issues",
+    "Web Performance"
+  ],
+  "node_id": "fb68c5ce-dbc0-43be-bbc2-bbf77dd38d75",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

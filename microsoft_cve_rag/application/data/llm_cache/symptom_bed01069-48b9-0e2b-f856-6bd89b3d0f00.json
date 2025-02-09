@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_cryptographic_services_remote_code_execution",
+  "description": "Systems experiencing the Windows cryptographic services may exhibit unexpected behavior leading to potential remote code execution vulnerabilities. This can manifest as abnormal system performance, including slow loading times and disruptions during cryptographic operations such as digital signatures and certificate verifications. End users may notice error messages or warnings related to cryptographic functions, particularly on affected build numbers including 10.0.19045.4291 and 10.0.19044.4291. It is essential to apply the security updates detailed in KB-5036925, KB-5036909, and other related updates to mitigate these impacts effectively. Without these updates, users might face challenges in utilizing secure communications and might be at risk of malicious code execution.",
+  "source_id": "bed01069-48b9-0e2b-f856-6bd89b3d0f00",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "bed01069-48b9-0e2b-f856-6bd89b3d0f00"
+  ],
+  "tags": [
+    "Windows",
+    "Cryptographic Services",
+    "Remote Code Execution",
+    "Patch Management"
+  ],
+  "node_id": "f11c4698-2ed0-4c03-80d6-a4a7fd989e2b",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

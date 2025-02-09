@@ -1,0 +1,16 @@
+{
+  "description": "To address configuration needs for Windows 11 Business editions, users should download the ISO images, specifically 'en-us_windows_11_business_editions_version_23h2_x64_dvd_a9092734.iso' and 'mul_windows_11_languages_and_optional_features_x64_dvd_dbe9044b.iso'. After obtaining the ISOs, wait for the latest Monthly Cumulative Update (LCU) and then apply the servicing process on the Windows Imaging (WIM) file as per the usual procedures. This ensures systems are up-to-date with the latest features and functionality, optimizing overall performance and compliance. This practice is part of standard operating procedure in managing Windows 11 deployments effectively.",
+  "source_id": "169f42ef-8ec6-a403-1cba-b2b7fe57ef12",
+  "source_type": "PatchManagementPost",
+  "fix_label": "DownloadIsosAndServiceWIMForWindows11",
+  "tags": [
+    "Windows 11",
+    "LCU",
+    "ISO management"
+  ],
+  "node_id": "d9c33d2c-d154-4b4c-91c2-8f2207db1892",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

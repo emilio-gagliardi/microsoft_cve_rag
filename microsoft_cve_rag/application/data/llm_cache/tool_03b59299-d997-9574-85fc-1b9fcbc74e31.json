@@ -1,0 +1,19 @@
+{
+  "tool_label": "PrintNightmareConfigurationGuide",
+  "description": "This guide provides detailed information on addressing the configuration issues related to PrintNightmare and its variants. Although it appears that Microsoft has resolved the vulnerabilities theoretically, organizations continue to face challenges due to the complexity of group policies and settings associated with printing. The guide aims to clarify these configuration problems and assist in the remediation process. It includes step-by-step instructions and best practices for configuring printer settings and policies to protect against potential exploitation.",
+  "source_id": "03b59299-d997-9574-85fc-1b9fcbc74e31",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em7529c470-376c-45f0-a1a1-0797a1368113%407ddad500.com",
+  "tool_url": "https://itm4n.github.io/printnightmare-exploitation/",
+  "tags": [
+    "PrintNightmare",
+    "configuration",
+    "group policies",
+    "remediation"
+  ],
+  "node_id": "471c8985-3874-4b6d-909f-4b3b707f1863",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

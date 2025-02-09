@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the vulnerability identified in CVE-2024-9963 within the Chromium framework that affects Microsoft Edge:\n\n1. Update your Microsoft Edge browser to the latest version (at least version 130.0.6723.59).\n2. Verify the update by checking the version in the browser settings under 'Help and Feedback' > 'About Microsoft Edge'.\n\n**Details**:\n- The security vulnerability related to insufficient data validation in downloads has been fixed in version 130.0.6723.59. Updating ensures that your browser is no longer vulnerable to remote UI spoofing attacks.\n\n**Preconditions**:\n- Ensure the current installed version of Microsoft Edge is less than 130.0.6723.59.\n- Backup any important data before performing the update.\n",
+  "source_id": "5fb10c20-db0b-5ff3-dc78-4656134897a4",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_130_0_6723_59",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20249963",
+    "Chromium",
+    "DataValidation"
+  ],
+  "node_id": "57524c08-9e97-4b0c-adc5-e500927b6b2e",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "5fb10c20-db0b-5ff3-dc78-4656134897a4"
+  ],
+  "verification_status": "unverified"
+}

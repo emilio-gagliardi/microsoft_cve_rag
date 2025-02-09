@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo hide the 'Learn more about this picture' desktop icon in Windows 11 (build 24H2):\n\n1. Open PowerShell with administrative privileges.\n2. Run the following command to modify the registry setting that controls the visibility of desktop icons:\n\n```powershell\nSet-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\HideDesktopIcons\\NewStartPanel' -Name '{2CC5CA98-6485-489A-920E-B3E88A6CCCE3}' -Value 0\n```\n\n3. Right-click on the desktop and select 'Refresh' to apply the changes.\n\n**Details**:\n- This command sets the specified registry key to hide the designated desktop icon.\n- It's important to ensure that you run PowerShell with the necessary permissions to make these changes.\n- If you later want to show the icon again, you can change the `-Value` parameter to `1` instead of `0`. (LLM Synthesized)",
+  "source_id": "e3d66312-aca7-1cb6-dcd8-b043bd763a45",
+  "source_type": "PatchManagementPost",
+  "fix_label": "hide_windows_11_desktop_icon_learn_more_about_picture",
+  "tags": [
+    "Windows11",
+    "DesktopIcon",
+    "PowerShell",
+    "LLM Synthesized"
+  ],
+  "node_id": "a1c570d0-df4d-45db-8627-21769efb6432",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e3d66312-aca7-1cb6-dcd8-b043bd763a45"
+  ],
+  "verification_status": "unverified"
+}

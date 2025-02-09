@@ -1,0 +1,19 @@
+{
+  "tool_label": "Windows11Version23H2EnablementPackage",
+  "description": "The Windows 11 version 23H2 enablement package includes necessary updates for both 21H2 and 22H2 versions, optimizing the upgrade process using UUP technology. It facilitates the installation of the required files for users upgrading to Windows 11 version 23H2.",
+  "source_id": "d9406526-9958-f750-ce60-b20a51942945",
+  "source_type": "PatchManagementPost",
+  "source_url": "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/caa3ff4a-6420-4341-aeae-33b2d7f463be/public/windows11.0-kb5027397-x64_3a9c368e239bb928c32a790cf1663338d2cad472.msu",
+  "tags": [
+    "patch management",
+    "Windows 11",
+    "enablement package",
+    "update",
+    "UUP"
+  ],
+  "node_id": "43d97337-89e9-4b93-84b9-359f78491d03",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

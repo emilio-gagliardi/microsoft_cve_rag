@@ -1,0 +1,21 @@
+{
+  "symptom_label": "ms_word_deletes_documents_due_to_file_extension",
+  "description": "Since October 2, 2024, Microsoft Word has exhibited anomalous behavior where documents with capitalized file extensions are deleted upon closing the application after editing. Specifically, when files with extensions such as .rtf, .docx, and .odt have a capital character, they are not saved properly and end up in the recycle bin. This issue affects a subset of users, leading to data loss and confusion among those seeking to recover their documents. Investigations into the cause of this behavior are ongoing, with reports accumulating from various blog readers. Further details can be found in discussions linked through the blog posts addressing this issue.",
+  "source_id": "4375bd26-a3e2-eb97-528d-a202ebacbdc0",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "4375bd26-a3e2-eb97-528d-a202ebacbdc0"
+  ],
+  "tags": [
+    "ms_word",
+    "document_management",
+    "file_deletion",
+    "file_extension"
+  ],
+  "node_id": "c8d9f031-c8a3-4c68-aee8-3a612aca9e5f",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

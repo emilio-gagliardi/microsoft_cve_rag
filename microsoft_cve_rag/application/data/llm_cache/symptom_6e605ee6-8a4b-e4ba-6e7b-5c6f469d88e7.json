@@ -1,0 +1,21 @@
+{
+  "symptom_label": "mitel_connect_services_fail_to_start_after_update",
+  "description": "After applying the Windows updates KB5036896 for Windows Server 2019 and KB5036899 for Windows Server 2016 on April 9, the Mitel Connect Director and associated systems experience service failures. Specifically, services such as emvmsync, csis, voicemail message servers, and Shoretel soft telephony switch fail to start on the HQ and DVS servers. This issue has been reported as affecting 100% of the cases after the updates are applied. A workaround to resolve this symptom is to roll back the aforementioned updates, which has proven successful in restoring functionality. The resolution is not expected until a more stable update in version 20.0 SP1, anticipated to be released in Q3.",
+  "source_id": "6e605ee6-8a4b-e4ba-6e7b-5c6f469d88e7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "6e605ee6-8a4b-e4ba-6e7b-5c6f469d88e7"
+  ],
+  "tags": [
+    "Mitel Connect Director",
+    "service failure",
+    "Windows Server updates",
+    "rollback required"
+  ],
+  "node_id": "5e6db3c6-e1d5-4991-be45-5d9118b64790",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

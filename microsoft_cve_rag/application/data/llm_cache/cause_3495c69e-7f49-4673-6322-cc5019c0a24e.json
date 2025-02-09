@@ -1,0 +1,21 @@
+{
+  "description": "The issue arises from sensitive data being stored in improperly locked memory within the Windows Hyper-V component, leading to potential denial of service through cross-VM attacks. The exploit moves beyond controlled resource management, allowing an attacker with local access to leverage this misconfiguration.",
+  "cause_label": "windows_hyperv_improper_memory_locking",
+  "source_id": "3495c69e-7f49-4673-6322-cc5019c0a24e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "3495c69e-7f49-4673-6322-cc5019c0a24e"
+  ],
+  "tags": [
+    "Windows",
+    "Hyper-V",
+    "Denial of Service",
+    "CVE-2024-43633"
+  ],
+  "node_id": "cd86ac7f-7ee1-44fc-9489-c8b310457345",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

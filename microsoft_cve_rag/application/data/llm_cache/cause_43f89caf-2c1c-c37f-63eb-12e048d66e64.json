@@ -1,0 +1,20 @@
+{
+  "description": "A buffer over-read in the Windows Kernel allows attackers to access portions of heap memory, leading to information disclosure vulnerabilities. This issue primarily occurs due to improper validation of memory boundary conditions in various builds of Windows 10 and Windows 11, as specified in the CVE.",
+  "cause_label": "windows_kernel_buffer_over_read_information_disclosure",
+  "source_id": "43f89caf-2c1c-c37f-63eb-12e048d66e64",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "43f89caf-2c1c-c37f-63eb-12e048d66e64"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Buffer Over-read",
+    "CVE-2024-21340"
+  ],
+  "node_id": "11a9cc72-7ebd-43b0-8dad-c6ea15fa5c38",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

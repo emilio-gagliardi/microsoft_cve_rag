@@ -1,0 +1,16 @@
+{
+  "description": "To enable the Microsoft Windows TS Optional Components feature, access the Windows Features window by typing 'optionalfeatures' in the Start menu search box. Click on 'View features' next to 'Add an optional feature'. Locate and check the 'Microsoft-Windows-TS-OptionalComponents-Package' in the list, then click 'OK' to initiate the installation. This action ensures that the necessary terminal services components are available for remote desktop functionality.",
+  "source_id": "a29aa418-3011-9f8d-9690-63683d0eca4b",
+  "source_type": "PatchManagementPost",
+  "fix_label": "EnableMicrosoftWindowsTSOptionalComponentsPackage",
+  "tags": [
+    "remote desktop",
+    "optional feature",
+    "Windows"
+  ],
+  "node_id": "63b56f4d-816b-4ff4-b919-93a4a5e1c197",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix"
+}

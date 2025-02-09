@@ -1,0 +1,20 @@
+{
+  "symptom_label": "unauthenticated_attacker_impersonates_users_on_exchange",
+  "description": "A critical elevation of privilege vulnerability in Microsoft Exchange Server (CVE-2024-21410) allows unauthenticated attackers to relay NTLM credentials, enabling them to impersonate other users on the affected Exchange server. With a CVSS score of 9.8, this vulnerability poses a serious threat, as it can be actively exploited in the wild. Patch management is challenging due to the need for the Exchange Server 2019 Cumulative Update 14 (CU14) and the Extended Protection for Authentication (EPA) feature to be enabled. System administrators are advised to review Microsoft's updated advisory for the latest mitigation steps and ensure all recommended patches are applied to secure their environments against potential exploits.",
+  "source_id": "b385ff71-6eab-d7f8-60fd-952419efcbbf",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "b385ff71-6eab-d7f8-60fd-952419efcbbf"
+  ],
+  "tags": [
+    "microsoft exchange",
+    "elevation of privilege",
+    "CU14",
+    "CVE-2024-21410"
+  ],
+  "node_id": "a3204fea-3170-490e-bd5c-cce0c4258186",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

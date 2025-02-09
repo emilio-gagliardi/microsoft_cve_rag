@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the improper validation of specified quantity in input vulnerability (CVE-2024-23593):\n\n1. Apply the KB-5036910, KB-5036894, KB-5036893, and KB-5036892 updates to the affected systems to ensure the integrity and security of the bootloader.\n2. Restart your system after installation to apply the changes effectively.\n\n**Details**:\n- These updates address a vulnerability in the Lenovo preloaded Windows 7 and 8 operating systems that could allow a privileged attacker with local access to escalate privileges by modifying the boot manager.\n- Ensure your system is running one of the following build numbers: [10, 0, 19045, 4291], [10, 0, 19044, 4291], [10, 0, 22631, 3447], [10, 0, 22000, 2899].\n\n**Preconditions**:\n- This fix is applicable to systems with the aforementioned build numbers.\n- Perform a backup of critical data before proceeding with the update installation.",
+  "source_id": "128d20b8-6ac6-e563-ae80-559d82b66c86",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_for_improper_validation_cve202423593",
+  "tags": [
+    "KB5036910",
+    "KB5036894",
+    "KB5036893",
+    "KB5036892"
+  ],
+  "node_id": "49dd30dc-2db4-4e54-9741-1485110bef1c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "128d20b8-6ac6-e563-ae80-559d82b66c86"
+  ]
+}

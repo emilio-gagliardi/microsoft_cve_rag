@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve licensing issues with ScreenConnect, perform the following steps:\n\n1. Upgrade your ScreenConnect server to version 23.9.10, which removes the licensing check.\n2. If you are using an older version, you can upgrade from any version back to v2, which has been available since 2011.\n3. Reach out to ConnectWise support if you encounter difficulties during the upgrade process.\n\n**Details**:\n- This upgrade not only addresses licensing checks but also grants access to all additional features released since your version. Ensure you are running the latest version to take full advantage of these updates.\n- If you are encountering extension issues, note that this upgrade does not automatically fix those problems, and further assistance may be required. (LLM Synthesized)",
+  "source_id": "2f4507b7-9170-dc24-97d2-d1b922474494",
+  "source_type": "PatchManagementPost",
+  "fix_label": "upgrade_screenconnect_to_remove_licensing_check",
+  "tags": [
+    "ScreenConnect",
+    "UpgradePath",
+    "Support",
+    "LLM Synthesized"
+  ],
+  "node_id": "3523ed1f-bf0a-4bda-9dfa-c97ef8006f1f",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "2f4507b7-9170-dc24-97d2-d1b922474494"
+  ]
+}

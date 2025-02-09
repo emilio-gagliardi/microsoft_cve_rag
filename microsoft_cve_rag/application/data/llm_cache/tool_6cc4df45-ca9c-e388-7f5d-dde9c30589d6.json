@@ -1,0 +1,23 @@
+{
+  "tool_label": "enable_tls_for_ldap_connections",
+  "description": "**Tool Overview**:\n\nThis guide provides steps to enable TLS for LDAP connections on Active Directory (AD) configurations. This is essential for securing LDAP traffic and preventing exposure to insecure connections that can be vulnerable to various attacks.\n\n**Details**:\n1. Ensure you have installed a valid TLS certificate on the server where Active Directory is hosted.\n2. Navigate to the LDAP configuration settings on your firewall or application and find the option to enable TLS.\n3. Validate your certificate configuration to ensure that it is recognized by the AD server to successfully establish secure connections.\n4. Test the configurations by performing LDAP queries and ensuring that they are being sent over TLS.\n5. Monitor traffic and logs to ensure that all insecure LDAP traffic has been successfully transitioned to secure connections.\n\nFollowing these steps ensures that your LDAP communications are encrypted, enhancing the overall security posture of your environment.",
+  "source_id": "6cc4df45-ca9c-e388-7f5d-dde9c30589d6",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "6cc4df45-ca9c-e388-7f5d-dde9c30589d6"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/BY1PR22MB404038804201F933D8DB555DC9272%40BY1PR22MB4040.namprd22.prod.outlook.com",
+  "tool_url": "https://support.microsoft.com/en-us/topic/2020-2023-and-2024-ldap-channel-binding-and-ldap-signing-requirements-for-windows-kb4520412-ef185fb8-00f7-167d-744c-f299a66fc00a",
+  "tags": [
+    "TLS",
+    "LDAP",
+    "Active Directory",
+    "encryption",
+    "network security"
+  ],
+  "node_id": "493eb120-a793-4f3b-a63c-306b0c049ec1",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "test_laptop_fails_to_boot_with_blacklotus_mitigation",
+  "description": "Users are experiencing issues where laptops configured with BlackLotus mitigations fail to boot from newly created WinPE boot media. This malfunction occurs not only on testing devices where mitigations have been applied but also affects other devices when attempting to boot from external mediums. This issue may stem from potential mistakes in the testing process, leading to configuration problems that prevent normal boot sequences. As a result, the affected devices cannot access recovery options or maintenance functions typically accessible through the boot media. The lack of successful booting can lead to operational delays in environments relying on these mitigations for system integrity and security.",
+  "source_id": "a7971237-11f7-7358-bcc8-072c296a7f29",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "a7971237-11f7-7358-bcc8-072c296a7f29"
+  ],
+  "tags": [
+    "BlackLotus",
+    "WinPE",
+    "boot_issue",
+    "testing_error"
+  ],
+  "node_id": "03a147f9-3556-4092-a7e3-1c6671a71e8c",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

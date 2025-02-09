@@ -1,0 +1,21 @@
+{
+  "description": "A flaw in the Windows Line Printer Daemon service allows an unauthenticated attacker on the same network to exploit uncontrolled resource consumption, leading to denial of service due to potential resource exhaustion.",
+  "cause_label": "windows_line_printer_daemon_uncontrolled_resource_consumption",
+  "source_id": "6f5403e0-d9b1-804a-67db-fa99ba5f7b44",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "6f5403e0-d9b1-804a-67db-fa99ba5f7b44"
+  ],
+  "tags": [
+    "Windows",
+    "Denial of Service",
+    "CVE-2024-38027",
+    "Printer Services"
+  ],
+  "node_id": "80012405-f190-48aa-8544-0dfec6a89329",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

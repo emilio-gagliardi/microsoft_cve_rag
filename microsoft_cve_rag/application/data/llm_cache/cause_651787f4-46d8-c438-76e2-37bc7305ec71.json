@@ -1,0 +1,22 @@
+{
+  "description": "Type confusion vulnerability in V8 engine of Chromium allows potential heap corruption, enabling remote attackers to exploit the flaw through crafted HTML pages in affected browser versions.",
+  "cause_label": "chromium_type_confusion_in_v8_engine_heap_corruption",
+  "source_id": "651787f4-46d8-c438-76e2-37bc7305ec71",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "651787f4-46d8-c438-76e2-37bc7305ec71"
+  ],
+  "tags": [
+    "Chromium",
+    "Type Confusion",
+    "Heap Corruption",
+    "Microsoft Edge",
+    "CVE-2024-7969"
+  ],
+  "node_id": "6539b9d7-ed86-4635-a8c2-1adca705d252",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

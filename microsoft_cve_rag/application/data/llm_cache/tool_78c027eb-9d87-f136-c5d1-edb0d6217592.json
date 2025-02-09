@@ -1,0 +1,22 @@
+{
+  "tool_label": "PolicyShowSoftware",
+  "description": "**Tool Overview**:\n\nThe PolicyShowSoftware is a command-line utility designed to query and display all policy-based keys related to the configuration of Microsoft Edge, specifically targeting the \u2018First Run\u2019 experience and associated settings. \n\n**Functionality**:\nThis tool provides users with an efficient method to visualize and manage Microsoft Edge policies. By using this utility, administrators can easily verify which settings are configured on their systems, ensuring compliance and proper configuration. The utility reads from the registry to retrieve relevant settings and displays this information in a user-friendly format. \n\nThis tool can help streamline troubleshooting efforts by identifying misconfigured or rogue settings that could impact the user experience of Microsoft Edge. Administrators can utilize it as part of their security and configuration audits.\n\n**Usage Example**:\nA sample command to run this tool might look like: \n```bash\nPolicyShowSoftware --show-first-run-settings\n```\nThis command fetches and displays the settings related to the first-run experience of Microsoft Edge.",
+  "source_id": "78c027eb-9d87-f136-c5d1-edb0d6217592",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "78c027eb-9d87-f136-c5d1-edb0d6217592"
+  ],
+  "source_url": "N/A",
+  "tool_url": "N/A",
+  "tags": [
+    "MicrosoftEdge",
+    "policy",
+    "configuration",
+    "registry"
+  ],
+  "node_id": "d9ae0aa5-aeb1-4060-9731-5747d7301852",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

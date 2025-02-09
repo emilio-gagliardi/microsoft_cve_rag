@@ -1,0 +1,20 @@
+{
+  "symptom_label": "AzureArcSubscriptionCostIncreasesForOnPremServers",
+  "description": "Organizations using Azure Arc to manage their on-premises Windows Server 2012 R2 installations may experience an increased monthly subscription charge. This can result from the necessity to maintain compliance and support for the servers under the Azure management framework, which may not have been accounted for in initial budgets. System administrators should be aware of these potential costs when planning their cloud integration strategies and ensuring that they remain within expected operational expenditures.",
+  "source_id": "aa854396-a1b1-8107-f684-9e4626811d19",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "aa854396-a1b1-8107-f684-9e4626811d19"
+  ],
+  "tags": [
+    "AzureArc",
+    "subscription",
+    "WindowsServer2012R2",
+    "costmanagement"
+  ],
+  "node_id": "c605d49e-7689-458b-aa61-d247103c144a",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

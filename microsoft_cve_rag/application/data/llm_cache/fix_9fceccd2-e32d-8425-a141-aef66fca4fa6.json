@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the remote code execution vulnerability associated with the `rndismp6.sys` driver in Windows:\n\n1. Download and install the relevant updates corresponding to your system build numbers from the Microsoft Update Catalog based on the provided KB articles.\n2. Restart your system after the installation to ensure all changes take effect.\n\n**Details**:\n- Ensure that your system matches one of the following build numbers:\n  - 10.0.19045.4291  \n  - 10.0.19044.4291  \n  - 10.0.22631.3447  \n  - 10.0.22000.2899  \n  - 10.0.22621.3447  \n  - 10.0.10240.20596  \n- The updates KB-5036925, KB-5036909, KB-5036899, KB-5036896, KB-5036894, KB-5036893, and KB-5036892 address the issue of improper input validation leading to this vulnerability. \n- Backup any critical data before proceeding with the update installation.  \n",
+  "source_id": "9fceccd2-e32d-8425-a141-aef66fca4fa6",
+  "source_type": "MSRCPost",
+  "fix_label": "address_rndismp6_sys_remote_code_execution_cve202426253",
+  "tags": [
+    "KB5036925",
+    "KB5036909",
+    "Windows10",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "3ce2a8ff-4a45-47ef-8c47-c8d59d7dbbd4",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "9fceccd2-e32d-8425-a141-aef66fca4fa6"
+  ]
+}

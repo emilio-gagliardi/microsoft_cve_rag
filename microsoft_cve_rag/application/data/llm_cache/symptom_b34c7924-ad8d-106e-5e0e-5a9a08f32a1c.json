@@ -1,0 +1,16 @@
+{
+  "symptom_label": "OctoberUpdatesMissingSeptemberFixesForNet",
+  "description": "The .NET 6.0 and .NET 7.0 updates released on October 24, 2023, identified in KB-5032874 and KB-5032875, respectively, did not include critical fixes from the previous month's September releases. This omission can result in unaddressed vulnerabilities and bugs that the September patches were intended to resolve, potentially affecting system stability and security. Administrators deploying these updates without the September fixes may inadvertently expose their environments to unresolved issues or performance degradation.",
+  "source_id": "b34c7924-ad8d-106e-5e0e-5a9a08f32a1c",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "patch management",
+    "net updates",
+    "fix omissions"
+  ],
+  "node_id": "b7d64d6b-1888-4af1-8dcf-f77daf885b78",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

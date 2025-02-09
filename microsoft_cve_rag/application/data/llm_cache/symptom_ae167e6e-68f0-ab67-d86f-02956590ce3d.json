@@ -1,0 +1,20 @@
+{
+  "symptom_label": "outlook_remote_code_execution_leads_to_malicious_dll_creation",
+  "description": "Users of Microsoft Outlook may experience significant security concerns as a result of the remote code execution vulnerability (CVE-2024-30103). This vulnerability allows an attacker, after successfully exploiting the issue, to bypass Outlook's registry block lists. Consequently, this may lead to the creation of malicious dynamic-link library (DLL) files without the user's awareness or consent. End users may notice unusual activity related to the operation of Outlook, including unexpected behaviors or performance issues that could indicate an underlying compromise. This affects various impacted versions including Outlook 2016 (32-bit and 64-bit), Microsoft 365 apps for enterprise (32-bit and 64-bit), Office LTSC 2021, and Office 2019, all linked to the KB article 5002600.",
+  "source_id": "ae167e6e-68f0-ab67-d86f-02956590ce3d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ae167e6e-68f0-ab67-d86f-02956590ce3d"
+  ],
+  "tags": [
+    "Microsoft Outlook",
+    "Remote Code Execution",
+    "Malware Risk"
+  ],
+  "node_id": "fc0fee5b-cbd1-4560-b2ac-44eebabbce02",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

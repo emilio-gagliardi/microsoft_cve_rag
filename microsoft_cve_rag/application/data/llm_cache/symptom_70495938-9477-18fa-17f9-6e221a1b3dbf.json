@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_unresponsive_after_security_update",
+  "description": "After installing the security update for Microsoft Edge (Chromium-based) version 127.0.2651.86, users may experience instances where the application becomes unresponsive or freezes. This behavior can hinder productivity as users are unable to interact with the browser and may require them to forcibly close and restart the application. The issue seems to manifest particularly when navigating to complex websites or performing multiple tasks within the browser. It's important to note that this symptom was observed in conjunction with the security update addressing the Chromium vulnerabilities as documented in KB-127.0.2651.86. Users should be cautious of how many tabs they have open and monitor performance closely following the update.",
+  "source_id": "70495938-9477-18fa-17f9-6e221a1b3dbf",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "70495938-9477-18fa-17f9-6e221a1b3dbf"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Security Update",
+    "User Experience"
+  ],
+  "node_id": "6ced1025-8f65-4fb0-a9e8-993aa32cfd0f",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

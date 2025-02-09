@@ -1,0 +1,22 @@
+{
+  "description": "A race condition in the DevTools component of Chromium prior to version 126.0.6478.182, which allows attackers to exploit the improper synchronization of shared resources to inject malicious scripts or HTML into privileged pages via crafted Chrome extensions.",
+  "cause_label": "chromium_race_condition_in_devtools_threading",
+  "source_id": "723ebfcd-6bd1-a3e2-a811-44a74099f6c6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "723ebfcd-6bd1-a3e2-a811-44a74099f6c6"
+  ],
+  "tags": [
+    "CVE-2024-6778",
+    "Chromium",
+    "DevTools",
+    "Race Condition",
+    "Microsoft Edge"
+  ],
+  "node_id": "8d400d77-0885-4eb7-86a7-cdfaee6595d9",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

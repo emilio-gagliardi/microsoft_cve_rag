@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate known firmware issues related to secure boot and BitLocker recovery:\n\n1. Ensure you have a backup of your BitLocker recovery key before enabling mitigations.\n2. Update the firmware of affected devices from the manufacturer, especially for HP devices identified with issues.\n3. If you're using ARM64-based devices, configure the following registry key to enable mitigations:\n\n```registry\nHKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\SecureBoot\nKey Value Name: skipdevicecheck\nData Type: REG_DWORD\nData: 1\n```\n\n4. For macOS users, ensure you keep your system updated to include UEFI security variable updates.\n5. On VMware, understand that VMs with secure boot enabled may fail to boot post-mitigation and consult with VMware support for a resolution.\n\n**Preconditions**:\n- Backup important data and recovery keys before proceeding with firmware updates or registry changes.\n- Ensure you are using the latest BIOS firmware updates from your device manufacturer.\n",
+  "source_id": "167047c2-4b56-c0c8-c300-13d11ba3b2c1",
+  "source_type": "PatchManagementPost",
+  "fix_label": "mitigate_secure_boot_firmware_issues",
+  "tags": [
+    "KB5025885",
+    "SecureBoot",
+    "FirmwareUpdate",
+    "BitLocker"
+  ],
+  "node_id": "3c568767-ebea-4b8b-9e16-d4c29ec8c460",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "167047c2-4b56-c0c8-c300-13d11ba3b2c1"
+  ]
+}

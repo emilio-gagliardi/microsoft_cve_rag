@@ -1,0 +1,17 @@
+{
+  "tool_label": "SecureCurlExecutableUsingCodeIntegrityPolicy",
+  "description": "The implementation of a Code Integrity Policy (CIP) to restrict execution of the vulnerable curl executable ensures that only non-vulnerable versions are permitted to run on Windows devices. This policy can be created or merged using PowerShell cmdlets and helps mitigate the risks associated with the CVE-2023-38039 vulnerability. System administrators can deploy this policy through various means, including Windows Defender Application Control (WDAC), Intune, Configuration Manager, or Group Policy.",
+  "source_id": "c4081dfe-42ef-5d93-5ce0-a2e5305da4dc",
+  "source_type": "MSRCPost",
+  "source_url": "https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/deploying-windows-defender-application-control-wdac-policies",
+  "tags": [
+    "curl",
+    "policy",
+    "code integrity"
+  ],
+  "node_id": "10c6d2dc-7f50-4fe6-8791-0a76aec2bd19",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Tool"
+}

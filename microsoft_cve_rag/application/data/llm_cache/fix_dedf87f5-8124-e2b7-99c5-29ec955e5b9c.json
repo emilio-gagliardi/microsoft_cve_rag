@@ -1,0 +1,16 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability identified as CVE-2023-35629, it's recommended to apply the necessary updates for affected Windows versions.\n\n1. Download and apply the relevant updates:\n   - For Windows 10, use update package KB5033379 and its respective links.\n   - For Windows 11, multiple updates including KB5033422, KB5033433, and KB5033420 are suggested.\n2. Restart your system to ensure all changes take effect.\n\n**Details**:\n- The updates address vulnerabilities in the Microsoft USB Hub 3.0 device driver, enhancing system security against potential exploits. \n- Ensure the system is running an affected build number before proceeding.\n- For manual installation, download the update packages from the links below:  \n  - [Download KB5033379](https://catalog.update.microsoft.com/Search.aspx?q=KB5033379)  \n  - [Download KB5033422](https://catalog.update.microsoft.com/Search.aspx?q=KB5033422)  \n  - [Download KB5033433](https://catalog.update.microsoft.com/Search.aspx?q=KB5033433)  \n  - [Download KB5033420](https://catalog.update.microsoft.com/Search.aspx?q=KB5033420)  \n\n**Preconditions**:\n- Ensure that the device is appropriately updated and backed up before applying the updates.\n- The updates must be installed on systems running compatible build numbers.\n",
+  "source_id": "dedf87f5-8124-e2b7-99c5-29ec955e5b9c",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplyKb5033379AndRelatedUpdates",
+  "tags": [
+    "CVE-2023-35629",
+    "RemoteCodeExecution",
+    "WindowsUpdates"
+  ],
+  "node_id": "94f56840-5de0-40b0-8ca0-05ab91356915",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

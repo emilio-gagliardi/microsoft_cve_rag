@@ -1,0 +1,24 @@
+{
+  "tool_label": "zoom_6_msi_program_name_change",
+  "description": "**Tool Overview**:\n\nThis extraction refers to the change in the MSI's program name for Zoom version 6. The program name has been updated from 'Zoom' (64-bit) or 'Zoom' (64bit) to 'Zoom Workplace' (64-bit). This change is essential for system administrators managing installations and updates for Zoom in their environments.\n\n**Details**:\n1. The new program name allows for easier identification and management of the application in deployment scenarios.\n2. It is important to ensure that existing configurations, scripts, or deployment tools recognize this name change to avoid installation issues.\n3. For those managing Zoom deployments, note the distinction between previous versions and the current naming convention to maintain compliance across systems.\n\nIncorporating the new name into documentation and deployment procedures can aid significantly in avoiding confusion during software updates.",
+  "source_id": "dd30c1f5-8621-4384-839c-fe823311fc09",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "dd30c1f5-8621-4384-839c-fe823311fc09"
+  ],
+  "source_url": "https://support.zoom.com/hc",
+  "tool_url": "https://support.zoom.com/hc",
+  "tags": [
+    "Zoom",
+    "MSI",
+    "program name change",
+    "deployment",
+    "software management"
+  ],
+  "node_id": "e9f98723-bf8c-4e11-8d19-5a5171fc26e1",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "low",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

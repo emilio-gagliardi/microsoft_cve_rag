@@ -1,0 +1,21 @@
+{
+  "description": "A race condition in the Windows CNG key isolation service leads to improper synchronization, allowing a use after free vulnerability that can be exploited via local access or user interaction, enabling elevation of privilege.",
+  "cause_label": "windows_cng_key_isolation_service_race_condition",
+  "source_id": "8a531501-c62a-7090-214b-8940a862671f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8a531501-c62a-7090-214b-8940a862671f"
+  ],
+  "tags": [
+    "CVE-2024-30031",
+    "Windows",
+    "Key Isolation",
+    "Privilege Escalation"
+  ],
+  "node_id": "f4fe9397-5961-411f-bf8d-aa37a3174399",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

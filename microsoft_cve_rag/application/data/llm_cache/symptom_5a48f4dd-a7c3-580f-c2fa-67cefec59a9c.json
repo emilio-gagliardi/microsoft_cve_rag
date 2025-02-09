@@ -1,0 +1,21 @@
+{
+  "symptom_label": "odbc_driver_causes_remote_execution_via_sql_client",
+  "description": "After establishing a connection to a malicious SQL database using an SQL client application, the user may experience unexpected execution of arbitrary code. This abnormal behavior can manifest as unauthorized modifications to data or unanticipated actions being performed by the application, leading to potential data integrity issues. Users may notice unusual error messages or behaviors when performing standard database operations. The affected systems may include various Windows versions as noted in the KB articles provided (KB5035959, KB5035858, etc.). The problem primarily affects machines running build numbers 10.0.22631.3296, 10.0.22621.3296, and earlier iterations, which can elevate risks of data exposure and manipulation.",
+  "source_id": "5a48f4dd-a7c3-580f-c2fa-67cefec59a9c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5a48f4dd-a7c3-580f-c2fa-67cefec59a9c"
+  ],
+  "tags": [
+    "Microsoft",
+    "ODBC",
+    "Remote Code Execution",
+    "SQL Client",
+    "Security Update"
+  ],
+  "node_id": "0b2456b5-1dd6-499f-987b-86a6f558e467",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

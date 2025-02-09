@@ -1,0 +1,23 @@
+{
+  "tool_label": "manage_windows_boot_manager_revoke_secure_boot",
+  "description": "**Tool Overview**:\n\nA resource provided by Microsoft to manage the Windows Boot Manager revocations associated with Secure Boot changes related to CVE-2023-24932.\n\n**Details**:\n\nThis tool guides administrators on how to effectively manage secure boot settings on Windows operating systems. It addresses the procedure for dealing with revocations that may affect system integrity and boot functionality. Key actions include:\n1. Reviewing and understanding the implications of secure boot changes.\n2. Implementing appropriate policies to manage boot revocations.\n3. Monitoring system builds and their correspondence with relevant KB articles.\n\nFor detailed guidance, please refer to the KB article linked below.\n",
+  "source_id": "10d8462a-f0f6-69e1-f06e-d550b862f5fb",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "10d8462a-f0f6-69e1-f06e-d550b862f5fb"
+  ],
+  "source_url": "https://support.microsoft.com/en-us/topic/kb5025885-how-to-manage-the-windows-boot-manager-revocations-for-secure-boot-changes-associated-with-cve-2023-24932-41a975df-beb2-40c1-99a3-b3ff139f832d",
+  "tool_url": "https://support.microsoft.com/en-us/topic/kb5025885-how-to-manage-the-windows-boot-manager-revocations-for-secure-boot-changes-associated-with-cve-2023-24932-41a975df-beb2-40c1-99a3-b3ff139f832d",
+  "tags": [
+    "Secure Boot",
+    "Windows",
+    "Boot Manager",
+    "CVE Management"
+  ],
+  "node_id": "3d111647-5d8b-49fa-9975-e7c3b09baad4",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_dynamics_365_business_central_unexpected_remote_execution",
+  "description": "Users may experience unexpected execution of remote commands when using Microsoft Dynamics 365 Business Central due to a recently identified vulnerability. This can lead to unanticipated behaviors in applications, such as unauthorized data access or alterations. Specific builds affected include application build 23.7.18957 and platform build 23.0 as detailed in KB-5038530. Users should be aware that such conditions may present significant security concerns and business risks, highlighting the need for timely updates and patch management. This symptom emphasizes the critical nature of maintaining updated software to mitigate risks associated with remote code execution.",
+  "source_id": "78317a37-1ad2-5b64-c315-5be4e72fa91a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "78317a37-1ad2-5b64-c315-5be4e72fa91a"
+  ],
+  "tags": [
+    "Microsoft",
+    "Dynamics 365",
+    "Business Central",
+    "Remote Code Execution"
+  ],
+  "node_id": "2a6be8fd-e62e-443c-838a-92675aeece6b",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

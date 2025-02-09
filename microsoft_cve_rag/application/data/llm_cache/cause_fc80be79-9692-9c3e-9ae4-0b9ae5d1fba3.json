@@ -1,0 +1,22 @@
+{
+  "description": "A null pointer dereference flaw in the Windows NAT component leads to denial of service, exploitation via the network stack without user interaction, and impacts multiple builds of Windows 10 and 11.",
+  "cause_label": "windows_nat_null_pointer_dereference_dos",
+  "source_id": "fc80be79-9692-9c3e-9ae4-0b9ae5d1fba3",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "fc80be79-9692-9c3e-9ae4-0b9ae5d1fba3"
+  ],
+  "tags": [
+    "CVE-2024-38126",
+    "Denial of Service",
+    "Windows NAT",
+    "NULL Pointer Dereference",
+    "Important"
+  ],
+  "node_id": "4acac0a0-46f4-4669-ae88-e6e5899a6b35",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

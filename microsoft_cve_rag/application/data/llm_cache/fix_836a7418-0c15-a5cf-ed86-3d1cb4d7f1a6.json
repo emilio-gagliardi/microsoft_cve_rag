@@ -1,0 +1,16 @@
+{
+  "description": "To mitigate issues observed on the Windows Server 2019 Hyper-V host related to Microsoft\u2019s replication with Azure Site Recovery, deleting the RCT (Replication Change Tracking) files has proven effective for the affected virtual machines. This approach helps in refreshing the replication state and resolving inconsistencies that may arise during operations. It is essential to verify the impact on other services before executing this action, ensuring that all necessary backups and configurations are in place to prevent data loss. Administrators are advised to monitor the system closely following this change to confirm stability. This solution is particularly relevant for environments utilizing Azure Site Recovery for replication tasks.",
+  "source_id": "836a7418-0c15-a5cf-ed86-3d1cb4d7f1a6",
+  "source_type": "PatchManagementPost",
+  "fix_label": "DeleteRctFilesToRefreshReplicationState",
+  "tags": [
+    "Hyper-V",
+    "Azure Site Recovery",
+    "Windows Server 2019"
+  ],
+  "node_id": "64944010-d20a-4f5b-bcdf-36291a65870d",
+  "node_label": "Fix",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Fix"
+}

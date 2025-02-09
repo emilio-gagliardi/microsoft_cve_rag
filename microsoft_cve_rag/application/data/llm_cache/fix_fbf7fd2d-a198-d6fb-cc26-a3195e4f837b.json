@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Remote Code Execution vulnerability in the Windows Routing and Remote Access Service (RRAS) caused by a Numeric Truncation Error:\n\n1. Download and install the relevant KB updates from the Microsoft Update Catalog based on your system version:\n   - For Windows 11 Version 23H2: [KB5037771](https://catalog.update.microsoft.com/Search.aspx?q=KB5037771)\n   - For Windows 10 Version 22H2 (x64): [KB5037768](https://catalog.update.microsoft.com/Search.aspx?q=KB5037768)\n   - For Windows 10 Version 21H2 (x64): [KB5037770](https://catalog.update.microsoft.com/Search.aspx?q=KB5037770)\n   - For Windows 10 (x64 and 32-bit): [KB5037788](https://catalog.update.microsoft.com/Search.aspx?q=KB5037788)\n\n2. Restart your system after installation to ensure the changes take effect.\n\n**Details**:\n- These updates address vulnerabilities that could allow remote code execution through improper handling of objects in memory. Ensure your system matches one of the specified build numbers prior to installing the updates.\n\n**Preconditions**:\n- Verify your Windows version and build number to ensure compatibility with the update packages.\n- Always backup critical data before proceeding with system updates.",
+  "source_id": "fbf7fd2d-a198-d6fb-cc26-a3195e4f837b",
+  "source_type": "MSRCPost",
+  "fix_label": "address_rras_remote_code_execution_cve202430029",
+  "tags": [
+    "KB5037771",
+    "KB5037770",
+    "RRAS",
+    "CVE202430029"
+  ],
+  "node_id": "2fec9829-b6e5-4c3e-bc85-989be9ddd0eb",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "fbf7fd2d-a198-d6fb-cc26-a3195e4f837b"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "Improper input validation in the secure boot feature allows bypassing security controls in affected Windows builds.",
+  "cause_label": "secure_boot_bypass_due_to_improper_input_validation",
+  "source_id": "a9cc3b6f-c6c6-d5a0-1102-5a6ca498a540",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a9cc3b6f-c6c6-d5a0-1102-5a6ca498a540"
+  ],
+  "tags": [
+    "CVE",
+    "Windows",
+    "security",
+    "input validation",
+    "secure boot"
+  ],
+  "node_id": "c38ee6c8-085f-40d5-8d43-370b1f7e4b77",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

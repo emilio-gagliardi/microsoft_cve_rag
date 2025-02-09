@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the Windows Layer-2 Bridge Network Driver denial of service vulnerability (CVE-2024-38146):\n\n1. Identify your Windows version and architecture (32-bit or 64-bit).\n2. Download and apply the appropriate KB update from the official Microsoft Catalog:\n   - For Windows 10 Version 22H2 for x64-based Systems, download from: [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n   - For Windows 10 Version 21H2 for x64-based Systems, download from: [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n   - For Windows 11 Version 21H2 for x64-based Systems, download from: [KB5041592](https://catalog.update.microsoft.com/Search.aspx?q=KB5041592)\n3. Restart your system after installation to ensure the changes take effect.\n\n**Details**:\n- This update addresses vulnerabilities in the Windows Layer-2 Bridge Network Driver that could lead to denial of service.\n- Ensure your system is updated to the specified build numbers and versions for compatibility.\n\n**Preconditions**:\n- Backup critical data before proceeding with the update installation.\n- Verify that your system falls within the specified build numbers: [10, 0, 19044, 4780], [10, 0, 22631, 4037], etc.",
+  "source_id": "c471421e-3f62-a141-715d-8c102b12169c",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_layer_2_bridge_network_driver_cve202438146",
+  "tags": [
+    "KB5041592",
+    "KB5041585",
+    "KB5041580",
+    "KB5041571"
+  ],
+  "node_id": "c5826f98-9e69-436b-806e-bcd88d27fba3",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c471421e-3f62-a141-715d-8c102b12169c"
+  ],
+  "verification_status": "unverified"
+}

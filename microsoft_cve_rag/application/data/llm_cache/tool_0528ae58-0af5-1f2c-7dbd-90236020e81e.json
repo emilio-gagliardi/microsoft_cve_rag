@@ -1,0 +1,17 @@
+{
+  "tool_label": "SecurityUpdateForElevationOfPrivilegeIssue",
+  "description": "This tool is a security update provided by Microsoft to address the CVE-2023-36407 vulnerability in Windows 10 and Windows 11 systems. It mitigates an elevation of privilege vulnerability which, if exploited, could allow an attacker to gain system privileges. Administrators can find and apply this update through the Microsoft Update Catalog or through the Windows Update settings in the operating system.",
+  "source_id": "0528ae58-0af5-1f2c-7dbd-90236020e81e",
+  "source_type": "MSRCPost",
+  "source_url": "https://www.microsoft.com/en-us/download/details.aspx?id=52373",
+  "tags": [
+    "security",
+    "patch",
+    "update"
+  ],
+  "node_id": "a6e6b075-1e6d-4913-b5ba-cc910598ad8d",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

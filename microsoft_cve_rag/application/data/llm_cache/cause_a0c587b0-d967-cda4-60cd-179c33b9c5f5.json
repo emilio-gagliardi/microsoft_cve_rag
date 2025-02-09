@@ -1,0 +1,19 @@
+{
+  "description": "A time-of-check time-of-use (TOCTOU) race condition in the secure boot security feature allowing a bypass of intended security checks.",
+  "cause_label": "secure_boot_time_of_check_time_of_use_race_condition",
+  "source_id": "a0c587b0-d967-cda4-60cd-179c33b9c5f5",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a0c587b0-d967-cda4-60cd-179c33b9c5f5"
+  ],
+  "tags": [
+    "secure boot",
+    "race condition",
+    "CVE-2024-29062"
+  ],
+  "node_id": "6f42a3ac-df64-4996-b785-abd20475fcfe",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,23 @@
+{
+  "symptom_label": "users_experience_elevation_of_privilege_issue",
+  "description": "End users may encounter difficulties with elevated privileges after connecting to malicious remote shares on their Windows systems. This can lead to unauthorized access to system resources and potentially disastrous outcomes for IT administrators responsible for network integrity. Systems affected include Windows 11 versions 24H2 (build 10.0.26100.2314), Windows 10 versions 22H2 and 21H2, and support for Windows Server 2025. There is a requirement for user interaction, as the elevation of privilege is triggered during this specific action, leading to concerning security implications. This issue is documented in KB articles 5046617, 5046633, and 5046613.",
+  "source_id": "20a3f571-da27-6f14-341a-02a98416b957",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "20a3f571-da27-6f14-341a-02a98416b957"
+  ],
+  "tags": [
+    "Windows",
+    "Elevation of Privilege",
+    "Windows 11",
+    "Windows 10",
+    "Windows Server",
+    "Malicious Remote Shares"
+  ],
+  "node_id": "be7b5ad2-f87b-47e2-a68e-fc6ffb8c61ef",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

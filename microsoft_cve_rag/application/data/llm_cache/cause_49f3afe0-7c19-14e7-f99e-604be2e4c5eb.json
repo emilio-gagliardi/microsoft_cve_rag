@@ -1,0 +1,18 @@
+{
+  "description": "The issue arises from the potential failure of updates to McAfee/Trellix products, which can occur due to a bad definitions update or complications with the on-access scanner service. Disabling certain services systematically can help identify the specific service causing the issue. In many instances, service logs may reveal if certain operations are blocked or interrupted, further indicating a misconfiguration or a problem stemming from software updates. This situation calls for careful analysis, especially for configurations relying on real-time scanning functionalities, which can be crucial for maintaining system integrity. Awareness of such issues is vital for administrators managing updates in enterprise environments.",
+  "source_id": "49f3afe0-7c19-14e7-f99e-604be2e4c5eb",
+  "source_type": "PatchManagementPost",
+  "cause_label": "BadDefinitionsUpdateDisruptsScanningFunctionality",
+  "tags": [
+    "mcafee",
+    "trellix",
+    "on-access scanner",
+    "definitions update",
+    "service logs"
+  ],
+  "node_id": "d938bbb3-ae0d-4542-bd97-ff921cd5de12",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

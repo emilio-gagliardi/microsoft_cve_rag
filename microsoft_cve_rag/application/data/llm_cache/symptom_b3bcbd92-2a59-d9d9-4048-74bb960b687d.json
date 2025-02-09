@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_experiences_elevation_of_privilege_warning",
+  "description": "After applying one of the security updates identified in KB-5036925, KB-5036909, and others, users may notice persistent warnings regarding elevation of privileges in their systems. This behavior has been observed on various Windows builds including 10.0.19045.4291, 10.0.19044.4291, and 10.0.22631.3447. The warning messages can interrupt user activities, causing frustration and hindering productivity. Additionally, some users may experience issues with application functionality that requires administrative access, resulting in restricted operations. This symptom might affect Windows 10 and Windows Server environments, leading to confusion about permissions and necessary access levels for users.",
+  "source_id": "b3bcbd92-2a59-d9d9-4048-74bb960b687d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b3bcbd92-2a59-d9d9-4048-74bb960b687d"
+  ],
+  "tags": [
+    "Windows",
+    "Update",
+    "Elevation of Privilege",
+    "User Experience"
+  ],
+  "node_id": "84bf3a8d-56f8-443c-8bf0-b08f1f119937",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

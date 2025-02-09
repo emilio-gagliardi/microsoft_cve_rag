@@ -1,0 +1,21 @@
+{
+  "symptom_label": "gpmc_gui_inconsistency_between_patched_systems",
+  "description": "An inconsistency in the Group Policy Management Console (GPMC) GUI manifests when comparing operations between a patched Windows 11 system and an unpatched Windows Server 2022. In this scenario, Group Policy Objects (GPOs) created on a patched Windows 11 system incorrectly display the option as 'user in group' instead of 'computer in group', despite the selection made during the GPO creation. This behavior contrasts with the unpatched Windows Server 2022 GPMC, which displays the correct 'computer in group' text but grays out the 'user in group' option. While the policy appears to be correctly processed by the computer, this GUI inconsistency could lead to confusion among administrators when managing GPOs across different patched and unpatched environments. Refer to KB-041578 for further details on this issue.",
+  "source_id": "f15c8ff1-18c6-3e09-31ed-8005c13a17a4",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "f15c8ff1-18c6-3e09-31ed-8005c13a17a4"
+  ],
+  "tags": [
+    "gpmc",
+    "windows11",
+    "windowsserver2022",
+    "group_policy"
+  ],
+  "node_id": "f773db3c-56bb-4392-86c3-9548bd361788",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

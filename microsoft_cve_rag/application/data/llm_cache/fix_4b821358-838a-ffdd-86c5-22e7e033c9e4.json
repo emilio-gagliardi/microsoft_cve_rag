@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the out-of-bounds write vulnerability in Chromium used by Microsoft Edge:\n\n1. Update Microsoft Edge (Chromium-based) to the latest version, which is 130.0.6723.92 or higher.\n2. To check for updates, in your Microsoft Edge browser, click on the three dots (...) on the upper right corner.\n3. Navigate to 'Help and Feedback' and then click 'About Microsoft Edge' to view and update your browser.\n\n**Details**:\n- This update addresses a critical vulnerability that could allow a remote attacker to perform out-of-bounds memory access via a crafted HTML page. \n- Ensure your version is updated to at least 130.0.6723.92 to be protected from this issue.\n\n**Preconditions**:\n- Make sure to restart the browser after applying the update to activate the changes.",
+  "source_id": "4b821358-838a-ffdd-86c5-22e7e033c9e4",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_130_0_6723_92",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-10487",
+    "Chromium",
+    "OutOfBoundsWrite"
+  ],
+  "node_id": "85ba906f-47a8-4a8a-9af8-428add5bec57",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix",
+  "source_ids": [
+    "4b821358-838a-ffdd-86c5-22e7e033c9e4"
+  ],
+  "verification_status": "unverified"
+}

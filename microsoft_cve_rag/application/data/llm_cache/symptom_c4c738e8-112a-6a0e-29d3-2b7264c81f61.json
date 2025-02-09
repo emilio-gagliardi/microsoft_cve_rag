@@ -1,0 +1,21 @@
+{
+  "symptom_label": "os_activation_issue_with_missing_product_key",
+  "description": "There is an observable issue with the operating system's activation process due to a missing or invalid product key, which may prevent users from accessing certain features or receiving updates. This problem often manifests as error messages indicating that the system is not genuine or activated, leading to restrictions in functionality. The activation issue might be related to informal key management practices or errors during system installation. Administrators should ensure that valid product keys are in use and verify that they align with the operating system build numbers deployed in their environment. It is critical to resolve these activation issues to maintain compliance and system integrity.",
+  "source_id": "c4c738e8-112a-6a0e-29d3-2b7264c81f61",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "c4c738e8-112a-6a0e-29d3-2b7264c81f61"
+  ],
+  "tags": [
+    "activation",
+    "product key",
+    "operating system",
+    "error message"
+  ],
+  "node_id": "b6437a94-4d87-4102-aeca-4b6bac6430ac",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

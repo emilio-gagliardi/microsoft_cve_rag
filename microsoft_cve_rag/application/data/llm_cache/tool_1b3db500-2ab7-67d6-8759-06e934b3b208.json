@@ -1,0 +1,19 @@
+{
+  "tool_label": "Windows Smartscreen Security Bypass",
+  "description": "A vulnerability in the Windows Smartscreen feature that allows attackers to bypass security checks. This vulnerability has a high CVSS rating of 8.8 and requires user interaction to exploit. It affects Microsoft Windows 10 and later versions.",
+  "synthesized_code": "",
+  "source_id": "1b3db500-2ab7-67d6-8759-06e934b3b208",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/d9d32576-bf61-4e1e-ac57-910bd685a64cn%40googlegroups.com",
+  "tool_url": "",
+  "tags": [
+    "vulnerability",
+    "security",
+    "Windows"
+  ],
+  "node_id": "e64abbd8-7aee-4793-aea4-33dcd0a9dde7",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "critical",
+  "entity_type": "Tool"
+}

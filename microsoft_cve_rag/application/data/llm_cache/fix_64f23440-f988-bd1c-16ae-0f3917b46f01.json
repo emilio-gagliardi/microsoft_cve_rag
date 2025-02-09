@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Use After Free vulnerability identified by CVE-2024-5496 in the Chromium engine affecting Microsoft Edge:\n\n1. Ensure that your Microsoft Edge browser is updated to version 125.0.6422.141 or later.\n2. To check your current version of Microsoft Edge, click on the three dots (...) in the upper right corner, then navigate to Help and Feedback > About Microsoft Edge.\n3. If your version is below 125.0.6422.141, update to the latest version immediately to mitigate potential risks.\n\n**Details**:\n- This vulnerability could allow a remote attacker to execute arbitrary code within a sandbox via a specially crafted HTML page.\n- The relevant Chromium build that eliminates this vulnerability is included in Microsoft Edge versions 125.0.6422.141 and later.\n- Regularly check for updates and ensure that your browser remains current to protect against known vulnerabilities.",
+  "source_id": "64f23440-f988-bd1c-16ae-0f3917b46f01",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_125_0_6422_141",
+  "tags": [
+    "CVE20245496",
+    "MicrosoftEdge",
+    "Chromium",
+    "UseAfterFree"
+  ],
+  "node_id": "fb022233-8557-445d-bc47-e97f380fcdb6",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "64f23440-f988-bd1c-16ae-0f3917b46f01"
+  ],
+  "verification_status": "unverified"
+}

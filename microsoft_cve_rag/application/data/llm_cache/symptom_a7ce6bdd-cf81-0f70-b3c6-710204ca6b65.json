@@ -1,0 +1,20 @@
+{
+  "symptom_label": "user_privilege_elevation_resulting_in_file_deletion",
+  "description": "After exploiting the identified vulnerability, users may experience unauthorized file deletion on their systems. This occurs because an attacker, with local access and basic privileges, can manipulate the Windows File Server Resource Management Service to elevate their privileges. Following this elevated privilege, the attacker can delete targeted files, leading to potential data loss or system instability. The impact manifests as unexpected file removals, causing disruption and concern for those managing the affected systems. The vulnerability affects various Windows Server versions, including Server 2008 R2, Server 2016, Server 2019, and Server 2022, with relevant KB articles being KB-5036910, KB-5036909, KB-5036899, and KB-5036896.",
+  "source_id": "a7ce6bdd-cf81-0f70-b3c6-710204ca6b65",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a7ce6bdd-cf81-0f70-b3c6-710204ca6b65"
+  ],
+  "tags": [
+    "Windows Server",
+    "File Deletion",
+    "Privilege Escalation",
+    "Elevation of Privilege"
+  ],
+  "node_id": "52a8d606-6206-44f4-bfbe-4c418e170352",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

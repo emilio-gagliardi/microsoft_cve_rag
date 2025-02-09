@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability in Windows Routing and Remote Access Service (RRAS) linked to CVE-2024-30095:\n\n1. Download the appropriate KB update package based on your system version from the following links:\n   - For Windows 10 Version 21H2, 22H2 (x64/32-bit): [KB5039211](https://catalog.update.microsoft.com/Search.aspx?q=KB5039211)\n   - For Windows 10 Version 21H2, 22H2: [KB5039225](https://catalog.update.microsoft.com/Search.aspx?q=KB5039225)\n   - For Windows 11 Version 21H2, 22H2, 23H2: [KB5039212](https://catalog.update.microsoft.com/Search.aspx?q=KB5039212) and [KB5039213](https://catalog.update.microsoft.com/Search.aspx?q=KB5039213)\n\n2. Install the update by following the standard installation procedures applicable to your environment.\n3. Restart your system to apply the changes once the installation is complete.\n\n**Details**:\nThis update addresses a heap-based buffer overflow issue within RRAS that could lead to remote code execution, potentially allowing an attacker to run arbitrary code with system privileges. It's crucial to ensure that your systems are updated to the latest builds as indicated above to prevent exploitation of this vulnerability.\n\n**Preconditions**:\n- Ensure that your system matches one of the build numbers listed for the respective operating system version.\n- Backup critical data before proceeding with the installation of updates.",
+  "source_id": "b5ac8b1a-3445-5c06-ef31-f0989a2db1d1",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_rras_cve202430095",
+  "tags": [
+    "KB5039211",
+    "KB5039212",
+    "Windows10",
+    "Windows11"
+  ],
+  "node_id": "806c6a93-8a6c-4547-b2d6-00b12af718ab",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b5ac8b1a-3445-5c06-ef31-f0989a2db1d1"
+  ],
+  "verification_status": "unverified"
+}

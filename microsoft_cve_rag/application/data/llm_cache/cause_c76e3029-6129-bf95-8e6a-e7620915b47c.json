@@ -1,0 +1,19 @@
+{
+  "description": "The underlying cause of CVE-2023-6345 is an integer overflow issue in Skia, the graphical library used by Chromium and its derivatives. This flaw allows the potential for memory corruption, which could lead to arbitrary code execution. The vulnerability specifically impacts the Microsoft Edge (Chromium-based) browser, particularly in the versions 119.0.2151.97 and earlier. It is crucial to note that Skia is an integral component of the Chromium framework, which is leveraged by Edge, thereby making this flaw a significant point of concern for users of the browser. The update provided on November 29, 2023, addresses and mitigates this vulnerability, rendering the affected versions secure. For further details, see KB-119.0.2151.97.",
+  "cause_label": "IntegerOverflowIssueInSkiaLibrary",
+  "source_id": "c76e3029-6129-bf95-8e6a-e7620915b47c",
+  "source_type": "MSRCPost",
+  "tags": [
+    "integer overflow",
+    "Skia",
+    "Microsoft Edge",
+    "CVE-2023-6345",
+    "vulnerability",
+    "security"
+  ],
+  "node_id": "47f9db9b-4204-4d02-a9b3-b22f658d6bc7",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

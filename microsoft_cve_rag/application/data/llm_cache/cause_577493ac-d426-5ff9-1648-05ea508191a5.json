@@ -1,0 +1,21 @@
+{
+  "description": "The issue arises from untrusted pointer dereference in the win32k component, which leads to an elevation of privilege. This vulnerability is specifically tied to the manipulation of pointers that are not properly validated, allowing a low-privileged attacker to gain higher system privileges through local or indirect access methods.",
+  "cause_label": "win32k_untrusted_pointer_dereference_elevation_of_privilege",
+  "source_id": "577493ac-d426-5ff9-1648-05ea508191a5",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "577493ac-d426-5ff9-1648-05ea508191a5"
+  ],
+  "tags": [
+    "win32k",
+    "elevation of privilege",
+    "CVE-2024-43636",
+    "CWE-822"
+  ],
+  "node_id": "2aaca7d1-7c5d-43ea-af32-0f5916629ff4",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

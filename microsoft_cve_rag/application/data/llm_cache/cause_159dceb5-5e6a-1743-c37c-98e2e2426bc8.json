@@ -1,0 +1,21 @@
+{
+  "description": "The performance issues observed during patching times appear to be linked to problems in the cryptographic services running on Windows Server 2016. Users reported long patching durations along with system hanging and freezing situations that necessitated a hard reset on the first reboot after patching. It was noted that stopping the cryptographic services and clearing the content of the catroot2 directory (C:\\Windows\\System32\\catroot2) before initiating the patching can mitigate these issues. This indicates that inadequate handling of cryptographic tasks can impact the system's responsiveness during updates. This issue might affect various builds of Windows Server 2016 but is specifically referenced in the context of KB5041773.",
+  "source_id": "159dceb5-5e6a-1743-c37c-98e2e2426bc8",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "159dceb5-5e6a-1743-c37c-98e2e2426bc8"
+  ],
+  "cause_label": "cryptographic_services_interference_with_patching",
+  "tags": [
+    "Windows Server 2016",
+    "cryptographic services",
+    "patching performance issues",
+    "KB5041773"
+  ],
+  "node_id": "37191bb7-5623-4f80-ab2e-aa18495f58c5",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

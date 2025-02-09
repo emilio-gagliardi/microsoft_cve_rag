@@ -1,0 +1,22 @@
+{
+  "description": "An integer underflow condition exists within the secure boot implementation, allowing an attacker on a logically adjacent network to bypass secure boot protections. This flaw arises from inadequate validation of input size during the secure boot process, potentially enabling unauthorized access to system resources.",
+  "cause_label": "secure_boot_integer_underflow_bypass",
+  "source_id": "791e8de1-e96c-c5ec-f6af-c08c0aa7a77c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "791e8de1-e96c-c5ec-f6af-c08c0aa7a77c"
+  ],
+  "tags": [
+    "secure boot",
+    "integer underflow",
+    "CVE-2024-37986",
+    "Microsoft",
+    "vulnerability"
+  ],
+  "node_id": "31213afa-7c42-42a0-a2dd-1f386c7c686b",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

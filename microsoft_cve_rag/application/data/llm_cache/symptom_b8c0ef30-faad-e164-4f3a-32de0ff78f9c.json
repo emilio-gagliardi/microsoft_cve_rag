@@ -1,0 +1,21 @@
+{
+  "symptom_label": "unauthenticated_access_bypasses_secure_boot_feature",
+  "description": "After applying the updates detailed in the KB articles (KB5040448, KB5040442, KB5040431, KB5040427) on systems running Windows 10 and Windows 11, users may observe that unauthorized actors can exploit a flaw that allows them to bypass the secure boot feature. This may manifest as unexpected behaviors where devices fail to maintain the expected security posture during boot-up processes because the integrity checks are not being enforced as designed. The issue could also lead to system states being compromised, wherein the operating system might allow changes that would otherwise be blocked. Systems on build numbers 10.0.22631.3880 (Windows 11) and 10.0.19045.4651 (Windows 10) are specifically affected. System administrators will need to be alerted to this risk and monitor for any unusual access attempts during the boot sequence.",
+  "source_id": "b8c0ef30-faad-e164-4f3a-32de0ff78f9c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b8c0ef30-faad-e164-4f3a-32de0ff78f9c"
+  ],
+  "tags": [
+    "Windows",
+    "Secure Boot",
+    "Update",
+    "CVE-2024-38011"
+  ],
+  "node_id": "8412215c-09f9-4ce2-beff-7b646b4c0c43",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

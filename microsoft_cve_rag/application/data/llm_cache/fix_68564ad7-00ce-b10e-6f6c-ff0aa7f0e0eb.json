@@ -1,0 +1,16 @@
+{
+  "description": "To address the Windows Installer elevation of privilege, it is essential to apply the updates specified in the KB Articles: KB5032199, KB5032192, KB5032190, and KB5032189. These updates are applicable to various build numbers of Windows 10 and Windows 11, including versions 10.0.17763.5122, 10.0.22621.2715, and 10.0.19045.3693. The available update packages can be accessed through the following links: [KB5032197](https://catalog.update.microsoft.com/Search.aspx?q=KB5032197), [KB5032192](https://catalog.update.microsoft.com/Search.aspx?q=KB5032192), [KB5032199](https://catalog.update.microsoft.com/Search.aspx?q=KB5032199), and [KB5032189](https://catalog.update.microsoft.com/Search.aspx?q=KB5032189). Ensure all relevant updates are installed to mitigate the associated risks. Regularly check for any further updates that might be released to enhance security against potential exploits.",
+  "source_id": "68564ad7-00ce-b10e-6f6c-ff0aa7f0e0eb",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplyUpdatesForWindowsInstallerPrivilegeEscalation",
+  "tags": [
+    "Windows",
+    "elevation",
+    "privilege"
+  ],
+  "node_id": "897b79bd-16f8-4e7a-a042-21a04ccdb70c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

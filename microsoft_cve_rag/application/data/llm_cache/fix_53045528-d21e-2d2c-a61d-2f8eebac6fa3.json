@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo continue using Windows 10 after its support ends on October 14, 2025:\n\n1. Consider enrolling in the paid Extended Security Updates (ESU) program for your PC.\n2. This program allows PCs to receive critical and important security updates through an annual subscription service.\n\n**Details**:\n- The ESU program ensures ongoing security updates as defined by the Microsoft Security Response Center.\n- It is recommended for both individual consumers and organizations that wish to extend secure usage of Windows 10 PCs beyond the support deadline. (LLM Synthesized)\n\n**Preconditions**:\n- Be prepared for potential costs associated with the subscription service.\n- Evaluate your organization's need for continued security updates against the option to transition to Windows 11.",
+  "source_id": "53045528-d21e-2d2c-a61d-2f8eebac6fa3",
+  "source_type": "PatchManagementPost",
+  "fix_label": "EnrollInExtendedSecurityUpdatesForWindows10",
+  "tags": [
+    "Windows10",
+    "ExtendedSecurityUpdates",
+    "SecurityManagement",
+    "LLM Synthesized"
+  ],
+  "node_id": "b5318e82-1f0e-4c54-9523-fe47799fd90a",
+  "node_label": "Fix",
+  "reliability": "0.7",
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

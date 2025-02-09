@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the secure boot security feature bypass vulnerability identified as CVE-2024-37978:\n\n1. Download and apply the KB5040442 update from the official Windows Update catalog.\n2. Ensure that your system is up to date by checking Windows Update after installation to confirm that the update has been applied successfully.\n3. Restart your system after installation to ensure the changes take effect.\n\n**Details**:\n- This update addresses stack-based buffer overflow vulnerabilities that could potentially be exploited to bypass secure boot features.\n- For manual installation, download the update package from: [KB5040442 Update Package](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442).\n\n**Preconditions**:\n- Ensure your system is running a supported version of Windows 11 (either Version 23H2 or Version 22H2).\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "1a9f16de-b689-6969-d7d9-d687801ceef9",
+  "source_type": "MSRCPost",
+  "fix_label": "address_secure_boot_bypass_vulnerability_cve202437978",
+  "tags": [
+    "KB5040442",
+    "Windows11",
+    "SecureBootBypass",
+    "BufferOverflow"
+  ],
+  "node_id": "df9d0148-35c8-4aaf-9a11-872307f8bcce",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "1a9f16de-b689-6969-d7d9-d687801ceef9"
+  ],
+  "verification_status": "unverified"
+}

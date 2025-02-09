@@ -1,0 +1,21 @@
+{
+  "description": "Inappropriate implementation in web app installs allowed an attacker to perform UI spoofing via a crafted HTML page. This flaw affected Google Chrome on Windows prior to version 128.0.6613.84, which is utilized by Microsoft Edge (Chromium-based). The vulnerability has been addressed in the security updates of Microsoft Edge version 128.0.2739.42.",
+  "cause_label": "chromium_inappropriate_implementation_in_webapp_installs",
+  "source_id": "9296d48a-3541-98ad-692c-76af0a29a5b6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "9296d48a-3541-98ad-692c-76af0a29a5b6"
+  ],
+  "tags": [
+    "CVE-2024-8033",
+    "Microsoft Edge",
+    "Google Chrome",
+    "UI Spoofing"
+  ],
+  "node_id": "ce1bb3e9-b05d-4be1-abd3-0f4c26d58aec",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

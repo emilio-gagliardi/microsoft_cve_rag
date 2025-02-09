@@ -1,0 +1,24 @@
+{
+  "tool_label": "splunk_blog_on_openssh_vulnerability",
+  "description": "**Tool Overview**:\n\nA blog post by Splunk that addresses the critical 'regreSSHion' vulnerability (CVE-2024-6387) found in OpenSSH. This resource examines the technical details surrounding the vulnerability, including the mechanics of the exploit and effective detection strategies. It also offers essential mitigation tips for administrators looking to safeguard their systems against this specific threat.\n\n**Details**:\n\n1. **Understanding the Vulnerability**: The blog provides insights on how the regreSSHion vulnerability affects OpenSSH, detailing its potential impact on systems that rely on this software for secure communications.\n2. **Detection Strategies**: It outlines key detection strategies that can be implemented using Splunk, helping security teams to monitor for signs of exploitation.\n3. **Mitigation Tips**: The article offers practical recommendations to mitigate the risks associated with this vulnerability, assisting system administrators in their response efforts.\n4. **Frequently Updated**: The blog is part of Splunk's ongoing effort to share timely threat intelligence and research, making it a relevant resource for organizations.\n5. **Actionable Content**: Readers are encouraged to take action based on the insights provided, making it a valuable tool for proactive defense.\n\nFor continuous updates and more information, visit the Splunk blog directly.",
+  "source_id": "e10d69d1-6d5f-0e6a-d363-ef84b8cbb1b9",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e10d69d1-6d5f-0e6a-d363-ef84b8cbb1b9"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/563E550B-E0A9-4CFA-9D9B-7A7ADE41563A%40askwoody.com",
+  "tool_url": "https://www.splunk.com/blog/threat-research",
+  "tags": [
+    "Splunk",
+    "OpenSSH",
+    "vulnerability",
+    "threat detection",
+    "regreSSHion"
+  ],
+  "node_id": "68bd235b-e098-4ff0-a8e0-1c57a41f97a8",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

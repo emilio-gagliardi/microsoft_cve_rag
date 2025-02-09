@@ -1,0 +1,21 @@
+{
+  "symptom_label": "host_file_modification_prevents_search_icon_navigation",
+  "description": "Modifying the HOST file to redirect requests to the local host can prevent the search box icon from functioning as intended, specifically with regard to launching a web browser. Users may find that although the icon persists in the user interface, it becomes non-functional, as it no longer navigates to its default destination, which is a predefined website. This behavior can be misleading, as users expect the icon to perform its standard action. Such modifications may affect applications or user experiences tied to the standard web navigation process from the desktop environment. Administrators should be aware of these changes and ensure they communicate the implications clearly to users to avoid confusion.",
+  "source_id": "1e63cce1-b19c-0446-9c26-4156be8c676b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "1e63cce1-b19c-0446-9c26-4156be8c676b"
+  ],
+  "tags": [
+    "host file",
+    "local host",
+    "search icon",
+    "web navigation"
+  ],
+  "node_id": "a003dc2c-25c8-485c-8fbe-2784f69952c7",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "low",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

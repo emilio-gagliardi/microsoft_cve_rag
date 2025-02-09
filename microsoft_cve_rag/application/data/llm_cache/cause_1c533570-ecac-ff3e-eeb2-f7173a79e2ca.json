@@ -1,0 +1,21 @@
+{
+  "description": "Insufficient data validation in the DevTools component of Chromium, allowing remote code execution if specific user interactions are prompted on a malicious HTML page. This flaw affects Microsoft Edge (Chromium-based) versions prior to 130.0.6723.58, as Microsoft Edge relies on Chromium for its operations.",
+  "cause_label": "chromium_insufficient_data_validation_in_devtools",
+  "source_id": "1c533570-ecac-ff3e-eeb2-f7173a79e2ca",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "1c533570-ecac-ff3e-eeb2-f7173a79e2ca"
+  ],
+  "tags": [
+    "chromium",
+    "devtools",
+    "remote_code_execution",
+    "Microsoft Edge"
+  ],
+  "node_id": "cad71d70-6b2d-4c39-81e9-ae5b19004fb7",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "low",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

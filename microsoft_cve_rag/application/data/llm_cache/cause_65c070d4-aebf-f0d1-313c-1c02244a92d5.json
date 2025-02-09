@@ -1,0 +1,23 @@
+{
+  "description": "A use after free condition in the PDFium component of Chromium exposed Microsoft Edge (Chromium-based) to potential heap corruption vulnerabilities, enabling remote attacks via crafted PDF files.",
+  "cause_label": "chromium_use_after_free_in_pdfium_heap_corruption",
+  "source_id": "65c070d4-aebf-f0d1-313c-1c02244a92d5",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "65c070d4-aebf-f0d1-313c-1c02244a92d5"
+  ],
+  "tags": [
+    "CVE-2024-5847",
+    "PDFium",
+    "Chromium",
+    "Microsoft Edge",
+    "Heap Corruption",
+    "Use After Free"
+  ],
+  "node_id": "c74d1298-11ee-4954-8e71-a1b52103ba2f",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

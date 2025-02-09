@@ -1,0 +1,21 @@
+{
+  "symptom_label": "elevation_of_privilege_in_plugscheduler_task",
+  "description": "Users with Windows 10 versions 22H2 and 21H2 may experience scenarios whereby unauthorized elevation of privileges occurs during scheduled tasks. This issue allows a local attacker to exploit the Microsoft Plugscheduler scheduled task, potentially leading to significant security implications. End users might notice unusual application behaviors or system actions that exceed their permissions, raising flags for system administrators. The update identified as KB5037768 addresses these behaviors in build numbers 10.0.19045.4412 and 10.0.19044.4412 for 32-bit and x64-bit systems. Without proper mitigation through this update, users may remain vulnerable to unauthorized actions that could compromise their system integrity.",
+  "source_id": "2828ea49-abed-323f-25d8-a53f5cba8521",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2828ea49-abed-323f-25d8-a53f5cba8521"
+  ],
+  "tags": [
+    "Windows 10",
+    "Privilege Escalation",
+    "Task Scheduler",
+    "KB5037768"
+  ],
+  "node_id": "c75c5306-ef43-4205-b7be-1375a7239fb7",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

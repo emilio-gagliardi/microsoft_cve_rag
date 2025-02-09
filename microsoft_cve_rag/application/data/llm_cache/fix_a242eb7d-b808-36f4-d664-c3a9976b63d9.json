@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows secure kernel mode elevation of privilege vulnerability (CVE-2024-38142), it is essential to apply the respective updates provided by Microsoft. These updates contain patches that address the heap-based buffer overflow vulnerability present in certain versions of Windows.\n\n1. Identify the relevant Windows version running on your system.\n2. Download and install the appropriate KB updates:\n   - For Windows 11 Version 24H2: [KB5041571](https://catalog.update.microsoft.com/Search.aspx?q=KB5041592)\n   - For Windows 11 Version 23H2: [KB5041585](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585)\n   - For Windows 10 Version 22H2 for x64: [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n3. Restart your system after installation to ensure changes take effect.\n\n**Details**:\nThese updates enhance the security of the Windows kernel by resolving vulnerabilities that could allow for elevation of privileges by attackers. Ensure that your system matches the criteria outlined for applying the patches appropriately. \n\n**Preconditions**:\n- Check the specific build number of your Windows installation to select the correct update.\n- Backup critical data before proceeding with the installation of updates.\n",
+  "source_id": "a242eb7d-b808-36f4-d664-c3a9976b63d9",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_for_kernel_elevation_fix",
+  "tags": [
+    "KB5041571",
+    "Windows11",
+    "KernelModeElevation",
+    "HeapOverflow"
+  ],
+  "node_id": "8f858c96-c258-459f-ad07-1deb7a058b48",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "a242eb7d-b808-36f4-d664-c3a9976b63d9"
+  ],
+  "verification_status": "unverified"
+}

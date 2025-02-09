@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the heap buffer overflow vulnerability in the Chromium engine, update Microsoft Edge to the latest stable version:\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) in the upper-right corner.\n3. Navigate to `Help and feedback`.\n4. Click on `About Microsoft Edge` to automatically check for updates.\n5. Ensure your version matches or exceeds 126.0.6478.57 to secure against CVE-2024-5844.\n\n**Details**:\n- The vulnerability affects previous versions of the Chromium browser and could allow remote attackers to perform an out of bounds memory read via crafted HTML. \n- For Microsoft Edge (Chromium-based), the fixed version is 126.0.2592.56, which includes security updates addressing this issue. \n- Always verify your browser is updated after installation to maintain security. \n\nKB Article: KB-126.0.2592.56\n",
+  "source_id": "8a05b26e-6477-7818-5137-223f9481424a",
+  "source_type": "MSRCPost",
+  "fix_label": "update_edge_chromium_126_0_6478_57_to_address_cve20245844",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20245844",
+    "Chromium",
+    "HeapOverflow"
+  ],
+  "node_id": "75c9dc5a-b3b5-41a7-a528-5a36082c7ff0",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "8a05b26e-6477-7818-5137-223f9481424a"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,23 @@
+{
+  "tool_label": "powershell_command_setup_installation",
+  "description": "**Tool Overview**: \n\nA PowerShell command used for executing setup installations silently with specific parameters. This command is particularly useful for automating software installation processes in an enterprise environment. \n\n**Details**:  \n- The command includes options such as `/auto upgrade` to perform automatic upgrades during installation.  \n- The `/quiet` switch runs the setup without user interaction, enhancing automated deployments.  \n- The `/eula accept` flag allows the acceptance of the End User License Agreement without prompting the user, streamlining the installation process.  \n\nA typical use case could be executing the command as follows:  \n\n```powershell  \nsetup /auto upgrade /quiet /eula accept  \n```  \n\nThis structure allows administrators to manage installations across multiple systems efficiently and silently.",
+  "source_id": "87fed953-fbd3-f011-cf38-48e2c7506311",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "87fed953-fbd3-f011-cf38-48e2c7506311"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/95762a004d93407a85534266f740f4c3%40smithcons.com",
+  "tool_url": "",
+  "tags": [
+    "PowerShell",
+    "installation",
+    "automation",
+    "setup"
+  ],
+  "node_id": "4544d200-c3d8-479e-a3b3-757ca2c85d6e",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "azure_black_screen_issue_after_patch_installation",
+  "description": "Organizations are experiencing a black screen issue after installing certain patches referenced in KB5044273, which affects Windows OS builds 19044.5011 and 19045.5011. This issue manifests as a blank screen upon boot, preventing end-users from accessing their devices and impacting productivity. The problem appears to be widespread, as multiple users have reported similar experiences, leading to an urgent need for a reliable resolution or workaround. It's critical for system administrators to monitor their environments for this symptom and consider rolling back patches or implementing known fixes as detailed in associated Microsoft support documents.",
+  "source_id": "8a2bec5a-b5dc-2095-343c-5d8f8fba4f36",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "8a2bec5a-b5dc-2095-343c-5d8f8fba4f36"
+  ],
+  "tags": [
+    "black_screen",
+    "patch_management",
+    "KB5044273",
+    "Windows_19044_19045"
+  ],
+  "node_id": "4dd009de-34c9-41c5-b13f-ce1e0cffba88",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

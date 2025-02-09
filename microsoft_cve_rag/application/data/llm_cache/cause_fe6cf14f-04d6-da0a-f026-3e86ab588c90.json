@@ -1,0 +1,21 @@
+{
+  "description": "The Windows USB video class system driver contains an out-of-bounds read flaw, which can be exploited by an attacker physically connecting a malicious USB device. This enables elevation of privilege, allowing the attacker to gain system-level access to the affected machine.",
+  "cause_label": "windows_usb_video_class_out_of_bounds_read",
+  "source_id": "fe6cf14f-04d6-da0a-f026-3e86ab588c90",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "fe6cf14f-04d6-da0a-f026-3e86ab588c90"
+  ],
+  "tags": [
+    "CVE-2024-43449",
+    "Windows",
+    "USB Driver",
+    "Elevation of Privilege"
+  ],
+  "node_id": "c95f7678-e0f2-4455-8d95-727f36c2ecd7",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

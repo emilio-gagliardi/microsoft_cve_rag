@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Microsoft ODBC driver remote code execution vulnerability (CVE-2024-26159), it is crucial to apply the relevant security updates provided by Microsoft. Follow these steps to ensure your system is secure:\n\n1. Identify the appropriate update based on your Windows version:\n   - For Windows 11 Version 23H2, apply KB5035853.\n   - For Windows 11 Version 22H2, apply KB5035854.\n   - For Windows 11 Version 21H2, apply KB5035854.\n   - For Windows 10 (x64), apply KB5035858.\n   - For Windows 10 (32-bit), apply KB5035858.\n   - For Windows 10 Version 22H2 (x64), apply KB5035845.\n   - For Windows 10 Version 21H2 (x64), apply KB5035845.\n\n2. Download the update package from the appropriate links:\n   - [KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845)\n   - [KB5035858](https://catalog.update.microsoft.com/Search.aspx?q=KB5035858)\n   - [KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)\n   - [KB5035854](https://catalog.update.microsoft.com/Search.aspx?q=KB5035854)\n\n3. Install the updates and restart your system to apply changes.\n\n**Details**:\nThis update addresses the remote code execution vulnerability identified in the ODBC driver, which is critical for securing your Windows environment against potential exploits. Ensure that you are running a compatible build listed above to successfully apply the patches.\n\n**Preconditions**:\n- Backup critical data before proceeding with installation.\n- Ensure your system meets the version requirements prior to applying the updates.",
+  "source_id": "6d7a0e3b-4815-5fff-37db-e22aae639ae0",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_odbc_driver_remote_code_execution_cve202426159",
+  "tags": [
+    "CVE202426159",
+    "ODBCDriver",
+    "KB5035853",
+    "KB5035858"
+  ],
+  "node_id": "c3e95596-fabe-43ee-8c3b-f35a879619ad",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "6d7a0e3b-4815-5fff-37db-e22aae639ae0"
+  ]
+}

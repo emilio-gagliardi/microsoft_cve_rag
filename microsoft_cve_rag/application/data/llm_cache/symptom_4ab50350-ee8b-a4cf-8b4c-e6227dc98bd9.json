@@ -1,0 +1,21 @@
+{
+  "symptom_label": "odbc_driver_allows_remote_code_execution_via_sql_connection",
+  "description": "Users may experience unexpected behavior when connecting to malicious SQL servers using the Microsoft ODBC Driver. Specifically, there is a risk that when a user is tricked into establishing a connection to a remote server, the server may send specially crafted replies that exploit a flaw in the driver, leading to arbitrary code execution within the context of the user's SQL client application. This behavior is particularly concerning on systems running Windows 10 build numbers 19045.4046, 10240.20469, 22631.3155, 22621.3155, and 22000.2777. The impact of this issue, documented in KB-5034763, is classified as important, indicating that users need to be vigilant about the databases they connect to in order to safeguard their environment from potential exploitation.",
+  "source_id": "4ab50350-ee8b-a4cf-8b4c-e6227dc98bd9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4ab50350-ee8b-a4cf-8b4c-e6227dc98bd9"
+  ],
+  "tags": [
+    "ODBC Driver",
+    "SQL Server",
+    "Remote Code Execution",
+    "Windows 10",
+    "Windows 11"
+  ],
+  "node_id": "8ee76903-04a1-4d84-89b3-4d42cd8f96a1",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

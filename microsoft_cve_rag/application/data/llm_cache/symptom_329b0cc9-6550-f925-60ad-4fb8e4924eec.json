@@ -1,0 +1,16 @@
+{
+  "symptom_label": "HyperVPerformanceDegradationAfterPatchingHost",
+  "description": "The observed symptom indicates a performance degradation in virtual machines running on Hyper-V hosts after they are patched. Specifically, administrators have noted that patching the Hyper-V host triggers issues, which leads to a decision to postpone host patching until a resolution is established. Both KB-5031361 and KB-5031364 are relevant as they are linked to the performance problems experienced in Windows Server 2019 environments utilizing Hyper-V technology.",
+  "source_id": "329b0cc9-6550-f925-60ad-4fb8e4924eec",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Hyper-V",
+    "Veeam",
+    "performance"
+  ],
+  "node_id": "45172326-8d78-4a7b-ac0a-2a82d840cf81",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

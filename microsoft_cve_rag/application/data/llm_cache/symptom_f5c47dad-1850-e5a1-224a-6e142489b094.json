@@ -1,0 +1,21 @@
+{
+  "symptom_label": "non_patchable_systems_created_due_to_updates",
+  "description": "The issue of generating non-patchable systems has re-emerged, which cannot be rectified through conventional patching methods. To resolve this, an inplace upgrade is necessary. This symptom suggests that the current update process is failing to make certain systems compliant with patch management requirements. Such scenarios can lead to increased vulnerability to security risks, as these systems cannot be updated with the latest security patches. Additionally, this situation can indicate underlying issues with the update infrastructure or specific configurations that are preventing successful patch installations.",
+  "source_id": "f5c47dad-1850-e5a1-224a-6e142489b094",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "f5c47dad-1850-e5a1-224a-6e142489b094"
+  ],
+  "tags": [
+    "patch_management",
+    "inplace_upgrade",
+    "non_patchable_systems",
+    "update_failures"
+  ],
+  "node_id": "377ffb1a-e189-4fb9-b39b-fc3873b91061",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

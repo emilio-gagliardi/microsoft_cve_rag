@@ -1,0 +1,21 @@
+{
+  "symptom_label": "mecm_not_reporting_installed_patches_for_2019_servers",
+  "description": "2019 servers are not reporting the required patches in Microsoft Endpoint Configuration Manager (MECM) despite having installed them locally. This scenario suggests a discrepancy between the patch status displayed in MECM and the actual installed state observed on the servers. The issue affects all 2019 servers, which previously indicated patches were needed but currently do not register such requirements. The missing reports could lead to confusion and potential delays in ensuring that these systems are up-to-date with necessary updates. This problem is relevant to builds associated with KB-5037765 and can potentially impact system stability and security if not addressed promptly.",
+  "source_id": "0066989f-edf6-2792-7090-bc53efd72388",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "0066989f-edf6-2792-7090-bc53efd72388"
+  ],
+  "tags": [
+    "patch_management",
+    "mecm",
+    "windows_server_2019",
+    "reporting_issue"
+  ],
+  "node_id": "342fe533-b74d-4191-b130-ce213643402d",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "outlook_requires_user_action_to_open_email",
+  "description": "In affected versions of Microsoft Outlook, users must open a malicious email containing a certain payload to exploit a remote code execution vulnerability. Failure to take this specific action means users remain unaffected, but inadvertently opening such an email may lead to unauthorized access and potential system compromise. This activity can cause significant disruption as it may allow attackers to execute arbitrary code on the user's system. Users may also experience a heightened suspicion or anxiety while interacting with emails if the exploit becomes widely known, impacting their confidence in email communications. The issue affects multiple versions of Microsoft Office, specifically Office 2016, Office 2019, Office LTSC 2021, and Microsoft 365 apps for enterprise, with relevant KB articles indicating the update needed to address this problem.",
+  "source_id": "4d0d2273-edd7-f804-a231-f73ac22ea625",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4d0d2273-edd7-f804-a231-f73ac22ea625"
+  ],
+  "tags": [
+    "Microsoft",
+    "Outlook",
+    "Remote Code Execution",
+    "Email Security",
+    "User Interaction"
+  ],
+  "node_id": "aaa7809a-ba77-49f0-be36-75730d11812d",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

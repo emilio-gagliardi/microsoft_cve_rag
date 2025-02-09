@@ -1,0 +1,23 @@
+{
+  "tool_label": "rg_adguard_store_download_links",
+  "description": "**Tool Overview**:\n\nA tool utilized by the Central Bank of Ireland to simplify the process of retrieving download links for files required for packaging.\n\n**Details**:\n\nThis tool makes use of the RG AdGuard website, which provides direct access to download links for various packages. By employing this site, users can quickly and efficiently find the necessary files before proceeding with their packaging process. The functionality of this tool lies in its ability to streamline the retrieval of software, leading to better time management in deployment tasks. It is particularly useful for administrators managing multiple software requirements in an enterprise environment.\n\n**Usage Example**:\n1. Visit the RG AdGuard store URL.\n2. Browse or search for the required files.\n3. Download the files directly for use in your packaging process.",
+  "source_id": "3eb79409-1b44-32e6-beef-e081c5f84c06",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "3eb79409-1b44-32e6-beef-e081c5f84c06"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/d0ec4bce7e9a461d8d36b9dd57d1b8cf%40centralbank.ie",
+  "tool_url": "https://store.rg-adguard.net",
+  "tags": [
+    "download",
+    "packaging",
+    "rg_adguard",
+    "LLM Synthesized"
+  ],
+  "node_id": "14293428-6d5f-4221-ac37-76dd3195fe3a",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "low",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "0x800f0840_error_occurring_on_server_2019",
+  "description": "The 0x800f0840 error has been frequently encountered on Windows Server 2019 systems, affecting a small subset of servers among a large deployment. This error indicates an issue with the installation or update process, potentially hindering critical patch management activities. Users have reported that rebooting the affected servers can temporarily resolve the issue and allow updates to proceed, though this is not a permanent fix. The recurring nature of this error can lead to challenges in keeping systems compliant and secure with the latest updates. Relevant KB Article KB-5043064 may provide additional troubleshooting steps or insights into remediation.",
+  "source_id": "44ef9856-1a3c-02bc-76db-71b12ecc1c9e",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "44ef9856-1a3c-02bc-76db-71b12ecc1c9e"
+  ],
+  "tags": [
+    "Windows Server 2019",
+    "0x800f0840",
+    "patch management",
+    "update error"
+  ],
+  "node_id": "81c2243f-7cad-4320-ac10-9458879b59c3",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

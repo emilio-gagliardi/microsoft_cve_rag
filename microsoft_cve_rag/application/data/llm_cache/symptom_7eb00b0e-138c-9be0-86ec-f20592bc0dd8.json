@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_kernel_elevation_of_privilege_leads_to_impacts",
+  "description": "Users may experience unexpected behaviors after applying the security update associated with CVE-2024-21443, particularly on systems running various builds of Windows 10 and Windows 11 (e.g., 10.0.19044.4170 for Windows 10 Version 21H2). One observable consequence could include difficulties in executing processes that require elevated privileges, leading to user frustration when accessing certain features or applications. Additionally, users could notice an increase in prompts requiring administrative actions when previously seamless operations are disrupted. The KB Articles (KB-5035845, KB-5035854, etc.) pertaining to the update detail additional impacts that might not be directly referenced in operational contexts but could affect user workflows and system reliability. Overall, these symptoms could pose significant impediments to daily operations, especially in multi-user environments where administrative tasks are common.",
+  "source_id": "7eb00b0e-138c-9be0-86ec-f20592bc0dd8",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7eb00b0e-138c-9be0-86ec-f20592bc0dd8"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Elevation of Privilege",
+    "User Experience",
+    "Impact"
+  ],
+  "node_id": "8f32766a-a2f7-4f77-a408-47f83eabff1e",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

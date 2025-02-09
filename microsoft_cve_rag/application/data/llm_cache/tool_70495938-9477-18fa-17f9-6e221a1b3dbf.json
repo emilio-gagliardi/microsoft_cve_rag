@@ -1,0 +1,23 @@
+{
+  "tool_label": "microsoft_edge_version_check_command",
+  "description": "**Tool Overview**:\n\nThe tool helps users verify the version of Microsoft Edge installed on their systems. This command is essential, especially after security updates, to ensure that the browser is running the latest version and is no longer vulnerable to known issues, including those detailed in the latest CVEs.\n\n**Details**:\n\nThis command can be run in the command prompt or PowerShell to check the current version of Microsoft Edge:\n1. Open Command Prompt or PowerShell.\n2. Type the command `msedge --version` and press Enter.\n3. Note the version number displayed. Compare it against the latest version provided by Microsoft to determine if an update is necessary.\n\nIt is recommended to regularly check the version, especially after a security announcement. This is part of good security hygiene to ensure that you are protected against vulnerabilities.",
+  "source_id": "70495938-9477-18fa-17f9-6e221a1b3dbf",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "70495938-9477-18fa-17f9-6e221a1b3dbf"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-7256",
+  "tool_url": "",
+  "tags": [
+    "Edge",
+    "version check",
+    "command line",
+    "security"
+  ],
+  "node_id": "8e3bedc0-d1e4-4ee3-8c3b-260f453c1daa",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

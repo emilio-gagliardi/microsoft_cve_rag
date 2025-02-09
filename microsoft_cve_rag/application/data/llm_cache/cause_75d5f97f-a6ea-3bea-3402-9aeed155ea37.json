@@ -1,0 +1,22 @@
+{
+  "description": "Improper handling of the length parameter inconsistency in the secure boot feature, allowing unauthorized access to bypass security measures and potentially execute malicious actions. This vulnerability predominantly affects Windows 10 and Windows 11 builds that incorporate the secure boot feature but have misconfigured parameters.",
+  "cause_label": "secure_boot_length_parameter_inconsistency",
+  "source_id": "75d5f97f-a6ea-3bea-3402-9aeed155ea37",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "75d5f97f-a6ea-3bea-3402-9aeed155ea37"
+  ],
+  "tags": [
+    "secure boot",
+    "CVE-2024-37988",
+    "Windows",
+    "vulnerability",
+    "CWE-130"
+  ],
+  "node_id": "33b08d82-ca23-40f9-92fd-ea24f5edc5b2",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

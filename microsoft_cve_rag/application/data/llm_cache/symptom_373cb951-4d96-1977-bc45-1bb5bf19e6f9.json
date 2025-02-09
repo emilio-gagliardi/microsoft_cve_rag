@@ -1,0 +1,17 @@
+{
+  "symptom_label": "RdgatewayLostConnectionWithDomainController",
+  "description": "The Remote Desktop Gateway (RD Gateway) is experiencing a connection loss with the domain controller(s) in the destination forest. This situation can lead to authentication failures and prevent users from accessing network resources that rely on the RD Gateway for secure remote connections. A 'lost trust' issue is observed, indicating potential problems with domain trust relationships that may complicate user authentication processes.",
+  "source_id": "373cb951-4d96-1977-bc45-1bb5bf19e6f9",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "RD Gateway",
+    "Domain Controller",
+    "Connection Loss",
+    "Authentication Failure"
+  ],
+  "node_id": "71398389-7318-4861-99c5-7052c466139b",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

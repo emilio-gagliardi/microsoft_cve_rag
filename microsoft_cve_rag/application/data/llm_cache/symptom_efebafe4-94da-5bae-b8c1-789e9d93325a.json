@@ -1,0 +1,16 @@
+{
+  "symptom_label": "Win32ProductClassTriggersReconfigurationOfMSI",
+  "description": "Querying the Win32_Product class triggers a reconfiguration of all MSI-based products that are already installed. This can lead to prolonged deployment times and unintended alterations to application settings. Users may experience application behavior changes, and system administrators should take caution when using this method of querying, as it can have significant negative impacts on user experience and system stability.",
+  "source_id": "efebafe4-94da-5bae-b8c1-789e9d93325a",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Win32_Product",
+    "MSI",
+    "application management"
+  ],
+  "node_id": "c0127901-4e5f-4b5d-88ad-cf196668dea1",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

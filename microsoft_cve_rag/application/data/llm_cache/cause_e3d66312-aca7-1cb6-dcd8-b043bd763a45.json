@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause of the issue described involves the persistence of the 'Learn more about this picture' desktop icon in Windows 11 build 24H2. This icon remains visible due to its setting in the Windows Registry, specifically under the 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\HideDesktopIcons\\NewStartPanel' path. The command 'Set-ItemProperty' is utilized to modify its visibility, setting the value to 0 to hide the icon. This misconfiguration or failure to apply the registry change correctly may lead to user frustration, making the desktop cluttered beyond usability. This highlighting of registry manipulation illustrates a common cause related to desktop customizations in Windows environments.",
+  "source_id": "e3d66312-aca7-1cb6-dcd8-b043bd763a45",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e3d66312-aca7-1cb6-dcd8-b043bd763a45"
+  ],
+  "cause_label": "registry_setting_lingers_desktop_icon_issue",
+  "tags": [
+    "windows 11",
+    "desktop customization",
+    "registry",
+    "24H2"
+  ],
+  "node_id": "dbcdbd9a-f542-499d-ae93-7f10b8598aed",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "low",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

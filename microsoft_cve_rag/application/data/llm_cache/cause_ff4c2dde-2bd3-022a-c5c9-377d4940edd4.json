@@ -1,0 +1,21 @@
+{
+  "description": "The elevation of privilege vulnerability in the Windows Cloud Files Mini Filter Driver is primarily due to an integer overflow or wraparound condition that allows an attacker to potentially exploit the file system at the local access level, gaining unintended access and control within the operating environment.",
+  "cause_label": "windows_cloud_files_mini_filter_driver_integer_overflow",
+  "source_id": "ff4c2dde-2bd3-022a-c5c9-377d4940edd4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ff4c2dde-2bd3-022a-c5c9-377d4940edd4"
+  ],
+  "tags": [
+    "Windows",
+    "Elevation of Privilege",
+    "Integer Overflow",
+    "Cloud Files Mini Filter Driver"
+  ],
+  "node_id": "c8fda8bb-e870-4c08-8cc0-c1c9342238b5",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

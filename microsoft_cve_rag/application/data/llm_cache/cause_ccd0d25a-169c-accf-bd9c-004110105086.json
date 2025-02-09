@@ -1,0 +1,22 @@
+{
+  "description": "A use after free in accessibility due to improper memory management in Chromium, specifically affecting versions prior to 131.0.6778.69. This flaw allows potential heap corruption, allowing an attacker to exploit the renderer process via crafted HTML content.",
+  "cause_label": "chromium_use_after_free_in_accessibility_heap_corruption",
+  "source_id": "ccd0d25a-169c-accf-bd9c-004110105086",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ccd0d25a-169c-accf-bd9c-004110105086"
+  ],
+  "tags": [
+    "CVE-2024-11113",
+    "Chromium",
+    "Microsoft Edge",
+    "Use After Free",
+    "Heap Corruption"
+  ],
+  "node_id": "9a53eadb-2250-44df-b092-482134e42973",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

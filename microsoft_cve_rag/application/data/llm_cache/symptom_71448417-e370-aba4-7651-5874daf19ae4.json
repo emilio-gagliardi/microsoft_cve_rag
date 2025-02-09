@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_cloud_files_mini_filter_disclosure_risk",
+  "description": "Users may notice increased vulnerability to information disclosure through the Windows Cloud Files Mini Filter Driver due to an important security update identified in the KB5035853 article. This update particularly impacts Windows 11 versions 22H2 and 23H2 on both x64 and ARM64 architectures, with build numbers 10.0.22631.3296 and 10.0.22621.3296, respectively. System administrators should be aware that the kernel memory could be exposed, allowing for unauthorized access to sensitive information. Consequently, end users might experience unexpected behaviors, such as unauthorized document access or a sense of compromised data integrity, particularly involving shared or sensitive documents managed by the affected driver. Administrators must monitor these systems closely post-update to safeguard against potential information leaks.",
+  "source_id": "71448417-e370-aba4-7651-5874daf19ae4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "71448417-e370-aba4-7651-5874daf19ae4"
+  ],
+  "tags": [
+    "Windows 11",
+    "information disclosure",
+    "security update",
+    "cloud files",
+    "kernel memory"
+  ],
+  "node_id": "becdf54c-1a59-45b6-a7a1-34e5d6d82f96",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

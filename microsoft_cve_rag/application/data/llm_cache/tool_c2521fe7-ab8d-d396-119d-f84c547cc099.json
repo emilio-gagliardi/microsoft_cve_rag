@@ -1,0 +1,34 @@
+{
+  "node_id": "6482b2e4-dbfc-43ff-9d4f-2503899ee5aa",
+  "source_id": "cfea84d6-64c3-5730-c692-4b3d3ade0844",
+  "entity_type": "Tool",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e2e6ef2d-af47-2dc2-3ca3-b2a0b22165d5",
+    "cfea84d6-64c3-5730-c692-4b3d3ade0844",
+    "65c070d4-aebf-f0d1-313c-1c02244a92d5",
+    "d6186f09-3076-a113-95a3-1aa25d81ffcf",
+    "99eff815-83df-22a0-3e28-96c25115b72c",
+    "53024482-1dfe-c25b-9643-f8f391bdbe78",
+    "a0a566fc-4116-2cac-41a4-bbeadc175fbc",
+    "c2521fe7-ab8d-d396-119d-f84c547cc099",
+    "b87721fd-b5ec-37c7-958a-282078ccf68c",
+    "56e8dea9-c4f3-2f73-9793-963bae2fcd21",
+    "08a5f006-af33-e8f1-dca8-5400847b259a",
+    "a0f31411-25ed-f35b-d9bb-5961f07253ce",
+    "0ec20665-a029-38ae-d5c8-b987323b0270",
+    "aed1b2c0-6c07-6072-5b56-65e8fca29980"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-1939",
+  "tool_url": "https://chromereleases.googleblog.com/2024",
+  "verification_status": "unverified",
+  "tool_label": "microsoft_edge_chromium_security_update",
+  "description": "**Tool Overview**: This security update addresses vulnerabilities related to Microsoft Edge (Chromium-based), which incorporates updates from the Chromium project. **Details**: This update is derived from the Google Chrome releases and is crucial for users of Microsoft Edge to maintain a secure browsing experience. It addresses vulnerabilities identified in Chromium that could lead to security risks such as type confusion. To protect users, it is essential to apply updates as they are released. Users are encouraged to monitor for updates from Google Chrome releases for any critical information pertaining to these vulnerabilities.",
+  "reliability": 0.9,
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Security Update",
+    "Browser"
+  ]
+}

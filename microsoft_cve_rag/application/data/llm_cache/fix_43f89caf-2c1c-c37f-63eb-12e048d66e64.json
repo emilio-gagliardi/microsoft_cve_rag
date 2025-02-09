@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows kernel information disclosure vulnerability (CVE-2024-21340), apply the appropriate update:\n\n1. Identify your Windows version and architecture (e.g., x64 or 32-bit).\n2. Download the relevant KB503476X update package from the Microsoft Update Catalog (links below).\n3. Install the update.\n4. Restart your system to finalize the installation.\n\n**Details**:\n- For Windows 10 Version 22H2, use KB5034763: [Update Link](https://catalog.update.microsoft.com/Search.aspx?q=KB5034763).\n- For other versions, refer to the respective KB articles provided.\n- This update mitigates a buffer over-read issue in the Windows kernel, which could lead to information disclosure.\n\n**Preconditions**:\n- Ensure your system is backed up prior to applying updates.\n- Verify that your Windows version aligns with the update you plan to install.",
+  "source_id": "43f89caf-2c1c-c37f-63eb-12e048d66e64",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb5034763_to_resolve_kernel_information_disclosure",
+  "tags": [
+    "KB5034763",
+    "CVE-2024-21340",
+    "WindowsKernel",
+    "InformationDisclosure"
+  ],
+  "node_id": "7d31b1ab-348b-4019-90eb-1a27afc28862",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "43f89caf-2c1c-c37f-63eb-12e048d66e64"
+  ]
+}

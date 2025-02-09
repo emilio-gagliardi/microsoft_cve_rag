@@ -1,0 +1,23 @@
+{
+  "tool_label": "recovery_key_extraction_from_microsoft_account",
+  "description": "**Tool Overview**:\n\nThis approach is centered around retrieving a BitLocker recovery key associated with any Microsoft account that has accessed the specific PC. The recovery key is essential for scenarios where BitLocker is enabled and a user is unable to access a device due to a forgotten password or recovery options.\n\n**Details**:\n1. Search for the recovery key in the Microsoft account associated with the device.\n2. Check all linked accounts as the recovery key might reside in the account of the original deployer of the device.\n3. Utilize the Azure AD services if the organization is configured to manage devices through Azure, as it can provide recovery options directly through Intune or related services.\n4. Ensure the user knows which Microsoft account was originally logged into, as the key is not linked to the local account credentials.\n5. Document the key location for future reference and ensure it is stored securely to prevent unauthorized access.",
+  "source_id": "45c77319-6c0d-9688-6f89-91b4f485184b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "45c77319-6c0d-9688-6f89-91b4f485184b"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em3e0d3eab-bb04-4688-adff-bcad85a5e26e%40712d7dac.com",
+  "tool_url": "",
+  "tags": [
+    "BitLocker",
+    "Microsoft Account",
+    "Azure AD",
+    "device recovery"
+  ],
+  "node_id": "ef57bf4c-c9a5-49f0-a29b-ee623a3913ee",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

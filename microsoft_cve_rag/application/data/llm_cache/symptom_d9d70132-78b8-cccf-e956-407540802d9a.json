@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_elevation_of_privilege_via_win32k",
+  "description": "Affected systems may experience an elevation of privilege issue stemming from a vulnerability in the win32k component. Users may notice unauthorized access or changes being enacted by individuals with low privileges, potentially allowing for actions that infringe on the user settings and files. This issue was reported across several Windows builds, specifically, 10.0.19043.4529, 10.0.22631.3737, 10.0.22621.3737, and 10.0.22000.3019. Administrators should monitor for unexpected behaviors, particularly those that suggest unauthorized changes are made to file permissions or other critical settings by standard user accounts. The solution is documented in KB-5039212, which provides guidance on mitigating this impact effectively.",
+  "source_id": "d9d70132-78b8-cccf-e956-407540802d9a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d9d70132-78b8-cccf-e956-407540802d9a"
+  ],
+  "tags": [
+    "Windows",
+    "elevation_of_privilege",
+    "win32k",
+    "10.0.19043.4529",
+    "10.0.22631.3737"
+  ],
+  "node_id": "054fc659-1914-4e0c-8c1b-610a8dab7b07",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

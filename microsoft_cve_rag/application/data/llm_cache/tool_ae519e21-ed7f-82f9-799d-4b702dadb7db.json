@@ -1,0 +1,22 @@
+{
+  "tool_label": "vpn_issue_troubleshooting_thread",
+  "description": "**Tool Overview**:\n\nThis tool refers to a discussion thread available on Reddit that serves as a troubleshooting resource for individuals experiencing VPN issues, specifically with L2TP VPNs and Meraki systems.\n\n**Details**:\n\n1. The thread provides user experiences and solutions related to VPN connectivity problems.\n2. Participants share insights and potential workarounds that have proven effective in resolving issues.\n3. Users can post queries and receive feedback from others who may have dealt with similar concerns.\n4. It acts as a community-driven knowledge base focusing on VPN challenges and their respective resolutions.\n5. Regular updates from users help keep the information relevant and as close to current configurations as possible.",
+  "source_id": "ae519e21-ed7f-82f9-799d-4b702dadb7db",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "ae519e21-ed7f-82f9-799d-4b702dadb7db"
+  ],
+  "source_url": "https://www.reddit.com/r/msp/comments/1bqut1c/is_anyone_else_experiencing_a_lot_of_vpn_issues/",
+  "tool_url": "https://www.reddit.com/r/msp/comments/1bqut1c/is_anyone_else_experiencing_a_lot_of_vpn_issues/",
+  "tags": [
+    "VPN",
+    "troubleshooting",
+    "Meraki",
+    "L2TP"
+  ],
+  "node_id": "9af1c76a-3790-4b8a-8c5c-de4b0e0c27d4",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

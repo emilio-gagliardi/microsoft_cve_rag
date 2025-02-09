@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_office_experiences_remote_code_execution",
+  "description": "Users of Microsoft 365 apps for enterprise may experience unexpected behavior that leads to remote code execution due to a vulnerability logged under CVE-2024-30102. Specifically, if a user is tricked into opening a specially crafted document, this action could result in malicious code execution without the user's knowledge, affecting the integrity and confidentiality of their data. The affected builds include those for both 64-bit and 32-bit systems as of June 11, 2024, which has been deemed important in severity. Users may not receive direct error messages but will be endangered by the potential for unauthorized access to their systems. It's essential for system administrators to monitor user interactions and ensure the latest security updates are applied, as indicated in the referenced KB article.",
+  "source_id": "0b2bc87e-5408-905c-4994-f303e89b0882",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0b2bc87e-5408-905c-4994-f303e89b0882"
+  ],
+  "tags": [
+    "Microsoft",
+    "Office",
+    "Security",
+    "Remote Code Execution",
+    "Update"
+  ],
+  "node_id": "07997ca5-bcde-4e8a-8f79-b47f2fe3b39b",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

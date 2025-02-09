@@ -1,0 +1,21 @@
+{
+  "symptom_label": "secure_boot_issue_due_to_root_ca_cert_change",
+  "description": "The change in root CA certification associated with Secure Boot may lead to significant system access issues if not managed appropriately. Inadequate understanding and failure to implement necessary firmware updates can exacerbate the situation, potentially leading to system failures or decreased security posture. The context suggests a notable lack of support for Windows 11 through Microsoft Deployment Toolkit (MDT), which further complicates the recovery and management of affected devices. This issue raises concerns about overall operational integrity as well as the possible comparison to third-party security solutions, indicating that this symptom is not trivial. It's critical for administrators to assess their Secure Boot configurations in alignment with current certification changes to avoid disruptions.",
+  "source_id": "ff14a29a-fa48-9b88-106d-ef08357de332",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "ff14a29a-fa48-9b88-106d-ef08357de332"
+  ],
+  "tags": [
+    "root_ca_cert_change",
+    "secure_boot",
+    "firmware_updates",
+    "Windows_11"
+  ],
+  "node_id": "d64a1d98-5112-4665-abd0-2af89305977a",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

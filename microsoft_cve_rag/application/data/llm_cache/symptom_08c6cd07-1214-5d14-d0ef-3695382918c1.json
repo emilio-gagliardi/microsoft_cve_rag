@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_unresponsive_due_to_heap_corruption",
+  "description": "Users may experience unresponsiveness in Microsoft Edge (Chromium-based) version 125.0.2535.85 when certain webpages, particularly crafted HTML pages, are accessed. This issue arises from heap corruption resulting from a use after free vulnerability in the underlying Chromium engine, referenced in CVE-2024-5495. Administrators may notice that tabs become unresponsive, requiring manual termination of the browser process. Additionally, users may see unexpected behavior such as crashes or focal points of high resource consumption while loading problematic sites. To mitigate this issue, users are advised to update to the latest version of Microsoft Edge, which resolves the associated vulnerability, ensuring a smoother and more stable browsing experience.",
+  "source_id": "08c6cd07-1214-5d14-d0ef-3695382918c1",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "08c6cd07-1214-5d14-d0ef-3695382918c1"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "heap corruption",
+    "CVE-2024-5495",
+    "Chromium"
+  ],
+  "node_id": "cc60a88d-219f-46a2-b263-6f0becbe6582",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

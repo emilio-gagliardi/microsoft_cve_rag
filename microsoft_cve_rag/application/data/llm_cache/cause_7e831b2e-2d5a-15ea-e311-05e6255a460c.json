@@ -1,0 +1,21 @@
+{
+  "description": "The vulnerability is caused by improper link resolution before file access in the Windows Search service, allowing local elevation of privilege by exploiting path manipulation.",
+  "cause_label": "windows_search_service_improper_link_resolution",
+  "source_id": "7e831b2e-2d5a-15ea-e311-05e6255a460c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7e831b2e-2d5a-15ea-e311-05e6255a460c"
+  ],
+  "tags": [
+    "Windows",
+    "CVE-2024-30033",
+    "CWE-59",
+    "elevation of privilege"
+  ],
+  "node_id": "b27ff66d-e621-4aa4-a349-7f91970cf831",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

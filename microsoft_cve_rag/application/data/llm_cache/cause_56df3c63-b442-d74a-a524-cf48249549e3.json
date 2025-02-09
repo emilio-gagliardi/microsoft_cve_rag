@@ -1,0 +1,20 @@
+{
+  "description": "Improper access control in the secure boot implementation allows bypassing security features, affecting multiple Windows builds.",
+  "cause_label": "secure_boot_improper_access_control_bypass",
+  "source_id": "56df3c63-b442-d74a-a524-cf48249549e3",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "56df3c63-b442-d74a-a524-cf48249549e3"
+  ],
+  "tags": [
+    "secure boot",
+    "access control",
+    "CWE-284",
+    "Windows"
+  ],
+  "node_id": "400c1eff-41f7-4f90-8c55-fe2e764191b5",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

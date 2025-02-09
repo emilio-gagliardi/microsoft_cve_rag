@@ -1,0 +1,22 @@
+{
+  "symptom_label": "elevation_of_privilege_in_windows_file_system",
+  "description": "Upon the release of security updates for various Windows 11 versions including 24H2, 23H2, and 22H2, users may experience unexpected changes in accessibility to system functions, granted due to elevation of privilege vulnerabilities. These updates, specifically identified under KB5041571 and KB5041585, aim to remediate potential exploitation paths that could grant unauthorized elevation but, in doing so, may inadvertently cause some users to notice limited access to critical file permissions or system functionalities. Users may find that tasks requiring administrative privileges result in permission errors or restricted access, particularly when engaging with the Windows Resilient File System (Refs). This alteration in behavior can significantly hinder productivity as it may lead to prolonged processes for granting necessary permissions or unexpected system prompts for authentication, which can affect user trust in system stability and security.",
+  "source_id": "5a1277a2-11f3-8e6e-40e3-1a055c926003",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5a1277a2-11f3-8e6e-40e3-1a055c926003"
+  ],
+  "tags": [
+    "Windows 11",
+    "elevation of privilege",
+    "file system",
+    "security updates",
+    "KB articles"
+  ],
+  "node_id": "2337ebf5-2b62-4152-81d9-aed625b03537",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

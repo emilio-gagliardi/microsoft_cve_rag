@@ -1,0 +1,17 @@
+{
+  "tool_label": "MicrosoftSpeechAPIUsingWindows10and11",
+  "description": "The Microsoft Speech Application Programming Interface (SAPI) is a set of APIs that eases the integration of speech recognition and synthesis into Windows applications. It allows developers to leverage voice input and output capabilities effectively in their software. End users can typically access SAPI through applications that utilize speech functionalities, often found in Windows operating systems, enhancing accessibility and user experience.",
+  "source_id": "14917f1d-2047-3310-a46d-194ddbee0053",
+  "source_type": "MSRCPost",
+  "source_url": null,
+  "tags": [
+    "speech",
+    "APIs",
+    "Windows"
+  ],
+  "node_id": "f7a1145b-b399-4868-9e79-ad9471c8c07f",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

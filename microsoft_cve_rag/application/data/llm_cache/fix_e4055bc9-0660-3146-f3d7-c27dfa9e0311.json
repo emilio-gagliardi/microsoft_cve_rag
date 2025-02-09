@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the use after free vulnerability identified as CVE-2024-10826 in Microsoft Edge (Chromium-based), ensure that your browser is updated to the latest version:\n\n1. Open the Microsoft Edge browser.\n2. Click on the three dots (...) in the upper right corner.\n3. Select 'Help and feedback'.\n4. Click on 'About Microsoft Edge' to check for updates and install the latest version.\n\n**Details**:\n- This update resolves a critical security vulnerability related to heap corruption in family experiences on Android prior to version 130.0.6723.116.\n- Ensure you have the Edge version 130.0.2849.80 or later to avoid potential exploitation by remote attackers.\n- For further updates and security information, refer to the Google Chrome release notes as they are integral to the Edge browser. (LLM Synthesized)\n\n**Preconditions**:\n- Make sure your device is capable of running the latest version of Microsoft Edge.\n- Regularly check for updates to maintain security best practices.",
+  "source_id": "e4055bc9-0660-3146-f3d7-c27dfa9e0311",
+  "source_type": "MSRCPost",
+  "fix_label": "update_edge_to_resolve_use_after_free_cve202410826",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE202410826",
+    "HeapCorruption",
+    "Chromium"
+  ],
+  "node_id": "93a8eef4-5300-45f4-b005-bfe5f3dfea2a",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "critical",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e4055bc9-0660-3146-f3d7-c27dfa9e0311"
+  ],
+  "verification_status": "unverified"
+}

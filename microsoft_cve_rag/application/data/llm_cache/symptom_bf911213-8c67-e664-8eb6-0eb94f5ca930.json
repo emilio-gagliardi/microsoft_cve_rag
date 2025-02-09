@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_system_experiences_remote_code_execution_risk",
+  "description": "Users may notice unusual application behavior or unresponsive features, indicating a potential risk of remote code execution due to an issue with the Windows USB Attached SCSI (UAS) protocol. This can manifest as unauthorized system access or unexplained application crashes. Specific builds affected include Windows 10 versions 1607 and 21H2, along with Windows 11 versions 23H2 for x64-based systems, which are detailed in the corresponding KB articles such as KB5035855 and KB5035853. Without timely updates, system administrators and users may be at risk of having sensitive data tampered with or compromised. The impact on the user experience should be monitored closely as it could lead to severe security breaches if the underlying issue is not addressed promptly.",
+  "source_id": "bf911213-8c67-e664-8eb6-0eb94f5ca930",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "bf911213-8c67-e664-8eb6-0eb94f5ca930"
+  ],
+  "tags": [
+    "Windows",
+    "Remote Code Execution",
+    "UAS Protocol",
+    "Important Update"
+  ],
+  "node_id": "cc43f3dc-4118-439a-b10d-36d9c00d184e",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

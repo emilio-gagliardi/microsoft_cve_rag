@@ -1,0 +1,16 @@
+{
+  "symptom_label": "HpPrintersIdentifiedIncorrectlyTriggersHpSmartApp",
+  "description": "In certain instances, a Windows update appears to be causing all printers to be incorrectly identified as HP M101 or M106 models. This misidentification not only alters the printer names displayed in the system but also leads to the unintended activation of the Microsoft Store to install the 'HP Smart' app, under the assumption that an HP printer is in use. As a consequence, this could disrupt normal operations for users who rely on accurate printer identification and management on both Windows 10 and Windows 11 environments.",
+  "source_id": "41b6bcd8-59e2-cdb8-eb4a-df11ea280793",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "printer management",
+    "HP Smart",
+    "Windows update"
+  ],
+  "node_id": "1449a575-c77c-4041-af3a-303bb12a6d98",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

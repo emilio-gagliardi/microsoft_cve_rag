@@ -1,0 +1,18 @@
+{
+  "tool_label": "UseAzureSiteRecoveryForHyperVReplication",
+  "description": "Azure Site Recovery is a Microsoft service that facilitates the replication and recovery of Hyper-V virtual machines. It provides a robust solution for disaster recovery, enabling users to orchestrate the replication of their workloads in a simplified manner. Administrators can leverage this tool to ensure business continuity by mitigating downtime during failures.",
+  "source_id": "836a7418-0c15-a5cf-ed86-3d1cb4d7f1a6",
+  "source_type": "PatchManagementPost",
+  "source_url": "N/A",
+  "tags": [
+    "replication",
+    "hyper-v",
+    "azure",
+    "backup"
+  ],
+  "node_id": "b52dcf6e-5eb9-4a79-9e0a-07a4a8a28263",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

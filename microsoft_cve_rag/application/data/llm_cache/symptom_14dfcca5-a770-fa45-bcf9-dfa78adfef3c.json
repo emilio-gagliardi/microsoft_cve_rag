@@ -1,0 +1,16 @@
+{
+  "symptom_label": "October2023UpdateDeniesAuthenticationWithoutPAC",
+  "description": "After installing the October 2023 Windows updates, any service tickets not containing the new PAC signatures will be denied authentication. This change is a result of the updates removing support for the registry subkey 'krbtgtfullpacsignature' and eliminating audit mode, making previous registry entries ineffective. As of the full enforcement phase on October 10, 2023, systems that are non-compliant will experience authentication issues, affecting user access and system integrations.",
+  "source_id": "14dfcca5-a770-fa45-bcf9-dfa78adfef3c",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "WindowsUpdates",
+    "Authentication",
+    "PACSignatures"
+  ],
+  "node_id": "8fff894d-f1d1-43d0-9591-b44cb0088e00",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

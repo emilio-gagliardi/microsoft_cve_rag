@@ -1,0 +1,21 @@
+{
+  "description": "An out-of-bounds read vulnerability in the Windows Common Log File System driver allows for elevation of privilege, where an attacker can exploit the vulnerability locally or remotely, possibly gaining system privileges. The flaw stems from improper handling of memory access, categorized under CWE-125.",
+  "cause_label": "windows_common_log_file_system_driver_out_of_bounds_read",
+  "source_id": "f4f0e89a-1f8b-e10c-8c21-a11a3009eeac",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f4f0e89a-1f8b-e10c-8c21-a11a3009eeac"
+  ],
+  "tags": [
+    "elevation of privilege",
+    "CVE-2024-29996",
+    "Windows driver",
+    "CWE-125"
+  ],
+  "node_id": "f136c248-d38b-47c0-ad20-4008a78fa97d",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

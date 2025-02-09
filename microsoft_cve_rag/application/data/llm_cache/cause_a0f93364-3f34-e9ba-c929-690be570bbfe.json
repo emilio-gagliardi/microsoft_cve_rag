@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause identified is related to a certificate update initiated by Microsoft, specifically impacting UEFI certificates on laptops. When these updates occur, BitLocker may be suspended after two reboots, which can inadvertently happen if users choose to hibernate their machines instead of performing a full reboot. This scenario can create confusion, especially concerning how hibernation interacts with the BitLocker suspension counter. It's essential to check the TPM-WMI events for additional insights on the impacted devices to understand how these certificate updates affect BitLocker functionality. Ensuring the UEFI certificates are current and aligned with system updates can help prevent these unexpected suspensions.",
+  "source_id": "a0f93364-3f34-e9ba-c929-690be570bbfe",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "a0f93364-3f34-e9ba-c929-690be570bbfe"
+  ],
+  "cause_label": "uefi_certificate_update_disrupts_bitlocker_functionality",
+  "tags": [
+    "certificate update",
+    "BitLocker",
+    "UEFI",
+    "Microsoft patches"
+  ],
+  "node_id": "b8394de7-457f-49dc-ad95-af348aacd8aa",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

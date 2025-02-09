@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_dfs_remote_code_execution_exploitation",
+  "description": "End users connecting a Windows client to a malicious server may experience unauthorized code execution within their network environment due to vulnerabilities in the Windows Distributed File System (DFS). This can lead to critical data breaches where sensitive information is accessed or altered without user consent. The affected systems include Windows Server 2012, Server 2016, and various versions of Windows 10 and 11, with build numbers ranging from 10.0.19043.4529 to 10.0.22631.3737. Users may notice unusual system behavior, potentially including unexpected file changes or unauthorized access alerts. Relevant KB Article IDs associated with this issue include KB-5039212.",
+  "source_id": "8774b540-bffe-de9c-1dc5-35732278ede7",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8774b540-bffe-de9c-1dc5-35732278ede7"
+  ],
+  "tags": [
+    "windows",
+    "dfs",
+    "remote_code_execution"
+  ],
+  "node_id": "e7fe7d71-f304-424c-b18f-bbe87f17a5be",
+  "node_label": "Symptom",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "tool_label": "AzureExtendedSecurityUpdates",
+  "description": "Azure Extended Security Updates (ESUs) provide ongoing security updates for certain Microsoft software products, including Windows Server 2008 and Windows Server 2012. This program allows organizations to receive critical updates after the end of standard support, ensuring aid in mitigating potential vulnerabilities. To engage with the service, users can follow the Azure billing setup procedures as described in Microsoft's documentation. It is crucial for organizations using older versions of Windows Server to consider ESUs to maintain compliance with security best practices and protect against known threats.",
+  "source_id": "054cb0d5-8fdb-bae0-658f-1cae6655f96b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "054cb0d5-8fdb-bae0-658f-1cae6655f96b"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://docs.microsoft.com/en-us/azure/extended-security-updates/overview",
+  "tags": [
+    "Azure",
+    "ExtendedSecurityUpdates",
+    "WindowsServer",
+    "security"
+  ],
+  "node_id": "a4b9d76c-c43f-4e8b-bdc3-031847d8f65f",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

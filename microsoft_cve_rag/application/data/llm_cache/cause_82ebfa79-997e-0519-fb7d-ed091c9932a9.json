@@ -1,0 +1,22 @@
+{
+  "description": "A heap-based buffer overflow in the Windows DWM core library allows local attackers to elevate their privileges by exploiting the vulnerability during local or user-interactive sessions. The flaw originates from improper bounds checking, leading to out-of-bounds writes that can be used to manipulate critical system resources.",
+  "cause_label": "windows_dwm_core_library_heap_based_buffer_overflow",
+  "source_id": "82ebfa79-997e-0519-fb7d-ed091c9932a9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "82ebfa79-997e-0519-fb7d-ed091c9932a9"
+  ],
+  "tags": [
+    "CVE-2024-30051",
+    "Windows",
+    "Elevation of Privilege",
+    "DWM",
+    "Buffer Overflow"
+  ],
+  "node_id": "f2453b33-87e0-4c2b-a722-f3402314e197",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

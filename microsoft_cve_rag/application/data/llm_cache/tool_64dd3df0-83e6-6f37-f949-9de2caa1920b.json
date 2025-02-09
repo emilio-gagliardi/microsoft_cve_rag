@@ -1,0 +1,23 @@
+{
+  "tool_label": "chrome_policy_setting_for_tls_middleboxes",
+  "description": "**Tool Overview**: This tool pertains to the configuration of Google Chrome in relation to TLS middleboxes and potential compatibility issues. Users may encounter problems when Chrome utilizes the new 'ml - kem' feature, especially within environments that employ specific TLS middleboxes. The recommended configuration involves modifying the software policies for Google Chrome to alleviate these issues. **Details**: To implement the workaround, navigate to the respective software policies and locate the Google Chrome configuration section. Ensure that you set the appropriate policy to manage TLS settings and effectively operate within your network without breaking compatibility. This adjustment helps ensure seamless functioning through the TLS middleboxes while utilizing the specified Chrome version.",
+  "source_id": "64dd3df0-83e6-6f37-f949-9de2caa1920b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "64dd3df0-83e6-6f37-f949-9de2caa1920b"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://chromestatus.com/feature/5257822742249472",
+  "tags": [
+    "Chrome",
+    "TLS",
+    "Policy",
+    "Workaround"
+  ],
+  "node_id": "f4ba4b82-e407-4e4e-8c56-08f95a28a80d",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

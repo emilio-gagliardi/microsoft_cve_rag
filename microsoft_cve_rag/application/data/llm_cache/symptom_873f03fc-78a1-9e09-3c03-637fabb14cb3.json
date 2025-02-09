@@ -1,0 +1,21 @@
+{
+  "symptom_label": "usb_video_class_driver_allows_elevation_of_privilege",
+  "description": "End users may notice unauthorized access to system resources that they initially believe are restricted. This problematic behavior manifests as users having unexpected access to administrative functionalities or settings, which should be limited. The impacted products include Windows 10 and Windows 11, particularly in versions 10.0.26100.2314, 10.0.22631.4460, and 10.0.22621.4460. The underlying issue, identified as CVE-2024-43634, is documented in KB articles KB5046696, KB5046633, KB5046617, and KB5046613, and it arises from the Windows USB video class system driver. System administrators are likely to be alerted when users report unusual behaviors or capabilities that deviate from expected access controls, leading to potential security concerns.",
+  "source_id": "873f03fc-78a1-9e09-3c03-637fabb14cb3",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "873f03fc-78a1-9e09-3c03-637fabb14cb3"
+  ],
+  "tags": [
+    "Windows",
+    "USB",
+    "Elevation of Privilege",
+    "Driver Issue"
+  ],
+  "node_id": "3c449d58-9429-4a54-a7f1-b38024ed12fa",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

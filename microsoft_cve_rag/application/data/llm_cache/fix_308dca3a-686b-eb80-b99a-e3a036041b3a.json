@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the vulnerability posed by malicious logo images on UEFI booting Windows and Linux devices:\n\n1. Replace the malicious image on the drive.\n2. Reboot the device to apply the new changes, ensuring the new image is secure and not susceptible to the 'logo fail' firmware attack.\n\n**Details**:\nThis fix addresses a critical vulnerability affecting image parsers in UEFI firmware from the three major IBVs. It is essential to ensure that the replacement image is verified and trustworthy to prevent future exploitation. (LLM Synthesized)",
+  "source_id": "308dca3a-686b-eb80-b99a-e3a036041b3a",
+  "source_type": "PatchManagementPost",
+  "fix_label": "ReplaceMaliciousImageToSecureDevices",
+  "tags": [
+    "UEFI",
+    "FirmwareVulnerability",
+    "MaliciousImage",
+    "LLM Synthesized"
+  ],
+  "node_id": "61169c30-0653-4192-a53d-b298f8aae20c",
+  "node_label": "Fix",
+  "reliability": "0.8",
+  "severity_type": "critical",
+  "entity_type": "Fix"
+}

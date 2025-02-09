@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the initial setup issue with Office Outlook on Windows when faced with an HTTP 404 error:\n\n1. Start Outlook and enter a bogus email address in the email field, then click connect.\n2. This should redirect you to the advanced setup area; click on the Microsoft 365 icon.\n3. You will receive a message stating, \"something went wrong.\" Click the \"not\" option.\n4. Now, enter the correct email address and proceed. You should then receive a password prompt allowing you to complete the setup.\n\n**Details**:\nThis workaround appears to reroute the authentication flow and helps initiate the connection that seems to get stuck during the initial email entry. It is important to note that the issue likely stems from Microsoft's end, as existing profiles and other services such as Teams authenticate correctly on the same device. (LLM Synthesized)",
+  "source_id": "78dd2db5-f778-6da8-350f-a69c234ea8d5",
+  "source_type": "PatchManagementPost",
+  "fix_label": "resolve_outlook_initial_setup_http_404_error",
+  "tags": [
+    "Microsoft365",
+    "Outlook",
+    "LLM Synthesized"
+  ],
+  "node_id": "ae27e797-a5f7-4daf-b3c5-7d7543ad3357",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "78dd2db5-f778-6da8-350f-a69c234ea8d5"
+  ],
+  "verification_status": "unverified"
+}

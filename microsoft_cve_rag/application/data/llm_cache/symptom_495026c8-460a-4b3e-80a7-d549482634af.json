@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_update_error_code_80070643_resolution",
+  "description": "Users may encounter error code 80070643 during Windows updates, indicating a failure in the update process on Windows Server 2022. This issue can arise from file corruption or system inconsistencies that prevent the successful installation of updates. The recommended workaround includes running 'dism /online /cleanup-image /restorehealth' to repair the Windows image, followed by the command 'sfc /scannow' to check for and repair corrupted system files. In cases where automated repairs do not resolve the issue, system administrators may need to resort to a manual installation of the updates. This error can significantly disrupt the patch management workflow and lead to unmet security compliance requirements.",
+  "source_id": "495026c8-460a-4b3e-80a7-d549482634af",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "495026c8-460a-4b3e-80a7-d549482634af"
+  ],
+  "tags": [
+    "patch_management",
+    "windows_server_2022",
+    "update_error",
+    "dism_tool"
+  ],
+  "node_id": "7d8d460f-dc05-4a47-ae97-301f105452a2",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

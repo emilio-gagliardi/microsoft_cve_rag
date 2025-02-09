@@ -1,0 +1,21 @@
+{
+  "description": "A Windows NTLM spoofing vulnerability exists due to improper validation of requests, allowing unauthorized actors to gain access to sensitive information by tricking users into performing actions that exploit this flaw.",
+  "cause_label": "windows_ntlm_spoofing_improper_request_validation",
+  "source_id": "33d28c5f-f6a7-cf0f-88d6-51d52f7e9588",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "33d28c5f-f6a7-cf0f-88d6-51d52f7e9588"
+  ],
+  "tags": [
+    "NTLM",
+    "spoofing",
+    "Windows",
+    "CVE-2024-30081"
+  ],
+  "node_id": "fb0bd660-073f-4cd9-8cab-98919c2aafcf",
+  "node_label": "Cause",
+  "reliability": 0.08,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

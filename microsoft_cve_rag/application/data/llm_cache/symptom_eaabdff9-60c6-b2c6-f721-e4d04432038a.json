@@ -1,0 +1,20 @@
+{
+  "symptom_label": "single_packet_exhausts_vulnerable_dns_server",
+  "description": "A specific design flaw in the DNSSEC specification, which has persisted for over 20 years, allows a single packet to exploit this vulnerability and exhaust the processing capacity of affected DNS servers. This exploitation effectively disables the server, resulting in a denial of service that can impact network operations. System administrators managing DNS servers must be aware of this issue, as it could lead to significant service interruptions if not mitigated. Identifying and patching vulnerable DNS service implementations is critical to prevent such a disabling event. Users of Windows server products and other DNS handling services should closely monitor their configurations against this flaw to maintain operational integrity.",
+  "source_id": "eaabdff9-60c6-b2c6-f721-e4d04432038a",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "eaabdff9-60c6-b2c6-f721-e4d04432038a"
+  ],
+  "tags": [
+    "dns_server",
+    "design_flaw",
+    "denial_of_service",
+    "dnssec"
+  ],
+  "node_id": "d116601d-8fb2-40c7-8ae9-8f9ad6fbc28e",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

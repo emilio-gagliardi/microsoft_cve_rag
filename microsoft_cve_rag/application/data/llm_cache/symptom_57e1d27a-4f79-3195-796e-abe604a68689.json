@@ -1,0 +1,20 @@
+{
+  "symptom_label": "vbs_core_isolation_disabled_due_to_uefi_update",
+  "description": "Systems that have been updated with the 02 - 2024 UEFI or older BIOS versions may experience issues with Virtualization-Based Security (VBS) and Core Isolation features being disabled. This could manifest as an inability to enable these security features, leaving the system vulnerable. Users have reported that reinstalling the operating system did not resolve this issue, indicating a persistent problem rooted in the UEFI firmware itself. The difficulty in identifying fixes adds to the confusion, as there are no clear indications presented to system administrators. Effective remediation relies on applying the specific February 2024 UEFI update to restore functionality and secure the device under these configurations.",
+  "source_id": "57e1d27a-4f79-3195-796e-abe604a68689",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "57e1d27a-4f79-3195-796e-abe604a68689"
+  ],
+  "tags": [
+    "VBS",
+    "Core Isolation",
+    "UEFI Update",
+    "System Security"
+  ],
+  "node_id": "b3a5daa7-f40c-4511-8e96-3716867a299c",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

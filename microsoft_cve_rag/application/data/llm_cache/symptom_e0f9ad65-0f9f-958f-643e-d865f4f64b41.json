@@ -1,0 +1,22 @@
+{
+  "symptom_label": "information_disclosure_via_heap_memory_access",
+  "description": "The observed behavior resulting from the information disclosure vulnerability identified by CVE-2024-38155 involves unauthorized access to sensitive data stored in heap memory on affected Windows systems. Users may experience this symptom if an attacker successfully exploits the vulnerability, allowing the attacker to view confidential resources managed by the Security Center Broker. Specifically, this issue affects various builds of Windows 10 and Windows 11, including build numbers 10.0.26100.1457 for Windows 11 version 24H2 and 10.0.19045.4780 for Windows 10 version 22H2. Referencing KB articles, specifically KB5041571, instructs users to apply the critical updates provided to mitigate this risk. End users and system administrators should be particularly vigilant, as the potential for information exposure may lead to breaches of sensitive data integrity and privacy.",
+  "source_id": "e0f9ad65-0f9f-958f-643e-d865f4f64b41",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e0f9ad65-0f9f-958f-643e-d865f4f64b41"
+  ],
+  "tags": [
+    "information disclosure",
+    "Windows 10",
+    "Windows 11",
+    "CVE-2024-38155",
+    "heap memory"
+  ],
+  "node_id": "6ddf5d3f-ee5d-43d3-ba60-0d98bf3430b0",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

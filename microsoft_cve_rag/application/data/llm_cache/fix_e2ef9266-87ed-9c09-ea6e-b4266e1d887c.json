@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Microsoft ODBC Driver remote code execution vulnerability (CVE-2024-26162):\n\n1. Download and apply the appropriate KB updates from the links provided below based on your operating system version.\n2. Restart your system after installation to ensure the changes take effect.\n\n**Details**:\n- This series of updates resolves several vulnerabilities impacting the Microsoft ODBC Driver, enhancing security against potential remote code execution attacks.\n- Download packages for the relevant updates can be found at the following links:\n  - [KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845)\n  - [KB5035858](https://catalog.update.microsoft.com/Search.aspx?q=KB5035858)\n  - [KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)\n  - [KB5035854](https://catalog.update.microsoft.com/Search.aspx?q=KB5035854)\n\n**Preconditions**:\n- Ensure your system is on one of the affected builds listed above.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "e2ef9266-87ed-9c09-ea6e-b4266e1d887c",
+  "source_type": "MSRCPost",
+  "fix_label": "address_odbc_driver_remote_code_execution_cve202426162",
+  "tags": [
+    "ODBCDriver",
+    "CVE202426162",
+    "KB5035845",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "0fda8ec9-877b-49ea-b126-36fb72fa09fe",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e2ef9266-87ed-9c09-ea6e-b4266e1d887c"
+  ]
+}

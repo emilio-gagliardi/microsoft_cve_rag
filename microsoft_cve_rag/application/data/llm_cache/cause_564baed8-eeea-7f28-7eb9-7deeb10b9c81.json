@@ -1,0 +1,19 @@
+{
+  "description": "The information disclosure vulnerability identified as CVE-2024-21313 is rooted in a flaw within the Windows TCP/IP stack, which facilitates the processing of network communications. The exposed condition arises due to unencrypted contents being accessible from IPSec packets, allowing attackers to potentially intercept sensitive data. Specifically, the vulnerability exists across various build numbers of Windows systems, including 10.0.19044.3930 and 10.0.22631.3007. A successful exploitation requires the attacker to perform a man-in-the-middle attack, injecting themselves into the network path that the target traffic traverses. The lack of sufficient encryption on the IPSec packets is the core reason that contributes to this disclosure, resulting in a complete compromise of confidentiality in the impacted components, though the integrity and availability of the systems remain intact.",
+  "cause_label": "TCPIPStackFlawEnablesInformationDisclosure",
+  "source_id": "564baed8-eeea-7f28-7eb9-7deeb10b9c81",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Windows",
+    "TCP/IP",
+    "Information Disclosure",
+    "Man-in-the-Middle",
+    "Vulnerability",
+    "CVE-2024-21313"
+  ],
+  "node_id": "bda30013-94b9-4e49-997f-2f9084e8e9b7",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

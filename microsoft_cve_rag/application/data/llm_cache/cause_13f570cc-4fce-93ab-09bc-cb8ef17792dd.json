@@ -1,0 +1,18 @@
+{
+  "description": "The underlying issue stems from the way Microsoft Teams is installed and updated, particularly when the client application is placed in the user's AppData directory. This installation method complicates centralized updates for an organization, especially when different policies are configured to manage user access to the new client features. When users with insufficient permissions attempt to install or update the client, it can lead to situations where the installation fails, resulting in no Teams client available on the user's profile. The existence of two distinct policies (default and early adopters) also introduces complexity, as the mismanagement of permissions can disrupt productivity. Ultimately, this situation can culminate in frustration for users due to the dependency on individual permission levels and the app's non-intuitive update process.",
+  "source_id": "13f570cc-4fce-93ab-09bc-cb8ef17792dd",
+  "source_type": "PatchManagementPost",
+  "cause_label": "InconsistentUserPermissionsAffectTeamsUpdate",
+  "tags": [
+    "Microsoft Teams",
+    "AppData",
+    "User Permissions",
+    "Updates",
+    "Policies"
+  ],
+  "node_id": "cce726f7-388b-4cea-aa7e-2f2ee1737214",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Cause"
+}

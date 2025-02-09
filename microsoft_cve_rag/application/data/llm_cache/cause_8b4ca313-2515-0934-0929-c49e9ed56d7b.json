@@ -1,0 +1,17 @@
+{
+  "description": "The underlying cause of CVE-2023-20588 is related to a flawed implementation in specific AMD processor models that allows for speculative leaks, which can lead to information disclosure. This issue arises from the processors handling speculative execution in a manner that leaks sensitive data. The flaw manifests under certain conditions identified during runtime and can expose data that should remain secure. To mitigate this issue, it is essential to install the latest Windows updates, specifically targeting impacted builds like 10.0.24315.0, which include multiple KBs such as KB-5033379 and KB-5033369 that address this vulnerability. The affected product builds include a range from Windows Server 2008 R2 through Windows 11, with specific attention to how these builds manage speculative execution and information protection strategies in AMD processors.",
+  "cause_label": "FlawedImplementationInAMDProcessorsLeadsDisclosure",
+  "source_id": "8b4ca313-2515-0934-0929-c49e9ed56d7b",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE",
+    "AMD",
+    "speculative execution",
+    "information disclosure"
+  ],
+  "node_id": "438d1c76-6268-4364-a74e-ec49f4614027",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

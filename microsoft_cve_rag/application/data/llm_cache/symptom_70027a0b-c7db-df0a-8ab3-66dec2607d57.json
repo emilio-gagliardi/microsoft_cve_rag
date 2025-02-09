@@ -1,0 +1,17 @@
+{
+  "symptom_label": "OperatingSystemCrashesWhenBrowsingMaliciousFile",
+  "description": "When an authenticated user attempts to browse or list a specially crafted malicious file on a network share or locally, the action can lead to a crash of the operating system. This symptom has been observed in unpatched versions of Windows 11, particularly those with build numbers 10.0.22631.2861 for Version 23H2 and 10.0.22621.2861 for Version 22H2. For further details, refer to the security update KB5033375.",
+  "source_id": "70027a0b-c7db-df0a-8ab3-66dec2607d57",
+  "source_type": "MSRCPost",
+  "tags": [
+    "crash",
+    "system error",
+    "Windows",
+    "user interaction"
+  ],
+  "node_id": "8bcc97fd-06b7-47e4-b56b-930c1973ea1f",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

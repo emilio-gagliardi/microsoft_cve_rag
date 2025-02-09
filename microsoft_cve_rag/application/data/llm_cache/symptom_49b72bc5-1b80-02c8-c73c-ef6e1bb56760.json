@@ -1,0 +1,22 @@
+{
+  "symptom_label": "edge_remote_code_execution_requires_user_interaction",
+  "description": "End users of Microsoft Edge (Chromium-based) version 130.0.2849.46 may experience increased vulnerability to remote code execution attacks. This requires users to click on specially crafted URLs, potentially leading to unauthorized access. Such interaction could inadvertently initiate the execution of code by the attacker, using the renderer process as a vector. The Microsoft Knowledge Base Article KB43595 provides detailed guidance on this issue. System administrators should be aware that this user interaction could make networks susceptible to exploitation, particularly if users are not trained to recognize malicious links.",
+  "source_id": "49b72bc5-1b80-02c8-c73c-ef6e1bb56760",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "49b72bc5-1b80-02c8-c73c-ef6e1bb56760"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Remote Code Execution",
+    "User Interaction",
+    "Chromium",
+    "Security Update"
+  ],
+  "node_id": "cb0f26d4-abbb-4f47-91fb-94cfadc6a76b",
+  "node_label": "Symptom",
+  "reliability": 0.09,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

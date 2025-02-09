@@ -1,0 +1,16 @@
+{
+  "symptom_label": "RemoteCodeExecutionRiskOnWindowsSystems",
+  "description": "Systems may experience elevated risk of remote code execution, particularly affecting Windows Server versions, with build numbers including 10.0.22631.2715, 10.0.19043.3693, 10.0.10240.20308, and others listed in the updates. This is linked to vulnerabilities described in KB-5032199, KB-5032192, KB-5032190, and KB-5032189, which when exploited, could lead to severe consequences for system integrity and availability. Administrators should ensure that patches are applied to mitigate this critical vulnerability, as failure to do so could leave systems susceptible to unauthorized access and control.",
+  "source_id": "347105cb-7900-7d73-f0e6-515721444f9d",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "19374cdb-8254-468e-979c-7f534653be41",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

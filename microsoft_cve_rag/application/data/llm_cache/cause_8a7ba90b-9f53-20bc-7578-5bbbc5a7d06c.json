@@ -1,0 +1,20 @@
+{
+  "description": "The issue arises from improper link resolution before file access, which can lead to elevation of privilege. This flaw, identified as CWE-59, allows an attacker to exploit the system locally or through user interaction to gain unauthorized access to more sensitive resources. Specifically, it involves a race condition that requires additional preparatory actions prior to exploitation, enabling the attacker to create or open registry keys without proper authorization checks.",
+  "cause_label": "microsoft_brokering_file_system_elevation_privilege",
+  "source_id": "8a7ba90b-9f53-20bc-7578-5bbbc5a7d06c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8a7ba90b-9f53-20bc-7578-5bbbc5a7d06c"
+  ],
+  "tags": [
+    "CVE-2024-28907",
+    "elevation of privilege",
+    "CWE-59",
+    "Windows Server 2022"
+  ],
+  "node_id": "7187c670-f4c8-48eb-b14d-63883e528e0e",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

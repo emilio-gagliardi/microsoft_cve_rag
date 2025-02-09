@@ -1,0 +1,18 @@
+{
+  "symptom_label": "EdgePerformanceDegradationAfterUpdate",
+  "description": "After installing the update for Microsoft Edge (Chromium-based) version 120.0.2210.133, users may experience performance degradation in their browsing activities. This includes slower page loading times, increased latency in navigating between tabs, and unresponsive behavior while loading complex websites. Such a performance impact can disrupt day-to-day operations and affect user efficiency. The problem has been observed in builds 120.0.2210.133 and 120.0.2336.0, and it's important for administrators to monitor user feedback following the deployment of this update to address any arising concerns. This observable symptom can manifest significantly in both corporate environments and individual user experiences, leading to frustration.",
+  "source_id": "ac453bab-523e-20b3-1c71-b5b30c875735",
+  "source_type": "MSRCPost",
+  "source_ids": "['ac453bab-523e-20b3-1c71-b5b30c875735']",
+  "tags": [
+    "Microsoft Edge",
+    "performance",
+    "update issues",
+    "user experience"
+  ],
+  "node_id": "2273ba40-6172-4b08-8e7e-96e0484094ff",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the secure boot security feature bypass vulnerability (CVE-2024-29061):\n\n1. Install the appropriate security updates corresponding to your system build numbers. The updates can be found in the provided KB articles.\n2. Restart your system to ensure the updates are fully applied.\n\n**Details**:\n- Ensure that your operating system version aligns with the specified build numbers to avoid compatibility issues.\n- Review the update guide for each KB article for detailed installation instructions: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-29061.\n\n**KB Article IDs**: KB-5036925, KB-5036894, KB-5036893, KB-5036892.\n\n**Preconditions**:\n- Verify that your system is eligible for the updates listed based on build numbers: 10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, 10.0.22621.3447, 10.0.10240.20596.\n- Backup critical data before proceeding with the installation of updates.",
+  "source_id": "94c5f6fd-e983-8a00-e0ca-25b7dbdf2532",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_secure_boot_feature_bypass_cve202429061",
+  "tags": [
+    "KB5036925",
+    "KB5036894",
+    "CVE202429061",
+    "SecureBoot"
+  ],
+  "node_id": "38cca6d8-f487-44d6-91f8-8db2494873de",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "94c5f6fd-e983-8a00-e0ca-25b7dbdf2532"
+  ]
+}

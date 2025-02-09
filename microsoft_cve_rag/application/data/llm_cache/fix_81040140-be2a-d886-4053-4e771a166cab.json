@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo remove the Copilot feature from Microsoft Edge using Group Policy and registry edits:\n\n1. Open the Windows Registry Editor.\n2. Navigate to the following path: `HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Edge`.\n3. Create or modify the following DWORD values:\n   - Set `hubssidebarenabled` to `0` to disable the Side Copilot icon.\n   - Set `newtabpagebingchatenabled` to `0` to remove Bing Chat from the start page.\n4. Alternatively, download the provided registry file and execute it to apply these settings automatically, confirming any system prompts.\n\n**Details**:\n- Ensure you have administrative privileges to make changes to the registry.\n- Back up the registry before making any changes to prevent accidental misconfigurations.\n\nFor additional resources, you can refer to the following link: [Microsoft Edge Policies](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies#newtabpagebingchatenabled).\n\n(LLM Synthesized)",
+  "source_id": "81040140-be2a-d886-4053-4e771a166cab",
+  "source_type": "PatchManagementPost",
+  "fix_label": "remove_edge_copilot_feature_registry_policy",
+  "tags": [
+    "RegistryEdit",
+    "GroupPolicy",
+    "EdgeSettings",
+    "LLM Synthesized"
+  ],
+  "node_id": "3bf20aff-4b39-42f4-8c60-f66782317307",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "81040140-be2a-d886-4053-4e771a166cab"
+  ],
+  "verification_status": "unverified"
+}

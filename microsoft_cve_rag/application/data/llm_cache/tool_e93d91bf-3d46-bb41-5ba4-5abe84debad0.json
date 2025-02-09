@@ -1,0 +1,22 @@
+{
+  "tool_label": "connectwise_screenconnect_version_23",
+  "description": "**Tool Overview**:\n\nConnectWise ScreenConnect version 23 is a remote support solution that allows IT professionals to connect to and support customer devices securely.\n\n**Details**:\n\nThis version focuses on removing license restrictions and improving the customer experience in handling reported vulnerabilities. It enhances security protocols and overall functionality, catering to the needs of businesses requiring efficient remote access solutions. Upgrading to the latest version ensures compliance with security standards and provides users with the best available features. IT administrators are encouraged to refer to the security bulletins provided by ConnectWise for updates on vulnerabilities and improvements.",
+  "source_id": "e93d91bf-3d46-bb41-5ba4-5abe84debad0",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e93d91bf-3d46-bb41-5ba4-5abe84debad0"
+  ],
+  "source_url": "https://www.connectwise.com/company/trust/security-bulletins/connectwise-screenconnect-23",
+  "tool_url": "https://www.connectwise.com/company/trust/security-bulletins/connectwise-screenconnect-23",
+  "tags": [
+    "remote support",
+    "security",
+    "ConnectWise",
+    "vulnerability management"
+  ],
+  "node_id": "790d62be-4ff8-478c-8ef1-4ba9f0bbb9c9",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_elevation_of_privilege_via_update_stack",
+  "description": "After the installation of specific updates related to CVE-2024-38163, users may experience unexpected and unauthorized changes in system configurations, highlighting an elevation of privilege risk. Specifically, this can manifest as unauthorized access attempts or the presence of unauthorized system accounts that could lead to altered user privileges. Systems running Windows 10 version 21H2 and 22H2, as well as Windows 11 version 21H2, may be particularly affected by these changes. Administrators should refer to KB5042321 and KB5042320 for specific guidance on mitigating risks arising from this vulnerability. The observed impact is critical as it directly relates to the integrity and security of the system\u2019s operations, emphasizing the necessity for immediate patching across affected platforms.",
+  "source_id": "3fd9511c-a981-393c-1f46-6265c51733aa",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "3fd9511c-a981-393c-1f46-6265c51733aa"
+  ],
+  "tags": [
+    "Windows",
+    "Update",
+    "Elevation of Privilege",
+    "CVE-2024-38163",
+    "Security Update"
+  ],
+  "node_id": "3339a5da-b967-41bb-b3c4-87308343f4f3",
+  "node_label": "Symptom",
+  "reliability": 0.25,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

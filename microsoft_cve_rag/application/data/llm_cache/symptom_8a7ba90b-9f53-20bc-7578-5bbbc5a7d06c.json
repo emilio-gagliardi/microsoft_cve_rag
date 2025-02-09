@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_server_elevation_of_privilege_issue",
+  "description": "After applying the security update KB5036910 on Windows Server 2022, build 10.0.25398.830, users may experience unexpected behaviors that indicate a potential elevation of privilege risk. Symptoms can include unauthorized access attempts to files or registry keys that should be restricted. Administrators may notice logs indicating that low privilege accounts are able to execute actions typically limited to higher level permissions, leading to potential security breaches. In environments where strict access controls are essential, this symptom can pose significant compliance and operational challenges. Monitoring systems for unusual access patterns will be critical following this update.",
+  "source_id": "8a7ba90b-9f53-20bc-7578-5bbbc5a7d06c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8a7ba90b-9f53-20bc-7578-5bbbc5a7d06c"
+  ],
+  "tags": [
+    "Windows Server",
+    "elevation of privilege",
+    "security update",
+    "administrator logs",
+    "access control"
+  ],
+  "node_id": "55c60e3e-8b0b-427b-ad12-f09af8b3f576",
+  "node_label": "Symptom",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

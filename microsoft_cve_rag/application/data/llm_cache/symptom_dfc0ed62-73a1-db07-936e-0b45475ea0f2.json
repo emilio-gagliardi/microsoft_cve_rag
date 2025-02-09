@@ -1,0 +1,21 @@
+{
+  "symptom_label": "esxi_shell_vulnerabilities_not_documented_by_vmware",
+  "description": "System administrators unable to locate specific references to vulnerabilities related to the ESXi shell may experience unaddressed security concerns. The lack of documented vulnerabilities can result in potential exploitation risks within the VMware environment. This is critical as the ESXi shell is a point of management that can be susceptible to unauthorized access if not properly secured. As VMware continues to develop its products, it is crucial for sysadmins to stay informed about possible vulnerabilities that may not yet be addressed in the official documentation. This gap in information can hinder proactive security measures, allowing risks to persist in the VMware deployment.",
+  "source_id": "dfc0ed62-73a1-db07-936e-0b45475ea0f2",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "dfc0ed62-73a1-db07-936e-0b45475ea0f2"
+  ],
+  "tags": [
+    "VMware",
+    "ESXi",
+    "vulnerability",
+    "system administration"
+  ],
+  "node_id": "5df4c0eb-6e9b-4628-b039-72abcd638ae1",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

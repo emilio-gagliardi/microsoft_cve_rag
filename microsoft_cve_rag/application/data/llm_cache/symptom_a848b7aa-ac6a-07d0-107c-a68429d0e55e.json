@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_crashes_due_to_chromium_update",
+  "description": "Users of Microsoft Edge (Chromium-based) may experience application crashes after applying the security update referenced by KB-122.0.2365.52. This highly noticeable symptom is particularly acute for those using version 122.0.2365.52, released on February 23, 2024. The underlying issue stems from an out-of-bounds memory access vulnerability within the Blink rendering engine, which may lead to malfunctioning HTML pages causing unexpected behavior. End users could find their browsers crashing intermittently especially when rendering complex websites, severely disrupting their browsing experience. Updating to the latest build number provided in the KB article is recommended to mitigate these issues.",
+  "source_id": "a848b7aa-ac6a-07d0-107c-a68429d0e55e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a848b7aa-ac6a-07d0-107c-a68429d0e55e"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Browser Crashes",
+    "Security Update",
+    "Out of Bounds Memory Access"
+  ],
+  "node_id": "d76158a7-d984-4fe6-8ab9-cdc71c59422c",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

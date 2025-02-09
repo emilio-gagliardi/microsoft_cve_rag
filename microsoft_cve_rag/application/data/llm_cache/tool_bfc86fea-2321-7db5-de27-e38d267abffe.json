@@ -1,0 +1,22 @@
+{
+  "tool_label": "veeam_backup_solution_using_cbt",
+  "description": "**Tool Overview**:\n\nVeeam Backup & Replication is a comprehensive backup solution designed for virtual environments using Changed Block Tracking (CBT). CBT optimizes incremental backups by only capturing changes made since the last backup, which saves time and storage space. With the recent update (VMware ESXi 8.0 Update 2b), Veeam ensures that incremental backups will reliably function even when virtual disks undergo hot extension processes. \n\n**Details**:\n\n1. **Incremental Backup Efficiency**: Veeam utilizes CBT to track changes and accelerate backup processes.\n2. **Compatibility**: The tool is optimized for VMware ESXi, ensuring seamless backup and recovery processes.\n3. **Update Notifications**: Users should keep their software updated to leverage improvements like addressing issues with CBT during hot disk extension.\n4. **Recovery Reliability**: Enables reliable VM restoration from incremental backups without issues related to incomplete data capture during disk modifications.\n5. **Documentation**: Veeam provides extensive documentation and support to help users understand optimal configurations and troubleshooting steps. \n\n### Usage:\nTo use Veeam for backups in a virtual environment, ensure that CBT is enabled in your VMware settings, and follow the recommended configurations outlined in the Veeam documentation.",
+  "source_id": "bfc86fea-2321-7db5-de27-e38d267abffe",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "bfc86fea-2321-7db5-de27-e38d267abffe"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/DBBP189MB1340E5A141A055F820D2D084E9222%40DBBP189MB1340.EURP189.PROD.OUTLOOK.COM",
+  "tool_url": "https://www.veeam.com/veeam_backup.html",
+  "tags": [
+    "backup",
+    "cbt",
+    "veeam",
+    "vmware"
+  ],
+  "node_id": "b3893b16-fbf6-4a74-8ad6-a0829388dce0",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

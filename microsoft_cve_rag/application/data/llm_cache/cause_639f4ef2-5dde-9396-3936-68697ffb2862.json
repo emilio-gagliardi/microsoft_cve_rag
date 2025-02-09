@@ -1,0 +1,20 @@
+{
+  "description": "A heap-based buffer overflow in Microsoft Message Queuing (MSMQ) allows an attacker with basic user capabilities to gain elevated privileges by exploiting this vulnerability on local or remote systems, impacting confidentiality, integrity, and availability.",
+  "cause_label": "msmq_heap_buffer_overflow_elevation_of_privilege",
+  "source_id": "639f4ef2-5dde-9396-3936-68697ffb2862",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "639f4ef2-5dde-9396-3936-68697ffb2862"
+  ],
+  "tags": [
+    "MSMQ",
+    "buffer overflow",
+    "elevation of privilege",
+    "CVE-2024-21354"
+  ],
+  "node_id": "f9bb569c-fc10-4ad7-9652-93b1c37046a9",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

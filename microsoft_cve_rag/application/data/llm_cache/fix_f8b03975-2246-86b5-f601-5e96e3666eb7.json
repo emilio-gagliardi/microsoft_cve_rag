@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo ensure the functionality of Microsoft Secure Boot, it is critical to verify your UEFI firmware version:\n\n1. Check if your UEFI firmware version is the most recent available from your firmware vendor or OEM.\n2. If necessary, update your UEFI firmware to the latest version to meet prerequisites for secure boot compatibility.\n\n**Details**:\n- Keeping firmware updated ensures compatibility with secure boot features and prevents potential issues with system boot integrity. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure administrative rights to make firmware changes.\n- Backup important system settings before proceeding.",
+  "source_id": "f8b03975-2246-86b5-f601-5e96e3666eb7",
+  "source_type": "PatchManagementPost",
+  "fix_label": "update_uefi_firmware_for_secure_boot",
+  "tags": [
+    "UEFIFirmware",
+    "MicrosoftSecureBoot",
+    "FirmwareUpdate",
+    "LLM Synthesized"
+  ],
+  "node_id": "c40c64b9-9bf7-40b8-9518-5b5e95d4d207",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "f8b03975-2246-86b5-f601-5e96e3666eb7"
+  ]
+}

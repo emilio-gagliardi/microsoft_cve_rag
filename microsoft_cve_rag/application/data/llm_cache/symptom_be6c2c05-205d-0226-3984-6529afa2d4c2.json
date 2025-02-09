@@ -1,0 +1,16 @@
+{
+  "symptom_label": "KernelMemoryReadCausesInformationDisclosure",
+  "description": "End users on affected systems might experience unauthorized access to sensitive information. Specifically, the vulnerability allows unintentional read access to kernel memory contents from user mode processes, potentially exposing critical data. Systems running Windows 11 versions 21H2, 22H2, and 23H2, alongside Windows Server 2022, for build numbers 10.0.22000.2600, 10.0.22621.2715, and 10.0.25398.531 could be implicated. For mitigation, refer to KB articles KB5032190, KB5032192, and KB5032202 which provide updates addressing this issue.",
+  "source_id": "be6c2c05-205d-0226-3984-6529afa2d4c2",
+  "source_type": "MSRCPost",
+  "tags": [
+    "information disclosure",
+    "kernel memory",
+    "security update"
+  ],
+  "node_id": "56ad15e4-c979-448a-9ceb-8644aff0a93e",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

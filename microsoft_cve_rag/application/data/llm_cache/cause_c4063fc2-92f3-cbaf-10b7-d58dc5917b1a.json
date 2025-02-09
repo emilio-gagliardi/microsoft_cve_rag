@@ -1,0 +1,23 @@
+{
+  "description": "A use after free vulnerability in V8, the JavaScript engine in Google Chrome, allows a remote attacker to exploit heap corruption by manipulating memory post deallocation, impacting Microsoft Edge's Chromium-based builds prior to version 126.0.6478.54.",
+  "cause_label": "chromium_use_after_free_in_v8_heap_corruption",
+  "source_id": "c4063fc2-92f3-cbaf-10b7-d58dc5917b1a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c4063fc2-92f3-cbaf-10b7-d58dc5917b1a"
+  ],
+  "tags": [
+    "CVE-2024-5841",
+    "vulnerability",
+    "heap corruption",
+    "Microsoft Edge",
+    "Chromium",
+    "V8"
+  ],
+  "node_id": "9b0e1666-e246-4e40-b5e0-feab25182a23",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

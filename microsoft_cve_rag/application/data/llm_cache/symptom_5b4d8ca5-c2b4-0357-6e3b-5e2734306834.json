@@ -1,0 +1,20 @@
+{
+  "symptom_label": "internal_speaker_not_detected_due_to_jack_issue",
+  "description": "The internal speaker fails to activate when an audio jack is inserted, indicating a possible hardware malfunction or physical damage to the jack or the internal circuitry. This issue may arise in systems running Windows 11 and directly affects user experience as sound output becomes compromised. Troubleshooting should focus on verifying the physical integrity of the jack and investigating potential hardware failures that prevent the speaker from being detected. This symptom often requires user intervention to diagnose, leading to frustration if sound input/output is critical to operations. As no KB Article IDs were mentioned, other forms of diagnostic and troubleshooting guidance should be consulted for further investigation.",
+  "source_id": "5b4d8ca5-c2b4-0357-6e3b-5e2734306834",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "5b4d8ca5-c2b4-0357-6e3b-5e2734306834"
+  ],
+  "tags": [
+    "internal speaker",
+    "audio jack",
+    "hardware issue",
+    "diagnostics"
+  ],
+  "node_id": "1c5ff69b-4b8d-429e-9ac2-6813b5a7819a",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

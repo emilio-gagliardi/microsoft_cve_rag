@@ -1,0 +1,21 @@
+{
+  "description": "The root issue stems from the insufficient permissions granted to standard user accounts on the default computer container in Active Directory (AD). Specifically, these accounts lacked rights to perform necessary actions such as creating and deleting computer accounts, which hindered the ability to reuse computer names when joining machines to the domain. The resolution involved meticulously adding the user accounts to the access list for the relevant container and granting them specific rights, which had been a challenge for several years due to misconfiguration. This adjustment facilitated the smooth management of computer accounts without the need for broader delegation to a security group. By allowing these techs to utilize their accounts in ADUC effectively, the organization improved operational efficiency and consistency in domain management.",
+  "source_id": "6f0a42a3-b6fe-6eb9-5df9-16f4ca108691",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "6f0a42a3-b6fe-6eb9-5df9-16f4ca108691"
+  ],
+  "cause_label": "insufficient_permissions_on_standard_user_accounts",
+  "tags": [
+    "Active Directory",
+    "permissions",
+    "computer account management",
+    "domain join",
+    "delegated permissions"
+  ],
+  "node_id": "851da8c2-eee0-455a-9b26-2b646ee728bc",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Cause"
+}

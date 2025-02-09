@@ -1,0 +1,22 @@
+{
+  "description": "The vulnerability arises from insufficient verification of data authenticity in the Windows Print Spooler, allowing an attacker to leverage a race condition and gain elevated privileges.",
+  "cause_label": "windows_print_spooler_insufficient_data_authenticity",
+  "source_id": "b831a29c-0f74-bb2d-feb7-35b7ea75e195",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b831a29c-0f74-bb2d-feb7-35b7ea75e195"
+  ],
+  "tags": [
+    "CVE-2024-38198",
+    "Windows",
+    "Print Spooler",
+    "Elevation of Privilege",
+    "Insufficient Authentication"
+  ],
+  "node_id": "49a49dc3-00a1-48bc-aba6-2a671d620af7",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

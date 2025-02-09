@@ -1,0 +1,19 @@
+{
+  "tool_label": "NearbySharingMitigationTool",
+  "description": "**Tool Overview**:\n\nThe Nearby Sharing Mitigation Tool addresses vulnerabilities related to Windows Nearby Sharing. This tool is designed to help system administrators understand and implement appropriate security measures against spoofing vulnerabilities. \n\n**Details**:\n1. **Purpose**: The tool aids in identifying configurations related to Nearby Sharing that may be insecure or vulnerable to spoofing attacks.\n2. **Functionality**: It scans for specific settings and configurations that could be exploited, offering recommendations for secure configurations.\n3. **Usage**: Administrators can run the tool in their environment to receive a report on potential vulnerabilities regarding Nearby Sharing on Windows devices.\n4. **Integration**: It can be used in conjunction with other diagnostic tools to ensure comprehensive coverage of security assessments in your Windows ecosystem.\n5. **Command Usage**: While specific commands may vary, typical usage will involve executing the tool from an administrative command prompt to allow access to required system information.\n\nThe detailed explanation for this Tool is provided in the Fix description.",
+  "source_id": "807aaa34-5f4f-2d57-0049-0e872fd11869",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-20690",
+  "tool_url": "",
+  "tags": [
+    "Windows",
+    "Security",
+    "NearbySharing",
+    "LLM Synthesized"
+  ],
+  "node_id": "35ed224b-2130-4029-9d97-0b8ddaf05448",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

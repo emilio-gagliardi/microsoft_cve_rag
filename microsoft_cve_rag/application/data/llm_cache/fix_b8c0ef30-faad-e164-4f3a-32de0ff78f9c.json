@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the secure boot security feature bypass vulnerability (CVE-2024-38011), it's essential to apply the relevant security updates provided by Microsoft:\n\n1. Download and install the appropriate KB updates based on your Windows version from the Microsoft Update Catalog.\n2. Restart your system after the installation to ensure all changes are applied effectively.\n\n**Details**:\n- The following KB articles associated with this vulnerability should be addressed:\n  - KB5040442 for Windows 11 Version 23H2 and 22H2.\n  - KB5040431 for Windows 11 Version 21H2.\n  - KB5040448 for Windows 10 x64-based and 32-bit Systems.\n  - KB5040427 for Windows 10 Version 22H2 and Version 21H2 (both x64 and 32-bit).\n- These updates fix an improper handling of length parameter inconsistency, safeguarding the system from potential exploits.\n- Update packages can be found at:\n  - [KB5040442](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442)\n  - [KB5040431](https://catalog.update.microsoft.com/Search.aspx?q=KB5040431)\n  - [KB5040448](https://catalog.update.microsoft.com/Search.aspx?q=KB5040448)\n  - [KB5040427](https://catalog.update.microsoft.com/Search.aspx?q=KB5040427).\n\n**Preconditions**:\n- Ensure the system is on the supported builds as listed above.\n- Backup critical data before proceeding with the updates.",
+  "source_id": "b8c0ef30-faad-e164-4f3a-32de0ff78f9c",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_for_secure_boot_cve202438011",
+  "tags": [
+    "KB5040448",
+    "KB5040442",
+    "SecureBoot",
+    "CVE202438011"
+  ],
+  "node_id": "444fe65c-9836-4b42-960a-87ebd5da4514",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b8c0ef30-faad-e164-4f3a-32de0ff78f9c"
+  ],
+  "verification_status": "unverified"
+}

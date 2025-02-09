@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows kernel remote code execution vulnerability (CVE-2024-21341):\n\n1. Download the appropriate update package for your system from the official Microsoft Update Catalog using the links below.\n2. Install the update to ensure that the vulnerability is addressed.\n3. Restart your system to complete the installation of the updates.\n\n**Details**:\nThis update resolves the heap-based buffer overflow vulnerability found in the Windows kernel that could permit remote code execution. The issue requires the attacker to have physical access to the vulnerable systems. After applying the update, ensure that the system remains secure by following best practices for system maintenance and regular updates.\n\n**Update Packages**:\n- Windows 10 Version 22H2 for x64-based Systems: [Download KB5034763](https://catalog.update.microsoft.com/Search.aspx?q=KB5034763)\n- Windows 11 Version 22H2 for x64-based Systems: [Download KB5034765](https://catalog.update.microsoft.com/Search.aspx?q=KB5034765)\n- Windows 11 Version 21H2 for x64-based Systems: [Download KB5034766](https://catalog.update.microsoft.com/Search.aspx?q=KB5034766)\n\n**Preconditions**:\n- Make sure your system is updated to the appropriate build versions.\n- Backup critical data before proceeding with the installation.",
+  "source_id": "7c3e7faa-8e9f-03c9-95be-8c5308017a95",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_kernel_remote_code_execution_cve202421341",
+  "tags": [
+    "KB5034763",
+    "KB5034765",
+    "Windows11",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "18c7c320-02aa-443b-bf2c-1fe880feae24",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "7c3e7faa-8e9f-03c9-95be-8c5308017a95"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "tool_label": "windows_11_version_24h2_update_tool",
+  "description": "**Tool Overview**:\n\nThe Windows 11 Version 24h2 Update Tool facilitates the update process to the latest version of Windows 11, specifically designed for devices running Windows 11, version 23h2 or 22h2 with the May 2024 non-security preview update installed. This update is classified as a full OS swap and, therefore, does not exist as an enablement package. It ensures that users can transition to the most current operating system features and enhancements.\n\n**Usage Details**:\n\n1. Confirm that the device is running an eligible version of Windows 11.\n2. Ensure the necessary prerequisite updates are installed.\n3. Download and execute the update tool to initiate the upgrade process to version 24h2.\n4. Follow the on-screen prompts to complete the installation.\n\nThis tool is essential for administrators and users looking to keep their Windows 11 systems up to date, ensuring access to the latest features and security updates.",
+  "source_id": "00d330e4-f81b-6b43-cdd1-9a75670365d1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "00d330e4-f81b-6b43-cdd1-9a75670365d1"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://www.microsoft.com/en-us/software-download/windows11",
+  "tags": [
+    "Windows 11",
+    "OS Upgrade",
+    "System Administration"
+  ],
+  "node_id": "0d846382-361d-4cf9-b225-d5413e18275a",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

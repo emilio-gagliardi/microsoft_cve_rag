@@ -1,0 +1,21 @@
+{
+  "symptom_label": "smartscreen_prompt_security_feature_bypass",
+  "description": "Users may experience unexpected bypassing of the Smartscreen prompt security feature, which can lead to unverified or potentially harmful applications being executed without warning. This behavior can cause a significant impact on user awareness and system security, exposing the system to risks from malicious software or phishing attempts. End users on affected builds, such as Windows 10 versions 19045.4291 and 22000.2899, may notice that the usual warnings when attempting to run unrecognized applications are not displayed. This issue is addressed in the updates provided in the KB-5036910, KB-5036894, KB-5036893, and KB-5036892 articles. It is crucial for administrators to ensure that affected systems install the necessary patches to restore expected security prompts.",
+  "source_id": "de0331c0-c8a8-aeda-0ab5-42f536b16797",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "de0331c0-c8a8-aeda-0ab5-42f536b16797"
+  ],
+  "tags": [
+    "Smartscreen",
+    "security",
+    "Windows 10",
+    "update",
+    "protection"
+  ],
+  "node_id": "37a94b1e-e1b7-4705-9e8b-6294c1c943b3",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

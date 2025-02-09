@@ -1,0 +1,18 @@
+{
+  "description": "The primary cause inferred from the post relates to corruption in the Group Policy structures, particularly involving the 'registry.pol' file located in the local Group Policy cache. This corruption can lead to failures in the Software Update Scan for Microsoft Intune and SCCM, as improper or incomplete policies may interfere with the capabilities of the update systems. Users reported difficulties with enablement package updates and full feature updates not completing effectively, exacerbating the issue. The described solution involves deleting or renaming the corrupt 'registry.pol' file and clearing the local Group Policy cache, which allows for a fresh pull of the necessary policies that govern system updates. It is also essential to ensure no conflicting registry or policy settings are present between systems, as legacy SCCM recommendations may no longer apply, contributing to the overall instability of patch management operations.",
+  "source_id": "c2249dc0-7a05-427f-2a8f-5883d716acac",
+  "source_type": "PatchManagementPost",
+  "cause_label": "CorruptRegistryPolFileImpactsUpdateFunctionality",
+  "tags": [
+    "Intune",
+    "SCCM",
+    "GroupPolicy",
+    "Registry",
+    "PatchManagement"
+  ],
+  "node_id": "9dfb4b2e-5737-4be0-bb26-f78d9a1619cb",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

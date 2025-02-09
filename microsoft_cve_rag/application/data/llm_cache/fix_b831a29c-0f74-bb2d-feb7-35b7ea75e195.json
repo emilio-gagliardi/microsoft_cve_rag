@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows Print Spooler Elevation of Privilege vulnerability (CVE-2024-38198):\n\n1. Download and apply the relevant KB updates for your version of Windows from the official Microsoft Update Catalog.\n\n**Details**:\n- This vulnerability affects various builds of Windows 10 and Windows 11 and could potentially allow an attacker to elevate privileges on a vulnerable system.\n- Specific KBs to address this vulnerability include: \n  - For Windows 11 Version 24H2: [KB5041571](https://catalog.update.microsoft.com/Search.aspx?q=KB5041592)\n  - For Windows 10 Version 22H2 for x64-based Systems: [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n\n**Preconditions**:\n- Ensure that you are running one of the affected versions mentioned above.\n- Backup critical data before proceeding with the updates.\n\n**Additional Notes**:\n- Regularly check for available updates to maintain system security.",
+  "source_id": "b831a29c-0f74-bb2d-feb7-35b7ea75e195",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_print_spooler_elevation_privilege_cve202438198",
+  "tags": [
+    "KB5041571",
+    "KB5041580",
+    "WindowsPrintSpooler",
+    "CVE202438198"
+  ],
+  "node_id": "7f2e827a-3866-48ff-a99d-4e86d2a82621",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b831a29c-0f74-bb2d-feb7-35b7ea75e195"
+  ],
+  "verification_status": "unverified"
+}

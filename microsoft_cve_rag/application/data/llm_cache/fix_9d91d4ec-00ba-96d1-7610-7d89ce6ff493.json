@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the remote denial of service vulnerability identified as CVE-2023-50868, it is critical to apply the relevant security update promptly.\n\n1. Navigate to the Microsoft Update Catalog to download the specific KB article.\n2. Search for KB-5039330 and download the update package.\n3. Install the update on affected systems to resolve the NSEC3 closest encloser proof vulnerability.\n4. Restart the affected systems after installation to ensure all changes take effect.\n\n**Details**:\n- This update specifically addresses the capability of attackers to exhaust CPU resources via SHA-1 computations in A DNSSEC response.\n- For more information, refer to the update guide at: [KB-5039330](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-50868).\n\n**Preconditions**:\n- Ensure the system is running on a supported version of the software.\n- Backup critical data before proceeding with the installation of the update.",
+  "source_id": "9d91d4ec-00ba-96d1-7610-7d89ce6ff493",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb5039330_to_mitigate_cpu_exhaustion_cve202350868",
+  "tags": [
+    "KB5039330",
+    "CVE202350868",
+    "CPUExhaustion",
+    "DenialOfService"
+  ],
+  "node_id": "70b42038-43a2-438a-b4e1-dac3d1a54ae2",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "9d91d4ec-00ba-96d1-7610-7d89ce6ff493"
+  ],
+  "verification_status": "unverified"
+}

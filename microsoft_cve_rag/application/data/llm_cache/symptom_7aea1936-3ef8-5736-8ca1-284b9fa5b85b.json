@@ -1,0 +1,21 @@
+{
+  "symptom_label": "cdc_capture_job_fails_due_to_missing_columns",
+  "description": "After applying the security update described in KB5042207 for SQL Server 2016 SP3 GDR, users may observe that CDC (Change Data Capture) capture jobs fail. This issue is particularly noticeable when CDC-enabled tables have columns whose names contain commas, as these specific columns may be missing from the corresponding CDC tracking tables. The absence of these columns can lead to incomplete data capture and inconsistencies in database reporting. System administrators should be aware that this symptoms could affect data integrity and tracking capabilities within their databases. Addressing this requires examining the tables involved and ensuring all necessary columns are accounted for.",
+  "source_id": "7aea1936-3ef8-5736-8ca1-284b9fa5b85b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "7aea1936-3ef8-5736-8ca1-284b9fa5b85b"
+  ],
+  "tags": [
+    "CDC",
+    "SQL Server",
+    "data capture",
+    "known issues"
+  ],
+  "node_id": "e59cb9d8-8a6c-48bf-a630-dab0f5bbce0d",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

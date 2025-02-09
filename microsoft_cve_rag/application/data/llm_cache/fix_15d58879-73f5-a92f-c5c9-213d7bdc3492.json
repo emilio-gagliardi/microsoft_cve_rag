@@ -1,0 +1,16 @@
+{
+  "description": "To mitigate the identified issue in Microsoft Edge, users should upgrade to the latest version of the browser, specifically Microsoft Edge (Chromium-based) version 119.0.2151.58 or extended stable version 118.0.2088.102, as released on November 9, 2023. This update addresses the use after free vulnerability reported under CVE-2023-5996. Users can verify their current version by navigating to the settings in Microsoft Edge and checking the 'About Microsoft Edge' section. It's recommended to regularly check for updates and apply them promptly to maintain security. Furthermore, users can consult the detailed release notes associated with the update in the Microsoft Security Update Guide for more information.",
+  "source_id": "15d58879-73f5-a92f-c5c9-213d7bdc3492",
+  "source_type": "MSRCPost",
+  "fix_label": "UpgradeToLatestEdgeVersion11921658",
+  "tags": [
+    "upgrade",
+    "edge",
+    "CVE-2023-5996"
+  ],
+  "node_id": "b5e19136-908a-4c8a-bb03-953d67087620",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "redistributable_install_files_missing_w10_apps",
+  "description": "There is a lack of current and patched redistributable install files for Windows 10 Microsoft Store applications. This issue arises when administrators want to avoid building a standard operating environment (SOE) based on outdated versions that could introduce old vulnerabilities into the system. The concern is particularly relevant for applications such as VP9 video extensions, Paint 3D, WebP image extensions, and HEIF image extensions. Without access to the latest redistributables, the overall vulnerability count continues to increase, posing a significant risk to system integrity until those updates are provided by Microsoft. This situation has persisted for several weeks with insufficient response from Microsoft's support team, highlighting the ongoing challenge in maintaining secure environments.",
+  "source_id": "7988d32b-b7c7-dcd9-95ae-a5b38eb9a201",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "7988d32b-b7c7-dcd9-95ae-a5b38eb9a201"
+  ],
+  "tags": [
+    "redistributable",
+    "vulnerabilities",
+    "Windows 10",
+    "Microsoft Store"
+  ],
+  "node_id": "9dd14807-e3de-41e9-9a65-f4a46324b3c1",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,16 @@
+{
+  "description": "To resolve the issue of Windows 11 22H2 clients not receiving updates via WSUS, enable the 'Scan Source Policies' Group Policy. This change allows the clients to successfully detect and retrieve the October updates. Additionally, it is recommended to set the 'UseUpdateClassPolicySource' to ensure a more permanent solution. Creating a Group Policy to specify the source service for specific classes of Windows Update will help configure all update types to point at WSUS. This approach has been confirmed by the Windows Update team as the proper method for controlling the update source.",
+  "source_id": "ede057a0-dd10-feb8-c5e1-d391dcea99db",
+  "source_type": "PatchManagementPost",
+  "fix_label": "EnableScanSourcePoliciesForWSUSUpdates",
+  "tags": [
+    "WSUS",
+    "Windows 11",
+    "Group Policy"
+  ],
+  "node_id": "4be52cf2-e240-47d1-8f5f-5723a6913a32",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

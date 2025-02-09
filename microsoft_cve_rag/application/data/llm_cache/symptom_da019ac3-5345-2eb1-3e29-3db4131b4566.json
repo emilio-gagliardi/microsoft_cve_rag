@@ -1,0 +1,20 @@
+{
+  "symptom_label": "lenovo_dock_info_introduces_inconsistencies_in_powershell",
+  "description": "When using a Lenovo Thinkpad Universal USB-C dock, inconsistencies can arise when retrieving dock information via PowerShell. This occurs due to the unique namespace and class that Lenovo employs to expose dock properties, specifically under the namespace 'root\\Lenovo\\Dock_Manager'. The PowerShell command 'Get-WmiObject -Namespace \"root\\Lenovo\\Dock_Manager\" -Query \"select * from dockdevice\"' is typically used to extract critical information such as machine type, MAC address, serial number, and firmware version. However, users may encounter problems when utilizing different vendors' docks, such as Dell, which utilizes a separate namespace ('root\\dell\\sysinv') for dock identity, potentially leading to gaps in information retrieval. This variation in data representation can cause confusion and errors in environments with multiple types of docks connected, thus affecting smooth operations in both home and office scenarios.",
+  "source_id": "da019ac3-5345-2eb1-3e29-3db4131b4566",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "da019ac3-5345-2eb1-3e29-3db4131b4566"
+  ],
+  "tags": [
+    "Lenovo dock",
+    "PowerShell",
+    "USB-C dock",
+    "inconsistency issue"
+  ],
+  "node_id": "820b9144-6290-4b08-a697-eca0bedc51db",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

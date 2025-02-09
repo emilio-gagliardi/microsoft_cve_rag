@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_10_machines_upgrade_removal_of_group",
+  "description": "When Windows 10 machines are upgraded, they are removed from their Active Directory (AD) machine group. This behavior can lead to discrepancies in device management as the system may no longer accurately represent the current state of devices in the group. If an AD machine group is used to manage Windows 10 systems, administrators must ensure that the group is monitored closely for updates and changes. Failure to do so may result in inability to apply policies or updates correctly due to the absence of the upgraded machines in the targeted group. Without appropriate filtering and management based on these changes, it can create gaps in oversight of system compliance and configuration management.",
+  "source_id": "cda27b01-7e0f-4e85-a106-50e1389460aa",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "cda27b01-7e0f-4e85-a106-50e1389460aa"
+  ],
+  "tags": [
+    "windows upgrade",
+    "AD machine group",
+    "device management",
+    "group management"
+  ],
+  "node_id": "c5f07132-bf15-44b6-be5b-5a96354e4327",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

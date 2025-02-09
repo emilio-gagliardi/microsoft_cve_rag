@@ -1,0 +1,4 @@
+NodeType,ProductName,ProductID,ProductVersion
+[AffectedProduct],AAD account,product_d3260f77-9c16-6145-830c-0bffdae04413_2,
+[AffectedProduct],Windows Server 2022 Standard,product_80d3bcbd-c435-ff8c-aa41-cd9ce97c1ce3_2,2022
+[AffectedProduct],Secure Boot,product_ee0c530f-fefc-b6cd-3dbc-a5bc8d2d2d3d_1,

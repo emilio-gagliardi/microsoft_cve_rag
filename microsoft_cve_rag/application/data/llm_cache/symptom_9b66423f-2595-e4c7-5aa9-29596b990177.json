@@ -1,0 +1,20 @@
+{
+  "symptom_label": "winlogon_elevation_privilege_leads_to_file_modification",
+  "description": "After the update related to CVE-2024-30066, users may observe unexpected changes to file contents within their systems. This symptom is a consequence of the winlogon elevation of privilege vulnerability, which allows an authenticated attacker to replace valid file content with specially crafted modifications. Administrators should be aware that this behavior can occur across multiple affected builds, including Windows 10 versions 22H2 (KB5039211), Windows 10 version 21H2 (KB5039211), and Windows 11 version 23H2 (KB5039212). The issue affects systems running builds such as 10.0.22631.3737 and others as specified in the update guide. It\u2019s crucial for administrators to monitor their environments for this file modification behavior to safeguard the integrity of their systems.",
+  "source_id": "9b66423f-2595-e4c7-5aa9-29596b990177",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "9b66423f-2595-e4c7-5aa9-29596b990177"
+  ],
+  "tags": [
+    "winlogon",
+    "elevation of privilege",
+    "file modification"
+  ],
+  "node_id": "dde63b2d-8299-43bf-a04d-af934b7a63a9",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "symptom_label": "microsoft_edge_exposes_information_to_remote_attackers",
+  "description": "After the installation of Microsoft Edge (Chromium-based) security update version 122.0.2365.52 as referenced in KB-122.0.2365.52, users may experience instances where sensitive information is inadvertently disclosed to remote attackers. This occurs due to an information disclosure vulnerability that could allow attackers to access portions of data that are normally protected. End users might notice that certain restricted information is being accessed during network communications without their consent or knowledge. Although the impact on confidentiality is noted as low, the exposure of information, albeit limited, can still lead to concerns regarding data security and personal privacy. Administrators should monitor communications to ensure no unauthorized data is leaking as a result of this issue.",
+  "source_id": "81130d3b-7a9c-d043-63be-767339d30288",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "81130d3b-7a9c-d043-63be-767339d30288"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "information disclosure",
+    "security patch",
+    "network security"
+  ],
+  "node_id": "7188ead4-539c-4e86-a04a-86a4e2767147",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Symptom"
+}

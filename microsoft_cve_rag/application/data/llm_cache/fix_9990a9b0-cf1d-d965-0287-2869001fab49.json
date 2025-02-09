@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the taskbar responsiveness issues after installing the May 2024 Windows non-security preview update:\n\n1. Utilize the Known Issue Rollback (KIR) feature to automatically resolve the issue within 24 hours for home and pro devices.\n2. For devices not managed by an organization\u2019s IT department, restart the device to receive the resolution.\n3. IT administrators can manually resolve the issue by installing and configuring the special group policy available in the computer configuration section.\n\n**Details**:\n- Monitor the Event Viewer for application error \u2018Event ID 1000\u2019 which may display \u2018explorer.exe\u2019 as the faulting application and \u2018taskbar.view.dll\u2019 as the faulting module.\n- Ensure that you are aware of the specific group policy settings needed for the resolution provided to IT administrators. (LLM Synthesized)",
+  "source_id": "9990a9b0-cf1d-d965-0287-2869001fab49",
+  "source_type": "PatchManagementPost",
+  "fix_label": "mitigate_windows_11_taskbar_responsiveness_issues_kb5037853",
+  "tags": [
+    "KB5037853",
+    "Windows11",
+    "TaskbarIssues",
+    "LLM Synthesized"
+  ],
+  "node_id": "002b8b79-6c00-4730-a41d-a0daf6c12543",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "9990a9b0-cf1d-d965-0287-2869001fab49"
+  ],
+  "verification_status": "unverified"
+}

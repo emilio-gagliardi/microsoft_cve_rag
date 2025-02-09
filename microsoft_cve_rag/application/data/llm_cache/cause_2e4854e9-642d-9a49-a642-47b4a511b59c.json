@@ -1,0 +1,21 @@
+{
+  "description": "Improper removal of sensitive information before storage or transfer, leading to potential information disclosure via kernel-mode drivers.",
+  "cause_label": "windows_kernel_mode_driver_information_disclosure",
+  "source_id": "2e4854e9-642d-9a49-a642-47b4a511b59c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2e4854e9-642d-9a49-a642-47b4a511b59c"
+  ],
+  "tags": [
+    "information disclosure",
+    "CVE-2024-43554",
+    "kernel-mode driver",
+    "CWE-212"
+  ],
+  "node_id": "ea0b1d91-6fe7-4c74-b443-5279a5d87e21",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

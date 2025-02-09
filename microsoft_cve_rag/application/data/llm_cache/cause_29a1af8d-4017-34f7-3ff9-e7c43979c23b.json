@@ -1,0 +1,22 @@
+{
+  "description": "The vulnerability is caused by a use-after-free flaw in the Windows Ancillary Function Driver for Winsock, allowing unauthorized elevation of privileges through improper memory handling when the driver is accessed locally.",
+  "cause_label": "windows_ancillary_function_driver_use_after_free",
+  "source_id": "29a1af8d-4017-34f7-3ff9-e7c43979c23b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "29a1af8d-4017-34f7-3ff9-e7c43979c23b"
+  ],
+  "tags": [
+    "CVE-2024-38141",
+    "Windows",
+    "Elevated Privileges",
+    "Use After Free",
+    "Driver Vulnerability"
+  ],
+  "node_id": "a8ba29e0-ef36-4993-8754-98a6e2ad74a2",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

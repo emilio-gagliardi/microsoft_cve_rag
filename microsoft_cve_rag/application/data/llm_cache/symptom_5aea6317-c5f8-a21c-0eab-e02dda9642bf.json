@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_secure_boot_bypass_leads_to_exploitable_state",
+  "description": "The exploitation of a secure boot bypass can lead to the unauthorized modification of system files, resulting in compromised system integrity. Users may observe unusual system behavior, such as unauthorized changes to the boot process or unexpected system reboots. In systems affected by this issue, end users might experience a lack of expected security features, which can lead to concerns about data integrity and overall security posture. This issue impacts several Windows build numbers, including 10.0.22631.3880, 10.0.22621.3880, and 10.0.19045.4651, and is associated with KB articles like KB5040442 and KB5040431. Administrators should monitor systems for abnormal behavior as a reaction to potential exploitation of this vulnerability, which has been classified with an important severity level.",
+  "source_id": "5aea6317-c5f8-a21c-0eab-e02dda9642bf",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5aea6317-c5f8-a21c-0eab-e02dda9642bf"
+  ],
+  "tags": [
+    "security",
+    "Windows",
+    "secure boot",
+    "exploit",
+    "system integrity"
+  ],
+  "node_id": "720243ec-bd82-4201-9d30-f5de16c0320f",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

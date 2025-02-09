@@ -1,0 +1,21 @@
+{
+  "description": "Type confusion in the V8 engine of Chromium prior to version 126.0.6478.54 leading to out of bounds memory access via a crafted HTML page.",
+  "cause_label": "chromium_type_confusion_in_v8_memory_access",
+  "source_id": "53024482-1dfe-c25b-9643-f8f391bdbe78",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "53024482-1dfe-c25b-9643-f8f391bdbe78"
+  ],
+  "tags": [
+    "CVE-2024-5838",
+    "Chromium",
+    "V8",
+    "Microsoft Edge"
+  ],
+  "node_id": "b18f90c2-4b11-4ed0-8d2a-fca7fea78415",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

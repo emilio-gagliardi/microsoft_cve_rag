@@ -1,0 +1,23 @@
+{
+  "tool_label": "september_patch_issue_documentation",
+  "description": "**Tool Overview**:\n\nThe updated documentation for the September patch serves as a reference for system administrators experiencing known issues with the patch. \n\n**Details**:\nThis tool provides information regarding the known issues associated with the latest updates released in September. It is vital for administrators to check the documentation to understand the implications of the patch on their systems. The documentation outlines the issues, any workarounds available, and guidance for any necessary rollbacks or adjustments to system configurations.\n\n1. **Access Documentation**: Utilize the provided support link to access the latest updates and known issues.\n2. **Monitor for Updates**: Stay updated via the Microsoft support channels for any further announcements regarding resolutions to the known issues.\n3. **System Configuration**: Assess and adjust system configurations as per guidance in the documentation to mitigate any negative impacts from the patch.",
+  "source_id": "4d03ed67-c39b-9d68-7e73-5357dee7acc7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "4d03ed67-c39b-9d68-7e73-5357dee7acc7"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/dac355dc-203e-4996-a166-19edac4891f0n%40googlegroups.com",
+  "tool_url": "https://support.microsoft.com/en-us/",
+  "tags": [
+    "documentation",
+    "patch management",
+    "known issue",
+    "update"
+  ],
+  "node_id": "3e17beb4-8cca-42fd-bd41-1cdc5aaa07dd",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

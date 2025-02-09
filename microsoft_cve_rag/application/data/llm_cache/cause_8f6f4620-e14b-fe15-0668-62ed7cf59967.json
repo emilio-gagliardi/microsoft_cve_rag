@@ -1,0 +1,21 @@
+{
+  "description": "A missing cryptographic step in Windows Kerberos can allow unauthorized disclosure of kernel memory, potentially exposing sensitive information.",
+  "cause_label": "windows_kerberos_missing_cryptographic_step",
+  "source_id": "8f6f4620-e14b-fe15-0668-62ed7cf59967",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8f6f4620-e14b-fe15-0668-62ed7cf59967"
+  ],
+  "tags": [
+    "Kerberos",
+    "Information Disclosure",
+    "Cryptography",
+    "Windows"
+  ],
+  "node_id": "7cafd089-7c3a-4fe3-9a21-f708b64d4859",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

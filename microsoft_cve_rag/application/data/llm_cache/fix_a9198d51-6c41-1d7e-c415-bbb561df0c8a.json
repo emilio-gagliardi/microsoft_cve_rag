@@ -1,0 +1,16 @@
+{
+  "description": "To address the issue outlined in CVE-2023-44323, it is essential to update Microsoft Edge (Chromium-based) to version 118.0.2088.76, released on October 27, 2023. This update mitigates the potential remote code execution vulnerability associated with Adobe software consumed by Microsoft Edge. Users can verify their current version by navigating to the browser's settings, selecting 'Help and feedback', and then 'About Microsoft Edge'. This ensures that the latest security measures are in place and prevents exploitation. The Microsoft Knowledge Base article corresponding to this update is KB-118.0.2088.76.",
+  "source_id": "a9198d51-6c41-1d7e-c415-bbb561df0c8a",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeToCureRemoteExecutionRisk",
+  "tags": [
+    "Microsoft Edge",
+    "remote code execution",
+    "update"
+  ],
+  "node_id": "2a50eeea-c046-49a1-bf23-353550c2de5a",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix"
+}

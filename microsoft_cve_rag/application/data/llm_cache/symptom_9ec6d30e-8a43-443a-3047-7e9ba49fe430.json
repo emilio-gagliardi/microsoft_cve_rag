@@ -1,0 +1,18 @@
+{
+  "symptom_label": "BrowserSandboxEscapeWithMicrosoftEdgeUpdate",
+  "description": "After installing the Microsoft Edge update identified as version 121.0.2277.83 and associated with KB21388, users may experience a concerning observable behavior where the browser's sandbox protections are compromised. This could manifest as unauthorized privilege escalation, enabling attackers to gain the permissions needed to install unwanted extensions. Such activity could lead to potential modifications of user settings or data integrity issues within the browser environment, creating a risk of compromising sensitive information. Additionally, there may be minor impacts on system performance, as the browser becomes vulnerable to unexpected behaviors and interruptions. This illustrates how critical updates can have repercussions that end users may notice operationally, emphasizing the importance of timely patch management.",
+  "source_id": "9ec6d30e-8a43-443a-3047-7e9ba49fe430",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Microsoft Edge",
+    "Privilege Escalation",
+    "Sandboxing",
+    "Update",
+    "Browser Security"
+  ],
+  "node_id": "bd512129-74b1-4151-81d2-cb1e377326f7",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

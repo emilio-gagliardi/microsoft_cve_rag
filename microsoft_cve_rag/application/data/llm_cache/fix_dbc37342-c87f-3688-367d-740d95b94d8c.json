@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the information disclosure vulnerability in the Windows Remote Access Connection Manager:\n\n1. Apply the updates listed below to your system to address the vulnerability.\n\n**KB Articles**:\n- KB-5037788\n- KB-5037771\n- KB-5037768\n- KB-5036910\n- KB-5036899\n- KB-5036894\n- KB-5036893\n- KB-5036892\n\n**Details**:\n- This vulnerability is classified under CWE-125: Out-of-bounds Read, impacting systems on specified build numbers and allowing potential information disclosure. Ensure that the system builds are among the listed builds when applying updates.\n\n**Preconditions**:\n- Verify that the system build corresponds to the affected versions:\n  - [10, 0, 19045, 4291],\n  - [10, 0, 19044, 4291],\n  - [10, 0, 22631, 3447],\n  - [10, 0, 22000, 2899],\n  - [10, 0, 22621, 3447],\n  - [10, 0, 10240, 20596],\n  - [10, 0, 19045, 4412],\n  - [10, 0, 10240, 20651],\n  - [10, 0, 22631, 3593],\n  - [10, 0, 22621, 3593],\n  - [10, 0, 19044, 4412].\n- Backup critical data before proceeding with the installation of any updates.",
+  "source_id": "dbc37342-c87f-3688-367d-740d95b94d8c",
+  "source_type": "MSRCPost",
+  "fix_label": "address_information_disclosure_windows_remote_access_cve202426217",
+  "tags": [
+    "CVE-2024-26217",
+    "KB5037788",
+    "WindowsRemoteAccess",
+    "InformationDisclosure"
+  ],
+  "node_id": "105b9461-8412-43f3-99d6-55b113203224",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "dbc37342-c87f-3688-367d-740d95b94d8c"
+  ]
+}

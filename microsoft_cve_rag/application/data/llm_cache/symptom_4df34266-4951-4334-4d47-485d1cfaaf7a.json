@@ -1,0 +1,16 @@
+{
+  "symptom_label": "NonCompliantDevicesInWindows10WithIntune",
+  "description": "A high number of non-compliant devices is reported in a managed environment using Windows 10, version 21H2. While these devices are active and checking into Intune regularly, the lack of visibility into the exact compliance status poses a challenge for system administrators. The existing reporting mechanism only provides information on the patch level, limiting the ability to assess overall device compliance accurately.",
+  "source_id": "4df34266-4951-4334-4d47-485d1cfaaf7a",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "device compliance",
+    "windows 10",
+    "intune"
+  ],
+  "node_id": "6b6f91e5-8e00-4eb0-80a0-dd6e72a9c509",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

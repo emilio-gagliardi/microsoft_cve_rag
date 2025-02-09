@@ -1,0 +1,21 @@
+{
+  "symptom_label": "remote_code_execution_via_xbox_adapter",
+  "description": "Users experiencing issues with the Xbox Wireless Adapter may notice unauthorized access to their systems, allowing remote code execution. This impacts systems running Windows 11 versions 21H2, 22H2, or 23H2 for both x64 and ARM64 architectures, specifically those identified by build numbers 10.0.22631.3880 and 10.0.22000.3079. As a consequence, users might observe unexpected behaviors when using their devices, including unauthorized commands being executed or abnormal application behavior. Furthermore, the effect of this vulnerability can lead to a significant risk of exposure, and therefore, updating systems with the provided KB articles (KB-5040442 and KB-5040431) is crucial to mitigate these risks and restore proper functionality.",
+  "source_id": "0f1d8e15-b370-9835-3aef-3daf96e59f06",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0f1d8e15-b370-9835-3aef-3daf96e59f06"
+  ],
+  "tags": [
+    "Windows 11",
+    "Xbox Wireless Adapter",
+    "Remote Code Execution",
+    "Security Update"
+  ],
+  "node_id": "5758bf22-ec74-4ddb-8be6-bae5d3f8050a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

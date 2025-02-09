@@ -1,0 +1,21 @@
+{
+  "description": "An elevation of privilege vulnerability in the Windows kernel due to improper neutralization of special elements, allowing attackers with local access to exploit the system by executing arbitrary code, potentially gaining system privileges.",
+  "cause_label": "windows_kernel_elevation_of_privilege_improper_neutralization",
+  "source_id": "56fa9407-3b2d-1c92-958e-018ad54c0668",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "56fa9407-3b2d-1c92-958e-018ad54c0668"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Privilege Escalation",
+    "CVE-2024-38133"
+  ],
+  "node_id": "e11eeb68-e4d2-4055-8253-20509bed0f8b",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

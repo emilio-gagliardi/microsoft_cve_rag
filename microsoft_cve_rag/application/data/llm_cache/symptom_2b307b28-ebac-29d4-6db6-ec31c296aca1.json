@@ -1,0 +1,21 @@
+{
+  "symptom_label": "remote_code_execution_vulnerability_affects_rtcp_streaming",
+  "description": "After installing updates in response to CVE-2024-38140, users may experience disruptions in network communication particularly affecting Remote Transport Control Protocol (RTCP) streaming processes. This observable behavior includes unexpected failures in packet transmission, which can lead to total loss of service continuity for applications relying on multicast communications. Specifically, systems running Windows 10 versions 22H2 (build 19045.4780) and 21H2 (build 19044.4780), as well as Windows 11 versions 24H2 (build 26100.1457) and 23H2 (build 22631.4037), are impacted. Users should refer to KB articles KB-5041592, KB-5041585, and KB-5041571 for detailed guidance and remediation steps to restore normal operation. Consequently, it is crucial for organizations to ensure that all affected systems receive these updates to mitigate service interruptions.",
+  "source_id": "2b307b28-ebac-29d4-6db6-ec31c296aca1",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2b307b28-ebac-29d4-6db6-ec31c296aca1"
+  ],
+  "tags": [
+    "Windows",
+    "Network Communication",
+    "Remote Code Execution",
+    "Update Management"
+  ],
+  "node_id": "0fbea7ff-96e3-45b4-8381-70f45e8e5514",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

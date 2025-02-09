@@ -1,0 +1,21 @@
+{
+  "description": "A use after free condition in the Chromium serialization code prior to version 130.0.6723.116 that allowed a remote attacker to exploit heap corruption via a crafted HTML page.",
+  "cause_label": "chromium_use_after_free_in_serial_heap_corruption",
+  "source_id": "f899de42-329a-d91c-b5e3-f40a63bf8e0b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f899de42-329a-d91c-b5e3-f40a63bf8e0b"
+  ],
+  "tags": [
+    "CVE-2024-10827",
+    "Chromium",
+    "Heap Corruption",
+    "Use After Free"
+  ],
+  "node_id": "a1c2964f-10d3-4472-89b9-a3093f87a7b2",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

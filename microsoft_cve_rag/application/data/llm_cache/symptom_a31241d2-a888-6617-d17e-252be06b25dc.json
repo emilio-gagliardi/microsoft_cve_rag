@@ -1,0 +1,18 @@
+{
+  "symptom_label": "InformationDisclosureRiskInMessagingService",
+  "description": "Following the application of security updates such as KB-5034134, KB-5034123, KB-5034122, and KB-5034121, users may experience unintended information exposure through Microsoft Message Queuing systems across various Windows builds. Specifically, this issue pertains to Windows Server 2012, Windows Server 2016, and multiple Windows 10 versions. The observable symptom may involve unauthorized data access where sensitive information contained in heap memory can be read by an attacker. End users may not directly notice an immediate change in performance but should be aware of potential risks related to data integrity and confidentiality. These vulnerabilities can remain latent and exploitable if updates are not applied, hence it is crucial for system administrators to ensure that the latest updates are deployed across all affected systems to mitigate this risk effectively.",
+  "source_id": "a31241d2-a888-6617-d17e-252be06b25dc",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Information Disclosure",
+    "Microsoft Message Queuing",
+    "Windows 10",
+    "Windows Server",
+    "Security Update"
+  ],
+  "node_id": "7deb832c-7d5c-4faa-8f59-fc54b7fed210",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

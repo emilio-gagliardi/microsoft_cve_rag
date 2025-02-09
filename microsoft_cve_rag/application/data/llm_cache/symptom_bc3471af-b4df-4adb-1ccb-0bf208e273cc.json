@@ -1,0 +1,20 @@
+{
+  "symptom_label": "user_clicks_malicious_link_in_edge",
+  "description": "Users may experience a security risk when using Microsoft Edge (Chromium-based) version 130.0.2849.46, as they are required to click on a specially crafted URL to initiate a potentially harmful action. This action can lead to remote code execution on the renderer process, effectively compromising the integrity of their browsing environment. As a result, users may notice unusual behavior, such as unexpected pop-ups or application responses, after interacting with suspected malicious links. It's crucial for system administrators to monitor user interactions and educate them about the risks associated with clicking unknown links, especially in environments where sensitive data is accessed. This vulnerability is documented as KB-130.0.2849.46, which outlines its implications and remediation steps.",
+  "source_id": "bc3471af-b4df-4adb-1ccb-0bf208e273cc",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "bc3471af-b4df-4adb-1ccb-0bf208e273cc"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "remote code execution",
+    "CVE-2024-43596"
+  ],
+  "node_id": "4965c9df-f932-44d2-833d-46d39c47a6c5",
+  "node_label": "Symptom",
+  "reliability": 0.08,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

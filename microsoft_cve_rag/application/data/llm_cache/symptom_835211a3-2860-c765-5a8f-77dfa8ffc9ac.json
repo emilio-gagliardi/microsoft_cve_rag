@@ -1,0 +1,22 @@
+{
+  "symptom_label": "network_communication_interruption_after_patch_installation",
+  "description": "After applying the security updates associated with KB-5035959, KB-5035858, and others, systems running on builds including Windows Server 2012, Windows 11, and specific Windows 10 versions may experience intermittent network communication interruptions. Users might notice disruptions in connectivity while trying to access network resources, leading to failed connections when attempting to query SQL databases or access remote services. These symptoms could manifest as timeouts or error messages indicating that the server is unreachable or responding exceptionally slowly. Furthermore, the persistent loss of connectivity could contribute to operational inefficiencies and impact database-driven applications relying on consistent network access, particularly when trying to interact with SQL Server. It is vital for system administrators to monitor this behavior closely in their environments following the deployment of these updates.",
+  "source_id": "835211a3-2860-c765-5a8f-77dfa8ffc9ac",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "835211a3-2860-c765-5a8f-77dfa8ffc9ac"
+  ],
+  "tags": [
+    "patch management",
+    "SQL Server",
+    "network issues",
+    "Windows 10",
+    "Windows 11",
+    "Windows Server 2012"
+  ],
+  "node_id": "9b08781e-1b5e-4264-bd7b-18d765102e95",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

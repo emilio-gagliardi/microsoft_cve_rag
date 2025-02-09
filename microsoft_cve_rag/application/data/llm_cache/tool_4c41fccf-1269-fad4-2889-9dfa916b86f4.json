@@ -1,0 +1,23 @@
+{
+  "tool_label": "powershell_elevation_of_privilege_vulnerability",
+  "description": "**Tool Overview**: \nA PowerShell tool aimed at addressing the elevation of privilege vulnerability identified as CVE-2024-38047. This vulnerability, stemming from improper input validation, allows an attacker to gain higher-level access to the system. The tool is utilized to analyze and secure PowerShell scripts and their execution policies to mitigate this risk. **Details**: \n1. **Purpose**: To prevent unauthorized elevation of privilege through improved validation processes. \n2. **Functionality**: Allows administrators to run security check procedures to identify weaknesses. \n3. **Usage**: Typically used in environments where PowerShell scripts are extensively utilized and must be secured. \n4. **Configuration**: Administrators must ensure they are using the latest PowerShell version compatible with current security policies. \n5. **Best Practices**: Regular reviews and audits of PowerShell scripts are recommended for immediate detection of vulnerabilities.",
+  "source_id": "4c41fccf-1269-fad4-2889-9dfa916b86f4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4c41fccf-1269-fad4-2889-9dfa916b86f4"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38047",
+  "tool_url": "",
+  "tags": [
+    "PowerShell",
+    "elevation of privilege",
+    "security",
+    "LLM Synthesized"
+  ],
+  "node_id": "fcd88b2a-5e7b-41a8-99df-df0140d148fc",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

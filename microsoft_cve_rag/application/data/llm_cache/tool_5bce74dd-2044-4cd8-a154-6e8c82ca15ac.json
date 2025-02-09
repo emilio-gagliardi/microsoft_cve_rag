@@ -1,0 +1,22 @@
+{
+  "tool_label": "active_directory_server_2025_upgrades",
+  "description": "**Tool Overview**:\n\nActive Directory in Windows Server 2025 introduces a variety of upgrades that enhance functionality, security, and management efficiency. \n\n**Details**:\n\nThis tool focuses on understanding the new capabilities offered by Active Directory in Windows Server 2025. Key features include:\n1. Improved user and group management, allowing for streamlined access control.\n2. Enhanced security measures that protect against modern threats and vulnerabilities.\n3. Integration capabilities that facilitate better interaction with cloud services, thus supporting hybrid environments.\n4. Tools for easier migration and upgrading processes from earlier versions.\n\nThese improvements are essential for system administrators looking to optimize their Active Directory infrastructure and ensure compliance with security best practices.",
+  "source_id": "5bce74dd-2044-4cd8-a154-6e8c82ca15ac",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "5bce74dd-2044-4cd8-a154-6e8c82ca15ac"
+  ],
+  "source_url": "https://techcommunity.microsoft.com/t5/windows-server-events/what-s-new-in-active-directory-for-windows-server-2025/ev-p/4080118",
+  "tool_url": "https://techcommunity.microsoft.com/t5/windows-server-events/what-s-new-in-active-directory-for-windows-server-2025/ev-p/4080118",
+  "tags": [
+    "Active Directory",
+    "Windows Server",
+    "Upgrades",
+    "LLM Synthesized"
+  ],
+  "node_id": "a00fcc90-10be-46eb-9ff1-6cf82c13cb4e",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

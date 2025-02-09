@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the complications arising from the new 'UserChoice Protection Driver' update in Windows:\n\n1. Verify if the UserChoice Protection Driver is installed by checking your device's driver settings.\n2. If necessary, use the following command in an elevated command prompt to find the installed driver:\n   \n   ```cmd\n   driverquery /FO LIST | findstr /C:\"UserChoice\"\n   ```\n3. Review your applications and ensure they are compatible with the restrictions imposed by the new filter driver.\n4. If needed, consider reverting to a previous driver version if the user experience is severely impacted.\n\n**Details**:\nThis change is designed to enhance security by restricting non-Microsoft applications from modifying default settings. However, it may hinder legitimate applications like web browsers. Users should be aware that while this increases security, it also reduces flexibility in managing system configurations. (LLM Synthesized)",
+  "source_id": "ed6da803-cece-c016-7c6e-c5157fc7f429",
+  "source_type": "PatchManagementPost",
+  "fix_label": "mitigate_userchoice_protection_driver_impact",
+  "tags": [
+    "Windows",
+    "UserChoiceDriver",
+    "DriverUpdate",
+    "LLM Synthesized"
+  ],
+  "node_id": "de8896f7-0003-4b4a-9088-c684834bfadd",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "ed6da803-cece-c016-7c6e-c5157fc7f429"
+  ]
+}

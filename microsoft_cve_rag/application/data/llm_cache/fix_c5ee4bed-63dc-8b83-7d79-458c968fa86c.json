@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows authentication elevation of privilege vulnerability (CVE-2024-29056):\n\n1. Download and apply the KB-5036896 update from the official Microsoft Update Catalog.\n2. Restart your system to ensure the updates take effect.\n\n**Details**:\n- This update addresses vulnerabilities caused by the use of a broken or risky cryptographic algorithm, preventing potential elevation of privileges.\n- For manual installation, download the update package from: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-29056.\n\n**Preconditions**:\n- Ensure the system is compatible and running the affected version of Windows.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "c5ee4bed-63dc-8b83-7d79-458c968fa86c",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_authentication_elevation_privilege_cve202429056",
+  "tags": [
+    "KB5036896",
+    "WindowsAuthentication",
+    "ElevationOfPrivilege",
+    "CVE202429056"
+  ],
+  "node_id": "790fc08b-2125-413e-bec6-65b16c85c60f",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c5ee4bed-63dc-8b83-7d79-458c968fa86c"
+  ]
+}

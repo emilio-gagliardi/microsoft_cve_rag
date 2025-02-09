@@ -1,0 +1,21 @@
+{
+  "symptom_label": "elevation_of_privilege_on_windows_systems",
+  "description": "Users may experience unexpected access to elevated privileges on Windows systems due to a flaw in the Windows kernel. This vulnerability allows an attacker to gain system authority, potentially enabling unauthorized actions or disruptions. Affected systems include Windows 10 (versions 1607, 22H2, and 21H2) and Windows 11 (version 24H2), specifically those running build numbers like 10.0.14393.7259 and 10.0.26100.1457. Administrators may notice unusual behavior, including unauthorized system modifications or changes in permissions following the installation of security updates. For resolution, relevant KB articles include KB-5041773, KB-5041580, and KB-5041571, addressing the severity of 'important' regarding this issue.",
+  "source_id": "53b5b7f1-fd2a-7b3e-8bbe-170338cee9ad",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "53b5b7f1-fd2a-7b3e-8bbe-170338cee9ad"
+  ],
+  "tags": [
+    "Windows",
+    "Elevation of Privilege",
+    "Security Update",
+    "System Administration"
+  ],
+  "node_id": "b938a10f-c142-4a4d-a7ff-65634ff1a3f9",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "A flaw in the secure boot mechanism allows for the bypass of security features, leading to potential unauthorized access.",
+  "cause_label": "secure_boot_security_feature_bypass_flaw",
+  "source_id": "69f74a66-ae1d-38d2-adaa-37d588aeeca5",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "69f74a66-ae1d-38d2-adaa-37d588aeeca5"
+  ],
+  "tags": [
+    "CVE",
+    "secure boot",
+    "flaw",
+    "vulnerability"
+  ],
+  "node_id": "c7753d10-b883-4b4a-87e1-6cb475341f74",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_server_kpsvc_allows_remote_code_execution",
+  "description": "The identified vulnerability (CVE-2024-43639) affects Windows Servers configured as a Kerberos Key Distribution Center (KKDCP) proxy protocol server. An unauthenticated attacker could exploit a cryptographic protocol flaw within Windows Kerberos to execute arbitrary code on affected systems. The vulnerability specifically exists on the KPSSVC server, which is an additional feature introduced with Windows Server 2012. It is crucial to note that only those environments where KPSSVC is enabled are susceptible to this issue; in environments that do not use the service, this vulnerability is not exploitable. Immediate patching of instances running the KPSSVC server is recommended to mitigate potential attacks. The relevant KB Article ID for additional guidance is KB43639.",
+  "source_id": "3a76deb6-76f8-9326-f724-9cb48a5118bf",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "3a76deb6-76f8-9326-f724-9cb48a5118bf"
+  ],
+  "tags": [
+    "Windows Server",
+    "Kerberos",
+    "Remote Code Execution",
+    "Patch Management"
+  ],
+  "node_id": "cd401a07-8f21-4b22-8d2d-b1ed1553da4e",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

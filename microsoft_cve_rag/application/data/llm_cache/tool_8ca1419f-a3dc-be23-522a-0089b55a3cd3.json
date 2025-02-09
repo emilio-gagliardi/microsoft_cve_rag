@@ -1,0 +1,18 @@
+{
+  "tool_label": "RemoteDesktopClientVulnerabilityMitigation",
+  "description": "**Tool Overview**:\n\nThis tool aids in mitigating the remote code execution vulnerability associated with the Remote Desktop Client referenced in CVE-2024-21307. It enables administrators to secure their network and ensure compliance with security best practices. **Details**:\n\n1. Provides mechanisms to configure and manage Remote Desktop settings to reduce the attack surface.  \n2. Ensures that proper authentication methods are enforced, thus limiting unauthorized access.  \n3. Allows for the monitoring of network traffic to identify and respond to potential exploitation attempts in real-time.  \n4. Facilitates the application of security patches from Microsoft's knowledge base (KB-5034134, KB-5034123, KB-5034122, KB-5034121) to maintain updated system security.  \n5. Administrators are advised to follow best practices in configuring network defenses against use of Remote Desktop services.",
+  "source_id": "8ca1419f-a3dc-be23-522a-0089b55a3cd3",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-21307",
+  "tool_url": "",
+  "tags": [
+    "RemoteDesktop",
+    "Security",
+    "VulnerabilityMitigation"
+  ],
+  "node_id": "f9bfc143-9ec2-491f-aa57-b41b9d5cbc2d",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

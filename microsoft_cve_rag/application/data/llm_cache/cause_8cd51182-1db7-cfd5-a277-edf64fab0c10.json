@@ -1,0 +1,17 @@
+{
+  "description": "The root cause of CVE-2023-36005 is an elevation of privilege vulnerability associated with the Windows Telephony Server. This vulnerability arises from the server's improper handling of specific requests, allowing an attacker with low privileges to execute arbitrary code in the context of the 'NT Authority\\Network Service' account. The vulnerable component is bound to the network stack, making the issue potentially exploitable from a remote location without user interaction. Successful exploitation requires an attacker to manipulate a race condition, which depends on environmental conditions outside their control, thus complicating the attack process. The affected systems include build numbers 10.0.10240, 10.0.22000, 10.0.19045, and 10.0.22631, and are documented under KB articles KB-5033379, KB-5033375, KB-5033372, and KB-5033369.",
+  "cause_label": "WindowsTelephonyServerElevationOfPrivilege",
+  "source_id": "8cd51182-1db7-cfd5-a277-edf64fab0c10",
+  "source_type": "MSRCPost",
+  "tags": [
+    "elevation of privilege",
+    "windows",
+    "telephony server",
+    "CVE-2023-36005"
+  ],
+  "node_id": "045f688d-2b4b-4054-a6d8-12aebc267641",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,22 @@
+{
+  "description": "The root cause identified in the context involves a change in the Common Vulnerabilities and Exposures (CVE) listing that occurred after February 12, 2024. This change can significantly affect security scanners, Security Information and Event Management (SIEM) systems, or Security Operations Centers (SOC) that rely on the National Vulnerability Database (NVD) data for threat intelligence and vulnerability assessment. Specifically, vulnerabilities may not be properly recognized or categorized if they are only updated in the NVD post the specified date. This lack of update could lead to mismanagement of vulnerabilities, rendering systems at risk of unaddressed threats. The referenced KB articles (KB202024 and KB30852) likely provide additional details on how to manage these updates effectively.",
+  "source_id": "1d286f02-fe53-b7dc-f674-a7baef6a27c2",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "1d286f02-fe53-b7dc-f674-a7baef6a27c2"
+  ],
+  "cause_label": "cve_update_impacts_security_scanners",
+  "tags": [
+    "CVE",
+    "NVD",
+    "SIEM",
+    "SOC",
+    "vulnerability_management"
+  ],
+  "node_id": "fdc9f786-2758-4d0d-92a0-bf1c1f9eca5d",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

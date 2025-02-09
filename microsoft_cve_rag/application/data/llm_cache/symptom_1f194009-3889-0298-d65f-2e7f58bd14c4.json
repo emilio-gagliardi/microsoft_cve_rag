@@ -1,0 +1,16 @@
+{
+  "symptom_label": "ChangeBlockTrackingIssuesInVeeamBackups",
+  "description": "In the context of Veeam backups for Gen1 and Gen2 VMs, there is an issue with Change Block Tracking (CBT) that has been reported after the November update affecting clustered and unclustered VMs. This symptom has been observed in environments using vSphere 8.0 and ESXi 8.0, particularly in a two-node cluster setup. The guest operating systems impacted are Windows Server 2016 VMs, which could lead to backup inconsistencies or failures if the issue persists.",
+  "source_id": "1f194009-3889-0298-d65f-2e7f58bd14c4",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Veeam",
+    "Change Block Tracking",
+    "Backup Issues"
+  ],
+  "node_id": "70d72da6-617b-48d5-87cc-d48a306f2a0b",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

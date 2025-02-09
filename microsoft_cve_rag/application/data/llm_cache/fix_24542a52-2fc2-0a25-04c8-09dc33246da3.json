@@ -1,0 +1,16 @@
+{
+  "description": "To mitigate the elevation of privilege issue associated with CVE-2023-36033, Microsoft has released several updates across impacted Windows builds. Users should apply KB5032190 for Windows 11 Version 23H2 and Windows 10 Version 22H2 on x64-based systems, as well as KB5032189 for Windows 10 Version 22H2 for 32-bit systems. For further enhancements, KB5032192 is recommended for Windows 11 Version 21H2. The updates can be accessed via the following links: [KB5032190](https://catalog.update.microsoft.com/Search.aspx?q=KB5032190), [KB5032189](https://catalog.update.microsoft.com/Search.aspx?q=KB5032189), and [KB5032192](https://catalog.update.microsoft.com/Search.aspx?q=KB5032192). Ensure that all systems reflect the latest build numbers to fully implement the fix and maintain optimal security.",
+  "source_id": "24542a52-2fc2-0a25-04c8-09dc33246da3",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplyUpdatesForDwmElevationPrivilege",
+  "tags": [
+    "update",
+    "elevationofprivilege",
+    "windows"
+  ],
+  "node_id": "bdabaa9e-a76b-45ef-b2c5-6d78d1d511b0",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

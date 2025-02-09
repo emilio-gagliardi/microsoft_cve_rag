@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_line_printer_daemon_service_downtime",
+  "description": "The Windows Line Printer Daemon (LPD) service may become non-functional, causing a loss of availability for users trying to print over the network. This results in an inability to send print jobs, leading to frustration among end users who rely on printing capabilities within their daily operations. During this downtime, users may experience error messages related to printing services or unsuccessful attempts to connect to network printers, as the service fails to respond due to the denial of service vulnerability. This issue affects multiple Windows builds, including Windows 11 version 22H2 (10.0.22621.3880) and Windows 10 version 21H2 (10.0.19044.4651), as documented in KB articles KB-5040442 and KB-5040427 respectively. Addressing this problem is crucial for organizations to maintain productivity and ensure reliable printing services for their users.",
+  "source_id": "6f5403e0-d9b1-804a-67db-fa99ba5f7b44",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "6f5403e0-d9b1-804a-67db-fa99ba5f7b44"
+  ],
+  "tags": [
+    "Windows",
+    "LPD",
+    "Printing Services",
+    "Denial of Service",
+    "Availability"
+  ],
+  "node_id": "b1465ba1-f0f4-46e9-917d-6a23196d0d5e",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

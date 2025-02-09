@@ -1,0 +1,16 @@
+{
+  "symptom_label": "WindowsServer2019Kb890830InstallationFailure",
+  "description": "Attempts to install KB890830 on Windows Server 2019 result in unsuccessful completion without any error messages. The user reports that while all other Windows updates install successfully, KB890830 fails to install entirely despite following multiple script prompts. This symptom suggests an underlying issue specific to the installation process for KB890830 that may not be related to broader update functionalities.",
+  "source_id": "57217e70-b3b3-edd5-46aa-767e25e7b715",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows Server 2019",
+    "Patch Installation",
+    "KB890830"
+  ],
+  "node_id": "bcf1706d-2647-45af-b51b-e86e28f730e1",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

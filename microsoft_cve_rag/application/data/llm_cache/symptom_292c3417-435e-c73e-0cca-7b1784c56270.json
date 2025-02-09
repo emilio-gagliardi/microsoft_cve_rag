@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_registry_elevation_leads_to_privilege_gain",
+  "description": "After applying the security updates KB5046696, KB5046633, KB5046617, and KB5046613 on affected systems such as Windows 10 and Windows 11 builds, users may experience unauthorized access to elevated privileges. This anomaly can lead to unexpected behavior where standard user accounts are capable of modifying settings or files that should be restricted to administrative accounts. Consequently, users may notice unfamiliar changes to system configurations or the ability to access sensitive resources without proper authorization. The build numbers affected include Windows 10 Version 21H2 (10.0.19044.5131), Windows 11 Version 23H2 (10.0.22631.4460), and others as detailed. Therefore, vigilance is recommended to ensure that unauthorized privilege escalation does not compromise the system's integrity or security.",
+  "source_id": "292c3417-435e-c73e-0cca-7b1784c56270",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "292c3417-435e-c73e-0cca-7b1784c56270"
+  ],
+  "tags": [
+    "Windows 10",
+    "Windows 11",
+    "Privilege Escalation",
+    "KB Articles"
+  ],
+  "node_id": "b4346a8b-e4ba-4b9e-9419-ded0ecdbb4ff",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

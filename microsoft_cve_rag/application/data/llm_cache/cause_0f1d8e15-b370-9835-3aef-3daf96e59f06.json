@@ -1,0 +1,21 @@
+{
+  "description": "The Xbox Wireless Adapter experiences a use after free condition, allowing an attacker to exploit this flaw via specially crafted networking packets sent to a connected device, resulting in remote code execution.",
+  "cause_label": "xbox_wireless_adapter_use_after_free_exploit",
+  "source_id": "0f1d8e15-b370-9835-3aef-3daf96e59f06",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0f1d8e15-b370-9835-3aef-3daf96e59f06"
+  ],
+  "tags": [
+    "use after free",
+    "remote code execution",
+    "Xbox",
+    "network security"
+  ],
+  "node_id": "91510608-9079-4dd8-90e8-ca61b259e543",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

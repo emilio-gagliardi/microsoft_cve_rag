@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_dns_client_denies_service_access",
+  "description": "Users may experience complete denial of access to network resources due to a denial of service condition triggered by the Windows DNS Client. This issue is particularly relevant for systems running Windows 11 versions 22H2 and 23H2, as well as Windows Server 2022, specifically noted in the KB5034765 and KB5034769 updates. The behavior might manifest as an inability to connect to servers or retrieve necessary DNS information, severely impacting the operational capacity of affected systems. As the attacker exploits this vulnerability, the network connectivity becomes entirely unavailable, hindering critical operations for end-users and system administrators alike. Once triggered, this issue persists until the service is manually restored or remedial updates are applied.",
+  "source_id": "90986e1a-6e09-ccee-fd1e-012722e9986d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "90986e1a-6e09-ccee-fd1e-012722e9986d"
+  ],
+  "tags": [
+    "Windows",
+    "DNS Client",
+    "Denial of Service",
+    "Windows Server",
+    "Windows 11"
+  ],
+  "node_id": "d5676da3-70ba-4d21-b5b5-7f55f62497f7",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

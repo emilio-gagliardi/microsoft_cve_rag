@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_11_usb_headphone_detection_issue",
+  "description": "Users are experiencing difficulties with USB headphone recognition in Windows 11, leading to confusion and frustration. This issue may prevent users from accessing audio functionality, impacting overall usability. The lack of headsets being detected can be critical in environments where audio is essential. While a USB headphone is mentioned as a potential last resort solution, it does not address the underlying root cause, which remains unidentified. Consequently, users are left searching for more reliable resolutions to restore proper audio functionality for their devices.",
+  "source_id": "a64e9458-4b78-b037-fb51-965c4cab5303",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "a64e9458-4b78-b037-fb51-965c4cab5303"
+  ],
+  "tags": [
+    "usb_headphone",
+    "windows_11",
+    "audio_issue",
+    "device_detection"
+  ],
+  "node_id": "b433baa9-92c9-44b4-b5b1-0bdb0a624e27",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "remote_code_execution_vulnerability_in_wdac_provider",
+  "description": "After updating the Windows operating system, users may experience unexpected behavior when interacting with databases through the Microsoft WDAC OLE DB provider for SQL Server. This could manifest as unexpected application crashes, failure to establish connections to SQL Servers, or unresponsive applications that lead to significant disruptions in workflows. Affected users may also find that their applications behave erratically, indicating potential remote code execution risks stemming from the vulnerable provider. This issue specifically impacts Windows 11 and Windows 10 systems, particularly those on builds 10.0.19045.4046, and previous builds listed in KB5034763. Administrators should review this KB article for specific guidance and patches to mitigate these impacts.",
+  "source_id": "71fba240-c159-c1a0-546f-f1c64bd954ab",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "71fba240-c159-c1a0-546f-f1c64bd954ab"
+  ],
+  "tags": [
+    "Windows",
+    "WDAC",
+    "OLE DB",
+    "SQL Server",
+    "Remote Code Execution",
+    "Patch Management"
+  ],
+  "node_id": "dd1e65e0-cac0-43e1-97be-7853f52006b7",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

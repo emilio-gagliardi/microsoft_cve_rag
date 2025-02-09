@@ -1,0 +1,22 @@
+{
+  "tool_label": "windows_10_forums_reference",
+  "description": "**Tool Overview**:\n\nThe Windows 10 Forums is an online platform where users can discuss issues, share experiences, and seek help regarding Windows 10-related topics. It serves as a community-driven resource for troubleshooting and sharing solutions related to Microsoft Windows.\n\n**Details**:\n\n1. **Community Engagement**: Users can engage with a variety of posts, from common troubleshooting techniques to advanced solutions shared by experienced members.\n2. **Build Numbers and KB Articles**: The forums often discuss latest builds and provide links or references to relevant KB articles, helping users stay informed on the latest updates and issues.\n3. **Real-Time Updates**: Users can check for the most recent updates and user experiences regarding Windows 10, assisting them in resolving similar issues.\n4. **User Contributions**: A valuable aspect of the forums is the collective knowledge and experience of users, offering a wide range of perspectives and solutions.\n5. **Search Functionality**: The forums have a robust search feature that allows users to quickly find topics that relate to their particular issues with Windows 10.\n\nVisit the forums for further engagement and insights from fellow Windows 10 users.",
+  "source_id": "48f023ac-7c29-a924-79d0-dd05731b30f1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "48f023ac-7c29-a924-79d0-dd05731b30f1"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/PH0PR01MB73499D50018528D4A17CA7B3B7202%40PH0PR01MB7349.prod.exchangelabs.com",
+  "tool_url": "https://tenforums.com",
+  "tags": [
+    "community",
+    "forums",
+    "windows10",
+    "user_support"
+  ],
+  "node_id": "c71cb68e-73c1-4c32-b7cb-9f1a5623fce6",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

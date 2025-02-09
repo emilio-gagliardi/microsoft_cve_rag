@@ -1,0 +1,20 @@
+{
+  "symptom_label": "dc_issue_fixed_with_oob_update",
+  "description": "The symptom indicates a resolved issue regarding Domain Controllers (DCs), which was addressed through an out-of-band (OOB) update. This update was specifically designed to mitigate problems experienced by the DCs, as recommended by Microsoft guidelines. System administrators are advised that this solution should be applied solely to the DCs to ensure stability moving forward. The update is confirmed to be effective as it resolved the issue in the deploying environment. The OOB update is also noted to be included in Ivanti\u2019s Security Controls catalog, facilitating smoother deployment for administrators managing multiple systems.",
+  "source_id": "a941d55b-aa32-93b8-2211-cd10b681fdf1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "a941d55b-aa32-93b8-2211-cd10b681fdf1"
+  ],
+  "tags": [
+    "out-of-band",
+    "domain controllers",
+    "update",
+    "patch management"
+  ],
+  "node_id": "1959b4e7-0568-40d7-8a8e-fd05fa5af610",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

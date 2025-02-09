@@ -1,0 +1,17 @@
+{
+  "symptom_label": "MicrosoftEdgeExperiencesRemoteCodeExecutionRisk",
+  "description": "Users of Microsoft Edge (Chromium-based) version 118.0.2088.76 may experience risks associated with remote code execution due to a vulnerability in Adobe software that Edge utilizes. This elevated risk is particularly concerning for systems running on Windows 11 Version 24H2 and Windows 10 with build number 118.0.5993.117. To mitigate this issue, users are encouraged to install the associated security updates identified in KB-118.0.2088.76 to ensure protection against potential exploitation.",
+  "source_id": "a9198d51-6c41-1d7e-c415-bbb561df0c8a",
+  "source_type": "MSRCPost",
+  "tags": [
+    "security",
+    "Microsoft Edge",
+    "Adobe",
+    "remote code execution"
+  ],
+  "node_id": "193d0ad9-1f49-45ae-8ec4-c707b1302315",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

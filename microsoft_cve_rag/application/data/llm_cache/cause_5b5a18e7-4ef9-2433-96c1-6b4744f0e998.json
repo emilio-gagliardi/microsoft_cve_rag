@@ -1,0 +1,23 @@
+{
+  "description": "The vulnerability arises from an integer overflow or wraparound condition in the Windows Mobile Broadband Driver that can lead to remote code execution. This condition specifically allows an attacker with physical access to exploit the system by connecting a malicious USB device, triggering overflow scenarios that bypass security protections.",
+  "cause_label": "windows_mobile_broadband_driver_integer_overflow",
+  "source_id": "5b5a18e7-4ef9-2433-96c1-6b4744f0e998",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5b5a18e7-4ef9-2433-96c1-6b4744f0e998"
+  ],
+  "tags": [
+    "remote code execution",
+    "Windows",
+    "driver vulnerability",
+    "CVE-2024-30012",
+    "important",
+    "integer overflow"
+  ],
+  "node_id": "514d1860-35e7-473e-acd5-fd0e9436cd4d",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

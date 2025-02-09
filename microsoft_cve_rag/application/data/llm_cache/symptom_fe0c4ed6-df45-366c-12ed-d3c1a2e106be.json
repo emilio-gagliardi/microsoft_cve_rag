@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_update_causes_issues_on_multiple_devices",
+  "description": "After recent security updates were pushed via Windows Update, users have reported issues related to specific OEM devices, particularly Dell and HP models. The updates may have been implemented to address recent CVE vulnerabilities, which raises concerns about their impact on the functionality of affected devices. System administrators are advised to monitor their environments for unexpected behaviors following these updates, as the interaction between certain OEM builds and the updates may not have been fully vetted. The lack of detailed information on the device model numbers further complicates troubleshooting efforts. Continuous feedback and analysis of these updates are crucial for assessing their reliability and effectiveness in mitigating vulnerabilities.",
+  "source_id": "fe0c4ed6-df45-366c-12ed-d3c1a2e106be",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "fe0c4ed6-df45-366c-12ed-d3c1a2e106be"
+  ],
+  "tags": [
+    "Windows Update",
+    "security updates",
+    "CVE vulnerabilities",
+    "OEM devices"
+  ],
+  "node_id": "07574359-5a42-418a-bb15-a84b5d1e44b2",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

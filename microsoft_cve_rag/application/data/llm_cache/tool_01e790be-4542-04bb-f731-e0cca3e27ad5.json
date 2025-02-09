@@ -1,0 +1,24 @@
+{
+  "tool_label": "windows_mark_of_the_web_bypass_tool",
+  "description": "**Tool Overview**:\n\nThe Windows Mark of the Web (MOTW) bypass tool is designed to help system administrators diagnose and mitigate the security feature bypass vulnerability identified as CVE-2024-43487. This vulnerability allows attackers to exploit the MOTW feature, potentially leading to unauthorized access or execution of untrusted content that should otherwise be restricted. **Details**:\n\n1. **Purpose**: The tool assists in identifying instances where the MOTW may be bypassed due to security misconfigurations or vulnerabilities in the Windows environment.\n2. **Functionality**: It may include scripts or utilities that assess file properties and their associated security contexts, ensuring files marked for web usage adhere to required safety protocols.\n3. **Usage**: This could involve running command-line utilities to evaluate the status of files or settings that utilize the MOTW feature.\n4. **Configuration**: The tool might require specific permissions to access system files and logs for a complete assessment.\n5. **Output**: Results would indicate whether the MOTW has been compromised in specific scenarios, providing insights for remediation strategies.",
+  "source_id": "01e790be-4542-04bb-f731-e0cca3e27ad5",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "01e790be-4542-04bb-f731-e0cca3e27ad5"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43487",
+  "tool_url": "",
+  "tags": [
+    "Windows",
+    "Security",
+    "MOTW",
+    "CVE-2024-43487",
+    "LLM Synthesized"
+  ],
+  "node_id": "4d4256a7-d015-4ede-ab99-9ba6dbaa3d94",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

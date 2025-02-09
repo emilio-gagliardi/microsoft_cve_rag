@@ -1,0 +1,20 @@
+{
+  "symptom_label": "elevation_of_privilege_in_windows_graphics_component",
+  "description": "Users may experience unauthorized access to elevated privileges within the Windows operating environment as a result of the Windows graphics component vulnerability. This behavior could lead to unexpected system modifications, where users find themselves unable to control certain functions or settings typically secured from standard user access. Affected products include multiple Windows builds, notably those identified as 10.0.14393.6796, 10.0.17763.5576, and higher versions up to 10.0.22631.3296. System administrators should be aware that such anomalies may manifest as unexpected changes or loss of control over system privileges and should reference KB-5035959 and related updates for mitigation. The potential for exploitation underscores the importance of ensuring that systems are fully up-to-date with the provided patches to prevent unauthorized access.",
+  "source_id": "fc14a324-009a-eeb3-3854-f0cccfcc3303",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "fc14a324-009a-eeb3-3854-f0cccfcc3303"
+  ],
+  "tags": [
+    "Windows",
+    "elevation of privilege",
+    "graphics component",
+    "administrative access"
+  ],
+  "node_id": "e23a0b0f-e56e-43f1-9d48-f52231574e4d",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

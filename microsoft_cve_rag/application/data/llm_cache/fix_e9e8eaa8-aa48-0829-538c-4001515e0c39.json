@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo automate the installation of a Windows version upgrade using an ISO, you can utilize PowerShell to mount the ISO and initiate the setup process with specific parameters.\n\n1. Open PowerShell with administrative privileges.\n\n2. Use the following command to mount the ISO:\n   ```powershell\n   mount-diskimage -imagepath \"isopath\"\n   ```\n\n3. Next, determine the drive letter allocated to the mounted ISO:\n   ```powershell\n   $letter = (get-diskimage \"isopath\" | get-volume).DriveLetter\n   ```\n\n4. Finally, execute the setup for the upgrade with the following command:\n   ```powershell\n   $letter:\\setup.exe /auto upgrade /quiet /dynamicupdate enable\n   ```\n\n**Details**:\nThis approach leverages PowerShell to ensure a seamless upgrade process while allowing for a quiet installation without user intervention. Make sure to check the setup parameters to suit your configuration needs. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure that you have administrative privileges before running the commands.\n- Verify the path to the ISO file before executing the mount command.",
+  "source_id": "e9e8eaa8-aa48-0829-538c-4001515e0c39",
+  "source_type": "PatchManagementPost",
+  "fix_label": "automate_windows_iso_upgrade_power_shell",
+  "tags": [
+    "PowerShell",
+    "WindowsUpgrade",
+    "ISOInstallation",
+    "LLM Synthesized"
+  ],
+  "node_id": "fd63e6b1-ca0c-4e3b-9038-9a0d2f5a2630",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e9e8eaa8-aa48-0829-538c-4001515e0c39"
+  ],
+  "verification_status": "unverified"
+}

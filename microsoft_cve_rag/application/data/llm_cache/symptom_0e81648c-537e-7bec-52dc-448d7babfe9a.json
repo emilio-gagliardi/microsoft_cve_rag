@@ -1,0 +1,16 @@
+{
+  "symptom_label": "VirtualMachinesFailToStartWithExistingRCTFiles",
+  "description": "When existing .RCT files from backups of the virtual machines are present, the virtual machines may fail to start until these files are either deleted or renamed. This issue can disrupt operations and may not be immediately evident to system administrators, leading to potential downtime during critical business hours. It primarily affects environments utilizing Microsoft virtualization technologies and can significantly impact service availability if not addressed promptly.",
+  "source_id": "0e81648c-537e-7bec-52dc-448d7babfe9a",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "virtual machines",
+    "RCT files",
+    "availability"
+  ],
+  "node_id": "b444f0cc-0188-4334-88c6-7f7aa28e9ee4",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

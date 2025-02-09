@@ -1,0 +1,22 @@
+{
+  "symptom_label": "windows_nat_remotely_executable_code_access",
+  "description": "After the installation of security updates KB5043080, KB5043076, KB5043067, and KB5043064 across various Windows builds, including Windows 11 Version 24H2 and 23H2, users may observe that certain network services experience unexpected behaviors or disruptions. These behaviors manifest as unauthorized remote code execution capabilities, allowing malicious actors to exploit vulnerabilities within the Windows Network Address Translation (NAT) component. As a result, administrators may note erratic system responses, including abnormal networking activities and unauthorized access attempts, potentially compromising the integrity and confidentiality of user data. This critical issue primarily impacts systems with build numbers 10.0.26100.1742 and 10.0.22631.4169, affecting performance and user trust.",
+  "source_id": "ad1140c5-fbf9-ce32-e1ce-09c65972f62a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ad1140c5-fbf9-ce32-e1ce-09c65972f62a"
+  ],
+  "tags": [
+    "Windows",
+    "NAT",
+    "remote code execution",
+    "network security",
+    "system vulnerabilities"
+  ],
+  "node_id": "c8e3be47-1c17-4f7e-8468-efb3603c8889",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

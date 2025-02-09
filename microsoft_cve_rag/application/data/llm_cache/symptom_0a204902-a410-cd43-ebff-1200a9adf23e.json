@@ -1,0 +1,22 @@
+{
+  "symptom_label": "elevation_of_privilege_in_windows_driver",
+  "description": "Upon exploiting CVE-2024-38196, users may observe unexpected behavior where processes or applications run with elevated privileges without proper authorization. This can lead to unauthorized access to sensitive resources, file modification, and potential denial of service within Windows environments. Affected systems include various builds of Windows Server 2012, Windows 11, and Windows 10 with specific build numbers and KB articles as detailed in the security update release. Users may experience a significant loss of control over system processes, which can compromise overall system integrity and security. The issue can affect Windows 11 Version 24H2 (KB5041571) and other versions around build numbers 10.0.26100.1457, 10.0.22631.4037, and similar.",
+  "source_id": "0a204902-a410-cd43-ebff-1200a9adf23e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0a204902-a410-cd43-ebff-1200a9adf23e"
+  ],
+  "tags": [
+    "Windows",
+    "Privilege Escalation",
+    "CVE-2024-38196",
+    "Windows Server",
+    "Patch Management"
+  ],
+  "node_id": "4346aad7-6d3a-4d9d-9cbb-dc04c69bc514",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

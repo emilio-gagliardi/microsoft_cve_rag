@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_stable_update_no_longer_vulnerable",
+  "description": "After the installation of the security update versions 129.0.2792.65 and 128.0.2739.97, users of Microsoft Edge (Chromium-based) should observe that the browser is no longer vulnerable to the identified integer overflow issues. This resolution addresses previously noted risks associated with out of bounds memory writes. Users may confirm browser safety by updating to these latest versions and checking status through the 'About Microsoft Edge' section. Users may notice improved stability and security when browsing as a result of incorporating these patches, thereby reducing potential exposure to threats that could exploit the underlying vulnerabilities.",
+  "source_id": "a567a083-cd15-0272-d0e2-b90cf826cb19",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a567a083-cd15-0272-d0e2-b90cf826cb19"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "security update",
+    "vulnerability fix"
+  ],
+  "node_id": "5b98a3b5-b6ae-4c81-9c92-05e1e9f2448b",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

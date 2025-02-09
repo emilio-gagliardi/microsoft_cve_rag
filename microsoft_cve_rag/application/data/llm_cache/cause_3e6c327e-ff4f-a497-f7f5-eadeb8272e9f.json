@@ -1,0 +1,21 @@
+{
+  "description": "The cause of the vulnerabilities in the affected D-Link products stems from two primary issues: the presence of a backdoor enabled by hardcoded credentials, and a command injection vulnerability. These security flaws arise due to the design choices made in the software architecture, preventing proper user authentication and allowing attackers remote command execution. As highlighted in the linked disclosure, these vulnerabilities were acknowledged but remain unpatched as the products are end-of-life (EOL). Because these vulnerabilities will not receive fixes, it poses significant risks to the affected systems as they can be exploited easily. Administrators should be aware of these specific issues to implement alternative protective measures, given that official patches will not be forthcoming.",
+  "source_id": "3e6c327e-ff4f-a497-f7f5-eadeb8272e9f",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "3e6c327e-ff4f-a497-f7f5-eadeb8272e9f"
+  ],
+  "cause_label": "backdoor_and_command_injection_vulnerability",
+  "tags": [
+    "D-Link",
+    "backdoor",
+    "command injection",
+    "EOL",
+    "hardcoded credentials"
+  ],
+  "node_id": "1a2c6964-7ffc-4e39-b1bb-9ff0f83f8c73",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

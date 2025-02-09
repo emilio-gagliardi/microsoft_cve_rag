@@ -1,0 +1,16 @@
+{
+  "symptom_label": "UserClicksBypassesWindowsDefenderSmartscreenChecks",
+  "description": "End users may experience unauthorized bypassing of Windows Defender Smartscreen checks after interaction with malicious hyperlinks or internet shortcuts. This issue affects multiple builds of the Windows operating system including 10.0.22631.2715, 10.0.19043.3693, and 10.0.22000.2600. It is identified under KB articles KB5032199, KB5032192, KB5032190, and KB5032189, indicating a significant risk of the user inadvertently compromising system security.",
+  "source_id": "08e11356-4cf0-b487-2d88-be69035f315a",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "18e82fd5-3517-44a2-a3b9-a0b4b246dde3",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the Windows Telephony Server elevation of privilege vulnerability (CVE-2024-21439), apply the available security updates provided by Microsoft. \n\n1. Visit the Microsoft Update Catalog.\n2. Search for the relevant KB articles: KB5035855, KB5035856, KB5035857, KB5035858, KB5035859, and KB5035849.\n3. Download the appropriate update package that corresponds to your system's build and architecture.\n4. Install the updates following the recommended procedures to ensure system integrity.\n5. Restart your system after installation to apply the changes.\n\n**Details**:\n- This set of updates addresses vulnerabilities that could be exploited for elevation of privilege scenarios within the Windows Telephony Server framework.\n- Ensure your system is on one of the impacted versions, including Windows 10 (various builds) and Windows Server 2022/2019.\n\n**Preconditions**:\n- Backup critical data before proceeding with the update installation.\n- Verify that your system matches the required build numbers for the KB updates listed above.",
+  "source_id": "8aa86096-0afb-2cd1-1ff4-1f40bcc496be",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_telephony_server_privilege_escalation_cve202421439",
+  "tags": [
+    "KB5035855",
+    "WindowsServer",
+    "Telephony",
+    "LLM Synthesized"
+  ],
+  "node_id": "103efb0b-e305-419e-86a2-37e68ac37de0",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "8aa86096-0afb-2cd1-1ff4-1f40bcc496be"
+  ]
+}

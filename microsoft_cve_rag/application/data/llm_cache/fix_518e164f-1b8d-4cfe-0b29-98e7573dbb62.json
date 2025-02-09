@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo restore the visibility of the Windows Backup app on an enterprise-managed device after the application disappears following a Windows security update:\n\n1. Verify that the security update corresponds to KB-5032038, which affects the Windows Backup app on installations that are managed by enterprises.\n\n2. If the Windows Backup app does not appear, check the settings in the Group Policy or any configuration management tool utilized to ensure that the Windows Backup feature is not disabled.\n\n3. Consider re-pushing the Windows Backup app using your device management system or reinstalling the associated security update to re-enable visibility of the app.\n\n**Details**:\n- Ensure that any enterprise policies allowing the use of Windows Backup are correctly configured to avoid conflicts after updates have been applied. (LLM Synthesized)\n",
+  "source_id": "518e164f-1b8d-4cfe-0b29-98e7573dbb62",
+  "source_type": "PatchManagementPost",
+  "fix_label": "restore_windows_backup_visibility_kb5032038",
+  "tags": [
+    "KB-5032038",
+    "Windows10",
+    "Windows11",
+    "ManagedDevices"
+  ],
+  "node_id": "0af3466a-0e56-42e1-89fe-17fd2af32af4",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "518e164f-1b8d-4cfe-0b29-98e7573dbb62"
+  ]
+}

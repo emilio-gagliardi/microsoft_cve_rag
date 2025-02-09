@@ -1,0 +1,21 @@
+{
+  "symptom_label": "exchange_server_migration_challenges_due_to_structure",
+  "description": "System administrators may encounter difficulties when migrating Exchange Server from earlier versions (20xx) to Exchange 2019, especially when attempting to use the Windows Server 2022 Core installation option. This migration is critical as it ensures that organizations remain on a supported version and reduces risks associated with outdated deployments. The implications of not upgrading include potential compatibility issues, increased operational costs, and limited functionality that could affect overall email communication and collaboration. Additionally, those migrating to Exchange Online face different operational challenges which could involve costs related to licensing and training. Both scenarios underline the need for robust planning and timely execution in transitioning to supported systems.",
+  "source_id": "f1b1cf4f-45fa-6f51-19cc-1b2cbb01880a",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "f1b1cf4f-45fa-6f51-19cc-1b2cbb01880a"
+  ],
+  "tags": [
+    "Exchange Server",
+    "Migration",
+    "Windows Server 2022",
+    "Exchange Online"
+  ],
+  "node_id": "bce87d05-5236-40d1-a14f-2afc1d66dc92",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

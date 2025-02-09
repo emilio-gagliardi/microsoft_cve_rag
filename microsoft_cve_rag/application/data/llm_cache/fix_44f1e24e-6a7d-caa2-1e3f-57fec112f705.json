@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the security vulnerability identified by CVE-2024-7550 in the Chromium-based Microsoft Edge:\n\n1. Ensure you are using Microsoft Edge version 127.0.2651.98 or newer.\n2. Update your Microsoft Edge browser if you are on an older version by clicking on the three dots (...) in the upper-right corner of the Edge window, selecting 'Help and feedback', then 'About Microsoft Edge'.\n3. Follow the prompts to update the browser to the latest version to mitigate the effects of the vulnerability.\n\n**Details**:\n- This security update addresses a type confusion vulnerability in V8, which could lead to remote code execution. This vulnerability is significant as it exploits heap corruption via a crafted HTML page.\n- The latest version of Microsoft Edge built on Chromium resolves this issue.\n\n**Preconditions**:\n- Ensure administrative privileges are available for performing updates.\n- Backup critically important data before proceeding to ensure no data loss occurs during the update process.",
+  "source_id": "44f1e24e-6a7d-caa2-1e3f-57fec112f705",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_127_0_2651_98",
+  "tags": [
+    "CVE-2024-7550",
+    "MicrosoftEdge",
+    "TypeConfusion",
+    "Chromium"
+  ],
+  "node_id": "fb47f182-9e2e-414c-8428-a759e0d9a24f",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "44f1e24e-6a7d-caa2-1e3f-57fec112f705"
+  ],
+  "verification_status": "unverified"
+}

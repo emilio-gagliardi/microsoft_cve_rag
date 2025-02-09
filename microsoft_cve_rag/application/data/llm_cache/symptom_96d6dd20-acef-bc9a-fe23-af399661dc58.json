@@ -1,0 +1,16 @@
+{
+  "symptom_label": "Windows10KeyStoredInCloudAfterUpgrade",
+  "description": "Upon upgrading to Windows 10 and using a Microsoft account, the Windows 10 product key is retained in the cloud, allowing future reinstalls using the latest Windows 10 ISO without the need for the original installation media. This behavior is particularly beneficial for home computer users who may need to reinstall their operating system while avoiding a lengthy reactivation process. It simplifies system recovery processes and ensures users are utilizing the latest OS version provided through the ISO.",
+  "source_id": "96d6dd20-acef-bc9a-fe23-af399661dc58",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows10",
+    "MicrosoftAccount",
+    "Reinstallation"
+  ],
+  "node_id": "75f636ab-b1a9-4f05-80b8-28d5e15a3df5",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

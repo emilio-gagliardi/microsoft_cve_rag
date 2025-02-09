@@ -1,0 +1,16 @@
+{
+  "description": "The underlying cause of the issue stems from Microsoft's persistent push to upgrade users from Windows 10 to Windows 11, specifically when users have partially completed the upgrade process without user consent. Given the system's settings and configurations, the information suggests that even after a rollback from Windows 11, the system continuously prompts for the upgrade through automatic downloads. This frustration is particularly relevant for users of Windows 10 version 22H2, which is indicated to be the last major version before Windows 11. Therefore, implementing registry modifications serves to prevent unwanted upgrades and manage the target version effectively, ensuring proper control over system updates based on user needs.",
+  "source_id": "022a987e-f54d-657a-308f-2f512b5cefdf",
+  "source_type": "PatchManagementPost",
+  "cause_label": "RegistryModificationPreventsUnauthorizedUpgrade",
+  "tags": [
+    "windows 11",
+    "windows 10",
+    "registry modification"
+  ],
+  "node_id": "19466474-a975-4b80-b094-63b6a8a46365",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

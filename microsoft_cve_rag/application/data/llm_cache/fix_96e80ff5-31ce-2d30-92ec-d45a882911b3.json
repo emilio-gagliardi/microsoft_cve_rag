@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo ensure your system is protected against the vulnerabilities identified in CVE-2024-43590, you should download and install the latest version of the affected component.\n\n1. Visit the Microsoft links and download the current version, which is noted as 14.40.33816.\n2. Follow the installation instructions provided by Microsoft to complete the update process.\n\n**Details**:\n- This update addresses the vulnerabilities highlighted in the CVE report.\n- Always ensure you are downloading updates from official Microsoft sources to avoid security risks. (LLM Synthesized)",
+  "source_id": "96e80ff5-31ce-2d30-92ec-d45a882911b3",
+  "source_type": "PatchManagementPost",
+  "fix_label": "update_component_version_cve202443590",
+  "tags": [
+    "CVE-2024-43590",
+    "ComponentUpdate",
+    "Microsoft",
+    "KB33816"
+  ],
+  "node_id": "be954a47-7f0e-4d47-aca5-3d7f7625869e",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "96e80ff5-31ce-2d30-92ec-d45a882911b3"
+  ],
+  "verification_status": "unverified"
+}

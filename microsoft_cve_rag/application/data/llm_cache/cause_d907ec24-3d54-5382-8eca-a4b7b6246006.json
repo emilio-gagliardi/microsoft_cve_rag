@@ -1,0 +1,22 @@
+{
+  "description": "A heap buffer overflow in Skia within Google Chrome prior to version 128.0.6613.137 allowed remote attackers to exploit heap corruption through crafted HTML pages, affecting the Chromium framework utilized by Microsoft Edge.",
+  "cause_label": "chromium_heap_buffer_overflow_in_skia",
+  "source_id": "d907ec24-3d54-5382-8eca-a4b7b6246006",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d907ec24-3d54-5382-8eca-a4b7b6246006"
+  ],
+  "tags": [
+    "CVE-2024-8636",
+    "Microsoft Edge",
+    "Chromium",
+    "Heap Corruption",
+    "Skia"
+  ],
+  "node_id": "072c0cd4-018b-490d-aed9-936acfe14fef",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the elevation of privilege vulnerability within the Windows composite image file system (CIMFS):\n\n1. Download the appropriate update package for your system build from the official Microsoft Update Catalog.\n2. Follow the installation instructions provided for each specific KB article.\n3. Restart your system to ensure that the updates are applied effectively.\n\n**Details**:\n- This fix addresses the improper input validation issue that can be exploited for privilege elevation.\n- Update packages include:\n  - [KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845)\n  - [KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)\n  - [KB5035854](https://catalog.update.microsoft.com/Search.aspx?q=KB5035854)\n\n**Preconditions**:\n- Ensure your system is running a supported version of Windows 10 or Windows 11 as specified above.\n- Backup critical data before proceeding with the installation of updates.",
+  "source_id": "c9935122-b409-b93c-7238-b1716b6c4354",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_elevation_of_privilege_cimfs_vulnerability_cve202426170",
+  "tags": [
+    "KB5035845",
+    "KB5035853",
+    "KB5035854",
+    "CIMFS"
+  ],
+  "node_id": "de337c22-4b76-4802-8630-0d3ef06f36c2",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c9935122-b409-b93c-7238-b1716b6c4354"
+  ]
+}

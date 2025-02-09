@@ -1,0 +1,16 @@
+{
+  "symptom_label": "SystemExperiencesElevationOfPrivilegeIssues",
+  "description": "Users may encounter unusual behavior when applications attempt elevated operations, leading to failures in executing administrative tasks. This symptom can manifest in various Windows products, particularly in versions 10.0.10240 and later, as indicated by KB articles KB5033372 and KB5033379. The problem may also be characterized by unexpected prompts for permissions or complete disruptions in function where administrative access is required, affecting Windows 10 builds 10.0.19044.3803 and 10.0.19045.3803.",
+  "source_id": "2863bbdd-355d-a6dd-a15e-5b3f6c16dead",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "d20acd9e-ec7c-486e-a675-f99d72a1c1a2",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

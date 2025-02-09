@@ -1,0 +1,23 @@
+{
+  "tool_label": "usb_recovery_drive_creation",
+  "description": "**Tool Overview**:\n\nA USB recovery drive is a valuable tool for system recovery and reinstallation of Windows 10 on devices. It allows users to create a bootable USB drive that can be used to reinstall or repair Windows 10, especially when dealing with issues like the inability to boot due to problems with the operating system.\n\n**Details**:\n1. To create the USB recovery drive, users can utilize Microsoft's documentation and tools available on their website.\n2. Users should ensure the USB drive is at least 8GB for adequate storage of the recovery files.\n3. The process typically includes selecting the USB drive in the recovery tool and following prompts to create the recovery environment.\n4. After creation, the USB drive can be utilized to reinstall Windows 10 by booting the device from the USB.\n5. It's ideal for troubleshooting persistent problems that cannot be resolved through regular means.\n\n**Usage Example**:\n- Download Microsoft's Media Creation Tool to create a recovery drive.\n- Insert a USB drive and run the tool to follow the on-screen instructions.",
+  "source_id": "9a6cacd6-9125-c175-ef26-07b0bd51dba0",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "9a6cacd6-9125-c175-ef26-07b0bd51dba0"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/37478141754d43f0bda809ae63e4258b%40ausmarinetech.com.au",
+  "tool_url": "https://support.microsoft.com/en-us/help/124129/windows-10-create-a-recovery-drive",
+  "tags": [
+    "Windows 10",
+    "recovery",
+    "USB drive",
+    "installation"
+  ],
+  "node_id": "aa87485f-9e08-4f86-bf2b-a8c03fda096b",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

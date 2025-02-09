@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the Outlook issues encountered on the client PC:\n\n1. Create appointments using Outlook Web Access (OWA), as this prevents them from disappearing.\n2. Temporarily remove Cached Mode by clearing the OST file; however, this may affect the visibility of 365 groups.\n3. If issues persist, uninstall and then reinstall Office to refresh the installation and settings.\n\n**Details**:\nThis approach helps address specific glitches while ensuring that essential functionalities remain intact. It's advisable to backup user data prior to uninstalling to prevent data loss. Over the past few weeks, the overall issues have improved post these adjustments. (LLM Synthesized)",
+  "source_id": "1419cfc9-8593-d9c7-6766-71d03cd41404",
+  "source_type": "PatchManagementPost",
+  "fix_label": "resolve_outlook_appointment_issues_via_owa",
+  "tags": [
+    "Outlook",
+    "CachedMode",
+    "OfficeReinstallation",
+    "LLM Synthesized"
+  ],
+  "node_id": "c0ec13bc-9808-4c4a-8dfd-67380b6d3a13",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "1419cfc9-8593-d9c7-6766-71d03cd41404"
+  ],
+  "verification_status": "unverified"
+}

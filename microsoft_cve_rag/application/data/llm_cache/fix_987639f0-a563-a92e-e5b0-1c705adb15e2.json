@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the elevation of privilege vulnerability in the Windows USB Video Class system driver (CVE-2024-43637):\n\n1. Download and apply the relevant KB update package from the official Windows Update catalog based on your system version.\n   - For Windows 11 Version 24H2 (x64): [KB5046617](https://catalog.update.microsoft.com/Search.aspx?q=KB5046617)\n   - For Windows 11 Version 23H2 (x64): [KB5046633](https://catalog.update.microsoft.com/Search.aspx?q=KB5046633)\n   - For Windows 10 Version 22H2 (x64): [KB5046613](https://catalog.update.microsoft.com/Search.aspx?q=KB5046613)\n   - For Windows 10 (32-bit or x64): [KB5046665](https://catalog.update.microsoft.com/Search.aspx?q=KB5046665)\n\n2. Restart your machine after installation to apply the changes.\n\n**Details**:\nThis update resolves an elevation of privilege vulnerability that exists when the Windows USB Video Class system driver improperly handles objects in memory, leading to potential unauthorized access. Ensure your system is running the correct Windows build version prior to applying these updates.\n\n**Preconditions**:\n- Ensure that the system build matches one of the specified versions listed above.\n- Backup critical data and settings before proceeding with the installation.",
+  "source_id": "987639f0-a563-a92e-e5b0-1c705adb15e2",
+  "source_type": "MSRCPost",
+  "fix_label": "address_elevation_privilege_vulnerability_cve_2024_43637",
+  "tags": [
+    "KB5046617",
+    "KB5046633",
+    "KB5046613",
+    "KB5046665"
+  ],
+  "node_id": "f065fd7e-0f46-41eb-a9a4-b8e3df98f6e6",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "987639f0-a563-a92e-e5b0-1c705adb15e2"
+  ],
+  "verification_status": "unverified"
+}

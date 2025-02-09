@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the out-of-bounds read vulnerability affecting Microsoft Edge (Chromium-based):\n\n1. Update your Microsoft Edge browser to the latest version.\n2. Verify that you are running version 127.0.6533.88 or later.\n\n**Details**:\n- This update addresses the vulnerability found in Chromium that could allow remote attackers to perform out-of-bounds memory access through a specially crafted HTML page.\n- For users on Microsoft Edge, ensure you have the latest version by navigating to the settings menu, selecting 'Help and feedback', and then 'About Microsoft Edge' to check your version.\n\n**Preconditions**:\n- Ensure your device is connected to the internet to download the latest update.",
+  "source_id": "94967bbd-d0b7-61b0-c452-1763e413cc07",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_resolve_chromium_cve20247255",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20247255",
+    "Chromium",
+    "LLM Synthesized"
+  ],
+  "node_id": "0579dccf-d38e-4774-a32c-6e78bc2e33fa",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "94967bbd-d0b7-61b0-c452-1763e413cc07"
+  ],
+  "verification_status": "unverified"
+}

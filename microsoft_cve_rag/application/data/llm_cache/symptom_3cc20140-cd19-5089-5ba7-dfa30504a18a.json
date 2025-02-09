@@ -1,0 +1,18 @@
+{
+  "symptom_label": "MicrosoftEdgeBrowserCrashesAfterUpdate",
+  "description": "After updating to Microsoft Edge version 120.0.2210.121, users may experience unexpected crashes when attempting to open or interact with the browser. This issue is noticeable when navigating between tabs or accessing web content. End users might find that the browser closes unexpectedly with no error message, disrupting their workflow and causing potential data loss. Such a symptom can lead to frustration as users may have to frequently relaunch the browser and re-enter previously visited URLs. This observable behavior arises in response to the fix implemented for the underlying vulnerabilities reflected in KB-120.0.2210.121.",
+  "source_id": "3cc20140-cd19-5089-5ba7-dfa30504a18a",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Microsoft Edge",
+    "browser",
+    "crash",
+    "update",
+    "user experience"
+  ],
+  "node_id": "876bb69b-8ebf-4a6e-be05-91bf810db71b",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

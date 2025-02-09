@@ -1,0 +1,16 @@
+{
+  "symptom_label": "DenialOfServiceCausedByPowershell73",
+  "description": "End users may experience complete denial of service when using PowerShell 7.3, which is affected by the CVE-2023-36435 vulnerability. As a consequence, users may find that their system resources are entirely unavailable, resulting in an inability to execute PowerShell commands or perform any operations reliant on services tied to this version. Relevant to Windows 11 builds 10.0.22000.2538 and 10.0.22621.2428 as well as the corresponding KB Articles (KB5031358, KB5031354).",
+  "source_id": "997a2599-f326-9b3a-1b43-4552deea3e56",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "e7bb261d-b28d-485c-bd4e-f8ed9ab81b8f",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

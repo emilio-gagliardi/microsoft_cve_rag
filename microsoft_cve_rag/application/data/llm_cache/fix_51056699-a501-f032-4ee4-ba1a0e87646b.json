@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the remote code execution vulnerability in the Microsoft WDAC OLE DB Provider for SQL Server associated with CVE-2024-26210:\n\n1. Apply the following KB updates:\n   - KB-5036925\n   - KB-5036894\n   - KB-5036893\n   - KB-5036892\n\n2. Ensure systems are updated to the appropriate build numbers:\n   - [10, 0, 19045, 4291]\n   - [10, 0, 19044, 4291]\n   - [10, 0, 22631, 3447]\n   - [10, 0, 22000, 2899]\n   - [10, 0, 22621, 3447]\n   - [10, 0, 10240, 20596]\n\n**Details**:\nThis fix addresses a heap-based buffer overflow vulnerability that could enable remote code execution when the affected component processes maliciously crafted data. After applying the updates, restart your system to ensure that the changes take effect. Check the Microsoft support lifecycle for your product to ensure compatibility with the provided updates.\n",
+  "source_id": "51056699-a501-f032-4ee4-ba1a0e87646b",
+  "source_type": "MSRCPost",
+  "fix_label": "address_remote_code_execution_vulnerability_cve202426210",
+  "tags": [
+    "KB5036925",
+    "RemoteCodeExecution",
+    "CVE202426210",
+    "OLEDB"
+  ],
+  "node_id": "b92b3c05-d53b-4947-9d9e-1c77041b9ebc",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "51056699-a501-f032-4ee4-ba1a0e87646b"
+  ]
+}

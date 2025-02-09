@@ -1,0 +1,21 @@
+{
+  "description": "Improper access control in Windows initial machine configuration leads to elevation of privilege. An unauthenticated attacker with physical access can exploit this by manipulating registry settings in a specially crafted IMC file, allowing them to gain system privileges.",
+  "cause_label": "windows_initial_machine_configuration_elevation_of_privilege",
+  "source_id": "90dd354e-935e-650a-6fa6-f1bf71da79a6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "90dd354e-935e-650a-6fa6-f1bf71da79a6"
+  ],
+  "tags": [
+    "Windows",
+    "Elevation of Privilege",
+    "Access Control",
+    "CVE-2024-38223"
+  ],
+  "node_id": "7bef2856-f8d0-4a58-9ad7-4401ba746315",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

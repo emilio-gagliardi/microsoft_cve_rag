@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo change the owner of a device in Intune, you can use either the Intune console or Microsoft Graph.\n\n1. Access the Intune console to find the device you want to modify.\n2. Change the owner to the desired user through the console interface.\n\n**Details**:\n- Alternatively, you can utilize Microsoft Graph API to perform this action programmatically. This method is ideal for bulk operations or automation in larger deployments.\n- For the Graph approach, ensure you have the appropriate permissions and are familiar with its API documentation to execute the changes.\n",
+  "source_id": "c9379e23-9201-1b66-c316-6c098d585644",
+  "source_type": "PatchManagementPost",
+  "fix_label": "change_device_owner_intune_graph_api",
+  "tags": [
+    "Intune",
+    "MicrosoftGraph",
+    "DeviceManagement"
+  ],
+  "node_id": "8bad90d3-5964-47ae-af61-00e073bee9e1",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c9379e23-9201-1b66-c316-6c098d585644"
+  ],
+  "verification_status": "unverified"
+}

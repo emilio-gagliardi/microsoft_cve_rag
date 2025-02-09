@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_kernel_elevation_of_privilege_leads_to_access_issue",
+  "description": "End users may experience unexpected access issues due to a vulnerability in the Windows kernel that allows for elevation of privilege. Specifically, after the installation of the related security updates, users could find that they are unable to access certain resources or critical system functionality as expected. The improper management of security permissions could limit the ability to perform administrative tasks or access specific applications, creating operational challenges. This elevated privilege condition underscores the importance of validating that the environment is secure and functioning correctly post-update. The impacted products include various Windows builds ranging from 10.0.10240 to 10.0.22631 across Windows 10 and Windows 11, with relevant KB Articles being KB-5035959, KB-5035858, KB-5035857, KB-5035856, KB-5035855, KB-5035854, KB-5035853, KB-5035849, and KB-5035845.",
+  "source_id": "e4773ae7-84ed-747f-cb50-19505e0b3fd4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e4773ae7-84ed-747f-cb50-19505e0b3fd4"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Access Issues",
+    "Elevation of Privilege"
+  ],
+  "node_id": "30527624-f093-4f30-897d-e908917d16c7",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

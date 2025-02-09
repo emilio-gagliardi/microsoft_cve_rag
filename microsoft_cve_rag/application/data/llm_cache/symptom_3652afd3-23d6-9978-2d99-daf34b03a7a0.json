@@ -1,0 +1,20 @@
+{
+  "symptom_label": "secure_boot_bypass_leads_to_unexpected_behavior",
+  "description": "After the installation of security updates KB-5036925, KB-5036899, KB-5036896, KB-5036894, KB-5036893, and KB-5036892 on systems with build numbers 10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, 10.0.22621.3447, and 10.0.10240.20596, users may experience abnormal behavior due to a bypass in the secure boot security feature. This behavior could manifest as boot failures or inconsistencies during system startup, potentially leading to unauthorized access or integrity issues. Administrators should monitor systems closely for any signs of compromised boot integrity and validate that secure boot settings are functioning as intended after the updates. This underlines the importance of regular patch management practices as a means to ensure an organization's security posture.",
+  "source_id": "3652afd3-23d6-9978-2d99-daf34b03a7a0",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "3652afd3-23d6-9978-2d99-daf34b03a7a0"
+  ],
+  "tags": [
+    "secure boot",
+    "system behavior",
+    "patch management",
+    "Windows 10"
+  ],
+  "node_id": "210ba3cc-34db-4228-90f9-6bca907b840d",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "The Windows Print Spooler component contains an untrusted pointer dereference that can be exploited by an attacker locally or through user interaction, leading to elevation of privilege. This occurs when an attacker initiates an RPC call to the print spooler, which runs with system-level privileges, allowing unauthorized access and actions.",
+  "cause_label": "windows_print_spooler_untrusted_pointer_dereference",
+  "source_id": "8a66cfa7-d541-958c-9e06-5ea804fdc7ab",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8a66cfa7-d541-958c-9e06-5ea804fdc7ab"
+  ],
+  "tags": [
+    "Windows",
+    "Print Spooler",
+    "Elevation of Privilege",
+    "CVE-2024-43529"
+  ],
+  "node_id": "fc613d15-8ae0-434f-a810-c65d1d30d6cb",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

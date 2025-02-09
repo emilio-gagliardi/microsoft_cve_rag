@@ -1,0 +1,22 @@
+{
+  "description": "A time-of-check time-of-use (TOCTOU) race condition in the Windows kernel allows an attacker with local access to potentially elevate privileges. This occurs when the system checks a condition before performing an operation, and between the check and the operation, an attacker modifies the system state to gain unauthorized access.",
+  "cause_label": "windows_kernel_toctou_race_condition_exploitation",
+  "source_id": "52f93967-b7df-b077-376c-84d068c7fd01",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "52f93967-b7df-b077-376c-84d068c7fd01"
+  ],
+  "tags": [
+    "CVE-2024-30088",
+    "Windows",
+    "Kernel",
+    "Privilege Escalation",
+    "TOCTOU"
+  ],
+  "node_id": "ba9103af-8164-428d-97e4-f2dc8dd0f6e2",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

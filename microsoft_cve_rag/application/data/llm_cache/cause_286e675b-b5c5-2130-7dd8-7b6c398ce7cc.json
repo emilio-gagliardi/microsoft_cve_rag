@@ -1,0 +1,22 @@
+{
+  "description": "A use after free condition in the user education component of Chromium, affecting Microsoft Edge (Chromium-based). This flaw allows remote attackers to exploit heap corruption by persuading users to perform specific UI interactions via crafted HTML, potentially compromising browser stability and user data.",
+  "cause_label": "chromium_use_after_free_in_user_education",
+  "source_id": "286e675b-b5c5-2130-7dd8-7b6c398ce7cc",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "286e675b-b5c5-2130-7dd8-7b6c398ce7cc"
+  ],
+  "tags": [
+    "Chromium",
+    "Microsoft Edge",
+    "CVE-2024-6998",
+    "Heap Corruption",
+    "Use After Free"
+  ],
+  "node_id": "27e2576b-531f-4d0f-ae0b-ecec6dc69af7",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

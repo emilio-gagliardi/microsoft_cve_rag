@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the information disclosure vulnerability in the Windows graphics component (CVE-2024-43508), apply the relevant KB updates for your specific Windows version:\n\n1. Identify your current Windows build version:\n   - Windows 11 Version 24H2: 10.0.26100.2033\n   - Windows 11 Version 23H2: 10.0.22631.4317\n   - Windows 11 Version 22H2: 10.0.22621.4317\n\n2. Download and install the updates corresponding to your version from the links below:\n   - **For Windows 11 Version 24H2**: KB5044284 - [Download here](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n   - **For Windows 11 Version 23H2**: KB5044285 - [Download here](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - **For Windows 11 Version 22H2**: KB5044285 - [Download here](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n\n3. After installation, restart your system to ensure the updates take effect.\n\n**Details**:\nThis fix addresses the out-of-bounds read vulnerability that allows potential information disclosure. Ensure your system is updated to the latest build to mitigate this risk.\n**Preconditions**:\n- Confirm your Windows build version before proceeding with the updates.\n- Backup critical data before applying any updates.",
+  "source_id": "6dedc72c-fa36-df6d-bfda-033759bba5e0",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb5044285_kb5044284_for_windows_information_disclosure",
+  "tags": [
+    "KB5044284",
+    "KB5044285",
+    "Windows11",
+    "InformationDisclosure"
+  ],
+  "node_id": "6016e6f9-9b1f-47e3-a563-43b44e344d6e",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "6dedc72c-fa36-df6d-bfda-033759bba5e0"
+  ],
+  "verification_status": "unverified"
+}

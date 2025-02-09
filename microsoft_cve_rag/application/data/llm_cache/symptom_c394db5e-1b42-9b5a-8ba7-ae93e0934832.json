@@ -1,0 +1,20 @@
+{
+  "symptom_label": "extreme_memory_leak_in_lsass_on_domain_controllers",
+  "description": "The Local Security Authority Subsystem Service (LSASS) may experience extreme memory leaks on domain controllers following the installation of the March 2024 security update (KB5037425). This issue is particularly observable in environments utilizing on-premises and cloud-based Active Directory domain controllers that are handling Kerberos authentication requests. The severe memory leak could potentially lead to LSASS crashing, resulting in unscheduled reboots of the affected domain controllers. This issue does not affect home devices and specifically impacts Windows Server platforms, highlighting a critical operational risk to organizational environments. A resolution was provided in an out-of-band update, which is documented in the resolved KB articles (KB5037425, KB5035849), and administrators are advised against applying the original March update on their domain controllers.",
+  "source_id": "c394db5e-1b42-9b5a-8ba7-ae93e0934832",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "c394db5e-1b42-9b5a-8ba7-ae93e0934832"
+  ],
+  "tags": [
+    "LSASS",
+    "memory leak",
+    "domain controller",
+    "Kerberos authentication"
+  ],
+  "node_id": "3562634f-e969-437b-913b-5f13998dc507",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

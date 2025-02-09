@@ -1,0 +1,21 @@
+{
+  "description": "Use after free flaw in the Dawn component of Chromium prior to version 126.0.6478.54, which can lead to heap corruption, potentially allowing remote attackers to exploit the issue via crafted HTML pages. This affects Microsoft Edge (Chromium-based) as it leverages the Chromium open-source code.",
+  "cause_label": "chromium_use_after_free_in_dawn_heap_corruption",
+  "source_id": "56e8dea9-c4f3-2f73-9793-963bae2fcd21",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "56e8dea9-c4f3-2f73-9793-963bae2fcd21"
+  ],
+  "tags": [
+    "use_after_free",
+    "heap_corruption",
+    "chromium",
+    "microsoft_edge"
+  ],
+  "node_id": "ba6512c9-949f-420e-8aa3-1a485f308d06",
+  "node_label": "Cause",
+  "reliability": 9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

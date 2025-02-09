@@ -1,0 +1,22 @@
+{
+  "symptom_label": "elevation_of_privilege_on_windows_cloud_files",
+  "description": "Affected Windows users may experience unauthorized access to elevated privileges on their systems after applying the necessary security updates related to the Windows Cloud Files Mini Filter Driver. This issue is particularly relevant for environments running Windows 10 (Builds 19044.4780 and 19045.4780) and Windows 11 (Builds 22000.3147 and 22631.4037). Users could notice inconsistencies in system behavior, including potentially unexpected ability to access restricted files and settings. Critical to address, these changes necessitate immediate attention from system administrators, who should implement updates KB5041592, KB5041585, and KB5041580 as outlined to mitigate these impacts. These symptoms could lead to further risks if not rectified promptly.",
+  "source_id": "ff4c2dde-2bd3-022a-c5c9-377d4940edd4",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ff4c2dde-2bd3-022a-c5c9-377d4940edd4"
+  ],
+  "tags": [
+    "Windows",
+    "Cloud Files",
+    "Elevation of Privilege",
+    "Update",
+    "Patch Management"
+  ],
+  "node_id": "b4fbae0e-a6dc-474c-a4bd-0bb054adeb9b",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

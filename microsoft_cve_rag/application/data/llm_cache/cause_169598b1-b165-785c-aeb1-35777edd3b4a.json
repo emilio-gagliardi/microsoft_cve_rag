@@ -1,0 +1,17 @@
+{
+  "description": "The cause of CVE-2023-5477 stems from an inappropriate implementation in the installer of Chromium, which adversely affects the security posture of Microsoft Edge (Chromium-based). This flaw allows for potential exploitation through improperly sanitized inputs during installation processes, leading to vulnerabilities that can be leveraged within Edge's architecture. The issue is particularly relevant as Microsoft Edge relies on the underlying Chromium open-source codebase, necessitating periodic updates to maintain integrity and safety for users. Users are encouraged to update to build number 118.0.2088.46, as this version addresses the vulnerability identified in this CVE. The associated KB Article ID is KB-118.0.2088.46, which provides additional context and mitigation details.",
+  "cause_label": "InappropriateImplementationInChromiumInstaller",
+  "source_id": "169598b1-b165-785c-aeb1-35777edd3b4a",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Chromium",
+    "Microsoft Edge",
+    "CVE-2023-5477",
+    "security"
+  ],
+  "node_id": "e3ae7339-4cfe-4a09-9278-13b70efc232c",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

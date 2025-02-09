@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve issues arising from problematic Windows cumulative updates on virtual machines (VMs) and physical machines:\n\n1. Revert the VM gold images to a previous stable state.\n2. Redeploy the gold images back to the affected VMs to restore functionality.\n3. For cases with Windows Defender ASR rules enforced by Group Policy Objects (GPO), consider temporarily removing these rules from affected VM pools.\n\n**Details**:\n- Reverting gold images can restore system stability without data loss, especially after problematic updates.\n- Removing ASR rules may alleviate conflicts that disrupt VM operations, allowing for smoother processing. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure you have access to the previous stable versions of the gold images for reversion.\n- Backup any critical data before making changes to VMs or physical systems.",
+  "source_id": "25fe82d8-0203-aa01-f7c8-8d33d5f1de5c",
+  "source_type": "PatchManagementPost",
+  "fix_label": "revert_gold_images_and_remove_asr_rules",
+  "tags": [
+    "WindowsUpdate",
+    "VMware",
+    "GoldImages",
+    "LLM Synthesized"
+  ],
+  "node_id": "a12ec884-a3cd-4a73-a958-98e0e5af44a9",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "25fe82d8-0203-aa01-f7c8-8d33d5f1de5c"
+  ],
+  "verification_status": "unverified"
+}

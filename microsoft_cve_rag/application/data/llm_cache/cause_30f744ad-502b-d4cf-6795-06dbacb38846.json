@@ -1,0 +1,22 @@
+{
+  "description": "The Windows Mobile Broadband Driver is vulnerable to remote code execution due to improper input validation, allowing attackers with physical access to exploit this flaw by connecting a malicious USB device, potentially leading to full control over the affected system and data breaches.",
+  "cause_label": "windows_mobile_broadband_driver_improper_input_validation",
+  "source_id": "30f744ad-502b-d4cf-6795-06dbacb38846",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "30f744ad-502b-d4cf-6795-06dbacb38846"
+  ],
+  "tags": [
+    "CVE",
+    "remote code execution",
+    "improper input validation",
+    "Windows",
+    "driver"
+  ],
+  "node_id": "2a445ec7-ac23-42fc-b723-aa7d091126be",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

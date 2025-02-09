@@ -1,0 +1,20 @@
+{
+  "description": "A failure in the secure boot protection mechanism allows for the bypass of security features in various Windows builds, impacting system integrity and trust.",
+  "cause_label": "secure_boot_protection_mechanism_bypass_in_windows",
+  "source_id": "848fdfd6-9dd8-d42a-30b8-624d5da81717",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "848fdfd6-9dd8-d42a-30b8-624d5da81717"
+  ],
+  "tags": [
+    "secure boot",
+    "Windows",
+    "CVE-2024-28903",
+    "system integrity"
+  ],
+  "node_id": "f3a2c986-e7ea-4bc3-a545-8b0029b54878",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

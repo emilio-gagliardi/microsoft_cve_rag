@@ -1,0 +1,23 @@
+{
+  "tool_label": "ldapenforcechannelbinding_registry_value",
+  "description": "**Tool Overview**:\n\nThe \"ldapenforcechannelbinding\" registry value is a crucial configuration that ensures compliance with channel binding requirements. This registry setting plays a significant role in enhancing the security posture of applications that utilize LDAP connections. \n\n**Details**:\n1. It enables the enforcement of channel binding with LDAP over SSL, ensuring that the correct binding is being used.\n2. Properly configuring this registry value helps mitigate various vulnerabilities associated with LDAP connections.\n3. Administrators can set or modify this registry value through the Windows Registry Editor or via Group Policy.\n4. It is essential to validate the application's functionality post-configuration, ensuring that no unforeseen issues arise.\n5. The recommended practice is to monitor LDAP activity closely after implementing this change to identify any potential misconfigurations or connectivity issues. \n\n",
+  "source_id": "c977158e-e748-872b-3868-c005f9017f69",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "c977158e-e748-872b-3868-c005f9017f69"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CADgYyh0KX%3DE91N6Mbnz%3D5xmxv4t2zTRYqDoj4KCKbmeFdpzm%3Dw%40mail.gmail.com",
+  "tool_url": "https://support.microsoft.com",
+  "tags": [
+    "LDAP",
+    "registry",
+    "configuration",
+    "security"
+  ],
+  "node_id": "4538719c-4839-41ef-a445-8b331e79148b",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

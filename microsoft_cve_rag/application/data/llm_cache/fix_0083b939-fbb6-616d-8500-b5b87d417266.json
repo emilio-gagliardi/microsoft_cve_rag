@@ -1,0 +1,16 @@
+{
+  "description": "To address the elevation of privilege identified in CVE-2023-36394, Microsoft has released multiple updates across affected systems. Windows Server 2016 and various Windows 10 versions require the application of the security updates KB5032199, KB5032192, and KB5032189. Users should ensure to update their systems to build numbers including but not limited to 10.0.10240.20308, 10.0.19045.3693, and 10.0.22000.2600. Update packages can be downloaded from the Microsoft Update Catalog at the following links: KB5032199 [here](https://catalog.update.microsoft.com/Search.aspx?q=KB5032199), KB5032192 [here](https://catalog.update.microsoft.com/Search.aspx?q=KB5032192), and KB5032189 [here](https://catalog.update.microsoft.com/Search.aspx?q=KB5032189). It is recommended to review the specific documentation associated with each update to ensure comprehensive system compliance and protection.",
+  "source_id": "0083b939-fbb6-616d-8500-b5b87d417266",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplyUpdateForElevationOfPrivilegeConcern",
+  "tags": [
+    "elevation",
+    "privilege",
+    "update"
+  ],
+  "node_id": "70388212-e6a7-4186-bd72-efda3d5d99f0",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

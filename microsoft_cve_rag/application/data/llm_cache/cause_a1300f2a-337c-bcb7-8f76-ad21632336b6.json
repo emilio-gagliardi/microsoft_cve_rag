@@ -1,0 +1,22 @@
+{
+  "description": "Inappropriate implementation in the downloads functionality of Chromium, leading to type confusion and potential visibility of security UI elements via malicious files, impacting both Chromium and Microsoft Edge (Chromium-based) products.",
+  "cause_label": "chromium_inappropriate_download_implementation_type_confusion",
+  "source_id": "a1300f2a-337c-bcb7-8f76-ad21632336b6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a1300f2a-337c-bcb7-8f76-ad21632336b6"
+  ],
+  "tags": [
+    "CVE",
+    "Chromium",
+    "Edge",
+    "Type Confusion",
+    "Downloads"
+  ],
+  "node_id": "923e5098-31c7-4b09-a084-d15fee86a6ec",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "zero_day_vulnerability_in_windows_remote_code_execution",
+  "description": "A critical zero-day vulnerability has been identified in the Windows operating system (CVE-2024-43491) affecting Windows 10 versions 1507 and 2015 LTSB. This flaw allows for remote code execution, granting attackers the ability to execute arbitrary code on affected systems. To fully mitigate this risk, it is essential that the latest servicing stack update is applied. The CVSS v3 score for this vulnerability is rated at 9.8, indicating a high level of severity. System administrators must prioritize the deployment of necessary patches to safeguard their environments against potential exploitation.",
+  "source_id": "fe9974ac-f57d-8461-400f-c8fd702d4b73",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "fe9974ac-f57d-8461-400f-c8fd702d4b73"
+  ],
+  "tags": [
+    "windows",
+    "remote_code_execution",
+    "zero_day",
+    "patch_management"
+  ],
+  "node_id": "d808c904-55fd-4b06-9ca2-c65a3a1f4ac2",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

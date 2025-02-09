@@ -1,0 +1,20 @@
+{
+  "symptom_label": "ldap_operations_allow_implicit_owner_privileges",
+  "description": "The January 2024 Cumulative Update has configured the directory to allow implicit owner privileges during LDAP add and modify operations, specifically pertaining to the nTSecurityDescriptor attribute. Warning events are generated and logged whenever such operations occur, indicating a potential security misconfiguration. However, unlike typical secure settings, requests are not blocked, which could expose the directory to unauthorized access risks. The setting is described as not secure and should only be used temporarily for troubleshooting. Administrators are advised to consult the suggested mitigations linked in the post to address the identified security issue further. For additional context, see KB5008383 and KB2174032.",
+  "source_id": "b5773952-0f94-959b-b81c-22286d9fd005",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "b5773952-0f94-959b-b81c-22286d9fd005"
+  ],
+  "tags": [
+    "ldap",
+    "security",
+    "cumulative update",
+    "active directory"
+  ],
+  "node_id": "402f414f-bd2e-4c32-9ea8-e321bb244b41",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

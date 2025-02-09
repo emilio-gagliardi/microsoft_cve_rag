@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the Windows Kerberos denial of service vulnerability identified in CVE-2024-26183, apply the relevant security updates outlined below:\n\n1. Identify the appropriate KB articles to download:\n   - KB-5036925\n   - KB-5036894\n   - KB-5036893\n   - KB-5036892\n\n2. Download the updates from the official Microsoft Update Catalog.\n\n3. Install the updates on your systems running the affected builds:\n   - Windows 10, Build 19045.4291\n   - Windows 10, Build 19044.4291\n   - Windows 10, Build 22631.3447\n   - Windows 10, Build 22000.2899\n   - Windows 10, Build 22621.3447\n   - Windows 10, Build 10240.20596\n\n**Details**:\n- The updates address a NULL Pointer Dereference issue (CWE-476) in Kerberos that could lead to a denial of service. \n- For detailed installation instructions, please refer to Microsoft documentation.\n- Always ensure to backup critical data before proceeding with installation. \n",
+  "source_id": "65aebc1e-41b1-d177-2357-b17d338e7417",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_security_updates_to_resolve_kerberos_dos_cve202426183",
+  "tags": [
+    "KB5036925",
+    "Windows10",
+    "Kerberos",
+    "DenialOfService"
+  ],
+  "node_id": "a37dce4d-5cfc-49a7-bd55-3b805c007b5b",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "65aebc1e-41b1-d177-2357-b17d338e7417"
+  ]
+}

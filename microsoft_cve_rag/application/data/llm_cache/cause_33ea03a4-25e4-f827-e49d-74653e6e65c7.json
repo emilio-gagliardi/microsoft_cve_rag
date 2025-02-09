@@ -1,0 +1,19 @@
+{
+  "description": "The post suggests a troubleshooting step for addressing issues with the system using the 'sfc /scannow' command. This command is primarily utilized to scan and repair corrupted system files in Windows installations. A common underlying cause of issues that necessitate running this command could be corruption within the system files, which may arise from improper updates, failed installations, or unexpected shutdowns. Considering that no specific build numbers or KB Articles are mentioned in the post, the description reflects a general practice known to be effective in addressing various file integrity issues across multiple Windows builds. Thus, the inferred cause revolves around file corruption requiring maintenance actions to restore system stability.",
+  "source_id": "33ea03a4-25e4-f827-e49d-74653e6e65c7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "33ea03a4-25e4-f827-e49d-74653e6e65c7"
+  ],
+  "cause_label": "file_corruption_needs_system_file_checker",
+  "tags": [
+    "sfc",
+    "system file checker",
+    "file corruption"
+  ],
+  "node_id": "955f89ca-277f-43cd-97b8-28189b6fd8c8",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Cause"
+}

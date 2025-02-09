@@ -1,0 +1,17 @@
+{
+  "symptom_label": "WinREPartitionExceedsRecommendedSize",
+  "description": "The Windows Recovery Environment (WinRE) partition is experiencing significant growth, potentially exceeding its recommended size of 1 GB. As observed, the used space on the 1 GB WinRE partition has increased from 602 MB in March 2023 to 829 MB by January 2024, after the installation of the latest updates. This consistent growth raises concerns about the adequacy of the partition size, indicating a need to reconsider the initial recommendation of 1 GB, as future updates may require additional space, possibly necessitating a 2 GB or larger size to prevent issues with shrinking primary partitions for accommodating the WinRE.",
+  "source_id": "fba2a3a3-ed9f-d73b-15c8-cb5c7d2d2041",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "WinRE",
+    "Windows11",
+    "PartitionManagement",
+    "Recovery"
+  ],
+  "node_id": "4e31035e-f416-4811-afcb-6b47b1750310",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "msmq_elevation_of_privilege_leads_to_access_issues",
+  "description": "Users may experience access issues or restrictions in their workflow due to an elevation of privilege vulnerability affecting Microsoft Message Queuing (MSMQ). This vulnerability, identified under CVE-2024-21354, can hinder normal operations of applications relying on MSMQ for message processing. The affected builds include various versions of Windows 10 and Windows 11, specifically build numbers 10.0.19045.4046, 10.0.22631.3155, and others listed under the KB-5034763 article. Administrators might notice abnormal behavior in applications using MSMQ, which could manifest as failed message deliveries or permission errors when accessing certain resources. It's critical to monitor these issues, as they could significantly disrupt business processes and operational efficiency.",
+  "source_id": "639f4ef2-5dde-9396-3936-68697ffb2862",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "639f4ef2-5dde-9396-3936-68697ffb2862"
+  ],
+  "tags": [
+    "MSMQ",
+    "elevation of privilege",
+    "message queuing",
+    "Windows 10",
+    "Windows 11"
+  ],
+  "node_id": "a638c82f-0421-4f58-958d-f5bbf1d4b9df",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

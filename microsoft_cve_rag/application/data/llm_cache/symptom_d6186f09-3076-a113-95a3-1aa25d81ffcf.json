@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_crashes_after_updates_with_chromium",
+  "description": "After applying the update for Microsoft Edge (Chromium-based) version 126.0.2592.56, users may encounter unexpected crashes while browsing. These crashes can occur without warning, leading to disruption of work and potential loss of unsaved data. The issue is particularly noticeable in scenarios where web pages are heavily utilizing JavaScript or multimedia content. Users might see an error message prompting them to restart the browser, and in some cases, opened tabs may not recover after a crash. The problem has been documented under KB-126.0.2592.56, and users are encouraged to ensure they are on the latest version to mitigate such issues.",
+  "source_id": "d6186f09-3076-a113-95a3-1aa25d81ffcf",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d6186f09-3076-a113-95a3-1aa25d81ffcf"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Update",
+    "Crashes",
+    "Browser Performance"
+  ],
+  "node_id": "bc378752-9e2a-45e3-8bce-b576d231dd7a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

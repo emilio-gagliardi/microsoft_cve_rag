@@ -1,0 +1,24 @@
+{
+  "description": "The root cause of the important vulnerabilities highlighted in the May Patch Tuesday updates revolves around two significant zero-day exploits affecting Microsoft Windows and related components. Specifically, CVE-2024-30051 pertains to an elevation of privilege vulnerability in the Windows DWM Core Library, which has demonstrated active exploitation capabilities. This vulnerability allows an attacker to achieve system privileges if successfully exploited. Concurrently, CVE-2024-30040 is a security feature bypass vulnerability within Microsoft MSHTML that also has confirmed exploitation scenarios, permitting attackers to circumvent OLE mitigation measures in Microsoft 365 and Office. These vulnerabilities demand immediate attention due to their confirmed exploitability, as noted in their risk-based prioritization by Microsoft, thus requiring urgent patch management action to secure affected systems.",
+  "source_id": "8d6c4cf2-2e2b-1371-8cfb-33442b4a7270",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "8d6c4cf2-2e2b-1371-8cfb-33442b4a7270"
+  ],
+  "cause_label": "zero_day_exploits_in_windows_components",
+  "tags": [
+    "zero-day",
+    "vulnerability",
+    "Windows",
+    "CVE-2024-30051",
+    "CVE-2024-30040",
+    "elevation of privilege",
+    "security feature bypass"
+  ],
+  "node_id": "b680e1c8-c109-4366-a408-7d1d5b7c3823",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

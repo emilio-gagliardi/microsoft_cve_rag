@@ -1,0 +1,20 @@
+{
+  "description": "Inappropriate implementation in site isolation in Chromium prior to version 122.0.6261.57 allows a remote attacker to bypass content security policy via a crafted HTML page.",
+  "cause_label": "chromium_site_isolation_implementation_issue",
+  "source_id": "200b1e46-0a00-8f72-0c72-329854c60040",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "200b1e46-0a00-8f72-0c72-329854c60040"
+  ],
+  "tags": [
+    "CVE",
+    "Chrome",
+    "Chromium",
+    "Microsoft Edge"
+  ],
+  "node_id": "185113e1-3f89-4093-9ea0-d558b6bb76f2",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "medium",
+  "entity_type": "Cause"
+}

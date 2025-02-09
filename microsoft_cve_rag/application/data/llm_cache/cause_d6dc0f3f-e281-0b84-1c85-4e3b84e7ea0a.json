@@ -1,0 +1,21 @@
+{
+  "description": "The cause of this elevation of privilege vulnerability is due to improper restriction of operations within memory buffers, leading to untrusted pointer dereference in the Windows kernel-mode driver. This allows attackers with basic user privileges to exploit these flaws and potentially gain higher system privileges.",
+  "cause_label": "windows_kernel_untrusted_pointer_dereference",
+  "source_id": "d6dc0f3f-e281-0b84-1c85-4e3b84e7ea0a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d6dc0f3f-e281-0b84-1c85-4e3b84e7ea0a"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Privilege Escalation",
+    "CVE-2024-35250"
+  ],
+  "node_id": "85e25cad-6cf6-4fdd-a293-e503da8d0f03",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

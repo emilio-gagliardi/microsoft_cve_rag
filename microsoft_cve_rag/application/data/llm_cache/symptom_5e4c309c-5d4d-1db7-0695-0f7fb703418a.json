@@ -1,0 +1,16 @@
+{
+  "symptom_label": "HighSeverityCpuBugCrashesHypervisorsInVMs",
+  "description": "A high-severity CPU bug has been identified in Intel processors that leads to unusual behavior within virtual machines. This issue allows for code execution inside a virtual machine (VM) that can unexpectedly crash the hypervisor, affecting the stability and reliability of systems utilizing virtualization technologies. System administrators should remain vigilant for potential disruptions in their virtualized environments caused by this critical bug, as it poses a significant risk to operations.",
+  "source_id": "5e4c309c-5d4d-1db7-0695-0f7fb703418a",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "hypervisor",
+    "Intel",
+    "virtualization"
+  ],
+  "node_id": "03fe5264-b630-467e-a166-06cc97981044",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

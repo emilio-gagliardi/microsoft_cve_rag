@@ -1,0 +1,18 @@
+{
+  "description": "The underlying cause of CVE-2023-41765 is tied to a race condition that exists within the Layer 2 Tunneling Protocol (L2TP) implementation of the Routing and Remote Access Service (RRAS) on specific Windows Server builds. An unauthenticated attacker can exploit this condition by sending a specially crafted L2TP message to the server, potentially allowing the execution of arbitrary code on the affected system. This issue is particularly notable on systems with the RRAS role configured for L2TP, which is not enabled by default. The impacted builds include Windows Server 2012, Windows Server 2012 R2, and Windows Server 2008 R2, as outlined in the associated KB articles (KB-5031377, KB-5031358, KB-5031356, KB-5031354). The exploitability of this vulnerability is exacerbated by its categorization as remotely exploitable, meaning that it can be targeted from other networks, increasing the risk.",
+  "cause_label": "RaceConditionInL2TPImplementation",
+  "source_id": "16f48b64-6419-f7c3-344a-5ad673ea36af",
+  "source_type": "MSRCPost",
+  "tags": [
+    "CVE",
+    "Windows",
+    "security",
+    "L2TP",
+    "RRAS"
+  ],
+  "node_id": "51dfd890-c8b6-4022-a644-4b58cac3985e",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

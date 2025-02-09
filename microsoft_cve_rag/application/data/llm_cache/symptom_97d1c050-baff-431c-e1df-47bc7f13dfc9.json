@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_experiences_remote_code_execution_error",
+  "description": "Users of Microsoft Edge (Chromium-based) version 130.0.2849.46 may experience remote code execution errors due to a vulnerability described in KB43587, published on October 17, 2024. This situation can manifest as unexpected application crashes or hangs, where users may find that their browser becomes unresponsive when processing certain web content. In some cases, rather than a total crash, users might notice sporadic error messages indicating that the application cannot complete the requested operation. The impact may prevent users from executing standard tasks, such as loading specific websites or opening links, leading to a significant disruption in workflow. It is crucial for system administrators to monitor their environments for any unusual behavior associated with this issue, especially in enterprise settings where Microsoft Edge is extensively used.",
+  "source_id": "97d1c050-baff-431c-e1df-47bc7f13dfc9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "97d1c050-baff-431c-e1df-47bc7f13dfc9"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Remote Code Execution",
+    "Kernel Vulnerability",
+    "KB43587",
+    "Browser Issues"
+  ],
+  "node_id": "7a71e505-019f-4195-8c71-9c0147b18eff",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "low",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

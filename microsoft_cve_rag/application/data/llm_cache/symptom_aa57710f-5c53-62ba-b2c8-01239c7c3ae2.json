@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_users_experience_browsing_issues",
+  "description": "Users of the Microsoft Edge (Chromium-based) browser running version 127.0.2651.74 may experience issues related to browsing reliability due to insufficient validation of untrusted input. This could manifest in various ways, such as unexpected behavior during web navigation, inability to access certain websites, or unusual prompts when interacting with web elements. The release of this version addresses the underlying issue that could have allowed remote execution or unauthorized access by processing potentially harmful inputs. Administrators should ensure that users update to the latest version to avoid these issues. The relevant KB Article for this update is KB-127.0.2651.74.",
+  "source_id": "aa57710f-5c53-62ba-b2c8-01239c7c3ae2",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "aa57710f-5c53-62ba-b2c8-01239c7c3ae2"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Browsing Issues",
+    "User Experience"
+  ],
+  "node_id": "b1ae4b21-2d06-4f54-b8e8-1ce0fa090556",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

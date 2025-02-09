@@ -1,0 +1,20 @@
+{
+  "symptom_label": "domain_join_fails_due_to_gpo_setting",
+  "description": "In situations where a domain controller's Group Policy Object (GPO) is configured to enforce restrictions on computer account re-use during domain joins, users may experience difficulties when attempting to join computers to the domain. This issue arises particularly when trusted users, who manage workstations, are not included in the appropriate exception group defined within the GPO. When this occurs, the domain join operation may fail, preventing users from successfully connecting their machines to the network and accessing domain resources. Organizations may have operated in enforcement mode for an extended period, suggesting significant implications on user access and system management. To mitigate this problem, administrators should ensure that relevant users are granted permissions as outlined in the domain controller settings.",
+  "source_id": "5132a0bf-d472-e1b9-b7f4-344e38e1bf59",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "5132a0bf-d472-e1b9-b7f4-344e38e1bf59"
+  ],
+  "tags": [
+    "domain join",
+    "GPO settings",
+    "computer account",
+    "exception group"
+  ],
+  "node_id": "c9bf6084-e691-4ab9-9867-a5ed3032a878",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_releases_error_messages_on_vulnerability",
+  "description": "After updating to Microsoft Edge version 127.0.2651.74, users may observe error messages related to potential vulnerabilities during browsing sessions. These messages can manifest as popup notifications or warnings when trying to access certain websites known for being affected by the underlying Chromium security issue addressed in CVE-2024-6992. While browsing, users might experience interruptions with prompts indicating that their version has vulnerabilities, affecting their confidence in the application. This issue emphasizes the importance of regular updates and security awareness among users and system administrators to ensure that they are not inadvertently exposed to compromised browsing experiences. To mitigate this effect, users should verify that their browsers are updated promptly, hence resolving any alerts associated with this CVE entry.",
+  "source_id": "bbaea447-7849-ba43-baad-34e97b90a69a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "bbaea447-7849-ba43-baad-34e97b90a69a"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "CVE-2024-6992",
+    "Error Messages"
+  ],
+  "node_id": "3aca4eae-595d-4b87-be54-94f4d6bc6330",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

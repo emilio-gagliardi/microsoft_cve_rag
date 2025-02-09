@@ -1,0 +1,17 @@
+{
+  "symptom_label": "WinREEnablesRogueComputerFactoryResetAccess",
+  "description": "In a controlled environment, the Windows Recovery Environment (WinRE) is unintentionally allowing users to factory reset Windows devices, potentially leading to the creation of rogue computers on the network. This behavior poses significant risks, particularly in public computer rooms or educational settings where unauthorized access to machines can occur. Referencing KB-5034957 highlights the necessity of updating the WinRE partition to mitigate security vulnerabilities associated with CVE-2024-20666.",
+  "source_id": "6dd612c0-28ae-3d18-1413-0789de6e7526",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "WinRE",
+    "factory reset",
+    "controlled environment",
+    "security vulnerabilities"
+  ],
+  "node_id": "e3cfd4e0-84f0-4fdb-8f53-812b2ffd432c",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

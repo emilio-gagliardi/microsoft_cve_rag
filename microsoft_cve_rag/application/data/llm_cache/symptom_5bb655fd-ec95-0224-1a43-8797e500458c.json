@@ -1,0 +1,22 @@
+{
+  "symptom_label": "azure_file_sync_allows_arbitrary_file_deletion",
+  "description": "After exploiting the vulnerability in Microsoft Azure File Sync version 17.0, 18.0, and 16.0, end users may experience arbitrary file deletions from their systems. This occurs when an attacker, leveraging a race condition and requiring only low privileges, is able to delete files that regular users cannot access. The attacker\u2019s actions result in files being erased without proper authorization, leading to potential data loss or unauthorized modification of sensitive information. This issue is tied to KB-5039814, which addresses the elevation of privilege vulnerability reported under CVE-2024-35253, emphasizing the importance of applying security updates to mitigate this risk.",
+  "source_id": "5bb655fd-ec95-0224-1a43-8797e500458c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "5bb655fd-ec95-0224-1a43-8797e500458c"
+  ],
+  "tags": [
+    "Azure",
+    "File Sync",
+    "Privileged Access",
+    "Data Integrity",
+    "Security Update"
+  ],
+  "node_id": "b897c179-e0fa-4bf1-b2fe-c954a2c3cedb",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

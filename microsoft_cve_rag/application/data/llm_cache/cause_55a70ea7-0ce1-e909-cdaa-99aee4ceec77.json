@@ -1,0 +1,21 @@
+{
+  "description": "The Microsoft Edge for iOS application fails to warn users of potential spoofing threats when a specially crafted URL is clicked. This failure to prompt user awareness allows attackers to redirect victims to malicious sites without adequate notification, effectively bypassing front-end protections. The vulnerability stems from insufficient warning mechanisms in the product UI framework, leading to low severity spoofing risks.",
+  "cause_label": "microsoft_edge_for_ios_ui_warning_failure",
+  "source_id": "55a70ea7-0ce1-e909-cdaa-99aee4ceec77",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "55a70ea7-0ce1-e909-cdaa-99aee4ceec77"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "iOS",
+    "spoofing",
+    "CVE-2024-30057"
+  ],
+  "node_id": "44992fd6-c598-49dd-8f79-f9396d88a298",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

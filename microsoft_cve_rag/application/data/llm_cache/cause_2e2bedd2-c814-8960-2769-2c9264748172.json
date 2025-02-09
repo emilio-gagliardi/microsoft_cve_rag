@@ -1,0 +1,20 @@
+{
+  "description": "Inappropriate implementation in Picture-in-Picture feature of Chromium results in potential UI spoofing allowing remote attacks via crafted HTML pages, primarily affecting Microsoft Edge (Chromium-based) due to its dependency on Chromium project components.",
+  "cause_label": "chromium_inappropriate_implementation_in_picture_in_picture",
+  "source_id": "2e2bedd2-c814-8960-2769-2c9264748172",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2e2bedd2-c814-8960-2769-2c9264748172"
+  ],
+  "tags": [
+    "CVE-2024-9958",
+    "Chromium",
+    "Microsoft Edge"
+  ],
+  "node_id": "46b48f23-23d7-4369-8383-a9d0931dd4f8",
+  "node_label": "Cause",
+  "reliability": 0.05,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

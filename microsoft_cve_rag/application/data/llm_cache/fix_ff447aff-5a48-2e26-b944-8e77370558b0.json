@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the memory leak in the LSASS process reported after the latest security update:\n\n1. Monitor the system performance closely for any abnormalities related to memory usage in the LSASS process.\n2. Ensure that your environment is updated to the latest Exchange Server security updates as indicated in KB4088764, which may include fixes related to the memory leak issue.\n3. If memory leak issues persist, consider restarting the LSASS process as an immediate workaround.\n\n**Details**:\nThis fix primarily involves ensuring that your system is up to date with the latest patches. The memory leak could potentially lead to performance degradation, so monitoring your DC performance post-update is crucial. Restarting LSASS should be done cautiously as it can impact authentication processes. (LLM Synthesized)\n",
+  "source_id": "ff447aff-5a48-2e26-b944-8e77370558b0",
+  "source_type": "PatchManagementPost",
+  "fix_label": "address_lsass_memory_leak_after_update",
+  "tags": [
+    "KB4088764",
+    "LSASS",
+    "MemoryLeak",
+    "ExchangeServer"
+  ],
+  "node_id": "0c45f7cc-a8a8-404b-9287-2da3304d4fbd",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "ff447aff-5a48-2e26-b944-8e77370558b0"
+  ]
+}

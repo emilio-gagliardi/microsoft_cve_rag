@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause for the issue with version 2.3.6.0 relates to the auto-upgrade detection mechanism failing when the operating system or .NET runtime requirements are not met. This bug fix improves the reliability of the upgrade process by ensuring that the auto-upgrade feature will no longer attempt retries under incorrect system configurations. This enhancement is crucial as it prevents unnecessary resources from being used when the system is incompatible. Therefore, environments that lack the appropriate OS or .NET runtime can achieve smoother operational flow since they will no longer be subjected to erroneous upgrade prompts. Further details are documented in Microsoft's version history under reference for build 2.3.6.0.",
+  "source_id": "812f5d6f-2062-c1fe-20dd-1347dddac830",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "812f5d6f-2062-c1fe-20dd-1347dddac830"
+  ],
+  "cause_label": "auto_upgrade_detection_fails_due_to_requirements",
+  "tags": [
+    "bug fix",
+    "upgrade",
+    "auto-detection",
+    ".NET",
+    "2.3.6.0"
+  ],
+  "node_id": "6fe6971e-b6ab-44a5-9ccb-0f25d2b2b884",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

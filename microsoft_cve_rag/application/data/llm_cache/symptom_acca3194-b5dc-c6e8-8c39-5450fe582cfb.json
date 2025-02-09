@@ -1,0 +1,18 @@
+{
+  "symptom_label": "UserPrivilegesElevatedWithoutAuthorizedAccess",
+  "description": "End users may observe that unauthorized actions can be performed on their systems due to an elevation of privileges. This could manifest as unrecognized changes to system settings or data without explicit user consent. For example, users might notice unfamiliar applications being installed or configured settings altered unexpectedly. With affected builds such as Windows 10 (10.0.19044.3930, 10.0.19045.3930) and Windows 11 (10.0.22000.2713, 10.0.22631.3007), unauthorized access may lead to significant concerns regarding system integrity and privacy. This issue is documented under KB-5034134, KB-5034123, KB-5034122, and KB-5034121, emphasizing the importance of installing the necessary updates to mitigate these risks.",
+  "source_id": "acca3194-b5dc-c6e8-8c39-5450fe582cfb",
+  "source_type": "MSRCPost",
+  "tags": [
+    "elevation of privilege",
+    "Windows 10",
+    "Windows 11",
+    "unauthorized access",
+    "system integrity"
+  ],
+  "node_id": "7c78f7de-9975-4e6f-99eb-e1488e69a0c6",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the remote code execution vulnerability in the Windows Standards-Based Storage Management Service (CVE-2024-30062):\n\n1. Download the KB-5039330 update from the Microsoft Update catalog.\n2. Install the update on affected systems to mitigate the vulnerability.\n3. Restart the service to ensure the changes take effect.\n\n**Details**:\n- This update resolves the use-after-free vulnerability which could allow an attacker to execute arbitrary code remotely, significantly impacting system integrity and availability.\n- For manual installation, download the update package from: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30062.\n\n**Preconditions**:\n- Ensure that the system is a compatible build for the KB-5039330 update.\n- Backup important data before proceeding with the update installation.",
+  "source_id": "fdba597a-42f0-9acd-a363-3dd7fd513145",
+  "source_type": "MSRCPost",
+  "fix_label": "address_remote_code_execution_storage_management_cve202430062",
+  "tags": [
+    "KB5039330",
+    "RemoteCodeExecution",
+    "UseAfterFree",
+    "WindowsStorageManagement"
+  ],
+  "node_id": "f39abad0-9f34-4e1d-b3a5-13120c1f40fc",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "fdba597a-42f0-9acd-a363-3dd7fd513145"
+  ],
+  "verification_status": "unverified"
+}

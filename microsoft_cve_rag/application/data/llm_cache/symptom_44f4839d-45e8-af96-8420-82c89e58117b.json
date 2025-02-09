@@ -1,0 +1,17 @@
+{
+  "symptom_label": "WinreWimUpdateIncompatibilityWithCumulativeUpdate",
+  "description": "The WinRE.wim file, essential for Windows recovery, is updated through the companion safe OS dynamic update rather than the cumulative update itself. This indicates potential issues during the installation and recovery processes for Windows 11, version 22H2 and 23H2, as described in KB-5034234. Without proper updates in synchronization, systems may encounter difficulties when attempting to utilize recovery options, which can inadvertently affect system stability and user experience.",
+  "source_id": "44f4839d-45e8-af96-8420-82c89e58117b",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows11",
+    "WinRE",
+    "PatchManagement",
+    "KB5034234"
+  ],
+  "node_id": "15bdb2cf-4d54-437a-bac7-94b8bbb18dfa",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

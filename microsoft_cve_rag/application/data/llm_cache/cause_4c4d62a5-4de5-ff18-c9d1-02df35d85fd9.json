@@ -1,0 +1,21 @@
+{
+  "description": "Use after free condition in WebRTC component of Chromium developed for Google Chrome, potentially leading to heap corruption when processing crafted HTML content.",
+  "cause_label": "chromium_use_after_free_in_webrtc_component",
+  "source_id": "4c4d62a5-4de5-ff18-c9d1-02df35d85fd9",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4c4d62a5-4de5-ff18-c9d1-02df35d85fd9"
+  ],
+  "tags": [
+    "chromium",
+    "webrtc",
+    "heap corruption",
+    "CVE-2024-10488"
+  ],
+  "node_id": "2e48bdd5-1532-470f-a981-04ccbe18804e",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

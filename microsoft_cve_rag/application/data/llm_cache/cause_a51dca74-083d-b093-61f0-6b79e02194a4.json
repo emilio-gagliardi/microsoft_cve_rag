@@ -1,0 +1,19 @@
+{
+  "description": "The cause of the update failures is rooted in the requirement for a larger recovery partition size, mandated by cumulative updates since January 2024. Specifically, the WinRe partition problem occurs because the size of the recovery partition was decreased in previous versions, leading to compatibility issues with current cumulative updates. Consequently, about 20-30% of endpoints are failing to perform updates correctly. Resolving this issue necessitates either manually increasing the recovery partition size on each affected workstation or utilizing partition editing software to adjust partition sizes, both of which are time-consuming and may lead to downtime. The KB Article referenced is KB48200, which pertains to these updates and their recovery partition prerequisites.",
+  "source_id": "a51dca74-083d-b093-61f0-6b79e02194a4",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "a51dca74-083d-b093-61f0-6b79e02194a4"
+  ],
+  "cause_label": "winre_partition_size_requirement_leads_to_update_failures",
+  "tags": [
+    "winre",
+    "cumulative_update",
+    "recovery_partition"
+  ],
+  "node_id": "b824b92f-3c81-48c5-a1f9-9adda59d977a",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,17 @@
+{
+  "symptom_label": "WindowsSubsystemForLinuxPrivilegeEscalation",
+  "description": "After applying security updates KB5034123, KB5034122, or KB5034121, users may experience unexpected permission escalations within their Windows Subsystem for Linux (WSL) environments. This could manifest as users gaining unauthorized access to system files or administrative functions that should be restricted. The behavior can lead to unintended modifications of critical system and user files, posing a significant risk to overall system integrity. It is crucial for system administrators to monitor user activities and access levels in WSL after these updates to ensure compliance with security protocols and minimize potential exploitation risks. Affected systems include various builds of Windows 10 and 11, as highlighted in their respective update documentation.",
+  "source_id": "c627f48e-fef4-a9c3-b870-cad121ec622f",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Windows",
+    "WSL",
+    "Privilege Escalation",
+    "Patch Management"
+  ],
+  "node_id": "1ffb37a4-28e6-417d-a4f7-92e92300f447",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

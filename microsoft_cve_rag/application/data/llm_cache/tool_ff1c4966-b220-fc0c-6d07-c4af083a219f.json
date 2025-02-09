@@ -1,0 +1,23 @@
+{
+  "tool_label": "routing_and_remote_access_service",
+  "description": "**Tool Overview**:\n\nThe Routing and Remote Access Service (RRAS) is a Microsoft Windows feature that enables remote access and routing capabilities. It is essential for organizations that focus on secure and efficient remote connections, such as Virtual Private Networks (VPNs) and dial-up services. \n\n**Details**:\n1. RRAS allows users to connect to a network remotely, providing secure access to internal resources.\n2. To enable RRAS, administrators need to configure necessary settings via the Network and Sharing Center or the Routing and Remote Access Management Console.\n3. Once configured, RRAS can help alleviate performance issues related to VPN connections, particularly on systems like Windows 11.\n4. The service can also manage IP address assignment and routing, allowing for better traffic management and improved network efficiency.\n5. Proper setup and maintenance of RRAS can significantly enhance remote user experience and help mitigate slow VPN connections.\n",
+  "source_id": "ff1c4966-b220-fc0c-6d07-c4af083a219f",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "ff1c4966-b220-fc0c-6d07-c4af083a219f"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/020501db15a9%2454a1d570%24fde58050%24%40gmail.com",
+  "tool_url": "https://docs.microsoft.com/en-us/windows-server/remote/remote-access/rras/rras-overview",
+  "tags": [
+    "Windows",
+    "VPN",
+    "Routing",
+    "Remote Access"
+  ],
+  "node_id": "768ddffe-d03e-4a6d-96a6-cb59dc75c189",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

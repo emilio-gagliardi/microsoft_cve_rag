@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_freezes_on_html_content_interaction",
+  "description": "Users may experience noticeable freezing or lockup incidents when interacting with specific HTML content while using Microsoft Edge (Chromium-based) versions prior to 127.0.6533.72. This behavior may be particularly evident when accessing web pages that contain certain crafted HTML elements designed to exploit the underlying issue. End users may find that their interactions lead to delays or unexpected pauses in the browser\u2019s response, severely disrupting productivity. The problem results from a use after free issue that impacts rendering, causing the browser to behave erratically with certain content types. To mitigate this issue, users are advised to update their Microsoft Edge browser to the version 127.0.2651.74 or later, as outlined in KB-127.0.2651.74.",
+  "source_id": "ef144901-63ca-d96c-99ca-0270064783c3",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ef144901-63ca-d96c-99ca-0270064783c3"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "CVE-2024-6991",
+    "HTML Content",
+    "User Experience"
+  ],
+  "node_id": "db49a78b-7470-429c-be32-f5443fb40709",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

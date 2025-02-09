@@ -1,0 +1,24 @@
+{
+  "tool_label": "vmware_patch_release_notes_download_page",
+  "description": "**Tool Overview**:\n\nThe VMware patch release notes and Broadcom download page provide essential resources for administrators seeking updates related to VMware vSphere.\n\n**Details**:\n1. **VMware Patch Release Notes**: This document details the changes, improvements, and bug fixes in the recent patch version (Patch 8.0 Update 2c). It is an essential resource for understanding the patch\u2019s functionality and impact on systems.\n2. **Broadcom Download Page**: This page contains links to download the relevant files, including the zip file necessary for applying the patch. It serves as a central location to access the most current updates for VMware products. \n3. Users can visit the links provided to navigate through VMware\u2019s official documentation and Broadcom\u2019s support portal.\n4. It enables system administrators to ensure their environments are up-to-date and secure by providing direct access to the latest patches and release notes.\n5. Both resources are crucial for effective patch management and compliance within an organization\u2019s IT infrastructure.",
+  "source_id": "66726efa-857e-af2f-6702-f1169eeef6cd",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "66726efa-857e-af2f-6702-f1169eeef6cd"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/PH0PR06MB103194E337028E0ED7A9E0A4390C62%40PH0PR06MB10319.namprd06.prod.outlook.com",
+  "tool_url": "https://support.broadcom.com/web/ecx/solutiondetails?patchId=5331",
+  "tags": [
+    "VMware",
+    "patch management",
+    "release notes",
+    "Broadcom",
+    "updates"
+  ],
+  "node_id": "52b9c0a2-c0ed-4755-aada-3e3a8ec680d8",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

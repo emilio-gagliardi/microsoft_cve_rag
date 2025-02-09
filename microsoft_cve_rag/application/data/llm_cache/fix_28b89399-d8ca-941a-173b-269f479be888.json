@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve issues related to the Microsoft Defender for Endpoint sensor after upgrading Windows 11:\n\n1. Ensure that your Windows 11 device is updated to the latest cumulative update (LCU) from September or October.\n2. If you encounter problems, verify the installation of the updated version of the Microsoft Defender for Endpoint sensor (MsSense.exe).\n3. Contact support if your device is still using an outdated sensor version and for any necessary updates or patches.\n\n**Details**:\n- Microsoft has completed deployment of the solution to affected infrastructures, confirming resolution of the previous service impacts related to old sensor versions. The investigation is ongoing to prevent similar occurrences from future updates. \n- The affected update was identified as the preview update package KB-5041587, which inadvertently included an older version of MsSense.exe. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure administrative privileges are available to perform updates on Windows devices.\n- Backup critical data before proceeding with major Windows updates to prevent data loss.",
+  "source_id": "28b89399-d8ca-941a-173b-269f479be888",
+  "source_type": "PatchManagementPost",
+  "fix_label": "update_microsoft_defender_sensor_mssense_exe",
+  "tags": [
+    "KB5041587",
+    "MicrosoftDefender",
+    "Windows11",
+    "SensorUpdate"
+  ],
+  "node_id": "088150a7-57e1-46c0-856f-74d667f4286b",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "28b89399-d8ca-941a-173b-269f479be888"
+  ],
+  "verification_status": "unverified"
+}

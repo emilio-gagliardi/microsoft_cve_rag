@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_vhdx_denial_of_service_observed",
+  "description": "After applying the updates provided in KB5046617, KB5046633, and KB5046696 for Windows 11 versions 22H2, 23H2, and 24H2, users may experience a total loss of availability related to Microsoft Virtual Hard Disk (VHDX) functionalities. The denial of service can prevent users from accessing their virtual disks, hindering the operations of virtual machines and impacting overall productivity. This observable behavior may manifest as applications failing to load, virtual machines not booting, or users being unable to access necessary files stored in VHDX format. The issue particularly affects systems running build numbers 10.0.26100.2314, 10.0.22631.4460, and 10.0.22621.4460, which are critical for environments relying on virtualization. The severity of this symptom is classified as important, indicating a serious impact on user experiences and operational workflows.",
+  "source_id": "e9e4bac5-e92b-7527-1b7a-82ad54fbd92f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e9e4bac5-e92b-7527-1b7a-82ad54fbd92f"
+  ],
+  "tags": [
+    "Denial of Service",
+    "VHDX",
+    "Windows 11",
+    "Critical Systems"
+  ],
+  "node_id": "edc9c6a0-a009-441c-8f63-8793dac83bb7",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

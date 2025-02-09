@@ -1,0 +1,21 @@
+{
+  "symptom_label": "gpo_item_level_targeting_grayed_out_in_gui",
+  "description": "The issue arises when attempting to configure new Group Policy Object (GPO) settings that utilize 'Item-Level Targeting'. Specifically, the option for 'user in a security group' is unresponsive as it appears grayed out in the graphical user interface (GUI). System administrators rely on this functionality to effectively apply GPOs based on user group memberships. This limitation could impact the ability to manage group policies effectively and thus hinder administrative tasks. Relevant to environments utilizing GPOs, this issue may arise in various build numbers associated with Windows Server, particularly in contexts aligned with KB-041578. Successful deployment of the GPO may be compromised due to this oversight, impacting security and user management.",
+  "source_id": "edec8405-c94d-2774-e46b-d449f0fb784a",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "edec8405-c94d-2774-e46b-d449f0fb784a"
+  ],
+  "tags": [
+    "GPO",
+    "Item-Level Targeting",
+    "Group Policy",
+    "Windows Server"
+  ],
+  "node_id": "3a0975dc-a38d-4ba3-bbd3-934c0c4c9583",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

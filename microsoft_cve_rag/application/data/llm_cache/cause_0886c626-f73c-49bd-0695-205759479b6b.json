@@ -1,0 +1,22 @@
+{
+  "description": "The underlying cause of the issue where systems were found to be unbootable after applying Windows Update 19045.4353 (referenced in KB-5036979) appears to be an interaction between this update and a proprietary software update from ManageEngine. Specifically, it was observed that the ManageEngine update modified the Boot Configuration Data (BCD) registry key, which led to the operating system failing to load successfully. Disabling ManageEngine on reimaged systems mitigated this issue, indicating that it was a contributing factor rather than a fault of Microsoft. Further investigation with ManageEngine is underway to identify a more permanent workaround for this conflict.",
+  "source_id": "0886c626-f73c-49bd-0695-205759479b6b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "0886c626-f73c-49bd-0695-205759479b6b"
+  ],
+  "cause_label": "manageengine_update_interferes_bcd_registry_key",
+  "tags": [
+    "windows update",
+    "manageengine",
+    "unbootable systems",
+    "bcd registry key",
+    "patch management"
+  ],
+  "node_id": "32e19a15-4c51-4f70-9ff1-995e45faf3a9",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

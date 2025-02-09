@@ -1,0 +1,21 @@
+{
+  "symptom_label": "clients_fail_to_report_to_wsus_after_maintenance",
+  "description": "The clients in a WSUS environment are not reporting successfully after maintenance activities on the WSUS database. This behavior can manifest following operations such as creating custom indexes or reindexing the database, which may lead to service disruptions. System administrators may notice that the 'ReportingWebService' is not running, causing client computers to fail in their reporting duties. After restarting the WSUS website and implementing maintenance procedures, clients may begin reporting again, as indicated by the event logs. This issue emphasizes the importance of regular maintenance and prompt intervention to ensure continuity in patch management workflows.",
+  "source_id": "65ac50bd-d085-f366-d58d-f931523e9701",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "65ac50bd-d085-f366-d58d-f931523e9701"
+  ],
+  "tags": [
+    "WSUS",
+    "reporting",
+    "maintenance",
+    "client management"
+  ],
+  "node_id": "777ed494-1f8a-4cea-9a29-1212649605e8",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

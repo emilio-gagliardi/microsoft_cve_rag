@@ -1,0 +1,21 @@
+{
+  "description": "The vulnerability is a bypass of the Windows Mark of the Web feature, which allows attackers to craft malicious files that evade security measures, leading to potential integrity and availability issues in applications relying on MOTW tagging.",
+  "cause_label": "windows_mark_of_the_web_feature_bypass",
+  "source_id": "bee66748-789e-82a5-6c68-b9aea45f5761",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "bee66748-789e-82a5-6c68-b9aea45f5761"
+  ],
+  "tags": [
+    "CVE-2024-30050",
+    "Windows",
+    "Security Feature Bypass",
+    "Mark of the Web"
+  ],
+  "node_id": "6c047951-6af2-414c-9295-6d02d7463971",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

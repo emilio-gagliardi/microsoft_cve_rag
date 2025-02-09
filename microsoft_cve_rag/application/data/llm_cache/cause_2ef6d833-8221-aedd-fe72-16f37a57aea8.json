@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause of the issue described in the patch management post is primarily related to the improper handling of the Extended Protection feature during the installation of the Exchange Server cumulative update. This situation arises when the update is installed in unattended mode without specifying the correct command syntax, specifically using either the full path to 'setup.exe' or a '.\\' prefix if running from the installation directory. Failing to follow these instructions can lead to the installer incorrectly reporting a successful completion, while in reality, it did not execute properly. Moreover, this situation can contribute to the vulnerability addressed by CVE-2024-21410, as enabling Extended Protection is a mitigative measure for this security issue. Therefore, for a modern hybrid install where Exchange Server is published externally, ensuring that this critical feature is enabled is essential for maintaining security integrity and compliance with the related guidelines outlined in KB4047506 and the overall patch release.",
+  "source_id": "2ef6d833-8221-aedd-fe72-16f37a57aea8",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "2ef6d833-8221-aedd-fe72-16f37a57aea8"
+  ],
+  "cause_label": "improper_enable_extended_protection_setup",
+  "tags": [
+    "Exchange Server",
+    "Cumulative Update",
+    "Unattended Mode",
+    "Extended Protection",
+    "CVE-2024-21410"
+  ],
+  "node_id": "480818c8-bebf-4aaf-9644-b18ddb50fd96",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

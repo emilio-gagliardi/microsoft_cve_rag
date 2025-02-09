@@ -1,0 +1,19 @@
+{
+  "tool_label": "VirtualMachinesStartupIssueResolution",
+  "description": "This tool addresses issues encountered with virtual machines failing to start after the installation of the October 2023 update (KB5031364) on ESXi 7.0.x and earlier versions. The vital information suggested can be found in a Veeam community blog post detailing the nature of the problem and potential solutions. It emphasizes the specific build numbers affected and offers insights for patch management in virtualized environments. Users are encouraged to refer to the provided link for detailed instructions and guidance on resolving startup issues.",
+  "source_id": "3af413c7-e531-2347-87bc-b74dd11cd5ad",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/...",
+  "tool_url": "https://community.veeam.com/blogs-and-podcasts-57/virtual-machines-failed-to-start-after-installing-oct-2023-update-kb5031364-5796",
+  "tags": [
+    "ESXi",
+    "Veeam",
+    "update",
+    "virtual machines"
+  ],
+  "node_id": "9705f65b-6d7d-4e9e-8c34-b5cba10d2e68",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

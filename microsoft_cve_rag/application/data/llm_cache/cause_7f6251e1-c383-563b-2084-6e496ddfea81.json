@@ -1,0 +1,22 @@
+{
+  "description": "Insufficient policy enforcement in navigation within Google Chrome prior to version 131.0.6778.69 led to potential privilege escalation via UI gestures, affecting Microsoft Edge which is based on the Chromium framework.",
+  "cause_label": "chromium_insufficient_policy_enforcement_in_navigation",
+  "source_id": "7f6251e1-c383-563b-2084-6e496ddfea81",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7f6251e1-c383-563b-2084-6e496ddfea81"
+  ],
+  "tags": [
+    "CVE-2024-11115",
+    "Chromium",
+    "Microsoft Edge",
+    "Policy Enforcement",
+    "Privilege Escalation"
+  ],
+  "node_id": "48555783-3db0-44e9-857c-916b39026ec0",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

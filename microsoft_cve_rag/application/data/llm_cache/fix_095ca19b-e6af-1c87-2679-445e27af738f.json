@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the vulnerability in Microsoft Edge (Chromium-based) as described in CVE-2024-21337:\n\n1. Download and install the update package by accessing the following link: [KB21337 Update Package](https://catalog.update.microsoft.com/Search.aspx?q=KB21337).\n2. Ensure that your Microsoft Edge is updated to the specified build numbers: 120.0.2210.133 or 120.0.2336.0.\n3. Restart your browser after installation to complete the update process.\n\n**Details**:\n- The update addresses potential security concerns in the specified version of Microsoft Edge.\n- For further information, refer to the official KB Article: KB-21337.\n\n**Preconditions**:\n- Verify that you are running a supported version of Microsoft Edge (Chromium-based).\n- Backup any important data before proceeding with the update installation.",
+  "source_id": "095ca19b-e6af-1c87-2679-445e27af738f",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeCVE202421337",
+  "tags": [
+    "KB21337",
+    "MicrosoftEdge",
+    "Chromium",
+    "Moderate"
+  ],
+  "node_id": "84e76a67-bf3b-43cb-af4b-683889f5df14",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix"
+}

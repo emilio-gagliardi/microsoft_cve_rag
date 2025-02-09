@@ -1,0 +1,21 @@
+{
+  "symptom_label": "edge_copilot_icon_remains_on_home_page",
+  "description": "Users have reported an issue with the Microsoft Edge browser where the Copilot icon persists on the home page despite attempts to remove it. This behavior indicates a potential problem in the interface, causing confusion for end users who expect to customize their browser experience. The presence of the Copilot icon could interfere with the usability of the search window and overall navigation. The absence of a straightforward removal option may point to underlying bugs or limitations in build compatibility. System administrators may need to explore workarounds or report this behavior for further investigation by Microsoft support.",
+  "source_id": "444cb7dc-4106-a06e-891b-cc41c24927a1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "444cb7dc-4106-a06e-891b-cc41c24927a1"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Copilot",
+    "User Interface",
+    "Browser Issue"
+  ],
+  "node_id": "78465446-01a5-4d91-9394-12fc814c7cf4",
+  "node_label": "Symptom",
+  "reliability": 0.75,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

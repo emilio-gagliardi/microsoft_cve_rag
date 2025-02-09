@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo upgrade the Windows operating system to the latest feature update (22H2):\n\n1. Open Windows Update settings and check for updates.\n2. If the latest feature update is available, select and install it.\n3. Alternatively, download the Update Assistant from the Microsoft website and run it to perform the upgrade.\n\n**Details**:\n- Ensure that your current Windows build is 1511 (released in 2015) to validate upgrade eligibility.\n- This process will enhance system performance and security by moving to a more recent version of Windows 10.\n\n**Preconditions**:\n- It\u2019s recommended to back up important data prior to performing the upgrade to prevent any potential data loss.",
+  "source_id": "8d2687a3-0cb1-73bf-b2ca-d0d13f774ff0",
+  "source_type": "PatchManagementPost",
+  "fix_label": "upgrade_windows_10_to_latest_feature_update_22h2",
+  "tags": [
+    "Windows10",
+    "UpdateAssistant",
+    "FeatureUpdate",
+    "22H2"
+  ],
+  "node_id": "0eea89bf-96e6-4950-a056-622126f332d8",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "8d2687a3-0cb1-73bf-b2ca-d0d13f774ff0"
+  ],
+  "verification_status": "unverified"
+}

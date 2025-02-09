@@ -1,0 +1,22 @@
+{
+  "tool_label": "enable_windows_copilot_in_windows_11",
+  "description": "**Tool Overview**:\n\nWindows Copilot is a new feature introduced in Windows 11 that enhances productivity by providing AI-driven assistance directly within the operating system. \n\n**Details**:\n\nThis feature allows users to interact with their devices in a more streamlined manner by facilitating tasks through chat-based interactions. Users can enable Copilot to access various functionalities such as scheduling, reminders, and personalized recommendations without leaving their current applications. \n\n1. To enable Copilot, ensure your device is updated to Windows 11 version 23H2.\n2. Navigate to the settings and toggle on the Copilot feature.\n3. Once activated, a Copilot button will appear on the taskbar for easy access.\n\nWhen using Copilot, users can type questions or commands, which the AI will process to provide relevant answers or actions, creating a more integrated workflow experience.",
+  "source_id": "3c19849a-b4bc-7b36-aa58-a0ff7b161c65",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "3c19849a-b4bc-7b36-aa58-a0ff7b161c65"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAGN5iahbdmmWL6-gPtOH-YfCm6Z%3DpoOchQpxzPS2WnaDTseGxg%40mail.gmail.com",
+  "tool_url": "https://learn.microsoft.com/en-us/windows/client-management/manage-windows-copilot#enable-the-copilot-in-windows-user-experience-for-windows-11-version-23h2-clients",
+  "tags": [
+    "Windows",
+    "Copilot",
+    "Windows11",
+    "productivity"
+  ],
+  "node_id": "c99d6e56-05f5-415f-b304-6d7fdf48b4a7",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

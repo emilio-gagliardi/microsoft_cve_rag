@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Microsoft Edge (Chromium-based) remote code execution vulnerability (CVE-2024-43595):\n\n1. Ensure your system is up to date with Microsoft Edge (Chromium-based) version 130.0.2849.46 or later.\n2. Download and apply the KB-130.0.2849.46 update from the official Microsoft Update Catalog.\n3. Restart Microsoft Edge after installation to ensure the changes take effect.\n\n**Details**:\n- This update resolves a buffer over-read vulnerability that could allow remote code execution.\n- For manual installation, download the update package from: https://catalog.update.microsoft.com/Search.aspx?q=KB43595.\n\n**Preconditions**:\n- Ensure that you are running Microsoft Edge (Chromium-based) version prior to 130.0.2849.46.\n- Backup any critical settings or data before proceeding with the update installation.",
+  "source_id": "49b72bc5-1b80-02c8-c73c-ef6e1bb56760",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_cve202443595_edge",
+  "tags": [
+    "KB43595",
+    "MicrosoftEdge",
+    "RemoteCodeExecution",
+    "BufferOverRead"
+  ],
+  "node_id": "fe7e026c-67b2-49a4-a598-52a3f7adb236",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "49b72bc5-1b80-02c8-c73c-ef6e1bb56760"
+  ],
+  "verification_status": "unverified"
+}

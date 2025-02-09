@@ -1,0 +1,22 @@
+{
+  "description": "The vulnerability is caused by improper restriction of the communication channel within the sudo for Windows functionality, allowing attackers to spoof commands by accessing the system locally or leveraging user interaction without proper validation, particularly in Windows 11 version 24H2. This flaw resides in the application logic where user commands can be manipulated due to insufficient endpoint checks.",
+  "cause_label": "sudo_for_windows_improper_restriction_of_communication",
+  "source_id": "95a9661c-3107-9812-2086-8c3569e98534",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "95a9661c-3107-9812-2086-8c3569e98534"
+  ],
+  "tags": [
+    "sudo",
+    "Windows",
+    "spoofing",
+    "CVE-2024-43571",
+    "KB5044284"
+  ],
+  "node_id": "e5682176-2116-4730-8371-71fd4d6cbe02",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

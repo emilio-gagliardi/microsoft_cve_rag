@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_browser_crashes_after_security_update",
+  "description": "After installing the security update KB-128.0.2739.79 for Microsoft Edge (Chromium-based), users may experience crashes while navigating or using the autofill feature. This behavior is typically observed when interacting with third-party websites that utilize the autofill functionalities within the browser. End users might notice unexpected application terminations or abrupt shutdowns, leading to a frustrating user experience. Additionally, the crash may manifest as a failure to open the browser or lagging performance immediately preceding the crash. It is important for system administrators to monitor these behaviors closely following the application of the update to ensure user productivity is not adversely impacted.",
+  "source_id": "67458617-9f16-39b1-bb20-fcc7d700cb9e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "67458617-9f16-39b1-bb20-fcc7d700cb9e"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Crashes",
+    "Update Issues",
+    "User Experience",
+    "Autofill"
+  ],
+  "node_id": "dd1af9c3-5ee4-4d00-9507-c3a0e0503038",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

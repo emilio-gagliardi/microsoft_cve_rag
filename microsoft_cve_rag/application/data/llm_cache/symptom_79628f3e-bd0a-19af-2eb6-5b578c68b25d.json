@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_browser_experiences_type_confusion_error",
+  "description": "After updating Microsoft Edge (Chromium-based) to version 122.0.2365.63, users may encounter an issue related to type confusion in the V8 engine utilized by Chromium. This can result in unexpected behavior when rendering web pages that leverage V8 capabilities. Users might experience instability such as crashes, unresponsive tabs, or failed loading of certain sites that depend on JavaScript functionalities associated with the updated version. Additionally, the presence of object corruption issues, particularly when clicking on crafted HTML pages, could lead to severe disruptions in browsing performance. It is crucial for administrators to ensure that end users are on the latest build 122.0.2365.63 as outlined in KB-122.0.2365.63 to mitigate these risks effectively.",
+  "source_id": "79628f3e-bd0a-19af-2eb6-5b578c68b25d",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "79628f3e-bd0a-19af-2eb6-5b578c68b25d"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Type Confusion",
+    "V8 Engine",
+    "Browser Issues",
+    "Update"
+  ],
+  "node_id": "d4ddfd3f-c606-4b74-abea-20473f1804c9",
+  "node_label": "Symptom",
+  "reliability": 85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

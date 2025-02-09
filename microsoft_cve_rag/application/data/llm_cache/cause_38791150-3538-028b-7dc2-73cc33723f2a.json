@@ -1,0 +1,22 @@
+{
+  "description": "The cause of this issue is a buffer over-read in the Windows Remote Access Connection Manager, which enables an attacker to read sensitive information from the heap memory of the affected component. This occurs due to improper handling of input when accessing memory, leading to information disclosure.",
+  "cause_label": "windows_remote_access_connection_manager_buffer_over_read",
+  "source_id": "38791150-3538-028b-7dc2-73cc33723f2a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "38791150-3538-028b-7dc2-73cc33723f2a"
+  ],
+  "tags": [
+    "CVE-2024-30071",
+    "Information Disclosure",
+    "Buffer Over-read",
+    "Windows",
+    "Remote Access"
+  ],
+  "node_id": "513fffca-097e-4349-a7a6-9da8d7bf0b85",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

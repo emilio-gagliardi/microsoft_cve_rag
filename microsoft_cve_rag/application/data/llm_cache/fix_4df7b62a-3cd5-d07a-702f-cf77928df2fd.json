@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo enable LDAPS support for domain controllers:\n\n1. Install a certificate from a public certificate authority such as DigiCert on your domain controllers.\n\n2. If you are using a load balancer, configure it for LDAPS and add your domain controllers for redundancy.\n\n3. Optionally, set up DNS round robin for fault tolerance, although this is less reliable than a load balancer.\n\n4. Ensure that the certificate includes all fully qualified domain names (FQDN) of your domain controllers, and consider using a wildcard certificate if needed.\n\n**Details**:\n- Using a load balancer enhances redundancy and reliability.\n- DNS round robin can provide basic load distribution but may present reliability challenges compared to the load balancer configuration.",
+  "source_id": "4df7b62a-3cd5-d07a-702f-cf77928df2fd",
+  "source_type": "PatchManagementPost",
+  "fix_label": "enable_ldaps_for_domain_controllers_with_certificates",
+  "tags": [
+    "LDAPS",
+    "CertificateManagement",
+    "DomainControllers",
+    "LoadBalancing"
+  ],
+  "node_id": "28a5ee61-ff54-405f-834e-fe1bacfa390e",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "4df7b62a-3cd5-d07a-702f-cf77928df2fd"
+  ]
+}

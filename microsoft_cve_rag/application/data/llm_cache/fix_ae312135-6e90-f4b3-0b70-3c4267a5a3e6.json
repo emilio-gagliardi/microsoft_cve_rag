@@ -1,0 +1,16 @@
+{
+  "description": "To address the issue related to CVE-2023-36425, it is essential to apply several updates available for different Windows versions. For Windows 10 and Windows 11 systems, ensure to install the updates listed in the corresponding KB Articles: KB5032199, KB5032192, KB5032190, and KB5032189. The update packages can be accessed through the following links: [KB5032197](https://catalog.update.microsoft.com/Search.aspx?q=KB5032197), [KB5032192](https://catalog.update.microsoft.com/Search.aspx?q=KB5032192), [KB5032199](https://catalog.update.microsoft.com/Search.aspx?q=KB5032199), [KB5032254](https://catalog.update.microsoft.com/Search.aspx?q=KB5032254), [KB5032249](https://catalog.update.microsoft.com/Search.aspx?q=KB5032249), [KB5032196](https://catalog.update.microsoft.com/Search.aspx?q=KB5032196), [KB5032252](https://catalog.update.microsoft.com/Search.aspx?q=KB5032252), [KB5032198](https://catalog.update.microsoft.com/Search.aspx?q=KB5032198), [KB5032247](https://catalog.update.microsoft.com/Search.aspx?q=KB5032247), [KB5032190](https://catalog.update.microsoft.com/Search.aspx?q=KB5032190), and [KB5032202](https://catalog.update.microsoft.com/Search.aspx?q=KB5032202). The updates support various build numbers for both x64-based and 32-bit systems, ensuring comprehensive coverage across different installations. Conduct maintenance by following installation procedures and verifying version specifics to ensure compliance with the patch requirements.",
+  "source_id": "ae312135-6e90-f4b3-0b70-3c4267a5a3e6",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplyCumulativeKbUpdateForWindowsSystems",
+  "tags": [
+    "CVE-2023-36425",
+    "WindowsUpdate",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "d2a562b8-d249-4f98-b9b6-57fd1e481181",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

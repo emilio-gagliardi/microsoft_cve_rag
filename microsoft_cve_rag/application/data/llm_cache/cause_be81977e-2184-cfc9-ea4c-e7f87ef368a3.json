@@ -1,0 +1,22 @@
+{
+  "description": "The underlying cause of the elevation of privilege vulnerability in the Windows Perception Service is a time-of-check to time-of-use (TOCTOU) race condition. This occurs when two or more threads access shared resources without proper synchronization, potentially allowing an attacker to exploit the timing discrepancies and perform unauthorized actions. The vulnerable components affected include various builds of Windows 10 and 11, as noted by their specific build numbers and associated KB articles.",
+  "cause_label": "windows_perception_service_elevation_privilege_toctou_race_condition",
+  "source_id": "be81977e-2184-cfc9-ea4c-e7f87ef368a3",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "be81977e-2184-cfc9-ea4c-e7f87ef368a3"
+  ],
+  "tags": [
+    "elevation of privilege",
+    "TOCTOU",
+    "CVE-2024-35265",
+    "Windows",
+    "vulnerability"
+  ],
+  "node_id": "f9c92308-4c3c-4958-b9f7-7d48ad170185",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

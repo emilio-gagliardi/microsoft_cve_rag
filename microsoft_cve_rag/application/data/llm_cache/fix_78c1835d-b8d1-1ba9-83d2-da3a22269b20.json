@@ -1,0 +1,16 @@
+{
+  "description": "To resolve update installation failures, it is advised to restart the Windows Update services, specifically the Windows Update service and the Background Intelligent Transfer Service. This can be accomplished through the command line by executing 'cmd net stop wuauserv' followed by 'cmd net stop bits'. Additionally, renaming the software distribution folder can help in clearing problematic update files. The command 'ren c:\\windows\\softwaredistribution softwaredistribution.old2' allows for this action. Finally, restarting the services with 'net start wuauserv' and 'net start bits' ensures that Windows can attempt to install updates cleanly with fresh components.",
+  "source_id": "78c1835d-b8d1-1ba9-83d2-da3a22269b20",
+  "source_type": "PatchManagementPost",
+  "fix_label": "RestartUpdateServicesAndRenameSoftwareDistribution",
+  "tags": [
+    "WindowsUpdates",
+    "ServiceRestart",
+    "PatchInstallation"
+  ],
+  "node_id": "89154ac1-ac15-4d21-b60c-b9a159993252",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

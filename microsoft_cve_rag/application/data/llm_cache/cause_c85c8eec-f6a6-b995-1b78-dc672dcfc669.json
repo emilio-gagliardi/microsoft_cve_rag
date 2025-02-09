@@ -1,0 +1,21 @@
+{
+  "description": "Use after free condition in the Dawn component of Chromium allowed potential exploitation via crafted HTML, impacting Microsoft Edge due to shared code base.",
+  "cause_label": "chromium_use_after_free_in_dawn_component",
+  "source_id": "c85c8eec-f6a6-b995-1b78-dc672dcfc669",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c85c8eec-f6a6-b995-1b78-dc672dcfc669"
+  ],
+  "tags": [
+    "CVE-2024-6292",
+    "Chromium",
+    "Microsoft Edge",
+    "Use After Free"
+  ],
+  "node_id": "8f5defc5-27b4-4d2d-b353-c2088d7c9d0b",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

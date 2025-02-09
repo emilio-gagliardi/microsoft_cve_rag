@@ -1,0 +1,23 @@
+{
+  "tool_label": "nvd_announcement_transition_information",
+  "description": "**Tool Overview**:\n\nThe NVD announcement about the program transition provides crucial information regarding updates or changes in the NVD services. This announcement is especially relevant for system administrators and security professionals who rely on NVD for vulnerability information.\n\n**Details**:\n\nThis announcement may include important actions such as:\n1. Changes to the format or accessibility of the NVD data.\n2. Timelines for any upcoming transitions.\n3. Instructions on how users can adapt to these changes.\n4. Contact information for further inquiries or support related to the transitions.\n5. Links to additional resources for better understanding.\n\nOverall, staying updated with the NVD announcements ensures timely access to critical security information which can assist in the detection and mitigation of vulnerabilities.",
+  "source_id": "a00bab34-5a33-4666-5d41-8d7b8a5ca070",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "a00bab34-5a33-4666-5d41-8d7b8a5ca070"
+  ],
+  "source_url": "https://nvd.nist.gov/general/news/nvd-program-transition-announcement",
+  "tool_url": "https://nvd.nist.gov/general/news/nvd-program-transition-announcement",
+  "tags": [
+    "NVD",
+    "announcement",
+    "security",
+    "transition"
+  ],
+  "node_id": "e7ee6ead-bc29-4065-8943-73538368ab50",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the Microsoft DWM core library elevation of privilege vulnerability (CVE-2024-38147):\n\n1. Download the appropriate update package based on your Windows version from the links below.\n2. Apply the update to ensure the vulnerability is addressed.\n3. Restart your system after installation to complete the update process.\n\n**Details**:\n- This update addresses the elevation of privilege vulnerability classified under CWE-416 (Use After Free). It is essential to regularly apply updates to enhance your system's security.\n\n**Preconditions**:\n- Ensure your system is one of the affected versions listed below:\n   - Windows 11 Version 21H2 (Build: 10.0.22000.3147)\n   - Windows 11 Version 22H2 (Build: 10.0.22621.4037)\n   - Windows 11 Version 23H2 (Build: 10.0.22631.4037)\n   - Windows 11 Version 24H2 (Build: 10.0.26100.1457)\n   - Windows 10 Version 21H2 and 22H2 (Builds: 10.0.19044.4780, 10.0.19045.4780)\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "e5743bc6-374a-258e-13fd-a22df1a9126a",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_windows_updates_for_elevation_privilege_cve202438147",
+  "tags": [
+    "KB5041571",
+    "KB5041585",
+    "KB5041580",
+    "KB5041592"
+  ],
+  "node_id": "a18bb5b5-6c95-4833-aebf-9c449e14b953",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e5743bc6-374a-258e-13fd-a22df1a9126a"
+  ],
+  "verification_status": "unverified"
+}

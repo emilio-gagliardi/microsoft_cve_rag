@@ -1,0 +1,22 @@
+{
+  "description": "The Microsoft Windows Performance Data Helper Library is susceptible to remote code execution due to an out-of-bounds read vulnerability. Specifically, when performance counter data is collected from an attacker-controlled machine, it can lead to running arbitrary code on the victim machine's performance counter data collector process. This flaw is primarily located in the components that manage performance data collection, allowing for exploitation over the network without user interaction.",
+  "cause_label": "windows_performance_data_helper_library_out_of_bounds_read",
+  "source_id": "ae166feb-4741-2a8d-004a-b60529b1edbc",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ae166feb-4741-2a8d-004a-b60529b1edbc"
+  ],
+  "tags": [
+    "CVE-2024-38028",
+    "Remote Code Execution",
+    "Out-of-bounds Read",
+    "Windows",
+    "Performance Monitor"
+  ],
+  "node_id": "29ff4899-dc50-4704-8a51-bfe448311aed",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

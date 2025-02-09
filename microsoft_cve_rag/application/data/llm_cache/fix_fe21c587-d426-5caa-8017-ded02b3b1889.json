@@ -1,0 +1,19 @@
+{
+  "fix_label": "apply_kb38209_to_resolve_microsoft_edge_rce",
+  "description": "**Fix Overview**:\n\nTo address the Microsoft Edge (Chromium-based) remote code execution vulnerability (CVE-2024-38209):\n\n1. Download and apply the KB38209 update from the official Windows Update catalog.\n2. Restart Microsoft Edge after installation to ensure the changes take effect.\n\n**Details**:\n- This update resolves a vulnerability that could allow remote code execution if a user opens a specially crafted webpage.\n- For manual installation, download the update package from: https://catalog.update.microsoft.com/Search.aspx?q=KB38209.\n\n**Preconditions**:\n- Ensure your system is running Microsoft Edge (Chromium-based) version 128.0.2739.42.\n- Backup critical data before proceeding with the update installation.",
+  "tags": [
+    "KB38209",
+    "MicrosoftEdge",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "b653d529-d39f-48c7-9c89-40b648176027",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "source_id": "fe21c587-d426-5caa-8017-ded02b3b1889",
+  "entity_type": "Fix",
+  "source_ids": [
+    "fe21c587-d426-5caa-8017-ded02b3b1889"
+  ],
+  "verification_status": "unverified"
+}

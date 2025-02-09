@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause of the issue impacting Windows endpoints is a misconfiguration stemming from updates released by CrowdStrike on July 18, 2024, specifically for the CrowdStrike Falcon agent. These updates have led to devices encountering blue screen error messages such as 0x50 or 0x7e, resulting in continual system restarts. Users on various Windows versions, including Windows 11 (versions 23H2, 22H2, and 21H2) and Windows Server editions (2016, 2019, 2022, and others), have reported this behavior. Microsoft's KB articles 5042426 and 5042421 provide detailed guidance for remediation, reinforcing that system recovery operations are necessary to restore functionality. Affected users may need to delete specific driver files located in the CrowdStrike directory to mitigate the symptoms temporarily.",
+  "source_id": "e1cc58ac-47a1-0452-b582-ae55c593a160",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e1cc58ac-47a1-0452-b582-ae55c593a160"
+  ],
+  "cause_label": "misconfiguration_from_crowdstrike_agent_update",
+  "tags": [
+    "CrowdStrike",
+    "Windows 11",
+    "error message",
+    "blue screen"
+  ],
+  "node_id": "db3b51ee-868d-4437-9e8c-d167bbe46515",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

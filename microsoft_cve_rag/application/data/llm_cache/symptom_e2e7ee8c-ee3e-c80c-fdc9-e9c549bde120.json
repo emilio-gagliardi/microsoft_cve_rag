@@ -1,0 +1,22 @@
+{
+  "symptom_label": "remote_code_execution_windows_mobile_broadband_driver",
+  "description": "After the installation of the security updates identified in KB5037771, KB5037770, and KB5037768, systems running Windows 10 and Windows 11 may exhibit unexpected behavior leading to potential remote code execution. This issue primarily affects users on build numbers 10.0.19045.4412, 10.0.22631.3593, and others as stated. Users may find unauthorized access or manipulation of system resources occurring, particularly if they have physically interacted with the hardware or USB components. Additionally, these updates may not only resolve the aforementioned vulnerabilities but also present users with system instabilities or warnings about potential compromise, which can disrupt regular operational tasks.",
+  "source_id": "e2e7ee8c-ee3e-c80c-fdc9-e9c549bde120",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e2e7ee8c-ee3e-c80c-fdc9-e9c549bde120"
+  ],
+  "tags": [
+    "Windows",
+    "Windows 10",
+    "Windows 11",
+    "Remote Code Execution",
+    "Driver Issues"
+  ],
+  "node_id": "5dd3317a-2f34-4afd-a4f2-0268d59600c1",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

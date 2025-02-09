@@ -1,0 +1,22 @@
+{
+  "description": "The issue arises from the lack of a valid certificate installed on domain controllers for secure LDAP (LDAPS) communication. This can lead to failed secure connections if the domain controllers do not have certificates issued by a trusted public certificate authority, such as DigiCert. Without these certificates, authentication requests may not be properly encrypted, resulting in potential connectivity issues and failures in active directory services relying on LDAPS. It is essential to ensure that the certificate contains all Fully Qualified Domain Names (FQDN) of the domain controllers for proper resolution, and using a wildcard certificate can simplify this process. Implementing a load balancer for redundancy can further improve the reliability of secure LDAP services.",
+  "source_id": "4df7b62a-3cd5-d07a-702f-cf77928df2fd",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "4df7b62a-3cd5-d07a-702f-cf77928df2fd"
+  ],
+  "cause_label": "missing_certificate_for_ldaps_encryption",
+  "tags": [
+    "LDAPS",
+    "domain controllers",
+    "certificate installation",
+    "DigiCert",
+    "authentication",
+    "load balancer"
+  ],
+  "node_id": "c5250221-4f42-4c17-a409-94b24db09303",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

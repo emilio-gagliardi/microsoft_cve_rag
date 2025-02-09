@@ -1,0 +1,23 @@
+{
+  "tool_label": "ivanti_security_controls_solution",
+  "description": "**Tool Overview**:\n\nThe Ivanti Security Controls solution is designed to automate the management of security updates and the associated agents across an organization's endpoints.\n\n**Details**:\n\nThis tool automatically updates the Security Controls Agent when an available upgrade is detected from Ivanti, ensuring that users always have the latest features and security enhancements without manual intervention. It provides a centralized approach to managing security patches, thereby reducing the operational burden on IT teams. The solution seamlessly integrates with on-premises servers, allowing for consistent update deployment across various systems. Users can configure settings to manage how updates are applied, ensuring compatibility and minimizing potential disruptions.\n\n**Usage**:\n1. Ensure that your Ivanti Security Controls solution is correctly installed on your server.\n2. Configure the software to check for updates automatically.\n3. Monitor the updates through the dashboard provided by Ivanti to verify that the latest security controls are applied efficiently.\n\n**Note**: It is essential to review the update logs regularly to align with organizational compliance requirements.",
+  "source_id": "264a5c1b-89a4-a81c-d8be-6e29cfdcdb98",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "264a5c1b-89a4-a81c-d8be-6e29cfdcdb98"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://www.ivanti.com/products/security-controls",
+  "tags": [
+    "Ivanti",
+    "security",
+    "automation",
+    "updates"
+  ],
+  "node_id": "db659488-3655-4fb9-bef5-53248e2985a5",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

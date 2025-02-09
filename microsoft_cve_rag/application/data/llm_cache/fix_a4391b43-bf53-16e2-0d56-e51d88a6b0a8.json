@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the vulnerability associated with CVE-2024-7972 in Microsoft Edge (Chromium-based):\n\n1. Ensure your Microsoft Edge browser is updated to version 128.0.2739.42 or higher.\n2. To check your current version, click on the three dots (...) on the top right corner, go to 'Help and feedback', and select 'About Microsoft Edge'. This will display the version information.\n\n**Details**:\n- The update addresses an inappropriate implementation in V8, which could allow a remote attacker to potentially perform out-of-bounds memory access via crafted HTML content. The corresponding Chromium version for this fix is 128.0.6613.84.\n- Microsoft Edge is built on Chromium, thus applying the latest version ensures you are no longer vulnerable to this issue.\n\n**Preconditions**:\n- Backup important browser data before updating.\n- Ensure the system has an active internet connection to download the updates.\n",
+  "source_id": "a4391b43-bf53-16e2-0d56-e51d88a6b0a8",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_128_0_2739_42",
+  "tags": [
+    "CVE20247972",
+    "MicrosoftEdge",
+    "Chromium",
+    "LLM Synthesized"
+  ],
+  "node_id": "1e3ad048-2886-497d-97bd-cf4ddd8a2862",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "a4391b43-bf53-16e2-0d56-e51d88a6b0a8"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability affecting Microsoft Edge (Chromium-based) identified as CVE-2024-38219:\n\n1. Update Microsoft Edge to build version 127.0.2651.98 by accessing the update catalog or through automatic updates.\n2. Ensure your system is connected to the internet and restart the browser after the update is applied for the changes to take effect.\n\n**Details**:\n- This update addresses the resource access issue caused by type confusion, which could allow attackers to exploit the browser remotely. \n- For manual installation, download the update package from: https://catalog.update.microsoft.com/Search.aspx?q=KB38219.\n\n**Preconditions**:\n- Ensure that you are running the Chromium-based version of Microsoft Edge.\n- Backup any important data before proceeding with the update installation.",
+  "source_id": "3d0de469-d8d3-25ea-5274-ac1ba9b2862f",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_resolve_remote_code_execution",
+  "tags": [
+    "KB38219",
+    "MicrosoftEdge",
+    "TypeConfusion",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "038dc7ee-b33b-41ca-bd80-319bd66421a4",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "3d0de469-d8d3-25ea-5274-ac1ba9b2862f"
+  ],
+  "verification_status": "unverified"
+}

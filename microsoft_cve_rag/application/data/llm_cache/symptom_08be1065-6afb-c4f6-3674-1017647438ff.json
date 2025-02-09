@@ -1,0 +1,21 @@
+{
+  "symptom_label": "vmware_vsphere_user_entitlement_missing_instructions",
+  "description": "The issue arises when users attempting to apply updates for VMware vSphere do not follow the correct steps outlined in the patch management documentation. Specifically, if the instructions regarding the selection of user entitlement under the solutions tab are overlooked, users may miss important options related to their VMware vSphere installations. This can result in improper patch application, potentially leading to vSphere not being updated to the desired version of ESXi. Such operational oversights can disrupt system management and lead to inconsistencies in the virtual environment. Ensuring that every step is carefully followed is critical to maintain operational integrity and security aspects of the virtualized infrastructure.",
+  "source_id": "08be1065-6afb-c4f6-3674-1017647438ff",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "08be1065-6afb-c4f6-3674-1017647438ff"
+  ],
+  "tags": [
+    "vmware",
+    "vsphere",
+    "patch_management",
+    "user_entitlement"
+  ],
+  "node_id": "d4159f6c-4832-4675-ba9b-e806fde1741d",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "lenovo_m900_sff_secure_boot_report_issues",
+  "description": "In a scenario involving two Lenovo M900 SFF devices that share the same BIOS configuration, an inconsistency arises where one device indicates that secure boot is enabled while the other reports it as disabled. This discrepancy in secure boot status can hinder the overall security posture of the devices, especially if they are intended to operate in a synchronized manner. Additionally, the message to verify based on 'one device per class' suggests potential challenges in configuration management or policy enforcement among similar devices. Such issues can lead to potential vulnerabilities if not addressed promptly, since secure boot is crucial for ensuring that only authorized firmware and software is loaded during the boot process. These findings should be communicated to the relevant stakeholders for investigation and resolution to maintain system integrity and security compliance.",
+  "source_id": "015a3d79-69c7-84d3-62d1-d7a53507bd36",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "015a3d79-69c7-84d3-62d1-d7a53507bd36"
+  ],
+  "tags": [
+    "Lenovo",
+    "Secure Boot",
+    "BIOS Configuration",
+    "Device Management"
+  ],
+  "node_id": "a131f928-3ce5-4390-a279-822dbfd548f3",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

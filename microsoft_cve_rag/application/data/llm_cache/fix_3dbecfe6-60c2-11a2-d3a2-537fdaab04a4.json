@@ -1,0 +1,16 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the elevation of privilege vulnerability identified as CVE-2023-36003, it is essential to apply the necessary updates provided by Microsoft.\n\n1. Identify your Windows version and build number from the list below:\n   - Windows 11 for x64-based Systems: 10.0.17763.5206, 10.0.20348.2159, 10.0.25398.584, 10.0.14393.6529\n   - Windows 11 Version 23H2 for x64-based Systems: 10.0.22631.2861\n   - Windows 11 Version 22H2 for x64-based Systems: 10.0.22621.2861\n   - Windows 11 Version 21H2 for x64-based Systems: 10.0.22000.2652\n   - Windows 10 for x64-based Systems: 10.0.17763.5206, 10.0.10240.20345, 10.0.14393.6529\n   - Windows 10 Version 22H2 for x64-based Systems: 10.0.19045.3803\n\n2. Download and install the relevant updates from the Microsoft Update Catalog using these links:\n   - [KB5033371](https://catalog.update.microsoft.com/Search.aspx?q=KB5033371)\n   - [KB5033118](https://catalog.update.microsoft.com/Search.aspx?q=KB5033118)\n   - [KB5033375](https://catalog.update.microsoft.com/Search.aspx?q=KB5033375)\n   - [KB5033372](https://catalog.update.microsoft.com/Search.aspx?q=KB5033372)\n   - [KB5033379](https://catalog.update.microsoft.com/Search.aspx?q=KB5033379)\n   - [KB5033369](https://catalog.update.microsoft.com/Search.aspx?q=KB5033369)\n   - [KB5033383](https://catalog.update.microsoft.com/Search.aspx?q=KB5033383)\n   - [KB5033373](https://catalog.update.microsoft.com/Search.aspx?q=KB5033373)\n\n**Details**:\n- These updates address the vulnerabilities that may grant unauthorized elevation of privileges to local attackers. Always ensure your system is backed up prior to installation to prevent data loss.\n\n**Preconditions**:\n- Ensure to verify the compatibility of your Windows version.\n- Backup critical data before proceeding with the updates.",
+  "source_id": "3dbecfe6-60c2-11a2-d3a2-537fdaab04a4",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplyUpdatesForCVE-2023-36003",
+  "tags": [
+    "CVE-2023-36003",
+    "ElevationOfPrivilege",
+    "WindowsUpdates"
+  ],
+  "node_id": "b51c3a95-5f2a-4ab6-8bd9-10448a60da04",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

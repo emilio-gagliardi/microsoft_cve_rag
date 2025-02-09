@@ -1,0 +1,21 @@
+{
+  "description": "The underlying issue described in the post was the malfunction of the WSUS (Windows Server Update Services) reporting mechanism. This was caused by either the absence or improper functioning of custom indexes in the WSUS database, leading to client reporting failures. The user addressed this by creating custom indexes and reindexing the database as per Microsoft\u2019s documented guides. Post-automation and restarting the WSUS website, the ReportingWebService was restored, which allowed clients to properly report back their update statuses. This likely indicates that the database maintenance steps are critical for ensuring smooth operations in WSUS, especially in environments where custom configurations are applied.",
+  "source_id": "65ac50bd-d085-f366-d58d-f931523e9701",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "65ac50bd-d085-f366-d58d-f931523e9701"
+  ],
+  "cause_label": "improper_database_maintenance_affecting_client_reporting",
+  "tags": [
+    "WSUS",
+    "Custom Indexes",
+    "ReportingWebService",
+    "Database Maintenance"
+  ],
+  "node_id": "27669fe5-91e9-4f73-8735-e1b1552e18de",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

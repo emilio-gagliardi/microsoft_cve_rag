@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Microsoft OpenSSH for Windows remote code execution vulnerability (CVE-2024-43581), it is critical to apply the following updates:\n\n1. Identify the version of Windows installed on your system from the list of build numbers to determine the appropriate KB articles.\n\n2. Download the necessary updates for your Windows version:\n   - For Windows 11 Version 24H2 (x64): [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n   - For Windows 11 Version 23H2 (x64): [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - For Windows 11 Version 22H2 (x64): [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280)\n   - For Windows 11 Version 21H2 (x64): [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280)\n   - For Windows 10 Version 22H2 (x64): [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n   - For Windows 10 Version 21H2 (x64): [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n\n3. Install the downloaded updates and restart your system to ensure all changes take effect.\n\n**Details**:\n- This update addresses vulnerabilities related to external control of file name or path, enhancing system security against potential exploitation. \n- Ensure the system is updated to the specified build numbers and has administrative privileges to perform the installation.",
+  "source_id": "3e7c0931-f202-8811-d120-4137d511265d",
+  "source_type": "MSRCPost",
+  "fix_label": "address_openssh_remote_code_execution_cve202443581",
+  "tags": [
+    "KB5044284",
+    "KB5044285",
+    "CVE202443581",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "920cc66a-af51-4873-b3f3-4e76cd540286",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "3e7c0931-f202-8811-d120-4137d511265d"
+  ],
+  "verification_status": "unverified"
+}

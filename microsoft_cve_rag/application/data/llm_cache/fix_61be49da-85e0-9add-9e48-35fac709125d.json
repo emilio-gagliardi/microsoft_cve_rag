@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows kernel elevation of privilege vulnerability identified by CVE-2024-38153, the following updates should be applied:\n\n1. Download and install the relevant KB updates from the official Windows Update catalog based on your system version:\n   - For Windows 10 Version 22H2: [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n   - For Windows 10 Version 21H2: [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n   - For Windows 11 Version 24H2: [KB5041571](https://catalog.update.microsoft.com/Search.aspx?q=KB5041571)\n   - For Windows 11 Version 23H2: [KB5041585](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585)\n   - For Windows 11 Version 22H2: [KB5041585](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585)\n   - For Windows 10 (both x64 and 32-bit) systems: [KB5041782](https://catalog.update.microsoft.com/Search.aspx?q=KB5041782)\n\n2. Restart your system after installation to ensure that the updates take effect.\n\n**Details**:\nThis update addresses a time-of-check time-of-use (TOCTOU) race condition vulnerability within the Windows kernel, which could potentially allow an attacker to elevate privileges. Applying these updates will protect your system against exploitation attempts targeting this specific weakness.\n\n**Preconditions**:\n- Ensure your system matches the build numbers specified for each respective update.\n- Backup critical data before proceeding with the installation of these updates.",
+  "source_id": "61be49da-85e0-9add-9e48-35fac709125d",
+  "source_type": "MSRCPost",
+  "fix_label": "address_windows_kernel_elevation_privilege_cve202438153",
+  "tags": [
+    "KB5041571",
+    "KB5041585",
+    "KB5041580",
+    "KB5041782"
+  ],
+  "node_id": "379e5e7b-cb3e-4bd9-8c99-e3896bb82a38",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "61be49da-85e0-9add-9e48-35fac709125d"
+  ],
+  "verification_status": "unverified"
+}

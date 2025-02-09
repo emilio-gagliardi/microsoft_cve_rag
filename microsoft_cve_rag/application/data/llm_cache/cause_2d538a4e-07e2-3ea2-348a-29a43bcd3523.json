@@ -1,0 +1,19 @@
+{
+  "description": "The root cause of CVE-2023-36028 stems from a vulnerability in the Microsoft Protected Extensible Authentication Protocol (PEAP) that allows for remote code execution. This vulnerability is triggered when an unauthorized attacker sends specially crafted malicious PEAP packets over the network. The affected systems are bound to the network stack, making them susceptible to exploitation from a distance, potentially involving several network hops. The issue primarily affects systems running on Windows Server 2016, Windows 10 versions 1607, 21H2, 22H2, and Windows 11 versions 21H2, 22H2, and 23H2, with build numbers clearly specified in the context. Remedying this vulnerability requires applying the relevant security updates noted in the KB articles: KB-5032199, KB-5032192, KB-5032190, and KB-5032189 to fortify PEAP configurations and disable any configurations allowing PEAP as an EAP type.",
+  "cause_label": "MaliciousPeapPacketsEnableRemoteCodeExecution",
+  "source_id": "2d538a4e-07e2-3ea2-348a-29a43bcd3523",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "CVE",
+    "vulnerability",
+    "PEAP",
+    "remote code execution"
+  ],
+  "node_id": "58d6a6c6-f339-4e69-ae17-0b7056e994cb",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,19 @@
+{
+  "tool_label": "MicrosoftTeamsProductivityCompanion",
+  "description": "Microsoft Teams has been integrated as a productivity companion on Windows devices. It provides users with capabilities for collaboration and communication, facilitating seamless connectivity for teams across various projects. This tool is pinned by default to the taskbar for easy access, ensuring that users can quickly initiate chats, video calls, and collaboration efforts without navigating away from their current tasks. The integration is part of Windows 11's emphasis on enhancing user productivity within the operating system environment. More details on its functionalities and setup can be found on Microsoft's official documentation.",
+  "source_id": "31320d43-ccb5-98bf-3a20-27808fdc3d12",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/...",
+  "tool_url": "https://www.microsoft.com/en-us/microsoft-teams/group-chat-software",
+  "tags": [
+    "productivity",
+    "collaboration",
+    "Microsoft Teams",
+    "Windows 11"
+  ],
+  "node_id": "fd801926-028b-44ed-88be-a16a4ad95d25",
+  "node_label": "Tool",
+  "reliability": "0.8",
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

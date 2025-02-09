@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the remote code execution vulnerability in Microsoft Edge (Chromium-based) identified as CVE-2024-43596:\n\n1. Download the update package for Microsoft Edge (Chromium-based) version 130.0.2849.46 from the official Microsoft Update Catalog.\n2. Install the update to ensure the vulnerability is patched.\n3. Restart your browser to ensure all changes take effect.\n\n**Details**:\n- This update resolves a significant security concern related to type confusion vulnerabilities that could allow an attacker to execute arbitrary code remotely.\n- Manual installation can be performed via: [KB43596 Update Package](https://catalog.update.microsoft.com/Search.aspx?q=KB43596).\n\n**Preconditions**:\n- Ensure your system is running the affected version of Microsoft Edge (Chromium-based).\n- Backup critical browser data before proceeding with the update installation.",
+  "source_id": "bc3471af-b4df-4adb-1ccb-0bf208e273cc",
+  "source_type": "MSRCPost",
+  "fix_label": "patch_microsoft_edge_remote_code_execution_cve202443596",
+  "tags": [
+    "KB43596",
+    "MicrosoftEdge",
+    "TypeConfusion",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "7d5ab5ab-6c1c-4aaf-8afc-d85c5b6ff1ea",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "bc3471af-b4df-4adb-1ccb-0bf208e273cc"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "The issue is driven by improper input validation in the rndismp6.sys component, enabling remote code execution by exploiting crafted input. This flaw potentially allows an attacker to gain control over the affected system processes.",
+  "cause_label": "rndismp6_sys_improper_input_validation",
+  "source_id": "9fceccd2-e32d-8425-a141-aef66fca4fa6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "9fceccd2-e32d-8425-a141-aef66fca4fa6"
+  ],
+  "tags": [
+    "CVE",
+    "Windows",
+    "Remote Code Execution",
+    "Input Validation",
+    "rndismp6.sys"
+  ],
+  "node_id": "221e0252-3306-412e-b31b-adccda29f4a6",
+  "node_label": "Cause",
+  "reliability": 85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

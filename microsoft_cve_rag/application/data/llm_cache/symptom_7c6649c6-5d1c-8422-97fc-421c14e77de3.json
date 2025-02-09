@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_resource_manager_elevation_of_privilege",
+  "description": "After the installation of the security update (KB5041585) for the Windows Resource Manager in Windows 11 (versions 23H2 and 24H2), system administrators and end users may notice unusual behaviors related to application permissions. This could result in instances where users experience unauthorized elevation of privileges, allowing standard users to gain access to restricted areas or perform administrative tasks unexpectedly. Such behavior may lead to system instability or unintended access to sensitive settings. The affected build for Windows 11 Version 23H2 is 10.0.22631.4037 and for Version 24H2 is 10.0.26100.1457. Users on these builds should monitor for permissions anomalies following the update, as these can indicate serious integrity and availability issues in their IT environment.",
+  "source_id": "7c6649c6-5d1c-8422-97fc-421c14e77de3",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7c6649c6-5d1c-8422-97fc-421c14e77de3"
+  ],
+  "tags": [
+    "Windows",
+    "Privilege Escalation",
+    "Update",
+    "Windows 11"
+  ],
+  "node_id": "cd167df0-7ade-4418-a1ae-8bbc440ab082",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "description": "Type confusion in the V8 engine of Chromium allows for arbitrary code execution due to incorrect handling of data types. This flaw facilitates the exploitation of memory, leading to potential remote code execution when a user interacts with a malicious webpage crafted to trigger this behavior.",
+  "cause_label": "chromium_type_confusion_in_v8_engine_exploitation",
+  "source_id": "08a5f006-af33-e8f1-dca8-5400847b259a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "08a5f006-af33-e8f1-dca8-5400847b259a"
+  ],
+  "tags": [
+    "CVE-2024-6100",
+    "type confusion",
+    "V8 engine",
+    "Chromium",
+    "remote code execution"
+  ],
+  "node_id": "060a4bd7-0c6e-4a2b-932e-4fce7746e51b",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

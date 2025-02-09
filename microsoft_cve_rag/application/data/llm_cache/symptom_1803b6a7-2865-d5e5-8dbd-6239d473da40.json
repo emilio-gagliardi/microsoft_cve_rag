@@ -1,0 +1,21 @@
+{
+  "symptom_label": "management_point_security_update_recommends_installation",
+  "description": "The recent release of KB29166583 addresses a significant security issue identified by CVE-2024-43468, which poses a risk to Configuration Manager setups. Prior to this update, the effectiveness of the system's security was compromised due to the absence of the fixes in KB28290310 and KB28458746. This situation could potentially expose sensitive data and system vulnerabilities to unauthorized access. Microsoft recommends that all users swiftly install this management point security update to bolster protection against potential attacks. Failing to apply this critical update may leave Configuration Manager environments less fortified against exposure to the documented security flaw.",
+  "source_id": "1803b6a7-2865-d5e5-8dbd-6239d473da40",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "1803b6a7-2865-d5e5-8dbd-6239d473da40"
+  ],
+  "tags": [
+    "management point",
+    "security update",
+    "CVE-2024-43468",
+    "Configuration Manager"
+  ],
+  "node_id": "1160fb7e-21b6-4244-b032-6dc55fc1bf63",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,24 @@
+{
+  "tool_label": "microsoft_speech_api_vulnerability_tool",
+  "description": "**Tool Overview**:\n\nThis tool assists in diagnosing and addressing the remote code execution vulnerability identified as CVE-2024-43574 within the Microsoft Speech Application Programming Interface (SAPI). The vulnerability is caused by a 'use after free' condition, which can potentially allow remote attackers to execute arbitrary code. This tool aids system administrators in assessing their systems and determining whether they are affected by this specific security flaw.\n\n**Details**:\n1. **Assessment**: Use the tool to gather information about installed versions of Microsoft SAPI on your systems.\n2. **Remediation**: Follow the instructions provided within the tool to mitigate the risks associated with the vulnerability.\n3. **Configuration**: Ensure that your SAPI is updated to the latest version as per the security guidance.\n4. **Documentation**: Refer to the tool\u2019s documentation for detailed steps and configurations based on your specific environment.\n5. **Logging**: Capture logs for compliance and further analysis of potential exploitation attempts.",
+  "source_id": "37834fcd-f779-68ed-cccb-a120ddefcbb6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "37834fcd-f779-68ed-cccb-a120ddefcbb6"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43574",
+  "tool_url": "",
+  "tags": [
+    "Microsoft",
+    "SAPI",
+    "remote code execution",
+    "diagnostic",
+    "LLMSynthesized"
+  ],
+  "node_id": "7d67f505-34a3-470f-9205-92d381d2ec7e",
+  "node_label": "Tool",
+  "reliability": 0.5,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

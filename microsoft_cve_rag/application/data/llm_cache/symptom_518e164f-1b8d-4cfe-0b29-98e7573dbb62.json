@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_backup_app_missing_after_security_update",
+  "description": "After installing a Windows security update released on or after January 25, 2024, the Windows Backup application becomes unavailable on enterprise-managed devices. This issue has been documented in KB-5032038, indicating that administrators may find the backup functionality missing without prior warning. The absence of the Windows Backup app can disrupt data protection protocols and backup schedules, leading to potential data loss scenarios. The impact is significant for organizations relying on Windows Backup for their disaster recovery strategies. System administrators should verify the status of Windows Backup after applying the update to mitigate any disruption in backup operations.",
+  "source_id": "518e164f-1b8d-4cfe-0b29-98e7573dbb62",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "518e164f-1b8d-4cfe-0b29-98e7573dbb62"
+  ],
+  "tags": [
+    "windows_backup",
+    "windows_security_update",
+    "enterprise_management",
+    "backup_functionality"
+  ],
+  "node_id": "b5d0127c-5246-40b0-8c04-2eb57ef38191",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

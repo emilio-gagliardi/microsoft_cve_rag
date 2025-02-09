@@ -1,0 +1,21 @@
+{
+  "symptom_label": "secure_boot_bypass_leads_to_access_loss",
+  "description": "End users may observe a significant reduction in system security due to a potential bypass of the Secure Boot feature, which can lead to unauthorized access to system resources. This symptom could manifest as users reporting that their systems are vulnerable to attacks that were previously mitigated by Secure Boot. Such behavior raises concerns among system administrators regarding the integrity and confidentiality of the data managed by affected products. Specifically, impacted builds like Windows 10 Version 22H2 (10.0.19045.4651), Windows 11 Version 23H2 (10.0.22631.3880), and others noted under KB articles KB-5040442, KB-5040431, and KB-5040427 are prone to this symptom. Administrators must ensure they follow updates that address these vulnerabilities to restore system integrity and prevent data breaches that can result from this bypass vulnerability.",
+  "source_id": "da091a69-81d4-2b65-ba78-f9ff9af1c4d7",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "da091a69-81d4-2b65-ba78-f9ff9af1c4d7"
+  ],
+  "tags": [
+    "security",
+    "secure boot",
+    "Windows",
+    "CVE-2024-37974"
+  ],
+  "node_id": "c9215946-f764-478e-b3c0-31042b3ceac3",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

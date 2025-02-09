@@ -1,0 +1,21 @@
+{
+  "description": "The underlying issue is a numeric truncation error in the Windows Routing and Remote Access Service (RRAS) that could allow remote code execution. This vulnerability arises when data gets truncated unexpectedly, potentially letting an attacker execute arbitrary code on the affected system by sending specially crafted requests over the network.",
+  "cause_label": "windows_rras_numeric_truncation_error",
+  "source_id": "b8d14821-81c4-6b28-e8e9-a8bd49d87f76",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b8d14821-81c4-6b28-e8e9-a8bd49d87f76"
+  ],
+  "tags": [
+    "remote_code_execution",
+    "windows",
+    "rras",
+    "cwe197"
+  ],
+  "node_id": "0076b406-556b-4c39-be33-13877a3ce40e",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

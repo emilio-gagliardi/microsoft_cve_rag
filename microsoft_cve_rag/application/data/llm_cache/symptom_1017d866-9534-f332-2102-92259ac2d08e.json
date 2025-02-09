@@ -1,0 +1,21 @@
+{
+  "symptom_label": "oracle_license_requirements_for_jre_downloads",
+  "description": "This post highlights the potential legal risks associated with downloading Oracle products without the proper licenses. Users may inadvertently violate Oracle's licensing terms if they attempt to download the Java Runtime Environment (JRE) without understanding how many licenses they are required to purchase based on their specific use case. It is mentioned that Oracle tracks users by their IP address during downloads, raising the stakes for unlicensed downloads. The post suggests using Amazon Corretto as an alternative, specifically the JRE 8 versions, to avoid these legal ramifications. This could lead to confusion and potential enforcement actions from Oracle if proper licensing is not adhered to, affecting those utilizing Oracle's Java products.",
+  "source_id": "1017d866-9534-f332-2102-92259ac2d08e",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "1017d866-9534-f332-2102-92259ac2d08e"
+  ],
+  "tags": [
+    "Oracle",
+    "Java",
+    "Licensing",
+    "Corretto"
+  ],
+  "node_id": "80e10778-88e2-4b11-bfcf-8beff458b67d",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

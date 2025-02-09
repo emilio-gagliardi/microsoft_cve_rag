@@ -1,0 +1,21 @@
+{
+  "tool_label": "kb_article_kb5034765",
+  "description": "**Tool Overview**:\n\nKB5034765 is a Microsoft Knowledge Base article that provides essential updates and fix information for Windows operating systems. This particular article covers the updates for OS builds 22621.3155 and 22631.3155, focusing on critical improvements and bug fixes released on February 13, 2024.\n\n**Details**:\n\n1. **Build Numbers**: The article specifies the particular system builds that are affected and need updating.\n2. **Cumulative Updates**: It details the cumulative nature of the patches, providing users with comprehensive security and functionality enhancements.\n3. **Access**: Users can visit this article directly to find the update details and download links necessary for system updates.\n4. **Support**: This provides resources for troubleshooting that ensure systems run optimally after applying patches.\n5. **Applications**: Administrators can use this knowledge base for planning updates and ensuring compliance with organizational security protocols.",
+  "source_id": "986dcfbb-7e9a-8ba7-556d-83bce9dfbae0",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "986dcfbb-7e9a-8ba7-556d-83bce9dfbae0"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAGN5iahdG0v8DkFPn5e2TwAdy0R58jkVGaF45k%3D_y_ppn7cxOg%40mail.gmail.com",
+  "tool_url": "https://support.microsoft.com/en-us/topic/february-13-2024-kb5034765-os-builds-22621-3155-and-22631-3155-023d9141-a5b0-470a-",
+  "tags": [
+    "KB Articles",
+    "Windows Update",
+    "Cumulative Updates"
+  ],
+  "node_id": "d1242120-2e94-4afd-a92e-62cc744853a6",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

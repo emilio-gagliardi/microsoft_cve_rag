@@ -1,0 +1,16 @@
+{
+  "description": "To address the elevation of privilege issue associated with CVE-2023-36719, it is critical to apply the appropriate updates for your system. A patch is available for several Windows versions, including Windows 10 versions 22H2 and 21H2, Windows 11 versions 23H2 and 24H2, as well as Windows Server 2012 R2 and Windows Server 2008 R2. The updates are identified by KB article numbers: KB-5032199, KB-5032192, KB-5032190, and KB-5032189. You can locate the requisite patches at the following links: [KB5032197](https://catalog.update.microsoft.com/Search.aspx?q=KB5032197), [KB5032199](https://catalog.update.microsoft.com/Search.aspx?q=KB5032199), [KB5032254](https://catalog.update.microsoft.com/Search.aspx?q=KB5032254), [KB5032249](https://catalog.update.microsoft.com/Search.aspx?q=KB5032249), [KB5032252](https://catalog.update.microsoft.com/Search.aspx?q=KB5032252), [KB5032247](https://catalog.update.microsoft.com/Search.aspx?q=KB5032247), [KB5032190](https://catalog.update.microsoft.com/Search.aspx?q=KB5032190), and [KB5032189](https://catalog.update.microsoft.com/Search.aspx?q=KB5032189). Ensure that your systems are updated to safeguard against unauthorized access through the exploitation of this vulnerability.",
+  "source_id": "14917f1d-2047-3310-a46d-194ddbee0053",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplyUpdatesForElevationOfPrivilegeIssue",
+  "tags": [
+    "elevation of privilege",
+    "update",
+    "patch management"
+  ],
+  "node_id": "50f35d2e-8024-4788-aee2-caa60860fc18",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

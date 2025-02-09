@@ -1,0 +1,23 @@
+{
+  "tool_label": "modify_host_file_to_point_localhost",
+  "description": "**Tool Overview**:\n\nThis approach modifies the HOST file on a local machine to redirect specific domain requests to the local IP address, effectively allowing developers or testers to use local instances of applications without domain propagation delays.\n\n**Details**:\n\nModifying the HOST file enables a system administrator to determine how domain names resolve locally. This procedure is particularly useful when working with web-based applications where DNS changes are not yet live. Here are key steps to implement this:\n\n1. Open the HOST file, usually located at `C:\\Windows\\System32\\drivers\\etc\\hosts`.\n2. Add a new line with the local IP address (usually `127.0.0.1`) followed by the domain you wish to redirect.\n3. Save the file with administrator privileges to ensure changes are applied. \n4. After modification, accessing this domain on the browser will point to the local server instead of the live site.\n\nThis modification is essential for developers and system administrators looking to test changes before deploying them into production.",
+  "source_id": "1e63cce1-b19c-0446-9c26-4156be8c676b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "1e63cce1-b19c-0446-9c26-4156be8c676b"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAFzCYjKRFeMROwjtuMpk2o88ki_FC8Q66uwdM3w2NZidJ4wYzg%40mail.gmail.com",
+  "tool_url": "",
+  "tags": [
+    "HOST file",
+    "localhost",
+    "modification",
+    "network configurations"
+  ],
+  "node_id": "c093ccc4-e070-458f-b5b2-4d06ecd9480b",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

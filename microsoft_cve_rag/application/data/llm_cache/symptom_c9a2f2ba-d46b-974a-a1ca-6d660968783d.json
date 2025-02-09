@@ -1,0 +1,16 @@
+{
+  "symptom_label": "TaskbarSearchReappearsAfterOctoberUpdates",
+  "description": "After the October updates, users of Windows 10 find that the search box reappears on their taskbar, even if they had previously disabled it. This unexpected behavior affects the taskbar settings, causing frustration among system administrators and end users who prefer customized layouts. The phenomenon could lead to initial confusion about the persistence of settings across updates.",
+  "source_id": "c9a2f2ba-d46b-974a-a1ca-6d660968783d",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "taskbar",
+    "windows10",
+    "userSettings"
+  ],
+  "node_id": "13d2eb21-9022-41f8-8eb0-6e9d30cb3eb1",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

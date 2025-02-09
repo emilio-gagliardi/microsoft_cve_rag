@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo address vulnerabilities related to BitLocker protection on Windows recovery partitions:\n\n1. Confirm which recovery partition is currently in use by running the following command in PowerShell:\n   ```powershell\n   reagentc /info\n   ```\n\n2. Utilize a third-party tool like MiniTool Partition Wizard to evaluate the free space on your recovery partition and explore options for resizing it.\n\n**Details**:\n- Ensure you have at least 250MB of free space on the recovery partition to apply the update.\n- It is recommended to maintain at least a 1GB recovery partition for better management in future updates.\n- The recovery partition's location may affect its ability to be resized easily, depending on whether it is positioned before or after the C drive. (LLM Synthesized)",
+  "source_id": "eadd613f-dab7-232f-ef48-d68ece7715c0",
+  "source_type": "PatchManagementPost",
+  "fix_label": "PatchWindowsRecoveryPartitionForBitLockerAccess",
+  "tags": [
+    "KB5034441",
+    "Windows11",
+    "Windows10",
+    "BitLocker"
+  ],
+  "node_id": "1a609882-21c5-473b-a93d-e1c016790d56",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

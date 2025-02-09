@@ -1,0 +1,20 @@
+{
+  "description": "Windows compressed folder tampering vulnerability due to external control of file names or paths, allowing attackers to exploit improperly managed file permissions when users interact with specially crafted files.",
+  "cause_label": "windows_compressed_folder_tampering_vulnerability",
+  "source_id": "e1600a1f-c4aa-9dce-2e91-523487722687",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e1600a1f-c4aa-9dce-2e91-523487722687"
+  ],
+  "tags": [
+    "Windows",
+    "CVE-2024-26185",
+    "Path Control",
+    "Tampering"
+  ],
+  "node_id": "860c910e-8ad4-43a7-afc0-95b03b54cd87",
+  "node_label": "Cause",
+  "reliability": 5,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

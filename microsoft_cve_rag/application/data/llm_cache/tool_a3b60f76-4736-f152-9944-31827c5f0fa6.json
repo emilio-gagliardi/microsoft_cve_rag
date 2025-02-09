@@ -1,0 +1,21 @@
+{
+  "tool_label": "pdq",
+  "description": "**Tool Overview**:\n\nPDQ is a software deployment tool that simplifies the management of system updates and application installations across multiple endpoints in a network. It is specifically designed for system administrators to streamline patch management and software deployment tasks.\n\n**Details**:\n\n1. **Functionality**: PDQ allows IT professionals to create custom packages for deploying software, push updates, and monitor installation processes in real time.\n2. **Configuration**: The tool can be configured to run on a schedule or initiated manually, providing flexibility in deployment strategies.\n3. **Usage**: Both Graphical User Interface (GUI) and command line interfaces are available, allowing users to interact with the tool in their preferred manner.\n4. **Monitoring**: PDQ provides reporting features that allow administrators to track deployment success and identify any issues.\n5. **Integration**: Easily integrates with existing IT infrastructures, making it a popular choice for organizations looking to improve their patch management processes.",
+  "source_id": "a3b60f76-4736-f152-9944-31827c5f0fa6",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "a3b60f76-4736-f152-9944-31827c5f0fa6"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/c29e571c-bb4e-418d-ac1d-6cf36f4ee67cn%40googlegroups.com",
+  "tool_url": "",
+  "tags": [
+    "PDQ",
+    "software_deployment",
+    "patch_management"
+  ],
+  "node_id": "92107fc1-21c8-4cf3-8f7b-180ee395a2a8",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

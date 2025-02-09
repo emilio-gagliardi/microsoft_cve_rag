@@ -1,0 +1,19 @@
+{
+  "description": "The underlying technical condition of this issue is a flaw in the Microsoft Bluetooth driver that permits spoofing attacks. This vulnerability arises from the driver being bound to the network stack, which exposes it to attacks initiated from an adjacent network. Since the attack vector is restricted to a logically neighboring topology, an attacker must operate within close proximity to the target system, such as on the same Bluetooth network. Successful exploitation necessitates user interaction, specifically requiring the victim to pair their device with the attacker's Bluetooth device. This misconfiguration in the Bluetooth stack essentially erodes the integrity of the impacted system, permitting unauthorized modifications by an attacker without prior access privileges.",
+  "cause_label": "BluetoothDriverSpoofingFlaw",
+  "source_id": "a8bd4c96-9476-efbf-0295-e50261e32a92",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Bluetooth",
+    "Driver",
+    "Spoofing",
+    "Security",
+    "Vulnerability",
+    "Integrity"
+  ],
+  "node_id": "847eb75b-85d3-4238-acad-53a4c005f010",
+  "node_label": "Cause",
+  "reliability": 1,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

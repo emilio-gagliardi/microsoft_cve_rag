@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the information disclosure vulnerability impacting Windows Remote Access Connection Manager:\n\n1. Apply the KB-5037788, KB-5037771, KB-5037768, or KB-5036894 updates as appropriate for your system version.\n2. Ensure all pending updates are installed and the system is restarted to complete the installation process.\n\n**Details**:\n- These updates resolve the vulnerability related to out-of-bounds reading that could allow unauthorized access to sensitive information.\n- Ensure the system builds are compatible: [10, 0, 19045, 4291], [10, 0, 19044, 4291], [10, 0, 22631, 3447], [10, 0, 22000, 2899], [10, 0, 22621, 3447], [10, 0, 10240, 20596], [10, 0, 19045, 4412], [10, 0, 10240, 20651], [10, 0, 22631, 3593], [10, 0, 22621, 3593], [10, 0, 19044, 4412].\n\n**Preconditions**:\n- Verify that dependencies on external applications have been mitigated before applying the updates.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "7202f04c-3d2e-bda8-cabd-9db5a590f2b2",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_for_windows_remote_access_cve_2024_26207",
+  "tags": [
+    "KB5037788",
+    "RemoteAccess",
+    "CVE-2024-26207",
+    "OutOfBoundsReading"
+  ],
+  "node_id": "a925a718-731a-419d-9eb1-f343e0d5591c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "7202f04c-3d2e-bda8-cabd-9db5a590f2b2"
+  ]
+}

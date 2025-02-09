@@ -1,0 +1,16 @@
+{
+  "description": "The underlying cause of the remote code execution vulnerability in the Windows Bluetooth driver is attributed to an exploitable flaw wherein an unauthorized attacker can programmatically invoke specific functions of the Bluetooth component. This requires the attacker to be within an adjacent network proximity, meaning that exploitation is limited to scenarios where the attacker is physically close enough to the target system to send and receive radio transmissions. Furthermore, the attacker can perform these actions without any user interaction and with minimal privileges. The affected versions are Windows 11 Version 23H2 (Build 10.0.22631.2861, KB5033375), Version 22H2 (Build 10.0.22621.2861, KB5033375), and Version 21H2 (Build 10.0.22000.2652, KB5033369).",
+  "cause_label": "UnauthorizedBluetoothDriverAccessLeadsToExecution",
+  "source_id": "0c17402e-9f8d-299f-3155-e8ad51a70924",
+  "source_type": "MSRCPost",
+  "tags": [
+    "remote code execution",
+    "bluetooth driver",
+    "vulnerability"
+  ],
+  "node_id": "bfaef59c-a39d-4255-aa3a-19f067236efd",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

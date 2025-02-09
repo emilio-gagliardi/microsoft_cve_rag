@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability in the Microsoft ODBC driver (CVE-2024-21451):\n\n1. Apply the relevant security updates for your specific Windows version by downloading them from the Microsoft Update Catalog.\n   - For Windows Server 2016: KB5035855\n   - For Windows 10 Version 22H2 for x64-based systems: KB5035845\n   - For Windows 11 Version 23H2 for x64-based systems: KB5035853\n2. Restart your system after installation to ensure the updates take effect.\n\n**Details**:\n- This vulnerability allows unauthorized remote code execution if an attacker convinces a user to connect to a malicious SQL database.\n- The updates are critical for closing security gaps and ensuring the integrity of your systems.\n- Ensure that the system is fully backed up before applying updates. \n\nFor manual installation, updates can be found here:\n- [KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845)\n- [KB5035858](https://catalog.update.microsoft.com/Search.aspx?q=KB5035858)\n- [KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)\n- [KB5035854](https://catalog.update.microsoft.com/Search.aspx?q=KB5035854).",
+  "source_id": "5a48f4dd-a7c3-580f-c2fa-67cefec59a9c",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_vulnerability_odbc_driver_cve202421451",
+  "tags": [
+    "KB5035853",
+    "WindowsODBC",
+    "RemoteCodeExecution",
+    "CVE202421451"
+  ],
+  "node_id": "9f86904b-66f5-4fca-990f-3e2d958bcfb2",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "5a48f4dd-a7c3-580f-c2fa-67cefec59a9c"
+  ]
+}

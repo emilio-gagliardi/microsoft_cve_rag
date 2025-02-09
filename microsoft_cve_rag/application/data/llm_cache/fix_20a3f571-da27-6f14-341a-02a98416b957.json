@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows registry elevation of privilege vulnerability (CVE-2024-43452):\n\n1. Download and apply the relevant KB updates for your system version from the official catalog:\n   - For Windows 11 Version 24H2 (x64): [KB5046617](https://catalog.update.microsoft.com/Search.aspx?q=KB5046617)\n   - For Windows 11 Version 23H2 (x64): [KB5046633](https://catalog.update.microsoft.com/Search.aspx?q=KB5046633)\n   - For Windows 10 Version 22H2 (x64): [KB5046613](https://catalog.update.microsoft.com/Search.aspx?q=KB5046613)\n\n2. Follow the on-screen instructions to complete the installation of the updates.\n\n3. Restart your computer to ensure that all changes take effect.\n\n**Details**:\nThis update addresses the identified vulnerability related to a time-of-check time-of-use (TOCTOU) race condition that could allow elevation of privilege. Ensure you are applying the fixed versions associated with your Windows build to protect against potential exploits. Always verify the build number prior to installation. Backup your data before proceeding with system updates.\n",
+  "source_id": "20a3f571-da27-6f14-341a-02a98416b957",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_registry_elevation_privilege_cve202443452",
+  "tags": [
+    "KB5046696",
+    "KB5046633",
+    "KB5046617",
+    "Windows11"
+  ],
+  "node_id": "ea19d399-dee6-4656-a4c5-542b989648f7",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "20a3f571-da27-6f14-341a-02a98416b957"
+  ],
+  "verification_status": "unverified"
+}

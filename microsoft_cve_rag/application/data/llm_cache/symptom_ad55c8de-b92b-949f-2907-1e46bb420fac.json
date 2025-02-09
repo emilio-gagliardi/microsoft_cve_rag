@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_update_fails_at_96_percent_installation",
+  "description": "Testers are experiencing an issue with Windows updates where the installation process fails at approximately 96%. This results in the update being undone, preventing the completion of the installation. On certain test machines, rerunning the cumulative update showed successful installation for some components, but .NET installations were still reported as failed. This behavior indicates potential underlying issues with the update process or specific compatibility problems with the .NET framework. Given the failure at such a high percentage, it could suggest system resource constraints or other conflicts during the installation process.",
+  "source_id": "ad55c8de-b92b-949f-2907-1e46bb420fac",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "ad55c8de-b92b-949f-2907-1e46bb420fac"
+  ],
+  "tags": [
+    "windows",
+    "update",
+    "cumulative_update",
+    ".net"
+  ],
+  "node_id": "43c58246-e652-4919-93b7-bf31571e9c5c",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

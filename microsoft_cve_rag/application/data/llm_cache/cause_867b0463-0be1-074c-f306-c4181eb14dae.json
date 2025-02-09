@@ -1,0 +1,18 @@
+{
+  "description": "The cause of installation failures when deploying updates may stem from inadequate recovery partition sizes on target machines. This issue arises particularly when the system's recovery partition is nearly filled, which restricts the necessary space required for successful patch installation. As described in the testing phase of the task sequences, pilot machines that have been closely monitored show successful update installation; however, older machines are expected to encounter difficulties due to less optimized recovery partition configurations. Moreover, the manual import of the patch into Microsoft Endpoint Configuration Manager (MECM) plays a crucial role in the deployment process, which could lead to inconsistencies if prior configurations are not reviewed. Updating the install and boot media to accommodate recent updates also appears essential in mitigating such risks going forward.",
+  "source_id": "867b0463-0be1-074c-f306-c4181eb14dae",
+  "source_type": "PatchManagementPost",
+  "cause_label": "InadequateRecoveryPartitionSizeCausesInstallationFailure",
+  "tags": [
+    "patch management",
+    "task sequences",
+    "recovery partition",
+    "update deployment",
+    "configuration manager"
+  ],
+  "node_id": "3066dab9-e9e2-4262-a7ad-3b4c54e409ad",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

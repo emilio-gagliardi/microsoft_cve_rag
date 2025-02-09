@@ -1,0 +1,16 @@
+{
+  "symptom_label": "WindowsUpdateServiceStuckOnPendingRestarts",
+  "description": "The Windows Update process may become unresponsive or appear stuck in a pending state, preventing updates from being successfully installed. This issue can arise due to problems with the Windows Update service (wuauserv) or BITS services, which may require administrative actions such as stopping the services, deleting the contents of the software distribution folder, and then restarting the services. Such a situation can lead to end users experiencing delays in receiving critical updates and overall system performance degradation.",
+  "source_id": "22ba5fbe-09c1-e468-1d0d-b157f192a292",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows",
+    "Update",
+    "Service"
+  ],
+  "node_id": "b6df191b-f345-4536-861f-c6bac5206698",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

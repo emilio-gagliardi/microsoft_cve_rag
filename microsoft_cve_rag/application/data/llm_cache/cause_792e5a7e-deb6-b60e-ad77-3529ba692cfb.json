@@ -1,0 +1,21 @@
+{
+  "description": "Improper verification of cryptographic signatures allowing secure boot feature bypass in specific Windows builds.",
+  "cause_label": "secure_boot_signature_verification_bypass",
+  "source_id": "792e5a7e-deb6-b60e-ad77-3529ba692cfb",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "792e5a7e-deb6-b60e-ad77-3529ba692cfb"
+  ],
+  "tags": [
+    "CVE",
+    "Windows",
+    "Secure Boot",
+    "Cryptographic",
+    "Bypass"
+  ],
+  "node_id": "54a27281-10c9-4326-86be-62e686cfe276",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

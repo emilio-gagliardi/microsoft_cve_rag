@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows kernel-mode driver elevation of privilege vulnerability described in CVE-2024-21309:\n\n1. Ensure your system is updated to the latest Windows build that addresses this CVE.\n2. Apply the relevant KB update packages listed below to your system:\n   - For Windows 11 Version 23H2: [KB5034123](https://catalog.update.microsoft.com/Search.aspx?q=KB5034123)\n   - For Windows 11 Version 22H2: [KB5034123](https://catalog.update.microsoft.com/Search.aspx?q=KB5034123)\n   - For Windows 11 Version 21H2: [KB5034121](https://catalog.update.microsoft.com/Search.aspx?q=KB5034121)\n   - For Windows 10 (32-bit): [KB5034129](https://catalog.update.microsoft.com/Search.aspx?q=KB5034129)\n\n**Details**:\n- This vulnerability allows an attacker with local access to elevate privileges and potentially gain unauthorized control of the system.\n- Ensure that all user accounts are informed about security practices to prevent social engineering attacks that may lead to exploitation of this vulnerability.\n\n**Preconditions**:\n- Verify that existing build numbers match the specified ones to ensure compatibility with the provided patches.\n- Backup critical data before proceeding with any updates.",
+  "source_id": "8003d226-d151-0fb4-a6dd-b44c5ed3ee09",
+  "source_type": "MSRCPost",
+  "fix_label": "MitigateKernelModeDriverPrivilegeElevationsCVE202421309",
+  "tags": [
+    "KB5034123",
+    "Windows11",
+    "KernelModeDriver",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "0c0e751c-a765-4f9e-8f70-6b9f3739f374",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

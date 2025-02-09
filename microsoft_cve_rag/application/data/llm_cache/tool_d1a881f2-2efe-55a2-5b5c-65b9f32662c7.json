@@ -1,0 +1,23 @@
+{
+  "tool_label": "servicenow_text_highlighting_issue",
+  "description": "**Tool Overview**:\n\nThis resource relates to a known issue where a recent Chrome update interferes with the text highlighting functionality in ServiceNow. Users may encounter glitches or failures when attempting to highlight text within the platform post-update.\n\n**Details**:\n\n1. The issue appears specifically after recent updates to the Google Chrome browser.\n2. It is important for administrators to monitor the updates and understand if a rollback is necessary or if there are specific patches available.\n3. Affected users may benefit from reviewing discussions on community forums such as ServiceNow's development forum for temporary workarounds or confirmation of the issue.\n4. Keep track of the relevant KB articles, such as KB3103593, as they may provide official guidance or fixes from ServiceNow in response to the updates.\n5. Collaborate with the ServiceNow support team if persistent issues arise after following community-recommended solutions.",
+  "source_id": "d1a881f2-2efe-55a2-5b5c-65b9f32662c7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d1a881f2-2efe-55a2-5b5c-65b9f32662c7"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/PH0PR01MB7349E2FC31D5B8431009941DB75B2%40PH0PR01MB7349.prod.exchangelabs.com",
+  "tool_url": "https://www.servicenow.com/community/developer-forum/recent-chrome-update-broke-servicenow-s-text-highlighting/m-p/3103593",
+  "tags": [
+    "Chrome",
+    "ServiceNow",
+    "text highlighting",
+    "issues"
+  ],
+  "node_id": "552c682e-a6f0-429d-952d-d44d406a9e85",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

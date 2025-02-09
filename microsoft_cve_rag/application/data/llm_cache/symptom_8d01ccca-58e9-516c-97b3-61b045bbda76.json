@@ -1,0 +1,17 @@
+{
+  "symptom_label": "MicrosoftEdgeAutofillFeatureMightNotWork",
+  "description": "Users of Microsoft Edge (Chromium-based) version 118.0.2088.46 may experience issues with the autofill feature where it does not fill in forms as expected. This symptom is linked to an inappropriate implementation in the autofill function that was addressed in the recent security update. Users are encouraged to update their browsers to avoid any interruptions in autofill capabilities and to refer to KB-118.0.2088.46 for more information.",
+  "source_id": "8d01ccca-58e9-516c-97b3-61b045bbda76",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "browser",
+    "autofill",
+    "Microsoft Edge"
+  ],
+  "node_id": "106794bf-a17d-4830-a69c-56bef993de60",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

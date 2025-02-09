@@ -1,0 +1,16 @@
+{
+  "description": "The underlying cause of CVE-2023-36696 is a flaw in the Windows Cloud Files Mini Filter Driver that allows for elevation of privilege. This issue arises due to the driver being able to be accessed both locally and remotely, without requiring user interaction. An attacker can leverage permissions typically granted to basic users to exploit this vulnerability, leading to a total loss of confidentiality and integrity. The affected build numbers include 10.0.22000.2652, 10.0.19045.3803, and 10.0.22631.2861, with relevant KB Article IDs being KB-5033375, KB-5033372, KB-5033369. The problem persists in configurations that are otherwise considered secure, thus making it critical for organizations to apply the official patches available.",
+  "cause_label": "WindowsCloudFilesMiniFilterDriverFlaw",
+  "source_id": "738168f3-a60e-7543-5676-747c4ca2cf4b",
+  "source_type": "MSRCPost",
+  "tags": [
+    "elevation of privilege",
+    "Windows vulnerability",
+    "cloud files driver"
+  ],
+  "node_id": "3cfa1a35-6182-4499-9d6b-60f3cdcd791c",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

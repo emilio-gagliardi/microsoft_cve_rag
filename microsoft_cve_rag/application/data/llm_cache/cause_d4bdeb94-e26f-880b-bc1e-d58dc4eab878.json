@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause in this scenario stems from a situation where a BitLocker-protected drive cannot be accessed due to an unknown file interfering with the unlocking process. The use of WinPE media, like an SCCM boot stick, allows administrators to bypass normal access restrictions to unlock the drive and remove the problematic file. This situation highlights the need for proper configuration and management of BitLocker encryption, especially in environments relying heavily on SCCM for deployment. Identifying and addressing unknown files that block access could help prevent operational downtime and facilitate smoother troubleshooting in the future.",
+  "source_id": "d4bdeb94-e26f-880b-bc1e-d58dc4eab878",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d4bdeb94-e26f-880b-bc1e-d58dc4eab878"
+  ],
+  "cause_label": "unlocked_bitlocker_enables_file_removal",
+  "tags": [
+    "BitLocker",
+    "SCCM",
+    "WinPE",
+    "drive access"
+  ],
+  "node_id": "cb825922-e1b4-496d-a169-e5d6c7677069",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

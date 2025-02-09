@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_10_machines_unexpectedly_upgrade_to_win_11",
+  "description": "Windows 10 machines unexpectedly upgraded to Windows 11 after the approval of the Windows 11 22H2 update via WSUS, despite having WMI filters configured to block such updates. The newly configured WSUS server indicated that the update was 'needed' for both Windows 10 and Windows 11 machines. This issue raises questions about the integrity of the update logics in WSUS, as it should not have allowed Windows 10 devices to receive and apply a full upgrade to Windows 11 under these conditions. The existing Group Policy Objects (GPOs) and relevant WMI filtering were designed to specifically lock versions on Windows 10 machines, creating a conflict in expected behaviors during the update process. System Engineers should investigate how update visibility may have occurred on Windows 10 machines and the underlying logic that resulted in applying a version upgrade despite configured restrictions.",
+  "source_id": "83257bde-4675-db4b-d9a9-6e205eff1e21",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "83257bde-4675-db4b-d9a9-6e205eff1e21"
+  ],
+  "tags": [
+    "WSUS",
+    "Windows10",
+    "Windows11",
+    "WMI"
+  ],
+  "node_id": "29ab9160-b63c-42b3-a70b-78819c628e1a",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

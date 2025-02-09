@@ -1,0 +1,21 @@
+{
+  "symptom_label": "sql_server_vulnerabilities_allow_remote_code_execution",
+  "description": "Microsoft SQL Server has over 30 identified vulnerabilities, all rated 8.8 out of 10 on the CVSS scale. These vulnerabilities expose the system to remote code execution (RCE) attacks, wherein an attacker can execute arbitrary code remotely, thereby threatening database integrity and system security. Notable CVEs include CVE-2024-38043 and CVE-2024-38047, which necessitate immediate action to patch and mitigate risks. The exposure of SQL servers, especially those poorly configured or directly accessible from the internet, increases the likelihood of unauthorized access. The severity of these vulnerabilities highlights the critical importance of patch management to safeguard sensitive data against RCE threats.",
+  "source_id": "9091f8f6-c6f9-9cb8-4d80-8175f72a060b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "9091f8f6-c6f9-9cb8-4d80-8175f72a060b"
+  ],
+  "tags": [
+    "sql server",
+    "remote code execution",
+    "patch management",
+    "CVE"
+  ],
+  "node_id": "5173595c-256b-4e05-8035-f2f68859484a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

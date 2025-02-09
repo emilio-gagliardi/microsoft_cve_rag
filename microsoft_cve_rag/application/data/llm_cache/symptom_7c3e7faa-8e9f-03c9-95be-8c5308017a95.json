@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_kernel_remote_code_execution_observed",
+  "description": "Users may experience unexpected behaviors and interruptions, such as remote code execution attempts that could lead to unauthorized access or system manipulation. These observable behaviors might manifest as application instability, random error messages, or even unauthorized modifications to system settings. As users interact with applications on Windows versions 10 and 11, particularly builds 10.0.19045.4046, 10.0.22631.3155, and others, they may notice unexpected performance degradation or strange prompts that suggest unauthorized actions are occurring. This issue has been documented under KB5034763 and is classified as having important severity, indicating a significant risk to system integrity and confidentiality.",
+  "source_id": "7c3e7faa-8e9f-03c9-95be-8c5308017a95",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7c3e7faa-8e9f-03c9-95be-8c5308017a95"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Remote Code Execution",
+    "Windows 10",
+    "Windows 11"
+  ],
+  "node_id": "bc9f588e-1643-4702-95ab-2b9d272bd015",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

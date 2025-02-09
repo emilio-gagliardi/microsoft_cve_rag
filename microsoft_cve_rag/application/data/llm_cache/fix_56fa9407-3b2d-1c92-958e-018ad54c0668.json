@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows kernel elevation of privilege vulnerability (CVE-2024-38133), follow these steps to apply the necessary updates:\n\n1. Identify your Windows version and build number from the list provided below.\n2. Download and install the relevant KB update packages from the Microsoft Update Catalog using the URLs indicated.\n3. Restart your system after installation to ensure all changes take effect.\n\n**Details**:\n- Updates relevant to your Windows version include:\n  - Windows 11 Version 24H2: KB5041571 [Download](https://catalog.update.microsoft.com/Search.aspx?q=KB5041571)\n  - Windows 11 Version 23H2: KB5041585 [Download](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585)\n  - Windows 11 Version 22H2: KB5041580 [Download](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n  - Windows 11 Version 21H2: KB5041592 [Download](https://catalog.update.microsoft.com/Search.aspx?q=KB5041592)\n  - Windows 10 Version 22H2: KB5041580 [Download](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n- Ensure you are running a compatible version of Windows, either 10 or 11, as specified.\n- Backup critical data before proceeding with the update installation.\n",
+  "source_id": "56fa9407-3b2d-1c92-958e-018ad54c0668",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_to_mitigate_kernel_privilege_elevation",
+  "tags": [
+    "KB5041571",
+    "KB5041585",
+    "KernelElevation",
+    "CVE202438133"
+  ],
+  "node_id": "8e39d419-7058-4662-89a3-c8c77a4410b1",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "56fa9407-3b2d-1c92-958e-018ad54c0668"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,16 @@
+{
+  "symptom_label": "DevicesFailToUpdateWithIntunePolicies",
+  "description": "Approximately 2,000 out of 33,000 Windows 10 clients managed via Intune are consistently failing to receive updates each month. Some devices have not been updated for as long as four months, while a subset was last patched over a year ago. This indicates a systemic issue in the deployment of updates through Intune, affecting compliance and security posture of the managed devices.",
+  "source_id": "628004e1-9228-7163-70f1-58efa216f10c",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Intune",
+    "Windows10",
+    "UpdateFailure"
+  ],
+  "node_id": "0700da83-511a-4aaf-ac47-46543510e7aa",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

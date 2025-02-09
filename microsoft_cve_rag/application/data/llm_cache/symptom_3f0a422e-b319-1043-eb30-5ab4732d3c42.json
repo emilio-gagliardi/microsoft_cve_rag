@@ -1,0 +1,21 @@
+{
+  "symptom_label": "remote_code_execution_due_to_malicious_usb_device",
+  "description": "Upon the insertion of a malicious USB device, systems running Windows 10 and Windows 11, specifically those operating under build numbers 10.0.19045.4412, 10.0.22631.3593, and 10.0.22000.2960, are subject to remote code execution vulnerabilities. End users may observe unexpected application crashes, unauthorized access prompts, or significant changes to system behavior, underscoring an active exploitation attempt. When exploited, the vulnerable Windows mobile broadband driver allows attackers to run arbitrary code on the device, potentially leading to unauthorized information disclosure or system modification. It is crucial to monitor affected systems for these behaviors in tandem with applying the relevant security updates as outlined in KB5037771, KB5037768, and KB5037770 to mitigate risks associated with this vulnerability.",
+  "source_id": "3f0a422e-b319-1043-eb30-5ab4732d3c42",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "3f0a422e-b319-1043-eb30-5ab4732d3c42"
+  ],
+  "tags": [
+    "Windows",
+    "Remote Code Execution",
+    "USB Vulnerability",
+    "Driver Security"
+  ],
+  "node_id": "8f1d09db-af60-42af-b0f6-bdcee1fdcc5b",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

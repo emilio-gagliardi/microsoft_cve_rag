@@ -1,0 +1,20 @@
+{
+  "symptom_label": "google_chrome_fails_to_start_on_server_2022",
+  "description": "After upgrading a Server 2022 from Server 2016 and applying the February update (KB5034129), users report that Google Chrome fails to launch properly. Instead of opening as expected, the browser starts with a completely white screen and closes itself after approximately 30 seconds of attempting to load. This issue affects all versions of Google Chrome installed on the server. A resolution involves deleting a specific registry key: 'HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\chrome.exe', which restores the browser's functionality. This symptom indicates a significant disruption to the browser's usability for end users on this server configuration.",
+  "source_id": "03d03a2c-226d-06f5-0f0c-82da64d5453d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "03d03a2c-226d-06f5-0f0c-82da64d5453d"
+  ],
+  "tags": [
+    "google chrome",
+    "server 2022",
+    "registry key",
+    "patch management"
+  ],
+  "node_id": "876b3166-7945-4bcb-99b0-4bbfc6b75a3b",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

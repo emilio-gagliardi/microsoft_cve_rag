@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the use after free vulnerability in the UI of Google Chrome, ensure that Microsoft Edge (Chromium-based) is updated to the latest version.\n\n1. Open your Microsoft Edge browser.\n2. Click on the three dots (...) in the upper right corner.\n3. Navigate to 'Help and feedback'.\n4. Click on 'About Microsoft Edge' to check the current version.\n5. If your version is below 130.0.6723.59, update it to the latest version available, which addresses the vulnerability.\n\n**Details**:\n- The Microsoft Edge version 130.0.6723.59 and later includes the updates necessary to resolve CVE-2024-9957.\n- This vulnerability was addressed in the Chromium project and integrated into Microsoft Edge, ensuring users are protected from potential remote attacks.\n- For optimal security, regularly check for and apply updates to your browser and ensure you are using the latest version. \n\n**Preconditions**:\n- Ensure your current version of Microsoft Edge is noted before updating.\n- Backup any important browser data before performing updates to prevent data loss.",
+  "source_id": "f802f0ef-2e9e-e691-a845-712031ab7197",
+  "source_type": "MSRCPost",
+  "fix_label": "update_edge_chromium_to_resolve_cve20249957",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20249957",
+    "Chromium",
+    "BrowserUpdate"
+  ],
+  "node_id": "0f6e13f6-e1ba-40fc-9acb-7e69a142c4a2",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "f802f0ef-2e9e-e691-a845-712031ab7197"
+  ],
+  "verification_status": "unverified"
+}

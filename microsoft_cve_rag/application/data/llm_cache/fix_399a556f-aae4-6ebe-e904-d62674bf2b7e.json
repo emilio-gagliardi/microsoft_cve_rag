@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows kernel elevation of privilege vulnerability (CVE-2024-30064):\n\n1. Apply the KB-5039330 update by downloading it from the Microsoft Update Catalog.\n2. Restart your system to ensure that the update is fully implemented.\n\n**Details**:\n- This update is designed to mitigate the risks associated with integer overflow and wraparound vulnerabilities in the Windows kernel.\n- Ensure your system meets the product build ID: 20650c77-a5fb-abcc-ce61-0dd62b3a73c4, as it is essential for this patch.\n- You can find more information on the update at the MSRC link: [Update Guide](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30064).\n\n**Preconditions**:\n- Ensure your system is running the appropriate build version.\n- Backup critical data before proceeding with the installation of the update.\n",
+  "source_id": "399a556f-aae4-6ebe-e904-d62674bf2b7e",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb5039330_to_remediate_elevation_privilege_vulnerability",
+  "tags": [
+    "KB5039330",
+    "Kernel",
+    "CVE202430064",
+    "IntegerOverflow"
+  ],
+  "node_id": "e20ebc1e-db9d-467b-b5ba-325983e4ab78",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "399a556f-aae4-6ebe-e904-d62674bf2b7e"
+  ],
+  "verification_status": "unverified"
+}

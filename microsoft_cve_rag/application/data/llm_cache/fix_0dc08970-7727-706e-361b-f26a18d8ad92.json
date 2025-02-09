@@ -1,0 +1,16 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the 0x8007000d error encountered while adding an update source in Configuration Manager:\n\n1. Navigate to `C:\\Windows\\System32\\GroupPolicy\\Machine`.\n2. Rename the `Registry.pol` file to something like `Registry.pol.old` to preserve the existing file.\n3. Re-run the software updates scan cycle from the ConfigMgr actions tab.\n\n**Details**:\n- Renaming the `Registry.pol` file can help reset the Group Policy settings associated with the machine, which may be causing the error during the update source addition. This method allows Configuration Manager to recreate a new, default `Registry.pol` file upon the next update cycle, potentially resolving the issue. \n- Ensure to monitor the results after running the scan cycle to verify that the issue has been resolved.",
+  "source_id": "0dc08970-7727-706e-361b-f26a18d8ad92",
+  "source_type": "PatchManagementPost",
+  "fix_label": "RenameRegistryPolFileToResolveError",
+  "tags": [
+    "ConfigurationManager",
+    "0x8007000dError",
+    "GroupPolicy"
+  ],
+  "node_id": "247c31e9-6ff5-406b-b48b-985552e08c64",
+  "node_label": "Fix",
+  "reliability": "0.8",
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

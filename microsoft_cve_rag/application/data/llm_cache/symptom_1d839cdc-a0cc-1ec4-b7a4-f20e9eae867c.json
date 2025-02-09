@@ -1,0 +1,20 @@
+{
+  "symptom_label": "automatic_agent_updates_fill_network_bandwidth",
+  "description": "The configuration setting to automatically update agent versions on the server can lead to excessive bandwidth consumption during the update process. When enabled, this setting causes the server to update all connected clients immediately upon a server upgrade. Such behavior can result in network saturation, affecting any critical operations relying on bandwidth availability. This could be particularly problematic following server upgrades if clients are not appropriately staggered in their update cycles. System administrators should monitor network performance during these updates to prevent disruptions to services.",
+  "source_id": "1d839cdc-a0cc-1ec4-b7a4-f20e9eae867c",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "1d839cdc-a0cc-1ec4-b7a4-f20e9eae867c"
+  ],
+  "tags": [
+    "bandwidth",
+    "agent_updates",
+    "server_upgrade",
+    "configuration"
+  ],
+  "node_id": "7566a613-807a-4816-8b99-ae9bb81987f2",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

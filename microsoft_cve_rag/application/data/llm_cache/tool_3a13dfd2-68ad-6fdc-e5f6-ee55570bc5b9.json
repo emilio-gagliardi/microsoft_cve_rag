@@ -1,0 +1,22 @@
+{
+  "tool_label": "enablement_package_installation_guide",
+  "description": "**Tool Overview**:\n\nThe enablement package is a specific installation resource used to facilitate the upgrade to the latest version of Windows 11. It allows users to incrementally upgrade their systems while retaining existing settings and applications. This package is especially useful when direct upgrades are not feasible due to compatibility issues or other system restrictions. \n\n**Details**:\n1. Ensures a smooth transition to Windows 11 without complete reinstallation.\n2. Allows for quicker installation times by only enabling new features rather than full deployment.\n3. Can be downloaded and executed from Microsoft's official channels or through a patch management system.\n4. Compatible with specified Windows 10 builds, ensuring users have the necessary prerequisites.\n5. Provides installation instructions and troubleshooting tips to streamline user experience.\n\n**Usage**: After confirming your system is running Windows 10 version 21H2 or later, download the enablement package from the respective update source, execute it, and follow the on-screen prompts to complete the installation.",
+  "source_id": "3a13dfd2-68ad-6fdc-e5f6-ee55570bc5b9",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "3a13dfd2-68ad-6fdc-e5f6-ee55570bc5b9"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAHgj5TSa0vc8xhXU5o12beqJRZMU5zXpz2K%3D1jOQmXgWYtsyGw%40mail.gmail.com",
+  "tool_url": "",
+  "tags": [
+    "enablement",
+    "Windows 11",
+    "upgrade",
+    "installation"
+  ],
+  "node_id": "c654ce9d-635b-43be-ad14-1b5d46dc0a95",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

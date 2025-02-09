@@ -1,0 +1,21 @@
+{
+  "description": "Out-of-bounds memory access in Angle component of Google Chrome prior to version 127.0.6533.99 leads to heap corruption, allowing remote attackers to exploit the vulnerability via crafted HTML.",
+  "cause_label": "chrome_angle_out_of_bounds_memory_access_exploit",
+  "source_id": "dc6453cc-4da8-f00a-8a1d-47c62338138a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "dc6453cc-4da8-f00a-8a1d-47c62338138a"
+  ],
+  "tags": [
+    "CVE-2024-7532",
+    "Chrome",
+    "Out-of-bounds Write",
+    "Heap Corruption"
+  ],
+  "node_id": "3cb9ce3f-a457-41ae-871c-7c645f3054bf",
+  "node_label": "Cause",
+  "reliability": 1.0,
+  "severity_type": "critical",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

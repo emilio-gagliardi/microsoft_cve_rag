@@ -1,0 +1,20 @@
+{
+  "description": "The underlying cause of the patch management issue described is related to improper configuration in certificate management for Domain Controllers (DCs). Specifically, the instructions involve importing a certificate with a private key into the personal certificate store of each DC. If the private key does not correspond correctly to the certificate, it will not display the proper status as checked in the certificate management window, which can lead to failures in LDAP over SSL connections. Not ensuring the correct path validity or private key linkage can create security and operational vulnerabilities within the Active Directory environment. The reference to Microsoft's troubleshooting instructions highlights the reliance on accurate certificate configuration for secure communications.",
+  "source_id": "a9d77b60-b70f-7dc4-6158-e05625d31bea",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "a9d77b60-b70f-7dc4-6158-e05625d31bea"
+  ],
+  "cause_label": "incorrect_certificate_import_causes_ldap_issues",
+  "tags": [
+    "certificate management",
+    "LDAP",
+    "Active Directory",
+    "Domain Controllers"
+  ],
+  "node_id": "9888c49c-328e-4e16-ac4e-8c8496869e4c",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

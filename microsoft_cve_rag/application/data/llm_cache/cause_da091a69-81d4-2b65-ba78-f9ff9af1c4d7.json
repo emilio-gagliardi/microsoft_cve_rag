@@ -1,0 +1,20 @@
+{
+  "description": "The secure boot security feature bypass is caused by an integer underflow (wrap or wraparound) condition in the system components that handle secure boot, which allows an attacker with local network access to exploit this flaw. This vulnerability affects builds 10.0.22631.3880, 10.0.22621.3880, 10.0.19045.4651, 10.0.19044.4651, and 10.0.22000.3079.",
+  "cause_label": "secure_boot_feature_bypass_integer_underflow",
+  "source_id": "da091a69-81d4-2b65-ba78-f9ff9af1c4d7",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "da091a69-81d4-2b65-ba78-f9ff9af1c4d7"
+  ],
+  "tags": [
+    "integer underflow",
+    "secure boot",
+    "CVE-2024-37974"
+  ],
+  "node_id": "77ff2398-7fb4-4db0-b259-2ca56c303f9f",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "tool_label": "dell_driver_installation_package",
+  "description": "**Tool Overview**:\n\nThe Dell driver installation package is a software resource used to install the latest drivers necessary for Dell machines, specifically tailored for Windows 10 and 11.\n\n**Details**:\n\nThis tool is obtained directly from the Dell support site using the machine's service tag, which ensures that you receive the correct version of the driver for your specific hardware model. The process involves downloading the driver package from Dell's official site and performing a clean installation. To troubleshoot potential issues, the existing driver can be uninstalled before reinstalling the latest version. This ensures that any corrupted files or conflicts from previous installations are resolved, leading to better system stability and performance.\n\n1. Visit the Dell support site.\n2. Enter your machine's service tag for the appropriate driver.\n3. Download the latest driver version.\n4. Uninstall the existing driver if necessary.\n5. Install the freshly downloaded driver package.",
+  "source_id": "6a22a2ed-5496-4d93-4e2a-f8ef3047cabc",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "6a22a2ed-5496-4d93-4e2a-f8ef3047cabc"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/!%26!AAAAAAAAAAAYAAAAAAAAAIIwPxkYxeFElxEG1j41fZ%2BCkQAAEAAAAJ31/TUncbJLsv4qiCBmb7MBAAAAAA%3D%3D%40verizon.net",
+  "tool_url": "https://www.dell.com/support/Drivers",
+  "tags": [
+    "driver installation",
+    "Dell",
+    "Windows 10",
+    "Windows 11"
+  ],
+  "node_id": "8f6755a4-2090-49cc-a123-13bfea66d9d7",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

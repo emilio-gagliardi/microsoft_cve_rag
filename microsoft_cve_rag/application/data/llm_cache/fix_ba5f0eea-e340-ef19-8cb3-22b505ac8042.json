@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability in Microsoft Edge (Chromium-based) due to a heap-based buffer overflow (CVE-2024-43579):\n\n1. Download and install the KB-130.0.2849.46 update.\n2. Restart Microsoft Edge to ensure the update is applied.\n\n**Details**:\nThis update addresses the security vulnerability identified as CVE-2024-43579, which could allow remote attackers to execute arbitrary code on affected installations. By applying this patch, you help ensure that the web browser is safeguarded against potential exploits.\n- For manual installation, download the update package from: [Microsoft Update Catalog](https://catalog.update.microsoft.com/Search.aspx?q=KB43579).\n\n**Preconditions**:\n- Ensure Microsoft Edge (Chromium-based) version 130.0.2849.46 or later is installed.\n- Backup critical data before proceeding with the installation.",
+  "source_id": "ba5f0eea-e340-ef19-8cb3-22b505ac8042",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_in_edge_cve202443579",
+  "tags": [
+    "KB43579",
+    "MicrosoftEdge",
+    "RemoteCodeExecution",
+    "HeapOverflow"
+  ],
+  "node_id": "49f6ec4c-4ca9-4112-a035-f5992d9323f0",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "ba5f0eea-e340-ef19-8cb3-22b505ac8042"
+  ],
+  "verification_status": "unverified"
+}

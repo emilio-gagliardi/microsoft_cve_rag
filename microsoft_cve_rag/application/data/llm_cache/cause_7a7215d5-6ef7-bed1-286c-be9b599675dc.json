@@ -1,0 +1,22 @@
+{
+  "description": "A bypass of Windows Code Integrity Guard (CIG) due to insufficient protection mechanisms allows an attacker to exploit the system without user interaction, leading to potential integrity issues with altered files.",
+  "cause_label": "windows_code_integrity_guard_bypass_vulnerability",
+  "source_id": "7a7215d5-6ef7-bed1-286c-be9b599675dc",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7a7215d5-6ef7-bed1-286c-be9b599675dc"
+  ],
+  "tags": [
+    "Windows",
+    "Code Integrity",
+    "CVE-2024-43585",
+    "Security Feature Bypass",
+    "Integrity Loss"
+  ],
+  "node_id": "b5a053e6-fecd-4ff8-aa82-b81595dbbc9e",
+  "node_label": "Cause",
+  "reliability": 0.09,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

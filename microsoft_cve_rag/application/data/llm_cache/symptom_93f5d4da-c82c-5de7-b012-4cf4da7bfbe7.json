@@ -1,0 +1,20 @@
+{
+  "symptom_label": "windows_11_fails_to_detect_headphones_properly",
+  "description": "Users are experiencing an issue with Windows 11 where the operating system fails to detect headphones when they are plugged in. The volume slider presents only a single output choice labeled 'speakers / headphones', without differentiating between the two. This indicates that the system is not recognizing the headphones as a separate audio output device, which is essential for active selection by the user. Users reported that absolutely nothing occurs upon connecting the headphones, highlighting a failure in the automatic detection functionality. This problem can hinder normal user experience for audio output on Windows 11 systems.",
+  "source_id": "93f5d4da-c82c-5de7-b012-4cf4da7bfbe7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "93f5d4da-c82c-5de7-b012-4cf4da7bfbe7"
+  ],
+  "tags": [
+    "audio",
+    "output_device",
+    "Windows_11",
+    "headphone_detection"
+  ],
+  "node_id": "f67deef6-ffed-4fb9-a91f-9e06144ace47",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

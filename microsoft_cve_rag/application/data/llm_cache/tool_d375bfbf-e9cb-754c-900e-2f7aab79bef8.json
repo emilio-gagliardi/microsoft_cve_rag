@@ -1,0 +1,17 @@
+{
+  "tool_label": "StartingVMsAfterUpdateInAzureStack",
+  "description": "This solution addresses the issue where starting VMs may fail after installing the October 2023 cumulative update. It is specifically relevant to Azure Stack deployments.",
+  "source_id": "d375bfbf-e9cb-754c-900e-2f7aab79bef8",
+  "source_type": "PatchManagementPost",
+  "source_url": "https://techcommunity.microsoft.com/t5/azure-stack/starting-vms-may-fail-after-installation-of-10-2023-cu-when/m-p/3956844/highlight/true",
+  "tags": [
+    "Azure Stack",
+    "VM management",
+    "October 2023 updates"
+  ],
+  "node_id": "af42c4c0-062a-4c36-9387-4ab6b980f8c5",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

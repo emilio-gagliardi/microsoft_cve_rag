@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_crashes_and_performance_issues",
+  "description": "Users may experience frequent crashes or performance-related issues when using Microsoft Edge (Chromium-based) version 130.0.2849.80 or earlier due to a use after free vulnerability in the Chromium engine. This issue might manifest as unexpected closes of the browser without warning, slow response times, or unresponsive tabs. Users could find their browser crashing while processing certain web pages or navigating through various functionalities. Updating to version 130.0.6723.117 or later is essential to mitigate these impacts and ensure smooth browser operations. This version was released on November 7, 2024, as part of the security update outlined in KB-130.0.2849.80.",
+  "source_id": "e4055bc9-0660-3146-f3d7-c27dfa9e0311",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e4055bc9-0660-3146-f3d7-c27dfa9e0311"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Web Browser",
+    "Performance Issue",
+    "Crash"
+  ],
+  "node_id": "792a5211-08eb-4098-a54f-ec20364ae53e",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

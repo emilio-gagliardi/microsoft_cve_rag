@@ -1,0 +1,22 @@
+{
+  "description": "An integer overflow or wraparound in the Windows NT OS kernel leading to potential elevation of privilege, specifically allowing an attacker with local access to exploit the condition to gain system privileges.",
+  "cause_label": "windows_nt_os_kernel_integer_overflow_elevation",
+  "source_id": "d1c7eae2-3d0c-6b99-acd4-a29723455bee",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d1c7eae2-3d0c-6b99-acd4-a29723455bee"
+  ],
+  "tags": [
+    "Windows",
+    "kernel",
+    "elevation of privilege",
+    "CVE-2024-43623",
+    "integer overflow"
+  ],
+  "node_id": "a74db0b7-1028-4c21-88cd-800e9cbc3cce",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

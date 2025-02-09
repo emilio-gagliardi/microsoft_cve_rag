@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the zero-day vulnerabilities released this September 2024 by Microsoft, it is essential to apply the updates provided for the following critical vulnerabilities:\n\n1. **CVE-2024-43491**: Apply the latest servicing stack update for Windows Update to mitigate remote code execution vulnerabilities affecting Windows 10 1507 and 2015 LTSB editions.\n\n2. **CVE-2024-38217**: Ensure that the update for the Mark of the Web vulnerability is installed to prevent security feature bypasses on Windows Server 2008 and later versions.\n\n3. **CVE-2024-38014**: For the Windows Installer elevation of privilege issue, apply the latest patches to all affected Windows versions, including Windows Server 2008.\n\n4. **CVE-2024-38226**: Update Microsoft Office 2019, 2021, and Publisher 2016 to block potential macro policy bypass attacks.\n\n**Details**:\n- Regularly check for Windows Updates to ensure timely application of these patches.\n- For organizations still using Windows 10, start planning for migration to Windows 11 in light of the upcoming end-of-life date in October 2025. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure that you have administrative privileges to apply updates.\n- Backup critical data before applying any major updates.",
+  "source_id": "fe9974ac-f57d-8461-400f-c8fd702d4b73",
+  "source_type": "PatchManagementPost",
+  "fix_label": "apply_updates_for_windows_zero_day_cves_september_2024",
+  "tags": [
+    "CVE-2024-43491",
+    "CVE-2024-38217",
+    "CVE-2024-38014",
+    "CVE-2024-38226"
+  ],
+  "node_id": "50448057-a3f7-49d1-8b3f-1ca923fd8e68",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "critical",
+  "entity_type": "Fix",
+  "source_ids": [
+    "fe9974ac-f57d-8461-400f-c8fd702d4b73"
+  ],
+  "verification_status": "unverified"
+}

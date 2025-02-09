@@ -1,0 +1,23 @@
+{
+  "description": "The Windows Telephony service has an integer overflow in its processing logic, allowing for remote code execution due to improper handling of input data from network sources. This issue primarily affects Windows Server and Windows 11 builds, causing security vulnerabilities that can be exploited by attackers over the network.",
+  "cause_label": "windows_telephony_service_integer_overflow_remote_code_execution",
+  "source_id": "7dbf7330-86ce-170e-4faf-1c7f0938ef2e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "7dbf7330-86ce-170e-4faf-1c7f0938ef2e"
+  ],
+  "tags": [
+    "CVE-2024-43628",
+    "Windows Telephony",
+    "Remote Code Execution",
+    "Integer Overflow",
+    "Windows 10",
+    "Windows 11"
+  ],
+  "node_id": "c53401f5-a699-4f2a-bc24-4de396e6ae7a",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

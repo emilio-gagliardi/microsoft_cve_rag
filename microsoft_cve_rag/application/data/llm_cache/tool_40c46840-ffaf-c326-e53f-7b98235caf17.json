@@ -1,0 +1,22 @@
+{
+  "tool_label": "PapercutPrintRelease",
+  "description": "Papercut Print Release is a software tool designed to manage and streamline print jobs in enterprise environments. It allows users to securely release print jobs from any printer connected to the network, promoting efficient printing practices. By requiring user authentication before printing, Papercut Print Release helps reduce printer waste and ensures that sensitive documents are not left unattended. Users can manage their print jobs through a web interface or printer touchscreens, providing flexibility and ease of use. This tool supports various printer models, including Konica copiers, making it a versatile solution for diverse printing needs.",
+  "source_id": "40c46840-ffaf-c326-e53f-7b98235caf17",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "40c46840-ffaf-c326-e53f-7b98235caf17"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CAHiENFHewS6J37e2G8qMCkw7u_8yLLasJ%3Dav1hmw1gwyAHAaow%40mail.gmail.com",
+  "tool_url": "https://www.papercut.com/products/release-printing/",
+  "tags": [
+    "Print Management",
+    "Papercut",
+    "Konica",
+    "Print Release"
+  ],
+  "node_id": "b3a6f38f-4ed9-4519-84d0-7245b7a5524f",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

@@ -1,0 +1,16 @@
+{
+  "description": "To resolve compatibility issues with AuthLite for MFA on Windows Server 2022 Domain Controllers following the installation of the 2023-10 Cumulative Update (KB-5031364), it is recommended to install AuthLite version 2.4.14 or newer. This update addresses changes in the kdcsvc.dll file that can prevent older AuthLite versions from functioning properly, leading to boot and authentication failures. For systems already affected by this update, a temporary workaround can be applied by renaming the c:\\windows\\system32\\csalsubauth.dll file to allow the Domain Controller to boot successfully. After addressing these issues, it is also advisable to unify the build versions across all DCs for consistency. Following the installation of the updated AuthLite version and a reboot, the system should resume normal functionality without issues.",
+  "source_id": "139df8a9-4477-506f-39f5-103fb6f8b9e9",
+  "source_type": "PatchManagementPost",
+  "fix_label": "InstallAuthLiteVersionToResolveBootIssues",
+  "tags": [
+    "AuthLite",
+    "Server2022",
+    "CumulativeUpdate"
+  ],
+  "node_id": "84bd4eda-a18a-4c04-9b38-e6de28d97842",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

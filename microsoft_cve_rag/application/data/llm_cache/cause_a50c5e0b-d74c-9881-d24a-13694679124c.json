@@ -1,0 +1,22 @@
+{
+  "description": "Integer underflow condition in the Microsoft WDAC OLE DB provider for SQL Server leads to potential remote code execution, affecting various Windows build versions.",
+  "cause_label": "wdac_ole_db_provider_integer_underflow_remote_code_execution",
+  "source_id": "a50c5e0b-d74c-9881-d24a-13694679124c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a50c5e0b-d74c-9881-d24a-13694679124c"
+  ],
+  "tags": [
+    "WDAC",
+    "OLE DB",
+    "SQL Server",
+    "integer underflow",
+    "remote code execution",
+    "CVE-2024-26244"
+  ],
+  "node_id": "0fe6454a-6eb0-4c44-95b0-d194f663c997",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

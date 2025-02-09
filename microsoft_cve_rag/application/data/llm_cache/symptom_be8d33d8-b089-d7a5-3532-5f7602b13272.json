@@ -1,0 +1,16 @@
+{
+  "symptom_label": "DenialOfServiceAffectsNetworkConnectivity",
+  "description": "Users experience complete loss of network connectivity as a result of the Internet Connection Sharing (ICS) denial of service issue. Systems affected by this behavior are Windows Server versions, notably builds such as 6.1.7601.26864 and 6.3.9600.21715. These symptoms are tied to KB articles including KB-5033379, KB-5033375, and KB-5033369, which address the considerable disruption of service that can persist or occur repeatedly following exploitation of the vulnerability.",
+  "source_id": "be8d33d8-b089-d7a5-3532-5f7602b13272",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "b126799a-8312-4de2-bcf1-b26a220225f6",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

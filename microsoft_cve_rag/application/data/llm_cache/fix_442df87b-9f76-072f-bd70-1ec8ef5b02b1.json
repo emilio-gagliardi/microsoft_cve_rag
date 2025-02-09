@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Azure Storage Movement Client Library denial of service vulnerability (CVE-2024-35252):\n\n1. Update to the latest version of the Azure Storage Movement Client Library to ensure you are using maintained components.\n2. Implement stringent network protections to limit exposure to the vulnerable component.\n3. Monitor and review access logs for unusual activity that may indicate attempts to exploit this vulnerability.\n\n**Details**:\n- This vulnerability can be exploited remotely, resulting in a complete denial of access to resources.\n- Ensure that your application dependencies are up-to-date and actively maintained to prevent such vulnerabilities from being introduced into your environment.\n\nFor further updates on this issue, it is recommended to check the Microsoft Security Response Center.\n",
+  "source_id": "442df87b-9f76-072f-bd70-1ec8ef5b02b1",
+  "source_type": "MSRCPost",
+  "fix_label": "update_azure_storage_movement_library_cve202435252",
+  "tags": [
+    "AzureStorage",
+    "DenialOfService",
+    "CVE202435252",
+    "MaintainedComponents"
+  ],
+  "node_id": "b3618f76-3b6e-4bec-a9d7-031536fd7744",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "442df87b-9f76-072f-bd70-1ec8ef5b02b1"
+  ],
+  "verification_status": "unverified"
+}

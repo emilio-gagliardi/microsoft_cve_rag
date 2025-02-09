@@ -1,0 +1,16 @@
+{
+  "symptom_label": "RemoteCodeExecutionRiskDueToDriverInstability",
+  "description": "End users may experience unexpected behaviors from their systems, such as degraded performance or instability, particularly due to the remote code execution vulnerability associated with the Microsoft USB Hub 3.0 device driver. Affected products include Windows 10 for x64 and 32-bit systems with the specific build number 10.0.10240.20345, as documented in KB5033379. Administrators should be vigilant to potential application crashes or erratic behavior after the installation of related updates.",
+  "source_id": "dedf87f5-8124-e2b7-99c5-29ec955e5b9c",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "1c4ba974-47bc-4dd1-a869-66c54f446f62",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

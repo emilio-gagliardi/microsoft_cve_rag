@@ -1,0 +1,21 @@
+{
+  "symptom_label": "driver_sync_to_wsus_deprecation_causes_trouble",
+  "description": "The deprecation of driver synchronization with WSUS indicates that updates related to drivers and firmware may no longer be available via Windows or Microsoft Update. This change can result in significant difficulties for system administrators managing driver updates across their environments. Without access to these updates, maintaining up-to-date drivers for various hardware components becomes problematic, potentially leading to compatibility and performance issues. Understanding the implications of this deprecation is crucial to mitigate any negative impacts on system stability and functionality. Administrators must seek alternate methods for managing driver updates to ensure their systems remain operational and secure.",
+  "source_id": "027a5d36-4887-4f9d-44d5-a5975fd50591",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "027a5d36-4887-4f9d-44d5-a5975fd50591"
+  ],
+  "tags": [
+    "WSUS",
+    "driver management",
+    "firmware updates",
+    "system administration"
+  ],
+  "node_id": "a1d5f39f-866e-4c7b-bc69-df32c5e01dce",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

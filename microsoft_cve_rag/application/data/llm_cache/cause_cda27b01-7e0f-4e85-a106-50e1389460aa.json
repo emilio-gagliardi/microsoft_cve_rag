@@ -1,0 +1,22 @@
+{
+  "description": "The underlying cause relates to the mismanagement of Active Directory (AD) machine groups when upgrading Windows 10 systems to Windows 11. Specifically, using organizational units (OUs) instead of an AD machine group can lead to inefficiencies in managing updates and filtering devices. When Windows 10 machines are upgraded, the associated OU may not automatically adjust, resulting in remnants that complicate subsequent management and updates. By leveraging an AD machine group, the systems are dynamically filtered and tracked, allowing for a cleaner upgrade process and seamless management during transitions. This structure is pivotal for maintaining an organized and effective patch management strategy for enterprise environments.",
+  "source_id": "cda27b01-7e0f-4e85-a106-50e1389460aa",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "cda27b01-7e0f-4e85-a106-50e1389460aa"
+  ],
+  "cause_label": "mismanagement_of_ad_machine_groups_during_upgrades",
+  "tags": [
+    "AD machine group",
+    "Windows 10",
+    "Windows 11",
+    "Patch Management",
+    "Upgrade Process"
+  ],
+  "node_id": "506433d9-cbc2-45b6-af50-35b0f4dcd16b",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

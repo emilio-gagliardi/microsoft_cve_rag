@@ -1,0 +1,16 @@
+{
+  "symptom_label": "PatchBreaksServerWithCrypticUpdateLogs",
+  "description": "When a patch deployment fails on a server, it can lead to a stop error that indicates the failure's root cause. In some instances, the information provided in the stop error can be sufficient for troubleshooting, negating the need for detailed analysis of the Windows Update logs. However, the reliance on cryptic logs for root cause analysis can hinder prompt issue resolution, particularly when more informative details could be available through tools like MECM (Microsoft Endpoint Configuration Manager) or WSUS (Windows Server Update Services).",
+  "source_id": "f0a5efeb-8e51-ad77-76ff-34b9ab0da522",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "patch management",
+    "server errors",
+    "troubleshooting"
+  ],
+  "node_id": "117bbcd3-a589-49ec-bca4-d8640520be1b",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

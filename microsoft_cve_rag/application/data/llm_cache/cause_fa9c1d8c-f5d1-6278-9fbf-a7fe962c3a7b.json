@@ -1,0 +1,21 @@
+{
+  "description": "A heap-based buffer overflow in the Windows Cloud Files mini filter driver allows local attackers to exploit memory incorrectly. This can lead to an elevation of privilege, gaining system-level access.",
+  "cause_label": "windows_cloud_files_mini_filter_driver_heap_buffer_overflow",
+  "source_id": "fa9c1d8c-f5d1-6278-9fbf-a7fe962c3a7b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "fa9c1d8c-f5d1-6278-9fbf-a7fe962c3a7b"
+  ],
+  "tags": [
+    "Windows",
+    "Cloud Files",
+    "Elevation of Privilege",
+    "Heap Overflow"
+  ],
+  "node_id": "be4ba49f-14c6-4be9-8ef0-a81f13a5219c",
+  "node_label": "Cause",
+  "reliability": 90,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

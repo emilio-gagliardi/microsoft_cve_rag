@@ -1,0 +1,21 @@
+{
+  "symptom_label": "devices_fail_to_boot_due_to_secure_boot_config",
+  "description": "Devices configured with the 2011 Microsoft CA in the secure boot forbidden list fail to boot from updated WinPE ISOs, impacting both physical and virtual machines. Users reported difficulties in successfully booting mitigated devices from various Microsoft deployment solutions, including updated Windows 10/11 ISOs and PXE solutions like Windows Deployment Services. Even after following the 4-step mitigation process, the devices encounter errors during the boot process, such as not progressing past the boot image selection screen. This issue has caused hesitation among administrators to apply the Database Exclusion List (DBX) mitigation in production environments, as complete guidance on bootable media or PXE functionality from Microsoft is still 'forthcoming.' The situation has left system administrators uncertain about reimaging or reinstalling Windows on affected devices without crucial instructions.",
+  "source_id": "083fb3d9-deda-57e4-d49f-4eebfe37459f",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "083fb3d9-deda-57e4-d49f-4eebfe37459f"
+  ],
+  "tags": [
+    "WinPE",
+    "secure boot",
+    "DBX mitigation",
+    "WDS"
+  ],
+  "node_id": "195fddff-bb5f-4c98-bd31-baae5b1e3921",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

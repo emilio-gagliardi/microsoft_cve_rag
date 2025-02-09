@@ -1,0 +1,22 @@
+{
+  "tool_label": "released_november_2024_exchange_updates",
+  "description": "**Tool Overview**:\n\nThis resource provides information about the November 2024 security updates for Exchange Server, including important fixes and enhancements.\n\n**Details**:\n\n- Access the updates to ensure your Exchange Server is secure and performing optimally.\n- A detailed change log and release notes are typically provided to guide system administrators in applying relevant updates.\n- These updates are crucial for maintaining compliance and security posture within your organization's IT infrastructure.\n- The document serves as a procedural reference for downloading and implementing the security upgrades.\n\nUpdated references and resources can be vital for effective patch management, especially considering the fast-paced changes in software vulnerabilities.",
+  "source_id": "f99f6db0-beeb-ada7-29ca-4915fe91a09f",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "f99f6db0-beeb-ada7-29ca-4915fe91a09f"
+  ],
+  "source_url": "https://techcommunity.microsoft.com/blog/exchange/released-november-2024-exchange-server-security-updates/4293125",
+  "tool_url": "https://techcommunity.microsoft.com/blog/exchange/released-november-2024-exchange-server-security-updates/4293125",
+  "tags": [
+    "Exchange",
+    "security",
+    "patch management"
+  ],
+  "node_id": "afe3952a-9578-4384-8c2f-3241f1a09d7a",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

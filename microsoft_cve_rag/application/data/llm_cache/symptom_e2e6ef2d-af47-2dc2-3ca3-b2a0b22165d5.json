@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_experiences_policy_bypass_issue",
+  "description": "Users of Microsoft Edge (Chromium-based) may experience significant security risks due to a policy bypass stemming from vulnerabilities in Chromium versions prior to 126.0.6478.54. As a result, users could observe a lack of normal access controls, enabling potential unauthorized actions through crafted HTML pages. This behavior might manifest as unexpected changes in content accessibility or the ability to interact with secure resources without required permissions. For users operating on builds 126.0.2592.56 or earlier, the update to version 126.0.6478.57 is crucial to restore standard security measures. Affected users should take immediate action to ensure their browser is updated, referencing KB-126.0.2592.56 for guidance.",
+  "source_id": "e2e6ef2d-af47-2dc2-3ca3-b2a0b22165d5",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e2e6ef2d-af47-2dc2-3ca3-b2a0b22165d5"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Policy Bypass",
+    "Security Update"
+  ],
+  "node_id": "cc794962-0a90-4843-a9da-5cbc032a6400",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

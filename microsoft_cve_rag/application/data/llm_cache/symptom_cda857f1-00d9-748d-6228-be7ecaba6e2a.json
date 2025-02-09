@@ -1,0 +1,22 @@
+{
+  "symptom_label": "secure_boot_bypass_on_windows_version_22h2",
+  "description": "After applying the updates issued for CVE-2024-37982, users may experience the inability of their systems to utilize Secure Boot, particularly on Windows 10 and Windows 11 builds, including versions 21H2, 22H2, and 24H2. This can manifest as systems not properly enforcing hardware-based security measures, resulting in an increased exposure to potential security breaches. Administrators managing builds such as 10.0.22621.4317 and 10.0.26100.2033 should be particularly vigilant, as devices may allow unauthorized changes that compromise system integrity. Users may notice that although their systems appear to boot normally, the expected protective features are bypassed, potentially creating security risks. This situation emphasizes the need for immediate attention to the applied patches outlined in KB-5044285, KB-5044284, KB-5044280, and KB-5044273 to ensure that systems are hardened against such bypasses.",
+  "source_id": "cda857f1-00d9-748d-6228-be7ecaba6e2a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "cda857f1-00d9-748d-6228-be7ecaba6e2a"
+  ],
+  "tags": [
+    "Secure Boot",
+    "Windows 10",
+    "Windows 11",
+    "Firmware",
+    "System Security"
+  ],
+  "node_id": "ab426e89-54d1-4fbd-b451-1bf54c3d8b01",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_vulnerability_disclosure_no_longer_affected",
+  "description": "End users may observe that the Microsoft Edge (Chromium-based) browser has been updated to version 129.0.2792.79, resolving issues related to the vulnerability identified as CVE-2024-9370. Users should also be aware that previous versions, including 129.0.6668.90, were potentially impacted by this security issue. Following the update, users will no longer experience issues previously associated with this CVE, thus enhancing their browsing experience. Administrators may need to ensure that all systems are upgraded to this version to mitigate any risks that were present prior to the update. As the browser is no longer vulnerable, it is essential for users to verify their versions periodically to ensure they are on the latest build in light of ongoing updates.",
+  "source_id": "c1bdd19d-2114-49fb-658d-1fed3e76f14e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c1bdd19d-2114-49fb-658d-1fed3e76f14e"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "CVE-2024-9370",
+    "Security Update",
+    "Browser Update"
+  ],
+  "node_id": "39312da6-bbf8-4729-b191-2c46275f7e88",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,18 @@
+{
+  "description": "The underlying cause of the issue is a vulnerability identified as CVE-2024-21325 affecting the MS Printer Metadata Troubleshooter Tool. This vulnerability presents a risk of remote code execution, which can be exploited if proper measures are not taken. Users and system administrators who have distributed this tool are advised to apply patches or remove it entirely to mitigate potential risks. The vulnerability was documented with specific guidance in the Microsoft update guide corresponding to this CVE ID. As administrators deploy patches, it's essential to ensure that any affected systems are brought up to date with the latest security fixes to prevent exploitation.",
+  "source_id": "6fbf7c9f-0d7c-1f93-c715-eb95c6deb675",
+  "source_type": "PatchManagementPost",
+  "cause_label": "RemoteCodeExecutionVulnerabilityInPrinterTool",
+  "tags": [
+    "CVE-2024-21325",
+    "MS Printer Metadata Troubleshooter",
+    "remote code execution",
+    "patch management",
+    "Microsoft security"
+  ],
+  "node_id": "18aac723-508a-4055-b770-5273f2fa773f",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

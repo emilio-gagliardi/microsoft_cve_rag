@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Microsoft ActiveX Data Objects remote code execution vulnerability (CVE-2024-21349), apply the relevant updates as identified below:\n\n1. For Windows 11 Version 23H2, apply KB5034765.\n2. For Windows 11 Version 22H2, apply KB5034765.\n3. For Windows 11 Version 21H2, apply KB5034766.\n4. For Windows 10 Version 22H2 (x64), apply KB5034763.\n5. For Windows 10 Version 21H2 (x64), apply KB5034763.\n6. For Windows 10 (32-bit), apply KB5034774.\n7. For Windows 10 Version 21H2 (32-bit), apply KB5034763.\n\n**Details**:\n- This vulnerability affects multiple Windows operating systems and is rated with a maximum severity of important.\n- Ensure to download the updates from the official Windows Update catalog to resolve the issue.\n\n**Preconditions**:\n- Make sure your system type (32-bit or x64) matches the applicable update.\n- Always backup critical data before proceeding with the updates.",
+  "source_id": "d9f06903-8c88-994b-73e6-73894951dcbe",
+  "source_type": "MSRCPost",
+  "fix_label": "address_remote_code_execution_cve202421349",
+  "tags": [
+    "KB5034763",
+    "KB5034765",
+    "KB5034766",
+    "ActiveX"
+  ],
+  "node_id": "01db6bb6-f7ee-40fc-b00e-14e8828a8fcb",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "d9f06903-8c88-994b-73e6-73894951dcbe"
+  ]
+}

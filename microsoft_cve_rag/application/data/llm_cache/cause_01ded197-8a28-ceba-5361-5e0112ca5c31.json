@@ -1,0 +1,21 @@
+{
+  "description": "The vulnerability in Windows Image Acquisition arises from improper link resolution before file access, allowing local attackers to exploit race conditions and elevate privileges. This occurs when the system fails to correctly validate the file paths used for accessing resources, which can be exploited by malicious actors to manipulate file access and potentially execute arbitrary code.",
+  "cause_label": "windows_image_acquisition_improper_link_resolution",
+  "source_id": "01ded197-8a28-ceba-5361-5e0112ca5c31",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "01ded197-8a28-ceba-5361-5e0112ca5c31"
+  ],
+  "tags": [
+    "Windows",
+    "Image Acquisition",
+    "Elevation of Privilege",
+    "CVE-2024-38022"
+  ],
+  "node_id": "bd3cdf92-0c74-4857-ae62-7f58f50363fd",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

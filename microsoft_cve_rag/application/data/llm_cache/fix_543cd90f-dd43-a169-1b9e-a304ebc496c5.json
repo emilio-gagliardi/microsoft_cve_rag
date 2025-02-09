@@ -1,0 +1,16 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the win32k elevation of privilege vulnerability (CVE-2023-35631), you need to apply the appropriate updates available through Microsoft's update catalog. Follow these steps to ensure your system is secured:\n\n1. Visit the update catalog links below to find the relevant update for your Windows version.\n2. Download and install the updates associated with your specific build number.\n3. Restart your system to apply the changes effectively.\n\n**Details**:\n- This update mitigates the risks associated with the vulnerability that allows for privilege escalation.\n- It is crucial to ensure that your system is on one of the affected builds before proceeding.\n- Update packages are available at these URLs:\n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5033369\n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5033383\n  - https://catalog.update.microsoft.com/Search.aspx?q=KB5033375\n\n**Preconditions**:\n- Ensure your Windows version corresponds to the affected builds:\n  - 10.0.25398.584 (Windows 11 for x64-based Systems)\n  - 10.0.22631.2861 (Windows 11 Version 23H2)\n  - 10.0.22621.2861 (Windows 11 Version 22H2)\n  - 10.0.22000.2652 (Windows 11 Version 21H2)\n- Backup critical data before proceeding with updates.",
+  "source_id": "543cd90f-dd43-a169-1b9e-a304ebc496c5",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplyUpdatesForCVE202335631",
+  "tags": [
+    "CVE-2023-35631",
+    "Windows11",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "8e5b3dab-dfb8-41b7-82d4-c14b83728df8",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

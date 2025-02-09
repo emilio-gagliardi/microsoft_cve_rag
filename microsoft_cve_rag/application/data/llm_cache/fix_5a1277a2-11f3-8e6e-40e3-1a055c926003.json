@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the elevation of privilege vulnerability in the Windows Resilient File System (Refs), implement the following steps:\n\n1. Download the relevant KB updates based on your Windows 11 version from the official Windows Update catalog.\n\n   - For Windows 11 Version 24H2: [KB5041571](https://catalog.update.microsoft.com/Search.aspx?q=KB5041571)\n   - For Windows 11 Version 23H2: [KB5041585](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585)\n   - For Windows 11 Version 22H2: [KB5041585](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585)\n\n2. Install the updates to ensure system resilience against this vulnerability.\n\n3. Restart your system to apply the changes effectively.\n\n**Details**:\n- This update addresses a security vulnerability classified under CVE-2024-38135, which could lead to unauthorized elevation of privilege.\n- Ensure that your system is running one of the specified builds of Windows 11 before proceeding with the installation.\n- Always back up critical data before applying system updates to prevent data loss. \n",
+  "source_id": "5a1277a2-11f3-8e6e-40e3-1a055c926003",
+  "source_type": "MSRCPost",
+  "fix_label": "address_elevation_privilege_vulnerability_windows_refs_cve202438135",
+  "tags": [
+    "KB5041571",
+    "KB5041585",
+    "Windows11",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "650a0f28-833d-41c2-98fe-895c538b4292",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "5a1277a2-11f3-8e6e-40e3-1a055c926003"
+  ],
+  "verification_status": "unverified"
+}

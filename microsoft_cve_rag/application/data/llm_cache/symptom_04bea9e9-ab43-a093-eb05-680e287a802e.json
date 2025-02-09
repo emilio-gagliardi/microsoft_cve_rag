@@ -1,0 +1,21 @@
+{
+  "symptom_label": "autopilot_conceptual_confusion_with_intune",
+  "description": "There is a misunderstanding regarding the functionalities of Autopilot versus Intune in the system management landscape. Users are confused about the role Autopilot plays in the Out of Box Experience (OOBE) process, believing it to be an imaging solution, whereas it solely automates enrollment into Mobile Device Management (MDM). This conceptual mix-up can lead to inefficient deployment strategies and confusion around device enrollment processes. Additionally, traditional imaging strategies may be mistakenly impacted by inadequate understanding of how both tools can co-exist and function together. This confusion primarily affects organizations using Windows devices and transitioning to modern management solutions, especially during deployment.",
+  "source_id": "04bea9e9-ab43-a093-eb05-680e287a802e",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "04bea9e9-ab43-a093-eb05-680e287a802e"
+  ],
+  "tags": [
+    "autopilot",
+    "intune",
+    "device_management",
+    "OOBE"
+  ],
+  "node_id": "65bba97a-8e64-4239-8864-7588da4c11d7",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

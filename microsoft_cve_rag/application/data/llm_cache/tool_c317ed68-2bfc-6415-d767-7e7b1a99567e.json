@@ -1,0 +1,18 @@
+{
+  "tool_label": "UpgradeWindowsVersionTool",
+  "description": "An actionable tool that simplifies the management of Windows Updates by allowing users to upgrade to the next version of Windows. This tool is particularly useful for environments where older versions of Windows, such as Windows 10 version 21H2, have reached their end of updates. By upgrading, the installation process replaces all the Windows Update files, effectively resolving any persistent update issues. This can save time and effort for IT administrators who might otherwise struggle with debugging complex Windows Update problems. The upgrade process is straight forward, generally involving standard tools or methods provided by Microsoft for upgrading operating systems.",
+  "tool_url": "https://docs.microsoft.com/en-us/windows/deployment/deploy-windows-10-upgrades",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/SN6PR08MB551758BED57DE63447DD56F6B781A%40SN6PR08MB5517.namprd08.prod.outlook.com",
+  "source_id": "c317ed68-2bfc-6415-d767-7e7b1a99567e",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows",
+    "Upgrade",
+    "PatchManagement"
+  ],
+  "node_id": "eb5cfe86-fab5-4eec-8b4f-f3384ea02dc3",
+  "node_label": "Tool",
+  "reliability": "0.8",
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

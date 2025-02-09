@@ -1,0 +1,20 @@
+{
+  "tool_label": "DevHomeAppManagementTool",
+  "description": "The Dev Home App Management Tool is utilized to manage and integrate the Dev Home app within the Windows operating system. It assists administrators in ensuring the appropriate deployment and configuration of the application as part of the November updates in Windows 23H2. This tool is especially useful when verifying whether the app has been officially included in the updates and is documented for user access. It provides streamlined management capabilities, facilitating a smoother deployment process for system administrators overseeing software updates.",
+  "synthesized_code": null,
+  "source_id": "c3616e26-f1bb-10ea-24f4-7e7dc03401e3",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/BY5PR01MB56356094F861B56D78007E99B7B7A%40BY5PR01MB5635.prod.exchangelabs.com",
+  "tool_url": "https://www.reddit.com/r/SCCM/comments/...",
+  "tags": [
+    "Windows",
+    "AppManagement",
+    "23H2",
+    "Deployment"
+  ],
+  "node_id": "6f755f6b-73d5-4141-8c74-7bdf9d4066a6",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

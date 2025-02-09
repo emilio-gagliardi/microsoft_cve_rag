@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Microsoft Bluetooth driver spoofing vulnerability (CVE-2024-21306), apply the relevant updates listed below:\n\n1. Download and install the appropriate KB articles based on your system version:\n   - For Windows 11 Version 23H2, use KB5034123\n   - For Windows 11 Version 22H2, use KB5034123\n   - For Windows 11 Version 21H2, use KB5034121\n   - For Windows 10 Version 22H2 (x64 and 32-bit), use KB5034122\n   - For Windows 10 Version 21H2 (x64 and 32-bit), use KB5034122\n   - For Windows 10 for 32-bit Systems, use KB5034129\n\n2. Access the corresponding update packages from the following links:\n   - [KB5034121](https://catalog.update.microsoft.com/Search.aspx?q=KB5034121)\n   - [KB5034123](https://catalog.update.microsoft.com/Search.aspx?q=KB5034123)\n   - [KB5034130](https://catalog.update.microsoft.com/Search.aspx?q=KB5034130)\n   - [KB5034122](https://catalog.update.microsoft.com/Search.aspx?q=KB5034122)\n   - [KB5034129](https://catalog.update.microsoft.com/Search.aspx?q=KB5034129)\n\n**Details**:\n- This update resolves the spoofing vulnerability which may allow an attacker to impersonate a Bluetooth device.\n- Ensure your system matches the build numbers listed for compatibility before proceeding with the updates.\n\n**Preconditions**:\n- Verify that the system is running a compatible version of Windows 10 or Windows 11.\n- Backup critical data before proceeding with installation.",
+  "source_id": "a8bd4c96-9476-efbf-0295-e50261e32a92",
+  "source_type": "MSRCPost",
+  "fix_label": "MitigateBluetoothDriverSpoofingCVE202421306",
+  "tags": [
+    "KB5034121",
+    "KB5034122",
+    "KB5034123",
+    "BluetoothDriver"
+  ],
+  "node_id": "cf404622-c538-4835-bd80-8ace2a4d9848",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

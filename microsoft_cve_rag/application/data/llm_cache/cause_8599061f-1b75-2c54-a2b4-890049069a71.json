@@ -1,0 +1,20 @@
+{
+  "description": "Improper input validation in the Windows standards-based storage management service can lead to denial of service attacks, allowing attackers to disrupt access to resources. Specifically, this vulnerability occurs due to insufficient checks on inputs received by the service, which can be exploited over a network, affecting service availability.",
+  "cause_label": "windows_storage_management_service_input_validation_issue",
+  "source_id": "8599061f-1b75-2c54-a2b4-890049069a71",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8599061f-1b75-2c54-a2b4-890049069a71"
+  ],
+  "tags": [
+    "Windows",
+    "Denial of Service",
+    "Input Validation",
+    "CVE-2024-26197"
+  ],
+  "node_id": "239a9400-6adb-4c89-a39f-1f91e3aa1fa4",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,22 @@
+{
+  "tool_label": "sql_security_updates_listing",
+  "description": "**Tool Overview**:\n\nThis resource provides a definitive listing of SQL security updates to ensure your SQL environment remains up-to-date and secure.\n\n**Details**:\nThis tool helps administrators quickly locate the latest SQL security updates, their release notes, and installation instructions. By using the provided link, users can access comprehensive information about available updates, which enhances visibility and simplifies patch management processes:\n1. Navigate to the provided URL to access the listing.\n2. Check the latest build numbers and KB articles associated with specific updates.\n3. Follow the installation instructions for applying updates effectively.\n4. Regularly monitor this listing to stay informed about new releases.\n5. Keep a record of applied updates to maintain compliance and security in your SQL environment.",
+  "source_id": "fab19330-e97c-4800-a7d6-b0f4ba0c177c",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "fab19330-e97c-4800-a7d6-b0f4ba0c177c"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em4f34dcc1-14bd-4166-bd56-9ac986056aae%402eb410ea.com",
+  "tool_url": "https://learn.microsoft.com/en-us/troubleshoot/sql/releases/download-and-install-latest-updates",
+  "tags": [
+    "SQL",
+    "patch management",
+    "updates",
+    "LLM Synthesized"
+  ],
+  "node_id": "6d4aa88b-280b-4d86-a662-b79b38dace62",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

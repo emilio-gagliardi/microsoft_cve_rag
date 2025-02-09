@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the vulnerabilities found in the Bosch Rexroth Handheld Nutrunner NXA015S-36V-B, it is recommended to:\n\n1. Review the manufacturer's documentation and security advisories from Bosch.\n2. Apply any firmware updates released by Bosch that address these security vulnerabilities.\n3. Implement network segmentation to isolate the device from critical infrastructure to limit exposure to attacks.\n4. Monitor network traffic for any unusual behavior that may indicate exploitation of the vulnerabilities.\n\n**Details**:\n- Ensure that all operational protocols are followed during updates to prevent service disruptions. (LLM Synthesized)\n",
+  "source_id": "a0519505-5298-4d43-9e1c-8ef9fb158e6b",
+  "source_type": "PatchManagementPost",
+  "fix_label": "MitigateBoschRexrothHandheldNutrunnerVulnerabilities",
+  "tags": [
+    "BoschRexroth",
+    "NetworkConnectedTools",
+    "VulnerabilityMitigation",
+    "LLM Synthesized"
+  ],
+  "node_id": "2840dc25-dc9c-4e42-b9aa-b93e696ca26a",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

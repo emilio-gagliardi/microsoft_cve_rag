@@ -1,0 +1,23 @@
+{
+  "tool_label": "sql_server_odbc_and_ole_db_hotfixes",
+  "description": "**Tool Overview**:\n\nThe security hotfixes released for ODBC and OLE DB drivers are critical for maintaining the integrity and security of SQL Server environments. These hotfixes address vulnerabilities that, if left unpatched, could lead to security breaches or data loss.\n\n**Details:**\n1. These updates specifically target SQL Server 2019 and SQL Server 2022, ensuring compatibility and security.\n2. The hotfixes include various improvements and fixed issues related to database connectivity and performance.\n3. It is recommended that administrators apply these updates to mitigate potential security risks.\n4. For detailed installation instructions, refer to the official Microsoft documentation.\n5. Links to the updates can be found on Microsoft Tech Community Blog posts that detail their functionalities and enhancements.\n\n**References**:\n- [Security Update for SQL Server 2019 RTM](https://techcommunity.microsoft.com/t5/sql-server-blog/security-update-for-sql-server-2019-rtm/ba-p/4109590)\n- [Update Security Hotfixes for ODBC and OLE DB Drivers](https://techcommunity.microsoft.com/t5/sql-server-blog/update-security-hotfixes-released-for-odbc-and-ole-db-drivers/ba-p/4107575)\n\n",
+  "source_id": "7830e0a5-f640-b744-166e-2798d489f266",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "7830e0a5-f640-b744-166e-2798d489f266"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em515938b9-28ea-48f1-a273-d875d36f4d4a%402eb410ea.com",
+  "tool_url": "https://techcommunity.microsoft.com/t5/sql-server-blog/update-security-hotfixes-released-for-odbc-and-ole-db-drivers/ba-p/4107575",
+  "tags": [
+    "SQL Server",
+    "hotfix",
+    "ODBC",
+    "OLE DB",
+    "security"
+  ],
+  "node_id": "492290ae-0f0b-4302-b399-1b061624be4c",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

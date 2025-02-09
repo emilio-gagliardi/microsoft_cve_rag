@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows kernel elevation of privilege vulnerability described in CVE-2024-20693:\n\n1. Ensure your system is updated to a compatible build, including:\n   - Build 19045.4291\n   - Build 19044.4291\n   - Build 22631.3447\n   - Build 22000.2899\n   - Build 22621.3447\n   - Build 10240.20596\n\n2. Apply the relevant updates:\n   - KB-5036925\n   - KB-5036894\n   - KB-5036893\n   - KB-5036892\n\n**Details**:\n- These updates address an Untrusted Search Path issue in the Windows kernel that could allow an attacker to gain elevated privileges. Ensure that all relevant updates are applied to enhance system security. Backup important data before proceeding with the updates.\n",
+  "source_id": "ab87ee91-51a9-4689-a362-ebea9c41d63e",
+  "source_type": "MSRCPost",
+  "fix_label": "address_windows_kernel_elevation_of_privilege_cve202420693",
+  "tags": [
+    "KB5036925",
+    "WindowsKernel",
+    "ElevationOfPrivilege",
+    "CVE202420693"
+  ],
+  "node_id": "cc9b1876-f493-4ef9-9d02-69c78d86efaf",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "ab87ee91-51a9-4689-a362-ebea9c41d63e"
+  ]
+}

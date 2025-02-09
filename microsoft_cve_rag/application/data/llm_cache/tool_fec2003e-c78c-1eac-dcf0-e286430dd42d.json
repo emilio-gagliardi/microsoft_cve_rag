@@ -1,0 +1,23 @@
+{
+  "tool_label": "critical_moveit_vulnerability_analysis_tool",
+  "description": "**Tool Overview**:\n\nThis tool helps in analyzing critical vulnerabilities such as MOVEit vulnerabilities that may pose severe risks to large sections of the Internet.\n\n**Details**:\n1. The tool scans for known vulnerabilities affecting the MOVEit platform, assisting administrators in identifying exposed systems.\n2. It compiles a report detailing affected components, recommended mitigation steps, and any exploitable weaknesses.\n3. Ideal for system administrators tasked with ensuring compliance and protecting against breaches, this tool emphasizes thorough analysis of potential vulnerabilities.\n4. The user can provide parameters such as specific CVEs of interest and target systems to tailor the analysis.\n5. Additionally, it offers suggestions for patch management or remediation actions to enhance security postures.",
+  "source_id": "fec2003e-c78c-1eac-dcf0-e286430dd42d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "fec2003e-c78c-1eac-dcf0-e286430dd42d"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/A7F6F552-FE50-4678-BB32-7E6F0F759237%40teamits.com",
+  "tool_url": "",
+  "tags": [
+    "MOVEit",
+    "vulnerability analysis",
+    "network security",
+    "LLM Synthesized"
+  ],
+  "node_id": "ef90ad52-f137-4140-b41c-4e7caa726577",
+  "node_label": "Tool",
+  "reliability": 0.6,
+  "severity_type": "critical",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

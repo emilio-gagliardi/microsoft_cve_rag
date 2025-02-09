@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo effectively block Microsoft CoPilot during regular business hours:\n\n1. Implement Software Restriction Policies (SRP) within your organization's Group Policy.\n2. Create a rule to block the CoPilot application entirely.\n\n**Details**:\n- Software Restriction Policies provide a mechanism to specify which applications can run and under what circumstances. This method helps in controlling user access to specific applications.\n- It is advisable to review and test the policy in a non-production environment to ensure that it does not inadvertently affect other applications or services. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure you have administrative access to the Group Policy Management Console.\n- Test the SRP in a controlled group before rolling it out organization-wide.",
+  "source_id": "1dd19601-70ec-af46-bd2c-abf3cde77428",
+  "source_type": "PatchManagementPost",
+  "fix_label": "block_copilot_using_software_restriction_policies",
+  "tags": [
+    "SoftwareRestrictionPolicies",
+    "CoPilot",
+    "Microsoft",
+    "LLM Synthesized"
+  ],
+  "node_id": "ab46f0ff-1754-4fd2-8c30-9fadd0b44cb3",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "1dd19601-70ec-af46-bd2c-abf3cde77428"
+  ]
+}

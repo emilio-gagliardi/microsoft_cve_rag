@@ -1,0 +1,16 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Local Security Authority Subsystem Service elevation of privilege vulnerability (CVE-2023-36391):\n\n1. Install the KB5033375 update by downloading it from the official Windows Update catalog.\n2. Ensure your system is running Windows 11 Version 23H2 for x64-based Systems with build number 10.0.22631.2861.\n3. Restart your system after installation to ensure that the update takes effect.\n\n**Details**:\n- This update addresses vulnerabilities that could allow local attackers to gain elevated privileges, compromising system security.\n- For manual installation, the update package can be downloaded from: https://catalog.update.microsoft.com/Search.aspx?q=KB5033375.\n\n**Preconditions**:\n- Make sure your system meets the requirements of the specified build.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "dce03a48-9e2a-8366-d1bf-9cd56eb389c9",
+  "source_type": "MSRCPost",
+  "fix_label": "InstallKb5033375ToMitigateCve202336391",
+  "tags": [
+    "KB5033375",
+    "Windows11",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "44bef582-bf8e-4042-9dc9-10e51c300216",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

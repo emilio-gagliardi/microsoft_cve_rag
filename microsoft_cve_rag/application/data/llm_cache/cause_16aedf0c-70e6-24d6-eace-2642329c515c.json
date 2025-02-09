@@ -1,0 +1,21 @@
+{
+  "description": "A denial of service issue arises from uncontrolled resource consumption in the BranchCache component, allowing attackers to exhaust system resources, leading to service unavailability. This vulnerability can be exploited remotely through network interactions without requiring user authentication or interaction.",
+  "cause_label": "branchcache_denial_of_service_uncontrolled_resource_consumption",
+  "source_id": "16aedf0c-70e6-24d6-eace-2642329c515c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "16aedf0c-70e6-24d6-eace-2642329c515c"
+  ],
+  "tags": [
+    "denial_of_service",
+    "branchcache",
+    "remote_exploit",
+    "uncontrolled_resource_consumption"
+  ],
+  "node_id": "5bc747e3-746c-4b56-9098-226ae7956104",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

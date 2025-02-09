@@ -1,0 +1,21 @@
+{
+  "description": "Improper access control in Windows Installer allows local attackers to elevate privileges by executing a specially crafted application, potentially gaining control over the affected system.",
+  "cause_label": "windows_installer_improper_access_control_elevation",
+  "source_id": "a533e315-7c0e-e408-4517-e5bd8cf84914",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a533e315-7c0e-e408-4517-e5bd8cf84914"
+  ],
+  "tags": [
+    "Windows",
+    "Installer",
+    "Elevation of Privilege",
+    "CVE-2024-21436",
+    "Access Control"
+  ],
+  "node_id": "835117ee-7dba-4a19-819d-bf601bd43af6",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

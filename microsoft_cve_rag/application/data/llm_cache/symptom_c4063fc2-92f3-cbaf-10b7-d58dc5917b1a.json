@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_browser_experiences_heap_corruption",
+  "description": "Users of Microsoft Edge (Chromium-based) version 126.0.2592.56 may experience instability due to an underlying heap corruption issue related to a use-after-free vulnerability. This could manifest as unexpected crashes of the browser when opening certain webpages that utilize advanced features or scripted content. Users may also notice performance degradation, such as slow page load times or unresponsive tabs when interacting with affected sites. Following the security update, the latest version attempts to mitigate these issues by addressing the identified vulnerability, thus enhancing overall browser stability and security. For more information, refer to KB-126.0.2592.56 and its associated release notes dated June 13, 2024.",
+  "source_id": "c4063fc2-92f3-cbaf-10b7-d58dc5917b1a",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c4063fc2-92f3-cbaf-10b7-d58dc5917b1a"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Heap Corruption",
+    "Browser Stability",
+    "Update"
+  ],
+  "node_id": "90a2d8f4-525f-4c85-9fff-5b7dd1b1a634",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

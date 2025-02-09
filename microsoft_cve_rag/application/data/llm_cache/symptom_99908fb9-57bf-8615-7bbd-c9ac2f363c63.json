@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_themes_spoofing_can_lead_to_confusion",
+  "description": "Users may experience confusion or misrepresentation of system themes after applying the update associated with KB5040442 on multiple Windows 10 and 11 builds, specifically including 10.0.22631.3880 and 10.0.22621.3880. The visible change in the Windows interface can lead to a degraded user experience as familiar visuals are altered unexpectedly. This symptom can also impact the perception of system performance and reliability, raising concerns among system administrators about the integrity of the system. The spoofing behavior can lead users to inadvertently trust misleading themes, creating potential for unauthorized disclosure of sensitive information. This behavior is consistent across affected versions and demonstrates the importance of attention during updates.",
+  "source_id": "99908fb9-57bf-8615-7bbd-c9ac2f363c63",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "99908fb9-57bf-8615-7bbd-c9ac2f363c63"
+  ],
+  "tags": [
+    "Windows",
+    "Themes",
+    "Spoofing",
+    "User Experience"
+  ],
+  "node_id": "e796506a-eb8a-46d8-b4ee-7f7ca6eadeef",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

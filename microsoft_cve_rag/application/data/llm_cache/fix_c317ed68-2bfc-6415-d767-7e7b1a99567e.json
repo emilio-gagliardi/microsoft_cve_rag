@@ -1,0 +1,16 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve issues with Windows Update on devices where version 21H2 has reached the end of updates:\n\n1. Upgrade the operating system to the next version (e.g., 22H2) which supersedes all previous Windows Update files.\n2. Follow the installation prompts to complete the upgrade process.\n\n**Details**:\n- This upgrade will replace any outdated Windows Update files, potentially resolving persistent update issues.\n- Ensure to test the upgrade on a non-critical system before pushing it to production environments to evaluate potential impacts. \n",
+  "source_id": "c317ed68-2bfc-6415-d767-7e7b1a99567e",
+  "source_type": "PatchManagementPost",
+  "fix_label": "UpgradeToNextVersionToResolveWUProblems",
+  "tags": [
+    "WindowsUpdate",
+    "21H2EndOfUpdates",
+    "UpgradeProcess"
+  ],
+  "node_id": "cc151950-7820-44c8-a19d-fa37209142ac",
+  "node_label": "Fix",
+  "reliability": "0.8",
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

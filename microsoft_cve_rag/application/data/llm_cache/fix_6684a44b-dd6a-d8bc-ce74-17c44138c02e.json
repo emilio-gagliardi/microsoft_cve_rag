@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo manage DHCP services efficiently in a Windows environment:\n\n1. Consider utilizing a non-domain controller (non-DC) Windows server for the DHCP service. \n2. Analyze the potential increase in your license count and administrative overhead.\n3. Maintain dynamic updates by configuring the DHCP service correctly, ensuring non-privileged accounts are specified as needed.\n4. Evaluate the feasibility of removing DHCP from Domain Controllers if appropriate, based on your company\u2019s specific architecture.\n\n**Details**:\n- Ensure that remote locations with limited bandwidth have their DHCP functions correctly configured to avoid overloading existing systems. (LLM Synthesized)\n\n**Preconditions**:\n- Assess your current server resources before implementation to prevent performance degradation.",
+  "source_id": "6684a44b-dd6a-d8bc-ce74-17c44138c02e",
+  "source_type": "PatchManagementPost",
+  "fix_label": "manage_dhcp_service_non_dc_environment",
+  "tags": [
+    "WindowsServer",
+    "DHCPManagement",
+    "Virtualization",
+    "LLM Synthesized"
+  ],
+  "node_id": "c6042f4d-0763-4476-987b-f7b952184a9d",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "6684a44b-dd6a-d8bc-ce74-17c44138c02e"
+  ]
+}

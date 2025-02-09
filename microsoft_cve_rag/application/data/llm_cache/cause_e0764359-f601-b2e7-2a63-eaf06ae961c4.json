@@ -1,0 +1,20 @@
+{
+  "description": "The underlying cause of the issue described in the post is the misconfiguration of the Windows Recovery Environment (WinRE) partition adjacent to the system partition (C:). When the WinRE partition is improperly sized or placed, it can hinder the ability to resize the C: partition effectively. For instance, if the WinRE partition lacks adequate free space\u2014such as having only 150 MB of free space while needing to be increased to 1024 MB\u2014it presents a significant barrier to partition management. This misconfiguration can lead to operational challenges where standard Windows tools fail to allocate disk space correctly. The suggested resolution steps to backup the device, delete restore points, and enable proper resizing highlight the importance of maintaining appropriate partition sizes for system stability and backup capabilities.",
+  "source_id": "e0764359-f601-b2e7-2a63-eaf06ae961c4",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e0764359-f601-b2e7-2a63-eaf06ae961c4"
+  ],
+  "cause_label": "improper_winre_partition_configuration",
+  "tags": [
+    "WinRE",
+    "partition_management",
+    "disk_space",
+    "system_restore"
+  ],
+  "node_id": "47797dce-01c0-4d0b-9030-d05ea1df2eb8",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

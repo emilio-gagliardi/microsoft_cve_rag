@@ -1,0 +1,22 @@
+{
+  "description": "The underlying issue is the improper input validation in the Windows Common Log File System Driver, allowing local attackers to elevate privileges by exploiting the vulnerability through read/write/execute capabilities. This occurs in environments where user interaction or specific configurations are not needed, potentially leading to a total loss of confidentiality and integrity for affected systems.",
+  "cause_label": "windows_common_log_file_system_driver_improper_input_validation",
+  "source_id": "0a204902-a410-cd43-ebff-1200a9adf23e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0a204902-a410-cd43-ebff-1200a9adf23e"
+  ],
+  "tags": [
+    "CVE-2024-38196",
+    "input validation",
+    "elevation of privilege",
+    "Windows",
+    "common log file system"
+  ],
+  "node_id": "a6cce095-4ccb-43f2-98dc-bcd5798442ed",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

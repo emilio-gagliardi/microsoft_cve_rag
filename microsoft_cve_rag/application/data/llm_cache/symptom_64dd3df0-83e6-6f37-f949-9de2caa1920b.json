@@ -1,0 +1,21 @@
+{
+  "symptom_label": "chrome_131_tls_middlebox_incompatibility_issue",
+  "description": "The introduction of Chrome 131 has enabled the use of new machine learning key exchange mechanisms, which may cause compatibility issues with certain TLS middleboxes. This incompatibility can prevent proper communication and data transfer when utilizing services that rely on these middleboxes. Administrators may observe errors or degraded performance in applications like ServiceNow due to this conflict. As a temporary workaround, it is recommended to disable the postquantum key agreement feature in Chrome via Group Policy. Specifically, set 'software\\policies\\google\\chrome\\postquantumkeyagreementenabled' to 0 to mitigate these issues until a long-term solution is implemented.",
+  "source_id": "64dd3df0-83e6-6f37-f949-9de2caa1920b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "64dd3df0-83e6-6f37-f949-9de2caa1920b"
+  ],
+  "tags": [
+    "chrome",
+    "tls",
+    "middlebox",
+    "workaround"
+  ],
+  "node_id": "f56c8011-9982-4c8e-88ef-f481cf641420",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

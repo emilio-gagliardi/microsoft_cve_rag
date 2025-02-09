@@ -1,0 +1,17 @@
+{
+  "symptom_label": "RemoteDesktopConnectionFailsDueToNLAError",
+  "description": "International employees are unable to establish Remote Desktop Protocol (RDP) connections to multiple Server 2022 hosts within a Server 2022 domain. They encounter a specific error message indicating that the remote computer requires Network Level Authentication (NLA), but the Windows domain controller cannot be contacted to perform NLA. This issue occurs periodically, and while re-adding the machines to the domain temporarily resolves the issue, it reoccurs every few weeks, interrupting operational continuity.",
+  "source_id": "8c1add2b-ea27-d196-1aa7-30d63c613dda",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "RDP",
+    "Server2022",
+    "NLA",
+    "WindowsDomainController"
+  ],
+  "node_id": "99b9b665-5168-4040-9225-da73cc089567",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

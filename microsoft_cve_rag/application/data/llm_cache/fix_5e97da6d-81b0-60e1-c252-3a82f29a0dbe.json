@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the requirement for a TPM chip in Windows 11 installations:\n\n1. Add a vTPM (Virtual Trusted Platform Module) in your vSphere environment to meet Windows 11's hardware requirements.\n2. Proceed to create Windows 11 test virtual machines (VMs) with the virtualized TPM enabled.\n\n**Details**:\n- Ensuring that a TPM chip is present is a prerequisite for installing Windows 11. By utilizing vTPM within vSphere, you can effectively simulate the necessary hardware capabilities.\n- Collaborate with your desktop team to create appropriate test VMs and share insights regarding any additional changes or settings necessary to support this OS deployment. (LLM Synthesized)",
+  "source_id": "5e97da6d-81b0-60e1-c252-3a82f29a0dbe",
+  "source_type": "PatchManagementPost",
+  "fix_label": "enable_vtpm_for_windows11_test_vms",
+  "tags": [
+    "Windows11",
+    "vTPM",
+    "vSphere",
+    "LLM Synthesized"
+  ],
+  "node_id": "bc876988-9e64-457d-a1bd-5809c5df5f85",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "5e97da6d-81b0-60e1-c252-3a82f29a0dbe"
+  ]
+}

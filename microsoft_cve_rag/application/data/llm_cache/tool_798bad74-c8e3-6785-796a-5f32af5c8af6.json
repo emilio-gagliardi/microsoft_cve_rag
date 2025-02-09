@@ -1,0 +1,23 @@
+{
+  "tool_label": "windows_ip_routing_management_snapin",
+  "description": "**Tool Overview**:\n\nThe Windows IP Routing Management Snap-in is a component used for managing network configurations in Windows environments. This tool facilitates the configuration of IP routing parameters, allowing administrators to manage and monitor routing through a graphical interface.\n\n**Details**:\nThis snap-in helps system administrators maintain efficient network routing within Windows Server and client environments. The management console provides options for:\n1. Configuring routing protocols.\n2. Managing routing tables.\n3. Monitoring network traffic.\n4. Diagnosing network issues related to IP routing.\n\nTo access this tool, users typically run the Microsoft Management Console (MMC) and load the IP Routing Snap-in.\n\nUsage example:\n- Open MMC and add the IP Routing Snap-in to begin managing IP routing settings.",
+  "source_id": "798bad74-c8e3-6785-796a-5f32af5c8af6",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "798bad74-c8e3-6785-796a-5f32af5c8af6"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38116",
+  "tool_url": "",
+  "tags": [
+    "network management",
+    "routing",
+    "Windows",
+    "administration"
+  ],
+  "node_id": "daf405ba-ff70-4b72-a285-b55cf97ba9af",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

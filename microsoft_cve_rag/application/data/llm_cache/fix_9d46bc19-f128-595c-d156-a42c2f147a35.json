@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address potential issues related to the updated SQL Server Management Studio (SSMS) and associated drivers, it is recommended to install the latest versions of the Microsoft ODBC and OLE DB drivers:\n\n1. Download the newest versions of the drivers from the official Microsoft website.\n2. Install MSODBCSQL version 17.10.6.1 and MSOLEDBSQL version 18.7.2.\n3. If you have older versions of these drivers installed, reboot your system after installation to ensure changes take effect.\n\n**Details**:\n- These updates include security enhancements and are vital for maintaining database connectivity and integrity. It's crucial to check the release notes for any specific instructions or compatibility considerations before proceeding. (LLM Synthesized)\n",
+  "source_id": "9d46bc19-f128-595c-d156-a42c2f147a35",
+  "source_type": "PatchManagementPost",
+  "fix_label": "update_sql_drivers_to_resolve_compatibility_issues",
+  "tags": [
+    "MSODBCSQL",
+    "MSOLEDBSQL",
+    "DriverUpdate",
+    "LLM Synthesized"
+  ],
+  "node_id": "309e38ae-6276-4378-92b1-cd5ef04ab29f",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "9d46bc19-f128-595c-d156-a42c2f147a35"
+  ]
+}

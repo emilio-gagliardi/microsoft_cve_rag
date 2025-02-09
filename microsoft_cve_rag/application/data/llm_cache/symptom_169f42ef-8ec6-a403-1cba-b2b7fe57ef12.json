@@ -1,0 +1,16 @@
+{
+  "symptom_label": "Windows11LcuServicingProcessIssues",
+  "description": "The post implies a typical scenario where system administrators may face challenges in servicing Windows 11 installations using the latest cumulative updates (LCUs). Specifically, the context suggests an operational routine where administrators must download the necessary ISO images (e.g., Windows 11 Business Editions Version 23H2) and align their servicing processes with the release cycles of the LCUs. Failure to adequately manage this workflow may lead to outdated systems or complications in deployment, potentially affecting overall system performance and stability.",
+  "source_id": "169f42ef-8ec6-a403-1cba-b2b7fe57ef12",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows",
+    "ISO Management",
+    "LCU Process"
+  ],
+  "node_id": "14d5ce69-a8e8-4ad6-acb2-90b22026c963",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

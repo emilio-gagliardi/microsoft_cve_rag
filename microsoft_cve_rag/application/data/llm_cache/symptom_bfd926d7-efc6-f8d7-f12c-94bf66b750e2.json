@@ -1,0 +1,20 @@
+{
+  "symptom_label": "inability_to_retrieve_current_bios_information",
+  "description": "System administrators may encounter difficulties when attempting to retrieve the current BIOS version and manufacturer information from a system. This issue can arise when using PowerShell commands such as 'Get-WmiObject win32_ComputerSystem' or 'Get-WmiObject win32_bios'. The failure to execute these commands properly can lead to a lack of visibility into critical system configurations, potentially impacting system management and compliance checks. If the information is not accurately reported, it may hinder the success of BIOS updates or system upgrades that depend on knowing the correct BIOS version. Regular monitoring of BIOS versions is essential for maintaining optimal performance and reliability in server environments.",
+  "source_id": "bfd926d7-efc6-f8d7-f12c-94bf66b750e2",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "bfd926d7-efc6-f8d7-f12c-94bf66b750e2"
+  ],
+  "tags": [
+    "PowerShell",
+    "BIOS",
+    "WMI",
+    "System Management"
+  ],
+  "node_id": "91c221f3-0dcc-464b-be57-7155417b7484",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

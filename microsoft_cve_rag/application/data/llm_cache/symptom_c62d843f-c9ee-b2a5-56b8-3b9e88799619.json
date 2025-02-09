@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_shows_ui_spoofing_risk",
+  "description": "Users of Microsoft Edge (Chromium-based) version 129.0.2792.52 may experience risks of UI spoofing when visiting certain web pages crafted specifically to exploit this vulnerability. The affected versions allow for deceptive elements to be presented on the interface, potentially leading to user confusion and misrepresentation of legitimate actions. Following the release of KB-129.0.2792.52 on September 19, 2024, users are advised to ensure their browser is updated to version 129.0.6668.58 or later to mitigate these risks and maintain a secure browsing experience. System administrators should monitor browser updates closely and inform users to check their version through the help and feedback menu in Edge to confirm they're protected against this issue.",
+  "source_id": "c62d843f-c9ee-b2a5-56b8-3b9e88799619",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c62d843f-c9ee-b2a5-56b8-3b9e88799619"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "UI Spoofing",
+    "Chromium",
+    "Browser Security"
+  ],
+  "node_id": "a739315c-b417-4d7a-9309-6814e0c61aa2",
+  "node_label": "Symptom",
+  "reliability": 0.09,
+  "severity_type": "low",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

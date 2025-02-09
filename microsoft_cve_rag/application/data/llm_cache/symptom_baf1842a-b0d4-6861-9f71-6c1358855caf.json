@@ -1,0 +1,20 @@
+{
+  "symptom_label": "account_reuse_attempt_requires_domain_admins_group",
+  "description": "When attempting to reuse an account, an observable behavior occurs where reuse is permitted only if the account was created by a member of the Domain Administrators group. This behavior might lead to confusion if the domain administrator did not create the computer object they are trying to reuse. For proper functioning, the Domain Administrators group must be included in the related Group Policy Object (GPO) setting. Failure to do so may result in erroneous account reuse attempts and hinder domain join operations. This is particularly critical for environments requiring newly created machine accounts to be reused effectively.",
+  "source_id": "baf1842a-b0d4-6861-9f71-6c1358855caf",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "baf1842a-b0d4-6861-9f71-6c1358855caf"
+  ],
+  "tags": [
+    "account_reuse",
+    "domain_admins",
+    "group_policy",
+    "domain_join"
+  ],
+  "node_id": "2cf657c4-0cf0-44cd-89e4-4beed319fb98",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

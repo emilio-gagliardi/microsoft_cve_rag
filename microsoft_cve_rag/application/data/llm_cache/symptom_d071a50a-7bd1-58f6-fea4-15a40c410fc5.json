@@ -1,0 +1,22 @@
+{
+  "symptom_label": "elevation_of_privilege_due_to_powershell_vulnerability",
+  "description": "End users may experience unauthorized access or elevated privileges on their Windows systems following the exploitation of a PowerShell vulnerability (CVE-2024-38033). This issue affects several Windows builds, including Windows 10 (versions 21H2, 22H2, and various 32-bit and x64 versions), and Windows 11 (version 23H2). Users could notice unusual behavior such as the ability to perform administrative tasks without proper authorization or control over system settings, which could lead to significant security risks. The scenarios might include unauthorized installations of applications or alterations to crucial system files. These behaviors stem from improper input validation within PowerShell, necessitating updates provided in KB-5040427, KB-5040448, and other related articles to mitigate the risks associated with this elevation of privilege.",
+  "source_id": "d071a50a-7bd1-58f6-fea4-15a40c410fc5",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d071a50a-7bd1-58f6-fea4-15a40c410fc5"
+  ],
+  "tags": [
+    "PowerShell",
+    "Elevation of Privilege",
+    "Windows 10",
+    "Windows 11",
+    "Security Update"
+  ],
+  "node_id": "4e4ba5f1-d9a7-4ed5-87ce-a379a43b1895",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the BitLocker security feature bypass vulnerability (CVE-2024-20665):\n\n1. Apply the relevant KB articles: KB-5036925, KB-5036910, KB-5036909, KB-5036896, KB-5036894, KB-5036893, and KB-5036892.\n2. Ensure you are running one of the following build numbers: 10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, 10.0.22621.3447, or 10.0.10240.20596.\n3. Restart your system after applying the updates to ensure full implementation of the fixes.\n\n**Details**:\n- These updates resolve the vulnerability by reinforcing protections for the BitLocker feature. \n- It is crucial to back up any important data before initiating the update process.",
+  "source_id": "1c6164d0-b49a-9808-0bd1-fe81e6b0971c",
+  "source_type": "MSRCPost",
+  "fix_label": "address_bitlocker_feature_bypass_cve202420665",
+  "tags": [
+    "KB5036925",
+    "BitLocker",
+    "CVE202420665",
+    "Update"
+  ],
+  "node_id": "c5934960-afe8-4ad6-9651-763708293a72",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "1c6164d0-b49a-9808-0bd1-fe81e6b0971c"
+  ]
+}

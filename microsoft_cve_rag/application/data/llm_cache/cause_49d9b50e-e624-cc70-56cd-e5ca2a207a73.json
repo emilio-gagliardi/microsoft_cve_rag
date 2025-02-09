@@ -1,0 +1,21 @@
+{
+  "description": "Heap-based buffer overflow in the secure boot feature due to flawed memory allocation handling, affecting specified Windows build numbers.",
+  "cause_label": "secure_boot_heap_based_buffer_overflow",
+  "source_id": "49d9b50e-e624-cc70-56cd-e5ca2a207a73",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "49d9b50e-e624-cc70-56cd-e5ca2a207a73"
+  ],
+  "tags": [
+    "CVE-2024-28896",
+    "Heap",
+    "Buffer Overflow",
+    "Secure Boot",
+    "Windows"
+  ],
+  "node_id": "0d7d539e-e387-42bd-873b-80e45f9b6c05",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

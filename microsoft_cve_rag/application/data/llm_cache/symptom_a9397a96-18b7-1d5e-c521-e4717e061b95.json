@@ -1,0 +1,20 @@
+{
+  "symptom_label": "bypass_authentication_measures_create_admin_account",
+  "description": "A server-side flaw in ScreenConnect allows an unauthorized individual with access to a client PC to bypass critical authentication measures. This security oversight enables them to create administrative accounts on publicly exposed instances, thus permitting a complete takeover of those systems. In this scenario, the malicious user could delete other user accounts, thereby gaining total control over the affected instance. Such vulnerabilities underscore the importance of timely patch deployment to prevent exploitation by individuals who could deploy malware or perform unauthorized actions. KB articles and build references have not been specified, but the critical measures are essential for maintaining system integrity and preventing unauthorized access.",
+  "source_id": "a9397a96-18b7-1d5e-c521-e4717e061b95",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "a9397a96-18b7-1d5e-c521-e4717e061b95"
+  ],
+  "tags": [
+    "authentication_bypass",
+    "administrative_access",
+    "server_side_flaw",
+    "screenconnect"
+  ],
+  "node_id": "54d31ad8-90b2-4674-beee-3965b3113138",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

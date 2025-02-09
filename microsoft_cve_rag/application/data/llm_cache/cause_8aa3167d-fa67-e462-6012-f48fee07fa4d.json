@@ -1,0 +1,22 @@
+{
+  "description": "The underlying cause of the issue is the default configuration of Group Policy Objects (GPOs) regarding cached logins, which permits up to 10 cached logons by default. This setting poses a risk as it may allow unauthorized access if a user's account is compromised while they are already logged in. Microsoft, NIST, and other authorities recommend reducing this allowance to zero to enhance security measures. Additionally, the issue is compounded by the distinction between unlocking an already logged-in account and creating a new session when no active session exists. Tightening this GPO setting is essential for improving security protocols in a domain environment.",
+  "source_id": "8aa3167d-fa67-e462-6012-f48fee07fa4d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "8aa3167d-fa67-e462-6012-f48fee07fa4d"
+  ],
+  "cause_label": "gpos_allowance_for_cached_logons_excessive",
+  "tags": [
+    "GPO",
+    "cached logons",
+    "security settings",
+    "authentication",
+    "domain account"
+  ],
+  "node_id": "62590aed-7d07-4309-8ff5-b1ed80aad0a4",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_os_elevation_of_privilege_exploit",
+  "description": "The detection of known exploits for an elevation of privilege vulnerability in the Windows DWM core library (CVE-2024-30051) indicates that attackers could gain system privileges on affected systems. This vulnerability is rated as important by Microsoft and has a CVSS score of 7.8, highlighting its potential impact. System administrators should prioritize updates to mitigate risks associated with this issue, as it affects the Windows OS directly. The presence of confirmed exploitation necessitates an immediate risk-based approach to patching to secure environments effectively. Additionally, KB30051 is the relevant Knowledge Base article for further details regarding this update.",
+  "source_id": "8d6c4cf2-2e2b-1371-8cfb-33442b4a7270",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "8d6c4cf2-2e2b-1371-8cfb-33442b4a7270"
+  ],
+  "tags": [
+    "windows",
+    "elevation_of_privilege",
+    "CVE-2024-30051",
+    "patch_management"
+  ],
+  "node_id": "cdd1b4b9-8285-421e-a209-fe2dc1892075",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

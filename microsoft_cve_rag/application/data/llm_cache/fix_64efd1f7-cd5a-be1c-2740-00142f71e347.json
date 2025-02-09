@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Enroll Engine security feature bypass vulnerability (CVE-2024-38069), apply the relevant updates based on your system configuration:\n\n1. Identify the version of Windows running on your x64-based systems.\n2. Download and install the appropriate KB update:\n   - For Windows 11 Version 23H2: [KB5040442](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442)\n   - For Windows 11 Version 22H2: [KB5040442](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442)\n   - For Windows 11 Version 21H2: [KB5040431](https://catalog.update.microsoft.com/Search.aspx?q=KB5040431)\n   - For Windows 10 Version 22H2: [KB5040427](https://catalog.update.microsoft.com/Search.aspx?q=KB5040427)\n   - For Windows 10 Version 21H2: [KB5040448](https://catalog.update.microsoft.com/Search.aspx?q=KB5040448)\n3. Restart your system to ensure the updates take effect.\n\n**Details**:\nThis update addresses the issue of improper verification of cryptographic signatures that could lead to security feature bypass vulnerabilities. Ensure your system is updated with the latest KB articles relevant to your operating environment.\n\n**Preconditions**:\n- Verify your operating system version before proceeding.\n- Backup important data to prevent potential loss during updates.",
+  "source_id": "64efd1f7-cd5a-be1c-2740-00142f71e347",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_for_enroll_engine_cve202438069",
+  "tags": [
+    "KB5040442",
+    "KB5040431",
+    "Windows11",
+    "SecurityBypass"
+  ],
+  "node_id": "f6c4c167-01ee-4782-a8d3-e36a7076ca25",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "64efd1f7-cd5a-be1c-2740-00142f71e347"
+  ],
+  "verification_status": "unverified"
+}

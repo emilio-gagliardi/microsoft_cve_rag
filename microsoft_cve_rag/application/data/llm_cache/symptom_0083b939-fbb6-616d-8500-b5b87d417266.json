@@ -1,0 +1,16 @@
+{
+  "symptom_label": "ElevationOfPrivilegeOnWindowsSearchService",
+  "description": "Users may notice unusual behavior within the Windows Search Service following the application of security updates KB-5032199, KB-5032192, and KB-5032189, particularly on affected builds such as 10.0.19045.3693, 10.0.22000.2600, and 10.0.10240.20308. This behavior can manifest as unexpected access to restricted functionalities, where users may find capabilities to elevate their privileges inadvertently within the service. Consequently, administrative controls could be bypassed, leading to data exposure or system integrity compromises that regular user access should not permit.",
+  "source_id": "0083b939-fbb6-616d-8500-b5b87d417266",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "elevation of privilege",
+    "Windows"
+  ],
+  "node_id": "8cfc6328-56c1-494f-ab17-686fde535954",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

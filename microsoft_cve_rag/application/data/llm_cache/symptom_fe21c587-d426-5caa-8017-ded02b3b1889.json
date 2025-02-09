@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_remote_code_execution_alerts",
+  "description": "After installing the security update KB-128.0.2739.42 for Microsoft Edge (Chromium-based), users may experience alert messages indicating potential remote code execution risks. This security update addresses a vulnerability that could allow attackers to leverage specially crafted applications or malicious files to execute arbitrary code on the system. As a result, end users might notice warnings or prompts related to untrusted content when attempting to open certain documents or links. Additionally, users may experience unexpected application behavior or performance issues when navigating online resources that could potentially trigger the vulnerability. Overall, the user experience is affected by these alert messages and the need for careful interaction with certain files and links.",
+  "source_id": "fe21c587-d426-5caa-8017-ded02b3b1889",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "fe21c587-d426-5caa-8017-ded02b3b1889"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Remote Code Execution",
+    "Security Update",
+    "User Experience"
+  ],
+  "node_id": "b798feb6-e5d8-444e-85ca-48437d30ccd0",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

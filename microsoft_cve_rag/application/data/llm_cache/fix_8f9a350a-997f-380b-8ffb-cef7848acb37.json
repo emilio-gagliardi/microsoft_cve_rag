@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the use after free vulnerability in tabs of Microsoft Edge (Chromium-based), users should update to the latest version of the browser.\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) in the upper right corner.\n3. Select 'Help and feedback'.\n4. Click on 'About Microsoft Edge' to check for updates.\n5. If an update is available, it will automatically begin downloading and installing.\n\n**Details**:\n- This update addresses a vulnerability that could allow a remote attacker to exploit heap corruption by convincing users to perform specific UI gestures on crafted HTML pages. \n- Ensure your Microsoft Edge version is at least 127.0.2651.74 to be secure against this vulnerability.\n- For more details, refer to the latest Google Chrome releases that impact Microsoft Edge, as they share the same underlying technology.",
+  "source_id": "8f9a350a-997f-380b-8ffb-cef7848acb37",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_127_0_2651_74",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE-2024-6997",
+    "ChromiumUpdate"
+  ],
+  "node_id": "b3c1f2a4-e0cd-45f9-87c4-88f290c57842",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "8f9a350a-997f-380b-8ffb-cef7848acb37"
+  ],
+  "verification_status": "unverified"
+}

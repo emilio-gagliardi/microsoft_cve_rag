@@ -1,0 +1,21 @@
+{
+  "description": "A null pointer dereference in the Windows layer-2 bridge network driver, which can be exploited remotely to cause denial of service, leading to significant impact on system availability. This flaw exists in the network stack binding, allowing attackers on the network to exploit this vulnerability without requiring any privileges or user interaction.",
+  "cause_label": "windows_layer_2_bridge_null_pointer_dereference",
+  "source_id": "c471421e-3f62-a141-715d-8c102b12169c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "c471421e-3f62-a141-715d-8c102b12169c"
+  ],
+  "tags": [
+    "network",
+    "denial_of_service",
+    "null_pointer",
+    "CVE-2024-38146"
+  ],
+  "node_id": "32345b0b-6d8e-40c7-91fa-326697007b39",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

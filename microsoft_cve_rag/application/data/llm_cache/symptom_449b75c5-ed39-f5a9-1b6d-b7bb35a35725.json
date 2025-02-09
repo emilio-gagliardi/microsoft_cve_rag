@@ -1,0 +1,21 @@
+{
+  "symptom_label": "lack_of_bitlocker_encryption_on_windows_home",
+  "description": "The laptop is running Windows 10 Pro, but there is a concern that BitLocker encryption is not enabled. This can expose sensitive data to unauthorized access, especially on devices that are not domain-joined. Without BitLocker, data protection mechanisms are weakened, particularly in the event of theft or loss of the device. Properly enabling BitLocker is crucial in ensuring that data stored on this device remains secure. Users relying solely on a Microsoft account without additional encryption risk potential data breaches, making it imperative to configure the full disk encryption provided by BitLocker.",
+  "source_id": "449b75c5-ed39-f5a9-1b6d-b7bb35a35725",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "449b75c5-ed39-f5a9-1b6d-b7bb35a35725"
+  ],
+  "tags": [
+    "BitLocker",
+    "Windows 10 Pro",
+    "data protection",
+    "encryption"
+  ],
+  "node_id": "d8f03583-ede2-4d20-b5de-4681074bd5b5",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

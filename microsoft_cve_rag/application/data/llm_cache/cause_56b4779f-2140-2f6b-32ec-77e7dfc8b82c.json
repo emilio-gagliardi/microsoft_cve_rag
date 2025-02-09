@@ -1,0 +1,22 @@
+{
+  "description": "Type confusion in V8 engine leading to out-of-bounds write vulnerability, enabling potential heap corruption via crafted HTML.",
+  "cause_label": "chromium_type_confusion_in_v8_heap_corruption",
+  "source_id": "56b4779f-2140-2f6b-32ec-77e7dfc8b82c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "56b4779f-2140-2f6b-32ec-77e7dfc8b82c"
+  ],
+  "tags": [
+    "CVE",
+    "Chromium",
+    "Microsoft Edge",
+    "Out-of-bounds Write",
+    "Heap Corruption"
+  ],
+  "node_id": "fdb4de8c-0084-4b01-bcb6-1d8343a46e5c",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

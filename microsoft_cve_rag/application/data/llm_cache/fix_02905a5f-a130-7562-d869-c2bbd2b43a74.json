@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Microsoft AllJoyn API Denial of Service vulnerability (CVE-2024-21438):\n\n1. Download the appropriate security updates for your system from the Microsoft Update Catalog using the following links:\n   - [KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845)\n   - [KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)\n   - [KB5035858](https://catalog.update.microsoft.com/Search.aspx?q=KB5035858)\n   - [KB5035854](https://catalog.update.microsoft.com/Search.aspx?q=KB5035854)\n\n2. Ensure your system is on the supported version for these updates, as specified in the provided build numbers.\n3. Install the updates and reboot your system if prompted to ensure the changes take effect.\n\n**Details**:\n- These updates are crucial to mitigate the risk of denial of service which could cause total loss of availability on affected systems.\n- Ensure to apply these updates as soon as possible to maintain system integrity and availability.\n\n**Preconditions**:\n- Make sure your system is a version of Windows that is eligible for these updates.\n- Backup critical data before proceeding with the installation of updates.",
+  "source_id": "02905a5f-a130-7562-d869-c2bbd2b43a74",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_security_updates_for_alljoyn_api_dos_cve202421438",
+  "tags": [
+    "KB5035845",
+    "Windows10",
+    "WindowsServer2016",
+    "KB5035853"
+  ],
+  "node_id": "d543d7a5-5d58-4d1b-b7f5-ef5f9f49ce59",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "02905a5f-a130-7562-d869-c2bbd2b43a74"
+  ]
+}

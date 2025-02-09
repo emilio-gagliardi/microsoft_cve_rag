@@ -1,0 +1,23 @@
+{
+  "description": "The root cause of potential issues with the Windows 11 24h2 feature update arises from its dependencies on earlier updates, particularly the May 2024 update (KB5037853). The 23h2 feature update requires KB5031455 for proper functionality, while the 24h2 update does not utilize an enablement package and instead mandates that users start from the May 2024 update to ensure all critical patches and new features are in place. Failure to implement this minimum OS level introduces the risk of encountering unresolved issues from previous feature updates, such as problems with the Windows Update agent, Secure Boot, BitLocker, and unexpected system restarts. Consequently, the 24h2 update\u2019s implementation hinges on completing the prerequisite updates to mitigate these known issues efficiently.",
+  "source_id": "5bf59882-a7c8-10c1-2d98-7ad334a86e30",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "5bf59882-a7c8-10c1-2d98-7ad334a86e30"
+  ],
+  "cause_label": "minimum_o_s_level_issues_post_update",
+  "tags": [
+    "23h2",
+    "24h2",
+    "Windows 11",
+    "Patch Management",
+    "Enablement Package",
+    "Update Dependencies"
+  ],
+  "node_id": "0d3c2e1d-e1f7-4562-a22f-48c9a5022466",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

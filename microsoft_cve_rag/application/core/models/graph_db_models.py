@@ -338,6 +338,11 @@ class Product(AsyncStructuredNode):
         "windows_11": "Windows 11",
         "edge": "Microsoft Edge (Chromium-based)",
         "edge_ext": "Microsoft Edge (Chromium-based) Extended Edition",
+        "microsoft_edge_update_setup": "Microsoft Edge Update Setup",
+        "windows_server_2016": "Windows Server 2016",
+        "windows_server_2019": "Windows Server 2019",
+        "windows_server_2022": "Windows Server 2022",
+        "windows_server_2025": "Windows Server 2025",
     }
     archi_choices = {
         "x86": "32-bit system",
@@ -345,10 +350,12 @@ class Product(AsyncStructuredNode):
         "NA": "No Architecture",
     }
     product_versions = {
-        "21H2": "Windows 10, Windows 11",
+        "21H2": "Windows 10, Windows 11, Windows Server 2022",
         "22H2": "Windows 10, Windows 11",
         "23H2": "Windows 11",
-        "24H2": "Windows 11",
+        "24H2": "Windows 11, Windows Server 2025",
+        "1607": "Windows Server 2016",
+        "1809": "Windows Server 2019",
         "NV": "No Version",
     }
     product_name = StringProperty(required=True, choices=name_choices)

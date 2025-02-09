@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_management_console_remote_code_execution",
+  "description": "The affected systems may experience unexpected incidents where a user, upon opening a specially crafted file, could inadvertently trigger remote code execution, leading to unauthorized control of the system by an attacker. End users might notice abnormal application behavior or system crashes following the operation involving such crafted files. This can significantly disrupt operations, especially in environments utilizing the Microsoft Management Console. The updates, such as KB5043080 and KB5043076, address the issue for Windows 11 versions 21H2, 22H2, 23H2, and 24H2 across both x64 and ARM64 architectures, with build numbers including 10.0.26100.1742 and 10.0.22631.4169. Administrators monitoring these systems are advised to deploy the associated security updates promptly to mitigate potential impacts.",
+  "source_id": "0d0aa77a-66a9-ccc1-6bd7-ffb3512673bc",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0d0aa77a-66a9-ccc1-6bd7-ffb3512673bc"
+  ],
+  "tags": [
+    "Microsoft Management Console",
+    "Remote Code Execution",
+    "Windows 11",
+    "Patch Management"
+  ],
+  "node_id": "d1e62aad-db5c-4118-b26f-c8f5e819f353",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

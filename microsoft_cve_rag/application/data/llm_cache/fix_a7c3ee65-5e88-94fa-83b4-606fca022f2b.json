@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the use after free vulnerability in Chromium that affects Microsoft Edge (Chromium-based):\n\n1. Ensure you are using the latest version of Microsoft Edge (Chromium-based).\n2. The latest secure version is 128.0.2739.42, released on August 22, 2024.\n3. To check your current version, click on the three dots (...) in the top right corner of the Microsoft Edge window, then navigate to Help and feedback, and select About Microsoft Edge.\n\n**Details**:\n- This update mitigates a potential exploit involving heap corruption via crafted HTML pages in Autofill features of the browser.\n- You can view more information regarding this update on the Chromium security release notes.\n\n**Preconditions**:\n- The Microsoft Edge should be running on a compatible system for the latest build.\n- Always back up your data before updating your browser settings or configurations.",
+  "source_id": "a7c3ee65-5e88-94fa-83b4-606fca022f2b",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_version_128_0_2739_42",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20247968",
+    "Chromium",
+    "CVE"
+  ],
+  "node_id": "815568df-b741-4954-91bc-55fb9b4531ea",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "a7c3ee65-5e88-94fa-83b4-606fca022f2b"
+  ],
+  "verification_status": "unverified"
+}

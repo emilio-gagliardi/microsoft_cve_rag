@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the elevation of privilege vulnerability identified by CVE-2024-30091:\n\n1. Download and apply the appropriate update from the Microsoft Update Catalog based on your Windows version. You can find the updates here:\n   - [KB5039211](https://catalog.update.microsoft.com/Search.aspx?q=KB5039211)\n   - [KB5039212](https://catalog.update.microsoft.com/Search.aspx?q=KB5039212)\n   - [KB5039213](https://catalog.update.microsoft.com/Search.aspx?q=KB5039213)\n   - [KB5039225](https://catalog.update.microsoft.com/Search.aspx?q=KB5039225)\n\n2. Restart your system after installation to ensure changes take effect.\n\n**Details**:\n- This update mitigates a heap-based buffer overflow that could potentially allow an attacker to elevate their privileges.\n- Ensure your system matches the requisite build number before applying the updates.\n\n**Preconditions**:\n- Ensure you are running a supported version of Windows.\n- Backup critical data before proceeding with the installation.",
+  "source_id": "c6559efe-2755-b393-6687-3bd35dc04e40",
+  "source_type": "MSRCPost",
+  "fix_label": "address_win32k_elevation_privilege_cve202430091",
+  "tags": [
+    "KB5039211",
+    "KB5039212",
+    "Win32k",
+    "CVE202430091"
+  ],
+  "node_id": "1715b33b-808a-40c7-b8dd-fa36f0b94993",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c6559efe-2755-b393-6687-3bd35dc04e40"
+  ],
+  "verification_status": "unverified"
+}

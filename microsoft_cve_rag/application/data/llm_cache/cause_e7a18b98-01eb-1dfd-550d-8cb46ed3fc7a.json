@@ -1,0 +1,20 @@
+{
+  "description": "The underlying cause here pertains to the establishment and application of a software restriction policy, specifically aimed at user-level configurations. This approach is critical for mitigating risks associated with unauthorized software execution at the user level. By enforcing such policies, system administrators can significantly reduce the potential for exploitation of existing vulnerabilities within the Microsoft environment. The implementation occurs under user configuration settings, which allows it to target specific users based on their unique configurations. Although the post does not specify build numbers or KB Article IDs, using software restriction policies reflects best practices in enterprise patch management for Windows 10 and 11 environments.",
+  "source_id": "e7a18b98-01eb-1dfd-550d-8cb46ed3fc7a",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e7a18b98-01eb-1dfd-550d-8cb46ed3fc7a"
+  ],
+  "cause_label": "software_restriction_policy_user_level_config",
+  "tags": [
+    "software restriction policy",
+    "user config",
+    "windows 10",
+    "windows 11"
+  ],
+  "node_id": "2219b61a-90db-4c45-8abe-6a0757db0f06",
+  "node_label": "Cause",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

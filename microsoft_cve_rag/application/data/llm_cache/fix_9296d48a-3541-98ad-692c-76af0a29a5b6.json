@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the vulnerability described in CVE-2024-8033:\n\n1. Ensure that you are using Microsoft Edge (Chromium-based) version 128.0.2739.42 or later.\n2. Verify your current Edge version by:\n   - Clicking on the three dots (\u2026) in the upper right corner.\n   - Selecting 'Help and feedback'.\n   - Clicking on 'About Microsoft Edge'.\n3. If your version is outdated, update Microsoft Edge through the official update process.\n\n**Details**:\nThis update addresses an inappropriate implementation in webapp installs, preventing UI spoofing via crafted HTML pages. The latest version of Microsoft Edge no longer contains this vulnerability. Ensure to replace any older versions with 128.0.2739.42 or above for complete protection against this issue.\n\n**Preconditions**:\n- Ensure an active internet connection for updates.\n- Backup data or any settings as a precaution before performing the update.",
+  "source_id": "9296d48a-3541-98ad-692c-76af0a29a5b6",
+  "source_type": "MSRCPost",
+  "fix_label": "upgrade_edge_to_version_128_0_2739_42_for_cve20248033",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20248033",
+    "Chromium",
+    "Update"
+  ],
+  "node_id": "80c98152-eec6-49b9-8cd0-2f38aea2c92f",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Fix",
+  "source_ids": [
+    "9296d48a-3541-98ad-692c-76af0a29a5b6"
+  ],
+  "verification_status": "unverified"
+}

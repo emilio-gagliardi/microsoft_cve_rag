@@ -1,0 +1,21 @@
+{
+  "symptom_label": "remote_code_execution_vulnerability_affects_sql_client",
+  "description": "Users experience the potential for unauthorized code execution within their SQL client applications after connecting to a malicious SQL database. This occurs specifically when an authenticated user is tricked into making a connection that can be exploited. As a result, the client application may behave unpredictably, potentially executing harmful commands without the user's consent. This vulnerability affects multiple Windows products including Windows 10 versions 21H2 and 22H2, with associated KB article KB5034763 documented for further insights. The impact can disrupt normal operations, leading to significant security concerns in environments utilizing SQL databases for critical functions.",
+  "source_id": "80dce7ea-5f07-dcd6-dae8-195451821299",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "80dce7ea-5f07-dcd6-dae8-195451821299"
+  ],
+  "tags": [
+    "MSRC",
+    "SQL Server",
+    "Remote Code Execution",
+    "Windows 10",
+    "Security"
+  ],
+  "node_id": "d3cdfcb0-e3c3-4989-a0a9-c2484d62a62e",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the blue screen issue encountered with devices using signed WDAC policies after applying KB-5040427:\n\n1. Remove the KB-5040427 update using the recovery menu.\n2. Boot the devices to access the recovery options.\n3. Change the WDAC policies from signed to unsigned.\n4. Reapply the KB-5040427 update and verify that it does not cause issues.\n5. If the update causes blue screen errors again (error 0xc0000001), consider keeping the WDAC policies unsigned until further issues are resolved.\n\n**Details**:\n- Confirmed that the signed policies are the root cause as the update causes blue screens only when they are in effect.\n- The policies blocking are limited to Microsoft\u2019s recommended block rules, as no other conflicts were present. This provides confidence that the update is the primary issue rather than the WDAC policies in themselves. (LLM Synthesized)",
+  "source_id": "b9f43e00-4214-b53c-bf6a-4ddab960f94b",
+  "source_type": "PatchManagementPost",
+  "fix_label": "resolve_kb5040427_blue_screen_signed_wdac",
+  "tags": [
+    "KB-5040427",
+    "WDAC",
+    "BlueScreen",
+    "LLM Synthesized"
+  ],
+  "node_id": "db4f4dca-8e22-4f23-a6a0-79577bb3ba59",
+  "node_label": "Fix",
+  "reliability": 0.6,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "b9f43e00-4214-b53c-bf6a-4ddab960f94b"
+  ],
+  "verification_status": "unverified"
+}

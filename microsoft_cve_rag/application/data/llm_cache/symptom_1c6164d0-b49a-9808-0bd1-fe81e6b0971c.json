@@ -1,0 +1,20 @@
+{
+  "symptom_label": "bitlocker_feature_bypass_results_in_data_exposure",
+  "description": "After deploying the recent update, users may find themselves vulnerable to data exposure due to a failure in the BitLocker security feature. This risk becomes evident when monitoring systems running specific builds, such as 10.0.19045.4291 and 10.0.22000.2899. Users have reported instances where sensitive data remains accessible despite the intended safeguards being implemented. These issues stem from a bypass capability that was introduced, affecting multiple builds, including 10.0.19044.4291 and earlier versions. For resolution, updates documented in several KB Articles, including KB-5036925 and KB-5036910, should be applied immediately to mitigate this exposure.",
+  "source_id": "1c6164d0-b49a-9808-0bd1-fe81e6b0971c",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "1c6164d0-b49a-9808-0bd1-fe81e6b0971c"
+  ],
+  "tags": [
+    "BitLocker",
+    "data exposure",
+    "security update",
+    "Windows 10"
+  ],
+  "node_id": "40a6e644-080f-415f-ad5c-f3bcbeb6bb3c",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

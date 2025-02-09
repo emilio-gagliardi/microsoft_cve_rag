@@ -1,0 +1,22 @@
+{
+  "tool_label": "url_redirect_checker_tool",
+  "description": "**Tool Overview**: \n\nThis tool checks URL redirects to ensure they lead to valid paths or resources.\n\n**Functionality**:\n\nThe URL Redirect Checker Tool analyzes hyperlink redirects to determine their final destination. By inputting a URL, it follows the redirects to confirm that they resolve correctly. This is particularly useful for diagnosing link issues in digital communication. \n\n**Usage**: \n1. Input the URL into the tool.\n2. Click on the 'Check Redirects' button.\n3. Review the output for any broken links or discrepancies in the redirect path.",
+  "source_id": "edb1c351-33f2-5c8d-0be2-3a1d98f561dd",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "edb1c351-33f2-5c8d-0be2-3a1d98f561dd"
+  ],
+  "source_url": "https://techcommunity.microsoft.com/t5/windows-it-pro-blog/expanding-invitations-to-move-to-windows-11-to-more-people/bc-p/4072977?highlight=true#m6953",
+  "tool_url": "https://example.com/url-redirect-checker",
+  "tags": [
+    "link analysis",
+    "redirect",
+    "URL checking",
+    "web tools"
+  ],
+  "node_id": "f7230fe4-3c27-4d22-8fad-6165717e5671",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "low",
+  "entity_type": "Tool"
+}

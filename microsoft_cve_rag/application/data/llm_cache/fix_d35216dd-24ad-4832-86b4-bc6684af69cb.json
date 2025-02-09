@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows networking denial of service vulnerability identified as CVE-2024-38234:\n\n1. Download and install the relevant update packages listed below.\n2. Ensure your system is running a compatible build of either Windows 10 or Windows 11 as specified.\n3. Restart your system after installation to apply the changes.\n\n**Details**:\n- This update addresses the vulnerability caused by improper input validation which could lead to denial of service.\n- Available update packages are:\n  - [KB5043080](https://catalog.update.microsoft.com/Search.aspx?q=KB5043080) for Windows 11 Version 24H2.\n  - [KB5043076](https://catalog.update.microsoft.com/Search.aspx?q=KB5043076) for Windows 11 Version 23H2 and 22H2.\n  - [KB5043067](https://catalog.update.microsoft.com/Search.aspx?q=KB5043067) for Windows 11 Version 21H2.\n  - [KB5043083](https://catalog.update.microsoft.com/Search.aspx?q=KB5043083) for Windows 10 versions for both x64 and 32-bit systems.\n  - [KB5043064](https://catalog.update.microsoft.com/Search.aspx?q=KB5043064) for additional Windows 10 versions.\n\n**Preconditions**:\n- Ensure the system is running a compatible version of Windows.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "d35216dd-24ad-4832-86b4-bc6684af69cb",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_networking_dos_cve202438234",
+  "tags": [
+    "KB5043080",
+    "KB5043076",
+    "Windows11",
+    "DenialOfService"
+  ],
+  "node_id": "5fb665d3-b52e-47aa-ab16-f3d0849096ab",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "d35216dd-24ad-4832-86b4-bc6684af69cb"
+  ],
+  "verification_status": "unverified"
+}

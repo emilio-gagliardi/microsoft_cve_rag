@@ -1,0 +1,20 @@
+{
+  "description": "The vulnerability occurs in the Windows USB Attached SCSI (UAS) protocol, specifically due to an out-of-bounds read that can lead to remote code execution when an attacker physically accesses the device.",
+  "cause_label": "windows_usb_attached_scsi_out_of_bounds_read",
+  "source_id": "bf911213-8c67-e664-8eb6-0eb94f5ca930",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "bf911213-8c67-e664-8eb6-0eb94f5ca930"
+  ],
+  "tags": [
+    "Remote Code Execution",
+    "Windows",
+    "USB Protocol",
+    "CVE-2024-21430"
+  ],
+  "node_id": "028ec066-45a1-43c7-a3bf-42c63913a9e4",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

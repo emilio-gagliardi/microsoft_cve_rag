@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_servers_exhibit_hanging_and_freezing_issues",
+  "description": "Windows Server systems are encountering performance issues characterized by prolonged patching times, requiring hard resets upon the first reboot, and experiencing hanging or freezing behavior. These symptoms can significantly hinder the system's operation, particularly during patch management processes. The issues have been linked to the cryptographic services, and users have reported improved results when those services were stopped and the contents of 'C:\\Windows\\System32\\catroot2' were cleared prior to patching. For further details, refer to the KB article KB-5041773. It is crucial for system administrators to address these symptoms to ensure smooth operation during patch deployment.",
+  "source_id": "159dceb5-5e6a-1743-c37c-98e2e2426bc8",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "159dceb5-5e6a-1743-c37c-98e2e2426bc8"
+  ],
+  "tags": [
+    "patch_management",
+    "performance_issue",
+    "windows_server",
+    "cryptographic_services"
+  ],
+  "node_id": "7a38c0f3-9387-470c-8a03-513f32efb333",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

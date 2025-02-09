@@ -1,0 +1,20 @@
+{
+  "description": "A heap-based buffer overflow in the Windows Routing and Remote Access Service (RRAS) that could allow for remote code execution. This issue arises from improper handling of buffer sizes in memory management, leading to potential exploitation if the service is exposed to untrusted inputs.",
+  "cause_label": "windows_rras_heap_based_buffer_overflow",
+  "source_id": "533b05ff-ce72-a640-629d-bafdf97c2d82",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "533b05ff-ce72-a640-629d-bafdf97c2d82"
+  ],
+  "tags": [
+    "CVE-2024-26200",
+    "RRAS",
+    "buffer overflow",
+    "remote code execution"
+  ],
+  "node_id": "616fd1bc-6e76-4dfb-b096-914f205deae4",
+  "node_label": "Cause",
+  "reliability": "high",
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,18 @@
+{
+  "tool_label": "MicrosoftEdgeVulnerabilityRemediation",
+  "description": "The Microsoft Edge Vulnerability Remediation process is designed to address remote code execution vulnerabilities identified in the Chromium-based version of Microsoft Edge. This process involves applying security patches or updates released by Microsoft as part of their Microsoft Security Response Center (MSRC) initiatives. Users are advised to ensure that their Microsoft Edge browser is updated to the latest version to protect against such vulnerabilities. The remediation not only patches the flaws but also aids in preserving the integrity and confidentiality of the user's information by mitigating potential damages from these vulnerabilities. For detailed guidance on applying these updates, users can refer to the Microsoft Edge update documentation.",
+  "source_id": "5a106c58-acd6-0e73-5fc0-5af2aeeb631e",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-36008",
+  "tool_url": "https://docs.microsoft.com/en-us/deployedge/updates",
+  "tags": [
+    "Microsoft Edge",
+    "vulnerability remediation",
+    "patch management"
+  ],
+  "node_id": "22062b36-234c-454a-94bb-c0977d524162",
+  "node_label": "Tool",
+  "reliability": "0.8",
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

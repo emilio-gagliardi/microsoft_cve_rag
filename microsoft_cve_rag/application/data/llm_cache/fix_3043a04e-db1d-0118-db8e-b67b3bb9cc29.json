@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows authentication elevation of privilege vulnerability described in CVE-2024-21447:\n\n1. Apply the relevant updates corresponding to your system's build number and KB IDs. \n   - Ensure your system is updated with one of the following KB articles: KB-5036910, KB-5036909, KB-5036894, KB-5036893, or KB-5036892.\n\n2. Verify the update installation using the Windows Update settings.\n\n**Details**:\n- The updates address improper link resolution vulnerabilities that may allow an attacker to elevate privileges.\n- For manual installation, check the Microsoft Update Catalog for the update packages suited to your build numbers: [10.0.19045.4291, 10.0.19044.4291, 10.0.22631.3447, 10.0.22000.2899, 10.0.22621.3447].\n\n**Preconditions**:\n- Ensure you are running the compatible build version before applying updates.\n- Backup critical data before proceeding with the update installation.\n",
+  "source_id": "3043a04e-db1d-0118-db8e-b67b3bb9cc29",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_authentication_elevation_privilege_cve202421447",
+  "tags": [
+    "KB5036910",
+    "KB5036909",
+    "Windows",
+    "ElevationOfPrivilege"
+  ],
+  "node_id": "8eac9954-9fbd-471b-9173-0b56cc04e16f",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "3043a04e-db1d-0118-db8e-b67b3bb9cc29"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Common Log File System Driver elevation of privilege vulnerability (CVE-2024-43501), it is crucial to apply the necessary updates provided by Microsoft:\n\n1. Identify your system's current build number from the list below:\n   - Windows 11 Version 24H2: 10.0.26100.2033\n   - Windows 11 Version 23H2: 10.0.22631.4317\n   - Windows 11 Version 22H2: 10.0.22621.4317\n   - Windows 11 Version 21H2: 10.0.22000.3260\n   - Windows 10 for x64-based Systems: 10.0.10240.20796\n   - Windows 10 Version 22H2: 10.0.19045.5011\n   - Windows 10 Version 21H2: 10.0.19044.5011\n\n2. Download the relevant update package(s) from the links provided:\n   - [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n   - [KB5044286](https://catalog.update.microsoft.com/Search.aspx?q=KB5044286)\n   - [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n   - [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280)\n\n3. Install the updates and restart your system to apply the changes.\n\n**Details**:\n- These updates address a vulnerability that could allow elevation of privilege through improper link resolution.\n- Ensure to check the compatibility of the updates with your current system configuration before installation.\n\n**Preconditions**:\n- Backup critical data before proceeding with the update installation.\n- Ensure your system is up to date with its current version from Microsoft.\n",
+  "source_id": "c1df77b3-bfc0-b204-d0ab-71c12d30f25c",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb5044285_kb5044284_kb5044273_for_elevation_of_privilege",
+  "tags": [
+    "KB5044285",
+    "Windows11",
+    "ElevationOfPrivilege",
+    "LLM Synthesized"
+  ],
+  "node_id": "f0f7dcaf-41b7-4aa4-b467-24b0bacbc571",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c1df77b3-bfc0-b204-d0ab-71c12d30f25c"
+  ],
+  "verification_status": "unverified"
+}

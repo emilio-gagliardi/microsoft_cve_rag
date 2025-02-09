@@ -1,0 +1,19 @@
+{
+  "symptom_label": "WindowsKernelElevationOfPrivilegeDisruption",
+  "description": "After applying the security updates with KB5034123, KB5034122, and KB5034121, users may experience unexpected interruptions in system functionalities across various Windows 10 and Windows 11 versions. These disruptions can manifest as an inability to access specific applications or files, as unauthorized elevation attempts create inconsistencies in user privileges. End users running Windows 11 (version 22H2 for x64-based systems: 10.0.22631.3007) and Windows 10 (version 22H2 for 32-bit systems: 10.0.19045.3930) are particularly affected, potentially leading to elevated privileges being granted unintentionally. System administrators should be vigilant for reports of applications misbehaving or failing to launch post-update. The impact is significant as system integrity and user workflows may be compromised due to these elevation issues.",
+  "source_id": "4bd7c340-76b6-3178-afd9-8414519da3c1",
+  "source_type": "MSRCPost",
+  "tags": [
+    "elevation of privilege",
+    "Windows 10",
+    "Windows 11",
+    "system disruption",
+    "user experience",
+    "security update"
+  ],
+  "node_id": "3bb1432b-596a-4a25-ac9f-8300d0bbbbf4",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

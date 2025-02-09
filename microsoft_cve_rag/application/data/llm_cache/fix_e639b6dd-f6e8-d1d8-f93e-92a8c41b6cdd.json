@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the remote code execution vulnerabilities in Ivanti products, it is crucial to apply the latest patches provided by the vendor promptly:\n\n1. Update **Ivanti Avalanche** to version **6.4.4** or later.\n2. For **Ivanti Neurons for ITSM**, install the supplied patch available from Ivanti's support site.\n3. Upgrade **Ivanti Virtual Traffic Manager** to one of the following versions: **22.2r1, 22.3r3, 22.5r2, or 22.6r2,** or the latest available.\n\n**Details**:\n- These updates contain critical fixes that mitigate vulnerabilities allowing for remote code execution.\n- Ensure all systems are backed up before initiating the patch process to prevent data loss.\n- Regularly check for updates to maintain system security and compliance. \n\nAdditional vulnerabilities include issues with improper input validation and authentication algorithms, which must be remediated to protect against potential exploits. (LLM Synthesized)",
+  "source_id": "e639b6dd-f6e8-d1d8-f93e-92a8c41b6cdd",
+  "source_type": "PatchManagementPost",
+  "fix_label": "apply_ivanti_product_patches_remote_code_execution",
+  "tags": [
+    "CVE-2024-37373",
+    "CVE-2024-7593",
+    "Ivanti",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "663fb5ef-b83f-446c-8486-b315bcf64249",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "e639b6dd-f6e8-d1d8-f93e-92a8c41b6cdd"
+  ],
+  "verification_status": "unverified"
+}

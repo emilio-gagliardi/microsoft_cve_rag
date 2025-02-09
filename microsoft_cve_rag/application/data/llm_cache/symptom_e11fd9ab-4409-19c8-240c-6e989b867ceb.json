@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_wifi_driver_rce_vulnerability_remote_access",
+  "description": "The Windows WiFi Driver Remote Code Execution Vulnerability (CVE-2024-30078) allows attackers to execute remote code wirelessly, gaining access to the affected system without any physical presence. This poses a severe risk as malicious entities can exploit this flaw to execute arbitrary code with system privileges. Additionally, vulnerabilities in Windows Kernel (CVE-2024-30064, CVE-2024-30068) can lead to elevation of privilege, potentially giving attackers significant control over affected systems. Another concern is the Microsoft Event Trace Log File Parsing Remote Code Execution Vulnerability (CVE-2024-30072), which may be exploited by convincing users to open malicious trace files, leading to further system compromise. Collectively, these vulnerabilities highlight serious flaws that system administrators must address promptly to safeguard their environments.",
+  "source_id": "e11fd9ab-4409-19c8-240c-6e989b867ceb",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e11fd9ab-4409-19c8-240c-6e989b867ceb"
+  ],
+  "tags": [
+    "windows",
+    "wifi_driver",
+    "remote_code_execution",
+    "elevation_of_privilege"
+  ],
+  "node_id": "4899d96c-5b7a-4a8d-8745-19018317c244",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

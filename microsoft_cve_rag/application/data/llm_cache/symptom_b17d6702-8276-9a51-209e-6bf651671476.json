@@ -1,0 +1,22 @@
+{
+  "symptom_label": "openssh_for_windows_remote_code_execution_impact",
+  "description": "After the installation of security updates like KB5044284 and KB5044285, systems running Windows 10 and Windows 11 versions may experience unexpected behaviors arising from the Microsoft OpenSSH remote code execution vulnerability (CVE-2024-43615). Users may notice that specific file management operations lead to unauthorized execution of commands, posing potential risks to system integrity. Affected build numbers include 10.0.26100.2033 for Windows 11 Version 24H2 and 10.0.22631.4317 for Windows 11 Version 23H2. The observable impact includes arbitrary command execution and potential service disruption, affecting the overall system performance and security posture of the affected environments.",
+  "source_id": "b17d6702-8276-9a51-209e-6bf651671476",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "b17d6702-8276-9a51-209e-6bf651671476"
+  ],
+  "tags": [
+    "OpenSSH",
+    "Remote Code Execution",
+    "Windows 10",
+    "Windows 11",
+    "MSRC"
+  ],
+  "node_id": "130e33cd-75f0-4815-b2b5-9547f8df379d",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

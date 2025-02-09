@@ -1,0 +1,21 @@
+{
+  "symptom_label": "remote_code_execution_vulnerability_in_ivanti_products",
+  "description": "Multiple vulnerabilities in Ivanti products, including Ivanti Avalanche, Ivanti Neurons for ITSM, and Ivanti Virtual Traffic Manager, can lead to remote code execution. Successful exploitation of these vulnerabilities can allow attackers to install programs, as well as view, change, or delete data within the system. Specifically, Ivanti Avalanche versions prior to 6.4.4 and various earlier versions of Ivanti's IT service management software are at risk. The most critical vulnerabilities are related to improper input validation and authentication failures, with CVE-2024-37373 and CVE-2024-7593 being key identifiers. These issues necessitate immediate patching and a robust vulnerability management process to safeguard enterprise assets.",
+  "source_id": "e639b6dd-f6e8-d1d8-f93e-92a8c41b6cdd",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e639b6dd-f6e8-d1d8-f93e-92a8c41b6cdd"
+  ],
+  "tags": [
+    "ivanti",
+    "remote code execution",
+    "vulnerability management",
+    "patch management"
+  ],
+  "node_id": "357ae8c2-c7a8-468e-82bc-0bf55853c957",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

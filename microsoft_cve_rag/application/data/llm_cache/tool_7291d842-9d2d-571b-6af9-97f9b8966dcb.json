@@ -1,0 +1,17 @@
+{
+  "tool_label": "FindMicrosoftEdgeVersionUsingBrowserSettings",
+  "description": "This method allows users to check the current version of Microsoft Edge directly through the browser interface. By clicking on the three dots in the upper right corner, users can navigate to 'Help and feedback' and then select 'About Microsoft Edge' to view the version information. Staying updated with the latest version is crucial for ensuring software security and performance.",
+  "source_id": "7291d842-9d2d-571b-6af9-97f9b8966dcb",
+  "source_type": "MSRCPost",
+  "source_url": "",
+  "tags": [
+    "browser",
+    "version",
+    "Microsoft Edge"
+  ],
+  "node_id": "ccee905d-fc07-4f82-8339-ea7e155eb11c",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

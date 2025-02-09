@@ -1,0 +1,21 @@
+{
+  "description": "Windows Lockdown Policy (WLDP) allows a security feature bypass due to flaws in the execution policy for the WDAC API. This vulnerability can be exploited locally or remotely, allowing an attacker to gain unauthorized access or control over protected system resources without requiring user interaction.",
+  "cause_label": "windows_lockdown_policy_security_feature_bypass",
+  "source_id": "dfcd13da-5b36-bf0f-4639-5e71d31a725b",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "dfcd13da-5b36-bf0f-4639-5e71d31a725b"
+  ],
+  "tags": [
+    "security",
+    "WLDP",
+    "CVE-2024-38070",
+    "WDAC"
+  ],
+  "node_id": "30ee6ce2-8925-48b4-bc96-d823f7f6bd17",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

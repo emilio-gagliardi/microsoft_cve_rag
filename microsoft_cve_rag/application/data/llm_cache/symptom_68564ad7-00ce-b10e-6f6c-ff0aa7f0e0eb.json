@@ -1,0 +1,18 @@
+{
+  "symptom_label": "ElevationOfPrivilegeWithWindowsInstallerIssue",
+  "description": "End users may experience unexpected elevation of privileges when using the Windows Installer on affected systems. This issue can lead to unauthorized access to sensitive files and capabilities typically restricted to higher privilege accounts. The affected builds include Windows 10 versions 21H2 (Build 10.0.19041.3693), 22H2 (Build 10.0.19045.3693), and Windows 11 versions 21H2 (Build 10.0.22000.2600) and above, identified in KB articles KB-5032189, KB-5032190, and KB-5032192. Appropriate cumulative updates addressing this behavior can be found in KB-5032199, KB-5032249, and others.",
+  "source_id": "68564ad7-00ce-b10e-6f6c-ff0aa7f0e0eb",
+  "source_type": "MSRCPost",
+  "tags": [
+    "security",
+    "elevation of privilege",
+    "Windows Installer",
+    "Windows 10",
+    "Windows 11"
+  ],
+  "node_id": "649d3c99-43c0-4964-961a-f240c3f6ef67",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

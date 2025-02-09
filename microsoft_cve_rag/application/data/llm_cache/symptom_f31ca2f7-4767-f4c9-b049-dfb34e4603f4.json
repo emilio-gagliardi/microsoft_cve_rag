@@ -1,0 +1,16 @@
+{
+  "symptom_label": "WindowsHyperVPrivilegeEscalationUnexpectedBehavior",
+  "description": "Upon the installation of security updates KB5032190, KB5032189, and KB5032192, Windows Hyper-V may exhibit unexpected behaviors resulting from an elevation of privilege issue. Users may notice that certain tasks or operations within Hyper-V do not complete as expected, which may lead to operational disruptions or access issues within the virtualized environments. This is particularly relevant for build numbers such as 10.0.22621.2715 and 10.0.19045.3693, where the impact may lead to erroneous access to system resources that could affect the availability and performance of hosted virtual machines.",
+  "source_id": "f31ca2f7-4767-f4c9-b049-dfb34e4603f4",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "7ece04fd-bac3-49d9-8217-b6cc2d3846f0",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "A heap-based buffer overflow in the kernel streaming service driver allows for elevation of privilege when manipulated locally or through user interaction, exploiting improper memory handling or structure.",
+  "cause_label": "kernel_streaming_service_driver_heap_buffer_overflow",
+  "source_id": "30cf4eb6-ef64-b7b6-bb07-44a1b8a14392",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "30cf4eb6-ef64-b7b6-bb07-44a1b8a14392"
+  ],
+  "tags": [
+    "Windows",
+    "Driver",
+    "Buffer Overflow",
+    "Elevation of Privilege"
+  ],
+  "node_id": "03fbaf67-f7f1-4f0a-8dab-0c36515616e2",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

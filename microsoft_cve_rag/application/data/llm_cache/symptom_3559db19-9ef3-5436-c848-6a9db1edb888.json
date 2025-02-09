@@ -1,0 +1,21 @@
+{
+  "symptom_label": "remote_access_service_unexpected_code_execution",
+  "description": "End users may experience unexpected code execution when utilizing the Windows Routing and Remote Access Service (RRAS) in impacted builds like 10.0.19045.4291 and others listed under KB articles KB-5036925, KB-5036894, KB-5036893, and KB-5036892. This symptom manifests as unanticipated application behavior, potentially leading to system instability or unauthorized access during remote sessions. Affected systems may also show increased instances of application crashes or data integrity issues when executing remote commands, posing a risk to user productivity and security. It is crucial that administrators monitor for these signs following the implementation of the stated updates to ensure a stable operating environment.",
+  "source_id": "3559db19-9ef3-5436-c848-6a9db1edb888",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "3559db19-9ef3-5436-c848-6a9db1edb888"
+  ],
+  "tags": [
+    "Windows",
+    "Routing and Remote Access Service",
+    "Remote Code Execution",
+    "System Performance",
+    "User Experience"
+  ],
+  "node_id": "fc57cd50-988a-4c06-be13-3fd525ad3bf9",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

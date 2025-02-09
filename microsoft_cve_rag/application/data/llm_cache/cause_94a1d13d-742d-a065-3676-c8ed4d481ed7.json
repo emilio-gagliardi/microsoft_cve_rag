@@ -1,0 +1,22 @@
+{
+  "description": "An integer underflow condition allows attackers to bypass secure boot protections within affected Windows builds, potentially leading to unauthorized access or modifications.",
+  "cause_label": "secure_boot_bypass_due_to_integer_underflow",
+  "source_id": "94a1d13d-742d-a065-3676-c8ed4d481ed7",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "94a1d13d-742d-a065-3676-c8ed4d481ed7"
+  ],
+  "tags": [
+    "Windows",
+    "CVE",
+    "vulnerability",
+    "secure boot",
+    "integer underflow"
+  ],
+  "node_id": "d50ea2e0-a392-42b2-8fcb-6bedf5ae5b55",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

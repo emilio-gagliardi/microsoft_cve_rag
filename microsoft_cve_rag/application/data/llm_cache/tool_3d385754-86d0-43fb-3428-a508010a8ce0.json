@@ -1,0 +1,23 @@
+{
+  "node_id": "f73778c2-aeff-4eb9-8b9a-e8ebebb807d1",
+  "source_id": "177958af-c616-1c4a-efb8-33f50dd8af99",
+  "entity_type": "Tool",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "177958af-c616-1c4a-efb8-33f50dd8af99",
+    "3d385754-86d0-43fb-3428-a508010a8ce0"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-7964",
+  "tool_url": "",
+  "verification_status": "unverified",
+  "tool_label": "check_microsoft_edge_version_command",
+  "description": "**Tool Overview**: A command to verify the installed version of Microsoft Edge (Chromium-based). This command helps ensure that users are running the latest version of the browser, which includes security updates that mitigate vulnerabilities like CVE-2024-7964. **Details**:\n\n1. Users can execute this command in a command prompt or PowerShell to check the current version of Edge.\n2. It's important to keep the browser updated to reduce security risks associated with known vulnerabilities.\n3. The command provides output that specifies the version number of the installed Edge browser.\n4. Checking the version can be part of regular security maintenance to ensure compliance with patching policies.\n5. Users should refer to official Microsoft documentation for any additional commands that may provide more context about Edge versioning.",
+  "reliability": 0.7,
+  "tags": [
+    "browser",
+    "version",
+    "Microsoft Edge",
+    "security updates",
+    "LLM Synthesized"
+  ]
+}

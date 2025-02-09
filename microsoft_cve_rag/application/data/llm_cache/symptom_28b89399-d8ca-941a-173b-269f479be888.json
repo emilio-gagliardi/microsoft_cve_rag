@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_defender_mssense_exe_old_version_issue",
+  "description": "Users updating their Windows 11 devices may encounter issues with an outdated Microsoft Defender for Endpoint sensor (MsSense.exe). This problem arises when users apply the latest cumulative update (LCU) from September or October 2024, or the preview update package KB5041587 from August. The affected devices may have experienced failures in utilizing the updated capabilities of the Microsoft Defender for Endpoint service. The root cause is linked to the inadvertent inclusion of an older detection sensor version, which impacted specific users during the upgrade to Windows 11 version 24H2. The issue was monitored and resolved after corrective actions were implemented on the affected infrastructure.",
+  "source_id": "28b89399-d8ca-941a-173b-269f479be888",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "28b89399-d8ca-941a-173b-269f479be888"
+  ],
+  "tags": [
+    "microsoft defender",
+    "windows 11",
+    "endpoint sensor",
+    "patch management"
+  ],
+  "node_id": "5b71f115-9b0c-4b58-84e4-996d019ebf6e",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

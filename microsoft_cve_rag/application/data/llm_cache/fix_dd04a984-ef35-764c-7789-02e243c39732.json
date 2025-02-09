@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the type confusion vulnerability (CVE-2024-8904) in the V8 engine utilized by Chromium, ensure that you are running the latest version of Microsoft Edge (Chromium-based):\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) in the upper right-hand corner.\n3. Select 'Help and feedback'.\n4. Click on 'About Microsoft Edge' to check for updates.\n5. Update to version 129.0.6668.58 or higher if available.\n\n**Details**:\n- This update addresses a high-severity security vulnerability that could allow remote code execution via a crafted HTML page.\n- Make sure to check for updates regularly to remain protected.\n- For a full list of changes and security fixes, refer to the official Google Chrome releases documentation.\n\n**Preconditions**:\n- Ensure you are using Microsoft Edge based on Chromium.\n- Backup any critical information before performing updates.",
+  "source_id": "dd04a984-ef35-764c-7789-02e243c39732",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_chromium_v8_type_confusion_cve20248904",
+  "tags": [
+    "MicrosoftEdge",
+    "Chromium",
+    "CVE20248904",
+    "TypeConfusion"
+  ],
+  "node_id": "50ee6c35-e118-40be-9f3d-44f6570512de",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix",
+  "source_ids": [
+    "dd04a984-ef35-764c-7789-02e243c39732"
+  ],
+  "verification_status": "unverified"
+}

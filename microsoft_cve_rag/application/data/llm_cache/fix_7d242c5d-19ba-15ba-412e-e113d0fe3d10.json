@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the information disclosure vulnerability in Windows Message Queuing Client (MSMQC), apply the necessary updates:\n\n1. Identify your Windows version and architecture (e.g., x64, ARM64).\n2. Download and install the following updates relevant to your environment:\n   - For Windows 11 Version 23H2: [KB5034123](https://catalog.update.microsoft.com/Search.aspx?q=KB5034123)\n   - For Windows Server 2022: [KB5034130](https://catalog.update.microsoft.com/Search.aspx?q=KB5034130)\n   - For Windows 10 Version 22H2: [KB5034122](https://catalog.update.microsoft.com/Search.aspx?q=KB5034122)\n   - Additional updates: [KB5034171](https://catalog.update.microsoft.com/Search.aspx?q=KB5034171), [KB5034184](https://catalog.update.microsoft.com/Search.aspx?q=KB5034184), [KB5034121](https://catalog.update.microsoft.com/Search.aspx?q=KB5034121), [KB5034127](https://catalog.update.microsoft.com/Search.aspx?q=KB5034127)\n\n**Details**:\n- Applying these updates helps prevent attackers from potentially reading small portions of memory which may lead to information disclosure.\n- Ensure that your system is updated regularly to protect against similar vulnerabilities.\n\n**Preconditions**:\n- Verify that you have administrative privileges to install these updates.\n- Backup critical data before proceeding with the installation to prevent data loss in case of complications.",
+  "source_id": "7d242c5d-19ba-15ba-412e-e113d0fe3d10",
+  "source_type": "MSRCPost",
+  "fix_label": "MitigateInformationDisclosureCVE202420663",
+  "tags": [
+    "KB5034123",
+    "Windows11",
+    "InformationDisclosure",
+    "Update"
+  ],
+  "node_id": "274b65e9-b404-4f73-a11a-fea6f3f839a1",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

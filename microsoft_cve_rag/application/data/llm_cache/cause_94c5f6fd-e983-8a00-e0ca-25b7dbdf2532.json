@@ -1,0 +1,20 @@
+{
+  "description": "A secure boot security feature bypass caused by out-of-bounds write and stack-based buffer overflow vulnerabilities in affected builds of Windows.",
+  "cause_label": "secure_boot_feature_bypass_due_to_buffer_overflow",
+  "source_id": "94c5f6fd-e983-8a00-e0ca-25b7dbdf2532",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "94c5f6fd-e983-8a00-e0ca-25b7dbdf2532"
+  ],
+  "tags": [
+    "Windows",
+    "Secure Boot",
+    "Buffer Overflow",
+    "CVE-2024-29061"
+  ],
+  "node_id": "ae090101-71eb-41ee-85fd-4ec0c9c4fabd",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

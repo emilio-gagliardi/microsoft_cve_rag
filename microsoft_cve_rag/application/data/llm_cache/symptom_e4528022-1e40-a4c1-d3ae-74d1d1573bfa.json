@@ -1,0 +1,20 @@
+{
+  "symptom_label": "microsoft_edge_webview2_spoofing_issue",
+  "description": "Users may experience unexpected behavior when interacting with Microsoft Edge (Chromium-based) WebView2 due to a spoofing vulnerability identified as CVE-2024-29049. Specifically, users could unknowingly be tricked into executing malicious scripts that appear legitimate, resulting in a compromised browsing experience. The problem manifests as misleading content or links within the Edge browser, which can create confusion or lead to unintentional information disclosure. This behavior is especially pertinent for builds 123.0.2420.81 and 122.0.2365.120, as documented in KB-123.0.2420.81. System administrators should be alert to reports of user interactions where seemingly benign documents or web pages yield unfamiliar or unwanted scripts being executed.",
+  "source_id": "e4528022-1e40-a4c1-d3ae-74d1d1573bfa",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e4528022-1e40-a4c1-d3ae-74d1d1573bfa"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "WebView2",
+    "spoofing",
+    "CVE-2024-29049"
+  ],
+  "node_id": "1ba8066c-c37d-4f3b-adbc-3c0786e1f3c6",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

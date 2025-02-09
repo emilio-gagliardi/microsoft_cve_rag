@@ -1,0 +1,16 @@
+{
+  "description": "The underlying condition contributing to CVE-2023-36393 is a flaw within the Windows User Interface Application Core that allows for remote code execution. Specifically, this vulnerability arises from the component's architecture, which does not sufficiently segregate user input from execution paths, exposing it to exploitation via locally executed code. Attackers exploit this flaw by persuading users to open malicious files or documents, which trigger the execution of arbitrary code. This condition is present under multiple Windows build numbers, particularly 10.0.22631.2715, 10.0.19045.3693, 10.0.10240.20308, 10.0.22621.2715, and associated with KB IDs such as KB-5032199, KB-5032192, KB-5032190, and KB-5032189. The result is significant detrimental effects on the system's confidentiality, integrity, and availability, highlighting the necessity for immediate remediation via the provided patches.",
+  "cause_label": "FlawInWindowsUIApplicationCoreExploit",
+  "source_id": "6bdbd676-2976-72cc-950c-7450f796b1e2",
+  "source_type": "MSRCPost",
+  "tags": [
+    "security",
+    "vulnerability",
+    "CVE-2023-36393"
+  ],
+  "node_id": "d29df57c-c83f-40f0-b087-badca9fccd64",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,16 @@
+{
+  "description": "To address the issue related to CVE-2023-41765, it is necessary to apply the updates available for affected systems, specifically targeting Windows Server versions. The updates include KB5031377, KB5031358, KB5031356, and KB5031354, which can be found at the following links: https://catalog.update.microsoft.com/Search.aspx?q=KB5031362, https://catalog.update.microsoft.com/Search.aspx?q=KB5031419, https://catalog.update.microsoft.com/Search.aspx?q=KB5031416, https://catalog.update.microsoft.com/Search.aspx?q=KB5031356, https://catalog.update.microsoft.com/Search.aspx?q=KB5031442, https://catalog.update.microsoft.com/Search.aspx?q=KB5031377, https://catalog.update.microsoft.com/Search.aspx?q=KB5031408, https://catalog.update.microsoft.com/Search.aspx?q=KB5031354. It is crucial to ensure that your systems are updated to build numbers including but not limited to 10.0.19045.3570 and 10.0.22000.2538 to mitigate the critical remote code execution risk posed by this vulnerability. Following the update installation, a system reboot may be required to fully implement the changes. Reviewing the Microsoft support and lifecycle documentation is also advised for ongoing support and best practices.",
+  "source_id": "16f48b64-6419-f7c3-344a-5ad673ea36af",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplyUpdatesForRemoteCodeExecutionMitigation",
+  "tags": [
+    "update",
+    "windows_server",
+    "remote_code_execution"
+  ],
+  "node_id": "9b57c44d-156b-4d0b-8740-aee6c12d47b3",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix"
+}

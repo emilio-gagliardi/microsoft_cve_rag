@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo efficiently manage on-premises SQL Server updates:\n\n1. Ensure that you have software assurance on your SQL Server.\n2. Utilize Azure Update Manager via Azure Arc for instance-based updates, allowing you to streamline the update process.\n\n**Details**:\n- Azure Update Manager provides an integrated approach for managing updates across hybrid environments, improving consistency and reducing downtime during updates. This solution is particularly advantageous for organizations relying on software assurance, as it simplifies compliance with updates.\n",
+  "source_id": "1d51a50d-4d05-c782-da79-4136416ea6cc",
+  "source_type": "PatchManagementPost",
+  "fix_label": "use_azure_update_manager_on_premises_sql",
+  "tags": [
+    "AzureArc",
+    "SQLServer",
+    "UpdateManagement",
+    "InstanceBasedUpdates"
+  ],
+  "node_id": "2dad5c63-ff4f-4f7d-a972-e39b2308d394",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "1d51a50d-4d05-c782-da79-4136416ea6cc"
+  ],
+  "verification_status": "unverified"
+}

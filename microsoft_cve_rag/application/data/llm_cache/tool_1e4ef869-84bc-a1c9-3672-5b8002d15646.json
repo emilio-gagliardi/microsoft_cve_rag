@@ -1,0 +1,23 @@
+{
+  "tool_label": "microsoft_edge_latest_version_security_update",
+  "description": "**Tool Overview**:\n\nThis tool refers to the latest version of Microsoft Edge (Chromium-based) that addresses security vulnerabilities, including CVE-2024-7981. It is specifically relevant for ensuring the browser is up-to-date to avoid exploits from identified weaknesses in the Chromium open-source software that Microsoft Edge consumes. The tool serves to notify users that the updated browser version mitigates the associated vulnerabilities. \n\n**Details**:\n1. The tool can be accessed through the official Microsoft Edge channel for downloading the latest version.\n2. It ensures users remain secure against UI spoofing vulnerabilities by automatically updating or prompting for updates.\n3. Administrators can utilize group policies or management tools like Intune to enforce updates across enterprises.\n4. Reference to the Google Chrome release notes provides additional context for understanding the resolved vulnerabilities.\n5. Ensure that Edge\u2019s auto-update settings are properly configured for seamless security management.",
+  "source_id": "1e4ef869-84bc-a1c9-3672-5b8002d15646",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "1e4ef869-84bc-a1c9-3672-5b8002d15646"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-7981",
+  "tool_url": "https://www.microsoft.com/edge",
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "security",
+    "CVE-2024-7981"
+  ],
+  "node_id": "4f6e1c33-1c60-4519-9ada-5c7e942d05aa",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "low",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,24 @@
+{
+  "tool_label": "office_2019_update_issue_resolution",
+  "description": "**Tool Overview**:\n\nThis resource provides insight into resolving updating issues specifically related to Office 2019. \n\n**Details**:\n\nThe context surrounds potential issues with Office 2019 updates, particularly attached to recent Click-to-Run versions. Common problems include failures to update or unexpected behavior after an update. \nBy visiting the provided link, users can access the ongoing discussion among community members and experts, which might include recommendations, workarounds, or scripts. This makes it an essential reference for system administrators encountering similar situations.\nThis is particularly relevant for those managing Office deployments in enterprise environments, where keeping software up to date is crucial for security and functionality.",
+  "source_id": "e4aedeab-776f-f044-da1f-36622f6d2599",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e4aedeab-776f-f044-da1f-36622f6d2599"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em67491ac4-1c6f-480c-8229-46ea31c9f49b%40f7677745.com",
+  "tool_url": "https://www.askwoody.com/forums/topic/office-click-to-run-updates-may-be-broken-with-latest-version/office-2019",
+  "tags": [
+    "Office 2019",
+    "update",
+    "Click-to-Run",
+    "patch management",
+    "community support"
+  ],
+  "node_id": "e50c1246-0949-40fe-bcb9-86a4137111b7",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

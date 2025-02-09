@@ -1,0 +1,21 @@
+{
+  "description": "The cause of CVE-2024-6995 is an inappropriate implementation in fullscreen mode within the Chromium open source software, which could allow a remote attacker to spoof the contents of the omnibox by convincing the user to perform specific UI gestures on a crafted HTML page.",
+  "cause_label": "chromium_inappropriate_implementation_in_fullscreen_mode",
+  "source_id": "8246de92-7486-2fc4-0422-d77040f390d3",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8246de92-7486-2fc4-0422-d77040f390d3"
+  ],
+  "tags": [
+    "Chromium",
+    "Microsoft Edge",
+    "CVE-2024-6995",
+    "UI Spoofing"
+  ],
+  "node_id": "7ba559ec-f39c-4ee1-b656-c9d92a0b5649",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

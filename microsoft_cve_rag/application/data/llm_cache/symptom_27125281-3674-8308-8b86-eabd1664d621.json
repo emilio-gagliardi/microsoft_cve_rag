@@ -1,0 +1,20 @@
+{
+  "symptom_label": "multiple_restarts_on_windows_11_after_update",
+  "description": "After applying updates via MECM, Windows 11 devices exhibit multiple restarts without rolling back changes. This symptom indicates potential issues with the update process or incompatibility, leading to significant disruptions for users relying on the device for daily tasks. Administrators should be vigilant for similar behaviors, as repeated restarts can indicate deeper systemic problems or misconfigurations in the update management settings with Intune. Failure in this process may hinder productivity and could necessitate manual intervention to stabilize affected systems. Users on Windows 10 did not consistently observe rollback actions, complicating the assessment of the root cause.",
+  "source_id": "27125281-3674-8308-8b86-eabd1664d621",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "27125281-3674-8308-8b86-eabd1664d621"
+  ],
+  "tags": [
+    "windows_updates",
+    "mecm",
+    "intune",
+    "restart_issues"
+  ],
+  "node_id": "608a6be3-1d6e-461e-b657-ed8e4c56c101",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

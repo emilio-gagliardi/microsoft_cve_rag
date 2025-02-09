@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the kernel streaming wow thunk service driver elevation of privilege vulnerability (CVE-2024-38125):\n\n1. Ensure your system is running the appropriate version of Windows 10 or Windows 11 as listed below.\n2. Download and apply the relevant KB updates using the links provided.\n3. Restart your system after installation to ensure the changes take effect.\n\n**Details**:\n- This update mitigates the vulnerabilities associated with numeric truncation errors in the driver, which could potentially allow an attacker to gain elevated privileges.\n- For manual installation, download the updates from the following links:\n   - [KB5041571](https://catalog.update.microsoft.com/Search.aspx?q=KB5041592)\n   - [KB5041585](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585)\n   - [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)\n   - [KB5041782](https://catalog.update.microsoft.com/Search.aspx?q=KB5041782)\n   - [KB5041592](https://catalog.update.microsoft.com/Search.aspx?q=KB5041592)\n\n**Preconditions**:\n- This solution is applicable for the following build numbers:\n   - Windows 11 Version 24H2 for x64-based Systems: 10.0.26100.1457\n   - Windows 10 for x64-based Systems: 10.0.10240.20751\n   - Windows 10 Version 22H2 for x64-based Systems: 10.0.19045.4780\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "4c48fb25-ea4d-5de6-75a7-7cd753ba61e4",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_kernel_streaming_driver_elevation_privilege_cve202438125",
+  "tags": [
+    "KB5041571",
+    "KB5041585",
+    "CVE202438125",
+    "KernelStreaming"
+  ],
+  "node_id": "a58ba7fc-deeb-4b3b-bbab-91fbcf245943",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "4c48fb25-ea4d-5de6-75a7-7cd753ba61e4"
+  ],
+  "verification_status": "unverified"
+}

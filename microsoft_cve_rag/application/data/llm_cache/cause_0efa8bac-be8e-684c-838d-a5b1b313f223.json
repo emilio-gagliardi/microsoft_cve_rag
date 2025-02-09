@@ -1,0 +1,16 @@
+{
+  "description": "The cause of CVE-2023-5475 is attributed to an inappropriate implementation within the DevTools of the Chromium open source software. This flaw is particularly relevant for Microsoft Edge, which relies on Chromium for its functionality. The vulnerability was rectified in version 118.0.2088.46, and is documented in KB-118.0.2088.46. The flaw allows potential issues in the way DevTools processes scripts, potentially leading to unexpected behavior or security implications. It is crucial for users to update their Microsoft Edge browser to ensure they are protected against this vulnerability.",
+  "cause_label": "InappropriateDevToolsImplementationInChromium",
+  "source_id": "0efa8bac-be8e-684c-838d-a5b1b313f223",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "c3456090-3ae1-4eea-b3e9-f312e704872d",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

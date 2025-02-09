@@ -1,0 +1,16 @@
+{
+  "symptom_label": "SCCM2211ClientCheckFailingAfterUpdate",
+  "description": "After updating to SCCM version 2211, the client check process is experiencing failures. This behavior indicates potential compatibility or configuration issues introduced by the new update. Troubleshooting efforts have been extensive, suggesting significant disruption to service and implying a need for immediate corrective measures.",
+  "source_id": "9e87a138-20c0-01a9-228d-7f1b08c3b003",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "SCCM",
+    "client check",
+    "update issues"
+  ],
+  "node_id": "dedc07aa-433f-4383-abbf-b2e258f6342e",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

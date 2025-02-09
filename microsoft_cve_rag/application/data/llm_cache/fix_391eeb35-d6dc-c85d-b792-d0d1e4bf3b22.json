@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address headphone issues on a Dell laptop running Windows 11:\n\n1. Remove the existing Dell/Realtek driver from the device.\n2. Install the latest driver available on the Dell support site specific to Windows 11 using the laptop's service tag.\n3. Ensure that the Realtek Waves MAXX Audio software is installed, as it may not be present after the upgrade from Windows 10 to Windows 11.\n4. Verify that the autoplay function is enabled and notifications are active in Windows 11.\n5. For troubleshooting, try using a 3.5mm-to-USB adapter as an alternative solution.\n\n**Details**:\n- Depending on the model, auto-sensing audio jacks may rely on a 'sense pin'. If replacement of the jack becomes necessary, it may require motherboard repair due to its integrated nature. Handling might be limited if the device is managed remotely.\n- The Realtek Waves MAXX Audio app download is different for Windows 10 and Windows 11, adjust accordingly. (LLM Synthesized)\n\n**Preconditions**:\n- Backup any critical data before making driver or software changes to avoid potential complications.",
+  "source_id": "391eeb35-d6dc-c85d-b792-d0d1e4bf3b22",
+  "source_type": "PatchManagementPost",
+  "fix_label": "address_dell_headphone_functionality_windows_11",
+  "tags": [
+    "Windows11",
+    "DellDrivers",
+    "AudioSoftware",
+    "LLM Synthesized"
+  ],
+  "node_id": "fec01f21-8707-481c-9337-77859480bb13",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "391eeb35-d6dc-c85d-b792-d0d1e4bf3b22"
+  ]
+}

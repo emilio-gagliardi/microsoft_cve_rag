@@ -1,0 +1,17 @@
+{
+  "tool_label": "UpdateMicrosoftEdgeToLatestVersion",
+  "description": "Microsoft Edge, based on Chromium, continuously integrates security updates to address vulnerabilities. Users can update to the latest version of Microsoft Edge directly through the browser's settings menu. To check for updates, simply click on the three dots in the upper right corner, select 'Help and feedback', and then 'About Microsoft Edge'. This will not only show the current version but also automatically trigger the update process if a newer version is available.",
+  "source_id": "08fe0e15-0f00-9566-6e35-18e4a98ccbb6",
+  "source_type": "MSRCPost",
+  "source_url": "https://chromereleases.googleblog.com/2023",
+  "tags": [
+    "update",
+    "browser",
+    "security"
+  ],
+  "node_id": "5163a014-09c5-4778-a802-be878439052b",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

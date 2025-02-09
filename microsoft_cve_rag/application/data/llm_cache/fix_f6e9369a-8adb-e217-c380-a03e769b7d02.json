@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows Link Layer Topology Discovery Protocol remote code execution vulnerability (CVE-2024-30075):\n\n1. Apply the following updates:\n   - KB-5039266\n   - KB-5039245\n\n2. After the installation of the updates, restart your system to ensure the changes take effect.\n\n**Details**:\n- These updates address a heap-based buffer overflow, significantly improving the security of affected systems.\n- For manual installation, you can download the updates from the official Windows Update catalog.\n\n**Preconditions**:\n- Ensure that your system meets the prerequisites for these updates.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "f6e9369a-8adb-e217-c380-a03e769b7d02",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_link_layer_topology_discovery_cve202430075",
+  "tags": [
+    "KB5039266",
+    "KB5039245",
+    "Windows",
+    "LinkLayerTopology"
+  ],
+  "node_id": "8bd0cc70-54af-42d2-ba63-1ad327033c1e",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "f6e9369a-8adb-e217-c380-a03e769b7d02"
+  ],
+  "verification_status": "unverified"
+}

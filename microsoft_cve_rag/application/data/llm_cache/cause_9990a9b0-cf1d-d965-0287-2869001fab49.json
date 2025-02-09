@@ -1,0 +1,22 @@
+{
+  "description": "The root cause of the taskbar malfunction is tied to the May 2024 Windows non-security preview update (KB-5037853) which has introduced bugs affecting several Windows 11 versions, specifically version 23H2 and version 22H2. After the installation of this update, users may experience a variety of issues with the taskbar, including unresponsiveness, glitches, and unexpected disappearances. These problems are logged in the Event Viewer, notably as 'Event ID 1000', where 'explorer.exe' is identified as the faulting application with 'taskbar.view.dll' as the faulting module. An effective mitigation strategy involves utilizing the Known Issue Rollback (KIR) which may take up to 24 hours to deploy fully across various devices. IT administrators play a vital role in resolving these issues by implementing the recommended special group policy for managing business devices.",
+  "source_id": "9990a9b0-cf1d-d965-0287-2869001fab49",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "9990a9b0-cf1d-d965-0287-2869001fab49"
+  ],
+  "cause_label": "taskbar_malfunction_due_to_update_bugs",
+  "tags": [
+    "taskbar",
+    "Windows 11",
+    "update",
+    "KIR",
+    "event ID 1000"
+  ],
+  "node_id": "2e965c9c-6fa6-4914-a3e1-8e1d66a88a0a",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

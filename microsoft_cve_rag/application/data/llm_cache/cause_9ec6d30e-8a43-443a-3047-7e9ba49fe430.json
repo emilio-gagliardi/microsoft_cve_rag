@@ -1,0 +1,18 @@
+{
+  "description": "The technical condition causing the elevation of privilege in Microsoft Edge (Chromium-based) is linked to a flaw in the browser's privilege management system that allows an attacker to escape the browser's sandbox. The vulnerability exists due to an improper implementation in the handling of certain web resources, which mistakenly grants higher privileges to extensions. The vulnerable product versions are tied to build number 121.0.2277.83, and this issue is categorized under the important severity type. The conditions required for exploitation involve a network attack vector, as the vulnerability is remotely exploitable without needing user interaction. Successful exploitation would allow an attacker to install unauthorized extensions by leveraging this weakness, hinting at broader implications for affected systems.",
+  "cause_label": "ImproperPrivilegeManagementAllowsSandboxEscape",
+  "source_id": "9ec6d30e-8a43-443a-3047-7e9ba49fe430",
+  "source_type": "MSRCPost",
+  "tags": [
+    "Microsoft Edge",
+    "Privilege Escalation",
+    "Sandbox Escape",
+    "Browser Vulnerability",
+    "CVE-2024-21388"
+  ],
+  "node_id": "d8232c27-1544-4305-8e74-e649bf265eef",
+  "node_label": "Cause",
+  "reliability": 9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

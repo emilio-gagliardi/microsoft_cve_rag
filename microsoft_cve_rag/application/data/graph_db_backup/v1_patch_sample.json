@@ -1,0 +1,20 @@
+﻿[
+  {
+    "n": {
+      "identity": 177,
+      "labels": [
+        "PatchManagement"
+      ],
+      "properties": {
+        "summary": "The email discusses the need to update ESXI hosts to version 8 to avoid penalties. It also mentions a potential issue related to Hyper-V and provides a link for VMware.",
+        "receivedDateTime": "2023-10-22T20:21:33+00:00",
+        "conversation_link": "",
+        "post_type": "Solution provided",
+        "published": "22-10-2023",
+        "id": "4af4c8b5-de7e-797a-c39f-f1af5737bbc7",
+        "title": "October patches"
+      },
+      "elementId": "4:a88df59f-847f-4b99-bff0-53420b2dfe18:177"
+    }
+  }
+]

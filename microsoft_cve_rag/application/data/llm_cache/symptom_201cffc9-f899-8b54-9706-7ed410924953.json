@@ -1,0 +1,21 @@
+{
+  "symptom_label": "remote_code_execution_possible_on_multipoint_service",
+  "description": "Systems utilizing Windows Multipoint Services may exhibit an observable behavior where unauthorized remote code execution could potentially occur. Users or system administrators may notice that specific functionality is compromised, leading to unexpected system behaviors. In scenarios where an attacker sends a malicious request to the affected server, it may result in the service becoming unresponsive, requiring administrative actions to stop or restart the service. The impacted product builds include Windows 11 (KB5040442), Windows 10 versions (KB5040427 for 22H2 and KB5040431 for 21H2), and server installations. This issue affects multiple build numbers, including 10.0.22631.3880 and 10.0.19045.4651, prompting a critical need for attention from system administrators managing these environments.",
+  "source_id": "201cffc9-f899-8b54-9706-7ed410924953",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "201cffc9-f899-8b54-9706-7ed410924953"
+  ],
+  "tags": [
+    "Windows Multipoint Services",
+    "Remote Code Execution",
+    "System Unresponsiveness",
+    "Security Update"
+  ],
+  "node_id": "b10bb5d7-90f0-4070-9c94-8c7555876d79",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

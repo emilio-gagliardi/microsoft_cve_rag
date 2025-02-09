@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nIn response to the recent changes affecting domain-joined users regarding Windows 11 upgrades:\n\n1. Review your group policies to control user upgrade prompts effectively.\n2. Consider using Device Management tools to manage Windows upgrade settings for domain-joined machines.\n\n**Details**:\n- By adjusting the policies, you can prevent unwanted prompts for upgrades to Windows 11 through registry settings or Group Policy Objects (GPO).\n- Stay proactive in monitoring communications from Microsoft for any further changes that might impact your deployment strategies. (LLM Synthesized)",
+  "source_id": "1dd005dd-1709-8229-315d-087bc42930a6",
+  "source_type": "PatchManagementPost",
+  "fix_label": "control_user_prompts_for_windows11_upgrade",
+  "tags": [
+    "Windows11",
+    "GroupPolicy",
+    "DomainJoin",
+    "LLM Synthesized"
+  ],
+  "node_id": "4243534b-83de-4e1c-bc46-bad2e0240d14",
+  "node_label": "Fix",
+  "reliability": 0.5,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "1dd005dd-1709-8229-315d-087bc42930a6"
+  ]
+}

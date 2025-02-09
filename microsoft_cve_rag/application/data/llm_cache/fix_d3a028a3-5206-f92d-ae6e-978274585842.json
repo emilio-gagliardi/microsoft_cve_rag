@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Hyper-V remote code execution vulnerability (CVE-2024-30092), apply the relevant KB updates for your system build:\n\n1. Identify your Windows version and build number from the list below:\n   - Windows 11 Version 24H2: 10.0.26100.2033\n   - Windows 11 Version 23H2: 10.0.22631.4317\n   - Windows 11 Version 22H2: 10.0.22621.4317\n   - Windows 11 Version 21H2: 10.0.22000.3260\n   - Windows 10 Version 22H2: 10.0.19045.5011\n   - Windows 10 Version 21H2: 10.0.19044.5011\n\n2. Download and install the appropriate KB updates from the Microsoft Update Catalog:\n   - For Windows 11 Version 24H2: [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n   - For Windows 11 Version 23H2: [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - For Windows 11 Version 22H2: [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n   - For Windows 11 Version 21H2: [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280)\n   - For Windows 10 Version 22H2: [KB5044286](https://catalog.update.microsoft.com/Search.aspx?q=KB5044286)\n   - For Windows 10 Version 21H2: [KB5044273](https://catalog.update.microsoft.com/Search.aspx?q=KB5044273)\n\n**Details**:\n- This update addresses improper input validation and issues related to the inclusion of functionality from untrusted control spheres, which can lead to remote code execution. After applying the updates, it is advisable to restart your system to ensure all changes are implemented correctly.\n\n**Preconditions**:\n- Ensure your system is running a supported version of Windows.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "d3a028a3-5206-f92d-ae6e-978274585842",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_for_hyper_v_remote_code_execution",
+  "tags": [
+    "KB5044284",
+    "KB5044285",
+    "Windows11",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "0f240667-531f-453b-b8d8-d2e2efca784b",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "d3a028a3-5206-f92d-ae6e-978274585842"
+  ],
+  "verification_status": "unverified"
+}

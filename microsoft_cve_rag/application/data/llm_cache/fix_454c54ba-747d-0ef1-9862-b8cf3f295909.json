@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the DHCP server service denial of service vulnerability (CVE-2024-30070):\n\n1. Download and apply the KB-5039260 update from the Microsoft Update catalog.\n2. Restart the DHCP server service to ensure the update takes effect.\n\n**Details**:\n- This update resolves the integer underflow vulnerability that can lead to denial of service.\n- For manual installation, visit: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30070.\n\n**Preconditions**:\n- Ensure your system is running the DHCP service.\n- Backup configuration settings before proceeding with the update installation.",
+  "source_id": "454c54ba-747d-0ef1-9862-b8cf3f295909",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb5039260_to_resolve_dhcp_service_issue",
+  "tags": [
+    "KB5039260",
+    "DHCPService",
+    "DenialOfService",
+    "CVE-2024-30070"
+  ],
+  "node_id": "33d509bb-1047-4db2-8789-de85c276a8d5",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "454c54ba-747d-0ef1-9862-b8cf3f295909"
+  ],
+  "verification_status": "unverified"
+}

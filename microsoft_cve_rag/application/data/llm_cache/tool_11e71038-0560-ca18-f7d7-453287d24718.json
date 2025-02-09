@@ -1,0 +1,23 @@
+{
+  "tool_label": "exploitable_poc_remote_desktop",
+  "description": "**Tool Overview**:\n\nThe Exploitable Proof of Concept (PoC) relates to vulnerabilities in the Remote Desktop Licensing Service that could lead to remote code execution. This tool is designed to demonstrate the exploit path and aid system administrators in understanding the specific vulnerability listed under CVE-2024-38077.\n\n**Details**:\n\nThis PoC serves as a demonstration of how the vulnerability can be exploited in environments where Remote Desktop services are deployed. System administrators can use this PoC to:\n\n1. Test the exploitable nature of their current setups.\n2. Apply mitigations or patches effectively.\n3. Understand potential risks associated with the licensing part of Remote Desktop services. It's crucial to run the PoC in a controlled environment to avoid unintended consequences in production.\n\n**Important Note**: While the PoC is indicative of the vulnerability, deploying it directly on production systems without proper safeguards is not recommended.",
+  "source_id": "11e71038-0560-ca18-f7d7-453287d24718",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "11e71038-0560-ca18-f7d7-453287d24718"
+  ],
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/em818b5304-6141-410e-afae-816968fb55ba%4022de9de7.com",
+  "tool_url": "https://securityonline.info/exploitable-poc-released",
+  "tags": [
+    "PoC",
+    "remote desktop",
+    "exploitation",
+    "CVE-2024-38077"
+  ],
+  "node_id": "734bf37a-ca0a-4808-b799-6f2dd697cea4",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

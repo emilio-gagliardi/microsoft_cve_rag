@@ -1,0 +1,16 @@
+{
+  "description": "To address the issues related to CVE-2023-5475, users should ensure they are running the latest version of Microsoft Edge (Chromium-based) which is 118.0.2088.46, released on October 13, 2023. This update implements necessary changes to mitigate the inappropriate implementation in devtools causing vulnerabilities. Users can verify their current version by clicking on the three dots in the upper right corner of Edge, selecting 'Help and Feedback', and then 'About Microsoft Edge'. No additional update packages are needed for this upgrade as it is included in the standard update for Edge. More information on this update can be found in the Microsoft Knowledge Base article associated with this release.",
+  "source_id": "0efa8bac-be8e-684c-838d-a5b1b313f223",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeForChromiumImplementationIssue",
+  "tags": [
+    "Microsoft Edge",
+    "CVE-2023-5475",
+    "Chromium Update"
+  ],
+  "node_id": "c2a183a9-08ef-4c42-89a5-04498c9b6b8e",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the scripting engine memory corruption vulnerability (CVE-2024-38178), it's essential to apply the relevant updates corresponding to the affected Windows versions:\n\n1. Download the updates from the Microsoft Update Catalog based on your system's version.\n2. Follow the installation instructions provided with each update.\n3. Restart your system after the installation to ensure that the changes take effect.\n\n**Details**:\nThis vulnerability primarily affects various builds of Windows 10 and Windows 11, where a scripting engine memory corruption could potentially be exploited. Updating your systems will rectify the improper handling of memory within the scripting engine and enhance security. Ensure you are running one of the specified Windows builds before proceeding with the updates. \n\nUpdate links for reference:\n- [KB5041782](https://catalog.update.microsoft.com/Search.aspx?q=KB5041782) - Windows 10 (x64 and 32-bit)\n- [KB5041585](https://catalog.update.microsoft.com/Search.aspx?q=KB5041585) - Windows 11 (22H2 and 23H2)\n- [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580) - Windows 10 (22H2)\n- [KB5041592](https://catalog.update.microsoft.com/Search.aspx?q=KB5041592) - Windows 11 (21H2)\n- [KB5041571](https://catalog.update.microsoft.com/Search.aspx?q=KB5041571) - Windows 11 (24H2)\n\n**Preconditions**:\n- Ensure you have administrative privileges to apply updates.\n- Backup important data before proceeding with the installation of updates.\n",
+  "source_id": "1fa7b6e1-ad56-8bd9-6f78-1c51c1926237",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_scripting_engine_memory_corruption_cve202438178",
+  "tags": [
+    "KB5041782",
+    "Windows10",
+    "Windows11",
+    "CVE202438178"
+  ],
+  "node_id": "f0a22db6-1e5d-4eb5-9de0-0bfa7c1d6eaf",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "1fa7b6e1-ad56-8bd9-6f78-1c51c1926237"
+  ],
+  "verification_status": "unverified"
+}

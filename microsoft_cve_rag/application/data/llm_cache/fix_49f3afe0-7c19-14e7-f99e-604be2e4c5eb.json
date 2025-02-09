@@ -1,0 +1,16 @@
+{
+  "description": "To address the identified issues with McAfee/Trellix products, systematically disable services to determine the root cause of the malfunction. Begin with the on-access scanner, as a faulty definition update may lead to access problems. Review service logs during this process to identify which service might be interfering and blocking access. This methodical approach helps in isolating the faulty component and implementing further corrective actions based on the insights gained from the logs.",
+  "source_id": "49f3afe0-7c19-14e7-f99e-604be2e4c5eb",
+  "source_type": "PatchManagementPost",
+  "fix_label": "SystematicallyDisableServicesToIdentifyMalfunction",
+  "tags": [
+    "McAfee",
+    "Trellix",
+    "ServiceIsolation"
+  ],
+  "node_id": "e513701b-27cb-44a3-b6d8-f515492d693b",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

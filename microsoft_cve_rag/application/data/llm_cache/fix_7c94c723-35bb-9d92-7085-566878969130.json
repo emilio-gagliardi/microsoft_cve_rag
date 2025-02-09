@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the win32k elevation of privilege vulnerability (CVE-2024-30082):\n\n1. Download the appropriate update package that addresses CVE-2024-30082.\n2. Install the update on your system by following the prompts.\n3. Restart your system if required to ensure all changes take effect.\n\n**Details**:\n- Apply the KB5039211 or KB5039212 update based on your operating system version to resolve the use-after-free issue.\n- For manual installation, you can download the respective update packages from the official Microsoft Update Catalog:\n  - [KB5039211](https://catalog.update.microsoft.com/Search.aspx?q=KB5039211)\n  - [KB5039212](https://catalog.update.microsoft.com/Search.aspx?q=KB5039212)\n  - [KB5039213](https://catalog.update.microsoft.com/Search.aspx?q=KB5039213)\n  - [KB5039225](https://catalog.update.microsoft.com/Search.aspx?q=KB5039225)\n\n**Preconditions**:\n- Ensure your system is up to date with the latest patches.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "7c94c723-35bb-9d92-7085-566878969130",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_win32k_elevation_of_privilege_cve202430082",
+  "tags": [
+    "KB5039211",
+    "KB5039212",
+    "Windows10",
+    "Windows11"
+  ],
+  "node_id": "78d6a434-d561-4a65-b255-c40de0912757",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "7c94c723-35bb-9d92-7085-566878969130"
+  ],
+  "verification_status": "unverified"
+}

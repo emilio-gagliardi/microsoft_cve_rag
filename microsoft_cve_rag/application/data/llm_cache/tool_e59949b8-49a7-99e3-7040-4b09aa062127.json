@@ -1,0 +1,20 @@
+{
+  "tool_label": "GetInstalledProgramsInformationFunction",
+  "description": "This PowerShell function retrieves installed program information from the Windows Registry, specifically for programs like Adobe Acrobat. It operates by querying the registry to gather data from both 64-bit and 32-bit entries, under the proper conditions, ensuring that details such as uninstall keys and architecture are accurately returned. The function allows users to filter by display name or other specified properties, providing flexibility in the output. Through the leveraging of the WMI object model, this script assists administrators in managing installed applications effectively.",
+  "synthesized_code": "function get-addremoveprograms { param ( [string] $value = \"*\", [string] $property = \"displayname\" ) ... }",
+  "source_id": "e59949b8-49a7-99e3-7040-4b09aa062127",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/CALBBxbxELhz02dUmE3%2BtVPwY0XQS27dTyhnTW%3DCk9dgkTMWQYA%40mail.gmail.com",
+  "tool_url": "https://www.reddit.com/r/SCCM/comments/...",
+  "tags": [
+    "PowerShell",
+    "registry",
+    "installed programs",
+    "LLMSynthesized"
+  ],
+  "node_id": "9498b579-e679-4b99-88a1-c76342691bfb",
+  "node_label": "Tool",
+  "reliability": "0.8",
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

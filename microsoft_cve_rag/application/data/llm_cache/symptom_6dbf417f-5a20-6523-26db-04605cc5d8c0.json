@@ -1,0 +1,21 @@
+{
+  "symptom_label": "lenovo_laptops_overheat_when_running_teams_meeting",
+  "description": "Lenovo laptops operating on Windows 11 exhibit performance issues, particularly during video meetings in Microsoft Teams. Users have reported that when Teams is actively used in a meeting, the laptops experience high temperatures, causing the fans to operate at maximum speed. This overheating behavior is particularly noticeable on lower-end models, even after performing BIOS updates through Lenovo Vantage and other driver updates. Interestingly, higher-end configurations, such as the Lenovo P14 equipped with 32GB of RAM and a dedicated GPU, do not present these issues. This trend suggests that basic cloud applications require robust hardware for optimal performance without overheating.",
+  "source_id": "6dbf417f-5a20-6523-26db-04605cc5d8c0",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "6dbf417f-5a20-6523-26db-04605cc5d8c0"
+  ],
+  "tags": [
+    "lenovo laptops",
+    "windows 11",
+    "teams performance",
+    "overheating issue"
+  ],
+  "node_id": "a0b708e4-44e4-403d-8ed8-4dd85eebe900",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

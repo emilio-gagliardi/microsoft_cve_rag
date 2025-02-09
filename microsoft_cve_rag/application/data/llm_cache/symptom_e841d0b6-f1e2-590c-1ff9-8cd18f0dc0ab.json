@@ -1,0 +1,20 @@
+{
+  "symptom_label": "intune_graph_updates_not_deployed_correctly",
+  "description": "There is a notable issue with the synchronization between Intune and Microsoft Graph, specifically affecting the Windows Feature update policy deployment. Despite the policy being manually created and the device added to the deployment audience, the update was not applied in a timely manner, taking two days instead of the expected duration. This lag indicates a potential failure in the deployment mechanism, which can lead to issues in managing device updates effectively. The impact on the deployment process can cause delays in critical security and feature updates, thereby impacting overall system performance and user experience. Administrators may need to investigate and resolve this issue to ensure updates are applied promptly and effectively, referencing KB07059 for further insights.",
+  "source_id": "e841d0b6-f1e2-590c-1ff9-8cd18f0dc0ab",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "e841d0b6-f1e2-590c-1ff9-8cd18f0dc0ab"
+  ],
+  "tags": [
+    "intune",
+    "microsoft_graph",
+    "update_deployment",
+    "windows_feature_updates"
+  ],
+  "node_id": "b5ed78f0-d002-414f-bbab-bd30456974aa",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

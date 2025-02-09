@@ -1,0 +1,20 @@
+{
+  "description": "The issue arises from improper input validation in PowerShell, allowing attackers to elevate privileges under specific conditions without user interaction. This is primarily due to localized attack vectors where the attacker, either in proximity to the device or through social engineering, can leverage this flaw to gain unauthorized access to resources managed by the same security authority.",
+  "cause_label": "powershell_improper_input_validation_elevation_of_privilege",
+  "source_id": "046f6a31-bab2-31e0-0d31-9dbc60fceacb",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "046f6a31-bab2-31e0-0d31-9dbc60fceacb"
+  ],
+  "tags": [
+    "PowerShell",
+    "Privilege Escalation",
+    "Input Validation"
+  ],
+  "node_id": "35fc158b-1c59-4341-bc11-59d6d52eaec3",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

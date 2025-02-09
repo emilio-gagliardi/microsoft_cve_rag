@@ -1,0 +1,20 @@
+{
+  "symptom_label": "delayed_patching_on_domain_controllers",
+  "description": "The observed issue revolves around the delay in applying critical patches on Domain Controllers (DCs). This postponement is due to the release schedule for out-of-band (OOB) patches, which has caused a disruption in the standard patch cycle. System administrators typically rely on timely updates to ensure the stability and security of DCs, and any delay may leave systems vulnerable to potential exploits. Organizations should be aware that such delays, while sometimes necessary, can lead to increased risk, particularly if outstanding patches address known issues. The patch cycle's adjustment for this delay is set to occur as soon as the OOB patch is released, indicating urgency in rectifying the situation.",
+  "source_id": "58cd96db-67f2-2dee-b181-14a96a98ddf8",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "58cd96db-67f2-2dee-b181-14a96a98ddf8"
+  ],
+  "tags": [
+    "patch_management",
+    "domain_controllers",
+    "out_of_band",
+    "update_delay"
+  ],
+  "node_id": "7ab09b16-19ab-4907-8886-3809b203df8e",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

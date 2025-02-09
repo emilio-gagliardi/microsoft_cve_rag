@@ -1,0 +1,20 @@
+{
+  "symptom_label": "robocopy_starts_full_copy_after_dst_change",
+  "description": "Robocopy exhibits unexpected behavior after the occurrence of daylight savings time (DST), treating file backups as if they are being copied for the first time. This issue results in robocopy performing a full copy instead of recognizing previous backups, thus leading to increased backup times. Despite the availability of the DST optional flag, it appears to have no effect on robocopy's execution, failing to maintain the differential backup functionality. The situation becomes problematic, especially for administrators managing large volumes of files across numerous subdirectories, as it substantially increases resource utilization and extends backup durations. Understanding the interaction between DST and robocopy is crucial for system administrators to optimize their backup strategies.",
+  "source_id": "c28793b9-e371-aa16-639a-5de43bad69d8",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "c28793b9-e371-aa16-639a-5de43bad69d8"
+  ],
+  "tags": [
+    "robocopy",
+    "daylight savings time",
+    "backup management",
+    "file transfer"
+  ],
+  "node_id": "4789ab8c-9f0a-4a09-9cde-49b91481f58e",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "Out-of-bounds memory access due to improper handling of keyboard inputs in Chromium-based applications, which allows potential heap corruption when a user interacts with a crafted HTML page.",
+  "cause_label": "chromium_out_of_bounds_access_in_keyboard_inputs",
+  "source_id": "6ff0664c-8870-2010-743b-4116b6835225",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "6ff0664c-8870-2010-743b-4116b6835225"
+  ],
+  "tags": [
+    "Chromium",
+    "Microsoft Edge",
+    "Heap Corruption",
+    "CVE-2024-5497"
+  ],
+  "node_id": "3f6e3f30-9a2b-4f34-8362-a6b33d47c0cf",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_performance_issues_with_previous_builds",
+  "description": "Users may experience performance issues in Microsoft Edge (Chromium-based) version 126.0.2592.68 and earlier, particularly when loading web pages that utilize complex scripts or multimedia elements. These performance degradations can manifest as slow response times, stuttering animations, and increased loading times. Additionally, users might observe intermittent application unresponsiveness, especially when navigating to sites with heavy content or during the rendering of multimedia files. As a result of these symptoms, administrators may receive reports of frustration from users, affecting overall productivity. It's essential for users to ensure they update to version 126.0.6478.114 or later to mitigate these impacts, as this version resolves the performance issues associated with the out-of-bounds memory access vulnerability documented in KB-126.0.2592.68.",
+  "source_id": "478fb318-a8c2-067f-eb7c-b14501c17011",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "478fb318-a8c2-067f-eb7c-b14501c17011"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "performance issues",
+    "update",
+    "Chrome",
+    "CVE-2024-6102"
+  ],
+  "node_id": "933c25b3-a2cf-447b-8548-31df772fb2e9",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

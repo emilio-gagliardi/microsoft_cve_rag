@@ -1,0 +1,21 @@
+{
+  "description": "The underlying issue stems from a 'Use After Free' flaw in the Microsoft Management Console, which can lead to remote code execution. Specifically, the vulnerability is exploitable over the network, allowing attackers to execute arbitrary code on affected systems. To successfully exploit this flaw, users are required to open a specially crafted file, either received via email or hosted on a malicious website.",
+  "cause_label": "microsoft_management_console_use_after_free_exploit",
+  "source_id": "0d0aa77a-66a9-ccc1-6bd7-ffb3512673bc",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "0d0aa77a-66a9-ccc1-6bd7-ffb3512673bc"
+  ],
+  "tags": [
+    "CVE-2024-38259",
+    "Use After Free",
+    "Remote Code Execution",
+    "Microsoft Management Console"
+  ],
+  "node_id": "71e6f282-6a68-49f9-b27b-cd0e4c635067",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

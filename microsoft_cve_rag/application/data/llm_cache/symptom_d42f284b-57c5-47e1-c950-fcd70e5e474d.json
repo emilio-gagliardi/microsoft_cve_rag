@@ -1,0 +1,20 @@
+{
+  "symptom_label": "admx_management_issues_affecting_microsoft_edge",
+  "description": "Issues with ADMX management can lead to incorrect configurations in Microsoft Edge, potentially impacting the application's performance and user experience. The lack of correct naming and folder structure when using EvergreenADMX PowerShell may result in inefficiencies and difficulties in managing policies. This can cause unexpected behaviors in Edge as administrators struggle to implement consistent and effective group policies. Additionally, these misconfigurations can delay deployment of critical updates and settings across Microsoft Edge instances. Ensure that your implementation follows best practices to avoid these issues.",
+  "source_id": "d42f284b-57c5-47e1-c950-fcd70e5e474d",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d42f284b-57c5-47e1-c950-fcd70e5e474d"
+  ],
+  "tags": [
+    "evergreenadmx",
+    "admx_management",
+    "microsoft_edge",
+    "policy_management"
+  ],
+  "node_id": "7b89f918-d307-4ec4-9098-b6e6511f3d65",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

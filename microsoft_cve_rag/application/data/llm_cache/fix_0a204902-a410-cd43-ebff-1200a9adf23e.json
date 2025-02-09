@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the elevation of privilege vulnerability found in the Windows common log file system driver (CVE-2024-38196):\n\n1. Download the relevant KB update from the Microsoft Update Catalog based on your system version.\n2. Install the KB updates by following the prompts in the installer.\n3. Restart your system to apply the changes.\n\n**Details**:\n- The updates associated with this vulnerability ensure that improper input validation is corrected, mitigating the risk of elevation of privilege.\n- Relevant KB Articles include: \n   - Windows 10 for x64-based Systems: [KB5041782](https://catalog.update.microsoft.com/Search.aspx?q=KB5041782)  \n   - Windows 10 Version 22H2 for x64-based Systems: [KB5041580](https://catalog.update.microsoft.com/Search.aspx?q=KB5041580)  \n   - Windows 11 Version 21H2 for x64-based Systems: [KB5041592](https://catalog.update.microsoft.com/Search.aspx?q=KB5041592)  \n   - Additional updates can be found [here](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38196).\n\n**Preconditions**:\n- Ensure your system is on a supported version as listed above.\n- Backup critical data before applying updates.",
+  "source_id": "0a204902-a410-cd43-ebff-1200a9adf23e",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_elevation_of_privilege_log_file_system_driver_cve202438196",
+  "tags": [
+    "KB5041782",
+    "KB5041580",
+    "KB5041592",
+    "CVE202438196"
+  ],
+  "node_id": "be32c6f9-ffb5-442f-b9ec-134ec0638d07",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "0a204902-a410-cd43-ebff-1200a9adf23e"
+  ],
+  "verification_status": "unverified"
+}

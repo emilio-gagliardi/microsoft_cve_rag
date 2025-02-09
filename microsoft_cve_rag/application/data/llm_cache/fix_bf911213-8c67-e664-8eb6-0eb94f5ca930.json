@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the remote code execution vulnerability in the Windows USB Attached SCSI (UAS) protocol, ensure to apply the relevant security updates as detailed below:\n\n1. Verify your system build number and identify the applicable security update based on your Windows version.\n2. Download and install the relevant KB updates from the Microsoft Update Catalog.\n3. Restart your system after installation to ensure the changes take effect.\n\n**Details**:\n- The following KB updates are available:\n  - Windows 11 Version 23H2 for x64-based Systems: [KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)\n  - Windows 10 for x64-based Systems: [KB5035858](https://catalog.update.microsoft.com/Search.aspx?q=KB5035858)\n  - Windows 11 Version 21H2 for x64-based Systems: [KB5035854](https://catalog.update.microsoft.com/Search.aspx?q=KB5035854)\n- Update builds that are supported:\n  - Windows 11 Version 23H2: 10.0.22631.3296\n  - Windows 10 Version 21H2: 10.0.22000.2836\n\n**Preconditions**:\n- Ensure that all critical data is backed up before proceeding with the update.\n- System might require administrative privileges for the installation process.",
+  "source_id": "bf911213-8c67-e664-8eb6-0eb94f5ca930",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_remote_code_execution_in_uas_protocol_cve202421430",
+  "tags": [
+    "KB5035853",
+    "KB5035854",
+    "KB5035858",
+    "RemoteCodeExecution"
+  ],
+  "node_id": "cff1f78d-2e72-4d71-b126-f7c522191dba",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "bf911213-8c67-e664-8eb6-0eb94f5ca930"
+  ]
+}

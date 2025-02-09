@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nMicrosoft has released critical updates in the November 2024 Patch Tuesday addressing multiple vulnerabilities affecting various products, including Windows OS, Microsoft Exchange Server, and others. Key vulnerabilities include:\n\n1. **Elevation of Privilege in Windows Task Scheduler (CVE-2024-49039)**: Resolved directly by the November updates. \n\n2. **Spoofing in NTLM (CVE-2024-43451)**: Update mitigates risks wherein an attacker could potentially authenticate as a user. \n\n3. **Elevation of Privilege in Active Directory Certificate Services (CVE-2024-49019)**: Mitigation recommended includes tightening permissions and securing templates in certificate authorities.\n\n4. **Spoofing vulnerability in Microsoft Exchange Server (CVE-2024-49040)**: Starting from the November 2024 security update, Exchange Server now flags suspicious email headers and can configure mail flow rules to address potential threats.\n\n**Preconditions**:\n- Ensure to deploy the November 2024 updates across your environment in a timely manner to mitigate these vulnerabilities which are confirmed to be exploited.\n",
+  "source_id": "fa26ab87-99d9-1092-9024-a1a144af309d",
+  "source_type": "PatchManagementPost",
+  "fix_label": "address_critical_vulnerabilities_november_2024_updates",
+  "tags": [
+    "CVE-2024-5535",
+    "CVE-2024-49039",
+    "CVE-2024-49040",
+    "MicrosoftExchange"
+  ],
+  "node_id": "76c062ff-e701-4998-aba5-eeb24080df44",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "fa26ab87-99d9-1092-9024-a1a144af309d"
+  ],
+  "verification_status": "unverified"
+}

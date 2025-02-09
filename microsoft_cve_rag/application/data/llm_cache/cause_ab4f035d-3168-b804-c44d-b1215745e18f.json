@@ -1,0 +1,18 @@
+{
+  "description": "The underlying issue stems from problematic documentation related to the current ADMX files for modern Windows LAPS. As users transition from the legacy LAPS to the modern implementation, clarity in documentation is crucial to avoid misconfiguration and operational errors. This problem in the documentation may lead to improper setup and deployment of Windows LAPS features, causing delays and inefficiencies in patch management processes. The reference to an imminent fix implies that Microsoft acknowledges the concern and is actively working to resolve it, which is essential for maintaining system integrity for IT consultants and administrators. Users are advised to monitor updates on this documentation to ensure they have the most accurate and up-to-date information during the migration process.",
+  "source_id": "ab4f035d-3168-b804-c44d-b1215745e18f",
+  "source_type": "PatchManagementPost",
+  "cause_label": "ProblematicDocumentationForModernWindowsLAPS",
+  "tags": [
+    "patch management",
+    "Windows LAPS",
+    "documentation",
+    "ADMX files",
+    "migration"
+  ],
+  "node_id": "39c08daf-ccac-42d1-ad00-abb9771c455e",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

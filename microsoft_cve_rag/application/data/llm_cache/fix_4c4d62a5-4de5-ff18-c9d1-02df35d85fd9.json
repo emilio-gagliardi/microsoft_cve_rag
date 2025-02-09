@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Use After Free vulnerability in WebRTC as identified by CVE-2024-10488:\n\n1. Update your Microsoft Edge (Chromium-based) to the latest version 130.0.2849.68, which includes the necessary security improvements.\n2. To check for updates, open Microsoft Edge and click on the three dots (...) at the top right corner.\n3. Navigate to Help and Feedback, then click on About Microsoft Edge to view the version and initiate any pending updates.\n\n**Details**:\n- This update rectifies a critical heap corruption vulnerability that could be exploited by remote attackers through crafted HTML content.\n- Ensure that you are running Microsoft Edge version 130.0.2849.68 or later to remain secure against this threat.\n\n**Preconditions**:\n- Verify that you are using a supported version of Microsoft Edge that relies on the Chromium engine.\n- Regularly check for updates to maintain security standards in your browser.",
+  "source_id": "4c4d62a5-4de5-ff18-c9d1-02df35d85fd9",
+  "source_type": "MSRCPost",
+  "fix_label": "update_edge_to_version_130_0_2849_68_for_cve_2024_10488",
+  "tags": [
+    "EdgeChromium",
+    "CVE202410488",
+    "WebRTC",
+    "UseAfterFree"
+  ],
+  "node_id": "a233280f-baba-4f21-80eb-a34b3c6f7596",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix",
+  "source_ids": [
+    "4c4d62a5-4de5-ff18-c9d1-02df35d85fd9"
+  ],
+  "verification_status": "unverified"
+}

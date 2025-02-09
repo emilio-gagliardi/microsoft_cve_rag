@@ -1,0 +1,22 @@
+{
+  "symptom_label": "microsoft_edge_version_127_0_2651_74_issues",
+  "description": "Users may experience usability issues with the Microsoft Edge browser version 127.0.2651.74, stemming from a heap buffer overflow vulnerability previously detected in Chromium software. This could manifest as unexpected application behavior, including sluggish performance, occasional crashes, or failure to load specific webpages, especially when viewing complex HTML content. Such issues may prompt users to notice that certain functionalities are not working as intended, which alerts them to the presence of underlying issues that were addressed by the latest update. This indicates the importance of updating to the version included in KB-127.0.2651.74 to mitigate these effects and ensure smoother browser operations.",
+  "source_id": "382e6f9a-fc05-04f5-1e3f-821c80ce9418",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "382e6f9a-fc05-04f5-1e3f-821c80ce9418"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "heap buffer overflow",
+    "browser issues",
+    "update"
+  ],
+  "node_id": "8e23a6a9-3c3d-47e5-82ea-028bb7b2fa88",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "The underlying issue is a Use After Free condition in the Windows Reliable Multicast Transport Driver (RMCAST), which can be exploited via specially crafted network packets sent to an open socket, leading to remote code execution without user interaction.",
+  "cause_label": "rmcast_use_after_free_remote_code_execution",
+  "source_id": "2b307b28-ebac-29d4-6db6-ec31c296aca1",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2b307b28-ebac-29d4-6db6-ec31c296aca1"
+  ],
+  "tags": [
+    "RMCAST",
+    "Use After Free",
+    "remote code execution"
+  ],
+  "node_id": "bde7bd83-6e51-485b-a263-d8818454d481",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

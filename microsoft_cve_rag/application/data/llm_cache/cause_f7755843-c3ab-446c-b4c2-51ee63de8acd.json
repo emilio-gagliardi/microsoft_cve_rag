@@ -1,0 +1,22 @@
+{
+  "description": "A remote code execution vulnerability due to a heap-based buffer overflow in the Windows TCP/IP stack, which can be exploited by sending specially crafted requests to a Windows machine with non-default NetNat service configuration. Specific network conditions must be met for successful exploitation.",
+  "cause_label": "windows_tcpip_heap_buffer_overflow",
+  "source_id": "f7755843-c3ab-446c-b4c2-51ee63de8acd",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "f7755843-c3ab-446c-b4c2-51ee63de8acd"
+  ],
+  "tags": [
+    "CVE-2024-21416",
+    "Windows",
+    "TCP/IP",
+    "Remote Code Execution",
+    "Heap-based Buffer Overflow"
+  ],
+  "node_id": "ec512b22-c375-4a02-8f18-1bba82d13227",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

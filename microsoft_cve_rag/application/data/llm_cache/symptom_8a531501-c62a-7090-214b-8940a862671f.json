@@ -1,0 +1,21 @@
+{
+  "symptom_label": "elevation_of_privilege_attack_on_windows_services",
+  "description": "Users may experience unauthorized access or misuse of elevated privileges on Windows systems running version 10.0.19045.4412, 10.0.22631.3593, and earlier builds. Specifically, the vulnerability identified as CVE-2024-30031 can lead to instances where normal user applications exploit race conditions to gain higher security privileges. This can result in unexpected behaviors such as unauthorized read/write actions on sensitive system files, potentially compromising system integrity. Affected users might notice erratic application behavior or, in severe cases, full system lockouts as unauthorized processes leverage elevated access. Admins managing systems with updates KB5037788, KB5037771, or related KB articles should remain vigilant for any unusual activities or performance degradation as a result of attempts to exploit these vulnerabilities.",
+  "source_id": "8a531501-c62a-7090-214b-8940a862671f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "8a531501-c62a-7090-214b-8940a862671f"
+  ],
+  "tags": [
+    "Elevation of Privilege",
+    "Windows 10",
+    "Windows 11",
+    "CVE-2024-30031"
+  ],
+  "node_id": "9092a964-56d2-422e-9714-69a8a9f6fe81",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

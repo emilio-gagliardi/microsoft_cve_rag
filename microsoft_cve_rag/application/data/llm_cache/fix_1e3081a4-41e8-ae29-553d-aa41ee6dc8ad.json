@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the nt os kernel elevation of privilege vulnerability (CVE-2024-43553):\n\n1. Identify the appropriate KB Article based on your system version and apply the corresponding update.\n2. Restart your system after applying the updates to ensure changes take effect.\n\n**Details**:\n- The following KB Articles resolve this vulnerability:\n  - Windows 11 Version 24H2: [KB5044284](https://catalog.update.microsoft.com/Search.aspx?q=KB5044284)\n  - Windows 11 Version 23H2: [KB5044285](https://catalog.update.microsoft.com/Search.aspx?q=KB5044285)\n  - Windows 10 Version 21H2: [KB5044280](https://catalog.update.microsoft.com/Search.aspx?q=KB5044280)\n  - Windows 10 for x64-based Systems: [KB5044286](https://catalog.update.microsoft.com/Search.aspx?q=KB5044286)\n\n**Preconditions**:\n- Ensure your system matches the build numbers specified for the updates:\n  - Windows 11 Version 24H2 for x64-based Systems: 10.0.26100.2033\n  - Ensure to backup critical data before proceeding with the update installation.",
+  "source_id": "1e3081a4-41e8-ae29-553d-aa41ee6dc8ad",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb_updates_for_nt_os_privilege_elevation",
+  "tags": [
+    "KB5044284",
+    "Windows11",
+    "KernelPrivilege",
+    "CVE20244353"
+  ],
+  "node_id": "54e069c2-912f-4a2b-bc96-92c707342edf",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "1e3081a4-41e8-ae29-553d-aa41ee6dc8ad"
+  ],
+  "verification_status": "unverified"
+}

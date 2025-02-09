@@ -1,0 +1,16 @@
+{
+  "description": "To mitigate the vulnerabilities associated with CVE-2023-36766, ensure that you install the latest monthly release for Office products, as noted on the release notes page. This includes relevant updates for Office 2016 and Excel 2016. Be certain that the installed version matches the one specified on the update history page to confirm that you are patched against these vulnerabilities. Security updates, particularly for Excel 2016, are detailed in the Microsoft Security Response Center's update guide. Regularly checking and applying updates will help maintain system integrity and protect against known issues.",
+  "source_id": "1c04d359-6787-4447-49dc-060ba694171f",
+  "source_type": "PatchManagementPost",
+  "fix_label": "InstallLatestReleaseToMitigateVulnerabilities",
+  "tags": [
+    "patching",
+    "office2016",
+    "update"
+  ],
+  "node_id": "c6a4e838-6be2-48b7-9771-817b5d9c3a1f",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

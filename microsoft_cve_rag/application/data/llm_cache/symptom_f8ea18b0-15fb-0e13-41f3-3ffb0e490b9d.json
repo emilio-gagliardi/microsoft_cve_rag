@@ -1,0 +1,16 @@
+{
+  "symptom_label": "MemoryAccessCausesMicrosoftEdgeToCrash",
+  "description": "Users of Microsoft Edge (Chromium-based) version 119.0.2151.97 may experience occasional crashes due to out-of-bounds memory access related to CVE-2023-6350. This impact can manifest as sudden and unexpected termination of the browser during use, resulting in loss of work if pages are not saved. The issue has been addressed in the security update linked to KB-119.0.2151.97, which ensures users are protected against the underlying vulnerability.",
+  "source_id": "f8ea18b0-15fb-0e13-41f3-3ffb0e490b9d",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "b0b3fe21-20dd-4d7d-9505-078e4aea3cb4",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,16 @@
+{
+  "description": "To address the system-wide behavior of Windows Copilot, a registry modification is recommended. Use the command 'reg.exe add \"hklm\\software\\policies\\microsoft\\windows\\windowscopilot\" /v turnoffwindowscopilot /t reg_dword /d 1 /f' to disable the feature at the Windows level. For the Edge browser specifically, another registry alteration is essential: 'reg.exe add \"hklm\\software\\policies\\microsoft\\edge\" /v hubssidebarenabled /t reg_dword /d 0 /f'. These commands will assist in turning off functionalities associated with Windows Copilot across the system, although thorough testing is encouraged. It is important to verify that all related components are properly disabled after applying these changes.",
+  "source_id": "e508a88a-dbc9-43ee-a9d3-21d319158b1a",
+  "source_type": "PatchManagementPost",
+  "fix_label": "ModifyRegistryToDisableWindowsCopilotFeatures",
+  "tags": [
+    "Windows Copilot",
+    "Edge Configuration",
+    "Registry Modification"
+  ],
+  "node_id": "a493f663-9e30-49f8-8967-2ffcbe126b39",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Fix"
+}

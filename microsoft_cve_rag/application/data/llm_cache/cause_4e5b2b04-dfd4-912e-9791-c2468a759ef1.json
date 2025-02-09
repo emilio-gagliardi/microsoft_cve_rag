@@ -1,0 +1,19 @@
+{
+  "description": "The underlying cause of the issue outlined in this post is related to multiple vulnerabilities within various Fortinet products, specifically vulnerabilities allowing unauthorized access that can result in arbitrary code execution. Notably, these vulnerabilities include improper access control and SQL injection flaws that enable attackers to execute commands remotely. The vulnerabilities are identified as CVE-2023-36554, CVE-2023-47534, CVE-2023-42789, CVE-2023-42790, CVE-2023-48788, and CVE-2024-23112, which affect numerous Fortinet offerings. Fortinet's advisory indicates that the exploitation of these vulnerabilities can lead to an attacker gaining administrative control, particularly for accounts with elevated privileges. Immediate application of security updates from Fortinet is recommended to mitigate these risks.",
+  "source_id": "4e5b2b04-dfd4-912e-9791-c2468a759ef1",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "4e5b2b04-dfd4-912e-9791-c2468a759ef1"
+  ],
+  "cause_label": "unauthorized_access_allows_code_execution",
+  "tags": [
+    "Fortinet",
+    "vulnerabilities",
+    "arbitrary code execution"
+  ],
+  "node_id": "60da20bb-01aa-4a89-be36-96fd1c162eb7",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "critical",
+  "entity_type": "Cause"
+}

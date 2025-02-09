@@ -1,0 +1,20 @@
+{
+  "description": "The underlying cause identified in the context is the improper management of the recovery partition size on a new VM installation under ESXi 7. The recovery partition exceeds 500 MB, which may lead to difficulties when attempting to apply the Windows Recovery Environment (WinRE) update, specifically KB5028997. Due to the large size of the recovery partition, the system may fail to install necessary updates or patches, resulting in interrupted or incomplete installations. The recommended solution involves manually resizing the recovery partition, as detailed in the provided KB article. This misconfiguration may impact the VM's overall performance and update management processes, necessitating immediate corrective action to ensure system stability.",
+  "source_id": "85544783-5a06-4fc8-c289-03d34e4fafb9",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "85544783-5a06-4fc8-c289-03d34e4fafb9"
+  ],
+  "cause_label": "improper_recovery_partition_configuration_on_vm",
+  "tags": [
+    "esxi",
+    "recovery_partition",
+    "windows_updates",
+    "vm_management"
+  ],
+  "node_id": "3c96008b-cae8-4c5c-bcdc-94de391b2532",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "The underlying issue stems from licensing complications during the upgrade process from older versions of ScreenConnect to the new 23.9 series. Specifically, users are encountering errors related to a revoked license status even when they maintain an active license. This issue can arise when attempting to upgrade from versions prior to 22.8, which are not permissible for direct upgrade to the latest version. Additionally, the requirements for older versions to migrate through intermediate versions adds complexity and frustration. The build notations suggest a reliance on updated licensing logic that inadvertently affects users who have been operating with supported licenses, highlighting a critical issue around license management and upgrade paths within the current product series.",
+  "source_id": "12dfefba-f4cf-dc95-a25b-8e1997b35776",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "12dfefba-f4cf-dc95-a25b-8e1997b35776"
+  ],
+  "cause_label": "license_management_issues_during_upgrade_process",
+  "tags": [
+    "ScreenConnect",
+    "upgrade",
+    "licensing",
+    "version management",
+    "user experience"
+  ],
+  "node_id": "e7f7ae99-14dc-4a83-9f3a-cba2faa9ddef",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

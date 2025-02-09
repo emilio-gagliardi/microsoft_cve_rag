@@ -1,0 +1,18 @@
+{
+  "description": "The cause inferred from this post relates to issues with the recovery partition management specific to GPT-based disks, particularly regarding the error code 0x80070643, which indicates an installation failure. This error commonly surfaces when there is a misconfiguration in dealing with the alignment or resizing of the recovery partition and the Operating System (OS) disk. When resizing partitions, if the recovery partition is not properly positioned or if the OS disk configuration does not adhere to best practices for GPT structures, this can lead to significant installation errors. This issue emphasizes the importance of carefully managing disk partitions during OS installations and updates to avoid recovery issues. There were no specific build numbers or KB Articles mentioned in the post text.",
+  "source_id": "aaba0ceb-8f8e-180e-e11d-d5874002b32e",
+  "source_type": "PatchManagementPost",
+  "cause_label": "RecoveryPartitionMisconfigurationOnGPTDisk",
+  "tags": [
+    "partition management",
+    "GPT disk",
+    "OS installation",
+    "error handling",
+    "recovery partition"
+  ],
+  "node_id": "93ec05c2-a289-493d-a41a-35df8f5c4ad0",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

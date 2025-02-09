@@ -1,0 +1,16 @@
+{
+  "symptom_label": "RemoteCodeExecutionLeadsToSystemInstability",
+  "description": "After applying the mitigation associated with CVE-2023-41765, systems running Windows Server 2012, 2012 R2, and versions of Windows 10 and 11 might experience intermittent system instability or unexpected behavior. The observed symptoms may include erratic application performance or system freezes, particularly in environments where the Layer 2 Tunneling Protocol (L2TP) is in use. Specifically, users on builds such as 10.0.19045.3570 or 10.0.22000.2538 should monitor for any decline in system responsiveness following the installation of updates KB-5031377, KB-5031358, KB-5031356, or KB-5031354.",
+  "source_id": "16f48b64-6419-f7c3-344a-5ad673ea36af",
+  "source_type": "MSRCPost",
+  "tags": [
+    "search",
+    "prioritized",
+    "terms"
+  ],
+  "node_id": "b18859dd-6210-47c9-b65c-519a050100b6",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

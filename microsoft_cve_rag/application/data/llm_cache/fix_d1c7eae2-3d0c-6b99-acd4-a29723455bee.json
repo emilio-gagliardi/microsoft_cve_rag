@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows NT OS kernel elevation of privilege vulnerability (CVE-2024-43623), it is essential to apply the relevant updates provided by Microsoft.\n\n1. Identify the version of Windows installed on your system by checking the build number.\n2. Download and apply the appropriate KB update from the Microsoft Update Catalog according to your Windows version:\n   - For Windows 11 Version 24H2: Apply KB5046617 from [here](https://catalog.update.microsoft.com/Search.aspx?q=KB5046617).\n   - For Windows 11 Version 23H2: Apply KB5046633 from [here](https://catalog.update.microsoft.com/Search.aspx?q=KB5046633).\n   - For Windows 10 Version 22H2: Apply KB5046613 from [here](https://catalog.update.microsoft.com/Search.aspx?q=KB5046613).\n   - For general Windows 10 updates: Apply KB5046665 from [here](https://catalog.update.microsoft.com/Search.aspx?q=KB5046665).\n3. Restart your system after installation to ensure the changes take effect.\n\n**Details**:\n- This update resolves the integer overflow or wraparound vulnerability (CWE-190) that could allow an attacker to elevate their privileges.\n- Ensure all applications are closed, and backup critical data before proceeding with the update installation.",
+  "source_id": "d1c7eae2-3d0c-6b99-acd4-a29723455bee",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kernel_update_for_elevation_of_privilege_cve202443623",
+  "tags": [
+    "KB5046617",
+    "KB5046633",
+    "KB5046613",
+    "CVE202443623"
+  ],
+  "node_id": "852ea6d0-e428-46fc-9d86-d5c09ba60202",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "d1c7eae2-3d0c-6b99-acd4-a29723455bee"
+  ],
+  "verification_status": "unverified"
+}

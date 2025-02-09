@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the Windows compressed folder tampering vulnerability (CVE-2024-38165):\n\n1. Download and install the KB5040442 update suitable for your system version from the official Microsoft Update Catalog.\n2. Restart your system to enable changes made by the update.\n\n**Details**:\n- The KB5040442 update addresses the tampering vulnerability associated with Windows compressed folders, enhancing protection against unauthorized modifications.\n- Ensure your Windows system is updated to either Version 23H2 or Version 22H2 (10.0.22631.3880 or 10.0.22621.3880).\n- Manual download link for the update package: [Windows Update Catalog](https://catalog.update.microsoft.com/Search.aspx?q=KB5040442).\n\n**Preconditions**:\n- Backup critical data before proceeding with installation to prevent accidental data loss.",
+  "source_id": "ff3d1b49-70a3-7631-a6bc-5d375f4b8561",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_compressed_folder_tampering_cve202438165",
+  "tags": [
+    "KB5040442",
+    "Windows11",
+    "Compression",
+    "Tampering"
+  ],
+  "node_id": "a44e1f6c-c411-4057-9b90-023b493c6ca8",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "ff3d1b49-70a3-7631-a6bc-5d375f4b8561"
+  ],
+  "verification_status": "unverified"
+}

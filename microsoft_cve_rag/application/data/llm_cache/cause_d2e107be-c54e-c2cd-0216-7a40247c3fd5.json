@@ -1,0 +1,22 @@
+{
+  "description": "The issue arises from improper validation of certificates within the Windows Secure Channel, leading to potential spoofing attacks over the network. This flaw allows attackers to exploit the vulnerability from remote locations, potentially intercepting and modifying secure communications.",
+  "cause_label": "windows_secure_channel_improper_certificate_validation",
+  "source_id": "d2e107be-c54e-c2cd-0216-7a40247c3fd5",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "d2e107be-c54e-c2cd-0216-7a40247c3fd5"
+  ],
+  "tags": [
+    "CVE-2024-43550",
+    "Windows Security",
+    "Certificate Validation",
+    "Spoofing Vulnerability",
+    "Network Security"
+  ],
+  "node_id": "13948243-e161-45f1-9e25-f1acdbef2d22",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

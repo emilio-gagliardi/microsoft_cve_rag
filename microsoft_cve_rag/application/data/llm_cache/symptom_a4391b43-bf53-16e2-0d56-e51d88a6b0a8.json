@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_crashes_after_updating_chromium",
+  "description": "After updating to Microsoft Edge version 128.0.2739.42, users may experience crashes or failure to launch when interacting with specific web pages that utilize features affected by the underlying Chromium vulnerability (CVE-2024-7972). This occurrence seems to stem from an inappropriate implementation within V8, leading to potential out-of-bounds memory access scenarios. For those utilizing Microsoft Edge based on the Chromium architecture, this may result in a frustrating user experience, causing interruptions when browsing or loading content, which could impact productivity across the enterprise. It is crucial for System Administrators to monitor user feedback and check related logs for any reported issues following this update. Reference KB-128.0.2739.42 for more detailed information on the update and any related fixes.",
+  "source_id": "a4391b43-bf53-16e2-0d56-e51d88a6b0a8",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a4391b43-bf53-16e2-0d56-e51d88a6b0a8"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "CVE-2024-7972",
+    "Browser Crashes"
+  ],
+  "node_id": "d6d6f942-c48a-4b20-ae05-9fbbc0120d77",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

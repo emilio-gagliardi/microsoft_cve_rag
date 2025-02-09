@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows Hyper-V denial of service vulnerability (CVE-2024-38235):\n\n1. Locate the appropriate update for your version of Windows using the provided links.\n2. Download the relevant KB articles for your system build from the Microsoft Update Catalog.\n3. Install the updates, ensuring a restart of your system where prompted to apply changes fully.\n\n**Details**:\n- It is crucial to apply these updates to address the use-after-free weakness (CWE-416) that could lead to a denial of service.\n- For Windows 11 Version 24H2, apply KB5043080; for Windows 10 Version 22H2, KB5043064. Specific links for the updates are available below:\n- KB5043080: [Update Package](https://catalog.update.microsoft.com/Search.aspx?q=KB5043080)\n- KB5043064: [Update Package](https://catalog.update.microsoft.com/Search.aspx?q=KB5043064)\n\n**Preconditions**:\n- Ensure that you are running a supported version of Windows prior to applying any updates.\n- Backup critical data before proceeding with the installation.",
+  "source_id": "9615bc2c-19b3-1493-1fc7-12316f962481",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_hyperv_denial_of_service_cve202438235",
+  "tags": [
+    "KB5043080",
+    "Windows11",
+    "CVE202438235",
+    "DenialOfService"
+  ],
+  "node_id": "2d2a4244-3668-4693-9e45-29e8778fef3c",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "9615bc2c-19b3-1493-1fc7-12316f962481"
+  ],
+  "verification_status": "unverified"
+}

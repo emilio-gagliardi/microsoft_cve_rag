@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the use after free vulnerability (CVE-2024-5498) in the Presentation API within Google Chrome:\n\n1. Update your Microsoft Edge (Chromium-based) browser to the latest stable version, which includes the fix for this vulnerability. You can do this by:\n   - Opening the Edge browser and clicking on the three dots (...) on the top right corner.\n   - Navigating to 'Help and feedback'.\n   - Selecting 'About Microsoft Edge' to check for updates and install the latest version.\n\n2. Verify the version of Microsoft Edge after the update to ensure it aligns with the fixed Chrome version 125.0.6422.141/142.\n\n**Details**:\n- This security update addresses potential remote code execution issues stemming from heap corruption that could occur when rendering crafted HTML.\n- The fixed version for Microsoft Edge is 125.0.2535.85 released on June 3, 2024.\n- Always ensure your browser is up-to-date to maintain security against vulnerabilities. \n",
+  "source_id": "99eff815-83df-22a0-3e28-96c25115b72c",
+  "source_type": "MSRCPost",
+  "fix_label": "update_edge_to_resolve_use_after_free_cve20245498",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20245498",
+    "Chromium",
+    "Update"
+  ],
+  "node_id": "9dff08cc-b9c9-42c5-8c55-fdacf9902abf",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "99eff815-83df-22a0-3e28-96c25115b72c"
+  ],
+  "verification_status": "unverified"
+}

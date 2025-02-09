@@ -1,0 +1,24 @@
+{
+  "tool_label": "macos_firewall_regressions_in_sequoia",
+  "description": "**Tool Overview**:\n\nThis tool addresses specific regressions in the macOS Firewall feature within the Sequoia environment. It provides insights into issues encountered due to build variations and updates affecting the normal keyboard usability and smaller keyboard layouts.\n\n**Details**:\n\nThis tool serves as a guide for system administrators dealing with macOS Firewall regressions. It is designed to assist in identifying and troubleshooting firewall-related issues that may arise from recent updates. \n\n1. Helps pinpoint specific regressions impacting network control.\n2. Provides commands and configurations to reset or reconfigure the firewall settings efficiently.\n3. Offers best practices for maintaining firewall integrity across builds.\n4. Aids in compiling user reports regarding keyboard functionality under affected builds.\n\nAccess the complete documentation and change logs through the provided source URL.",
+  "source_id": "4eb11c16-405a-9f6e-eee2-6420447f2e1a",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "4eb11c16-405a-9f6e-eee2-6420447f2e1a"
+  ],
+  "source_url": "https://mjtsai.com/blog/2024/09/18/macos-firewall-regressions-in-sequoia/",
+  "tool_url": "https://mjtsai.com/blog/2024/09/18/macos-firewall-regressions-in-sequoia/",
+  "tags": [
+    "macOS",
+    "firewall",
+    "regression",
+    "keyboard",
+    "troubleshooting"
+  ],
+  "node_id": "42e2112d-c181-4574-9ec0-588c90cbe516",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

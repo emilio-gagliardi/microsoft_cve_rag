@@ -1,0 +1,21 @@
+{
+  "symptom_label": "wifi_connection_lost_after_patch_installation",
+  "description": "After the installation of patch associated with KB-5036892, users experience a loss of WiFi connectivity on the affected machine. The issues manifest as erratic WiFi behavior, referred to as 'going bonkers', rendering the network connection unreliable. Furthermore, the Local Administrator Password Solution (LAPS) functionality is reported to be inoperable post-patch application. This might lead to challenges in managing local administrator accounts effectively, complicating system administration tasks. Users should verify the impact of the patch on network services and the operational state of LAPS as immediate remedial actions may be required.",
+  "source_id": "224c1fc3-5e0a-286a-0b28-2cdf8c26d306",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "224c1fc3-5e0a-286a-0b28-2cdf8c26d306"
+  ],
+  "tags": [
+    "wifi_issue",
+    "patch_management",
+    "LAPS",
+    "connectivity_problem"
+  ],
+  "node_id": "b5c7afcb-3cac-4367-84db-0a0dcbec7adb",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "An integer overflow or wraparound condition in the kernel streaming WOW thunk service driver leading to potential elevation of privilege. This vulnerability occurs when an attacker sends carefully crafted input that causes the service driver to misconstrue buffer sizes, thus allowing access to unauthorized memory locations.",
+  "cause_label": "kernel_streaming_wow_thunk_service_driver_integer_overflow",
+  "source_id": "ebb18a82-f27b-05bb-c398-1a7ab7f902d3",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "ebb18a82-f27b-05bb-c398-1a7ab7f902d3"
+  ],
+  "tags": [
+    "kernel",
+    "elevation of privilege",
+    "CVE-2024-38144"
+  ],
+  "node_id": "ec0d35af-7ebd-4835-9761-731a5003ea44",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

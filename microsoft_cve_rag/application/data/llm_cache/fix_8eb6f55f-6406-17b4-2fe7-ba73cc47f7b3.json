@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the use after free vulnerability in Chromium affecting Microsoft Edge:\n\n1. Update Microsoft Edge to the latest version (127.0.2651.74) which includes the fix for CVE-2024-6989.\n2. Verify the installation by checking the version in the browser settings.\n\n**Details**:\n- This update mitigates potential heap corruption issues by patching the underlying Chromium components that Microsoft Edge relies on.\n- Ensure that you are running the updated version of the browser to avoid exposure to this vulnerability.\n- For detailed version checking, click the three dots in Microsoft Edge, select 'Help and feedback,' then click 'About Microsoft Edge.'",
+  "source_id": "8eb6f55f-6406-17b4-2fe7-ba73cc47f7b3",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_resolve_chromium_cve20246989",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20246989",
+    "ChromiumUpdate"
+  ],
+  "node_id": "b9764b82-bd7c-4ce5-9b52-9da6fcda09d6",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "8eb6f55f-6406-17b4-2fe7-ba73cc47f7b3"
+  ],
+  "verification_status": "unverified"
+}

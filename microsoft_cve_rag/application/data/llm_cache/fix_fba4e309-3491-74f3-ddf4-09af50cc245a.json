@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the issue related to Kerberos requests that lead to memory leaks in the LSASS process, a new out-of-band (OOB) update has been released. This update is designed to mitigate the identified problems effectively.\n\n1. Ensure your systems are updated to the latest version by applying the new OOB update as soon as possible.\n2. Monitor the system's performance post-update to verify that the issue is resolved.\n\n**Details**:\n- The OOB update specifically targets the memory leak issue caused by Kerberos requests.\n- It is important to follow up on the update application to confirm no further related issues arise. (LLM Synthesized)",
+  "source_id": "fba4e309-3491-74f3-ddf4-09af50cc245a",
+  "source_type": "PatchManagementPost",
+  "fix_label": "kerberos_requests_memory_leak_oob_update",
+  "tags": [
+    "OOBUpdate",
+    "Kerberos",
+    "LSASS",
+    "MemoryLeak"
+  ],
+  "node_id": "08090608-9846-46cd-bff7-796c112cae8b",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "fba4e309-3491-74f3-ddf4-09af50cc245a"
+  ]
+}

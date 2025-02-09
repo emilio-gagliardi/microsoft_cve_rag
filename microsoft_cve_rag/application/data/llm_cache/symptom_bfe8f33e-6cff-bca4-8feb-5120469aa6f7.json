@@ -1,0 +1,20 @@
+{
+  "symptom_label": "patch_installation_fails_after_multiple_restarts",
+  "description": "The installation of a specific patch fails despite multiple attempts and prompts for a restart. The system persists in requesting a restart, creating a loop where the patch cannot be applied. The technical context suggests that the user attempted to install the patch with local admin rights but received feedback indicating that the system was already fully patched, leaving the actual patch uninstalled. This symptom can affect the overall compliance of the system, potentially leaving it exposed to unaddressed issues that the patch was intended to resolve. Systems running Windows Server, particularly those that depend on thorough patch management protocols, may experience operational delays due to this issue not being resolved satisfactorily. The implications can be severe, as unpatched vulnerabilities can lead to security gaps and degraded performance.",
+  "source_id": "bfe8f33e-6cff-bca4-8feb-5120469aa6f7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "bfe8f33e-6cff-bca4-8feb-5120469aa6f7"
+  ],
+  "tags": [
+    "patch_management",
+    "installation_failures",
+    "windows_server",
+    "restart_issue"
+  ],
+  "node_id": "1fecf071-7acf-4c0e-a341-549b7c3d8d24",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

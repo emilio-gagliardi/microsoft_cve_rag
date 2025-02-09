@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the issue of insufficient space in the WinRE recovery partition when attempting to install KB5034441:\n\n1. Identify the location of the WinRE recovery partition by using Disk Management tools or by running PowerShell commands to determine its position on the disk.\n2. Check the recovery partition status to ensure it is enabled by using the command:\n   ```\n   reagentc /info\n   ```\n3. Assess the size and free space of the recovery partition using the command:\n   ```powershell\n   Get-Volume\n   ```\n4. If the recovery partition is too small, resize it using the provided links in KB5034441 to allocate more space as necessary.\n\n**Details**:\n- It's essential to perform these checks before resizing the partition to prevent data loss.\n- Make sure to follow the instructions carefully as resizing partitions can affect system recovery functionality.\n",
+  "source_id": "8a07c705-b477-a8ab-3b20-d6aad9b7873a",
+  "source_type": "PatchManagementPost",
+  "fix_label": "adjust_winre_partition_size_kb5034441",
+  "tags": [
+    "KB5034441",
+    "Windows10",
+    "WinRE",
+    "PartitionManagement"
+  ],
+  "node_id": "cc5ffe26-2ed8-4bb8-9349-be146a6f6ff9",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "8a07c705-b477-a8ab-3b20-d6aad9b7873a"
+  ]
+}

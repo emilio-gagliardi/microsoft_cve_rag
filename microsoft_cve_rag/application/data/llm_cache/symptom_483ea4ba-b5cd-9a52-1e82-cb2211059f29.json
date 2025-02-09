@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_inaccessible_due_to_filesystem_restriction",
+  "description": "Users may experience inability to access certain files or directories when using Microsoft Edge (Chromium-based) version 131.0.2903.48 due to inappropriate implementation in the filesystem as noted in CVE-2024-11117. The impact is particularly evident when attempting to open or download files from specific locations, leading to confusion and disrupted workflow. End users could see error messages or failures when attempting operations that require filesystem access. This can particularly affect environments relying heavily on Microsoft Edge for web-based applications requiring file interactions. Ultimately, this observed behavior could result in decreased productivity and user dissatisfaction as they navigate access issues with the browser.",
+  "source_id": "483ea4ba-b5cd-9a52-1e82-cb2211059f29",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "483ea4ba-b5cd-9a52-1e82-cb2211059f29"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "CVE-2024-11117",
+    "Filesystem Issue",
+    "Cross-site Scripting"
+  ],
+  "node_id": "522071c7-d3f5-46b6-81b8-8027c5109705",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "low",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

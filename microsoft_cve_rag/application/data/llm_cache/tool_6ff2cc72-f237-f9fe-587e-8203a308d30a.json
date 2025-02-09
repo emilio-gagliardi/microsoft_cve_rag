@@ -1,0 +1,17 @@
+{
+  "tool_label": "StopWindowsUpdateAndBitsServicesCommand",
+  "description": "Commands to stop the Windows Update and BITS services, which helps in managing and mitigating issues related to system updates and service restarts.",
+  "source_id": "6ff2cc72-f237-f9fe-587e-8203a308d30a",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/BYAPR05MB65527F4925B7CADA249A84939EA0A%40BYAPR05MB6552.namprd05.prod.outlook.com",
+  "tags": [
+    "windows update",
+    "service management",
+    "system configuration"
+  ],
+  "node_id": "5f40169c-828b-448b-89d1-76e6cf6bd415",
+  "node_label": "Tool",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "directaccess_and_private_wifi_fail_after_upgrade",
+  "description": "After upgrading a computer to build 24h2, both DirectAccess functionality and connectivity to the private WiFi network ceased to operate. The issue was resolved by uninstalling the 24h2 update, which restored the previous network functionalities. This incident highlights a potential compatibility problem that may arise from the update, impacting network services critical for remote access and connectivity. The investigation into the underlying cause is yet to be conducted, suggesting there may be unresolved issues that could affect other systems post-upgrade. System administrators should be cautious when applying updates to ensure that core functionalities are not disrupted.",
+  "source_id": "d8f83a47-9d2d-c7d9-c2fc-b46d71510b10",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d8f83a47-9d2d-c7d9-c2fc-b46d71510b10"
+  ],
+  "tags": [
+    "network_connectivity",
+    "DirectAccess",
+    "WiFi_issue",
+    "upgrade_problem"
+  ],
+  "node_id": "e3b804ae-3139-4270-bdc6-09df7883445a",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

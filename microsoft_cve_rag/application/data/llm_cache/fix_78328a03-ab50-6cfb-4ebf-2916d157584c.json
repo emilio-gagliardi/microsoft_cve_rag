@@ -1,0 +1,17 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Hypervisor-Protected Code Integrity (HVCI) security feature bypass vulnerability (CVE-2024-21305):\n\n1. Identify the relevant Windows build number for your installation from the build numbers listed below:\n   - Windows 11 for x64-based Systems: 10.0.17763.5329, 10.0.20348.2227, 10.0.25398.643\n   - Windows 11 Version 23H2 for x64-based Systems: 10.0.22631.3007\n   - Windows 11 Version 22H2 for x64-based Systems: 10.0.22621.3007\n   - Windows 11 Version 21H2 for x64-based Systems: 10.0.22000.2713\n   - Windows 10 for x64-based Systems: 10.0.17763.5329\n   - Windows 10 for 32-bit Systems: 10.0.17763.5329, 10.0.20348.2227\n   - Windows 10 Version 22H2 for x64-based Systems: 10.0.19045.3930\n   - Windows 10 Version 21H2 for x64-based Systems: 10.0.19044.3930\n\n2. Apply the appropriate KB articles to your systems based on the build number:\n   - For Windows 11: KB5034121, KB5034123, KB5034129\n   - For Windows 10: KB5034122, KB5034127, KB5034129\n\n3. Download the updates via the official Microsoft catalog:\n   - Windows 11 for x64-based Systems: [KB5034123](https://catalog.update.microsoft.com/Search.aspx?q=KB5034123), [KB5034121](https://catalog.update.microsoft.com/Search.aspx?q=KB5034121), [KB5034129](https://catalog.update.microsoft.com/Search.aspx?q=KB5034129)\n   - Windows 10 for x64-based Systems: [KB5034122](https://catalog.update.microsoft.com/Search.aspx?q=KB5034122), [KB5034127](https://catalog.update.microsoft.com/Search.aspx?q=KB5034127)\n\n**Details**:\n- Ensure your system is backed up before proceeding with the updates.\n- Verify that HVCI is activated post-installation for continued protection against security threats.\n\n**Preconditions**:\n- This action requires administrative privileges. Please ensure to backup your data before proceeding.",
+  "source_id": "78328a03-ab50-6cfb-4ebf-2916d157584c",
+  "source_type": "MSRCPost",
+  "fix_label": "MitigateHVCISecurityFeatureBypassCVE202421305",
+  "tags": [
+    "KB5034123",
+    "Windows11",
+    "HVCIBypass",
+    "CVE202421305"
+  ],
+  "node_id": "b56c38c7-3976-4703-831d-49f914e1aa3b",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

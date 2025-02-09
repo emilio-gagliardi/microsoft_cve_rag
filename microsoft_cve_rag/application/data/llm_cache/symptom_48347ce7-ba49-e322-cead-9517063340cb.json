@@ -1,0 +1,20 @@
+{
+  "symptom_label": "file_preview_disabled_due_to_group_policy_settings",
+  "description": "File preview functionality is disabled for all clients due to enforced group policy security settings. This is particularly impacting users with scanned single-page PDF files, as they are unable to view these files as thumbnails, resulting in icons being displayed instead. The request to enable file preview for a specific folder or path has been made, but the current group policy prevents this from being a feasible solution. System administrators need to consider potential adjustments to the group policy to address this issue, especially in environments where productivity relies on quick access to document previews. This symptom may affect multiple users across the organization, leading to inefficiencies in document management workflows.",
+  "source_id": "48347ce7-ba49-e322-cead-9517063340cb",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "48347ce7-ba49-e322-cead-9517063340cb"
+  ],
+  "tags": [
+    "file_preview",
+    "group_policy",
+    "client_settings",
+    "document_management"
+  ],
+  "node_id": "e410897f-6763-4a08-97cf-0ab85bd452f7",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

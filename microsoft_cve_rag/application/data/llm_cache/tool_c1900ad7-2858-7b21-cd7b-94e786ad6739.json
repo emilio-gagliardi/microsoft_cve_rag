@@ -1,0 +1,22 @@
+{
+  "tool_label": "windows_11_installation_assistant",
+  "description": "**Tool Overview**:\n\nThe Windows 11 Installation Assistant is a utility designed to help users upgrade their Windows operating systems to Windows 11. It simplifies the upgrade process by providing direct access to installation resources while ensuring compatibility checks are conducted beforehand.\n\n**Details**:\n\n1. It guides users through the steps necessary for upgrading to Windows 11, making it user-friendly for those unfamiliar with the process.\n2. The tool performs necessary checks to confirm that the user's device meets the hardware requirements for Windows 11.\n3. Users can download the Installation Assistant from the official Microsoft website, ensuring they have the latest version.\n4. It includes options to initiate the installation directly or to download installation files for later use.\n5. Using this tool can significantly reduce the complexities often associated with manual upgrades.\n\nFor more information, visit the official documentation or download page.",
+  "source_id": "c1900ad7-2858-7b21-cd7b-94e786ad6739",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "c1900ad7-2858-7b21-cd7b-94e786ad6739"
+  ],
+  "source_url": "https://can01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fsoftware-download%2Fwindows11&data=05%7C02%7Cemail_ingestion%40bighatgroup.com%7C182549d12bad4688105208dc3676adc7%7C5a01497e1bcb4711b6e6d24f4ab00393%7C0%7C0%7C638445130544318703%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C0%7C%7C%7C&sdata=SuFUtG%2BhDFFUexxyyZXpKsMcNOogTbf4qkA4LfnIuoI%3D&reserved=0",
+  "tool_url": "https://www.microsoft.com/en-us/software-download/windows11",
+  "tags": [
+    "Windows 11",
+    "Installation Assistant",
+    "upgrade",
+    "LLM Synthesized"
+  ],
+  "node_id": "6ed24333-faf5-469b-931d-7e94610ab5bd",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

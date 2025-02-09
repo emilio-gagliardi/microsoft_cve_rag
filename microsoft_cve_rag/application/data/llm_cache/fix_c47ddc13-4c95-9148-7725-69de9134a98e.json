@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the trusted compute base elevation of privilege vulnerability (CVE-2024-21304), apply the relevant updates based on your Windows version:\n\n1. Download and apply the appropriate KB update from the official Windows Update catalog.\n   - Windows 10 Version 22H2: [KB5034763](https://catalog.update.microsoft.com/Search.aspx?q=KB5034763)\n   - Windows 11 Version 21H2: [KB5034766](https://catalog.update.microsoft.com/Search.aspx?q=KB5034766)\n   - Windows 11 Version 22H2: [KB5034765](https://catalog.update.microsoft.com/Search.aspx?q=KB5034765)\n   - Windows 11 Version 23H2: [KB5034765](https://catalog.update.microsoft.com/Search.aspx?q=KB5034765)\n\n2. Follow the installation prompts to complete the update.\n3. Restart your system to ensure that all changes take effect.\n\n**Details**:\n- This fix addresses an elevation of privilege vulnerability that allows an attacker to gain control of affected systems, potentially allowing unauthorized actions. Always ensure that your system is regularly updated to mitigate such vulnerabilities. (LLM Synthesized)\n\n**Preconditions**:\n- Ensure your system is running an affected version of Windows listed in the context.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "c47ddc13-4c95-9148-7725-69de9134a98e",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_trusted_compute_base_elevation_privilege_cve202421304",
+  "tags": [
+    "Windows10",
+    "Windows11",
+    "CVE202421304",
+    "KB5034763"
+  ],
+  "node_id": "98b9c5dd-6455-4ed3-9a42-ac6a3080bf26",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "c47ddc13-4c95-9148-7725-69de9134a98e"
+  ]
+}

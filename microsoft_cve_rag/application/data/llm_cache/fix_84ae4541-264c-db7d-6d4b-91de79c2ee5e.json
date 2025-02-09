@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Microsoft Local Security Authority (LSA) Server Information Disclosure Vulnerability (CVE-2024-38122):\n\n1. Download and install the relevant update for your operating system version from the Microsoft Update Catalog.\n\n   - For Windows 11 Version 24H2 (x64): [KB5041571](https://catalog.update.microsoft.com/Search.aspx?q=KB5041571)\n   - For Windows 10 (x64): [KB5041782](https://catalog.update.microsoft.com/Search.aspx?q=KB5041782)\n   - For additional Windows versions, refer to the corresponding KB articles.\n\n2. Ensure all systems are restarted after installation to apply the updates fully.\n\n**Details**:\n- This update mitigates an essential information disclosure vulnerability by initializing resources properly within the LSA.\n- Affected builds include various versions of Windows 10 and Windows 11 as specified.\n- Always backup critical data before proceeding with system updates.",
+  "source_id": "84ae4541-264c-db7d-6d4b-91de79c2ee5e",
+  "source_type": "MSRCPost",
+  "fix_label": "address_lsa_server_information_disclosure_cve202438122",
+  "tags": [
+    "KB5041571",
+    "KB5041782",
+    "Windows10",
+    "Windows11"
+  ],
+  "node_id": "43ef3dd8-1409-43e8-8e8b-22a0ff0baac7",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "84ae4541-264c-db7d-6d4b-91de79c2ee5e"
+  ],
+  "verification_status": "unverified"
+}

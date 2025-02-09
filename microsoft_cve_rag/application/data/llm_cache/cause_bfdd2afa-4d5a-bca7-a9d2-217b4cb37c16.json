@@ -1,0 +1,21 @@
+{
+  "description": "A race condition in the Windows kernel allows elevation of privilege due to improper synchronization mechanisms, leading to potential exploitation during time-of-check and time-of-use.",
+  "cause_label": "windows_kernel_elevation_of_privilege_race_condition",
+  "source_id": "bfdd2afa-4d5a-bca7-a9d2-217b4cb37c16",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "bfdd2afa-4d5a-bca7-a9d2-217b4cb37c16"
+  ],
+  "tags": [
+    "Windows",
+    "Kernel",
+    "Security",
+    "Race Condition",
+    "Elevation of Privilege"
+  ],
+  "node_id": "093b9509-d40d-4d2a-84eb-735be75a5c15",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "NST",
+  "entity_type": "Cause"
+}

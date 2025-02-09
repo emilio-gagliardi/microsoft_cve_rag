@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo potentially resolve detection issues with headphones on a Dell laptop:\n\n1. Try installing the latest Dell driver for your laptop model. You can find the appropriate driver on the Dell support website at the following link: https://www.dell.com/support/home/en-us/product-support/product/latitude-15-3500-laptop/drivers\n\n2. Follow the installation instructions provided on the website, ensuring all previous audio drivers are uninstalled beforehand for a clean installation.\n\n**Details**:\n- Ensure that your laptop model is compatible with the driver you are downloading.\n- Backup your current driver settings before making changes to avoid any loss of functionality. (LLM Synthesized)",
+  "source_id": "0808f857-f4c5-8aa0-856c-3b8e8689b4ad",
+  "source_type": "PatchManagementPost",
+  "fix_label": "install_dell_driver_for_headphone_detection",
+  "tags": [
+    "Dell",
+    "LaptopDrivers",
+    "AudioIssues",
+    "LLM Synthesized"
+  ],
+  "node_id": "be4a986c-1a28-4d26-8370-59d0de22635d",
+  "node_label": "Fix",
+  "reliability": 0.7,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "0808f857-f4c5-8aa0-856c-3b8e8689b4ad"
+  ]
+}

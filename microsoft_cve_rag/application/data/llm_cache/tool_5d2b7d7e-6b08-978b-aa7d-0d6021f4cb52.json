@@ -1,0 +1,22 @@
+{
+  "tool_label": "pdf_xchange_site_license",
+  "description": "**Tool Overview**:\n\nPDF-XChange is a versatile PDF editing tool that offers a site license for organizations, enabling multiple users to access its functionalities seamlessly.\n\n**Details**:\n1. This tool replaces the traditional need for Acrobat Reader patches by providing a more stable solution for PDF editing and management.\n2. It features a simple MSI installer, making deployment straightforward for IT teams.\n3. Comprehensive documentation is available to assist users in effectively utilizing the tool's features.\n4. The support provided by PDF-XChange is described as reasonable, offering users confidence in troubleshooting and assistance.\n5. Many organizations, especially those involved with federal government grants, have adopted this tool, indicating its credibility and reliability in professional environments.",
+  "source_id": "5d2b7d7e-6b08-978b-aa7d-0d6021f4cb52",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "5d2b7d7e-6b08-978b-aa7d-0d6021f4cb52"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://www.tracker-software.com/product/pdf-xchange-editor",
+  "tags": [
+    "PDF Management",
+    "Site License",
+    "Deployment",
+    "MSI Installer"
+  ],
+  "node_id": "06cad57c-9353-4933-8f7b-629a4da5adf6",
+  "node_label": "Tool",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

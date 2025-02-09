@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_storage_elevation_privilege_leads_to_exploit",
+  "description": "End users may experience unauthorized access to sensitive resources following the deployment of specific Windows updates addressing elevation of privilege vulnerabilities. Systems running Windows 10 (build numbers: 10.0.19043.4529, 10.0.22631.3737, 10.0.22621.3737, 10.0.22000.3019) could be particularly susceptible. After the installation of security update KB5039212, users might report an inability to access their files or folders, indicating instances of exploit attempts by malicious actors if appropriate patching has not been conducted. The nature of this vulnerability could lead to a potential total loss of confidentiality and integrity of system resources, resulting in compromised sensitive information and operational disruptions within organizations. Administrative oversight is critical to ensuring that all systems are updated to mitigate these observable behaviors effectively.",
+  "source_id": "4a6db361-762f-8af7-ac31-4e14d84f0ae1",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "4a6db361-762f-8af7-ac31-4e14d84f0ae1"
+  ],
+  "tags": [
+    "Windows",
+    "Elevation of Privilege",
+    "KB5039212",
+    "Unauthorized Access"
+  ],
+  "node_id": "cc7d119e-5163-4d4f-85b2-c921b00ebe98",
+  "node_label": "Symptom",
+  "reliability": 9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

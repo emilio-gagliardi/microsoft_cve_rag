@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the Windows kernel elevation of privilege vulnerability identified as CVE-2024-30018:\n\n1. Download and install the relevant update packages for your system version as listed below:\n   - For Windows 11 Version 23H2 for x64-based Systems: KB5037771\n   - For Windows 11 Version 22H2 for x64-based Systems: KB5037771\n   - For Windows 11 Version 21H2 for x64-based Systems: KB5037770\n   - For Windows 10 Version 22H2 for x64-based Systems: KB5037768\n   - For Windows 10 Version 21H2 for x64-based Systems: KB5037768\n   - For Windows 10 Version 22H2 for 32-bit Systems: KB5037768\n   - For Windows 10 Version 21H2 for 32-bit Systems: KB5037768\n\n2. Restart your system after installation to apply the changes effectively.\n\n**Details**:\n- This update addresses the improper link resolution that can lead to privilege escalation within the Windows kernel.\n\n**Preconditions**:\n- Ensure that your system corresponds with the appropriate version as stated above.\n- Backup critical data before proceeding with the update installation.\n\n**Update Packages**:\n- For manual installations, download the updates from the following links:\n   - [KB5037771](https://catalog.update.microsoft.com/Search.aspx?q=KB5037771)\n   - [KB5037770](https://catalog.update.microsoft.com/Search.aspx?q=KB5037770)\n   - [KB5037768](https://catalog.update.microsoft.com/Search.aspx?q=KB5037768)\n\nAdditionally, verify the build number of your Windows version:\n- 10.0.22631.3593 for Windows 11 Version 23H2\n- 10.0.22621.3593 for Windows 11 Version 22H2\n- 10.0.22000.2960 for Windows 11 Version 21H2\n- 10.0.19045.4412 for Windows 10 Version 22H2\n- 10.0.19044.4412 for Windows 10 Version 21H2.\n",
+  "source_id": "fe3301ed-6e78-80f1-8b2e-b5615ca43dec",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_windows_kernel_privilege_escalation_cve202430018",
+  "tags": [
+    "KB5037771",
+    "KB5037770",
+    "KB5037768",
+    "CVE202430018"
+  ],
+  "node_id": "927d427e-c743-4d03-bff3-70e7da7f8b95",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "fe3301ed-6e78-80f1-8b2e-b5615ca43dec"
+  ],
+  "verification_status": "unverified"
+}

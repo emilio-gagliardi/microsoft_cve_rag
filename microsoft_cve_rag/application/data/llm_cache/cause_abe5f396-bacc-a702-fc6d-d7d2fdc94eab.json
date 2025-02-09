@@ -1,0 +1,21 @@
+{
+  "description": "Use after free vulnerability in Chromium's screen capture functionality prior to build 126.0.6478.182, which allows remote attackers to exploit heap corruption via crafted HTML.",
+  "cause_label": "chromium_use_after_free_in_screen_capture",
+  "source_id": "abe5f396-bacc-a702-fc6d-d7d2fdc94eab",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "abe5f396-bacc-a702-fc6d-d7d2fdc94eab"
+  ],
+  "tags": [
+    "Chromium",
+    "Heap Corruption",
+    "Microsoft Edge",
+    "CVE-2024-6774"
+  ],
+  "node_id": "f08314f6-5e81-4a4b-a4c8-0c45604fec5b",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

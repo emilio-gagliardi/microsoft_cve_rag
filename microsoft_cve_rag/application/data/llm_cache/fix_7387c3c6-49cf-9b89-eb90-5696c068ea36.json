@@ -1,0 +1,16 @@
+{
+  "description": "To address the Microsoft Edge (Chromium-based) spoofing issue associated with CVE-2023-36026, users should apply the security update which is version 119.0.2151.72, released on November 16, 2023. This update is applicable to Microsoft Edge versions running on Windows 11, specifically build numbers 119.0.6045.159 and 118.0.5993.144. The official Microsoft KB article for this update is KB-119.0.2151.72. It is essential to ensure that all instances of Microsoft Edge are updated to this version to mitigate the spoofing risks effectively. For the detailed update, refer to the provided source link: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-36026.",
+  "source_id": "7387c3c6-49cf-9b89-eb90-5696c068ea36",
+  "source_type": "MSRCPost",
+  "fix_label": "ApplySecurityUpdateForMicrosoftEdgeCVE",
+  "tags": [
+    "Microsoft Edge",
+    "security update",
+    "CVE mitigation"
+  ],
+  "node_id": "ddbf5403-8525-48ac-8180-da8f413f9e36",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Fix"
+}

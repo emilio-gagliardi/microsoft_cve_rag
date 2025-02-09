@@ -1,0 +1,21 @@
+{
+  "description": "The vulnerability is caused by an unquoted search path in Windows setup and deployment, allowing local attackers to gain elevation of privilege. This misconfiguration relates to how paths are specified for executable files, leading to potential exploitation if an attacker knows or can manipulate the execution context.",
+  "cause_label": "windows_unquoted_search_path_in_setup_deployment",
+  "source_id": "21f7bf9a-b500-a07e-b44c-f6e3f422b476",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "21f7bf9a-b500-a07e-b44c-f6e3f422b476"
+  ],
+  "tags": [
+    "CVE-2024-43457",
+    "Windows",
+    "Elevation of Privilege",
+    "Unquoted Path"
+  ],
+  "node_id": "82747ee7-35a2-4dd7-9509-373ea09d6d72",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

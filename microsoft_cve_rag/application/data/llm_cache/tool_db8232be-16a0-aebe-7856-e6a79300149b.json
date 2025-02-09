@@ -1,0 +1,23 @@
+{
+  "tool_label": "canva_marketing_design_app",
+  "description": "**Tool Overview**:\n\nThe Canva app is a powerful platform designed for creating a variety of marketing materials such as presentations, social media posts, and other visual content.\n\n**Details**:\n\n1. **User-Friendly Interface**: Canva offers an intuitive drag-and-drop interface that allows users to design visually appealing content without needing advanced graphic design skills.\n2. **Versatile Templates**: Users can choose from a wide array of templates specifically designed for different marketing needs, making it easy to quickly create professional-looking materials.\n3. **Collaboration Features**: The app supports multiple users collaborating in real time, which is ideal for teams working on marketing projects.\n4. **Integration with CRM**: The new modules, such as those focused on device saving for two-factor authentication, enhance security and ease of updates in marketing workflows.\n5. **Enhancements**: Recent updates include new modules and features that improve the functionality and user experience, ensuring marketers have access to cutting-edge tools.\n\nThis tool is particularly beneficial for marketers looking to enhance their visual content creation capabilities efficiently.",
+  "source_id": "db8232be-16a0-aebe-7856-e6a79300149b",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "db8232be-16a0-aebe-7856-e6a79300149b"
+  ],
+  "source_url": "N/A",
+  "tool_url": "https://www.canva.com/",
+  "tags": [
+    "Canva",
+    "marketing",
+    "design",
+    "collaboration"
+  ],
+  "node_id": "4e832e17-f6df-4ff5-a1ae-4f89971dfc17",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "A stack-based buffer overflow vulnerability exists in the system recovery bootloader component of Lenovo preloaded Windows 7 and 8 operating systems, allowing privileged local attackers to execute arbitrary code due to improper handling of buffer sizes.",
+  "cause_label": "lenovo_stack_based_buffer_overflow_in_recovery_bootloader",
+  "source_id": "901ef752-2747-22c6-ba76-c88d9f4586ad",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "901ef752-2747-22c6-ba76-c88d9f4586ad"
+  ],
+  "tags": [
+    "CVE-2024-23594",
+    "buffer overflow",
+    "Lenovo",
+    "Windows",
+    "privileged access"
+  ],
+  "node_id": "d8cb5340-d93f-412d-b2a5-4fdc57693dad",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

@@ -1,0 +1,16 @@
+{
+  "symptom_label": "WsFtpServerAllowsRemoteCodeExecutionWithoutAuth",
+  "description": "The WS_FTP Server has been identified with two critical vulnerabilities, CVE-2023-40044 and CVE-2023-42657, which pose severe risks to system security. CVE-2023-40044, with a severity rating of 10, permits attackers to execute malicious code with elevated system privileges without any authentication, thus enabling potential takeover of affected systems. Additionally, CVE-2023-42657, although slightly less severe with a rating of 9.9, still allows for remote code execution, albeit requiring the hacker to authenticate first, highlighting the necessity for immediate patching to mitigate these critical vulnerabilities.",
+  "source_id": "cfacf717-4c77-22f5-b659-6e7214a9c289",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "ws_ftp",
+    "remote code execution",
+    "patch management"
+  ],
+  "node_id": "46025826-22ab-4105-bf08-bad9f292a161",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Symptom"
+}

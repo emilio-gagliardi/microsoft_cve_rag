@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the remote code execution vulnerability in Microsoft Dynamics 365 Business Central (CVE-2024-35249):\n\n1. Apply the KB-5038530 update as soon as possible to mitigate the issue.\n2. Monitor the system for any unusual activity following the installation.\n\n**Details**:\n- The KB-5038530 update resolves the vulnerabilities associated with the deserialization of untrusted data, potentially preventing unauthorized access and control over the system.\n- For manual installation, ensure your system is compatible with the update. Backup critical data before proceeding with the installation.\n\n**Important Considerations**:\n- Verify that your Microsoft Dynamics 365 Business Central is up to date and not running any conflicting software that may hinder the update process.",
+  "source_id": "78317a37-1ad2-5b64-c315-5be4e72fa91a",
+  "source_type": "MSRCPost",
+  "fix_label": "apply_kb5038530_to_resolve_remote_code_execution",
+  "tags": [
+    "KB5038530",
+    "Dynamics365",
+    "RemoteCodeExecution",
+    "CVE202435249"
+  ],
+  "node_id": "f778f77d-e685-46fb-9afc-db0c11294156",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "78317a37-1ad2-5b64-c315-5be4e72fa91a"
+  ],
+  "verification_status": "unverified"
+}

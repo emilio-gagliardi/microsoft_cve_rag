@@ -1,0 +1,19 @@
+{
+  "tool_label": "DeviceDriverInstallationCommandPrompt",
+  "description": "A device specifically designed for managing printer driver installations by throwing a GUI that launches a command prompt. This solution has been reliably used across all versions of Windows for years. It circumvents common issues presented by manual printer driver installations and potential security pitfalls associated with automatically updating drivers. By utilizing this device, system administrators can ensure a streamlined and efficient driver deployment process, thereby balancing security with operational convenience. The detailed explanation for this Tool is provided in the Fix description.",
+  "tool_url": "https://www.bleepingcomputer.com/news/microsoft/how-to-block-windows-plug-and-play-auto-installing-insecure-apps/",
+  "source_id": "ddd8af03-441b-a8c7-ae23-6f4fee6ddc4c",
+  "source_type": "PatchManagementPost",
+  "source_url": "//groups.google.com/d/msgid/patchmanagement/SA0PR09MB7116CACF268980E52ACE8ED9A5AEA%40SA0PR09MB7116.namprd09.prod.outlook.com",
+  "tags": [
+    "printer",
+    "driver installation",
+    "command prompt",
+    "LLM Synthesized"
+  ],
+  "node_id": "807d2425-0b95-43fc-b7a9-76f595e1195d",
+  "node_label": "Tool",
+  "reliability": 0.7,
+  "severity_type": "moderate",
+  "entity_type": "Tool"
+}

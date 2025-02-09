@@ -1,0 +1,16 @@
+{
+  "symptom_label": "NotificationDisplayIssueWithBackupReminderDisabled",
+  "description": "The symptom describes an issue where users are still receiving notifications related to Backup Reminder on their Windows systems, despite an attempt to disable these notifications through the Registry. Specifically, the registry key at 'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Notifications\\Settings\\Windows.SystemToast.BackupReminder' is set to a DWORD value of 0, indicating that notifications should not be displayed. This can lead to confusion and annoyance for end users who expect notifications to cease after this setting is changed.",
+  "source_id": "3ba40550-192f-3ff3-905c-2146e9319390",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "Windows",
+    "Notifications",
+    "Registry"
+  ],
+  "node_id": "91d885c7-9598-461b-9f83-25ccee53b853",
+  "node_label": "Symptom",
+  "reliability": 0.8,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

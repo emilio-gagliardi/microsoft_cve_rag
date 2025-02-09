@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Win32k elevation of privilege vulnerability (CVE-2024-30028), you are advised to apply the specific security updates relevant to your Windows version:\n\n1. Download and install the appropriate updates from the Microsoft Update Catalog for your system:\n   - Windows 11 Version 23H2 (KB5037771): [Download](https://catalog.update.microsoft.com/Search.aspx?q=KB5037771)\n   - Windows 11 Version 22H2 (KB5037771): [Download](https://catalog.update.microsoft.com/Search.aspx?q=KB5037771)\n   - Windows 11 Version 21H2 (KB5037770): [Download](https://catalog.update.microsoft.com/Search.aspx?q=KB5037770)\n   - Windows 10 Version 22H2 for x64 (KB5037768): [Download](https://catalog.update.microsoft.com/Search.aspx?q=KB5037768)\n   - Windows 10 Version 21H2 for x64 (KB5037788): [Download](https://catalog.update.microsoft.com/Search.aspx?q=KB5037788)\n\n2. Restart your system after applying these updates to ensure they take effect.\n\n**Details**:\n- This patch addresses a critical flaw identified as CWE-416 (Use After Free), allowing for elevation of privilege.\n- Ensure your system is fully backed up prior to applying updates.\n- The maximum severity of this vulnerability is classified as important.\n\n**Preconditions**:\n- Only apply the updates that correspond to your system\u2019s build number.\n- Backup critical data before proceeding with the update installation.",
+  "source_id": "0c5dddd1-f84d-8a6a-eedc-07e50cee0860",
+  "source_type": "MSRCPost",
+  "fix_label": "address_win32k_elevation_of_privilege_cve202430028",
+  "tags": [
+    "KB5037788",
+    "KB5037771",
+    "Windows10",
+    "Windows11"
+  ],
+  "node_id": "fc149cca-5c66-48de-a7cc-b7b9a8e3374f",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "0c5dddd1-f84d-8a6a-eedc-07e50cee0860"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the denial of service vulnerability in Windows Hyper-V (CVE-2024-21408), follow these steps:\n\n1. Download and apply the relevant updates for your Windows version from the official Microsoft Update Catalog.\n\n    - Windows 10 (20H2 and 21H2): Apply KB5035858.\n    - Windows 10 (22H2): Apply KB5035845.\n    - Windows 11 (21H2): Apply KB5035854.\n    - Windows 11 (22H2 and 23H2): Apply KB5035853.\n\n2. Restart your system after the installation is complete to ensure all changes take effect.\n\n**Details**:\n- This fix addresses a critical denial of service issue which can allow an attacker to exploit the vulnerability through local or remote methods.\n- For manual installation, download the update packages from:\n    - [KB5035845](https://catalog.update.microsoft.com/Search.aspx?q=KB5035845)\n    - [KB5035858](https://catalog.update.microsoft.com/Search.aspx?q=KB5035858)\n    - [KB5035853](https://catalog.update.microsoft.com/Search.aspx?q=KB5035853)\n    - [KB5035854](https://catalog.update.microsoft.com/Search.aspx?q=KB5035854).\n\n**Preconditions**:\n- Ensure that Hyper-V is installed and running on your system.\n- Backup critical data before proceeding with the updates.\n",
+  "source_id": "521f68d3-66a0-2d6f-94ae-2c30d6e90a31",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_hyperv_dos_vulnerability_cve202421408",
+  "tags": [
+    "KB5035853",
+    "WindowsHyperV",
+    "DenialOfService",
+    "CVE202421408"
+  ],
+  "node_id": "36c79455-4698-47eb-a5a1-21cba463cea9",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "critical",
+  "entity_type": "Fix",
+  "source_ids": [
+    "521f68d3-66a0-2d6f-94ae-2c30d6e90a31"
+  ]
+}

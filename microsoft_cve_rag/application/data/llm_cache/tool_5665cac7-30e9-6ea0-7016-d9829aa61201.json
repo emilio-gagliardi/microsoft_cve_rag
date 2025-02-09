@@ -1,0 +1,17 @@
+{
+  "tool_label": "PatchWindowsUsingSecurityUpdate",
+  "description": "This tool refers to the official Microsoft security updates that address the elevation of privilege vulnerability identified in CVE-2023-36405. End users can find these updates in the Windows Update settings by checking for available updates. By applying the security updates referenced in the post, users can protect their systems against the specified vulnerability.",
+  "source_id": "5665cac7-30e9-6ea0-7016-d9829aa61201",
+  "source_type": "MSRCPost",
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-36405",
+  "tags": [
+    "patch",
+    "elevation of privilege",
+    "CVE-2023-36405"
+  ],
+  "node_id": "8fc31da3-0201-4772-89e3-de465bf40149",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

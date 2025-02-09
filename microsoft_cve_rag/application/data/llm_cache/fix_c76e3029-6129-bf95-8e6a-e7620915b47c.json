@@ -1,0 +1,16 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the CVE-2023-6345 vulnerability in the Skia library of Chromium, which affects Microsoft Edge (Chromium-based), ensure you are running the latest version of Microsoft Edge:\n\n1. Update your Microsoft Edge browser to version 119.0.2151.97 or later.\n2. Restart your browser to apply changes.\n\n**Details**:\n- The update addressed an integer overflow vulnerability in Skia that could potentially be exploited. \n- For more information on the Chrome releases, visit: https://chromereleases.googleblog.com/2023.\n\n**Preconditions**:\n- Ensure your system is compatible with Microsoft Edge version 119.0.2151.97.\n- Backup your data before proceeding with the update.",
+  "source_id": "c76e3029-6129-bf95-8e6a-e7620915b47c",
+  "source_type": "MSRCPost",
+  "fix_label": "UpdateMicrosoftEdgeToResolveCVE20236345",
+  "tags": [
+    "CVE-2023-6345",
+    "MicrosoftEdge",
+    "VulnerabilityFix"
+  ],
+  "node_id": "b5e00e58-7382-4637-9207-e5be477e52d8",
+  "node_label": "Fix",
+  "reliability": "0.9",
+  "severity_type": "critical",
+  "entity_type": "Fix"
+}

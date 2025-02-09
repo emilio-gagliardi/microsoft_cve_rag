@@ -1,0 +1,484 @@
+NodeType,ProductName,ProductID,ProductVersion
+[AffectedProduct],Microsoft Edge,product_49d2e10f-42df-46be-037c-65fe5ef4cb57_1,117.0.2045.31
+[AffectedProduct],Microsoft Teams,product_dea40d4c-4f38-1b79-8428-24132952d7ac_2,Not specified
+[AffectedProduct],Microsoft Skype,product_49d2e10f-42df-46be-037c-65fe5ef4cb57_3,8.105.0.208
+[AffectedProduct],WebP Image Extension,product_49d2e10f-42df-46be-037c-65fe5ef4cb57_4,1.0.62681.0
+[AffectedProduct],Microsoft Teams,product_635e8974-8dfd-497b-f823-b43572715792_2,Not provided
+[AffectedProduct],Windows 11,product_ca7d2239-1194-f1f6-fd31-33839ca71d40_1,22H2
+[AffectedProduct],Windows 11,product_ca7d2239-1194-f1f6-fd31-33839ca71d40_2,21H2
+[AffectedProduct],Windows 10,product_ca7d2239-1194-f1f6-fd31-33839ca71d40_3,22H2
+[AffectedProduct],Windows 10,product_ca7d2239-1194-f1f6-fd31-33839ca71d40_4,21H2
+[AffectedProduct],Windows 10 Enterprise LTSC 2019,product_ca7d2239-1194-f1f6-fd31-33839ca71d40_5,
+[AffectedProduct],Azure Stack,product_d375bfbf-e9cb-754c-900e-2f7aab79bef8_1,10-2023 CU
+[AffectedProduct],Windows Server,product_fb149e1a-178a-65c7-f5f8-5ff65cc44e47_1,2022
+[AffectedProduct],Internet Connection Sharing (ICS),product_27fee58c-8dc5-b697-48f4-1f9ecd9d2b55_1,Not provided
+[AffectedProduct],Chrome,product_56ea7876-6251-109c-1b98-12ece3b45e11_1,Not specified
+[AffectedProduct],Edge,product_56ea7876-6251-109c-1b98-12ece3b45e11_2,Not specified
+[AffectedProduct],Visual Studio,product_dad9dd6b-a78f-3a1f-f1a0-71afbd8852e6_1,Not provided
+[AffectedProduct],Microsoft Edge (Chromium-based),product_0e33f5da-16c7-bdb3-8564-670189e36689_1,117.0.2045.47
+[AffectedProduct],Microsoft Skype,product_0e33f5da-16c7-bdb3-8564-670189e36689_3,Not provided
+[AffectedProduct],Microsoft Edge (Chromium-based),product_d3955f7b-cc16-0d57-b9f2-691326e46363_1,Not provided
+[AffectedProduct],Windows Remote Desktop Gateway,product_0741056a-23db-ff6d-b270-c322967954f1_1,Not provided
+[AffectedProduct],Excel 2016,product_f2c7d35e-b0af-55df-d85c-e99ea831ceea_1,64bit
+[AffectedProduct],Microsoft,product_65ecee37-ea07-61fa-5e32-7b84ccb2822a_1,Not specified
+[AffectedProduct],Google Chrome,product_65ecee37-ea07-61fa-5e32-7b84ccb2822a_2,117.0.5938.132
+[AffectedProduct],Mozilla Firefox,product_65ecee37-ea07-61fa-5e32-7b84ccb2822a_3,117.0.1
+[AffectedProduct],Apple,product_65ecee37-ea07-61fa-5e32-7b84ccb2822a_4,Not specified
+[AffectedProduct],Windows Server,product_e3b62895-cc79-6508-5369-fa8a6c49cf02_1,Not specified
+[AffectedProduct],Curl,product_e3b62895-cc79-6508-5369-fa8a6c49cf02_2,Not specified
+[AffectedProduct],Windows 11,product_d2444d1b-ec7f-4552-234f-b1243c06a84c_1,Latest
+[AffectedProduct],curl.exe,product_c3386492-fca1-2f06-a6ae-1faef66f85d6_1,8.4.0
+[AffectedProduct],Microsoft Dynamics NAV,product_1d705203-4bbb-2afe-7632-0639f28ec949_1,Not provided
+[AffectedProduct],Microsoft Dynamics 365 Business Central (On Premises),product_1d705203-4bbb-2afe-7632-0639f28ec949_2,Not provided
+[AffectedProduct],Office,product_d886c058-ffbe-1efe-c8ba-9a2524fa7bb7_1,2016
+[AffectedProduct],Outlook,product_d886c058-ffbe-1efe-c8ba-9a2524fa7bb7_2,Unknown
+[AffectedProduct],HP Printers,product_bbb7c46a-65d1-3fd8-eac6-0f219a44bfad_1,Not specified
+[AffectedProduct],Xerox Printers,product_bbb7c46a-65d1-3fd8-eac6-0f219a44bfad_2,Not specified
+[AffectedProduct],Barracuda Web Content Filter,product_bbb7c46a-65d1-3fd8-eac6-0f219a44bfad_3,Not specified
+[AffectedProduct],McAfee ePo,product_bbb7c46a-65d1-3fd8-eac6-0f219a44bfad_4,Not specified
+[AffectedProduct],Azure Identity SDK,product_d7d3b5a3-37bc-b70f-2f29-9f917bdaa137_1,Not provided
+[AffectedProduct],Microsoft SQL OLE DB,product_3d54ab44-ab7e-fd50-117a-65da550077f3_1,Not provided
+[AffectedProduct],Microsoft 365 Family,product_2c315922-e421-231c-469b-4f89ed46aac8_1,2309 (Build 16287.20080)
+[AffectedProduct],Microsoft 365 Apps for enterprise,product_2c315922-e421-231c-469b-4f89ed46aac8_2,2309 (Build 16287.20080)
+[AffectedProduct],Microsoft 365 Apps for business,product_2c315922-e421-231c-469b-4f89ed46aac8_3,2309 (Build 16287.20080)
+[AffectedProduct],Subscription versions of the desktop apps for Project and Visio,product_2c315922-e421-231c-469b-4f89ed46aac8_4,2309 (Build 16287.20080)
+[AffectedProduct],NTLM,product_68a6e2dd-ab1f-0e49-a7e5-16010f7ecbd4_1,Not specified
+[AffectedProduct],Azure Identity SDK,product_6dc99f38-4784-1d1f-9907-d331aa620fc7_1,Not provided
+[AffectedProduct],WSUS,product_ede057a0-dd10-feb8-c5e1-d391dcea99db_2,Unknown
+[AffectedProduct],Server 2016,product_4e25f090-e8b1-ea18-8a63-b0d30ebe8b03_1,2016
+[AffectedProduct],Server 2019,product_4e25f090-e8b1-ea18-8a63-b0d30ebe8b03_2,2019
+[AffectedProduct],Microsoft ODBC Driver for SQL Server,product_91a76bf6-a55f-8c3d-6de7-1a485faada05_1,Not provided
+[AffectedProduct],Windows 10,product_c9a2f2ba-d46b-974a-a1ca-6d660968783d_1,Not specified
+[AffectedProduct],Microsoft ODBC Driver for SQL Server,product_b1b48686-865d-c7c1-15ac-9db7ed20011c_1,Not provided
+[AffectedProduct],HP computers,product_25e05e23-5619-70f4-dd5f-5f2aaca319ec_1,BIOS released before September
+[AffectedProduct],October Cumulative Update (CU),product_25e05e23-5619-70f4-dd5f-5f2aaca319ec_2,Not specified
+[AffectedProduct],Microsoft ODBC Driver for SQL Server,product_4c96e3f2-7595-42f1-2c41-36f77eb755f6_1,Not provided
+[AffectedProduct],Windows,product_6bec89c1-794c-f064-2062-c20b3bdaa678_1,OS Build 22621.2361
+[AffectedProduct],CoPilot,product_6bec89c1-794c-f064-2062-c20b3bdaa678_2,Not specified
+[AffectedProduct],Microsoft .NET Framework,product_5c1801d0-ba5e-8288-913d-0fefdee71daf_1,3.5
+[AffectedProduct],Microsoft .NET Framework,product_5c1801d0-ba5e-8288-913d-0fefdee71daf_2,4.8.1
+[AffectedProduct],Windows 11 Version 22H2,product_5c1801d0-ba5e-8288-913d-0fefdee71daf_3,x64-based Systems
+[AffectedProduct],Windows 11 Version 22H2,product_5c1801d0-ba5e-8288-913d-0fefdee71daf_4,ARM64-based Systems
+[AffectedProduct],GLIBC,product_2f8d46b8-77e3-945c-61c8-cc7d102223f6_1,2.34
+[AffectedProduct],Fedora,product_2f8d46b8-77e3-945c-61c8-cc7d102223f6_2,37 and 38
+[AffectedProduct],Ubuntu,product_2f8d46b8-77e3-945c-61c8-cc7d102223f6_3,22.04 and 23.04
+[AffectedProduct],Debian,product_2f8d46b8-77e3-945c-61c8-cc7d102223f6_4,12 and 13
+[AffectedProduct],ESXI,product_4af4c8b5-de7e-797a-c39f-f1af5737bbc7_1,8
+[AffectedProduct],Hyper-V,product_4af4c8b5-de7e-797a-c39f-f1af5737bbc7_2,Unknown
+[AffectedProduct],Windows Server,product_e145de53-27a3-b0a6-7783-98151cf1588f_1,2008 R2
+[AffectedProduct],Windows Server,product_e145de53-27a3-b0a6-7783-98151cf1588f_2,2012
+[AffectedProduct],Office 365,product_51def843-da77-ca3d-30b3-d3a689c08a01_1,Unknown
+[AffectedProduct],Microsoft SQL Server,product_4477a6eb-c3b0-26d7-c6f6-e918c0cf8782_1,Not provided
+[AffectedProduct],Server 22 hyper-v/starwind 2 node cluster,product_93f905c3-1aa9-080b-d543-460dcf6b3a99_1,Unknown
+[AffectedProduct],Replicated CSVs,product_93f905c3-1aa9-080b-d543-460dcf6b3a99_2,Unknown
+[AffectedProduct],Layer 2 Tunneling Protocol,product_16f48b64-6419-f7c3-344a-5ad673ea36af_1,Not provided
+[AffectedProduct],Windows Common Log File System Driver,product_8c61aeee-4abd-a5fb-ad50-8ef538f17cb4_1,
+[AffectedProduct],MS System Center,product_47aa9758-5535-b1ae-4029-77047f4c6613_1,
+[AffectedProduct],2012R2 server,product_47aa9758-5535-b1ae-4029-77047f4c6613_2,
+[AffectedProduct],Windows 10 Home,product_2785a200-8907-677f-405c-c4d78d7d2ce6_1,22H2
+[AffectedProduct],Windows 11 Home,product_2785a200-8907-677f-405c-c4d78d7d2ce6_2,22H2
+[AffectedProduct],Microsoft Visual Studio,product_ee33fea2-9e4c-fad6-c445-5759d8dab206_1,2013 Update 5
+[AffectedProduct],Microsoft Visual Studio,product_ee33fea2-9e4c-fad6-c445-5759d8dab206_2,2015 Update 3
+[AffectedProduct],Server 2016 SSU,product_ca04f859-f4e9-04f3-c9cf-95924ef68d13_1,September 2023
+[AffectedProduct],Server 2019 SSU,product_ca04f859-f4e9-04f3-c9cf-95924ef68d13_2,September 2023
+[AffectedProduct],Microsoft Visual Studio 2013 Update 5,product_41ee66d8-0e64-b3b4-9e70-03b16d877024_1,Update 5
+[AffectedProduct],Microsoft Visual Studio 2015,product_41ee66d8-0e64-b3b4-9e70-03b16d877024_2,Update 3
+[AffectedProduct],Microsoft Visual Studio 2013 Update 5,product_3e51e78e-8185-7ef7-68c4-13609b3c120d_1,Update 5
+[AffectedProduct],Microsoft Visual Studio 2015 Update 3,product_3e51e78e-8185-7ef7-68c4-13609b3c120d_2,Update 3
+[AffectedProduct],Hyper-V,product_b5565c14-f29d-9afd-42cf-2a1489fc7989_1,2019 and 2022
+[AffectedProduct],VMware Windows,product_b5565c14-f29d-9afd-42cf-2a1489fc7989_2,2019 and 2022
+[AffectedProduct],Windows Registry,product_3ceeff60-9b44-69a0-400a-3857893fd233_1,
+[AffectedProduct],Kerberos Protocol,product_3ceeff60-9b44-69a0-400a-3857893fd233_2,
+[AffectedProduct],Windows Server 2016,product_678adb44-cbe2-bb2b-72de-3f224bcfeb93_1,Server Core installation
+[AffectedProduct],Windows Server 2016,product_678adb44-cbe2-bb2b-72de-3f224bcfeb93_2,
+[AffectedProduct],Windows 10,product_678adb44-cbe2-bb2b-72de-3f224bcfeb93_3,Version 1607 for x64-based Systems
+[AffectedProduct],Office,product_9c0e78a8-2811-f6b4-4e11-7784d9d1c6f5_1,
+[AffectedProduct],WS_FTP Server,product_cfacf717-4c77-22f5-b659-6e7214a9c289_1,
+[AffectedProduct],Windows backup app,product_d808b32c-1dc9-33bd-4b8c-6d36f40443c3_1,KB5029331
+[AffectedProduct],Domain Controllers,product_5f3825fb-b448-5d65-1924-71a029290f81_1,
+[AffectedProduct],Windows XP,product_5f3825fb-b448-5d65-1924-71a029290f81_2,Legacy
+[AffectedProduct],Windows Server 2022,product_c3ca8e34-d77f-5e5f-53c3-a104a6eacea0_1,2022
+[AffectedProduct],Azure Arc Setup,product_c3ca8e34-d77f-5e5f-53c3-a104a6eacea0_2,
+[AffectedProduct],Windows Server (Server Core installation),product_1873a529-4c3d-5fbb-ba17-94400f6b2411_2,2022
+[AffectedProduct],Microsoft WordPad,product_fa0506ad-8a96-7181-a4ac-1483e9103208_1,
+[AffectedProduct],ESXi 6.5,product_7f58f800-9b60-c769-ffa9-007b7083ca27_1,6.5
+[AffectedProduct],Windows Server 2016,product_7f58f800-9b60-c769-ffa9-007b7083ca27_2,2016
+[AffectedProduct],Windows Server 2019,product_7f58f800-9b60-c769-ffa9-007b7083ca27_4,2019
+[AffectedProduct],Microsoft Message Queuing,product_e1dd6a88-fafa-baf5-c669-ccc42196bdf3_1,All versions
+[AffectedProduct],Microsoft WDAC OLE DB provider for SQL Server,product_94150d19-76a5-0d0d-98de-fcf356d95e3a_1,
+[AffectedProduct],SCCM,product_ab86530f-8cea-55ce-bf7f-9f02914aa60f_1,
+[AffectedProduct],WSUS,product_ab86530f-8cea-55ce-bf7f-9f02914aa60f_2,
+[AffectedProduct],Windows Backup,product_c4c40fcf-30f7-150d-7b9a-8db3eb2cd8fa_2,22H2
+[AffectedProduct],Windows Server,product_d3551f98-9d2c-c9be-77ad-4aa62508ac8b_1,"2022, 23H2 Edition"
+[AffectedProduct],Microsoft Edge (Chromium-based),product_a9198d51-6c41-1d7e-c415-bbb561df0c8a_1,118.0.2088.76
+[AffectedProduct],Adobe PDF,product_a9198d51-6c41-1d7e-c415-bbb561df0c8a_2,
+[AffectedProduct],PowerShell,product_997a2599-f326-9b3a-1b43-4552deea3e56_1,7.3
+[AffectedProduct],Microsoft Outlook,product_cf2f5bef-f4ca-e3f3-6546-fdd089f84a81_1,
+[AffectedProduct],Microsoft Office,product_cf2f5bef-f4ca-e3f3-6546-fdd089f84a81_2,
+[AffectedProduct],Microsoft October Updates,product_11d4eda2-6b9c-6166-7612-15e6666f2ec2_1,
+[AffectedProduct],Google Chrome,product_11d4eda2-6b9c-6166-7612-15e6666f2ec2_2,
+[AffectedProduct],Windows 10,product_655ec7d1-376a-b414-1d3b-777e95b6777c_1,AD joined managed
+[AffectedProduct],Windows 11 Insider Preview,product_655ec7d1-376a-b414-1d3b-777e95b6777c_2,Builds
+[AffectedProduct],Windows 11,product_655ec7d1-376a-b414-1d3b-777e95b6777c_3,Stable Builds
+[AffectedProduct],Microsoft ODBC Driver for SQL Server,product_6a58b7c3-f163-f839-067a-696212cdda83_1,
+[AffectedProduct],.NET Core,product_f17ca7a9-991c-9456-a403-dbebd8c5fb47_1,All versions
+[AffectedProduct],Microsoft Visual Studio,product_f17ca7a9-991c-9456-a403-dbebd8c5fb47_2,All versions
+[AffectedProduct],Windows SMB Client,product_98c8efd2-6972-7bcf-172a-0c200d2646f8_1,
+[AffectedProduct],Windows 11,product_d6762949-ddbb-81e1-7f0f-b626decf99e4_1,Pre 22H2
+[AffectedProduct],Windows 10,product_d6762949-ddbb-81e1-7f0f-b626decf99e4_2,Pre Win11
+[AffectedProduct],MSI BIOS,product_7ed75b9c-86af-ddec-a94c-20a2c2891928_2,
+[AffectedProduct],Windows 10,product_9faab8d0-c9b4-7f52-57ca-5f7dfb33e17f_1,
+[AffectedProduct],Ivanti Security Controls/Shavlik,product_c160528e-e240-ec11-3856-747e725005ee_1,
+[AffectedProduct],Legacy LAPS,product_ab4f035d-3168-b804-c44d-b1215745e18f_1,
+[AffectedProduct],Modern Windows LAPS,product_ab4f035d-3168-b804-c44d-b1215745e18f_2,
+[AffectedProduct],.NET Framework,product_fe9b9aa7-053f-6f38-4d90-64c457428bd4_1,"3.5, 4.6.2"
+[AffectedProduct],Windows 10,product_fe9b9aa7-053f-6f38-4d90-64c457428bd4_2,"32-bit, x64-based"
+[AffectedProduct],.NET Framework,product_ef99c162-cb91-72df-99a7-56d34ed52fd0_2,4.6.2
+[AffectedProduct],Windows 10,product_ef99c162-cb91-72df-99a7-56d34ed52fd0_3,32-bit
+[AffectedProduct],Windows 10,product_ef99c162-cb91-72df-99a7-56d34ed52fd0_4,x64-based
+[AffectedProduct],.NET,product_797e042f-13ae-12e0-c4d8-b0882b092ec1_1,All
+[AffectedProduct],Microsoft Visual Studio,product_797e042f-13ae-12e0-c4d8-b0882b092ec1_2,All
+[AffectedProduct],Microsoft Visual Studio,product_013fe0fe-650c-367e-d58d-d8efa4306ed7_3,2022 version 17.6
+[AffectedProduct],Microsoft Visual Studio,product_013fe0fe-650c-367e-d58d-d8efa4306ed7_4,2022 version 17.7
+[AffectedProduct],.NET Framework,product_beafa6f9-12f9-8b38-78f7-e1a6a4077d72_1,"3.5, 4.6.2, 4.7, 4.7.1, 4.7.2"
+[AffectedProduct],.NET,product_ab263dab-548b-63a0-ab4e-de363224028c_1,All
+[AffectedProduct],Microsoft Visual Studio,product_ab263dab-548b-63a0-ab4e-de363224028c_2,All
+[AffectedProduct],.NET Framework,product_0e4b7ec1-c195-671f-a8fa-7165b6284b4d_2,4.6.2
+[AffectedProduct],Windows 10,product_0e4b7ec1-c195-671f-a8fa-7165b6284b4d_3,32-bit
+[AffectedProduct],Windows 10,product_0e4b7ec1-c195-671f-a8fa-7165b6284b4d_4,x64-based
+[AffectedProduct],.NET Framework,product_46f5b878-3f42-73c8-0fb6-ebd1a9dc8bc5_2,4.6.2
+[AffectedProduct],.NET,product_38b0e9cd-0c3a-d4cb-c9e1-7a38bea06994_1,All
+[AffectedProduct],Microsoft Visual Studio,product_38b0e9cd-0c3a-d4cb-c9e1-7a38bea06994_2,All
+[AffectedProduct],Windows Media Foundation Core,product_38a49140-cb25-ca0b-af96-8a9b8b02ea96_1,
+[AffectedProduct],libwebp,product_2e1f433a-1298-434c-0d21-ff6ebae03a63_1,
+[AffectedProduct],Secure Boot,product_ee0c530f-fefc-b6cd-3dbc-a5bc8d2d2d3d_1,
+[AffectedProduct],vSphere,product_ee0c530f-fefc-b6cd-3dbc-a5bc8d2d2d3d_2,
+[AffectedProduct],Microsoft Anti-Spam Outbound Policy,product_f8030b23-8904-d6fd-f93a-f19c85fe948f_1,Default
+[AffectedProduct],Windows,product_fc6b9de7-c3bf-eb66-d36d-3df9b23bf2bb_1,23H2
+[AffectedProduct],Lumension,product_0b5ee655-92b7-344a-f313-698ea5c8b383_1,
+[AffectedProduct],Desktops,product_0b5ee655-92b7-344a-f313-698ea5c8b383_3,
+[AffectedProduct],Servers,product_0b5ee655-92b7-344a-f313-698ea5c8b383_4,
+[AffectedProduct],Windows Home,product_ebacaeb1-b020-0524-f2ca-46a3096649db_1,10 22H2
+[AffectedProduct],Windows Home,product_ebacaeb1-b020-0524-f2ca-46a3096649db_2,11
+[AffectedProduct],KB5002457,product_f9ade070-2a80-00e1-a1ea-2dec50d1446a_2,
+[AffectedProduct],Windows System Toast Backup Reminder,product_3ba40550-192f-3ff3-905c-2146e9319390_1,
+[AffectedProduct],Windows RCT,product_74b68ba3-c06f-0f9c-3e50-befdc2dd1e86_1,
+[AffectedProduct],libwebp,product_b6f80518-60af-1aec-a440-c6cfd1fe22f2_1,CVE-2023-4863
+[AffectedProduct],Microsoft Exchange Server,product_d3dabc38-d586-ec65-173c-dea630923db4_1,
+[AffectedProduct],Windows 10,product_3906d039-bedf-77ed-596d-d071c22ddf38_2,"32-bit, x64-based, version 1607"
+[AffectedProduct],ASP.NET,product_dca34462-332a-cc73-d09e-26ecca9a1597_1,
+[AffectedProduct],Microsoft Edge (Chromium-based),product_2383488f-5d18-90f9-223b-a17e97393c4e_1,119.0.2151.72
+[AffectedProduct],Microsoft Edge (Chromium-based) Extended Stable,product_2383488f-5d18-90f9-223b-a17e97393c4e_2,118.0.2088.109
+[AffectedProduct],Microsoft Windows Defender,product_23c192b8-002f-7b9b-4355-719e6a75e82e_1,
+[AffectedProduct],Azure CLI REST Command,product_6ddd8e66-5da8-38a8-e1f4-4cbca77a867f_1,
+[AffectedProduct],Open Management Infrastructure,product_d7be756c-2eac-cf76-42fe-bdff7b22adff_1,
+[AffectedProduct],ASP.NET Core,product_c85c0e3c-cb8f-96a2-6cf3-25216e79dc1b_1,
+[AffectedProduct],Microsoft Dynamics 365,product_47a9f791-053e-b239-1928-8c9efbc35e74_1,on-premises
+[AffectedProduct],Windows 10 Home,product_f2820d74-8c27-c0dc-3814-a7a6ae1beb5e_1,
+[AffectedProduct],Microsoft Host Integration Server,product_9f259de2-565a-7451-d6af-2f3c4fef3dcf_1,2020
+[AffectedProduct],Windows Hyper-V,product_f31ca2f7-4767-f4c9-b049-dfb34e4603f4_1,
+[AffectedProduct],Microsoft SharePoint Server,product_e9944266-2a47-d514-42f5-b32ab850b309_1,All versions
+[AffectedProduct],Azure DevOps Server,product_0252ea1a-540c-bceb-164b-4d4ea2353ef0_1,
+[AffectedProduct],Microsoft Send Customer Voice survey from Dynamics 365,product_ff7468da-7211-f79e-77af-2ecd622b9abb_1,
+[AffectedProduct],Windows Authentication,product_e9253221-9982-e07c-2246-8e3b7a4a3175_1,
+[AffectedProduct],Windows Hyper-V,product_1d2e35b7-54a4-6681-6181-bf0ce4160668_1,All versions
+[AffectedProduct],Windows,product_a44c0815-355f-9320-40cc-c9a0c3768dcb_1,OS Build 19045.3516
+[AffectedProduct],Server 2012,product_701a4e86-6f16-5101-d57a-b26434b068c2_1,
+[AffectedProduct],Google Chrome,product_9678acc6-e04d-bcc0-b2cf-8a92792a3940_1,Latest
+[AffectedProduct],Windows Server 2019,product_329b0cc9-6550-f925-60ad-4fb8e4924eec_1,2022
+[AffectedProduct],Hyper-V,product_329b0cc9-6550-f925-60ad-4fb8e4924eec_2,2019
+[AffectedProduct],Windows Update,product_57ce5346-8fd2-24e7-0e65-786608d09c8d_1,
+[AffectedProduct],Windows,product_6851c25a-ce78-7f49-c4ee-bd0290d87059_1,Preview
+[AffectedProduct],Microsoft Dynamics 365 Sales,product_20a78e4f-76eb-2f6c-b9ce-ccce606562a0_1,
+[AffectedProduct],Microsoft Edge (Chromium-based),product_7387c3c6-49cf-9b89-eb90-5696c068ea36_1,
+[AffectedProduct],Windows Storage,product_0ec16fdf-7814-8c6c-b4e9-18e7a84943a5_1,
+[AffectedProduct],Windows Compressed Folder,product_ef9760a4-a330-b450-d4b2-98a1f23d2be4_1,All versions
+[AffectedProduct],Microsoft Excel,product_028cea55-4d6b-060c-348c-c9339670a067_1,All versions
+[AffectedProduct],Visual Studio,product_0454f3a2-3091-0fee-8d11-432959e676da_1,
+[AffectedProduct],Teams,product_be53b11e-3ac4-6bcb-ecd3-ddcbecc4553b_1,New
+[AffectedProduct],Windows 7,product_a2c2ba61-2198-c686-61ff-f8f397b2df25_1,7
+[AffectedProduct],Windows 8,product_a2c2ba61-2198-c686-61ff-f8f397b2df25_2,8
+[AffectedProduct],Windows 10,product_a2c2ba61-2198-c686-61ff-f8f397b2df25_3,10
+[AffectedProduct],Windows 11,product_22ba5fbe-09c1-e468-1d0d-b157f192a292_1,
+[AffectedProduct],Windows 11,product_022a987e-f54d-657a-308f-2f512b5cefdf_2,
+[AffectedProduct],Microsoft server operating system version 21H2 for x64-based Systems,product_139df8a9-4477-506f-39f5-103fb6f8b9e9_1,2023-10 Cumulative Update
+[AffectedProduct],AuthLite,product_139df8a9-4477-506f-39f5-103fb6f8b9e9_2,2.4.14
+[AffectedProduct],Adobe Bridge,product_9d45f6c6-782e-5ffb-cc14-673d5223e609_1,APSB23-49
+[AffectedProduct],Adobe Commerce,product_9d45f6c6-782e-5ffb-cc14-673d5223e609_2,APSB23-50
+[AffectedProduct],Adobe Photoshop,product_9d45f6c6-782e-5ffb-cc14-673d5223e609_3,APSB23-51
+[AffectedProduct],Windows Malicious Software Removal Tool x64,product_57217e70-b3b3-edd5-46aa-767e25e7b715_2,v5.118 (KB890830)
+[AffectedProduct],Microsoft Edge,product_5a106c58-acd6-0e73-5fc0-5af2aeeb631e_1,Chromium-based
+[AffectedProduct],Windows Deployment Services,product_f3eef60f-ea7d-d957-561a-e0ad14732389_1,
+[AffectedProduct],DHCP Server Service,product_0e8184b9-2939-c1cc-d03b-f43b7c876429_1,
+[AffectedProduct],Microsoft Office Graphics,product_ad7117b9-abd9-d733-d611-ff5b1d34eff0_1,All versions
+[AffectedProduct],Microsoft Excel,product_e90e5a31-059a-5473-17ba-d835baf98c1c_1,
+[AffectedProduct],Microsoft Teams,product_0f3f9c2d-a885-c9b8-f3ca-e00718910ef6_2,1.6.00.26474
+[AffectedProduct],Windows 8.1,product_41948ae2-57cf-9b96-0625-c90784b0ff80_3,8.1
+[AffectedProduct],McAfee Antivirus,product_121df3d4-e2cb-1dab-b2a9-a843e621b5c7_1,
+[AffectedProduct],Microsoft Windows,product_277b7119-f59c-80b2-f36b-3065c783d191_1,Vista x64
+[AffectedProduct],Microsoft Remote Desktop Services,product_277b7119-f59c-80b2-f36b-3065c783d191_2,
+[AffectedProduct],Driver Management,product_277b7119-f59c-80b2-f36b-3065c783d191_3,
+[AffectedProduct],Windows 7,product_43cf8985-c351-9e59-fd66-780749538e5e_1,
+[AffectedProduct],open-vm-tools,product_e1cca042-9ce7-0ac1-27ba-8720b48b1546_1,
+[AffectedProduct],Server 2019,product_133144a9-0c8f-503a-c4ed-30795bb97a86_2,
+[AffectedProduct],Azure Site Recovery,product_836a7418-0c15-a5cf-ed86-3d1cb4d7f1a6_2,
+[AffectedProduct],Windows Remote Desktop Gateway,product_6b3c6f5c-61a5-e51a-409c-c7a6f83abe4a_1,
+[AffectedProduct],Visual Studio Code Jupyter Extension,product_df2d3a98-2775-4295-a12b-6c89b238bfc5_1,
+[AffectedProduct],Microsoft Edge (Chromium-based),product_65369b53-9b11-853c-ca19-0211b57d6fe5_1,Latest
+[AffectedProduct],Windows Kernel,product_b2c5b1ad-b810-465b-722b-0d6bd06f8777_1,
+[AffectedProduct],Microsoft Edge (Chromium-based),product_15d58879-73f5-a92f-c5c9-213d7bdc3492_1,119.0.2151.58
+[AffectedProduct],Microsoft Edge (Chromium-based) Extended Stable,product_15d58879-73f5-a92f-c5c9-213d7bdc3492_2,118.0.2088.102
+[AffectedProduct],Windows,product_7001567b-77d3-824e-62c4-9c022f0f7278_1,All supported versions
+[AffectedProduct],Microsoft On-Prem Data Gateway,product_916c00a4-81be-9818-d318-a4bbd9e508eb_1,
+[AffectedProduct],SCCM,product_455213ac-918e-ecd8-5e1b-89db3d125bc6_1,2207
+[AffectedProduct],SCCM,product_455213ac-918e-ecd8-5e1b-89db3d125bc6_2,2211
+[AffectedProduct],Windows 11 Business Editions,product_169f42ef-8ec6-a403-1cba-b2b7fe57ef12_1,23H2
+[AffectedProduct],Windows 11,product_b1e58fe1-e507-42ad-f638-93d33d738bdf_1,23H2
+[AffectedProduct],Windows 10,product_2dde10c4-80fc-366a-6cc4-c1801594d17d_1,October update
+[AffectedProduct],Windows 11,product_0f3b45d4-b3a4-0cc0-24bb-1a3332c93c89_2,23H2
+[AffectedProduct],Microsoft Teams,product_9685af6c-9528-c62e-8bcf-b23c8526e7b0_1,New
+[AffectedProduct],Windows 10 Pro,product_6950b207-a419-d88b-a7d4-033c617e38a1_1,22H2
+[AffectedProduct],SCCM,product_9e87a138-20c0-01a9-228d-7f1b08c3b003_1,2211
+[AffectedProduct],Windows Kernel,product_e7508a95-ae72-5786-5262-7738ac1b6dd8_1,All versions
+[AffectedProduct],.NET Framework,product_3556893f-7b68-59a5-28df-2d13536809bf_2,All versions
+[AffectedProduct],Microsoft Speech Application Programming Interface,product_14917f1d-2047-3310-a46d-194ddbee0053_1,All versions
+[AffectedProduct],Windows Installer,product_68564ad7-00ce-b10e-6f6c-ff0aa7f0e0eb_1,All versions
+[AffectedProduct],Microsoft Local Security Authority Subsystem Service,product_7722618d-a2e9-6bc8-15de-5489dd69fdc4_1,
+[AffectedProduct],Server 2012,product_f64ec20d-6790-fbb9-daee-2097c72cccea_1,R2
+[AffectedProduct],WSUS,product_349f45b9-962f-e3b7-f9e0-5b18083a24cd_2,23H2
+[AffectedProduct],Microsoft 365 suite,product_d250a978-356e-0149-ba7e-7e73236b254c_1,
+[AffectedProduct],iOS/iPadOS,product_d250a978-356e-0149-ba7e-7e73236b254c_2,17.1.x
+[AffectedProduct],macOS,product_d250a978-356e-0149-ba7e-7e73236b254c_3,14.1.x
+[AffectedProduct],Windows Update and Bits services,product_6ff2cc72-f237-f9fe-587e-8203a308d30a_1,
+[AffectedProduct],OWA,product_76fcd96d-3e81-34e0-5ae6-15c963320e68_1,
+[AffectedProduct],Windows LAPS,product_c60fe673-ac9e-68fc-5101-72bafc59b1e0_1,On-premises
+[AffectedProduct],Windows 11,product_31320d43-ccb5-98bf-3a20-27808fdc3d12_1,2023
+[AffectedProduct],Windows Scripting Engine,product_c629b845-62e3-6454-cee5-38ac81f56832_1,All versions
+[AffectedProduct],Windows NTFS,product_9be7a8d3-46cf-5f0c-d2fc-12f608138616_1,
+[AffectedProduct],Windows User Interface Application Core,product_6bdbd676-2976-72cc-950c-7450f796b1e2_1,All versions
+[AffectedProduct],Microsoft Remote Registry Service,product_5ad75fa2-375a-2da2-c6c9-2b4b05bce045_1,
+[AffectedProduct],.NET Framework,product_47601a3d-ee2a-5ef7-e092-0d9348efb4de_2,All
+[AffectedProduct],PowerShell,product_47601a3d-ee2a-5ef7-e092-0d9348efb4de_4,"7.2, 7.3, 7.4"
+[AffectedProduct],Windows Search Service,product_0083b939-fbb6-616d-8500-b5b87d417266_1,All versions
+[AffectedProduct],Microsoft-Windows-TS-OptionalComponents-Package,product_a29aa418-3011-9f8d-9690-63683d0eca4b_1,
+[AffectedProduct],Remote Desktop App,product_4cae9c19-c06d-fc36-6ad8-830696c17354_1,
+[AffectedProduct],mstsc.exe,product_4cae9c19-c06d-fc36-6ad8-830696c17354_2,
+[AffectedProduct],Office 2016,product_d191e3f6-4d6d-e3d3-5337-1d2fd947be28_1,2016
+[AffectedProduct],Acrobat,product_bfd4e49f-622c-b123-350d-14a8365c6331_1,
+[AffectedProduct],Reader,product_bfd4e49f-622c-b123-350d-14a8365c6331_2,
+[AffectedProduct],Acrobat,product_8f31f1e6-761d-268c-467f-25a14f3a603b_1,
+[AffectedProduct],Acrobat Reader,product_8f31f1e6-761d-268c-467f-25a14f3a603b_2,
+[AffectedProduct],Windows 11,product_d51b3480-8c48-d660-d1f5-449af2cc320b_1,KB5032190
+[AffectedProduct],Office 2016,product_cdb88a68-d0b9-9236-344f-2b750cfc3bad_1,2016
+[AffectedProduct],Windows SmartScreen,product_08e11356-4cf0-b487-2d88-be69035f315a_1,
+[AffectedProduct],Microsoft Identity Linux Broker,product_75d9d62e-0f89-3444-ac4b-ad20a5be5a98_1,
+[AffectedProduct],Autodesk® FBX® SDK,product_63c12a02-91ae-1d3e-1eb0-5e7e1719e8d0_1,2020 or prior
+[AffectedProduct],3D Viewer,product_63c12a02-91ae-1d3e-1eb0-5e7e1719e8d0_2,All supported versions
+[AffectedProduct],Microsoft Office 2019,product_63c12a02-91ae-1d3e-1eb0-5e7e1719e8d0_3,All supported versions
+[AffectedProduct],Microsoft Office LTSC 2021,product_63c12a02-91ae-1d3e-1eb0-5e7e1719e8d0_4,All supported versions
+[AffectedProduct],Microsoft Azure Kubernetes Service,product_53f08751-c2e4-b1da-f28e-8327f3ff4e4e_1,
+[AffectedProduct],Microsoft Edge (Chromium-based),product_2a89d8fa-4a75-639c-0ef-b17c30d775ff_1,116.0.1938.69
+[AffectedProduct],Microsoft Edge (Chromium-based),product_ca472269-83ca-8d14-b051-e07d45576f82_1,116.0.1938.54
+[AffectedProduct],Microsoft Edge (Chromium-based),product_8b121710-2f7a-0447-87cb-c4ec928bf73b_1,116.0.1938.54
+[AffectedProduct],Microsoft Edge (Chromium-based),product_14bdec9a-b9f6-8f6b-5362-510bae7f1f9e_1,116.0.1938.54
+[AffectedProduct],Microsoft Edge (Chromium-based),product_4e10d00f-a710-4d01-8549-a15ebfb6a9ea_1,116.0.1938.54
+[AffectedProduct],Microsoft Edge (Chromium-based),product_409a9b1b-b889-f890-3a9c-e996ca6d6a54_1,116.0.1938.54
+[AffectedProduct],Microsoft Signing Key,product_6fa7c65e-cd8a-17c8-7b1d-9edf30c0685f_1,
+[AffectedProduct],Microsoft Consumer and Enterprise Applications,product_6fa7c65e-cd8a-17c8-7b1d-9edf30c0685f_2,
+[AffectedProduct],Microsoft Patch,product_4cd5e813-1a70-52e3-194e-8828540ca32f_1,
+[AffectedProduct],Bitlocker,product_ed9a4738-5301-5ca1-e089-012bd60d7b07_1,
+[AffectedProduct],Edge for Business,product_56c075c9-3286-b537-8e83-c90d16ec2de3_1,
+[AffectedProduct],MicrosoftEdge,product_56c075c9-3286-b537-8e83-c90d16ec2de3_2,
+[AffectedProduct],GPO,product_56c075c9-3286-b537-8e83-c90d16ec2de3_3,
+[AffectedProduct],Intune,product_56c075c9-3286-b537-8e83-c90d16ec2de3_4,
+[AffectedProduct],Microsoft Edge for Business,product_fd77d8a7-7df4-cd83-e759-6458213a382c_2,Latest
+[AffectedProduct],Exchange Server,product_9884c2c6-b274-a0b2-ef6a-d477dbf7eb2c_1,2023
+[AffectedProduct],Microsoft Security Advisory 226937,product_64c9fc72-72df-6c9a-84da-098b418eafa8_1,
+[AffectedProduct],SyxSense,product_64c9fc72-72df-6c9a-84da-098b418eafa8_2,
+[AffectedProduct],Azure HDInsight Apache Ambari,product_def26922-deb4-fd85-5ba6-132089b9921f_1,
+[AffectedProduct],Azure Machine Learning Compute Instance,product_124b7452-3a26-52e5-32ea-b210b95cee86_1,
+[AffectedProduct],Android,product_76b4ed90-0cb3-2c89-cc27-814009a0f15b_2,
+[AffectedProduct],open-vm-tools,product_0b0b7200-537c-d873-d1ef-fdbad1194328_1,All versions
+[AffectedProduct],VMware tools,product_0b0b7200-537c-d873-d1ef-fdbad1194328_2,All versions
+[AffectedProduct],Dynamics Finance and Operations,product_b1d490e3-2c75-1004-f627-d957d9648ae7_1,
+[AffectedProduct],Windows Geolocation Service,product_49c02ad7-b01a-f8ad-615b-ca5024e024c4_1,
+[AffectedProduct],Onedrive,product_5d845249-b36d-2b5d-2cbf-44208c17f4cc_1,Sync client
+[AffectedProduct],Explorer,product_5d845249-b36d-2b5d-2cbf-44208c17f4cc_2,
+[AffectedProduct],Windows Security Platform,product_4c3f49b1-627d-dea8-f395-a4140ecf9e4d_1,
+[AffectedProduct],Microsoft Edge for Business,product_139353a0-0475-498d-e8a0-50b7c357dea8_1,
+[AffectedProduct],Onedrive,product_f857f6e9-013f-f1d9-8aab-70655bf943e8_1,
+[AffectedProduct],Make,product_bd4e27fb-dc52-aec3-a78f-29e96ddaadc6_1,
+[AffectedProduct],Microsoft Edge (Chromium-based),product_e211f004-ebbb-872b-c3c9-9074c77cc467_1,116.0.1938.81
+[AffectedProduct],Microsoft Teams for Desktop,product_e211f004-ebbb-872b-c3c9-9074c77cc467_2,1.6.00.26474
+[AffectedProduct],Microsoft Teams for Mac,product_e211f004-ebbb-872b-c3c9-9074c77cc467_3,1.6.00.26463
+[AffectedProduct],Microsoft Account,product_d3260f77-9c16-6145-830c-0bffdae04413_1,
+[AffectedProduct],AAD account,product_d3260f77-9c16-6145-830c-0bffdae04413_2,
+[AffectedProduct],Windows 21H2,product_83d41a2c-170f-e3a3-5f74-80b91581619f_2,
+[AffectedProduct],Python,product_e4c5c7e0-d3d0-ac02-df42-b390d62fec75_2,
+[AffectedProduct],SharePoint,product_c9724e4d-ebb2-c168-0da3-60195eff8654_2,
+[AffectedProduct],Group Policy Objects (GPO),product_6145bbe7-9e1c-56c3-03f9-a84ebd3aa2a9_2,
+[AffectedProduct],Active Directory,product_2f7ecef7-558d-8728-7cb9-7e55a8f8562c_2,
+[AffectedProduct],Microsoft PostScript and PCL6 Class Printer Driver,product_9db4c9f2-96f6-6d27-d026-626674e32c91_1,
+[AffectedProduct],Windows 10 Version 22H2,product_5320d4b6-a5c8-2e33-7ffd-d2849e0e834c_1,32-bit Systems
+[AffectedProduct],Windows 10 Version 22H2,product_5320d4b6-a5c8-2e33-7ffd-d2849e0e834c_2,ARM64-based Systems
+[AffectedProduct],Windows 10 Version 22H2,product_5320d4b6-a5c8-2e33-7ffd-d2849e0e834c_3,x64-based Systems
+[AffectedProduct],Windows Server 2012 R2,product_5320d4b6-a5c8-2e33-7ffd-d2849e0e834c_4,Server Core installation
+[AffectedProduct],.NET Framework,product_9ba8b119-68f6-5d81-074a-8d05748af00e_2,
+[AffectedProduct],Group Policy Service,product_ce501f88-ad37-dd18-99c4-1c8451e4e4e8_1,September preview
+[AffectedProduct],Roaming Profiles,product_feaf96d4-1cbd-b9f1-b1b0-f489aaaf2e66_1,
+[AffectedProduct],TPM,product_4fc908b7-74cd-02f4-7afd-b5c749e7d352_2,
+[AffectedProduct],Standard hardware configuration,product_ebc41000-a754-3e4a-6279-9f020f8275eb_1,
+[AffectedProduct],Workstations,product_ebc41000-a754-3e4a-6279-9f020f8275eb_3,
+[AffectedProduct],Microsoft Support Article KB5029778,product_cc1029dd-409a-5c48-ffd7-2c45cdd8f8f1_1,
+[AffectedProduct],Microsoft Edge,product_5ffd0bb8-fba1-98c6-4897-12e02e73814b_1,Upcoming Features
+[AffectedProduct],BladeLogic,product_7cc98afc-607a-06e4-ba2d-d0953e64a956_2,
+[AffectedProduct],Central Policy Store,product_c04f462a-f22b-345f-0469-7990a3ba8be2_1,
+[AffectedProduct],Microsoft Virtual Hard Disk,product_feab99b7-f815-c954-be7a-3b13a796ee2c_1,
+[AffectedProduct],Microsoft.Data.SqlClient,product_6912b9ad-256e-6b30-c066-f31da7a0d5ef_1,
+[AffectedProduct],System.Data.SqlClient,product_6912b9ad-256e-6b30-c066-f31da7a0d5ef_2,
+[AffectedProduct],"NET, .NET Framework, Visual Studio, PowerShell 7.2, PowerShell 7.3, PowerShell 7.4",product_31583638-c0ff-f44f-ff88-b8f622e2416a_1,All versions
+[AffectedProduct],Microsoft Edge (Chromium-based),product_ac453bab-523e-20b3-1c71-b5b30c875735_1,120.0.2336.0
+[AffectedProduct],Windows,product_807aaa34-5f4f-2d57-0049-0e872fd11869_1,Nearby Sharing
+[AffectedProduct],Windows 10,product_4104d98b-9ec9-b6c1-4183-bcb117e972bf_1,"Version 22H2 for 32-bit Systems, Version 22H2 for ARM64-based Systems, Version 22H2 for x64-based Systems, Version 21H2 for x64-based Systems, Version 21H2 for ARM64-based Systems, Version 21H2 for 32-bit Systems, Version 1809 for ARM64-based Systems, Version 1809 for x64-based Systems, Version 1809 for 32-bit Systems"
+[AffectedProduct],Windows Server,product_4104d98b-9ec9-b6c1-4183-bcb117e972bf_2,"2022 (Server Core installation), 2022, 2019 (Server Core installation), 2019"
+[AffectedProduct],CBL Mariner,product_4104d98b-9ec9-b6c1-4183-bcb117e972bf_3,"2.0 x64, 2.0 ARM, 1.0 x64, 1.0 ARM"
+[AffectedProduct],Windows Libarchive,product_f9ec90d7-11e6-da7b-9148-38469b8e1e6e_1,All versions
+[AffectedProduct],Microsoft Printer Metadata Troubleshooter Tool,product_b76fcd2f-ff3f-3569-9500-143d2c31bda8_1,
+[AffectedProduct],Microsoft Online Certificate Status Protocol,product_1dd9723b-a8ec-0a69-bd7a-a51c5900aa65_1,
+[AffectedProduct],Windows Online Certificate Status Protocol,product_048fe680-3211-d8fb-e1a1-392f5f1fbe3f_1,
+[AffectedProduct],Microsoft Edge (Chromium-based),product_498d3299-e4c5-1a1c-03f8-0f31ccdf32af_1,120.0.2336.0
+[AffectedProduct],Adobe Software,product_498d3299-e4c5-1a1c-03f8-0f31ccdf32af_2,
+[AffectedProduct],Windows Subsystem for Linux,product_c627f48e-fef4-a9c3-b870-cad121ec622f_1,
+[AffectedProduct],Win32k,product_25c9fa0f-7f13-a83f-109d-2cbbfabc03fc_1,
+[AffectedProduct],Microsoft Bluetooth Driver,product_a8bd4c96-9476-efbf-0295-e50261e32a92_1,
+[AffectedProduct],Windows Kernel-Mode Driver,product_8003d226-d151-0fb4-a6dd-b44c5ed3ee09_1,
+[AffectedProduct],Microsoft Visual Studio,product_993e5a15-1cad-8fce-f83f-dc15830e643f_2,2019 version 16.11
+[AffectedProduct],Microsoft Visual Studio,product_993e5a15-1cad-8fce-f83f-dc15830e643f_3,2022 version 17.2
+[AffectedProduct],Microsoft Visual Studio,product_993e5a15-1cad-8fce-f83f-dc15830e643f_4,2022 version 17.4
+[AffectedProduct],Microsoft Visual Studio,product_979eed91-442f-3aa6-b178-3ad33dbf2acd_2,2019 version 16.11
+[AffectedProduct],Microsoft Visual Studio,product_979eed91-442f-3aa6-b178-3ad33dbf2acd_3,2022 version 17.2
+[AffectedProduct],Microsoft Visual Studio,product_979eed91-442f-3aa6-b178-3ad33dbf2acd_4,2022 version 17.4
+[AffectedProduct],Microsoft Visual Studio,product_9c4c1365-da26-d610-b497-3387453380de_2,2019 version 16.11
+[AffectedProduct],Microsoft Visual Studio,product_9c4c1365-da26-d610-b497-3387453380de_3,2022 version 17.2
+[AffectedProduct],Microsoft Visual Studio,product_9c4c1365-da26-d610-b497-3387453380de_4,2022 version 17.4
+[AffectedProduct],Microsoft Visual Studio,product_db75460b-3655-717e-6b67-63400a65ca72_2,2019 version 16.11
+[AffectedProduct],Microsoft Visual Studio,product_db75460b-3655-717e-6b67-63400a65ca72_3,2022 version 17.2
+[AffectedProduct],Microsoft Visual Studio,product_db75460b-3655-717e-6b67-63400a65ca72_4,2022 version 17.4
+[AffectedProduct],Windows Bluetooth Driver,product_0c17402e-9f8d-299f-3155-e8ad51a70924_1,
+[AffectedProduct],Microsoft Outlook for Mac,product_8ba55460-565c-adaa-b225-003e3d7e9e83_1,
+[AffectedProduct],Microsoft Dynamics 365 Finance and Operations,product_f0c5cbeb-7c61-0e0c-c126-f292ef1bda9e_1,
+[AffectedProduct],Windows DNS,product_a7134b27-e82f-c39e-6764-57d8f6fa6913_1,
+[AffectedProduct],Azure Connected Machine Agent,product_887a74fc-cb00-bab6-263c-1a3389078b5e_1,
+[AffectedProduct],Microsoft Edge (Chromium-based),product_7cd0c11e-222f-8016-a4bd-2c40255d95ba_1,120.0.2210.61
+[AffectedProduct],Microsoft Edge (Chromium-based),product_0639d08b-472a-7ede-5698-3f465fb83e08_1,120.0.2210.61
+[AffectedProduct],Windows 10 22H2 Enterprise,product_02caff78-b20d-2d73-5e29-1fdf09f462d0_1,22H2
+[AffectedProduct],Server 2012 R2,product_a8092315-bda5-265b-b7d3-95ac7c878753_2,R2
+[AffectedProduct],Windows Server 2012,product_7239a78f-2739-5645-bb2d-516648de315f_1,2012
+[AffectedProduct],Windows Server 2012 R2,product_7239a78f-2739-5645-bb2d-516648de315f_2,2012 R2
+[AffectedProduct],Microsoft Edge (Chromium-based),product_b04d240e-d0c0-2d2d-2101-b8f69759ef0d_1,120.0.2210.121
+[AffectedProduct],Microsoft Edge (Chromium-based),product_3cc20140-cd19-5089-5ba7-dfa30504a18a_1,120.0.2210.121
+[AffectedProduct],Microsoft QUIC,product_bb0123e0-7b91-92b6-87ee-c2252c0218d2_1,
+[AffectedProduct],Microsoft Visual Studio,product_73e7b474-6431-30ca-b6fd-11959aca73f1_1,2022
+[AffectedProduct],Microsoft .NET Framework,product_73e7b474-6431-30ca-b6fd-11959aca73f1_3,4.6.2
+[AffectedProduct],Microsoft .NET Framework,product_73e7b474-6431-30ca-b6fd-11959aca73f1_4,4.7
+[AffectedProduct],Microsoft SQL ODBC Driver,product_3c8130f9-018c-56d2-b5f2-10104a1930c9_1,
+[AffectedProduct],Firefox,product_d4087ac3-2024-690a-bc73-481e8d365faf_4,
+[AffectedProduct],Skype for Business,product_11090fbc-019c-9d4c-3bbe-42fcabbed4ff_1,All versions
+[AffectedProduct],Microsoft ODBC Driver for SQL Server,product_0d45997f-76fe-8727-8fb7-7f64a1228aa2_1,All versions
+[AffectedProduct],Microsoft Message Queuing,product_4bb929c6-ebdf-3e4f-502e-50abc8dfe799_1,
+[AffectedProduct],Azure Identity SDK,product_b2cced8b-a442-f72a-6699-1ba6b97b015b_1,
+[AffectedProduct],Microsoft Edge (Chromium-based),product_7e5c8bc4-8060-7808-c6f8-b0e2d3e83514_1,118.0.2088.46
+[AffectedProduct],Microsoft Edge (Chromium-based),product_7291d842-9d2d-571b-6af9-97f9b8966dcb_1,118.0.2088.46
+[AffectedProduct],Microsoft Edge (Chromium-based),product_f161954c-4360-d96d-0d43-8209878cd557_1,117.0.2045.31
+[AffectedProduct],Windows Server 2019 Standard,product_622c203c-47ff-806c-4313-c54b09ac2ff8_1,1809
+[AffectedProduct],Hyper-V,product_622c203c-47ff-806c-4313-c54b09ac2ff8_2,Gen2
+[AffectedProduct],Windows Update,product_622c203c-47ff-806c-4313-c54b09ac2ff8_3,10.0.17763.3532
+[AffectedProduct],Windows Clients OS + drivers and firmware,product_f53e5d7b-0ab1-105e-3e03-ead667703fb3_1,
+[AffectedProduct],Servers and Linux,product_f53e5d7b-0ab1-105e-3e03-ead667703fb3_2,
+[AffectedProduct],Aspera Faspex,product_d471463f-3241-240d-c5d2-52f24273e519_1,
+[AffectedProduct],Windows,product_ad29321a-5c4f-be9d-1ab4-5b52beee6b79_1,OS Build 22621.2428
+[AffectedProduct],Visual FoxPro app,product_eea81abb-dd4a-ef1d-84c0-9eb61226762d_2,
+[AffectedProduct],Autodesk Inventor 2022,product_12fe4f8f-8eb9-91da-d33b-0e65d7164f59_1,2022
+[AffectedProduct],,product_1807c56f-e664-950d-5d17-ca9ba4bb2a15_1,
+[AffectedProduct],,product_c4126e1c-25d6-a4cf-5660-6231be3afafa_1,
+[AffectedProduct],,product_49d2e10f-42df-46be-037c-65fe5ef4cb57_2,
+[AffectedProduct],,product_a47a6877-6a19-a7b9-f510-ce635cddd6cc_1,
+[AffectedProduct],,product_f7027487-10c9-f048-7526-37c41a3a470e_1,
+[AffectedProduct],,product_5a3b3255-3123-3ec9-8ab0-55414f9e410b_1,
+[AffectedProduct],2012 Server R2,product_2b19cb4a-0c24-4afb-cae5-e5a5faabf46c_1,R2
+[AffectedProduct],,product_0efa8bac-be8e-684c-838d-a5b1b313f223_1,
+[AffectedProduct],,product_a3d6cb0b-6bce-3c3a-9fb8-d44239c1e687_1,
+[AffectedProduct],Skype for Business,product_fd92dfea-bcfc-4ba4-6f26-0e48af4b6a25_1,
+[AffectedProduct],Dcom,product_27839661-679d-70f6-0b24-bcbb8cf8c1a0_1,
+[AffectedProduct],Azure RTOS GUIX Studio,product_75df5ab0-449b-cc01-e3d2-da2545871655_1,
+[AffectedProduct],Microsoft Teams,product_ff2e6da9-f9a3-a170-bd1d-4e4495fe8b08_2,
+[AffectedProduct],Microsoft Skype,product_ff2e6da9-f9a3-a170-bd1d-4e4495fe8b08_3,
+[AffectedProduct],Microsoft Edge (Chromium-based),product_7b899890-2165-097f-a168-a8dcb4833fb5_1,114.0.1823.67
+[AffectedProduct],Windows 10,product_cc710710-27c9-0a2e-7375-0b87d3e57440_1,Latest
+[AffectedProduct],Google Chrome,product_99dd6439-d005-70a9-3541-ce64ca941507_1,112.0.5615.50
+[AffectedProduct],Exchange Server,product_dccdc0e8-4b7d-6fa1-dd44-33f2b198c91d_1,June 2023 Security Updates
+[AffectedProduct],3CX,product_cc7de40c-4571-f2f9-7a39-9dd7cdfbad21_1,March 2023
+[AffectedProduct],Windows Server 2022,product_005b04b7-c04a-5f1b-6a89-62b3824555ee_1,OS Build 20348.2031
+[AffectedProduct],Windows Server 2019,product_005b04b7-c04a-5f1b-6a89-62b3824555ee_2,OS Build 17763.4974
+[AffectedProduct],Windows Server 2016,product_fa21d213-7e90-1bf3-2b5a-c06f04f18bf3_1,1.383.1311
+[AffectedProduct],Windows Server 2019,product_fa21d213-7e90-1bf3-2b5a-c06f04f18bf3_2,1.383.1321
+[AffectedProduct],Windows Server 2022,product_fa21d213-7e90-1bf3-2b5a-c06f04f18bf3_3,1.383.1335
+[AffectedProduct],Windows Defender,product_fa21d213-7e90-1bf3-2b5a-c06f04f18bf3_4,1.383.1379
+[AffectedProduct],Microsoft Office Click-To-Run,product_370fb70a-bc59-933c-ba97-31260fd29a9a_1,
+[AffectedProduct],Azure HDInsight Apache Oozie Workflow Scheduler,product_a9e4ac8e-89b2-1881-80ea-fa7209437fc9_1,
+[AffectedProduct],Microsoft Common Data Model SDK,product_7f0d5a05-1535-cdc0-16c4-485d5c2da713_1,
+[AffectedProduct],Windows Server 2019 Standard,product_80d3bcbd-c435-ff8c-aa41-cd9ce97c1ce3_1,2019
+[AffectedProduct],Windows Server 2022 Standard,product_80d3bcbd-c435-ff8c-aa41-cd9ce97c1ce3_2,2022
+[AffectedProduct],Windows Mail app,product_23208f64-89eb-a235-9b01-9cb36b7af57e_1,
+[AffectedProduct],Outlook 365,product_23208f64-89eb-a235-9b01-9cb36b7af57e_2,
+[AffectedProduct],Microsoft Edge,product_011a92a2-8b3d-f0dc-eaa9-f9c03fc8b49f_1,114.0.1823.55
+[AffectedProduct],Proactive Remediation & Configuration Items,product_8c2dc454-350c-a89e-0e51-39117e1a93c4_1,
+[AffectedProduct],Apple,product_51b8ce07-332e-c48a-2c73-3d8a8b833347_2,
+[AffectedProduct],"iOS, iPad, and macOS",product_51b8ce07-332e-c48a-2c73-3d8a8b833347_3,
+[AffectedProduct],Hyper-V,product_1b51a45d-4ac6-1f75-fe16-0eeab036ad05_1,2012-R2
+[AffectedProduct],Microsoft,product_8b6410f2-1a2b-a160-50a8-5a03f7c270ac_1,July 2023 Patch Tuesday
+[AffectedProduct],Windows 11 Enterprise,product_67c2f18b-99e8-8fdb-4897-522b31ec6edd_1,22H2
+[AffectedProduct],3CX,product_a09545d1-c002-3e87-5083-7c0bc268ed8d_1,
+[AffectedProduct],IE 11,product_29b7225e-c95f-63c8-e552-6666e3b7c3f4_1,2012 R2 Server
+[AffectedProduct],WSUS,product_2f226fb0-52e8-a8ac-cd8e-0020167706b4_1,Server 2022
+[AffectedProduct],Windows 11,product_a49f787e-c4af-0ae4-c0be-2e8660aeb3d8_1,11
+[AffectedProduct],Microsoft Apps,product_a49f787e-c4af-0ae4-c0be-2e8660aeb3d8_2,
+[AffectedProduct],Windows RDP Encoder Mirror Driver,product_da9409e4-e403-26a4-0f5c-79bfaa1ad87b_1,
+[AffectedProduct],Microsoft Office Graphics,product_5af5247a-1086-8b85-b458-2742b74da9ba_1,
+[AffectedProduct],Microsoft Edge (Chromium-based),product_0c86537f-900e-ff11-ee16-1e618be23c34_1,117.0.2045.55
+[AffectedProduct],Microsoft Edge (Chromium-based),product_f5213a3f-a022-3362-d2ac-3903dbe38f99_2,116.0.1938.98
+[AffectedProduct],Servicing Stack Updates,product_5fbf0ace-b3ba-6b24-eea6-f28f5b64451e_1,Latest
+[AffectedProduct],Microsoft Word,product_b0d98ebf-9479-e3b3-d335-86dfb761cf50_1,All versions
+[AffectedProduct],3D Viewer,product_d1f50d59-3b9b-33ed-ca6e-f11c074d8f9f_1,
+[AffectedProduct],3D Viewer,product_3ac15afc-16ce-6ac1-7d47-15e9ade82e89_1,All versions
+[AffectedProduct],Microsoft Edge (Chromium-based),product_b2a6ebd7-7232-1203-9e47-755ee0dae482_1,116.0.1938.xxx
+[AffectedProduct],Microsoft Dynamics 365 On-Premises,product_12c60f8b-4361-65be-1c54-fb7cd925503c_1,9.1
+[AffectedProduct],Windows 2012 R2 Server,product_c36f63dc-088e-e30a-3b44-5e86de91376f_1,IE 11
+[AffectedProduct],KB5022835,product_c36f63dc-088e-e30a-3b44-5e86de91376f_2,IE 11 Update
+[AffectedProduct],Microsoft Teams,product_5c0046b7-636b-faac-18f2-e3c9ddeaa7a0_1,Latest
+[AffectedProduct],Defender ATP,product_2bb6fb2e-3e76-af93-8e4d-17e9288fcf41_1,
+[AffectedProduct],HTTP/s Requests,product_2bb6fb2e-3e76-af93-8e4d-17e9288fcf41_2,
+[AffectedProduct],Microsoft,product_eb897b22-e549-8549-bde1-9414ccc4065c_1,May 2023 Patch Tuesday
+[AffectedProduct],Google Chrome,product_eb897b22-e549-8549-bde1-9414ccc4065c_2,Chrome 113
+[AffectedProduct],Apache Superset,product_eb897b22-e549-8549-bde1-9414ccc4065c_3,2.1
+[AffectedProduct],Windows 10,product_285569da-fed2-a191-d271-0236eb0a6f47_1,v21H2
+[AffectedProduct],Windows 10/8/7,product_fb97b2f2-4779-9c95-e54a-c28070cfff89_2,KB2915720
+[AffectedProduct],KB5025885,product_2bc63b4c-74ec-7462-50e4-2a6d766ca7de_1,
+[AffectedProduct],Microsoft Patching Tool,product_4380e080-fe62-8b6a-69d7-bba49ab0ee13_1,
+[AffectedProduct],Microsoft .NET Core,product_b6aac06b-ef6b-a854-c9bb-8f5deb68fcd3_1,6.0.8
+[AffectedProduct],Microsoft ASP.NET Core,product_b6aac06b-ef6b-a854-c9bb-8f5deb68fcd3_2,6.0.8
+[AffectedProduct],MOVEit,product_0d395fc8-aa0f-4488-00c3-59f1a962b465_2,
+[AffectedProduct],Windows Hello,product_581a9667-9f4a-48c7-a256-7b8672abfb21_1,
+[AffectedProduct],KMS Server,product_6c2ce963-304a-20b6-11ed-a36483e96602_1,
+[AffectedProduct],ADBA,product_6c2ce963-304a-20b6-11ed-a36483e96602_2,
+[AffectedProduct],Office,product_6c2ce963-304a-20b6-11ed-a36483e96602_3,2013
+[AffectedProduct],Per-User Based Applications,product_997d74f3-74bf-dec6-90fd-07874d8fcdee_1,
+[AffectedProduct],Zoom,product_997d74f3-74bf-dec6-90fd-07874d8fcdee_2,
+[AffectedProduct],Microsoft June Cumulative Update,product_568cf4f7-e720-8596-e63d-43933f6651d0_1,
+[AffectedProduct],Windows Server,product_b647e7ba-1e2d-8e08-a208-de88b1c553bd_1,Virtual Machines on Azure with Desktop Experience
+[AffectedProduct],MS Office,product_ec7b8d5b-41ad-e9e1-6d5e-39539f5f7f26_2,
+[AffectedProduct],Intel processors,product_ec7b8d5b-41ad-e9e1-6d5e-39539f5f7f26_3,
+[AffectedProduct],Windows,product_d247f9c5-636d-e4a6-b46e-5e4562067c8d_1,Managed Clients
+[AffectedProduct],KB5025221,product_d247f9c5-636d-e4a6-b46e-5e4562067c8d_2,
+[AffectedProduct],Azure Active Directory,product_7dcf039f-14dc-dae9-824a-fd22732222df_3,
+[AffectedProduct],CISA Email Alerts and Vulnerability Summaries,product_9dec6aab-a727-1528-a7c7-74a9d0b7a6fc_1,

@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo address the Windows Kerberos elevation of privilege vulnerability (CVE-2024-38239):\n\n1. Identify which version of Windows you are running.\n2. Download the appropriate update package from the official Microsoft Update Catalog based on your build number:\n   - For Windows 11 Version 24H2 for x64-based Systems, apply KB5043080.\n   - For Windows 11 Version 23H2 for x64-based Systems, apply KB5043076.\n   - For Windows 10 Version 22H2 for x64-based Systems, apply KB5043064.\n   - For older systems, suitable updates include KB5043067 and KB5043083 (Windows 10).\n3. Install the downloaded updates.\n4. Restart your system after installation to ensure all changes take effect.\n\n**Details**:\n- This update resolves a weak authentication issue allowing elevation of privilege in Windows Kerberos.\n- For manual installation, find the updates here:\n  - [KB5043080](https://catalog.update.microsoft.com/Search.aspx?q=KB5043080)\n  - [KB5043076](https://catalog.update.microsoft.com/Search.aspx?q=KB5043076)\n  - [KB5043064](https://catalog.update.microsoft.com/Search.aspx?q=KB5043064)\n  - [KB5043067](https://catalog.update.microsoft.com/Search.aspx?q=KB5043067)\n  - [KB5043083](https://catalog.update.microsoft.com/Search.aspx?q=KB5043083)\n\n**Preconditions**:\n- Ensure your system is updated to one of the specified build numbers prior to applying the updates.\n- Backup critical data before proceeding with the update installation.\n",
+  "source_id": "2561f0fd-c251-a5f6-783a-b302b9f84018",
+  "source_type": "MSRCPost",
+  "fix_label": "resolve_windows_kerberos_elevation_privilege_cve202438239",
+  "tags": [
+    "KB5043080",
+    "Windows11",
+    "Windows10",
+    "Kerberos"
+  ],
+  "node_id": "1662e6c4-7c8d-48f5-a679-304b8320a43a",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "2561f0fd-c251-a5f6-783a-b302b9f84018"
+  ],
+  "verification_status": "unverified"
+}

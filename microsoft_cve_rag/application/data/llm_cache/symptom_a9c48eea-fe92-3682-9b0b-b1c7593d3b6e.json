@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_crashes_after_chromium_update",
+  "description": "After the installation of the Microsoft Edge (Chromium-based) version 128.0.2739.79, users may experience unexpected crashes when attempting to load specific websites or interact with certain web applications. This is particularly evident when handling complex HTML content, which may trigger the type confusion vulnerability originating from the Chromium framework. The crashes could lead to potential loss of unsaved data and disrupt the browsing experience significantly, resulting in user frustration and decreased productivity. Affected users are advised to ensure their Microsoft Edge browser is updated to the latest version, as outlined in KB Article ID KB-128.0.2739.79, to mitigate these issues and regain stability.",
+  "source_id": "a9c48eea-fe92-3682-9b0b-b1c7593d3b6e",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "a9c48eea-fe92-3682-9b0b-b1c7593d3b6e"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "Chromium",
+    "Type Confusion",
+    "Browser Crashes"
+  ],
+  "node_id": "f9466b67-d62a-4dda-8565-c00f336a65c8",
+  "node_label": "Symptom",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

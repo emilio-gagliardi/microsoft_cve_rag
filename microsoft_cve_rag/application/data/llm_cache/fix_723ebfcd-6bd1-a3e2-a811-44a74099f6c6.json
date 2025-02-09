@@ -1,0 +1,21 @@
+{
+  "description": "**Fix Overview**:\n\nTo resolve the security vulnerability addressed by CVE-2024-6778, ensure that your Microsoft Edge (Chromium-based) browser is updated to at least version 126.0.2592.113. This version includes updates that mitigate the race condition vulnerability, thereby preventing potential exploits via malicious chrome extensions.\n\n1. Open Microsoft Edge.\n2. Click on the three dots (...) in the top right corner of the browser.\n3. Select 'Help and feedback'.\n4. Click on 'About Microsoft Edge' to check your current version.\n5. If your version is below 126.0.2592.113, update your browser to the latest version available.\n\n**Details**:\n- This update resolves a race condition issue which could allow an attacker to inject scripts into privileged pages through malicious extensions.\n- For installation instructions, visit: [Google Chrome Releases](https://chromereleases.googleblog.com/).\n\n**Preconditions**:\n- Ensure that your device has an internet connection to download the latest updates.\n- Backup any important data in case there are any unexpected issues during the update process.",
+  "source_id": "723ebfcd-6bd1-a3e2-a811-44a74099f6c6",
+  "source_type": "MSRCPost",
+  "fix_label": "update_microsoft_edge_to_126_0_2592_113",
+  "tags": [
+    "MicrosoftEdge",
+    "CVE20246778",
+    "ChromiumUpdate",
+    "RaceCondition"
+  ],
+  "node_id": "36855535-679c-43de-95d6-057e4ad3b252",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "723ebfcd-6bd1-a3e2-a811-44a74099f6c6"
+  ],
+  "verification_status": "unverified"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "The underlying cause of the issue is linked to changes introduced by Windows security updates released on July 9, 2024, particularly impacting Windows Servers that utilize the legacy protocol (RPC over HTTP) in their Remote Desktop Gateway configurations. This misconfiguration enables intermittent interruptions in Remote Desktop (RD) connectivity, primarily when the connection is routed through the RD gateway, resulting in lost logon sessions and the need for users to reconnect to the server. The TSGateway service becomes unresponsive, indicated by exception code 0xc0000005, leading to service termination. To mitigate these disruptions, IT administrators can either block certain ports or edit the registry settings on client devices to resolve the issue and enhance connectivity stability.",
+  "source_id": "225cd2db-568d-8ec4-a819-d9fa62fdd600",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "225cd2db-568d-8ec4-a819-d9fa62fdd600"
+  ],
+  "cause_label": "rpc_http_legacy_protocol_interruption",
+  "tags": [
+    "Windows Server",
+    "Remote Desktop Gateway",
+    "Windows security updates",
+    "intermittent connectivity issues"
+  ],
+  "node_id": "7564a36e-a0b4-4870-8c36-8ead708b369f",
+  "node_label": "Cause",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

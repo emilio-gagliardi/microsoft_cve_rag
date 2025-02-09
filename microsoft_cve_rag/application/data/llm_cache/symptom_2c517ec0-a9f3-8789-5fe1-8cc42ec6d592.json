@@ -1,0 +1,20 @@
+{
+  "symptom_label": "secure_boot_bypass_leads_to_system_instability",
+  "description": "After applying security updates related to CVE-2024-28898, systems may experience instability due to a bypass in the secure boot feature. Observers may notice improper boot sequences, unauthorized drivers loading, or failure to prevent certain software from running during system startup. These impacts could manifest as unexpected errors during boot, and in some cases, lead to reduced operating systems' integrity. Systems affected include various builds of Windows 10 outlined in KB-5036925, KB-5036910, and more. It's critical for administrators to monitor and validate that the secure boot feature is operational post-update, especially for builds 19045 and 22000.",
+  "source_id": "2c517ec0-a9f3-8789-5fe1-8cc42ec6d592",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2c517ec0-a9f3-8789-5fe1-8cc42ec6d592"
+  ],
+  "tags": [
+    "CVE-2024-28898",
+    "secure boot",
+    "system instability",
+    "Windows 10"
+  ],
+  "node_id": "340741ce-ec73-424c-81cf-f2b38e1491f2",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

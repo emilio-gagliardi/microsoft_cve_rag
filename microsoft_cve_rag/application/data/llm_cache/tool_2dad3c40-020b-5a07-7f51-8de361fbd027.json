@@ -1,0 +1,24 @@
+{
+  "tool_label": "google_chrome_security_update",
+  "description": "**Tool Overview**:\nThis tool refers to the security updates released for Google Chrome, which addresses vulnerabilities in the V8 JavaScript engine. **Details**:\n- This update aims to fix a type confusion issue that could allow remote attackers to perform an out-of-bounds memory write when crafted HTML is visited.\n- The vulnerabilities in Chrome can impact Microsoft Edge (chromium-based) due to shared engine components.\n- It is crucial for users and administrators of Edge to ensure that their software is up-to-date with the latest Chrome updates to maintain security. The details of the release and fixes can be found through the Google Chrome release notes.\n- Microsoft Edge, being built on Chromium, will inherit these updates, ensuring that users receive protection against identified security flaws.",
+  "source_id": "2dad3c40-020b-5a07-7f51-8de361fbd027",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "2dad3c40-020b-5a07-7f51-8de361fbd027"
+  ],
+  "source_url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-5830",
+  "tool_url": "https://chromereleases.googleblog.com/",
+  "tags": [
+    "Chrome",
+    "security update",
+    "vulnerability",
+    "Edge",
+    "Chromium"
+  ],
+  "node_id": "fda6ea03-4d30-4af0-acdd-4c7a2eb6c900",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool",
+  "verification_status": "unverified"
+}

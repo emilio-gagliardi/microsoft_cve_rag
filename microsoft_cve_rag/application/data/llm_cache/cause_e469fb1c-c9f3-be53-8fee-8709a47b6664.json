@@ -1,0 +1,21 @@
+{
+  "description": "Use after free condition in Google Chrome leading to potential heap corruption via crafted HTML, enabled remote exploitation.",
+  "cause_label": "chromium_use_after_free_in_heap_corruption",
+  "source_id": "e469fb1c-c9f3-be53-8fee-8709a47b6664",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "e469fb1c-c9f3-be53-8fee-8709a47b6664"
+  ],
+  "tags": [
+    "Chrome",
+    "Heap Corruption",
+    "Use After Free",
+    "CVE-2024-6103"
+  ],
+  "node_id": "3e6c9b57-cddb-4d42-8a5e-193362055ff7",
+  "node_label": "Cause",
+  "reliability": 95,
+  "severity_type": "moderate",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

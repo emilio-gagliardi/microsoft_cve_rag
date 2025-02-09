@@ -1,0 +1,19 @@
+{
+  "description": "**Fix Overview**:\n\nTo upgrade to the latest version of the software without a license requirement:\n\n1. Confirm that you are using any previous version of the software.\n2. Download the latest version (23.9.10).\n3. Execute the upgrade process, which will now allow users without a current license to install the software.\n\n**Details**:\n- This change simplifies the upgrade path for all users, enabling them to benefit from the latest features and improvements without the constraint of license ownership. Users upgrading from any previous version should follow the standard upgrade process after downloading the latest version. \n",
+  "source_id": "98f94d96-5616-4ab1-e79d-8cc03b5b8313",
+  "source_type": "PatchManagementPost",
+  "fix_label": "upgrade_connectwise_screenconnect_without_license",
+  "tags": [
+    "ConnectWise",
+    "Upgrade",
+    "NoLicenseRequired"
+  ],
+  "node_id": "207b2c67-c9f0-4c10-9b02-8eaeaa5e04ec",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "98f94d96-5616-4ab1-e79d-8cc03b5b8313"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "symptom_label": "microsoft_edge_browser_experiences_ui_spoofing",
+  "description": "Users of Microsoft Edge (Chromium-based) version 127.0.2651.74 may experience UI spoofing issues due to a race condition vulnerability affecting frames within the browser. This problem, observed in versions prior to the latest update, might manifest when users are tricked into engaging with malicious UI elements on crafted HTML pages. The symptoms could include misleading visual cues or incorrect display of content, leading to potential confusion and security risks for users. The fix provided in KB-127.0.2651.74 addresses this issue, ensuring users no longer encounter these spoofing behaviors after updating their browser. Users can check their version by navigating to Microsoft Edge settings and verifying the build number.",
+  "source_id": "fcd93ff2-404b-90a8-0cb1-f62e4a22196f",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "fcd93ff2-404b-90a8-0cb1-f62e4a22196f"
+  ],
+  "tags": [
+    "Microsoft Edge",
+    "UI Spoofing",
+    "Chromium",
+    "Race Condition"
+  ],
+  "node_id": "80e3d9eb-9377-4bdf-8f9c-04effed6582b",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

@@ -1,0 +1,20 @@
+{
+  "symptom_label": "update_installation_issues_on_windows_server",
+  "description": "When attempting to install updates on a Windows Server, users may encounter issues that prevent successful installation. This can often result in a workflow disruption, causing subsequent updates through WSUS or other channels to fail. System administrators have found that manually downloading updates via the Microsoft Update Catalog and installing them directly on the server can resolve these issues. After this manual process, users typically notice that subsequent updates flow through normally again, reflecting an underlying problem with standard update methods failing initially. This behavior suggests potential inconsistencies in update deployment that can affect server reliability.",
+  "source_id": "8a891afd-8db5-5e62-99a5-6d427b6082de",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "8a891afd-8db5-5e62-99a5-6d427b6082de"
+  ],
+  "tags": [
+    "update installation",
+    "windows server",
+    "manual patching",
+    "wsus issues"
+  ],
+  "node_id": "ceead10d-c195-4ba3-b541-a1f243a2b6b7",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

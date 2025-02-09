@@ -1,0 +1,16 @@
+{
+  "symptom_label": "ControlPanelShowsRemovedOptionalComponentsPackage",
+  "description": "After installing the latest LCU on Windows 10 22H2 Enterprise, users encounter an unexpected behavior in the Control Panel where the Microsoft-Windows-TS-OptionalComponents-Package is shown as removed. Upon attempting to uninstall via Control Panel, the system executes 'mstsc.exe /uninstall', indicating a linkage issue with the Remote Desktop Services components. This change appears undocumented and may impact system functionalities relying on these optional components, causing confusion among administrators seeking a resolution.",
+  "source_id": "02caff78-b20d-2d73-5e29-1fdf09f462d0",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "windows 10",
+    "LCU",
+    "control panel"
+  ],
+  "node_id": "c327c08e-cbfb-488f-bf06-cd4b51d6f883",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

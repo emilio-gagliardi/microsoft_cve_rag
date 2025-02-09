@@ -1,0 +1,23 @@
+{
+  "description": "Use after free error in parcel tracking component of Chromium, allowing heap corruption via specific user interface actions on crafted HTML pages, affecting Microsoft Edge based on Chromium version 130.0.2849.46 before update.",
+  "cause_label": "chromium_use_after_free_in_parcel_tracking",
+  "source_id": "72bd74ce-d2ca-322b-ec8b-08a1dfe7c184",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "72bd74ce-d2ca-322b-ec8b-08a1dfe7c184"
+  ],
+  "tags": [
+    "CVE-2024-9961",
+    "Chromium",
+    "Microsoft Edge",
+    "Parcel Tracking",
+    "Use After Free",
+    "Heap Corruption"
+  ],
+  "node_id": "c4fc9579-1324-4980-ad18-6ed40cb42cc0",
+  "node_label": "Cause",
+  "reliability": 0.95,
+  "severity_type": "important",
+  "entity_type": "Cause",
+  "verification_status": "unverified"
+}

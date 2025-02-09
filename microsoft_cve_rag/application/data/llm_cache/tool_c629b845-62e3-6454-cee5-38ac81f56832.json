@@ -1,0 +1,18 @@
+{
+  "tool_label": "InstallUpdatesUsingWindowsUpdateUtility",
+  "description": "The Windows Update utility is a built-in tool in both Windows 10 and Windows 11 that allows users to download and install critical updates, including security patches. By navigating to 'Settings', then 'Update & Security', users can check for updates, view their installation status, and manage their update history. Regular use of this utility helps ensure that systems are protected against vulnerabilities, such as CVE-2023-36017, by applying the latest security updates.",
+  "source_id": "c629b845-62e3-6454-cee5-38ac81f56832",
+  "source_type": "MSRCPost",
+  "source_url": "https://support.microsoft.com/en-us/help/12373/windows-update-faq",
+  "tags": [
+    "update",
+    "windows",
+    "security",
+    "utility"
+  ],
+  "node_id": "c1d71119-802d-43e7-8635-6162cc45c585",
+  "node_label": "Tool",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Tool"
+}

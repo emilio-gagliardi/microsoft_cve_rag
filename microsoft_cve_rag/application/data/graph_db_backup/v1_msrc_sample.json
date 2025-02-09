@@ -1,0 +1,30 @@
+﻿[
+  {
+    "n": {
+      "identity": 0,
+      "labels": [
+        "MSRCSecurityUpdate"
+      ],
+      "properties": {
+        "summary": "This post provides an update on the vulnerability in Chromium that affects Microsoft Edge and other products. The vulnerability is due to a heap buffer overflow in WebP. The latest version of Microsoft Edge is no longer vulnerable to this issue.",
+        "reportConfidence": "Confirmed",
+        "published": "30-09-2023",
+        "title": "Chromium: CVE-2023-4863 Heap buffer overflow in WebP",
+        "mongo_id": "635e8974-8dfd-497b-f823-b43572715792",
+        "remediationLevel": "Official Fix",
+        "Source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-4863",
+        "assigningCNA": "Chrome",
+        "revision": "2.0",
+        "attackComplexity": "Not provided",
+        "attackVector": "Not provided",
+        "post_type": "Information only",
+        "id": "CVE-2023-4863",
+        "impactType": "Heap buffer overflow",
+        "exploitability": "Yes",
+        "maxSeverity": "Not provided",
+        "exploitCodeMaturity": "Exploited"
+      },
+      "elementId": "4:a88df59f-847f-4b99-bff0-53420b2dfe18:0"
+    }
+  }
+]

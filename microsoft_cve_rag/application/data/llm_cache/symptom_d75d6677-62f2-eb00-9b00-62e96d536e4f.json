@@ -1,0 +1,21 @@
+{
+  "symptom_label": "windows_iso_mount_fails_during_auto_upgrade",
+  "description": "Users may experience installation issues when attempting to perform an automatic upgrade of Windows 10 using a mounted ISO file. The process might fail if the drive letter is not correctly set during the setup process. Specifically, if the command to mount the ISO does not assign a drive letter appropriately, running the setup executable can result in failure to initiate the upgrade. This could affect various build versions of Windows 10, particularly those related to KB-5041580. Administrators need to ensure that the ISO is properly mounted and that a valid drive letter is assigned before starting the upgrade to avoid setup issues.",
+  "source_id": "d75d6677-62f2-eb00-9b00-62e96d536e4f",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d75d6677-62f2-eb00-9b00-62e96d536e4f"
+  ],
+  "tags": [
+    "Windows 10",
+    "ISO",
+    "Upgrade",
+    "Mounting"
+  ],
+  "node_id": "c6a3394c-faed-42ac-a20e-078cc2c0cb6e",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

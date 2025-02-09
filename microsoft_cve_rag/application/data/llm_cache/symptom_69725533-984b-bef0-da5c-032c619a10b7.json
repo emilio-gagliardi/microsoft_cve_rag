@@ -1,0 +1,20 @@
+{
+  "symptom_label": "edge_updates_trigger_microsoft_copilot_app_installation",
+  "description": "Recent updates to the Microsoft Edge browser, specifically version 123.0.2420.65, may inadvertently cause the 'Microsoft Copilot Chat Provider' package to be shown in the installed applications list on multiple Windows devices. This issue is particularly noted on Windows 11 versions 21H2, 22H2, and 23H2, as well as Windows 10 version 22H2 and Windows Server 2022. While the app will appear under the installed apps in the settings, it does not execute any processes nor does it gather or share any data from the device. This installation is a preparatory measure for future Copilot enablement and is not fully enabled by default. In environments where the Copilot feature is not intended to be active, this component will be subsequently removed in an upcoming patch release of Edge, thereby resolving the inappropriate installation behavior.",
+  "source_id": "69725533-984b-bef0-da5c-032c619a10b7",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "69725533-984b-bef0-da5c-032c619a10b7"
+  ],
+  "tags": [
+    "Edge browser",
+    "Microsoft Copilot",
+    "installation issue",
+    "Windows updates"
+  ],
+  "node_id": "12b137fa-e5c3-40fc-9edc-169b80a4f65a",
+  "node_label": "Symptom",
+  "reliability": 0.9,
+  "severity_type": "moderate",
+  "entity_type": "Symptom"
+}

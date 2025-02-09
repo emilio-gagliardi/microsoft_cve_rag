@@ -1,0 +1,21 @@
+{
+  "symptom_label": "win_11_ad_ou_setup_requires_extensive_configuration",
+  "description": "In organizational environments managing Windows 11 deployments, administrators face significant challenges when enforcing update policies through WSUS (Windows Server Update Services). This setup requires the creation of a dedicated Active Directory Organizational Unit (OU) specifically for Windows 11 machines at each remote site. This involves migrating all Windows 11 machines into these OUs and establishing a new Group Policy Object (GPO) to ensure that updates are managed under a designated WSUS computer group tailored for Windows 11. The manual setup and ongoing management can be cumbersome, highlighting the complexity involved in maintaining update compliance within a diverse infrastructure. Such overhead can strain administrative resources, requiring careful planning and an understanding of hierarchical management in Active Directory for effective patch management.",
+  "source_id": "6f5584e3-92f2-647f-20bf-2d8ee12b5faf",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "6f5584e3-92f2-647f-20bf-2d8ee12b5faf"
+  ],
+  "tags": [
+    "win 11 updates",
+    "wsus",
+    "ad ou",
+    "group policy"
+  ],
+  "node_id": "6f701d4d-4055-4b7d-9d4b-56e06f3584c4",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom",
+  "verification_status": "unverified"
+}

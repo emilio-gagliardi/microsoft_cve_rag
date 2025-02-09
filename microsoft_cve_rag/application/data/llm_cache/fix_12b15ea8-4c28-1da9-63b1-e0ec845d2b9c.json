@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo successfully upgrade your VMware virtual machine to Windows 11, follow these steps:\n\n1. Ensure that your VMware VM version is compatible with Windows 11.\n2. Check that TPM 2.0 is physically enabled on your VMware hosts, and that virtual TPM (vTPM) is configured in your VM settings.\n3. Configure UEFI Secure Boot settings in your VM settings to meet Windows 11 requirements.\n4. If your Windows 10 machine is still using legacy boot, use the `mbr2gpt` tool to convert to a GPT partitioning scheme.\n5. After the upgrade, enable Virtualization-Based Security (VBS) in the VM settings.\n\n**Details**:\n- These steps are crucial to meeting Windows 11's requirements for TPM and Secure Boot. Ensure you have the appropriate permissions before making changes.\n- It is recommended to backup your VM before proceeding with any upgrades to prevent data loss. (LLM Synthesized)",
+  "source_id": "12b15ea8-4c28-1da9-63b1-e0ec845d2b9c",
+  "source_type": "PatchManagementPost",
+  "fix_label": "enable_uefi_secure_boot_vtpm_vmware_windows11",
+  "tags": [
+    "VMware",
+    "Windows11",
+    "UEFISecureBoot",
+    "LLM Synthesized"
+  ],
+  "node_id": "5feaf8d0-94dc-43be-a583-db7894f4c4ba",
+  "node_label": "Fix",
+  "reliability": 0.8,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "12b15ea8-4c28-1da9-63b1-e0ec845d2b9c"
+  ]
+}

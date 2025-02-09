@@ -1,0 +1,17 @@
+{
+  "symptom_label": "UpdateFailsDueToInsufficientWinrePartition",
+  "description": "The KB5034441 security update fails to install on certain Windows 10 systems, displaying the error code 0x80070643. This issue arises specifically when the recovery partition size is insufficient, as evidenced by tests showing that a new Windows 10 installation using the latest ISO creates a 522MB WinRE partition, which is too small. Users leveraging unmanaged updating systems, such as Windows Update for Business and Intune, may experience this install failure without clear communication from Microsoft regarding the necessary partition sizes prior to rollout.",
+  "source_id": "9793d5dd-7193-36fa-780a-d9306b1a1970",
+  "source_type": "PatchManagementPost",
+  "tags": [
+    "KB5034441",
+    "Windows10",
+    "0x80070643",
+    "UpdateFailure"
+  ],
+  "node_id": "5b7a8f55-287a-478e-87f7-b7809d3d8aae",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "Denial of service issue due to untrusted pointer dereference in the Microsoft Virtual Machine Bus (VMBus). This vulnerability could be exploited by an attacker to create a denial of service condition by manipulating data accessed through untrusted pointers, affecting system stability.",
+  "cause_label": "vmbus_denial_of_service_due_to_untrusted_pointer",
+  "source_id": "945f4daa-b9f6-5d0d-d7d6-ca90f4e817a7",
+  "source_type": "MSRCPost",
+  "source_ids": [
+    "945f4daa-b9f6-5d0d-d7d6-ca90f4e817a7"
+  ],
+  "tags": [
+    "vulnerability",
+    "VMBus",
+    "denial of service",
+    "untrusted pointer",
+    "CVE-2024-26254"
+  ],
+  "node_id": "80218809-7999-4172-85b9-0800e854597b",
+  "node_label": "Cause",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Cause"
+}

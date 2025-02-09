@@ -1,0 +1,16 @@
+{
+  "description": "To address the RCT issue associated with virtual machines failing to start after installing the October 2023 cumulative update, it's advised to implement the fix provided in the November update. The fix resolves the underlying cause of the startup failures and enhances overall stability for affected virtual machines within Azure Stack environments. System administrators should refer to the provided links for detailed guidance and ensure their systems are updated accordingly. Make sure to check update history for confirmation that the fix has been successfully applied to their virtual machines. Ongoing monitoring for any similar future issues is recommended to mitigate operational disruptions.",
+  "source_id": "0d3fbb3a-ff50-e354-e394-b98210c4b893",
+  "source_type": "PatchManagementPost",
+  "fix_label": "ImplementNovemberUpdateToResolveRCTIssue",
+  "tags": [
+    "AzureStack",
+    "VirtualMachines",
+    "RCT"
+  ],
+  "node_id": "13386dfa-34c7-4837-86e7-e228ff3d7eb5",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

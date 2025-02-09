@@ -1,0 +1,16 @@
+{
+  "description": "Utilize Google Chrome Enterprise to deploy a GUID for each machine, enabling centralized management of Chrome updates across your organization. This approach streamlines the update process, ensuring that browsers remain current without individual user intervention. It is particularly beneficial for organizations under tight deadlines or those concerned with security, as the centrally managed updates reduce the burden of compliance. Furthermore, this method also accounts for portable versions of Chrome, ensuring that even those instances receive necessary updates. This solution is essential for environments that prioritize efficient and secure browsing standards.",
+  "source_id": "b6f80518-60af-1aec-a440-c6cfd1fe22f2",
+  "source_type": "PatchManagementPost",
+  "fix_label": "UtilizeChromeEnterpriseForCentralizedUpdates",
+  "tags": [
+    "Chrome",
+    "Enterprise",
+    "Updates"
+  ],
+  "node_id": "5411fa2c-9c63-4f57-baf9-9ff02fba261f",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix"
+}

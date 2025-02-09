@@ -1,0 +1,20 @@
+{
+  "symptom_label": "ldap_creation_failure_due_to_policy_restriction",
+  "description": "Domain Administrators are encountering issues when attempting to rejoin computers to the domain due to restrictive Active Directory policies. Specifically, attempts to reuse a computer account are being denied by the enforcement behavior of the policy. Error messages logged include 'account re-use attempt was denied by active directory policy' and 'ldap creation failed'. The denials occur even for Domain Admins who should theoretically have the permissions to bypass such restrictions, indicating a broader issue with policy enforcement. This functionality seems to have unexpectedly changed since the enforcement was enabled a year ago, highlighting a potential misconfiguration in Active Directory policy settings.",
+  "source_id": "d6e28f10-d07d-2184-dce2-7f664f48ac6e",
+  "source_type": "PatchManagementPost",
+  "source_ids": [
+    "d6e28f10-d07d-2184-dce2-7f664f48ac6e"
+  ],
+  "tags": [
+    "active_directory",
+    "domain_join",
+    "policy_enforcement",
+    "ldap_error"
+  ],
+  "node_id": "b295a1e8-6099-4077-9826-62e72d3aec4e",
+  "node_label": "Symptom",
+  "reliability": 0.85,
+  "severity_type": "important",
+  "entity_type": "Symptom"
+}

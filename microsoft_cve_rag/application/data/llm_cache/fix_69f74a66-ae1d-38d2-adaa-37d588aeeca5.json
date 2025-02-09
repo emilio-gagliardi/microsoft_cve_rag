@@ -1,0 +1,20 @@
+{
+  "description": "**Fix Overview**:\n\nTo mitigate the secure boot security feature bypass vulnerability identified by CVE-2024-26250:\n\n1. Download and apply the relevant patches from Microsoft Update, specifically targeting the build numbers indicated for your system:\n   - [10.0.19045.4291]\n   - [10.0.19044.4291]\n   - [10.0.22631.3447]\n   - [10.0.22000.2899]\n   - [10.0.22621.3447]\n   - [10.0.10240.20596]\n\n2. Check for and apply KB articles associated with this CVE, namely:\n   - KB-5036925\n   - KB-5036894\n   - KB-5036893\n   - KB-5036892\n\n3. Restart your system after the installation to ensure all changes take effect.\n\n**Details**:\n- These updates address the protection mechanism failure that could potentially be exploited to bypass secure boot.\n- It is recommended to confirm the successful application of the updates through the Windows Update settings.\n\n**Preconditions**:\n- Ensure your system is updated with the applicable build versions listed.\n- Backup critical data before proceeding with the installation of updates.",
+  "source_id": "69f74a66-ae1d-38d2-adaa-37d588aeeca5",
+  "source_type": "MSRCPost",
+  "fix_label": "mitigate_secure_boot_bypass_cve202426250",
+  "tags": [
+    "KB5036925",
+    "KB5036894",
+    "SecureBoot",
+    "ProtectionMechanism"
+  ],
+  "node_id": "94154da3-fea3-4bb0-8e26-712e4fcd8f06",
+  "node_label": "Fix",
+  "reliability": 0.9,
+  "severity_type": "important",
+  "entity_type": "Fix",
+  "source_ids": [
+    "69f74a66-ae1d-38d2-adaa-37d588aeeca5"
+  ]
+}
