@@ -1,4 +1,0 @@
-NodeType,FixDescription,FixID
-[Fix],Microsoft has released security updates to address the vulnerability. Users are advised to apply the updates as soon as possible to protect their systems from potential attacks.,fix_013fe0fe-650c-367e-d58d-d8efa4306ed7_1
-[Fix],Microsoft has released a security update that addresses this vulnerability by correcting how the Microsoft ODBC Driver for SQL Server handles certain requests.,fix_0d45997f-76fe-8727-8fb7-7f64a1228aa2_1
-[Fix],The vulnerability has been addressed in the latest version of Microsoft Edge (Chromium-based). Updates are being developed for Microsoft Teams and Skype.,fix_ff2e6da9-f9a3-a170-bd1d-4e4495fe8b08_1

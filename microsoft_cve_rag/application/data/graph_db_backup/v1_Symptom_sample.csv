@@ -1,4 +1,0 @@
-NodeType,SymptomDescription,SymptomID
-[Symptom],"The vulnerability allows an attacker to spoof the Microsoft Bluetooth Driver, leading to a total loss of integrity. The attack requires user interaction and can be launched from a logically adjacent network.",SpoofingVulnerabilityInBluetoothDriver
-[Symptom],The user has received a reboot notification due to a 'Windows configuration update'.,WindowsConfigurationUpdatePromptedReboot
-[Symptom],Both Server 2012 and Server 2012 R2 did not receive any Security Only updates in the current month.,MissingSecurityOnlyUpdates

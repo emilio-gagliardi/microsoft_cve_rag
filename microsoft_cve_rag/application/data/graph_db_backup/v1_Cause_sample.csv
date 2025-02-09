@@ -1,4 +1,0 @@
-NodeType,CauseDescription,CauseID
-[Cause],The decision to make the 'Restrict Sign In' feature case sensitive is criticized for being unnecessary and disruptive.,cause_139353a0-0475-498d-e8a0-50b7c357dea8_1
-[Cause],The vulnerability is caused by a memory corruption issue in the Windows Scripting Engine. This can be exploited by an attacker by creating a specially crafted webpage to perform actions in the context of the current user.,cause_c629b845-62e3-6454-cee5-38ac81f56832_1
-[Cause],The cause of the problem is the potential vulnerability in the older versions of Microsoft .NET Core and Microsoft ASP.NET Core.,cause_b6aac06b-ef6b-a854-c9bb-8f5deb68fcd3_1

@@ -1,4 +1,0 @@
-NodeType,ToolDescription,ToolID,ToolURL
-[Tool],McAfee Antivirus was used as a tool on the client's machine but was identified as the cause of the issue. It was removed to resolve the problem.,tool_121df3d4-e2cb-1dab-b2a9-a843e621b5c7_1,Not specified
-[Tool],Microsoft Edge browser is the tool affected and also the tool used for the fix. Users can check the version of their browser to ensure they are using the updated version.,tool_7b899890-2165-097f-a168-a8dcb4833fb5_1,https://www.microsoft.com/en-us/edge
-[Tool],The post provides a link to a discussion about a patent lawsuit between Ivanti and Patch My PC. The link leads to a blog post on the Patch My PC website.,tool_b4dd8160-f65e-1a23-6dcf-3bbb426072c2_1,https://patchmypc.com/ivanti-vs-patch-my-pc-patent-lawsuit

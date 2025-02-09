@@ -26,12 +26,18 @@ neomodel-basics-docs.txt
 # Ignore all Jupyter notebook files
 notebooks/
 
-data/debug_hash_files/
-data/graph_db/
-data/llm_cache/
-data/llm_usage/
-data/vectot_index/
-data/graph_db_backup/
+microsoft_cve_rag/application/data/debug_hash_files
+microsoft_cve_rag/application/data/debug_hash_files/*
+microsoft_cve_rag/application/data/graph_db
+microsoft_cve_rag/application/data/graph_db/*
+microsoft_cve_rag/application/data/llm_cache
+microsoft_cve_rag/application/data/llm_cache/*
+microsoft_cve_rag/application/data/llm_usage
+microsoft_cve_rag/application/data/llm_usage/*
+microsoft_cve_rag/application/data/vector_index
+microsoft_cve_rag/application/data/vector_index/*
+microsoft_cve_rag/application/data/graph_db_backup
+microsoft_cve_rag/application/data/graph_db_backup/*
 
 package docs/
 
