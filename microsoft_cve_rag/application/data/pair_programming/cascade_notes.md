@@ -45,3 +45,28 @@
 [2025-01-13] Cascade - Added node creation verification and reporting functionality - Added helper functions to verify successful node creation in Neo4j and generate detailed reports
 [2025-01-20] Cascade - Added pre-commit configuration with Black, Flake8, and isort - Added .pre-commit-config.yaml to enable automated code formatting and linting on commits
 [2025-01-30] Cascade - Added documentation for Docker container log corruption issue and resolution - Added troubleshooting steps for Qdrant vector database unavailability due to corrupted log files in docs/lessons_learned.md. The issue was caused by invalid \x00 characters in container logs, requiring manual cleanup of log files to restore vector database functionality.
+[2025-02-12] Cascade - Implemented template rendering service - Added template service and report generation
+
+Added new components for report generation:
+1. TemplateService class for handling Jinja2 template rendering
+2. Updated report routes to use template service
+3. Implemented file-based report output with organized directory structure
+
+Key features:
+- Automatic output directory creation
+- Date-based report file naming
+- Proper template inheritance handling
+- Type hints and error handling
+- Follows project structure conventions
+
+[2025-02-12] Cascade - Updated KB report template to handle OS classification - Implemented new OS-based section organization in report.html.j2
+
+Modified the KB report template to organize updates by OS classification:
+- Windows 10 exclusive updates
+- Windows 11 exclusive updates
+- Multi-OS updates
+- Unknown OS updates (optional section)
+
+Each section uses visual differentiation through color-coding and only appears if there are relevant articles.
+
+[2025-02-13] Cascade - Enhanced KB article scraping - Refactored scraping_service.py to include a base scraper class and KB-specific subclass that handles unique aspects of Microsoft KB articles (expandable sections, tables, and tabbed content)

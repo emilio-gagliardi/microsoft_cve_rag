@@ -1,0 +1,47 @@
+{% extends "weekly_kb_report/base_report.html.j2" %}
+
+{% block content %}
+    {# Windows 10 Exclusive Articles #}
+    {% set win10_articles = kb_articles|selectattr('os_classification', 'equalto', 'windows_10')|list %}
+    {% if win10_articles %}
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-blue-700">Windows 10 Updates</h2>
+            {% for article in win10_articles %}
+                {% include 'weekly_kb_report/components/kb_article_card.html.j2' %}
+            {% endfor %}
+        </section>
+    {% endif %}
+
+    {# Windows 11 Exclusive Articles #}
+    {% set win11_articles = kb_articles|selectattr('os_classification', 'equalto', 'windows_11')|list %}
+    {% if win11_articles %}
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-purple-700">Windows 11 Updates</h2>
+            {% for article in win11_articles %}
+                {% include 'weekly_kb_report/components/kb_article_card.html.j2' %}
+            {% endfor %}
+        </section>
+    {% endif %}
+
+    {# Multi-OS Articles #}
+    {% set multi_articles = kb_articles|selectattr('os_classification', 'equalto', 'multi')|list %}
+    {% if multi_articles %}
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-700">Multi-OS Updates</h2>
+            {% for article in multi_articles %}
+                {% include 'weekly_kb_report/components/kb_article_card.html.j2' %}
+            {% endfor %}
+        </section>
+    {% endif %}
+
+    {# Unknown OS Articles - Optional, depending on if you want to show these #}
+    {% set unknown_articles = kb_articles|selectattr('os_classification', 'equalto', 'Unknown')|list %}
+    {% if unknown_articles %}
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-500">Other Updates</h2>
+            {% for article in unknown_articles %}
+                {% include 'weekly_kb_report/components/kb_article_card.html.j2' %}
+            {% endfor %}
+        </section>
+    {% endif %}
+{% endblock %}

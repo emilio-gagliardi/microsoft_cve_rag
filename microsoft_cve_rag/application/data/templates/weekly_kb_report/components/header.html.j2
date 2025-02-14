@@ -1,0 +1,56 @@
+{%- set total_cves = namespace(value=0) -%}
+{%- set critical_count = namespace(value=0) -%}
+{%- set high_count = namespace(value=0) -%}
+
+{%- for article in kb_articles -%}
+    {# Total CVEs #}
+    {% if article.cve_ids %}
+        {% set total_cves.value = total_cves.value + article.cve_ids|length %}
+    {% endif %}
+
+    {# Critical and High CVEs #}
+    {% if article.cve_details and article.cve_details.categories %}
+        {% for category, cves in article.cve_details.categories.items() %}
+            {% for cve in cves %}
+                {% if cve.score.score_rating and cve.score.score_rating.upper() == "CRITICAL" %}
+                    {% set critical_count.value = critical_count.value + 1 %}
+                {% elif cve.score.score_rating and cve.score.score_rating.upper() == "HIGH" %}
+                    {% set high_count.value = high_count.value + 1 %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+{%- endfor -%}
+
+<div class="bg-gradient-to-r from-blue-600 to-purple-600">
+    <div class="container mx-auto max-w-[1080px] px-4 py-12">
+        <h1 class="text-4xl font-bold text-white mb-4">{{ title }}</h1>
+        <p class="text-white/80 mb-8">Generated on {{ generated_at }}</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Total Articles -->
+            <div class="bg-white/10 backdrop-blur-lg rounded-lg p-4">
+                <h3 class="text-lg font-semibold text-white">Total Articles</h3>
+                <p class="text-3xl font-bold text-white">{{ kb_articles|length }}</p>
+            </div>
+
+            <!-- Total CVEs -->
+            <div class="bg-white/10 backdrop-blur-lg rounded-lg p-4">
+                <h3 class="text-lg font-semibold text-white">Total CVEs</h3>
+                <p class="text-3xl font-bold text-white">{{ total_cves.value }}</p>
+            </div>
+
+            <!-- Critical CVEs -->
+            <div class="bg-white/10 backdrop-blur-lg rounded-lg p-4">
+                <h3 class="text-lg font-semibold text-white">Critical CVEs</h3>
+                <p class="text-3xl font-bold text-white">{{ critical_count.value }}</p>
+            </div>
+
+            <!-- High CVEs -->
+            <div class="bg-white/10 backdrop-blur-lg rounded-lg p-4">
+                <h3 class="text-lg font-semibold text-white">High CVEs</h3>
+                <p class="text-3xl font-bold text-white">{{ high_count.value }}</p>
+            </div>
+        </div>
+    </div>
+</div>

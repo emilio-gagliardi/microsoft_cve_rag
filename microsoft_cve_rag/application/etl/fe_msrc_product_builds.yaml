@@ -46,11 +46,10 @@
 
 - $addFields:
     metadata.build_numbers:
-      $setUnion: [ "$doc.metadata.build_numbers", "$build_numbers" ]
+      $setUnion: [ { $ifNull: [ "$doc.metadata.build_numbers", [] ] }, "$build_numbers" ]
 
 - $replaceRoot:
     newRoot:
       $mergeObjects:
         - "$doc"
-        - metadata:
-            build_numbers: "$metadata.build_numbers"
+        - { metadata: { build_numbers: "$metadata.build_numbers" } }

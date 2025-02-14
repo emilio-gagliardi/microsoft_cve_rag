@@ -8,10 +8,10 @@
 
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 # print(sys.path)
-import os
+
 from bson import ObjectId
 from application.core.models.basic_models import Document
-from pymongo import MongoClient, ASCENDING, DESCENDING
+from pymongo import MongoClient
 from pymongo.errors import (
     PyMongoError,
     ConnectionFailure,
@@ -19,12 +19,13 @@ from pymongo.errors import (
     ConfigurationError,
 )
 from application.app_utils import get_documents_db_credentials
-import json
+# import json
 import logging
 from datetime import datetime
 from typing import List, Dict, Any, Tuple, Optional
 
 logging.getLogger(__name__)
+
 
 def preprocess_pipeline(pipeline):
     """

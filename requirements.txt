@@ -10,3 +10,9 @@ llama-index
 llama-index-embeddings-fastembed
 llama-index-vector-stores-qdrant
 fastembed
+
+# Documentation scraping dependencies
+crawl4ai>=0.4.3
+html2text>=2020.1.16
+markdown>=3.4.0
+aiohttp>=3.8.0

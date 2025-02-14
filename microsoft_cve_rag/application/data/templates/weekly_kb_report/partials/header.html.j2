@@ -1,0 +1,39 @@
+<header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12 mb-8">
+    <div class="mx-auto w-[96%] md:w-[85%] lg:max-w-[1080px]">
+        <h1 class="text-4xl font-bold mb-4">PortalFuse Weekly KB Report</h1>
+        <p class="text-lg text-white/90">{{ report_date }}</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+            <div class="bg-white/20 backdrop-blur-sm rounded-lg p-6">
+                <h3 class="text-2xl font-bold text-white mb-1">{{ total_kb_articles }}</h3>
+                <p class="text-white/80 text-sm">Total KB Articles</p>
+            </div>
+            <div class="bg-white/20 backdrop-blur-sm rounded-lg p-6">
+                <h3 class="text-2xl font-bold text-white mb-1">{{ multi_os_updates }}</h3>
+                <p class="text-white/80 text-sm">Multi-OS Updates</p>
+            </div>
+            <div class="bg-white/20 backdrop-blur-sm rounded-lg p-6">
+                <h3 class="text-2xl font-bold text-white mb-1">{{ known_issues }}</h3>
+                <p class="text-white/80 text-sm">KBs With Known Issues</p>
+            </div>
+        </div>
+
+        <div class="bg-white/20 backdrop-blur-sm rounded-lg p-6 mt-4">
+            <h4 class="font-semibold mb-4 text-white">Affected OS Versions</h4>
+            <div class="grid grid-cols-3 gap-4">
+                <div>
+                    <span class="text-lg font-bold text-white">{{ windows_10_count }}</span>
+                    <span class="text-white/80 ml-2">Windows 10</span>
+                </div>
+                <div>
+                    <span class="text-lg font-bold text-white">{{ windows_11_count }}</span>
+                    <span class="text-white/80 ml-2">Windows 11</span>
+                </div>
+                <div>
+                    <span class="text-lg font-bold text-white">{{ windows_server_count }}</span>
+                    <span class="text-white/80 ml-2">Windows Server</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

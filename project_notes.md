@@ -113,6 +113,36 @@ LlamaIndex Vector Index
 └── Synthesizes final response
 
 
+## KB Report API Endpoint
+
+### Generate KB Report
+Endpoint to generate a report of KB articles and their associated CVEs for a specified date range.
+
+**Endpoint:** `/api/v1/reports/kb`
+**Method:** POST
+**Content-Type:** application/json
+
+#### Request Format
+```bash
+curl -X 'POST' \
+  'http://127.0.0.1:7501/api/v1/reports/kb' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "start_date": "2024-09-01T00:00:00",
+    "end_date": "2024-09-15T23:59:59"
+}'
+```
+
+#### Response Format
+```json
+{
+    "status": "success",
+    "data": [...],  // Array of KB articles with CVE details
+    "message": "Successfully processed N KB articles"
+}
+```
+
 ## Recent Updates [2024-12-24]
 
 ### Patch Post Transformer Enhancements
@@ -139,6 +169,66 @@ LlamaIndex Vector Index
 - Validate thread linking behavior with historical documents
 - Monitor performance of synchronous patch post transformation
 - Consider adding metrics for thread linking success rate
+
+## Alpine.js CVE Popup Implementation Notes [2025-02-12]
+
+### Key Issues and Solutions
+1. **Data Structure Mismatch**
+   - Issue: Initial implementation assumed flat CVE ID array but received nested objects
+   - Solution: Processed nested structure to extract CVE IDs and details
+
+2. **Severity Badge Styling**
+   - Issue: Badges showed 'Unknown' due to incorrect data access path
+   - Solution: Fixed data access path to `item.score.score_rating`
+
+3. **Sorting by Severity**
+   - Issue: CVEs appeared in random order instead of severity ranking
+   - Solution: Added severity ranking system and sorting by:
+     - Primary: Severity rank (Critical > High > Medium > Low > Unknown)
+     - Secondary: Numeric score for same-severity CVEs
+
+4. **Initial Display Count**
+   - Issue: Showing too many CVEs initially made popup too tall
+   - Solution: Limited to 6 CVEs per category with scroll for remainder
+
+### Implementation Best Practices
+1. **Data Processing**
+   - Parse raw data on modal open
+   - Create lookup maps for efficient CVE detail retrieval
+   - Sort CVEs before display
+
+2. **State Management**
+   - Use Alpine.js store for modal state
+   - Clear state on modal close
+
+3. **Styling**
+   - Use Tailwind CSS utility classes
+   - Ensure responsive layout
+   - Add scroll for overflow
+
+4. **Error Handling**
+   - Default to 'Unknown' for missing data
+   - Add fallback styling for unknown severity
+
+### Key Components
+1. **Alpine.js Store**
+   - Manages modal state and CVE data
+   - Handles data processing and sorting
+
+2. **Modal Template**
+   - Responsive grid layout
+   - Category sections with CVE lists
+   - Severity badges with color coding
+
+3. **Helper Functions**
+   - getSeverityRank: Converts severity text to numeric rank
+   - getCveDetails: Retrieves CVE details from lookup map
+
+### Future Improvements
+1. Add loading state during data processing
+2. Implement search/filter within modal
+3. Add CVE detail expansion panels
+4. Support keyboard navigation
 
 ## VSCode Settings Configuration
 Place the following in `.vscode/settings.json` to ensure consistent code formatting and linting:

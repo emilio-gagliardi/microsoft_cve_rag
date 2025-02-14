@@ -48,6 +48,9 @@ from application.api.v1.routes.etl_routes import (
     router as v1_etl_router,
 )
 
+from application.api.v1.routes.report_routes import (
+    router as v1_report_router,
+)
 # from application.api.v1.routes.chat_routes import (
 #     router as v1_chat_router,
 # )
@@ -67,6 +70,7 @@ graph_db_credentials = get_graph_db_credentials()
 vector_db_credentials = get_vector_db_credentials()
 # Initialize colorama
 colorama_init(strip=False, convert=True, autoreset=True)
+
 
 class ColoredFormatter(logging.Formatter):
     """Custom formatter with colors"""
@@ -137,7 +141,7 @@ def setup_logging(level=logging.INFO):
     logging.getLogger("uvicorn.error").setLevel(logging.INFO)
     logging.getLogger("uvicorn.access").setLevel(logging.WARNING)
     logging.getLogger("fastapi").setLevel(logging.WARNING)
-    
+
     app_logger = logging.getLogger("microsoft_cve_rag")
     app_logger.setLevel(level)
 
@@ -214,6 +218,7 @@ app.include_router(v1_vector_router, prefix="/api/v1", tags=["Vector Service v1"
 # app.include_router(v1_document_router, prefix="/api/v1", tags=["Document Service v1"])
 # app.include_router(v2_chat_router, prefix="/api/v2", tags=["Chat v2"])
 
+app.include_router(v1_report_router, prefix="/api/v1", tags=["Reports v1"])
 
 @app.get("/")
 async def root():

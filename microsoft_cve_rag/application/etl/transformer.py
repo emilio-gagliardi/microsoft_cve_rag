@@ -11,9 +11,9 @@ import os
 import re
 from collections import defaultdict
 from datetime import datetime, timedelta, timezone
-
+from pydantic import BaseModel
 # import warnings
-from typing import Any, Dict, List, Optional, Union, Set
+from typing import Any, Dict, List, Optional, Union, Set, DefaultDict
 
 import marvin
 from openai import AuthenticationError, APIConnectionError
@@ -4713,3 +4713,585 @@ def convert_df_to_llamadoc_patch_posts(
 
 
 # End Convert dataframes to LlamaDocs ==========================
+
+# BEGIN REPORT TRANSFORMERS ==========================
+
+class JSONSanitizingEncoder(json.JSONEncoder):
+    """Custom JSON encoder for handling datetime objects and other special types."""
+    def default(self, obj):
+        try:
+            if isinstance(obj, datetime.datetime):
+                return obj.isoformat()
+            elif isinstance(obj, (set, frozenset)):
+                return list(obj)
+            elif hasattr(obj, 'tolist'):  # Handle numpy arrays
+                return obj.tolist()
+            elif hasattr(obj, '__dict__'):  # Handle objects with __dict__
+                return obj.__dict__
+            elif isinstance(obj, float) and (obj != obj):  # Check for NaN
+                return None
+            return str(obj)
+        except Exception as e:
+            logging.warning(f"Error serializing object {type(obj)}: {e}")
+            return str(obj)
+
+
+class CVEScore(BaseModel):
+    """Model for CVE score data."""
+    source: str
+    score_num: Optional[float]
+    score_rating: Optional[str]
+
+
+def choose_score_for_kb_report(metadata: Dict[str, Any]) -> CVEScore:
+    """Select the highest score between CNA, NIST, and ADP scores.
+
+    Args:
+        metadata (Dict[str, Any]): Document metadata containing score information
+
+    Returns:
+        CVEScore: Selected score with its source and rating
+    """
+    scores = [
+        ("CNA", metadata.get("cna_base_score_num"), metadata.get("cna_base_score_rating")),
+        ("NIST", metadata.get("nist_base_score_num"), metadata.get("nist_base_score_rating")),
+        ("ADP", metadata.get("adp_base_score_num"), metadata.get("adp_base_score_rating"))
+    ]
+
+    # Convert score numbers to float if they exist
+    valid_scores = []
+    for src, num, rating in scores:
+        try:
+            num_float = float(num) if num is not None else None
+            if num_float is not None:
+                valid_scores.append((src, num_float, rating))
+        except (ValueError, TypeError):
+            continue
+
+    if not valid_scores:
+        return CVEScore(source="None", score_num=None, score_rating=None)
+
+    # Sort by score descending, then by priority (CNA > NIST > ADP)
+    sorted_scores = sorted(
+        valid_scores,
+        key=lambda x: (-x[1], ["CNA", "NIST", "ADP"].index(x[0]))
+    )
+
+    best = sorted_scores[0]
+    return CVEScore(
+        source=best[0],
+        score_num=best[1],
+        score_rating=best[2]
+    )
+
+
+def process_cve_data_for_kb_report(
+    cve_details: List[Dict[str, Any]]
+) -> Dict[str, Dict[str, Any]]:
+    """Process CVE details and create a lookup dictionary with KB associations.
+
+    Args:
+        cve_details (List[Dict[str, Any]]): List of CVE documents
+
+    Returns:
+        Dict[str, Dict[str, Any]]: Dictionary mapping CVE IDs to their details
+            and includes a special __kb_to_cve_map key for KB-to-CVE relationships
+    """
+    cve_lookup = {}
+    kb_to_cve_map = defaultdict(set)  # Track KB to CVE relationships
+
+    for doc in cve_details:
+        metadata = doc.get("metadata", {})
+        if not metadata:
+            continue
+
+        score = choose_score_for_kb_report(metadata)
+        post_id = metadata.get("post_id")
+
+        if not post_id:
+            continue
+
+        cve_info = {
+            "id": metadata.get("id"),
+            "post_id": post_id,
+            "revision": metadata.get("revision"),
+            "published": metadata.get("published"),
+            "source": metadata.get("source"),
+            "category": metadata.get("cve_category"),
+            "score": score.model_dump(),
+            "cve_source": doc.get("cve_source", "unknown"),
+            "referenced_kbs": doc.get("kb_ids", [])  # Get kb_ids from root level
+        }
+
+        cve_lookup[post_id] = cve_info
+
+        # Build KB to CVE mapping from root-level kb_ids
+        for kb_id in doc.get("kb_ids", []):
+            kb_to_cve_map[kb_id].add(post_id)
+
+    # Convert set to list for JSON serialization
+    kb_cve_map_json = {
+        kb_id: list(cve_ids)
+        for kb_id, cve_ids in kb_to_cve_map.items()
+    }
+
+    # Add the mapping to the lookup
+    cve_lookup["__kb_to_cve_map"] = kb_cve_map_json
+
+    return cve_lookup
+
+
+async def transform_kb_data_for_kb_report(
+    kb_articles: List[Dict[str, Any]],
+    cve_lookup: Dict[str, Dict[str, Any]]
+) -> pd.DataFrame:
+    """Transform KB articles with CVE details.
+
+    Args:
+        kb_articles (List[Dict[str, Any]]): List of KB articles
+        cve_lookup (Dict[str, Dict[str, Any]]): CVE lookup dictionary
+
+    Returns:
+        pd.DataFrame: DataFrame with enriched KB articles
+    """
+    if not kb_articles:
+        return pd.DataFrame()
+
+    kb_df = pd.DataFrame(kb_articles)
+    # Replace inf and nan values with None
+    float_cols = kb_df.select_dtypes(include=['float64']).columns
+    for col in float_cols:
+        kb_df[col] = kb_df[col].replace(
+            [float('inf'), float('-inf'), float('nan')],
+            None
+        )
+
+    # Extract the KB-to-CVE mapping
+    kb_to_cve_map = cve_lookup.pop('__kb_to_cve_map', {})
+
+    def get_all_cve_ids(row):
+        """Get both direct and indirect CVE references for a KB article."""
+        kb_id = str(row['kb_id'])  # Ensure kb_id is a string
+
+        # Handle direct CVEs - if cve_ids is NaN or None, use empty list
+        direct_cves = []
+        if isinstance(row.get('cve_ids'), list):  # Only use if it's actually a list
+            direct_cves = row['cve_ids']
+
+        # Get indirect CVEs from the mapping, ensure we get a list back
+        indirect_cves = kb_to_cve_map.get(f"kb{kb_id}", [])
+
+        # Ensure both are lists before trying set operations
+        direct_cves = list(direct_cves) if isinstance(direct_cves, (list, set)) else []
+        indirect_cves = list(indirect_cves) if isinstance(indirect_cves, (list, set)) else []
+
+        # Combine and deduplicate
+        return list(set(direct_cves + indirect_cves))  # Union of both sets
+    # Update cve_ids column with both direct and indirect references
+
+    kb_df['has_summary'] = (
+        kb_df['summary'].notna()
+        & (kb_df['summary'].str.strip() != '')
+    )
+    kb_df['has_cve_ids'] = kb_df['cve_ids'].apply(
+        lambda x: len(x) > 0 if isinstance(x, list) else False
+    )
+
+    sort_columns = ['kb_id', 'has_summary', 'has_cve_ids']
+    sort_ascending = [True, False, False]
+    kb_df = kb_df.sort_values(
+        sort_columns,
+        ascending=sort_ascending
+    )
+    kb_df = kb_df.drop_duplicates(subset=['kb_id'], keep='first')
+    kb_df = kb_df.drop(columns=['has_summary', 'has_cve_ids'])
+    kb_df['cve_ids'] = kb_df.apply(get_all_cve_ids, axis=1)
+
+    def attach_cve_details(row: pd.Series) -> Dict[str, Any]:
+        """Create CVE details structure for a KB record.
+
+        Groups CVEs by category and sorts them by score within each category.
+
+        Args:
+            row (pd.Series): Row from the KB DataFrame containing cve_ids
+
+        Returns:
+            Dict[str, Any]: CVE details organized by category with the structure:
+                {
+                    'total_cves': int,
+                    'categories': {
+                        'category_name': [
+                            {
+                                'id': str,
+                                'post_id': str,
+                                'score': dict,
+                                ...
+                            },
+                            ...
+                        ]
+                    }
+                }
+        """
+        if not isinstance(row.get('cve_ids'), list):
+            return {}
+
+        # Group CVEs by category
+        category_groups: DefaultDict[str, List[Dict[str, Any]]] = defaultdict(list)
+
+        for cve_id in row['cve_ids']:
+            if cve_id not in cve_lookup:
+                continue
+
+            cve_info = cve_lookup[cve_id]
+            category = cve_info.get('category', 'Uncategorized')
+            category_groups[category].append(cve_info)
+
+        # Sort CVEs within each category by score
+        for category, cves in category_groups.items():
+            category_groups[category] = sorted(
+                cves,
+                key=lambda x: float(
+                    x.get('score', {}).get('score', 0) or 0
+                ),
+                reverse=True
+            )
+
+        return {
+            'total_cves': len(row['cve_ids']),
+            'categories': dict(sorted(category_groups.items()))
+        }
+
+    kb_df["cve_details"] = kb_df.apply(attach_cve_details, axis=1)
+    kb_df['os_classification'] = kb_df['text'].apply(classify_os)
+    tasks = []
+    for _, row in kb_df.iterrows():
+        title = row.get('title', '')
+        text = row.get('text', '')
+        doc_id = str(row.get('id', ''))
+        tasks.append(generate_kb_report_structure(title, text, doc_id))
+
+    # Create DataFrame with report structures
+    try:
+        report_structures = await asyncio.gather(*tasks)
+    except Exception as e:
+        logging.error(f"Error during batch report generation: {e}")
+        # You could either raise the error or return a partial DataFrame
+        raise e
+    report_df = pd.DataFrame(report_structures)
+
+    # Merge the DataFrames
+    final_df = pd.merge(
+        kb_df,
+        report_df,
+        left_on='id',
+        right_on='doc_id',
+        how='outer'
+    )
+
+    return final_df
+
+
+def classify_os(text):
+    # Extract the first 200 words from the text.
+    words = text.split()
+    snippet = " ".join(words[:200])
+
+    # Define case-insensitive regex patterns.
+    # We use word boundaries (\b) to avoid matching partial words.
+    pattern10 = re.compile(r"(?i)\bWindows\s*10\b")
+    pattern11 = re.compile(r"(?i)\bWindows\s*11\b")
+    patternSrv = re.compile(r"(?i)\bWindows\s*Server\b")
+
+    # Search for matches in the snippet.
+    has10 = bool(pattern10.search(snippet))
+    has11 = bool(pattern11.search(snippet))
+    hasSrv = bool(patternSrv.search(snippet))
+
+    # Classification logic:
+    # If both Windows 10 and Windows 11 appear, or if Windows Server appears together with one of them,
+    # then classify as "multi os".
+    if (has10 and has11) or ((has10 or has11) and hasSrv):
+        return "multi"
+    # If only Windows 10 appears, without Windows Server or Windows 11.
+    elif has10 and not has11 and not hasSrv:
+        return "windows_10"
+    # If only Windows 11 appears, without Windows Server or Windows 10.
+    elif has11 and not has10 and not hasSrv:
+        return "windows_11"
+    # Fallback classification if none of the patterns match.
+    else:
+        return "Unknown"
+
+
+def extract_json_string(response_str):
+    """
+    Extracts the JSON string from a given LLM response that might be wrapped in markdown fences
+    or contain extraneous text, returning only the content between the first '{' and the last '}'.
+
+    Parameters:
+        response_str (str): The raw LLM response string.
+
+    Returns:
+        str: The cleaned JSON substring.
+
+    Raises:
+        ValueError: If no valid JSON object is found in the response.
+    """
+    # Trim whitespace and newlines
+    response_str = response_str.strip()
+
+    # Find the first '{' and the last '}' in the response
+    start = response_str.find('{')
+    end = response_str.rfind('}')
+
+    if start == -1 or end == -1 or start > end:
+        raise ValueError("No valid JSON object found in the response.")
+
+    # Extract and return the JSON substring
+    json_str = response_str[start:end+1]
+    return json_str
+
+
+async def generate_kb_report_structure(
+    title: str,
+    text: str,
+    doc_id: str
+) -> Dict[str, Any]:
+    """Generate structured report data from KB article title and text.
+
+    Args:
+        title (str): KB article title
+        text (str): KB article text content
+        doc_id (str): Unique document ID for cache file naming
+
+    Returns:
+        Dict[str, Any]: Structured report data
+    """
+    def validate_report_structure(response: Dict[str, Any]) -> bool:
+        required_fields = {
+            "doc_id", "report_title", "report_os_builds",
+            "report_new_features", "report_bug_fixes",
+            "report_known_issues_workarounds", "report_summary"
+        }
+        return all(field in response for field in required_fields)
+
+    # Define cache directory
+    cache_dir = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+        "application",
+        "data",
+        "llm_cache",
+        "kb_report_v1"
+    )
+    os.makedirs(cache_dir, exist_ok=True)
+
+    # Define cache file path using the unique document ID
+    cache_file = os.path.join(
+        cache_dir,
+        f"kb_report_restructured_{doc_id}.json"
+    )
+    # Check if cache exists
+    if os.path.exists(cache_file):
+        try:
+            with open(cache_file, 'r', encoding='utf-8') as f:
+                cached_response = json.load(f)
+                if validate_report_structure(cached_response):
+                    return cached_response
+                else:
+                    print(f"Cached response for {doc_id} failed validation, regenerating...")
+        except Exception as e:
+            logging.warning(f"Error reading cache file {cache_file}: {e}")
+    marvin.settings.openai.chat.completions.model = "gpt-4o"
+    marvin_restructure_prompt = r"""
+        **Objective:** Extract key information from the following Microsoft KB Article text and structure it
+        into a standardized JSON format for senior system administrators. Use precise language and technical detail.
+        Transform the following Microsoft KB Article text into a JSON dictionary with the following structure:
+
+        ```json
+        {{
+            "doc_id": "string",
+            "report_title": "text",
+            "report_os_builds": ["12345.1234"],
+            "report_new_features": ["list of the most important new features"],
+            "report_bug_fixes": ["list of the most important bug fixes"],
+            "report_known_issues_workarounds": ["list of the most important Known Issues and workarounds"],
+            "report_summary": ""
+        }}
+        ```
+        **Instructions:**
+
+        1.  **report title:** The title is provided in the context.
+        2.  **report OS Builds:**
+            *   Extract all the OS Build numbers from the title text and the body text near the label "Version:".
+            *   Example Title: "5043064 - September 10, 2024—KB5043064 (OS Builds 19044.4894 and 19045.4894) - Microsoft Support"
+            *   OS Build numbers appear as "OS Build 19044.4894".
+            *   Example Output: "- 10.0.19044.4894\n - 10.0.19045.4894"
+            *   Return a valid markdown list of OS Build numbers.
+        3.  **report New Features:**
+            *   Extract the most important new features from the KB article or all of them if there are less than 10.
+            *   Prioritize security-related features and features with wide implications, but also include non-security features.
+            *   Use active tense, long form sentences that completely explain the feature, what it is, where to find it, how to enable or access it.
+            *   Limit the list to a maximum of 10 items.
+            *   Return a valid markdown list of new features.
+        4.  **report Bug Fixes:**
+            *   Extract the most important bug fixes from the KB article or all of them if there are less than 10.
+            *   Prioritize security-related fixes and fixes with wide implications, but also include non-security fixes.
+            *   Use active tense, long form sentences that completely explain the bug, what it is, its implications, what it affects.
+            *   If there is a fix or workaround, explain what it is.
+            *   Limit the list to a maximum of 10 items.
+            *   Return a valid markdown list of bug fixes.
+        5.  **report Known Issues & Workarounds:**
+            *   From the "Known issues in this update" section, extract exactly three bullet points that summarize the key known issues. Each bullet point must be a single, concise sentence that includes:
+                **Who**: The affected user group (e.g., "All users", "IT admins").
+                **What**: A brief description of the issue.
+                **Why**: The impact or significance of the issue (for example, whether it impedes functionality, causes update failures, or poses a security risk).
+                **How**: The workaround or recommended action.
+            *   Combine these elements so that the reader can immediately assess if they need to take action.
+            *   Return a valid markdown list of known issues and workarounds.
+        6.  **report Summary:** Insert an empty string. This data is already available in a separate data structure.
+
+        **Handling Missing Information:**
+
+        *   If a specific field cannot be found in the KB article, insert the string "No Information Available".
+
+        **KB Article Headings:**
+
+        *   KB Articles often have some or all of the following headings. Use them to detect changes in topic or points of interest:
+            *   Report title
+            *   Applies To
+            *   Version
+            *   Highlights
+                *   Gradual Rollout
+                    *   new features
+                    *   bug fixes
+                *   Normal Rollout
+                    *   new features
+                    *   bug fixes
+            *   Improvements
+                *   bug fixes
+            *   Windows N servicing stack update
+            *   Known issues in this update
+                *   (Applies to | Symptom | Workaround)
+            *   How to get this update
+        *   Note. if there is a "Known issues in this update" header, that content is coming from a table with 3 columns but loses the structure so it is difficult to parse.
+            Data from the first column usually looks like "Enterprise users" or "All users" or "IT admins". If there are multiple known issues, there will be multiple short strings that describe who the issue affects.
+            Data from the second column consistutes the bulk of the text and usually describes the issue.
+            Data from the third column usually consists of a shorter text block of the workaround or a link to a KB article.
+            The Known issues section ends when you encounter the header "How to get this update".
+**Example:**
+---
+doc_id: 4d1364fd-665c-7c07-5d00-1990bb220a4f
+
+January 28, 2025—KB5050094 (OS Build 26100.3037) Preview
+
+Version: OS Build 26100.3037
+
+Highlights
+This update makes quality improvements to the servicing stack, which is the component that installs operating system updates.
+Gradual Rollout
+These might not be available to all users because they will roll out gradually.
+[Taskbar] New! This update improves the previews that show when your cursor hovers over apps on the taskbar. The update also improves their animations.
+Improvements
+This non-security update includes quality improvements. Below is a summary of the key issues that this update addresses when you install this KB. If there are new features, it lists them as well. The bold text within the brackets indicates the item or area of the change we are documenting.
+This update addresses an issue that affects the Multi-App Kiosk mode. It prevents the print dialog box from opening.
+This update addresses an issue that affects the Settings app. It stops responding when you uninstall a printer.
+[Memory leak] Fixed: Leaks occur when predictive input ideas show.
+Known issues in this update
+Applies to
+Symptom
+Workaround
+All users
+We're aware of an issue where players on Arm devices are unable to download and play Roblox via the Microsoft Store on Windows.
+Players on Arm devices can play Roblox by downloading the title directly from www.Roblox.com.
+All users
+Following the installation of the October 2024 security update, some customers report that the OpenSSH (Open Secure Shell) service fails to start, preventing SSH connections. The service fails with no detailed logging, and manual intervention is required to run the sshd.exe process.
+This issue is affecting both enterprise, IOT, and education customers, with a limited number of devices impacted. Microsoft is investigating whether consumer customers using Home or Pro editions of Windows are affected. Open PowerShell as an Administrator.
+Update the permissions for C:\ProgramData\ssh and C:\ProgramData\ssh\logs to allow full control for SYSTEM and the Administrators group, Repeat the above steps for C:\ProgramData\ssh\logs....
+IT admins
+Devices that have certain Citrix components installed might be unable to complete installation of the January 2025 Windows security update. This issue was observed on devices with Citrix Session Recording Agent (SRA) version 2411. The 2411 version of this application was released in December 2024.
+Affected devices might initially download and apply the January 2025 Windows security update correctly, such as via the Windows Update page in Settings. However, when restarting the device to complete the update installation, an error message with text similar to “Something didn't go as planned. No need to worry - undoing changes” appears. The device will then revert to the Windows updates previously present on the device.
+How to get this update
+Before you install this update
+Microsoft combines the latest servicing stack update (SSU) for your operating system with the latest cumulative update (LCU).
+---
+
+        The expected JSON output would be:
+
+        ```json
+        {{
+            "doc_id": "4d1364fd-665c-7c07-5d00-1990bb220a4f",
+            "report_title": "January 28, 2025—KB5050094 (OS Build 26100.3037) Preview",
+            "report_os_builds": ["10.0.26100.3037"],
+            "report_new_features": ["Taskbar - This update improves the previews that show when your cursor hovers over apps on the taskbar. The update also improves their animations."],
+            "report_bug_fixes": ["This update addresses an issue that affects the Multi-App Kiosk mode. It prevents the print dialog box from opening.", "This update addresses an issue that affects the Settings app. It stops responding when you uninstall a printer.", "Memory leak - Fixed: Leaks occur when predictive input ideas show."],
+            "report_known_issues_workarounds": ["All users on Arm devices experience an inability to download and play Roblox via the Microsoft Store on Windows, potentially disrupting access to the game; workaround: download Roblox directly from www.Roblox.com.","All users affected by the October 2024 update experience OpenSSH service startup failure on Windows—impacting enterprise, IoT, and education environments by interrupting SSH connections; immediate action: update permissions on C:\ProgramData\ssh and C:\ProgramData\ssh\logs using the provided PowerShell commands.", "IT admins managing devices with Citrix Session Recording Agent (version 2411) encounter update rollback during the January 2025 Windows security update, risking incomplete installations; immediate action: follow the Citrix-documented workaround prior to applying the update."],
+            "report_summary": ""
+        }}
+        ```
+        doc_id: {doc_id}
+        KB Article title:
+        {kb_article_title}
+        KB Article text:
+        {kb_article_text}
+        """
+
+    if pd.isna(text) or text is None or str(text).strip() == "":
+        structured_response = {
+            "doc_id": doc_id,
+            "report_title": title,
+            "report_os_builds": [],
+            "report_new_features": ["No Information Available"],
+            "report_bug_fixes": ["No Information Available"],
+            "report_known_issues_workarounds": ["No Information Available"],
+            "report_summary": ""
+        }
+        return structured_response
+    else:
+        model_kwargs = {"max_tokens": 1500, "temperature": 0.90}
+        try:
+            # Ensure the OpenAI API key is set
+            api_key = os.getenv('OPENAI_API_KEY')
+            if not api_key:
+                raise EnvironmentError("OPENAI_API_KEY environment variable is not set.")
+
+            # Attempt to generate the LLM response
+            llm_response = await generate_llm_response(
+                marvin_restructure_prompt.format(
+                    kb_article_title=title,
+                    kb_article_text=text,
+                    doc_id=doc_id),
+                model_kwargs=model_kwargs,
+            )
+            response_content = llm_response.response.choices[0].message.content
+            # Cache the result
+            structured_response = ""
+            try:
+                structured_response = json.loads(extract_json_string(response_content))
+                if not validate_report_structure(structured_response):
+                    raise ValueError(f"LLM response for {doc_id} failed validation")
+                with open(cache_file, 'w', encoding='utf-8') as f:
+                    json.dump(structured_response, f, cls=JSONSanitizingEncoder, indent=2)
+            except Exception as e:
+                logging.warning(f"Error writing cache file {cache_file}: {e}")
+            return structured_response
+
+        except EnvironmentError as env_err:
+            logging.error(f"Marvin Environment error: {env_err}")
+            # Handle missing environment variable or other environment-related issues
+            raise env_err
+        except AuthenticationError as auth_err:
+            logging.error(f"Marvin Authentication error: {auth_err}")
+            # Handle issues related to API authentication
+            raise auth_err
+        except APIConnectionError as conn_err:
+            logging.error(f"Marvin API connection error: {conn_err}")
+            # Handle issues related to network connectivity or API server availability
+            raise conn_err
+
+        except Exception as e:
+            logging.error(f"A Marvin error occurred: {e}")
+            # Handle any other unforeseen exceptions
+            raise e
+
+
+# END REPORT TRANSFORMERS ==========================

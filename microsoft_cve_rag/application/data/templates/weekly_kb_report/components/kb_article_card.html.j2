@@ -1,0 +1,72 @@
+<div class="shadcn-card group mb-8" x-data>
+    <div class="flex justify-between items-start mb-6">
+        <div>
+            <a href="{{ article.article_url }}" target="_blank" rel="noopener noreferrer" class="group-hover:text-blue-600 transition-colors">
+                <h3 class="text-xl font-semibold">{{ article.kb_id }} – {{ article.title }}</h3>
+            </a>
+            <p class="text-sm text-gray-500 mt-1">Published: {{ article.published }}</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">OS Builds</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                <li class="text-sm text-gray-600">{{ article.build_number|join('.')|replace(', .', '.') }}</li>
+            </ul>
+        </div>
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Key Fixes ({{ article.cve_details.total_cves }} CVEs)</h4>
+            <button 
+                data-cves='{{ article.cve_ids|tojson|safe }}'
+                data-categories='{{ article.cve_details.categories|tojson|safe }}'
+                @click="Alpine.store('cveModal').show($el.dataset)"
+                class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all shadow-sm hover:shadow-md"
+            >
+                VIEW AFFECTED CVES
+            </button>
+        </div>
+    </div>
+
+    <div class="space-y-6">
+        {% if article.report_new_features %}
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">New Features</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                {% for feature in article.report_new_features %}
+                <li class="text-sm text-gray-600">{{ feature }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if article.report_bug_fixes %}
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Bug Fixes</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                {% for fix in article.report_bug_fixes %}
+                <li class="text-sm text-gray-600">{{ fix }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if article.report_known_issues_workarounds %}
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Known Issues & Workarounds</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                {% for issue in article.report_known_issues_workarounds %}
+                <li class="text-sm text-gray-600">{{ issue }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if article.summary %}
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Summary</h4>
+            <div class="text-sm text-gray-600 space-y-4">{{ article.summary|parse_markdown|safe }}</div>
+        </div>
+        {% endif %}
+    </div>
+</div>

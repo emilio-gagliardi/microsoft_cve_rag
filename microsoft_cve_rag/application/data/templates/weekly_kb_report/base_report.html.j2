@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - PortalFuse Weekly KB Report</title>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary: #0284c7;
+            --secondary: #7c3aed;
+            --background: #ffffff;
+            --text: #1f2937;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+        }
+
+        .shadcn-card {
+            background: linear-gradient(to bottom right, #ffffff, #f8fafc);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+            transition: box-shadow 0.15s ease-in-out;
+        }
+
+        .shadcn-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .cve-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s;
+        }
+
+        .cve-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cve-popup-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.2s;
+        }
+
+        .cve-popup.active .cve-popup-content {
+            transform: translateY(0);
+        }
+
+        .severity-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .severity-high {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+
+        .severity-medium {
+            background-color: #fef3c7;
+            color: #d97706;
+        }
+
+        .severity-low {
+            background-color: #d1fae5;
+            color: #059669;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-8">
+    {%- include 'weekly_kb_report/components/header.html.j2' -%}
+    <main class="container mx-auto max-w-[1080px] w-[96%] md:w-[85%] lg:max-w-[1080px] px-4 py-12">
+        {% block content %}{% endblock %}
+    </main>
+
+    {%- include 'partials/footer.html.j2' -%}
+
+    <!-- CVE Modal -->
+    <div
+        x-data="{
+            get isOpen() { return Alpine.store('cveModal').isOpen },
+            get categories() { return Alpine.store('cveModal').categories },
+            hide() { Alpine.store('cveModal').hide() }
+        }"
+    >
+        <!-- Backdrop -->
+        <div
+            class="fixed inset-0 bg-black/20 backdrop-blur-[2px] z-50 flex items-center justify-center"
+            x-show="isOpen"
+            @click="hide()"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+        >
+            <!-- Modal -->
+            <div
+                class="relative w-full max-w-[90%] md:max-w-[85%] lg:max-w-5xl bg-white/95 backdrop-blur-xl shadow-2xl rounded-xl overflow-hidden my-8"
+                @click.stop
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 scale-95"
+                x-transition:enter-end="opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="opacity-100 scale-100"
+                x-transition:leave-end="opacity-0 scale-95"
+            >
+                <!-- Header -->
+                <div class="bg-gradient-to-r from-gray-50 to-white px-6 py-4 border-b border-gray-200/50">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-semibold text-gray-900">CVE Details</h3>
+                        <button type="button" @click="hide()" class="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg p-1">
+                            <span class="sr-only">Close</span>
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="px-6 py-4">
+                    <!-- Grid container -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Categories -->
+                        <template x-for="(cveIds, category) in $store.cveModal.categories" :key="category">
+                            <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-lg hover:shadow-xl transition-shadow duration-200">
+                                <!-- Category Header -->
+                                <div class="bg-gradient-to-r from-gray-50 to-white px-4 py-3 border-b border-gray-200/50">
+                                    <div class="flex items-center justify-between">
+                                        <h4 class="text-lg font-medium text-gray-900" x-text="category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())"></h4>
+                                        <span class="px-2.5 py-1 text-sm font-medium text-gray-600 bg-gray-100 rounded-full" x-text="cveIds.length + ' CVEs'"></span>
+                                    </div>
+                                </div>
+                                <!-- CVE List -->
+                                <div class="space-y-1 max-h-[280px] overflow-y-auto px-4 py-2">
+                                    <template x-for="(cveId, index) in cveIds" :key="index">
+                                        <div class="flex items-center justify-between py-2 hover:bg-gray-50/50 rounded-lg px-2 transition-colors duration-150">
+                                            <div class="flex items-center space-x-3">
+                                                <span class="text-sm font-medium text-gray-500" x-text="(index + 1) + '.'"></span>
+                                                <a :href="'https://nvd.nist.gov/vuln/detail/' + cveId"
+                                                   target="_blank"
+                                                   class="text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline"
+                                                   x-text="cveId"></a>
+                                            </div>
+                                            <span class="px-2.5 py-1 text-xs font-medium rounded-full shadow-sm"
+                                                  :class="{
+                                                    'bg-red-100 text-red-800 shadow-red-100/50': $store.cveModal.getCveDetails(cveId).base_score_rating.toLowerCase() === 'critical',
+                                                    'bg-orange-100 text-orange-800 shadow-orange-100/50': $store.cveModal.getCveDetails(cveId).base_score_rating.toLowerCase() === 'high',
+                                                    'bg-yellow-100 text-yellow-800 shadow-yellow-100/50': $store.cveModal.getCveDetails(cveId).base_score_rating.toLowerCase() === 'medium',
+                                                    'bg-gray-100 text-gray-800 shadow-gray-100/50': $store.cveModal.getCveDetails(cveId).base_score_rating === 'Unknown'
+                                                  }"
+                                                  x-text="$store.cveModal.getCveDetails(cveId).base_score_rating"></span>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('cveModal', {
+                isOpen: false,
+                cveDetails: {},
+                categories: {},
+
+                getSeverityRank(rating) {
+                    const ranks = {
+                        'critical': 4,
+                        'high': 3,
+                        'medium': 2,
+                        'low': 1,
+                        'unknown': 0
+                    };
+                    return ranks[rating?.toLowerCase()] || 0;
+                },
+
+                show(dataset) {
+                    if (dataset) {
+                        console.log('Raw data:', dataset);
+                        // Parse the data
+                        const cveList = JSON.parse(dataset.cves || '[]');
+                        const categoryData = JSON.parse(dataset.categories || '{}');
+                        console.log('Parsed CVEs:', cveList);
+                        console.log('Parsed categories:', categoryData);
+
+                        // Store the full category data for details lookup
+                        this.cveDetails = categoryData;
+
+                        // Process categories and sort by severity
+                        this.categories = Object.entries(categoryData).reduce((acc, [category, items]) => {
+                            // Sort items by severity ranking
+                            const sortedItems = [...items].sort((a, b) => {
+                                const rankA = this.getSeverityRank(a.score?.score_rating);
+                                const rankB = this.getSeverityRank(b.score?.score_rating);
+                                // Sort by rank descending (higher severity first)
+                                if (rankB !== rankA) {
+                                    return rankB - rankA;
+                                }
+                                // If same severity, sort by score_num descending
+                                return (b.score?.score_num || 0) - (a.score?.score_num || 0);
+                            });
+
+                            // Store sorted post_ids
+                            acc[category] = sortedItems.map(item => item.post_id);
+                            return acc;
+                        }, {});
+
+                        this.isOpen = true;
+                    }
+                },
+
+                hide() {
+                    this.isOpen = false;
+                    this.cveDetails = {};
+                    this.categories = {};
+                },
+
+                getCveDetails(cveId) {
+                    // Search through all categories for the CVE details
+                    for (const [category, items] of Object.entries(this.cveDetails)) {
+                        const item = items.find(i => i.post_id === cveId);
+                        if (item && item.score) {
+                            return {
+                                base_score_rating: item.score.score_rating || 'Unknown'
+                            };
+                        }
+                    }
+                    return { base_score_rating: 'Unknown' };
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -178,6 +178,9 @@ microsoft_cve_rag/
    - Build component library
    - Create data models
    - Develop rendering pipeline
+   - add data extraction and preprocessing steps
+   - integrate data extraction with template rendering
+   - build a fastapi endpoint to serve the rendered report that takes two datetime parameters: start and end.
 
 3. **Testing & Validation**
    - Unit tests for Python code
@@ -190,3 +193,107 @@ microsoft_cve_rag/
 This document outlines the technical specifications and implementation details for developing a modern, responsive static report template. The approach emphasizes maintainability, performance, and adherence to web standards while providing a rich user experience.
 
 For implementation questions or clarifications, refer to the technical specifications sections above. All code should follow the project's established patterns and guidelines.
+
+
+## Mongo queries and data extraction
+```python
+import pandas as pd
+from pymongo import MongoClient
+from datetime import datetime
+
+def choose_score(doc):
+    """
+    Selects the higher score between CNA and NIST scores.
+    If both exist and are equal, defaults to the CNA score.
+    Falls back to ADP if neither CNA nor NIST is available.
+    """
+    cna_num = doc.get("cna_base_score_num")
+    nist_num = doc.get("nist_base_score_num")
+    adp_num = doc.get("adp_base_score_num")
+
+    if cna_num is not None and nist_num is not None:
+        if cna_num > nist_num:
+            return {"score_num": cna_num, "score_rating": doc.get("cna_base_score_rating")}
+        elif nist_num > cna_num:
+            return {"score_num": nist_num, "score_rating": doc.get("nist_base_score_rating")}
+        else:
+            # Equal scores: default to CNA
+            return {"score_num": cna_num, "score_rating": doc.get("cna_base_score_rating")}
+    elif cna_num is not None:
+        return {"score_num": cna_num, "score_rating": doc.get("cna_base_score_rating")}
+    elif nist_num is not None:
+        return {"score_num": nist_num, "score_rating": doc.get("nist_base_score_rating")}
+    elif adp_num is not None:
+        return {"score_num": adp_num, "score_rating": doc.get("adp_base_score_rating")}
+    else:
+        return {"score_num": None, "score_rating": None}
+
+# Connect to MongoDB
+client = MongoClient("mongodb://your_mongo_uri")
+db = client["your_db"]
+
+# Define the date range for KB articles (adjust as needed)
+start_date = datetime(2023, 12, 1)
+end_date = datetime(2023, 12, 31)
+
+# --- Query 1: Fetch KB articles ---
+kb_cursor = db.microsoft_kb_articles.find({
+    "published": {"$gte": start_date, "$lte": end_date}
+})
+kb_articles = list(kb_cursor)
+kb_df = pd.DataFrame(kb_articles)
+
+# --- Extract unique CVE IDs from KB articles ---
+unique_cve_ids = {
+    cve
+    for record in kb_articles
+    if record.get("cve_ids")
+    for cve in record["cve_ids"]
+}
+
+# --- Query 2: Fetch CVE details with projection ---
+cve_projection = {
+    "metadata.id": 1,
+    "metadata.revision": 1,
+    "metadata.published": 1,
+    "metadata.source": 1,
+    "metadata.post_id": 1,
+    "metadata.cve_category": 1,
+    "metadata.adp_base_score_num": 1,
+    "metadata.adp_base_score_rating": 1,
+    "metadata.cna_base_score_num": 1,
+    "metadata.cna_base_score_rating": 1,
+    "metadata.nist_base_score_num": 1,
+    "metadata.nist_base_score_rating": 1
+}
+
+cve_cursor = db.docstore.find(
+    {"cve_mentions": {"$in": list(unique_cve_ids)}},
+    cve_projection
+)
+cve_details = list(cve_cursor)
+
+# --- Flatten the metadata and choose the appropriate score pair ---
+for doc in cve_details:
+    # Remove and retrieve the nested metadata dictionary.
+    metadata = doc.pop("metadata", {})
+    # Merge metadata keys into the root-level of the document.
+    doc.update(metadata)
+    # Choose the best score pair based on CNA vs. NIST (or fallback to ADP).
+    score = choose_score(doc)
+    doc["score_num"] = score["score_num"]
+    doc["score_rating"] = score["score_rating"]
+
+# --- Build a CVE lookup dictionary keyed by the unique identifier (post_id) ---
+cve_lookup = {doc.get("post_id"): doc for doc in cve_details if doc.get("post_id")}
+
+# --- Integrate CVE details into KB articles ---
+def attach_cve_details(record):
+    """
+    For each KB record, attach a list of detailed CVE documents
+    by looking up each CVE ID (from record['cve_ids']) in the CVE lookup.
+    """
+    return [cve_lookup[cve] for cve in record.get("cve_ids", []) if cve in cve_lookup]
+
+kb_df["cve_details"] = kb_df.apply(attach_cve_details, axis=1)
+```
