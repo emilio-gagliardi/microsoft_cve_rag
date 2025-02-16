@@ -2,12 +2,20 @@ import asyncio
 import json
 import logging
 import os
-import re
+# import re
 from datetime import datetime
-from typing import Any, Dict, List, Optional
-
-from crawl4ai import AsyncWebCrawler
+# from pickle import False
+from typing import Any, Dict, Optional, List
+from urllib.parse import urlparse
+# from bs4 import BeautifulSoup
+from crawl4ai import AsyncWebCrawler, CacheMode
 from crawl4ai.async_configs import BrowserConfig, CrawlerRunConfig
+from crawl4ai.extraction_strategy import (
+    LLMExtractionStrategy,
+    JsonCssExtractionStrategy,
+)
+from pydantic import BaseModel
+# import requests
 
 # Configure logging
 logging.basicConfig(
@@ -21,396 +29,539 @@ logger = logging.getLogger(__name__)
 class BaseScraper:
     """Base class for web scrapers.
 
-    Configures and initializes the AsyncWebCrawler.
+    Configures and initializes the AsyncWebCrawler and core extraction
+    strategy. This class centralizes default configurations for crawling
+    and provides a unified method to process crawl results. Real-world
+    suggestion: Tune the default parameters (viewport size, wait conditions,
+    etc.) based on the target website's behavior, and consider applying
+    preprocessing to filter out ads or non-relevant sections.
     """
 
-    def __init__(self):
-        """Initializes the base scraper with crawler configuration."""
-        self.browser_config = BrowserConfig(
+    def __init__(
+        self,
+        browser_config: Optional[BrowserConfig] = None,
+        run_config: Optional[CrawlerRunConfig] = None
+    ) -> None:
+        """Initializes the base scraper with crawler configuration, an optional
+        extraction strategy, and configurable browser and crawler settings.
+
+        Args:
+            extraction_strategy (Optional[Any]): An object implementing an 'extract'
+                method to convert raw HTML to structured data.
+            browser_config (Optional[BrowserConfig]): Configuration for the browser.
+            run_config (Optional[CrawlerRunConfig]): Configuration for crawling
+                operations.
+        """
+        logger.info("Initializing BaseScraper.")
+        self.crawl_result: Optional[Any] = None
+        self.output_dir: Optional[str] = None
+        self.urls: List[str] = []
+        if browser_config is None:
+            browser_config = BrowserConfig(
+                browser_type="chromium",      # Recommended: use Chromium for reliable rendering.
+                headless=True,               # Enable headless mode for performance.
+                viewport_width=1920,         # Standard desktop width.
+                viewport_height=1080,        # Standard desktop height.
+                verbose=True                 # Detailed logging enabled.
+            )
+            logger.info("No BrowserConfig provided, using default configuration.")
+        self.browser_config = browser_config
+        logger.info(f"BrowserConfig: {self.browser_config}")
+
+        if run_config is None:
+            run_config = CrawlerRunConfig(
+                word_count_threshold=0,
+                exclude_external_links=True,
+                wait_until="networkidle",
+                extraction_strategy=None,
+                display_mode="DETAILED"
+            )
+            logger.info("No CrawlerRunConfig provided, using default configuration.")
+        self.run_config = run_config
+        logger.info(f"CrawlerRunConfig: {self.run_config}")
+
+        try:
+            self.crawler = AsyncWebCrawler(config=self.browser_config)
+            logger.info("AsyncWebCrawler initialized successfully.")
+        except Exception as e:
+            logger.error(f"Failed to initialize crawler: {str(e)}")
+            self.crawler = None
+
+    def get_url(self) -> str:
+        """Returns the URL from the crawl result."""
+        return getattr(self.crawl_result, "url", "")
+
+    def get_html(self) -> str:
+        """Returns the raw HTML from the crawl result."""
+        return getattr(self.crawl_result, "html", "")
+
+    def get_success(self) -> bool:
+        """Returns whether the crawl was successful."""
+        return getattr(self.crawl_result, "success", False)
+
+    def get_cleaned_html(self) -> str:
+        """Returns the cleaned HTML (after preprocessing) from the crawl result."""
+        return getattr(self.crawl_result, "cleaned_html", "")
+
+    def get_media(self) -> any:
+        """Returns any media captured during the crawl (e.g., images, videos)."""
+        return getattr(self.crawl_result, "media", None)
+
+    def get_links(self) -> any:
+        """Returns any links found during the crawl."""
+        return getattr(self.crawl_result, "links", None)
+
+    def get_downloaded_files(self) -> any:
+        """Returns any files downloaded during the crawl."""
+        return getattr(self.crawl_result, "downloaded_files", None)
+
+    def get_screenshot(self) -> any:
+        """Returns a screenshot captured during the crawl, if available."""
+        return getattr(self.crawl_result, "screenshot", None)
+
+    def get_pdf(self) -> any:
+        """Returns a PDF generated during the crawl, if available."""
+        return getattr(self.crawl_result, "pdf", None)
+
+    def get_markdown(self) -> str:
+        """Returns the markdown representation of the page."""
+        return getattr(self.crawl_result, "markdown", "")
+
+    def get_extracted_content(self) -> Optional[Dict[str, Any]]:
+        """Returns structured data extracted from the crawl result.
+
+        Attempts to get the extracted content from the crawl result and parse it
+        as JSON if it's a string. The content may be under either 'extracted_data'
+        or 'extracted_content'.
+
+        Returns:
+            Optional[Dict[str, Any]]: Parsed JSON data as a dictionary, or None if
+            no data is available or parsing fails.
+        """
+        content = getattr(self.crawl_result, "extracted_content", None)
+        if not content:
+            return None
+
+        if isinstance(content, str):
+            try:
+                return json.loads(content)
+            except json.JSONDecodeError as e:
+                logger.error(f"Failed to parse extracted content as JSON: {e}")
+                return None
+
+        return content  # If it's already a dictionary, return as is
+
+    def get_metadata(self) -> any:
+        """Returns metadata from the crawl result."""
+        return getattr(self.crawl_result, "metadata", None)
+
+    def get_error_message(self) -> str:
+        """Returns any error message resulting from the crawl."""
+        return getattr(self.crawl_result, "error_message", "")
+
+    def get_session_id(self) -> str:
+        """Returns the session ID associated with this crawl."""
+        return getattr(self.crawl_result, "session_id", "")
+
+    def get_response_headers(self) -> any:
+        """Returns the response headers of the crawl."""
+        return getattr(self.crawl_result, "response_headers", None)
+
+    def get_status_code(self) -> int:
+        """Returns the HTTP status code returned by the crawl."""
+        return getattr(self.crawl_result, "status_code", 0)
+
+    def get_browser_config(self) -> BrowserConfig:
+        """Returns the BrowserConfig associated with the scraper."""
+        return self.browser_config
+
+    def get_run_config(self) -> CrawlerRunConfig:
+        """Returns the CrawlerRunConfig associated with the scraper."""
+        return self.run_config
+
+    def get_safe_filename(self) -> str:
+        """Generate a safe filename from URLs and timestamp.
+
+        Creates a filename-safe string using the most recent URL and current
+        timestamp. If no URLs exist, returns a generic timestamp-based name.
+
+        Returns:
+            str: A filename-safe string in format:
+                'domain_path_YYYYMMDD_HHMMSS' or
+                'scrape_YYYYMMDD_HHMMSS' if no URLs.
+        """
+        if not self.urls:
+            return f"scrape_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+
+        url = self.urls[-1]
+        parsed = urlparse(url)
+        path = parsed.path.rstrip('/').replace('.html', '').replace('.htm', '')
+
+        domain_part = parsed.netloc.replace('.', '_')
+        path_part = path.replace('/', '_')
+        if len(path_part) > 50:
+            path_part = path_part[:50]
+
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        return f"{domain_part}{path_part}_{timestamp}"
+
+    def save_crawl_result(
+        self,
+        output_dir: str,
+        html: bool = True,
+        markdown: bool = False,
+        json_output: bool = False,
+        pdf: bool = False,
+        thumbnail: bool = False,
+        filename_prefix: Optional[str] = None
+    ) -> None:
+        """
+        Saves the crawl result in one or more formats (HTML, Markdown, JSON, PDF, Thumbnail).
+        The output_dir folder is created if it doesn't exist.
+
+        Args:
+            output_dir (str): Path to the directory where files should be saved.
+            html (bool): Save raw HTML to 'page.html' if True. Defaults to True.
+            markdown (bool): Save markdown to 'page.md' if True. Defaults to False.
+            json_output (bool): Save extracted JSON to 'extracted_data.json' if True. Defaults to False.
+            pdf (bool): Save PDF content to 'page.pdf' if True. Defaults to False.
+            thumbnail (bool): Save screenshot (PNG) to 'thumbnail.png' if True. Defaults to False.
+            filename_prefix: Optional prefix to add to all generated filenames.
+                   For example, "kb_article_" would result in
+                   "kb_article_domain_path_timestamp.html"
+        Notes:
+    - Files are saved with format: {prefix}{domain}_{path}_{timestamp}.{ext}
+    - Timestamp format: YYYYMMDD_HHMMSS
+    - URL components are sanitized for safe filenames
+        """
+        if not self.crawl_result:
+            logger.warning("No crawl_result found, nothing to save.")
+            return
+
+        os.makedirs(output_dir, exist_ok=True)
+        base_filename = self.get_safe_filename()
+        if filename_prefix:
+            base_filename = f"{filename_prefix}{base_filename}"
+
+        if html:
+            html_path = os.path.join(output_dir, f"{base_filename}.html")
+            with open(html_path, "w", encoding="utf-8") as f:
+                f.write(self.get_cleaned_html())
+            logger.info(f"HTML saved to {html_path}")
+
+        if markdown:
+            md = self.get_markdown()
+            if md:
+                md_path = os.path.join(output_dir, f"{base_filename}.md")
+                with open(md_path, "w", encoding="utf-8") as f:
+                    f.write(md)
+                logger.info(f"Markdown saved to {md_path}")
+            else:
+                logger.warning("No markdown found in crawl_result.")
+
+        if json_output:
+            data = self.get_extracted_content()
+            if data:
+                json_path = os.path.join(output_dir, f"{base_filename}.json")
+                with open(json_path, "w", encoding="utf-8") as f:
+                    json.dump(data, f, indent=2)
+                logger.info(f"JSON saved to {json_path}")
+            else:
+                logger.warning("No extracted data found in crawl_result.")
+
+        if pdf:
+            pdf_content = self.get_pdf()
+            if pdf_content:
+                pdf_path = os.path.join(output_dir, f"{base_filename}.pdf")
+                with open(pdf_path, "wb") as f:
+                    f.write(pdf_content)
+                logger.info(f"PDF saved to {pdf_path}")
+            else:
+                logger.warning("No PDF found in crawl_result.")
+
+        if thumbnail:
+            screenshot = self.get_screenshot()
+            if screenshot:
+                thumbnail_path = os.path.join(output_dir, f"{base_filename}.png")
+                with open(thumbnail_path, "wb") as f:
+                    f.write(screenshot)
+                logger.info(f"Thumbnail saved to {thumbnail_path}")
+            else:
+                logger.warning("No screenshot found in crawl_result.")
+
+        logger.info("save_crawl_result completed.")
+
+    async def close(self) -> None:
+        """Closes the crawler session, freeing up resources."""
+        logger.info("Closing crawler session.")
+        if self.crawler:
+            await self.crawler.close()
+            logger.info("Crawler session closed.")
+
+
+class MicrosoftKbScraper(BaseScraper):
+    """Scraper for Microsoft Knowledge Base articles.
+
+    Uses crawl4ai to obtain raw HTML, then applies an exclusion-based filtering
+    mechanism to remove unwanted sections (e.g., navigation and footer elements).
+    Finally, it extracts structured data using one of two extraction strategies:
+      - LLMExtractionStrategy: Uses an LLM with a descriptive prompt.
+      - JsonCssExtractionStrategy: Uses CSS selectors provided in a JSON schema.
+    The caller can choose which extraction method to use.
+    """
+
+    def __init__(
+        self,
+        output_dir: Optional[str] = None,
+        extraction_method: str = "llm",
+        json_schema: Optional[Dict[str, Any]] = None
+    ) -> None:
+        """Initializes the KB article scraper with custom Browser and Crawler configs,
+        and sets up the extraction strategy according to the specified method using
+        a Pydantic-based schema.
+
+        Args:
+            output_dir (Optional[str]): Directory to save scraped content.
+            extraction_method (str): Extraction method to use. Allowed values are "llm" or "json".
+                - "llm" will use LLMExtractionStrategy with a custom instruction prompt.
+                - "json" will use JsonCssExtractionStrategy with a defined CSS extraction schema.
+            json_schema (Optional[Dict[str, Any]]): Optional JSON schema for the extraction strategy.
+               If not provided, a default schema using a Pydantic model for KB articles is used.
+        """
+        logger.info("Initializing MicrosoftKbScraper.")
+        # Create custom BrowserConfig for KB articles.
+        kb_browser_config = BrowserConfig(
             browser_type="chromium",
             headless=True,
             viewport_width=1920,
             viewport_height=1080,
             verbose=True
         )
-        self.run_config = CrawlerRunConfig(
+        logger.info(f"Custom BrowserConfig for KB: {kb_browser_config}")
+
+        # Factory-style decision for extraction strategy.
+        extraction_strategy: Optional[Any] = None
+        # Define a default Pydantic model for KB articles if no schema is provided.
+        if not json_schema:
+            class KBArticle(BaseModel):
+                title: str
+                url: str
+                applies_to: list[str]
+                os_builds: str
+                page_introduction: str
+                highlights: list[str]
+                improvements: dict[str, list[str]]
+                servicing_stack_update: dict[str, str]
+                known_issues_and_workaround: list[dict[str, Any]]
+                how_to_get_update: list[dict[str, Any]]
+            json_schema = KBArticle.model_json_schema()
+
+        if extraction_method.lower() == "llm":
+            logger.info("Using LLM extraction strategy.")
+            openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
+            if not openrouter_api_key:
+                logger.error("OpenRouter API key not found in environment variables for LLM extraction.")
+
+            # Build the instruction prompt using the JSON schema.
+            prompt = (
+                "Extract a structured JSON object from the following HTML that represents a Microsoft KB report. "
+                "The JSON object must conform to the following schema:\n\n"
+                f"{json.dumps(json_schema, indent=4)}\n\n"
+                "Ensure that each field is extracted correctly from the HTML. Return only the JSON object."
+            )
+            extraction_strategy = LLMExtractionStrategy(
+                provider="openrouter/google/gemini-2.0-pro-exp-02-05:free",
+                api_token=openrouter_api_key,
+                schema=json_schema,
+                extraction_type="schema",
+                instruction=prompt,
+                chunk_token_threshold=2000,  # Adjust based on expected HTML size.
+                overlap_rate=0.07,
+                apply_chunking=True,
+                input_format="html",
+                verbose=True
+            )
+
+        elif extraction_method.lower() == "json":
+            logger.info("Using JsonCss extraction strategy.")
+            extraction_strategy = JsonCssExtractionStrategy(json_schema)
+        else:
+            logger.error(f"Unknown extraction_method: {extraction_method}. Defaulting to LLM extraction.")
+            openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
+            if not openrouter_api_key:
+                logger.error("OpenRouter API key not found in environment variables for LLM extraction.")
+
+            # Build the instruction prompt using the JSON schema.
+            prompt = (
+                "Extract a structured JSON object from the following HTML that represents a Microsoft KB report. "
+                "The JSON object must conform to the following schema:\n\n"
+                f"{json.dumps(json_schema, indent=4)}\n\n"
+                "Ensure that each field is extracted correctly from the HTML. Return only the JSON object."
+            )
+            extraction_strategy = LLMExtractionStrategy(
+                provider="google/gemini-2.0-flash-exp:free",
+                api_token=openrouter_api_key,
+                schema=json_schema,
+                extraction_type="schema",
+                instruction=prompt,
+                chunk_token_threshold=2000,
+                overlap_rate=0.07,
+                apply_chunking=True,
+                input_format="html",
+                verbose=True
+            )
+        # Create custom CrawlerRunConfig for KB articles.
+        # teachingCalloutHidden.teachingCalloutPopover, popoverMessageWrapper, col-1-5, f-multi-column.f-multi-column-6, c-uhfh-actions, c-uhfh-gcontainer-st
+        # "nav", "footer"
+        kb_run_config = CrawlerRunConfig(
+            cache_mode=CacheMode.DISABLED,
+            extraction_strategy=extraction_strategy,
             word_count_threshold=0,
-            exclude_external_links=True,
+            exclude_external_links=False,
             wait_until="domcontentloaded",
-            css_selector=".ocpArticleMainContent",
-            excluded_tags=["nav", "footer"]
+            css_selector=None,
+            excluded_tags=["nav", "footer"],
+            excluded_selector=".col-1-5, .supLeftNavMobileView, .supLeftNavMobileViewContent.grd, .teachingCalloutHidden.teachingCalloutPopover, .popoverMessageWrapper, .f-multi-column.f-multi-column-6, .c-uhfh-actions, .c-uhfh-gcontainer-st",
+            verbose=True,
         )
-        try:
-            self.crawler = AsyncWebCrawler(config=self.browser_config)
-        except Exception as e:
-            logger.error(f"Failed to initialize crawler: {str(e)}")
-            self.crawler = None
+        logger.info(f"Custom CrawlerRunConfig for KB: {kb_run_config}")
+        # Call the BaseScraper constructor with chosen extraction strategy and configurations.
+        super().__init__(
+            browser_config=kb_browser_config,
+            run_config=kb_run_config
+        )
 
-    async def close(self):
-        """Closes the crawler session."""
-        if self.crawler:
-            await self.crawler.close()
-
-
-class MicrosoftKbScraper(BaseScraper):
-    """Scraper for Microsoft Knowledge Base articles.
-
-    Inherits from BaseScraper and implements methods specific to scraping KB articles
-    using crawl4ai's page object methods.
-    """
-
-    def __init__(self, output_dir: Optional[str] = None):
-        """Initializes the KB article scraper.
-
-        Args:
-            output_dir (Optional[str]): Directory to save scraped content.
-        """
-        super().__init__()
-        self.output_dir = output_dir or os.path.join(
+        self.output_dir: str = output_dir or os.path.join(
             os.getcwd(),
-            'microsoft_cve_rag',
-            'application',
-            'data',
-            'scrapes',
-            'kb_articles'
+            "microsoft_cve_rag",
+            "application",
+            "data",
+            "scrapes",
+            "kb_articles"
         )
         os.makedirs(self.output_dir, exist_ok=True)
+        logger.info(f"Output directory set to: {self.output_dir}")
 
-    def _sanitize_filename(self, url: str) -> str:
-        """Create a sanitized filename from a URL.
-
-        Args:
-            url (str): URL to create filename from.
-
-        Returns:
-            str: Sanitized filename.
-        """
-        base_name = url.split('/')[-1]
-        base_name = re.sub(r'[<>:"/\\|?*]', '_', base_name)
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        return f"{base_name}_{timestamp}"
-
-    def _extract_text_content(self, element: str) -> str:
-        """Extract text content from an HTML element string.
-
-        Args:
-            element (str): HTML element string to extract text from.
-
-        Returns:
-            str: Extracted text content.
-        """
-        try:
-            # Remove HTML tags and decode entities
-            text = re.sub(r'<[^>]+>', '', element)
-            text = text.replace('&gt;', '>').replace('&lt;', '<').replace('&amp;', '&')
-            text = text.strip()
-            logger.debug(f"Extracted text content: {text[:100]}...")  # Show first 100 chars
-            return text
-        except Exception as e:
-            logger.error(f"Error extracting text content: {str(e)}")
-            return ""
-
-    def _extract_section_by_header(self, html: str, header_text: str) -> str:
-        """Extract content of a section based on its header text.
-
-        Args:
-            html (str): Full HTML content
-            header_text (str): Text of the header to find
-
-        Returns:
-            str: Content of the section
-        """
-        try:
-            # Find the section with the matching header
-            pattern = f"<h[1-6][^>]*>{header_text}</h[1-6]>(.*?)(?=<h[1-6]|$)"
-            match = re.search(pattern, html, re.DOTALL | re.IGNORECASE)
-            if match:
-                return match.group(1).strip()
-            return ""
-        except Exception as e:
-            logger.error(f"Error extracting section {header_text}: {str(e)}")
-            return ""
-
-    def _extract_list_items(self, html: str, section_header: str = None) -> List[str]:
-        """Extract text content from list items in HTML.
-
-        Args:
-            html (str): HTML content to extract from
-            section_header (str, optional): Header text to limit extraction to a specific section
-
-        Returns:
-            List[str]: List of extracted text.
-        """
-        items = []
-        try:
-            if section_header:
-                html = self._extract_section_by_header(html, section_header)
-
-            # Find all list items
-            pattern = r"<li[^>]*>(.*?)</li>"
-            matches = re.finditer(pattern, html, re.DOTALL)
-
-            for match in matches:
-                text = self._extract_text_content(match.group(1))
-                if text.strip():
-                    items.append(text.strip())
-                    logger.debug(f"Found list item: {text[:100]}...")
-
-            return items
-        except Exception as e:
-            logger.error(f"Error extracting list items: {str(e)}")
-            return items
-
-    def _extract_table_data(self, html: str, table_header: str = None) -> List[Dict[str, str]]:
-        """Extract data from a table in HTML.
-
-        Args:
-            html (str): HTML content containing the table
-            table_header (str, optional): Header text to find the specific table
-
-        Returns:
-            List[Dict[str, str]]: List of extracted table data.
-        """
-        table_data = []
-        try:
-            if table_header:
-                # Find the specific table section
-                html = self._extract_section_by_header(html, table_header)
-
-            # Find the table rows
-            row_pattern = r"<tr[^>]*>(.*?)</tr>"
-            rows = re.finditer(row_pattern, html, re.DOTALL)
-
-            header_mapping = None
-            for row in rows:
-                row_html = row.group(1)
-
-                # Check if this is a header row
-                if "<th" in row_html:
-                    # Extract header texts to use as keys
-                    headers = re.finditer(r"<th[^>]*>(.*?)</th>", row_html, re.DOTALL)
-                    header_mapping = [self._extract_text_content(h.group(1)).lower() for h in headers]
-                    continue
-
-                # Extract cell data
-                cells = re.finditer(r"<td[^>]*>(.*?)</td>", row_html, re.DOTALL)
-                cell_data = [self._extract_text_content(c.group(1)) for c in cells]
-
-                if header_mapping and len(cell_data) >= len(header_mapping):
-                    row_dict = {header_mapping[i]: cell_data[i] for i in range(len(header_mapping))}
-                    if any(row_dict.values()):
-                        table_data.append(row_dict)
-                        logger.debug(f"Added table row: {str(row_dict)[:200]}...")
-
-            return table_data
-        except Exception as e:
-            logger.error(f"Error extracting table data: {str(e)}")
-            return table_data
-
-    def _extract_content(self, html: str) -> Dict[str, Any]:
-        """Extract content from the KB article HTML.
-
-        Args:
-            html (str): Raw HTML content from crawl4ai.
-
-        Returns:
-            Dict[str, Any]: Extracted content sections.
-        """
-        content = {
-            "applies_to": {
-                "label": "Applies To",
-                "value": [],
-                "default": []
-            },
-            "os_builds": {
-                "label": "Version / OS Builds",
-                "value": "N/A",
-                "default": "N/A"
-            },
-            "highlights": {
-                "label": "Highlights",
-                "value": [],
-                "default": []
-            },
-            "improvements": {
-                "label": "Improvements",
-                "value": [],
-                "default": []
-            },
-            "servicing_stack": {
-                "label": "Servicing Stack",
-                "value": "N/A",
-                "default": "N/A"
-            },
-            "known_issues": {
-                "label": "Known Issues",
-                "value": [],
-                "default": []
-            },
-            "how_to_get_update": {
-                "label": "How to Get This Update",
-                "pre_install_instructions": "N/A",
-                "release_channels": [],
-                "default": {
-                    "pre_install_instructions": "N/A",
-                    "release_channels": []
-                }
-            }
-        }
-
-        try:
-            # Extract Applies To
-            applies_to_pattern = r"<details><summary>Applies To</summary>(.*?)</details>"
-            applies_to_match = re.search(applies_to_pattern, html, re.DOTALL)
-            if applies_to_match:
-                spans = re.finditer(r"<span[^>]*>(.*?)</span>", applies_to_match.group(1))
-                content["applies_to"]["value"] = [
-                    self._extract_text_content(span.group(1))
-                    for span in spans
-                ]
-
-            # Extract OS Builds
-            version_pattern = r"<div><p>Version:</p></div>\s*<div>\s*<p>\s*<b>(.*?)</b>\s*</p>\s*</div>"
-            version_match = re.search(version_pattern, html, re.DOTALL)
-            if version_match:
-                content["os_builds"]["value"] = self._extract_text_content(version_match.group(1))
-
-            # Extract Highlights
-            highlights_section = self._extract_section_by_header(html, "Highlights")
-            if highlights_section:
-                content["highlights"]["value"] = self._extract_list_items(highlights_section)
-
-            # Extract Improvements
-            improvements_section = self._extract_section_by_header(html, "Improvements")
-            if improvements_section:
-                # Find each version section
-                version_pattern = r"<h3><button>\s*<div>(Windows (?:10|11)[^<]*)</div></button></h3>\s*<div>(.*?)</div>\s*</div>"
-                version_sections = re.finditer(version_pattern, improvements_section, re.DOTALL)
-
-                for section in version_sections:
-                    version = section.group(1)
-                    section_content = section.group(2)
-
-                    # Extract important notes if present
-                    important_notes = []
-                    important_pattern = r"<p><b>Important:\s*</b>(.*?)</p>"
-                    important_matches = re.finditer(important_pattern, section_content, re.DOTALL)
-                    for match in important_matches:
-                        note = self._extract_text_content(match.group(1))
-                        if note:
-                            important_notes.append(note)
-
-                    # Extract list items
-                    improvements_list = self._extract_list_items(section_content)
-
-                    # Extract additional paragraphs (excluding Important notes)
-                    paragraphs = []
-                    p_pattern = r"<p>(?!<b>Important:)(.*?)</p>"
-                    p_matches = re.finditer(p_pattern, section_content, re.DOTALL)
-                    for match in p_matches:
-                        p_text = self._extract_text_content(match.group(1))
-                        if p_text:
-                            paragraphs.append(p_text)
-
-                    # Combine all content in a structured way
-                    details = {
-                        "important_notes": important_notes,
-                        "improvements": improvements_list,
-                        "additional_info": paragraphs
-                    }
-
-                    content["improvements"]["value"].append({
-                        "version": version,
-                        "details": details
-                    })
-
-            # Extract Servicing Stack
-            servicing_pattern = r"<h3>Windows 11 servicing stack update[^<]*</h3>\s*<p>(.*?)</p>"
-            servicing_match = re.search(servicing_pattern, html, re.DOTALL)
-            if servicing_match:
-                content["servicing_stack"]["value"] = self._extract_text_content(servicing_match.group(1))
-
-            # Extract Known Issues
-            issues_section = self._extract_section_by_header(html, "Known issues in this update")
-            if issues_section:
-                content["known_issues"]["value"] = self._extract_table_data(issues_section)
-
-            # Extract How to Get Update
-            update_section = self._extract_section_by_header(html, "How to get this update")
-            if update_section:
-                # Extract pre-install instructions
-                pre_install = re.search(r"<b>Before installing this update</b></p>\s*<p>(.*?)</p>", update_section, re.DOTALL)
-                if pre_install:
-                    content["how_to_get_update"]["pre_install_instructions"] = self._extract_text_content(pre_install.group(1))
-
-                # Extract release channels
-                content["how_to_get_update"]["release_channels"] = self._extract_table_data(update_section)
-
-            return content
-
-        except Exception as e:
-            logger.error(f"Error extracting content: {str(e)}")
-            return content
-
-    async def scrape_kb_article(self, url: str) -> Optional[Dict[str, Any]]:
+    async def scrape_kb_article(self, url: str) -> None:
         """Scrape content from a Microsoft KB article.
+
+        Uses the AsyncWebCrawler to obtain raw HTML, then processes the crawl result
+        (including HTML preprocessing and LLM-based extraction) to obtain structured content.
 
         Args:
             url (str): URL of the KB article to scrape.
 
         Returns:
-            Optional[Dict[str, Any]]: Extracted content if successful, None otherwise.
+            Optional[Dict[str, Any]]: Structured content as a JSON dictionary if successful,
+            or None otherwise.
         """
+        logger.info(f"Starting crawl for KB article: {url}")
         if not self.crawler:
-            logger.error("Crawler not initialized")
-            return None
+            logger.error("Crawler not initialized.")
 
         try:
             async with self.crawler as crawler:
-                logger.info(f"Starting crawl of {url}")
-                result = await crawler.arun(
-                    url=url,
-                    config=self.run_config
-                )
-                logger.info(f"result.cleaned_html: {result.cleaned_html}")
-                logger.info(f"Crawl result: {result}")
-                if not result or not result.cleaned_html:
-                    logger.error(f"Failed to get content from {url}")
-                    return None
+                self.urls.append(url)
+                result = await crawler.arun(url=url, config=self.run_config)
+                self.crawl_result = result
+                logger.info(f"CrawlResult populated with {len(self.get_html())} characters of HTML")
+                logger.info("CrawlResult structure:\n%s", json.dumps({
+                    'html': bool(self.crawl_result.html),
+                    'cleaned_html': bool(self.crawl_result.cleaned_html),
+                    'structured_data': bool(self.crawl_result.extracted_content),
+                    'screenshot': bool(self.crawl_result.screenshot)
+                }, indent=4))
+                if not self.get_success():
+                    logger.error(f"No valid content retrieved from {url}")
+                    if self.get_error_message():
+                        logger.error(f"Error message: {self.get_error_message()}")
 
-                # Save raw HTML (optional)
-                filename = self._sanitize_filename(url)
-                output_path = os.path.join(self.output_dir, f"{filename}_raw.html")
-                with open(output_path, 'w', encoding='utf-8') as f:
-                    f.write(result.cleaned_html)
+                logger.info(f"Status code: {self.get_status_code()}")
+                logger.info("KB article scraped and processed successfully.")
+                # Log content lengths to check for truncation
+                raw_html = self.get_html()
+                llm_extraction = self.get_extracted_content()
+                logger.info(f"Raw HTML length: {len(raw_html)} characters")
+                logger.info(f"LLM Extraction length: {len(llm_extraction)}")
 
-                # Extract content using crawl4ai page methods (no BeautifulSoup)
-                content = self._extract_content(result.cleaned_html)
-
-                return content
+                # Log browser and run configurations
+                browser_config = self.get_browser_config()
+                run_config = self.get_run_config()
+                logger.info(f"Browser Config: {browser_config}")
+                logger.info(f"Run Config: {run_config}")
 
         except Exception as e:
             logger.error(f"Error scraping KB article {url}: {str(e)}")
-            return None
 
 
 # Example until integration in the main application:
-async def main():
-    try:
-        logger.info("Starting KB article scraper")
-        scraper = MicrosoftKbScraper()
-        test_url = "https://support.microsoft.com/en-us/topic/january-9-2024-kb5034123-os-builds-22621-3007-and-22631-3007-3f7e169f-56e8-4e6e-b6b8-41f4aa4b9b88"
+async def main() -> None:
+    """Entry-point for testing MicrosoftKbScraper.
 
-        logger.info(f"Scraping article: {test_url}")
-        content = await scraper.scrape_kb_article(test_url)
+    Creates the scraper, scrapes a KB article URL, and prints a detailed report
+    of the returned content including both the structured JSON and the pristine markdown.
+    """
+    kb_url = "https://support.microsoft.com/en-us/topic/january-9-2024-kb5034123-os-builds-22621-3007-and-22631-3007-3f7e169f-56e8-4e6e-b6b8-41f4aa4b9b88"  # Replace with a real URL for testing.
 
-        if content:
-            logger.info("Successfully scraped article")
-            print(json.dumps(content, indent=4))
+    logging.info("Creating instance of MicrosoftKbScraper using LLM extraction strategy.")
+    # You can change extraction_method to "json" if desired.
+    kb_scraper = MicrosoftKbScraper(extraction_method="llm")
+
+    logging.info(f"Scraping KB article from URL: {kb_url}")
+    await kb_scraper.scrape_kb_article(kb_url)
+
+    if kb_scraper.get_success():
+        # Log extraction results
+        logging.info("Extraction Results:")
+
+        # Check extracted content
+        extracted_content = kb_scraper.get_extracted_content()
+        if extracted_content is None:
+            logging.error("Extracted content is None!")
+            logging.info("Checking raw extraction data...")
+            # Try to access any other properties that might contain the extracted data
+            logging.info(f"Available CrawlResult attributes: {dir(kb_scraper.crawl_result)}")
         else:
-            logger.error("Failed to scrape article")
-    except Exception as e:
-        logger.error(f"Error in main: {str(e)}", exc_info=True)
+            logging.info(f"Extracted content type: {type(extracted_content)}")
+            logging.info(f"Extracted content structure: {json.dumps(extracted_content, indent=2)}")
+
+        # Check markdown content
+        markdown_text = kb_scraper.get_markdown()
+        if not markdown_text:
+            logging.error("Markdown text is empty!")
+        else:
+            logging.info(f"Markdown length: {len(markdown_text)} characters")
+            logging.info("First 500 characters of markdown:")
+            logging.info(markdown_text[:500])
+            logging.info("Last 500 characters of markdown:")
+            logging.info(markdown_text[-500:] if len(markdown_text) > 500 else markdown_text)
+
+        # Show LLM usage statistics
+        logging.info("LLM Usage Statistics:")
+        kb_scraper.run_config.extraction_strategy.show_usage()
+
+        # Print the final output
+        print("\nStructured JSON:")
+        print(json.dumps(extracted_content, indent=4) if extracted_content else "No structured data extracted")
+
+        print("\nMarkdown Output:")
+        print(markdown_text if markdown_text else "No markdown content extracted")
+    else:
+        print("Failed to extract content for the KB article.")
+        logging.error(f"Crawl failed with status code: {kb_scraper.get_status_code()}")
+        logging.error(f"Error message: {kb_scraper.get_error_message()}")
+
+    kb_scraper.save_crawl_result(
+        output_dir=kb_scraper.output_dir,
+        html=True,
+        markdown=True,
+        json_output=True,
+        pdf=False,
+        thumbnail=False,
+        filename_prefix="kb_article_"
+    )
+    logging.info("Closing MicrosoftKbScraper crawler session.")
+    await kb_scraper.close()
 
 if __name__ == "__main__":
     asyncio.run(main())

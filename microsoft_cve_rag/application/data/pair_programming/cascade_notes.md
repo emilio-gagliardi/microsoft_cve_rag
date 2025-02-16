@@ -70,3 +70,9 @@ Modified the KB report template to organize updates by OS classification:
 Each section uses visual differentiation through color-coding and only appears if there are relevant articles.
 
 [2025-02-13] Cascade - Enhanced KB article scraping - Refactored scraping_service.py to include a base scraper class and KB-specific subclass that handles unique aspects of Microsoft KB articles (expandable sections, tables, and tabbed content)
+
+[2025-02-13] Cascade - Enhanced section extraction for KB articles - Updated regex patterns to handle button-based headers
+
+- Modified `_extract_section_by_header` to handle both standard and button-based header formats
+- Added debug output to help troubleshoot section extraction issues
+- Fixed servicing stack and known issues section extraction
