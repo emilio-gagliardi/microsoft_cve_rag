@@ -1,0 +1,15 @@
+post_install_steps:
+  spacy:
+    models:
+      - name: en_core_web_md
+        description: "English pipeline (medium)"
+        command: "python -m spacy download en_core_web_md"
+  playwright:
+    description: "Install Playwright browser dependencies"
+    browsers:
+      - name: chromium
+        description: "Chromium browser for KB article scraping"
+        command: "python -m playwright install chromium"
+      - name: firefox
+        description: "Firefox browser as fallback"
+        command: "python -m playwright install firefox"

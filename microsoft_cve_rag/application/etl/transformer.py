@@ -9,12 +9,12 @@ import json
 import logging
 import os
 import re
+import random
 from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 from pydantic import BaseModel
-# import warnings
-from typing import Any, Dict, List, Optional, Union, Set, DefaultDict
-
+import time
+from typing import Any, Dict, List, Optional, Union, Set, DefaultDict, Tuple
 import marvin
 from openai import AuthenticationError, APIConnectionError
 # from neomodel import AsyncStructuredNode
@@ -22,7 +22,7 @@ import numpy as np
 import pandas as pd
 import spacy
 from application.core.models.basic_models import Document
-
+from microsoft_cve_rag.application.services.scraping_service import MicrosoftKbScraper
 # from application.services.embedding_service import EmbeddingService
 from application.etl.NVDDataExtractor import NVDDataExtractor, ScrapingParams
 from fuzzywuzzy import fuzz, process
@@ -876,6 +876,217 @@ async def async_generate_summary(text: str) -> Optional[str]:
         raise e
 
 
+async def scrape_kb_article_content(url: str, scraper: MicrosoftKbScraper) -> str:
+    """Scrape content from a KB article URL.
+
+    Args:
+        url (str): URL of the KB article to scrape
+        scraper (MicrosoftKbScraper): Instance of the KB article scraper
+
+    Returns:
+        str: Markdown content of the KB article, or empty string if scraping fails
+    """
+    if not url or not isinstance(url, str):
+        logging.warning(f"Invalid URL provided: {url}")
+        return ""
+
+    try:
+        # Use the scraper to get the article content
+        await scraper.scrape_kb_article(url)
+
+        # Extract markdown content from the result
+        markdown = scraper.get_markdown()
+        if markdown:
+            return markdown
+        else:
+            logging.warning(f"No markdown content found for URL: {url}")
+            return ""
+    except Exception as e:
+        logging.error(f"Error scraping KB article {url}: {str(e)}")
+        return ""
+
+
+async def retry_blocked_urls(
+    scraper: MicrosoftKbScraper,
+    blocked_urls: List[Tuple[int, str]],
+    crawl_results: List[Any],
+    attempt: int = 1,
+    max_attempts: int = 3
+) -> None:
+    """Recursively retry blocked URLs with increasing delays.
+
+    Args:
+        scraper: The KB article scraper instance
+        blocked_urls: List of tuples containing (original_index, url)
+        crawl_results: List to update with successful results
+        attempt: Current attempt number (1-based)
+        max_attempts: Maximum number of retry attempts
+    """
+    if not blocked_urls or attempt > max_attempts:
+        return
+
+    delay_ranges = {
+        1: (180, 200),  # 3-3.3 minutes
+        2: (300, 330),  # 5-5.5 minutes
+        3: (600, 600)   # 10 minutes
+    }
+    min_delay, max_delay = delay_ranges[attempt]
+
+    still_blocked = []
+    batch_to_save = []
+    logging.info(f"Retry attempt {attempt}/{max_attempts} for {len(blocked_urls)} blocked URLs")
+
+    for i, (original_idx, url) in enumerate(blocked_urls):
+        logging.info(f"Retrying blocked URL {i+1}/{len(blocked_urls)}: {url}")
+
+        delay = random.uniform(min_delay, max_delay)
+        logging.info(f"Adding delay of {delay:.2f} seconds")
+        start_time = time.perf_counter()
+        await asyncio.sleep(delay)
+        end_time = time.perf_counter()
+        logging.info(f"Actual delay time: {(end_time - start_time):.1f} seconds")
+
+        result = await scraper.scrape_kb_article(url)
+        if result and hasattr(result, "status_code") and result.status_code == 403:
+            logging.warning(f"URL still blocked (403) on attempt {attempt}: {url}")
+            still_blocked.append((original_idx, url))
+            if attempt == max_attempts:
+                crawl_results[original_idx] = None
+        else:
+            logging.info(f"Successfully retrieved URL on attempt {attempt}: {url}")
+            crawl_results[original_idx] = result
+            batch_to_save.append(result)
+
+        # Save successful results in batches of 3
+        if len(batch_to_save) >= 3:
+            await scraper.save_kb_bulk_results(batch_to_save)
+            batch_to_save = []
+
+    # Save any remaining successful results
+    if batch_to_save:
+        await scraper.save_kb_bulk_results(batch_to_save)
+
+    # Recursively retry remaining blocked URLs
+    if still_blocked:
+        await retry_blocked_urls(
+            scraper=scraper,
+            blocked_urls=still_blocked,
+            crawl_results=crawl_results,
+            attempt=attempt + 1,
+            max_attempts=max_attempts
+        )
+
+
+async def scrape_kb_articles(urls: pd.Series) -> Tuple[List[str], List[Dict[str, Any]]]:
+    """Scrape content from multiple KB article URLs with robust rate limiting.
+
+    Uses single URL processing with manual delays between requests to prevent
+    server blocking. Saves results using save_kb_bulk_results. Includes retry
+    logic for URLs that return 403 status code.
+
+    Args:
+        urls (pd.Series): Series of URLs to scrape
+
+    Returns:
+        Tuple[List[str], List[Dict[str, Any]]]: Lists of markdown content and
+            structured JSON data in the same order as input URLs
+    """
+    # Filter out None/empty URLs
+    valid_urls = [url for url in urls if url]
+
+    if not valid_urls:
+        logging.warning("No valid URLs provided for scraping")
+        return [], []
+
+    try:
+        # Create a single scraper instance for all URLs
+        scraper = MicrosoftKbScraper(extraction_method="llm")
+
+        # Process URLs one at a time with delays between requests
+        crawl_results = []
+        blocked_urls = []  # Track URLs that return 403 status code
+
+        for i, url in enumerate(valid_urls):
+            logging.info(f"Processing URL {i+1}/{len(valid_urls)}: {url}")
+
+            # Add a delay between requests (35-50 seconds)
+            if i > 0:
+                delay = random.uniform(60, 70)
+                logging.info(f"Adding delay of {delay:.2f} seconds")
+                await asyncio.sleep(delay)
+
+            # Process single URL
+            result = await scraper.scrape_kb_article(url)
+
+            # Check if the request was blocked (status code 403)
+            if result and hasattr(result, "status_code") and result.status_code == 403:
+                logging.warning(f"URL was blocked (403): {url}")
+                blocked_urls.append((i, url))
+                crawl_results.append(None)
+            else:
+                crawl_results.append(result if result else None)
+
+            # Save results in batches of 3 to maintain existing file organization
+            if (i + 1) % 3 == 0 or i == len(valid_urls) - 1:
+                batch_results = [r for r in crawl_results[-3:] if r is not None]
+                if batch_results:
+                    summary_path = await scraper.save_kb_bulk_results(batch_results)
+                    logging.info(f"Batch results saved to {summary_path}")
+
+        # Retry blocked URLs with longer delays if any were blocked
+        if blocked_urls:
+            await retry_blocked_urls(
+                scraper=scraper,
+                blocked_urls=blocked_urls,
+                crawl_results=crawl_results
+            )
+
+        # Process results into markdown and JSON lists
+        markdown_list = []
+        json_list = []
+
+        for result in crawl_results:
+            if result and hasattr(result, "success") and result.success and hasattr(result, "html") and result.html:
+                # Extract markdown
+                markdown = result.markdown if hasattr(result, "markdown") else ""
+
+                # Extract and process JSON content
+                extracted_content = result.extracted_content if hasattr(result, "extracted_content") else None
+                if isinstance(extracted_content, list) and extracted_content:
+                    # If it's a list, take the last non-empty dict
+                    valid_contents = [c for c in extracted_content if c and isinstance(c, dict)]
+                    json_content = valid_contents[-1] if valid_contents else {}
+                elif isinstance(extracted_content, dict):
+                    json_content = extracted_content
+                else:
+                    json_content = {}
+            else:
+                markdown = ""
+                json_content = {}
+
+            markdown_list.append(markdown)
+            json_list.append(json_content)
+
+        # Map results back to original URL order
+        final_markdown = []
+        final_json = []
+        for url in urls:
+            if url in valid_urls:
+                idx = valid_urls.index(url)
+                final_markdown.append(markdown_list[idx])
+                final_json.append(json_list[idx])
+            else:
+                final_markdown.append("")
+                final_json.append({})
+
+        return final_markdown, final_json
+
+    except Exception as e:
+        logging.exception(f"Error in KB article scraping: {str(e)}")
+        # Return empty results for all URLs in case of failure
+        return ["" for _ in urls], [{} for _ in urls]
+
+
 # Wrapper to handle async calls in apply
 async def generate_summaries(texts: pd.Series) -> List[str]:
     tasks = [async_generate_summary(text) for text in texts]
@@ -986,11 +1197,27 @@ def transform_kb_articles(
             "Windows-based KBs with no summaries:"
             f" {df_windows_no_summary.shape[0]}"
         )
+        # Initialize empty columns for scraped content
+        df_windows_no_summary["scraped_markdown"] = None
+        df_windows_no_summary["scraped_json"] = None
+
+        # Get URLs and filter out empty ones
+        logging.info(f"Scraping content for {df_windows_no_summary.shape[0]} Windows-based KBs")
+        urls = df_windows_no_summary["article_url"].fillna("")
+
+        # Call the improved scrape_kb_articles function
+        scraped_texts, scraped_jsons = loop.run_until_complete(scrape_kb_articles(urls))
+
+        # Update both columns where we have valid URLs
+        mask = df_windows_no_summary["article_url"].notna()
+        df_windows_no_summary.loc[mask, "scraped_markdown"] = scraped_texts
+        df_windows_no_summary.loc[mask, "scraped_json"] = scraped_jsons
+
         df_windows_no_summary["summary"] = ""
-        summaries = loop.run_until_complete(
-            generate_summaries(df_windows_no_summary["text"])
-        )
-        df_windows_no_summary["summary"] = summaries
+        # summaries = loop.run_until_complete(
+        #     generate_summaries(df_windows_no_summary["scraped_json"])
+        # )
+        # df_windows_no_summary["summary"] = summaries
 
         # Add update package URL for Windows KB articles
         df_windows_no_summary["update_package_url"] = df_windows_no_summary[

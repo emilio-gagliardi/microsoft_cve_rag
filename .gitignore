@@ -50,3 +50,7 @@ package docs/
 neomodel-scraper/
 check_graph_insert_for_completeness
 .ipynb_checkpoints/check_graph_insert_for_completeness-checkpoint
+
+# MCP Servers and details
+mcp-servers/
+notion_documentation_pages.md

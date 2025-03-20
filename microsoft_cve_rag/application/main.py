@@ -106,6 +106,11 @@ class ColoredFormatter(logging.Formatter):
 
 
 def setup_logging(level=logging.INFO):
+    """Configure logging settings for the application."""
+    # Configure UTF-8 encoding for stdout and stderr
+    sys.stdout.reconfigure(encoding='utf-8')
+    sys.stderr.reconfigure(encoding='utf-8')
+
     # Remove existing handlers
     root_logger = logging.getLogger()
     if root_logger.hasHandlers():
@@ -114,9 +119,9 @@ def setup_logging(level=logging.INFO):
     # Set the logging level
     root_logger.setLevel(level)
 
-    # Create handlers
-    stream_handler = logging.StreamHandler()
-    file_handler = logging.FileHandler("app.log")
+    # Create handlers with UTF-8 encoding
+    stream_handler = logging.StreamHandler(sys.stdout)  # Use stdout with UTF-8
+    file_handler = logging.FileHandler("app.log", encoding='utf-8')
 
     # Set formatters
     colored_formatter = ColoredFormatter(
@@ -141,6 +146,9 @@ def setup_logging(level=logging.INFO):
     logging.getLogger("uvicorn.error").setLevel(logging.INFO)
     logging.getLogger("uvicorn.access").setLevel(logging.WARNING)
     logging.getLogger("fastapi").setLevel(logging.WARNING)
+    logging.getLogger("fastembed").setLevel(logging.WARNING)
+    logging.getLogger("dotenv").setLevel(logging.WARNING)
+    logging.getLogger("transformers").setLevel(logging.WARNING)
 
     app_logger = logging.getLogger("microsoft_cve_rag")
     app_logger.setLevel(level)

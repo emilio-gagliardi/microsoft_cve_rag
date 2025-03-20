@@ -76,3 +76,38 @@ Each section uses visual differentiation through color-coding and only appears i
 - Modified `_extract_section_by_header` to handle both standard and button-based header formats
 - Added debug output to help troubleshoot section extraction issues
 - Fixed servicing stack and known issues section extraction
+
+[2025-02-16] Cascade - Added bulk processing to BaseScraper - Implemented Crawl4AI native batch processing with proper session management and result handling
+
+- Added `bulk_crawl` method to process multiple URLs concurrently
+- Added `save_bulk_results` with flexible format options
+- Added helper methods for consistent file operations
+- Updated docstrings and type hints per project guidelines
+
+[2025-02-16] Cascade - Improved bulk processing efficiency and session management - Added session validation and removed unnecessary defaults
+
+- Removed default session creation in KB bulk processing for better performance
+- Added session ID validation with sanitization
+- Removed redundant extraction strategy configuration
+- Updated docstrings to reflect session ID requirements
+
+[2025-02-16] Cascade - Implemented session management in bulk processing - Added proper session handling for sequential URL processing
+
+- Enhanced `bulk_crawl` with optional session management
+- Added automatic session ID generation for KB articles
+- Implemented sequential processing for session-based crawls
+- Added proper session cleanup and error handling
+- Updated documentation with session management details
+
+[2025-02-16] Cascade - Documented session management improvements - Documented improvements to session management in bulk processing, including session validation, ID sanitization, and sequential processing.
+
+[2025-02-17] Cascade - Improved filename handling in scraper - Enhanced get_safe_filename for URL-based names
+
+- Updated get_safe_filename to extract meaningful portions from URLs
+- Improved filename generation for both single and bulk saves
+- Standardized filename format across all save operations
+- Removed redundant filename cleaning code
+
+[2025-02-19] Cascade - Enhanced KB article JSON validation - Added support for both list and dict content types in save_kb_bulk_results with proper schema validation
+[2025-02-19] Cascade - Added rate limiting configuration - Implemented crawl4ai's RateLimitConfig to handle timeouts and rate limits with retries
+[2025-02-19] Cascade - Optimized rate limiter configuration - Removed duplicate rate limiter creation and added proper handling of default max_retries value

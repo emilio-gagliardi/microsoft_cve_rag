@@ -271,7 +271,7 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     minutes, seconds = divmod(elapsed_time, 60)
     logging.info(f"Time taken to transform all data: {int(minutes)} min : {int(seconds)} sec")
     logging.info("Done with data transformation ==========================================\n")
-
+    return response
     logging.info("Begin Graph extraction ------------------------------\n")
     start_time = time.time()
 

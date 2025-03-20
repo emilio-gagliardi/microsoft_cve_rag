@@ -2,19 +2,24 @@ import asyncio
 import json
 import logging
 import os
-# import re
+import re
+import ast
 from datetime import datetime
-# from pickle import False
-from typing import Any, Dict, Optional, List
+import sys
+from typing import Optional, List, Dict, Any, Union
 from urllib.parse import urlparse
-# from bs4 import BeautifulSoup
-from crawl4ai import AsyncWebCrawler, CacheMode
+# Configure Windows event loop for subprocess support
+if sys.platform == 'win32':
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+
+from crawl4ai import AsyncWebCrawler, CacheMode, MarkdownGenerationResult, CrawlResult
 from crawl4ai.async_configs import BrowserConfig, CrawlerRunConfig
 from crawl4ai.extraction_strategy import (
     LLMExtractionStrategy,
     JsonCssExtractionStrategy,
 )
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+
 # import requests
 
 # Configure logging
@@ -24,6 +29,94 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
+
+ImprovementsValue = Union[List[str], str]
+
+
+class KBArticle(BaseModel):
+    title: str
+    url: str
+    applies_to: List[str] = Field(
+        default_factory=list,
+        description="List of product families the KB article applies to."
+    )
+    os_builds: str = Field(
+        default_factory=str,
+        description="OS build(s) the KB article applies to, eg., '17763.5936'"
+    )
+    page_introduction: str = Field(
+        default_factory=str,
+        description="Text that appears before the first section header."
+    )
+    highlights: List[str] = Field(
+        default_factory=list,
+        description="List of highlights, typically bullet points."
+    )
+    improvements: Dict[str, ImprovementsValue] = Field(
+        default_factory=dict,
+        description=(
+            "Dictionary of improvements, keyed by subheading or topic. "
+            "Each value can be a list of bullet points or a single string of free text."
+        )
+    )
+    servicing_stack_update: Dict[str, str] = Field(
+        default_factory=dict,
+        description="Dictionary of servicing stack updates, keyed by product family."
+    )
+    known_issues_and_workaround: List[Dict[str, Any]] = Field(
+        default_factory=list,
+        description="List of known issues and workarounds, each stored as a dictionary."
+    )
+    # Flattened fields from HowToGetUpdate
+    how_to_get_update_before_installation: Optional[str] = Field(
+        default=None,
+        description="Text that appears under 'Before you install this update' (if any)."
+    )
+    how_to_get_update_prerequisites: Optional[str] = Field(
+        default=None,
+        description="Text listing any required SSUs, LCUs, or other prerequisites."
+    )
+    how_to_get_update_install_instructions: Optional[str] = Field(
+        default=None,
+        description="General instructions for installing the update."
+    )
+    how_to_get_update_channels: Optional[List[Dict[str, str]]] = Field(
+        default=None,
+        description=(
+            "A list of dictionaries, each describing a channel from the update table. "
+            "Each dictionary MUST contain exactly three keys:\n\n"
+            "  1) channel_name: Must be one of [Windows Update, Business, Catalog, Server Update Services, Microsoft Download Center]\n"
+            "  2) availability: Typically 'Yes' or 'No', or a short string describing availability\n"
+            "  3) next_step: A short explanation or link on how to get the update\n\n"
+            "For example:\n\n"
+            "  [\n"
+            "    {\n"
+            "      \"channel_name\": \"Windows Update\",\n"
+            "      \"availability\": \"Yes\",\n"
+            "      \"next_step\": \"Install automatically via Windows Update\"\n"
+            "    },\n"
+            "    {\n"
+            "      \"channel_name\": \"Catalog/Update Catalog\",\n"
+            "      \"availability\": \"Yes\",\n"
+            "      \"next_step\": \"Download manually from the Microsoft Update Catalog\"\n"
+            "    }\n"
+            "  ]\n\n"
+            "Do not use any alternative keys (like 'Available' or 'Next Step'); "
+            "stick to 'channel_name', 'availability', and 'next_step' exactly."
+        )
+    )
+    how_to_get_update_remove_lcu_instructions: Optional[str] = Field(
+        default=None,
+        description="Steps for removing the LCU if needed, typically referencing DISM or wusa.exe."
+    )
+    # Flattened fields from FileInformationBlock and FileInformationTable
+    file_information: Optional[List[Dict[str, Any]]] = Field(
+        default_factory=list,
+        description=(
+            "List of file information blocks. Each block is a dictionary with 'text' (optional string) "
+            "and 'tables' (optional list of dictionaries, each with 'product_family' and 'rows')."
+        )
+    )
 
 
 class BaseScraper:
@@ -53,7 +146,8 @@ class BaseScraper:
                 operations.
         """
         logger.info("Initializing BaseScraper.")
-        self.crawl_result: Optional[Any] = None
+        self.crawl_result: Optional[CrawlResult] = None
+        self.crawl_results: Optional[List[CrawlResult]] = None
         self.output_dir: Optional[str] = None
         self.urls: List[str] = []
         if browser_config is None:
@@ -81,7 +175,10 @@ class BaseScraper:
         logger.info(f"CrawlerRunConfig: {self.run_config}")
 
         try:
-            self.crawler = AsyncWebCrawler(config=self.browser_config)
+            self.crawler = AsyncWebCrawler(
+                config=self.browser_config,
+                run_config=self.run_config
+            )
             logger.info("AsyncWebCrawler initialized successfully.")
         except Exception as e:
             logger.error(f"Failed to initialize crawler: {str(e)}")
@@ -91,17 +188,30 @@ class BaseScraper:
         """Returns the URL from the crawl result."""
         return getattr(self.crawl_result, "url", "")
 
-    def get_html(self) -> str:
-        """Returns the raw HTML from the crawl result."""
-        return getattr(self.crawl_result, "html", "")
+    def get_html(self, html_type: str = "cleaned") -> str:
+        """Returns the raw or cleaned HTML from the KB article crawl result.
+
+        Args:
+            html_type: Type of HTML to return. Must be "cleaned" or "raw".
+                Defaults to "cleaned" for processed content.
+
+        Returns:
+            str: The requested HTML content or empty string if not available.
+
+        Notes:
+            Used by the memory-adaptive dispatcher for bulk KB article processing
+            with proper rate limiting between requests.
+        """
+        if html_type == "cleaned":
+            return getattr(self.crawl_result, "cleaned_html", "")
+        if html_type == "raw":
+            return getattr(self.crawl_result, "html", "")
+        logger.warning(f"Invalid HTML type '{html_type}'. Must be 'cleaned' or 'raw'.")
+        return ""
 
     def get_success(self) -> bool:
         """Returns whether the crawl was successful."""
         return getattr(self.crawl_result, "success", False)
-
-    def get_cleaned_html(self) -> str:
-        """Returns the cleaned HTML (after preprocessing) from the crawl result."""
-        return getattr(self.crawl_result, "cleaned_html", "")
 
     def get_media(self) -> any:
         """Returns any media captured during the crawl (e.g., images, videos)."""
@@ -123,7 +233,7 @@ class BaseScraper:
         """Returns a PDF generated during the crawl, if available."""
         return getattr(self.crawl_result, "pdf", None)
 
-    def get_markdown(self) -> str:
+    def get_markdown(self) -> MarkdownGenerationResult:
         """Returns the markdown representation of the page."""
         return getattr(self.crawl_result, "markdown", "")
 
@@ -179,7 +289,7 @@ class BaseScraper:
         """Returns the CrawlerRunConfig associated with the scraper."""
         return self.run_config
 
-    def get_safe_filename(self) -> str:
+    def get_safe_filename(self, filename: str) -> str:
         """Generate a safe filename from URLs and timestamp.
 
         Creates a filename-safe string using the most recent URL and current
@@ -190,106 +300,250 @@ class BaseScraper:
                 'domain_path_YYYYMMDD_HHMMSS' or
                 'scrape_YYYYMMDD_HHMMSS' if no URLs.
         """
-        if not self.urls:
-            return f"scrape_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        if not filename:
+            logger.warning("No filename provided, returning 'no_url_provided'.")
+            return "no_url_provided"
 
-        url = self.urls[-1]
-        parsed = urlparse(url)
-        path = parsed.path.rstrip('/').replace('.html', '').replace('.htm', '')
+        # If it looks like a URL, extract the meaningful portion
+        if '://' in filename:
+            try:
+                # Get everything after the last slash, before any query params
+                filename = filename.rstrip('/').split('/')[-1].split('?')[0]
+            except Exception:
+                pass  # Fall back to normal filename cleaning
 
-        domain_part = parsed.netloc.replace('.', '_')
-        path_part = path.replace('/', '_')
-        if len(path_part) > 50:
-            path_part = path_part[:50]
+        # Replace problematic characters
+        filename = filename.lower()
+        filename = re.sub(r'[^\w\s-]', '', filename)
+        filename = re.sub(r'[-\s]+', '-', filename).strip('-')
 
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        return f"{domain_part}{path_part}_{timestamp}"
+        return filename or "unnamed"
 
-    def save_crawl_result(
+    async def save_crawl_result(
         self,
-        output_dir: str,
-        html: bool = True,
-        markdown: bool = False,
-        json_output: bool = False,
+        crawl_result: Optional[CrawlResult] = None,
+        output_dir: Optional[str] = None,
+        raw_html: bool = True,
+        cleaned_html: bool = True,
+        markdown: bool = True,
+        extracted_content: bool = True,
         pdf: bool = False,
-        thumbnail: bool = False,
+        screenshot: bool = False,
         filename_prefix: Optional[str] = None
     ) -> None:
-        """
-        Saves the crawl result in one or more formats (HTML, Markdown, JSON, PDF, Thumbnail).
-        The output_dir folder is created if it doesn't exist.
+        """Save KB article crawl result to disk in multiple formats.
+
+        Uses memory-adaptive dispatcher for bulk processing and implements proper
+        rate limiting between requests.
 
         Args:
-            output_dir (str): Path to the directory where files should be saved.
-            html (bool): Save raw HTML to 'page.html' if True. Defaults to True.
-            markdown (bool): Save markdown to 'page.md' if True. Defaults to False.
-            json_output (bool): Save extracted JSON to 'extracted_data.json' if True. Defaults to False.
-            pdf (bool): Save PDF content to 'page.pdf' if True. Defaults to False.
-            thumbnail (bool): Save screenshot (PNG) to 'thumbnail.png' if True. Defaults to False.
-            filename_prefix: Optional prefix to add to all generated filenames.
-                   For example, "kb_article_" would result in
-                   "kb_article_domain_path_timestamp.html"
+            crawl_result: Optional CrawlResult instance to save. If None, uses the
+                first result from self.crawl_results or self.crawl_result.
+            output_dir: Optional directory to save results in. If not provided,
+                uses self.output_dir.
+            raw_html: Save original unmodified HTML.
+            cleaned_html: Save sanitized HTML with scripts/styles removed.
+            markdown: Save markdown version of content.
+            extracted_content: Save structured data extracted from page.
+            pdf: Save PDF version if available.
+            screenshot: Save page screenshot if available.
+            filename_prefix: Optional prefix to add to filenames.
+
         Notes:
-    - Files are saved with format: {prefix}{domain}_{path}_{timestamp}.{ext}
-    - Timestamp format: YYYYMMDD_HHMMSS
-    - URL components are sanitized for safe filenames
+            - Files are saved with format: {prefix}{domain}_{path}_{timestamp}.{ext}
+            - Timestamp format: YYYYMMDD_HHMMSS
+            - URL components are sanitized for safe filenames
+            - Uses memory-adaptive dispatcher for bulk operations
+            - Implements rate limiting between requests
         """
-        if not self.crawl_result:
-            logger.warning("No crawl_result found, nothing to save.")
+        result = crawl_result or self.crawl_result
+        if not result and self.crawl_results:
+            result = self.crawl_results[0]
+
+        if not result:
+            logger.warning("No crawl result to save")
             return
 
+        # Get output directory
+        output_dir = output_dir or self.output_dir
+        if not output_dir:
+            logger.error("No output directory specified")
+            return
+
+        # Create output directory if needed
         os.makedirs(output_dir, exist_ok=True)
-        base_filename = self.get_safe_filename()
+
+        # Generate base filename
+        base_filename = self.get_safe_filename(result.url)
         if filename_prefix:
             base_filename = f"{filename_prefix}{base_filename}"
 
-        if html:
-            html_path = os.path.join(output_dir, f"{base_filename}.html")
-            with open(html_path, "w", encoding="utf-8") as f:
-                f.write(self.get_cleaned_html())
-            logger.info(f"HTML saved to {html_path}")
+        # Add timestamp to filename
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        base_filename = f"{base_filename}_{timestamp}"
 
-        if markdown:
-            md = self.get_markdown()
-            if md:
-                md_path = os.path.join(output_dir, f"{base_filename}.md")
-                with open(md_path, "w", encoding="utf-8") as f:
-                    f.write(md)
-                logger.info(f"Markdown saved to {md_path}")
+        # Save raw HTML if available
+        if raw_html and hasattr(result, 'html'):
+            await self.async_save_text_content(output_dir, f"{base_filename}_raw.html", result.html)
+
+        # Save cleaned HTML if available
+        if cleaned_html and hasattr(result, 'cleaned_html') and result.cleaned_html:
+            await self.async_save_text_content(output_dir, f"{base_filename}_cleaned.html", result.cleaned_html)
+
+        # Handle markdown content with version check
+        if markdown and hasattr(result, 'markdown'):
+            if isinstance(result.markdown, str):
+                await self.async_save_text_content(output_dir, f"{base_filename}.md", result.markdown)
             else:
-                logger.warning("No markdown found in crawl_result.")
+                logger.warning("Unexpected markdown type: %s", type(result.markdown))
 
-        if json_output:
-            data = self.get_extracted_content()
-            if data:
-                json_path = os.path.join(output_dir, f"{base_filename}.json")
-                with open(json_path, "w", encoding="utf-8") as f:
-                    json.dump(data, f, indent=2)
-                logger.info(f"JSON saved to {json_path}")
+            # if hasattr(result, 'fit_markdown'):
+            #     await self.async_save_text_content(output_dir, f"{base_filename}_fit_markdown.md", result.fit_markdown)
+            # if hasattr(result, 'markdown_with_citations'):
+            #     await self.async_save_text_content(output_dir, f"{base_filename}_with_citations_markdown.md", result.markdown_with_citations)
+            # if hasattr(result, 'references_markdown'):
+            #     await self.async_save_text_content(output_dir, f"{base_filename}_references_markdown.md", result.references_markdown)
+
+        # Save extracted content
+        if extracted_content and hasattr(result, 'extracted_content'):
+            content = await self.async_parse_json_content(result.extracted_content)
+            if content:
+                await self.async_save_json_content(output_dir, f"{base_filename}_extracted.json", content)
             else:
-                logger.warning("No extracted data found in crawl_result.")
+                logger.warning("Failed to parse extracted content")
+        # Save PDF if available
+        if pdf and hasattr(result, 'pdf') and result.pdf:
+            await self.async_save_binary_content(output_dir, f"{base_filename}.pdf", result.pdf)
 
-        if pdf:
-            pdf_content = self.get_pdf()
-            if pdf_content:
-                pdf_path = os.path.join(output_dir, f"{base_filename}.pdf")
-                with open(pdf_path, "wb") as f:
-                    f.write(pdf_content)
-                logger.info(f"PDF saved to {pdf_path}")
-            else:
-                logger.warning("No PDF found in crawl_result.")
+        # Save screenshot if available
+        if screenshot and hasattr(result, 'screenshot') and result.screenshot:
+            await self.async_save_binary_content(output_dir, f"{base_filename}.png", result.screenshot)
 
-        if thumbnail:
-            screenshot = self.get_screenshot()
-            if screenshot:
-                thumbnail_path = os.path.join(output_dir, f"{base_filename}.png")
-                with open(thumbnail_path, "wb") as f:
-                    f.write(screenshot)
-                logger.info(f"Thumbnail saved to {thumbnail_path}")
-            else:
-                logger.warning("No screenshot found in crawl_result.")
+        logger.info(f"Successfully saved KB article content to {output_dir}")
 
-        logger.info("save_crawl_result completed.")
+    def _validate_session_id(self, session_id: Optional[str]) -> Optional[str]:
+        """Validate and sanitize the session ID.
+
+        Args:
+            session_id: The session ID to validate
+
+        Returns:
+            Optional[str]: The sanitized session ID
+
+        Raises:
+            ValueError: If session_id is provided but invalid
+        """
+        if session_id is None:
+            return None
+
+        if not isinstance(session_id, str):
+            raise ValueError("session_id must be a string")
+
+        # Remove any whitespace and special characters
+        sanitized = "".join(
+            c for c in session_id.strip() if c.isalnum() or c in "_-"
+        )
+
+        if not sanitized:
+            raise ValueError(
+                "session_id must contain valid characters (alphanumeric,"
+                " underscore, or hyphen)"
+            )
+
+        return sanitized
+
+    def _save_text_content(
+        self, directory: str, filename: str, content: str
+    ) -> None:
+        """Save text content to file.
+
+        Args:
+            directory (str): The directory to save the file in.
+            filename (str): The name of the file to save.
+            content (str): The text content to save.
+        """
+        path = os.path.join(directory, filename)
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(content)
+
+    async def async_save_text_content(self, directory: str, filename: str, content: str) -> None:
+        await asyncio.to_thread(self._save_text_content, directory, filename, content)
+
+    async def async_save_binary_content(self, directory: str, filename: str, content: bytes) -> None:
+        await asyncio.to_thread(self._save_binary_content, directory, filename, content)
+
+    async def async_save_json_content(self, directory: str, filename: str, content: Dict[str, Any]) -> None:
+        await asyncio.to_thread(self._save_json_content, directory, filename, content)
+
+    def _save_binary_content(
+        self, directory: str, filename: str, content: bytes
+    ) -> None:
+        """Save binary content to file.
+
+        Args:
+            directory (str): The directory to save the file in.
+            filename (str): The name of the file to save.
+            content (bytes): The binary content to save.
+        """
+        path = os.path.join(directory, filename)
+        with open(path, "wb") as f:
+            f.write(content)
+
+    def _save_json_content(
+        self, directory: str, filename: str, content: Dict[str, Any]
+    ) -> None:
+        """Save JSON content to file.
+
+        Args:
+            directory (str): The directory to save the file in.
+            filename (str): The name of the file to save.
+            content (Dict[str, Any]): The JSON content to save.
+        """
+        path = os.path.join(directory, filename)
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(content, f, indent=2)
+
+    async def async_parse_json_content(self, content: Any) -> Dict[str, Any]:
+        return await asyncio.to_thread(self._parse_json_content, content)
+
+    def _parse_json_content(self, content: Any) -> Dict[str, Any]:
+        """Parse JSON content, handling string inputs.
+
+        Args:
+            content (Any): The content to parse.
+
+        Returns:
+            Dict[str, Any]: The parsed JSON content. If content is a list of dicts,
+            returns the last dict as it represents the LLM's final attempt.
+        """
+        if isinstance(content, str):
+            try:
+                # First try ast.literal_eval for Python string representations
+                parsed = ast.literal_eval(content)
+                if isinstance(parsed, list):
+                    valid_dicts = [item for item in parsed if isinstance(item, dict)]
+                    if valid_dicts:
+                        if len(valid_dicts) > 1:
+                            logging.info(f"Found {len(valid_dicts)} LLM attempts, using final attempt")
+                        return valid_dicts[-1]
+                    logging.warning("List contained no valid JSON objects")
+                return parsed if isinstance(parsed, dict) else {"raw": content}
+            except (ValueError, SyntaxError):
+                try:
+                    # Try JSON parsing as fallback
+                    parsed = json.loads(content)
+                    if isinstance(parsed, list):
+                        valid_dicts = [item for item in parsed if isinstance(item, dict)]
+                        if valid_dicts:
+                            if len(valid_dicts) > 1:
+                                logging.info(f"Found {len(valid_dicts)} LLM attempts in JSON, using final attempt")
+                            return valid_dicts[-1]
+                        logging.warning("JSON list contained no valid objects")
+                    return parsed if isinstance(parsed, dict) else {"raw": content}
+                except json.JSONDecodeError:
+                    logging.warning("Content could not be parsed as Python literal or JSON")
+                    return {"raw": content}
+        return content if isinstance(content, dict) else {"raw": str(content)}
 
     async def close(self) -> None:
         """Closes the crawler session, freeing up resources."""
@@ -335,6 +589,22 @@ class MicrosoftKbScraper(BaseScraper):
             headless=True,
             viewport_width=1920,
             viewport_height=1080,
+            headers={
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+                "Accept-Language": "en-US,en;q=0.9",
+                "Accept-Encoding": "gzip, deflate, br",
+                "Connection": "keep-alive",
+                "DNT": "1",
+                "Upgrade-Insecure-Requests": "1",
+                "Sec-Fetch-Dest": "document",
+                "Sec-Fetch-Mode": "navigate",
+                "Sec-Fetch-Site": "none",
+                "Sec-Fetch-User": "?1",
+                "Sec-CH-UA": '"Chromium";v="122", "Not(A:Brand";v="24"',
+                "Sec-CH-UA-Mobile": "?0",
+                "Sec-CH-UA-Platform": '"Windows"'
+            },
             verbose=True
         )
         logger.info(f"Custom BrowserConfig for KB: {kb_browser_config}")
@@ -342,19 +612,7 @@ class MicrosoftKbScraper(BaseScraper):
         # Factory-style decision for extraction strategy.
         extraction_strategy: Optional[Any] = None
         # Define a default Pydantic model for KB articles if no schema is provided.
-        if not json_schema:
-            class KBArticle(BaseModel):
-                title: str
-                url: str
-                applies_to: list[str]
-                os_builds: str
-                page_introduction: str
-                highlights: list[str]
-                improvements: dict[str, list[str]]
-                servicing_stack_update: dict[str, str]
-                known_issues_and_workaround: list[dict[str, Any]]
-                how_to_get_update: list[dict[str, Any]]
-            json_schema = KBArticle.model_json_schema()
+        json_schema = KBArticle.model_json_schema()
 
         if extraction_method.lower() == "llm":
             logger.info("Using LLM extraction strategy.")
@@ -364,10 +622,10 @@ class MicrosoftKbScraper(BaseScraper):
 
             # Build the instruction prompt using the JSON schema.
             prompt = (
-                "Extract a structured JSON object from the following HTML that represents a Microsoft KB report. "
+                "Extract a structured JSON object from the following Markdown that represents a Microsoft KB report. "
                 "The JSON object must conform to the following schema:\n\n"
                 f"{json.dumps(json_schema, indent=4)}\n\n"
-                "Ensure that each field is extracted correctly from the HTML. Return only the JSON object."
+                "Ensure that each field is extracted correctly from the Markdown. Return only the JSON object."
             )
             extraction_strategy = LLMExtractionStrategy(
                 provider="openrouter/google/gemini-2.0-pro-exp-02-05:free",
@@ -375,53 +633,43 @@ class MicrosoftKbScraper(BaseScraper):
                 schema=json_schema,
                 extraction_type="schema",
                 instruction=prompt,
-                chunk_token_threshold=2000,  # Adjust based on expected HTML size.
-                overlap_rate=0.07,
+                chunk_token_threshold=5000,
+                overlap_rate=0.02,
                 apply_chunking=True,
-                input_format="html",
+                input_format="markdown",
                 verbose=True
             )
 
-        elif extraction_method.lower() == "json":
+        elif extraction_method.lower() == "css":
             logger.info("Using JsonCss extraction strategy.")
-            extraction_strategy = JsonCssExtractionStrategy(json_schema)
+            css_schema = {
+                "name": "KBArticleContent",
+                "baseSelector": "main#supArticleContent",
+                "fields": [
+                    {"name": "body_content", "selector": ":scope > *", "type": "html"}
+                ]
+            }
+            extraction_strategy = JsonCssExtractionStrategy(css_schema)
         else:
             logger.error(f"Unknown extraction_method: {extraction_method}. Defaulting to LLM extraction.")
-            openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
-            if not openrouter_api_key:
-                logger.error("OpenRouter API key not found in environment variables for LLM extraction.")
-
-            # Build the instruction prompt using the JSON schema.
-            prompt = (
-                "Extract a structured JSON object from the following HTML that represents a Microsoft KB report. "
-                "The JSON object must conform to the following schema:\n\n"
-                f"{json.dumps(json_schema, indent=4)}\n\n"
-                "Ensure that each field is extracted correctly from the HTML. Return only the JSON object."
-            )
-            extraction_strategy = LLMExtractionStrategy(
-                provider="google/gemini-2.0-flash-exp:free",
-                api_token=openrouter_api_key,
-                schema=json_schema,
-                extraction_type="schema",
-                instruction=prompt,
-                chunk_token_threshold=2000,
-                overlap_rate=0.07,
-                apply_chunking=True,
-                input_format="html",
-                verbose=True
-            )
+            raise ValueError(f"Unknown extraction_method: {extraction_method}")
         # Create custom CrawlerRunConfig for KB articles.
         # teachingCalloutHidden.teachingCalloutPopover, popoverMessageWrapper, col-1-5, f-multi-column.f-multi-column-6, c-uhfh-actions, c-uhfh-gcontainer-st
         # "nav", "footer"
         kb_run_config = CrawlerRunConfig(
             cache_mode=CacheMode.DISABLED,
             extraction_strategy=extraction_strategy,
-            word_count_threshold=0,
+            word_count_threshold=4,
             exclude_external_links=False,
-            wait_until="domcontentloaded",
-            css_selector=None,
+            wait_until="networkidle",
+            css_selector="main#supArticleContent",
             excluded_tags=["nav", "footer"],
-            excluded_selector=".col-1-5, .supLeftNavMobileView, .supLeftNavMobileViewContent.grd, .teachingCalloutHidden.teachingCalloutPopover, .popoverMessageWrapper, .f-multi-column.f-multi-column-6, .c-uhfh-actions, .c-uhfh-gcontainer-st",
+            excluded_selector=(".col-1-5, .supLeftNavMobileView, .supLeftNavMobileViewContent.grd, "
+                               ".teachingCalloutHidden.teachingCalloutPopover, .popoverMessageWrapper, "
+                               ".f-multi-column.f-multi-column-6, .c-uhfh-actions, .c-uhfh-gcontainer-st, "
+                               ".ocArticleFooterElementContainer, .col-1-5.ucsRailContainer, "
+                               ".ocArticleFooterShareLinksWrapper"
+                               ),
             verbose=True,
         )
         logger.info(f"Custom CrawlerRunConfig for KB: {kb_run_config}")
@@ -432,8 +680,7 @@ class MicrosoftKbScraper(BaseScraper):
         )
 
         self.output_dir: str = output_dir or os.path.join(
-            os.getcwd(),
-            "microsoft_cve_rag",
+            os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
             "application",
             "data",
             "scrapes",
@@ -441,6 +688,56 @@ class MicrosoftKbScraper(BaseScraper):
         )
         os.makedirs(self.output_dir, exist_ok=True)
         logger.info(f"Output directory set to: {self.output_dir}")
+
+    @staticmethod
+    def _is_kb_article_url(url: str) -> bool:
+        """Check if the URL is a valid HTML URL.
+
+        Args:
+            url: URL to validate
+
+        Returns:
+            bool: True if URL is a valid HTML URL
+        """
+        if not isinstance(url, str):
+            return False
+
+        try:
+            result = urlparse(url)
+            return all([result.scheme in ('http', 'https'), result.netloc])
+        except Exception:
+            return False
+
+    def _validate_session_id(self, session_id: Optional[str]) -> Optional[str]:
+        """Validate and sanitize the session ID.
+
+        Args:
+            session_id: The session ID to validate
+
+        Returns:
+            Optional[str]: The sanitized session ID
+
+        Raises:
+            ValueError: If session_id is provided but invalid
+        """
+        if session_id is None:
+            return None
+
+        if not isinstance(session_id, str):
+            raise ValueError("session_id must be a string")
+
+        # Remove any whitespace and special characters
+        sanitized = "".join(
+            c for c in session_id.strip() if c.isalnum() or c in "_-"
+        )
+
+        if not sanitized:
+            raise ValueError(
+                "session_id must contain valid characters (alphanumeric,"
+                " underscore, or hyphen)"
+            )
+
+        return sanitized
 
     async def scrape_kb_article(self, url: str) -> None:
         """Scrape content from a Microsoft KB article.
@@ -458,6 +755,7 @@ class MicrosoftKbScraper(BaseScraper):
         logger.info(f"Starting crawl for KB article: {url}")
         if not self.crawler:
             logger.error("Crawler not initialized.")
+            return None
 
         try:
             async with self.crawler as crawler:
@@ -480,9 +778,11 @@ class MicrosoftKbScraper(BaseScraper):
                 logger.info("KB article scraped and processed successfully.")
                 # Log content lengths to check for truncation
                 raw_html = self.get_html()
-                llm_extraction = self.get_extracted_content()
+                extracted_content = self.get_extracted_content()
+                markdown = self.get_markdown()
                 logger.info(f"Raw HTML length: {len(raw_html)} characters")
-                logger.info(f"LLM Extraction length: {len(llm_extraction)}")
+                logger.info(f"LLM Extraction length: {len(extracted_content)}")
+                logger.info(f"Markdown length: {len(markdown)} characters")
 
                 # Log browser and run configurations
                 browser_config = self.get_browser_config()
@@ -490,8 +790,77 @@ class MicrosoftKbScraper(BaseScraper):
                 logger.info(f"Browser Config: {browser_config}")
                 logger.info(f"Run Config: {run_config}")
 
+                return result
+
         except Exception as e:
             logger.error(f"Error scraping KB article {url}: {str(e)}")
+            return None
+
+    async def save_kb_bulk_results(
+        self, results: List[CrawlResult], output_dir: Optional[str] = None
+    ) -> Optional[str]:
+        """Save bulk crawl results to disk using base class infrastructure.
+
+        Args:
+            results: List of crawl results to save
+            output_dir: Optional directory to save results
+
+        Returns:
+            str: Path to output directory if successful, None otherwise
+
+        Notes:
+            - Uses base class save_crawl_result for consistent file operations
+            - Adds KB-specific validation using KBArticle Pydantic model
+            - Tracks success/failure for monitoring
+        """
+        if not results:
+            logger.warning("No results to save")
+            return None
+
+        if output_dir:
+            self.output_dir = output_dir
+
+        successful_saves = 0
+        failed_saves = 0
+        save_errors = []
+
+        for result in results:
+            try:
+                # Validate extracted content if present
+                if hasattr(result, 'extracted_content'):
+                    content = self._parse_json_content(result.extracted_content)
+                    if isinstance(content, list):
+                        valid_items = []
+                        for item in content:
+                            if isinstance(item, dict) and item.get('url') is not None:
+                                valid_items.append(item)
+                        result.extracted_content = valid_items if valid_items else None
+                    elif isinstance(content, dict):
+                        if content.get('url') is None:
+                            # Likely blocked or invalid content
+                            result.extracted_content = None
+
+                # Use base class save method
+                await self.save_crawl_result(
+                    crawl_result=result,
+                    output_dir=self.output_dir,
+                    filename_prefix="kb_article_"
+                )
+                successful_saves += 1
+
+            except Exception as e:
+                failed_saves += 1
+                save_errors.append((getattr(result, "url", "unknown"), str(e)))
+                logger.exception(f"Error saving result: {str(e)}")
+
+        # Log summary
+        logger.info(f"Successfully saved {successful_saves} results")
+        if failed_saves:
+            logger.error(f"Failed to save {failed_saves} results")
+            for url, error in save_errors:
+                logger.error(f"Save failed for {url}: {error}")
+
+        return self.output_dir if successful_saves > 0 else None
 
 
 # Example until integration in the main application:

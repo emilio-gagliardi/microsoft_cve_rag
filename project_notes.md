@@ -143,6 +143,31 @@ curl -X 'POST' \
 }
 ```
 
+## KB Articles and Product Family Relationships
+
+### Current Implementation
+- KB Articles in MongoDB Atlas are stored in `microsoft_kb_articles` collection
+- Product family information is stored separately in `microsoft_product_builds` collection
+- Current ETL pipeline creates KB articles by joining:
+  - `microsoft_kb_articles`
+  - `windows_10`
+  - `windows_11` collections
+
+### Data Structure
+- `microsoft_product_builds` collection contains `product` property
+- This property indicates which product the KB Article applies to
+- Required for product family-based reporting
+
+### Known Limitation
+- `microsoft_kb_articles` collection doesn't directly support filtering by product family
+- This impacts reporting capabilities where product family filtering is needed
+
+### Recommended Solution
+- Create an aggregation pipeline to:
+  - Match documents between `microsoft_product_builds` and `microsoft_kb_articles`
+  - Feature engineer the `product` column onto KB article records
+  - This enables proper product family-based filtering and reporting
+
 ## Recent Updates [2024-12-24]
 
 ### Patch Post Transformer Enhancements
@@ -230,6 +255,25 @@ curl -X 'POST' \
 3. Add CVE detail expansion panels
 4. Support keyboard navigation
 
+## Conda Dependency Management [2025-03-11]
+
+### Adding New Dependencies
+1. Add the package to `environment.yml` with version specification
+2. Update the environment using:
+   ```bash
+   conda env update -f environment.yml --prune
+   ```
+
+### Package Version Format
+- Format: `package=version=build_string`
+- Example: `colorlog=6.9.0=pyh7428d3b_1`
+  - `pyh7428d3b_1` is the build string, which can be found by:
+  1. Search package on https://anaconda.org
+  2. Select the appropriate channel (conda-forge/main)
+  3. Find the specific version's build string
+
+Note: The build string ensures exact package reproduction across environments.
+
 ## VSCode Settings Configuration
 Place the following in `.vscode/settings.json` to ensure consistent code formatting and linting:
 
@@ -291,6 +335,66 @@ This configuration:
 After updating settings.json, restart VSCode for changes to take effect.
 
 # Lessons Learned
+
+## MCP Server Installation Issues
+
+### Exa MCP Server Installation and Configuration Challenges
+
+**Issue Date:** March 12, 2025
+
+**Problem:**
+- Default npm installation method (`npm install -g exa-mcp-server`) succeeded but server failed to connect
+- Using `npx` to run the server as suggested in documentation didn't work
+- Server connection errors persisted after initial configuration
+
+**Impact:**
+- MCP server was not accessible for web searches
+- Received "Not connected" errors when attempting to use the server's tools
+
+**Root Cause:**
+- Documentation assumed `npx` would work for running the server
+- Path resolution issues with globally installed npm packages
+- Incomplete configuration instructions for Cline/WindSurf integration
+
+**Resolution Steps:**
+1. Installed server globally:
+   ```bash
+   npm install -g exa-mcp-server
+   ```
+
+2. Located actual executable path:
+   ```bash
+   npm list -g exa-mcp-server
+   # Found at C:\Users\[user]\AppData\Roaming\npm\node_modules\exa-mcp-server
+   ```
+
+3. Modified Cline MCP settings to use full path:
+   ```json
+   {
+     "mcpServers": {
+       "github.com/exa-labs/exa-mcp-server": {
+         "command": "node",
+         "args": ["C:\\Users\\[user]\\AppData\\Roaming\\npm\\node_modules\\exa-mcp-server\\build\\index.js"],
+         "env": {
+           "EXA_API_KEY": "your-api-key"
+         },
+         "disabled": false,
+         "autoApprove": []
+       }
+     }
+   }
+   ```
+
+**Prevention:**
+- Always use full paths in MCP server configurations
+- Test server connection immediately after installation
+- Document specific configuration requirements for different environments (Claude Desktop vs Cline/WindSurf)
+
+**Related Components:**
+- Exa MCP Server
+- Cline Extension
+- WindSurf
+- npm Global Packages
 
 ## Docker and Container Issues
 
