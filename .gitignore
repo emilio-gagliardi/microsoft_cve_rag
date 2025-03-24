@@ -44,13 +44,15 @@ package docs/
 # windsurf rules
 .windsurfrules
 
-
 /microsoft_cve_rag/architect/qdrant_optimization.md
 /microsoft_cve_rag/architect/pr_feedback.md
 neomodel-scraper/
-check_graph_insert_for_completeness
+check_graph_insert_for_completeness.ipynb
 .ipynb_checkpoints/check_graph_insert_for_completeness-checkpoint
 
 # MCP Servers and details
 mcp-servers/
 notion_documentation_pages.md
+
+# Add the specified folder
+microsoft_cve_rag/application/data/scrapes/kb_articles

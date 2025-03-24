@@ -797,7 +797,9 @@ class MicrosoftKbScraper(BaseScraper):
             return None
 
     async def save_kb_bulk_results(
-        self, results: List[CrawlResult], output_dir: Optional[str] = None
+        self,
+        results: List[CrawlResult],
+        output_dir: Optional[str] = None
     ) -> Optional[str]:
         """Save bulk crawl results to disk using base class infrastructure.
 
@@ -844,6 +846,8 @@ class MicrosoftKbScraper(BaseScraper):
                 await self.save_crawl_result(
                     crawl_result=result,
                     output_dir=self.output_dir,
+                    raw_html=False,
+                    cleaned_html=False,
                     filename_prefix="kb_article_"
                 )
                 successful_saves += 1

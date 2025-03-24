@@ -9,6 +9,8 @@ Inputs: Text strings
 Outputs: Embeddings (numpy arrays)
 Dependencies: None (external: Ollama, Hugging Face, or OpenAI)
 """
+import torch  # noqa: F401 Required for ONNX Runtime
+import onnxruntime as ort
 
 from typing import List, Union
 from abc import ABC, abstractmethod
@@ -25,6 +27,7 @@ import logging
 settings = get_app_config()
 embedding_config = settings["EMBEDDING_CONFIG"]
 logging.getLogger(__name__)
+
 
 class EmbeddingProvider(ABC):
     """
@@ -353,25 +356,25 @@ class EmbeddingService:
 
 class LlamaIndexEmbeddingAdapter(BaseEmbedding):
     """Adapter class to make our EmbeddingService compatible with LlamaIndex's embedding interface.
-    
+
     This adapter wraps our custom EmbeddingService to implement LlamaIndex's BaseEmbedding interface,
     allowing it to be used within LlamaIndex's ecosystem.
-    
+
     Args:
         embedding_service (EmbeddingService): Our custom embedding service to adapt
     """
-    
+
     embedding_service: EmbeddingService = Field(description="The underlying embedding service to adapt")
-    
+
     def __init__(self, embedding_service: EmbeddingService, **kwargs):
         super().__init__(embedding_service=embedding_service, **kwargs)
         logging.info(f"LlamaIndex adapter initialized with {embedding_service.model_name} (dim={embedding_service.embedding_length})")
-        
+
     def _get_text_embedding(self, text: str) -> List[float]:
         """Get embedding for a single text."""
         # logging.info(f"Generating embedding using {self.embedding_service.model_name}")
         return self.embedding_service.generate_embeddings(text)[0]  # Return first embedding
-        
+
     async def _aget_text_embedding(self, text: str) -> List[float]:
         """Get embedding for a single text asynchronously."""
         # logging.info(f"Generating async embedding:")
@@ -380,13 +383,13 @@ class LlamaIndexEmbeddingAdapter(BaseEmbedding):
         # logging.info(f"- Contains metadata: {'metadata' in text.lower()}")
         embeddings = await self.embedding_service.generate_embeddings_async(text)
         return embeddings[0]  # Return first embedding
-        
+
     def _get_query_embedding(self, query: str) -> List[float]:
         """Get embedding for a query string."""
         logging.info(f"Generating sync query embedding using {self.embedding_service.model_name}")
         # Use same method as text embedding
         return self.embedding_service.generate_embeddings(query)[0]
-        
+
     async def _aget_query_embedding(self, query: str) -> List[float]:
         """Get embedding for a query string asynchronously."""
         logging.info(f"Generating async query embedding using {self.embedding_service.model_name}")

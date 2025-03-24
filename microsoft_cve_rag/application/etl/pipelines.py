@@ -271,7 +271,7 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     minutes, seconds = divmod(elapsed_time, 60)
     logging.info(f"Time taken to transform all data: {int(minutes)} min : {int(seconds)} sec")
     logging.info("Done with data transformation ==========================================\n")
-    return response
+
     logging.info("Begin Graph extraction ------------------------------\n")
     start_time = time.time()
 
@@ -469,11 +469,12 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     batch_size = 1000  # Adjust based on available memory
 
     try:
-        await build_relationships_in_batches(
-            nodes_dict,
-            batch_size=batch_size,
-            checkpoint_file=checkpoint_file
-        )
+        # await build_relationships_in_batches(
+        #     nodes_dict,
+        #     batch_size=batch_size,
+        #     checkpoint_file=checkpoint_file
+        # )
+        pass
     except Exception as e:
         logging.error(f"Error building relationships: {str(e)}")
         logging.info("You can resume the process later using the checkpoint file")
@@ -594,14 +595,14 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
 
                 try:
                     # UPSERT with optimized batch processing and proper await
-                    nodes_created = await llama_vector_service.upsert_documents(
-                        documents=llama_documents,
-                        verify_upsert=True,
-                        wait=False,  # Don't wait for indexing
-                        show_progress=True,
-                        batch_size=batch_size
-                    )
-
+                    # nodes_created = await llama_vector_service.upsert_documents(
+                    #     documents=llama_documents,
+                    #     verify_upsert=True,
+                    #     wait=False,  # Don't wait for indexing
+                    #     show_progress=True,
+                    #     batch_size=batch_size
+                    # )
+                    nodes_created = None
                     if nodes_created is not None:
                         logging.info(f" - Created {nodes_created} nodes from {len(llama_documents)} documents")
 
@@ -639,7 +640,7 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
                         logging.info(" - Saved document tracking catalog")
                     else:
                         logging.error("Failed to create nodes - upsert returned None")
-                        raise ValueError("Upsert operation failed")
+                        # raise ValueError("Upsert operation failed")
 
                 except Exception as e:
                     logging.error(f"Error during document upsert or tracking: {str(e)}")
@@ -926,6 +927,10 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
                 update_data['text'] = row['text']
             if 'title' in row.index:
                 update_data['title'] = row['title']
+            if 'scraped_markdown' in row.index:
+                update_data['scraped_markdown'] = row['scraped_markdown']
+            if 'scraped_json' in row.index:
+                update_data['scraped_json'] = row['scraped_json']
             # update the etl_processing_status dictionary with latest status values
             if 'metadata' in row:
                 current_metadata = row['metadata']

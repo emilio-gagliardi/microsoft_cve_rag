@@ -766,84 +766,100 @@ async def async_generate_summary(text: str) -> Optional[str]:
     marvin_summary_prompt = r"""
         Generate a highly technical summary of the following Microsoft KB Article text. This summary is intended for advanced system administrators and IT professionals specializing in modern device management with Intune MDM, Entra ID, Windows 365, and Azure.
 
-        **Structure your response as follows:**
-        1. Provide a brief, sentence-based overview that includes:
-        - The primary purpose of this KB article (e.g., security update, quality improvement).
-        - The specific operating systems and versions affected.
-        - Any critical security issues, vulnerabilities, or bugs addressed.
-        - Any prerequisites or special installation requirements.
-        - Avoid adding general advice on patch management in the overview.
-        - 5 sentences maximum.
-        - No heading.
-        Example of a good overview:'KB5040427 is a critical security update released on July 9, 2024, targeting Windows 10 Enterprise LTSC 2021, IoT Enterprise LTSC 2021, and Windows 10 version 22H2 (builds 19044.4651 and 19045.4651). The update addresses significant security vulnerabilities in RADIUS protocol (MD5 collisions) and implements enhanced BitLocker Secure Boot validation profiles. This combined SSU/LCU package requires specific prerequisites based on deployment method: KB5014032 for offline imaging or KB5005260 for WSUS deployment. The update includes SSU KB5039336 (builds 19044.4585 and 19045.4585) for improved update servicing capabilities.'
+        General Guidelines
 
-        2. Follow the overview with a section titled **Technical Breakdown**: Summarize only the specific technical content described in the KB article, with actionable details for administrators. Use subheadings that align with the content of the KB article and format commands, error codes, and configurations clearly. Do not add headings for commentary or guidelines in this prompt.
+        Provide a brief, sentence-based overview paragraph followed by a detailed technical breakdown with sub sections. Adhere to the structure below. Assume the reader has a strong background in patching and Microsoft device management. Maintain honesty and precision by sticking to the KB article's content, avoiding general or outdated advice unless specified in the article.
+        - Use the subheadings outlined below to structure the summary, aligning with the KB article's content.
+        - Format all commands, error codes, and configurations using triple-backtick Markdown code blocks with appropriate language identifiers.
 
-        **Vulnerabilities and Exploits**:
-        Clearly state vulnerabilities and mention whether they are high impact or low impact. For example, 'This update addresses high-impact vulnerabilities including issues with Windows Installer and Remote Authentication Dial-In User Service (RADIUS) related to MD5 collision exploits. Full details are available in the July 2024 Security Updates.'
-
-        **Guidelines for Formatting Commands, Error Codes, and Technical Content**:
-        - **Commands and Scripts**: For each command, use labeled code blocks. Include only commands that are directly relevant to the KB article, avoiding placeholders. Use the following format:
-        - **Powershell commands**:
-            ```
-            [Powershell]
+        Formatting Guidelines
+        - **Commands and Scripts**: Use triple-backtick Markdown code blocks with language identifiers. Include only commands from the KB article. Examples:
+        - PowerShell:
             ```powershell
-            # Example PowerShell command
             Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Installer" -Name "DisableLUAInRepair" -Value 1
             ```
-        - **Registry Keys**:
+        - Command Line (e.g., DISM):
+            ```cmd
+            DISM /online /get-packages
             ```
-            [Registry Key]
-            ```registry
-            `HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer\DisableLUAInRepair` = `1`
-            ```
-        - **Intune Commands**: Ensure the command syntax is accurate and specific to Intune where applicable.
-            ```
-            [Intune Terminal]
+        - Intune Terminal:
             ```shell
             az intune policy set --policyName "DOCacheHost" --value "<Your MCCC Endpoint>"
             ```
-
-        - **Error Codes**: Format error codes in a labeled code block, specifying `[Error Code]` and using backticks for clarity. For example:
+        - **Registry Keys**:
+            ```registry
+            HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer\DisableLUAInRepair = 1
             ```
-            [Error Code]
-            `0x80070520`
+        - **Error Codes**:
+            ```plaintext
+            0x80070520
             ```
+        - Ensure all commands match the source text exactly and use the correct language identifier (e.g., ```cmd for DISM, ```powershell for PowerShell).
 
-        - **Workarounds and Known Issues**:
-        - Clearly detail any known issues and their workarounds. Specify whether the fix should be applied via **Autopatch, MDM, Group Policy, registry modification, or Intune command**. Be aware that microsoft has announced the deprecation of WSUS, and a preference for Autopatch or Intune is recommended where possible, but do not hallucenate workarounds or fixes outside of the KB Article content.
-        - Use bullet lists. For example:
-            'MCC/DHCP Option 235 Discovery Issue
+        Additional Notes
+        - Highlight security risks, elevated-risk exploits, or known issues clearly.
+        - Exclude file information (e.g., file lists) from the summary.
+
+        <summary structure>
+        ## Overview
+        - Include:
+        - The primary purpose of this KB article (e.g., security update, quality improvement).
+        - The specific operating systems and versions affected in a bullet list.
+        - Any critical security issues, vulnerabilities, or bugs addressed.
+        - Any prerequisites or special installation requirements.
+        - Avoid general advice on patch management.
+        - Limit to 6 sentences maximum.
+        Example: 'KB5040427 is a critical security update released on July 9, 2024, targeting:\n
+        - Windows 10 Enterprise LTSC 2021\n
+        - IoT Enterprise LTSC 2021\n
+        - Windows 10 version 22H2 (builds 19044.4651 and 19045.4651)\n
+        The update addresses significant security vulnerabilities in RADIUS protocol (MD5 collisions) and implements enhanced BitLocker Secure Boot validation profiles. This combined SSU/LCU package requires specific prerequisites based on deployment method: KB5014032 for offline imaging or KB5005260 for WSUS deployment. The update includes SSU KB5039336 (builds 19044.4585 and 19045.4585) for improved update servicing capabilities.'
+
+        ## Technical Breakdown
+        - Generate a detailed response at least as long as this prompt (~1200 tokens) for KB articles up to 3000 words, including all improvements, bug fixes, and vulnerabilities from the 'Improvements' section with exhaustive technical details and examples where applicable. For articles exceeding 5000 words, scale down the summary length proportionally to remain concise yet comprehensive.
+
+        ### Vulnerabilities and Bug Fixes
+        - List all improvements, bug fixes, and vulnerabilities from the 'Improvements' section in bullet points with brief descriptions.
+        - Prioritize high-impact items (e.g., security vulnerabilities, critical bugs) first.
+        - Clearly state whether each vulnerability is high or low impact. Example: 'This update addresses high-impact vulnerabilities in Windows Installer and RADIUS protocol related to MD5 collision exploits. Full details in the July 2024 Security Updates.'
+        - Clearly state whether the item is a: ['vulnerability', 'bug fix', 'improvement']
+        - Include actionable details (e.g., affected components, configurations).
+
+        ### Known Issues and Workarounds
+        - Detail any known issues and workarounds from the KB article in bullet lists.
+        - Do not fabricate or make up Known Issues if they don't exist, not all KB articles have Known Issues.
+        - Specify the fix method (e.g., Autopatch, MDM, Group Policy, registry modification, Intune command) if provided, noting WSUS deprecation and preference for Autopatch/Intune where mentioned.
+        - Example format:
+        - MCC/DHCP Option 235 Discovery Issue
             - Impact: Enterprise environments only
             - Resolution: Install KB5040525
-            BitLocker Recovery Prompt
-            - Trigger: Device Encryption enabled
-            - Resolution: Install KB5041580
-            Profile Picture Error (0x80070520)
+        - Profile Picture Error
             - Impact: Limited
-            - Status: Requires support intervention'
-        - Use precise instructions, including paths, commands, and exact settings, to avoid ambiguity. Example:
-            ```
-            If devices experience issues with Microsoft Connected Cache discovery via DHCP Option 235, set the following in Group Policy:
-            [Registry Key]
-            `HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\DOCacheHost` = `<MCC Endpoint>`
+            - Status: Requires support intervention
+            - Error Code:
+            ```plaintext
+            0x80070520
             ```
 
-        3. **Installation Process and Prerequisites**:
-        - Provide step-by-step installation prerequisites directly from the KB article.
-        - Specify preferred update channels (e.g., Autopatch, Windows Update, WSUS) and clarify scenarios where standalone installation is necessary.
-        - If uninstallation instructions are given, use labeled code blocks as with `[Powershell]` commands, ensuring that command syntax is exact.
+        ### Installation Process and Prerequisites
+        - Provide step-by-step prerequisites and installation details from the KB article.
+        - Specify preferred update channels (e.g., Autopatch, Windows Update, WSUS, standalone installation).
+        - For uninstallation instructions, use triple-backtick code blocks.
 
-        **Additional Guidelines**:
-        - Assume the reader has a strong background in patching and Microsoft device management.
-        - Clearly highlight any security risks, elevated-risk exploits, or known issues in the patch.
-        - Maintain honesty and precision by adhering to the content and guidance in the KB article, while promoting modern practices where possible.
-        Note. Avoid mentioning general, out-of-date advice (e.g., "Use Autopatch or Intune") unless explicitly mentioned in the KB article. Focus solely on the details directly relevant to the article's content.
-        - Don't include file information in the summary. The audience can easily find that information elsewhere.
-        KB Article text:
+        </summary structure>
+
+        KB Article text below
+        ===
         {kb_article_text}
+        ===
         """
-    model_kwargs = {"max_tokens": 1150, "temperature": 0.87}
+    model_kwargs = {
+        "max_tokens": 2500,
+        "temperature": 0.25,
+        "top_p": 1.0,
+        "presence_penalty": 0.5,
+        "frequency_penalty": 0.3,
+    }
     try:
         # Ensure the OpenAI API key is set
         api_key = os.getenv('OPENAI_API_KEY')
@@ -1051,7 +1067,7 @@ async def scrape_kb_articles(urls: pd.Series) -> Tuple[List[str], List[Dict[str,
                 markdown = result.markdown if hasattr(result, "markdown") else ""
 
                 # Extract and process JSON content
-                extracted_content = result.extracted_content if hasattr(result, "extracted_content") else None
+                extracted_content = scraper._parse_json_content(result.extracted_content) if hasattr(result, "extracted_content") else None
                 if isinstance(extracted_content, list) and extracted_content:
                     # If it's a list, take the last non-empty dict
                     valid_contents = [c for c in extracted_content if c and isinstance(c, dict)]
@@ -1085,6 +1101,29 @@ async def scrape_kb_articles(urls: pd.Series) -> Tuple[List[str], List[Dict[str,
         logging.exception(f"Error in KB article scraping: {str(e)}")
         # Return empty results for all URLs in case of failure
         return ["" for _ in urls], [{} for _ in urls]
+
+
+def is_valid_kb_json(json_data: Dict[str, Any]) -> bool:
+    """Check if the KB article JSON has the required keys and valid content."""
+    required_keys = {"title", "url", "os_builds"}
+    if not isinstance(json_data, dict):
+        return False
+    return all(key in json_data for key in required_keys) and json_data != {"raw": "None"}
+
+
+def get_text_for_summary(row: pd.Series) -> str:
+    """Get the best available text content for summary generation.
+
+    Precedence order:
+    1. scraped_markdown (if available and non-empty)
+    2. scraped_json (if valid KB JSON)
+    3. raw text as fallback
+    """
+    if isinstance(row["scraped_markdown"], str) and row["scraped_markdown"].strip():
+        return row["scraped_markdown"]
+    elif isinstance(row["scraped_json"], dict) and is_valid_kb_json(row["scraped_json"]):
+        return json.dumps(row["scraped_json"])
+    return row["text"]
 
 
 # Wrapper to handle async calls in apply
@@ -1206,18 +1245,19 @@ def transform_kb_articles(
         urls = df_windows_no_summary["article_url"].fillna("")
 
         # Call the improved scrape_kb_articles function
-        scraped_texts, scraped_jsons = loop.run_until_complete(scrape_kb_articles(urls))
+        scraped_markdown, scraped_jsons = loop.run_until_complete(scrape_kb_articles(urls))
 
         # Update both columns where we have valid URLs
         mask = df_windows_no_summary["article_url"].notna()
-        df_windows_no_summary.loc[mask, "scraped_markdown"] = scraped_texts
+        df_windows_no_summary.loc[mask, "scraped_markdown"] = scraped_markdown
         df_windows_no_summary.loc[mask, "scraped_json"] = scraped_jsons
 
         df_windows_no_summary["summary"] = ""
-        # summaries = loop.run_until_complete(
-        #     generate_summaries(df_windows_no_summary["scraped_json"])
-        # )
-        # df_windows_no_summary["summary"] = summaries
+        texts_for_summary = df_windows_no_summary.apply(get_text_for_summary, axis=1)
+        summaries = loop.run_until_complete(
+            generate_summaries(texts_for_summary)
+        )
+        df_windows_no_summary["summary"] = summaries
 
         # Add update package URL for Windows KB articles
         df_windows_no_summary["update_package_url"] = df_windows_no_summary[
@@ -1234,6 +1274,7 @@ def transform_kb_articles(
     else:
         df_windows = pd.DataFrame(columns=master_columns)
         print("No Windows KB articles to transform.")
+        raise ValueError("No Windows KB articles to transform.")
 
     # Process Edge KB articles
     if kb_articles_edge:

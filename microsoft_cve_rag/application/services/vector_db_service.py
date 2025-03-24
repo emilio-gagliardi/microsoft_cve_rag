@@ -43,14 +43,14 @@ logging.getLogger(__name__)
 class VectorDBService:
     """
     A service class for managing vector database operations with optimized performance.
-    
+
     Features:
     - Optimized collection configuration for insert/search performance
     - Batch processing with automatic size optimization
     - Dynamic parameter management for different workloads
     - Payload index management for filtered queries
     - Error handling with retry logic
-    
+
     Usage:
         # Initialize service
         service = VectorDBService(
@@ -62,7 +62,7 @@ class VectorDBService:
                 "tier1_collection": "my_collection"
             }
         )
-        
+
         # Bulk insert with progress tracking
         result = await service.upsert_points(
             points=points_list,
@@ -70,21 +70,21 @@ class VectorDBService:
             wait=False,
             show_progress=True
         )
-        
+
         # Switch to search optimization
         await service.update_collection_params(optimize_for="search")
-        
+
         # Create indexes for filtered fields
         await service.create_payload_index(
             field_name="post_type",
             field_schema={"type": "keyword"}
         )
-    
+
     Configuration:
         embedding_config:
             embedding_provider: Provider for embeddings (e.g., "fastembed")
             fastembed_model_name: Name of the FastEmbed model
-            
+
         vectordb_config:
             tier1_collection: Name of the collection
             distance_metric: Distance metric for vectors (default: "cosine")
@@ -1015,11 +1015,11 @@ class VectorDBService:
     ) -> Dict[str, Any]:
         """
         Updates collection parameters to optimize for either insert or search performance.
-        
+
         Args:
             optimize_for: Either "insert" or "search"
             custom_params: Optional custom parameters to override defaults
-            
+
         Returns:
             Dict containing operation status and applied parameters
         """
@@ -1061,9 +1061,9 @@ class VectorDBService:
             # Get base configuration
             if optimize_for not in optimization_presets:
                 raise ValueError(f"Invalid optimization mode: {optimize_for}. Must be 'insert' or 'search'")
-                
+
             config = optimization_presets[optimize_for].copy()
-            
+
             # Override with custom params if provided
             if custom_params:
                 for category in ["hnsw_config", "optimizer_config"]:
@@ -1102,12 +1102,12 @@ class VectorDBService:
     ) -> Dict[str, Any]:
         """
         Creates an index on a payload field for faster filtering.
-        
+
         Args:
             field_name: Name of the field to index
             field_schema: Schema definition for the field
             wait: Whether to wait for the indexing operation to complete
-            
+
         Returns:
             Dict containing operation status
         """
@@ -1123,7 +1123,7 @@ class VectorDBService:
                 field_schema=field_config["type"],
                 wait=wait
             )
-            
+
             return {
                 "status": "success",
                 "operation_id": result.operation_id,
@@ -1141,7 +1141,7 @@ class VectorDBService:
     async def list_payload_indexes(self) -> List[Dict[str, Any]]:
         """
         Lists all payload indexes in the collection.
-        
+
         Returns:
             List of payload index configurations
         """
@@ -1149,7 +1149,7 @@ class VectorDBService:
             collection_info = await self.async_client.get_collection(
                 collection_name=self.collection
             )
-            
+
             if hasattr(collection_info, "payload_schema"):
                 return [
                     {

@@ -33,3 +33,6 @@ docker-compose.yml
 .codiumai.toml
 
 /mongo_playground/
+
+# Add the specified folder
+microsoft_cve_rag/application/data/scrapes/kb_articles

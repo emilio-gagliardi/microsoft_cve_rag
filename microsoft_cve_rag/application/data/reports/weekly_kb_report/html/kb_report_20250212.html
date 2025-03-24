@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly KB Security Report - PortalFuse Weekly KB Report</title>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary: #0284c7;
+            --secondary: #7c3aed;
+            --background: #ffffff;
+            --text: #1f2937;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+        }
+
+        .shadcn-card {
+            background: linear-gradient(to bottom right, #ffffff, #f8fafc);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+            transition: box-shadow 0.15s ease-in-out;
+        }
+
+        .shadcn-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .cve-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s;
+        }
+
+        .cve-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cve-popup-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.2s;
+        }
+
+        .cve-popup.active .cve-popup-content {
+            transform: translateY(0);
+        }
+
+        .severity-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .severity-high {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+
+        .severity-medium {
+            background-color: #fef3c7;
+            color: #d97706;
+        }
+
+        .severity-low {
+            background-color: #d1fae5;
+            color: #059669;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-8">
+    
+
+
+
+
+    
+    
+        
+    
+
+    
+    
+        
+            
+                
+            
+                
+            
+        
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+        
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+        
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+        
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+        
+            
+                
+                    
+                
+            
+        
+    
+
+    
+    
+        
+    
+
+    
+    
+        
+            
+                
+            
+                
+            
+        
+            
+                
+            
+        
+            
+                
+                    
+                
+            
+                
+            
+        
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+        
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+        
+            
+                
+                    
+                
+            
+        
+    
+
+    
+    
+        
+    
+
+    
+    
+        
+            
+                
+            
+                
+            
+        
+            
+                
+            
+                
+                    
+                
+            
+        
+            
+                
+                    
+                
+            
+                
+            
+        
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+        
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+        
+            
+                
+                    
+                
+            
+        
+    
+
+    
+    
+        
+    
+
+    
+    
+        
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+        
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+        
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+        
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+                    
+                
+            
+        
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+        
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+        
+            
+                
+            
+        
+    
+
+    
+    
+        
+    
+
+    
+    
+        
+            
+                
+            
+                
+            
+        
+            
+                
+            
+                
+                    
+                
+            
+        
+            
+                
+                    
+                
+            
+                
+            
+        
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+        
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+        
+            
+                
+                    
+                
+            
+        
+    
+
+
+<div class="bg-gradient-to-r from-blue-600 to-purple-600">
+    <div class="container mx-auto max-w-[1080px] px-4 py-12">
+        <h1 class="text-4xl font-bold text-white mb-4">Weekly KB Security Report</h1>
+        <p class="text-white/80 mb-8">Generated on 2025-02-12T21:35:09.402237</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Total Articles -->
+            <div class="bg-white/10 backdrop-blur-lg rounded-lg p-4">
+                <h3 class="text-lg font-semibold text-white">Total Articles</h3>
+                <p class="text-3xl font-bold text-white">5</p>
+            </div>
+            
+            <!-- Total CVEs -->
+            <div class="bg-white/10 backdrop-blur-lg rounded-lg p-4">
+                <h3 class="text-lg font-semibold text-white">Total CVEs</h3>
+                <p class="text-3xl font-bold text-white">197</p>
+            </div>
+            
+            <!-- Critical CVEs -->
+            <div class="bg-white/10 backdrop-blur-lg rounded-lg p-4">
+                <h3 class="text-lg font-semibold text-white">Critical CVEs</h3>
+                <p class="text-3xl font-bold text-white">10</p>
+            </div>
+            
+            <!-- High CVEs -->
+            <div class="bg-white/10 backdrop-blur-lg rounded-lg p-4">
+                <h3 class="text-lg font-semibold text-white">High CVEs</h3>
+                <p class="text-3xl font-bold text-white">151</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <main class="container mx-auto max-w-[1080px] w-[96%] md:w-[85%] lg:max-w-[1080px] px-4 py-12">
+        
+    
+    
+    
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-blue-700">Windows 10 Updates</h2>
+            
+                <div class="shadcn-card group mb-8" x-data>
+    <div class="flex justify-between items-start mb-6">
+        <div>
+            <a href="https://support.microsoft.com/help/5043064" target="_blank" rel="noopener noreferrer" class="group-hover:text-blue-600 transition-colors">
+                <h3 class="text-xl font-semibold">5043064 – September 10, 2024—KB5043064 (OS Builds 19044.4894 and 19045.4894) - Microsoft Support</h3>
+            </a>
+            <p class="text-sm text-gray-500 mt-1">Published: 2024-09-10T00:00:00</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">OS Builds</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                <li class="text-sm text-gray-600">10.0.19044.4894</li>
+            </ul>
+        </div>
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Key Fixes (29 CVEs)</h4>
+            <button 
+                data-cves='["CVE-2024-38239", "CVE-2024-21416", "CVE-2024-38119", "CVE-2024-38242", "CVE-2024-38256", "CVE-2024-30073", "CVE-2024-43461", "CVE-2024-38240", "CVE-2024-38217", "CVE-2024-38241", "CVE-2024-38250", "CVE-2024-38237", "CVE-2024-38046", "CVE-2024-38247", "CVE-2024-38238", "CVE-2024-38234", "CVE-2024-38246", "CVE-2024-38248", "CVE-2024-38244", "CVE-2024-38243", "CVE-2024-38252", "CVE-2024-38254", "CVE-2024-38245", "CVE-2024-38249", "CVE-2024-38045", "CVE-2024-38235", "CVE-2024-43487", "CVE-2024-38257", "CVE-2024-38014"]'
+                data-categories='{"denial_of_service": [{"category": "denial_of_service", "cve_source": "direct", "id": "d35216dd-24ad-4832-86b4-bc6684af69cb", "post_id": "CVE-2024-38234", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043067", "kb5043064", "kb5043080", "kb5043076"], "revision": "1.0000000000", "score": {"score_num": 6.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38234"}, {"category": "denial_of_service", "cve_source": "direct", "id": "9615bc2c-19b3-1493-1fc7-12316f962481", "post_id": "CVE-2024-38235", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043064", "kb5043076", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 6.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38235"}], "disclosure": [{"category": "disclosure", "cve_source": "direct", "id": "d3c27440-24a7-cf3e-6491-2bb828060893", "post_id": "CVE-2024-38256", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064"], "revision": "1.0000000000", "score": {"score_num": 5.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38256"}, {"category": "disclosure", "cve_source": "direct", "id": "70e43edf-9fdd-6bbb-15db-0575217be2c2", "post_id": "CVE-2024-38254", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043064", "kb5043076", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 6.2, "score_rating": "medium", "source": "NIST"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38254"}, {"category": "disclosure", "cve_source": "direct", "id": "076fc86a-b5aa-acc4-5f96-a71f0e88e7c2", "post_id": "CVE-2024-38257", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 7.5, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38257"}], "feature_bypass": [{"category": "feature_bypass", "cve_source": "direct", "id": "7f729fde-701e-3807-6dd3-b2f20bc98c3b", "post_id": "CVE-2024-30073", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30073"}, {"category": "feature_bypass", "cve_source": "direct", "id": "b6d28b28-8f36-e727-99ba-0c0d4c351fb1", "post_id": "CVE-2024-38217", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043064", "kb5043076", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 5.4, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38217"}, {"category": "feature_bypass", "cve_source": "direct", "id": "01e790be-4542-04bb-f731-e0cca3e27ad5", "post_id": "CVE-2024-43487", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064"], "revision": "1.0000000000", "score": {"score_num": 6.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43487"}], "privilege_elevation": [{"category": "privilege_elevation", "cve_source": "direct", "id": "2561f0fd-c251-a5f6-783a-b302b9f84018", "post_id": "CVE-2024-38239", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.2, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38239"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "470a6f88-89e2-c5d3-6d7e-fe9ae13edbb0", "post_id": "CVE-2024-38242", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043064", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38242"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "b5f4a5f8-7303-e319-eceb-d29356389efe", "post_id": "CVE-2024-38240", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 9.8, "score_rating": "critical", "source": "NIST"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38240"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "eb7c4b22-c8a6-6277-9c59-0469d74c4c3e", "post_id": "CVE-2024-38241", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043080", "kb5043064"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38241"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "0983b1c5-edf2-4ce1-8492-094585b2fa96", "post_id": "CVE-2024-38250", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043064"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38250"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "cbfb7d66-5f99-39be-7c1d-200f54d0db26", "post_id": "CVE-2024-38237", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043080", "kb5043064"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38237"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "046f6a31-bab2-31e0-0d31-9dbc60fceacb", "post_id": "CVE-2024-38046", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043064", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38046"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "a9bb76e3-1dc4-76d7-de58-0a09d113ca57", "post_id": "CVE-2024-38247", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043064", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38247"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "30cf4eb6-ef64-b7b6-bb07-44a1b8a14392", "post_id": "CVE-2024-38238", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043076", "kb5043064", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38238"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "85bea382-adcd-f652-8c3b-00aa96f5fff5", "post_id": "CVE-2024-38246", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043080", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 7.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38246"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "14d3e1f7-b956-9881-519d-787dde9015d8", "post_id": "CVE-2024-38248", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38248"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "b28fcd56-d58c-1e8b-884a-f0d2f8c4acf0", "post_id": "CVE-2024-38244", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38244"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "3e09d4d2-f231-b6ac-de1f-5958b3af4750", "post_id": "CVE-2024-38243", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043067", "kb5043080", "kb5043076"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38243"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "2cca1c4c-278b-83f1-acd9-aa0d7a4e1a8c", "post_id": "CVE-2024-38252", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043067", "kb5043076", "kb5043064", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38252"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "dc2fb4a4-7d40-0c47-9589-3fff45a660a8", "post_id": "CVE-2024-38245", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38245"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "76419a28-f3ce-0482-67de-ed9ec9e5f060", "post_id": "CVE-2024-38249", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043076", "kb5043067", "kb5043064"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38249"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "0624f5da-0628-9caf-f71c-de5016cec956", "post_id": "CVE-2024-38014", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043064", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38014"}], "remote_code_execution": [{"category": "remote_code_execution", "cve_source": "direct", "id": "f7755843-c3ab-446c-b4c2-51ee63de8acd", "post_id": "CVE-2024-21416", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 9.8, "score_rating": "critical", "source": "NIST"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-21416"}, {"category": "remote_code_execution", "cve_source": "direct", "id": "ad1140c5-fbf9-ce32-e1ce-09c65972f62a", "post_id": "CVE-2024-38119", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043080", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 7.5, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38119"}, {"category": "remote_code_execution", "cve_source": "direct", "id": "950ee44c-1ce7-2c17-6b16-755d33bf36a3", "post_id": "CVE-2024-38045", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 8.1, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38045"}], "spoofing": [{"category": "spoofing", "cve_source": "direct", "id": "4361a5ee-d8e2-8ded-6196-dfb559774943", "post_id": "CVE-2024-43461", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043067", "kb5043064", "kb5043076"], "revision": "1.0000000000", "score": {"score_num": 8.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43461"}]}'
+                @click="Alpine.store('cveModal').show($el.dataset)"
+                class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all shadow-sm hover:shadow-md"
+            >
+                VIEW AFFECTED CVES
+            </button>
+        </div>
+    </div>
+
+    <div class="space-y-6">
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">New Features</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                
+                <li class="text-sm text-gray-600">This update addresses security issues for your Windows operating system.</li>
+                
+            </ul>
+        </div>
+        
+
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Bug Fixes</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                
+                <li class="text-sm text-gray-600">The update changes the User Account Control (UAC) prompt for application repairs with Windows Installer; after installing this update, the UAC will prompt for credentials which may require updates to automation scripts.</li>
+                
+                <li class="text-sm text-gray-600">The servicing stack update KB5043935 provides quality improvements to ensure Windows updates are robust and reliable.</li>
+                
+            </ul>
+        </div>
+        
+
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Known Issues & Workarounds</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                
+                <li class="text-sm text-gray-600">All users might be unable to change their user account profile picture after installing this update, receiving error code 0x80070520; a resolution is being developed.</li>
+                
+                <li class="text-sm text-gray-600">Users with a dual-boot setup for Windows and Linux might face issues booting Linux, receiving error messages related to SBAT: this is caused by a Secure Boot Advanced Targeting setting being applied incorrectly.</li>
+                
+                <li class="text-sm text-gray-600"></li>
+                
+            </ul>
+        </div>
+        
+
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Summary</h4>
+            <div class="text-sm text-gray-600 space-y-4">KB5043064 is a security update released on September 10, 2024, targeting Windows 10 Enterprise LTSC 2021, Windows 10 IoT Enterprise LTSC 2021, and Windows 10 version 22H2 (OS Builds 19044.4894 and 19045.4894). The update addresses critical vulnerabilities, including those related to User Account Control (UAC) behaviors during application repair processes, which may necessitate automation script updates. For installations, prerequisite updates KB5011543 or KB5003173 must be installed depending on the method of deployment, either for offline servicing or WSUS. Specific configurations and registry modifications for UAC settings are detailed in the update documentation.</p><p><strong>Technical Breakdown</strong></p><p><strong>Vulnerabilities and Exploits</strong>:
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li>This update addresses high-impact vulnerabilities involving User Account Control (UAC) not prompting for credentials during application repairs, which impacts automated processes.</li>
+</ul></div>
+<h4 class="text-lg font-medium mb-6">Known Issues in This Update</h4>
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li><strong>Profile Picture Error</strong>:</li>
+<li>Impact: Users are unable to change their profile picture.</li>
+<li>Workaround: None available; under investigation.</li>
+<li>Error Code:</li>
+</ul></div>
+<pre><code class="language-">[Error Code]
+`0x80070520`</code></pre>
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li><strong>Dual-Boot Linux Boot Issue</strong>:</li>
+<li>Impact: Devices with dual-boot setups may fail to boot Linux.</li>
+<li>Error Message: “Verifying shim SBAT data failed: Security Policy Violation.”</li>
+<li>Workaround: Refer to the Windows release health site for a workaround.</p><p><strong>Installation Process and Prerequisites</strong>:</li>
+<li>To install this update, ensure the following prerequisites are met based on your deployment scenario:</li>
+<li><strong>For offline OS image servicing</strong>:</li>
+<li>If your image does not include KB5011543 or later, install KB5014032 before proceeding.</li>
+<li><strong>For WSUS deployment or standalone installations</strong>:</li>
+<li>Install KB5005260 if your devices will not have KB5003173 or later.</li>
+<li><strong>Preferred Update Channels</strong>:</li>
+<li>Windows Update: Automatic updates.</li>
+<li>Windows Update for Business: Automatic installation based on policies.</li>
+<li>Microsoft Update Catalog: For standalone package retrieval.</li>
+<li>WSUS: Sync necessary for Windows 10, version 1903 and later security updates.</p><p>- <strong>Uninstallation Instructions</strong>:</li>
+</ul></div>
+To uninstall the LCU after installing the combined SSU and LCU:
+<pre><code class="language-">[Powershell]</code></pre>powershell
+DISM /online /get-packages
+DISM /Remove-Package /PackageName:<LCU Package Name>
+```
+Note: Using `wusa.exe` with the `/uninstall` switch will not function due to the combined package structure. </p><p>Ensure that all steps are followed meticulously to maintain compliance and system integrity post-update.</div>
+        </div>
+        
+    </div>
+</div>
+            
+        </section>
+    
+
+    
+    
+    
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-purple-700">Windows 11 Updates</h2>
+            
+                <div class="shadcn-card group mb-8" x-data>
+    <div class="flex justify-between items-start mb-6">
+        <div>
+            <a href="https://support.microsoft.com/help/5043080" target="_blank" rel="noopener noreferrer" class="group-hover:text-blue-600 transition-colors">
+                <h3 class="text-xl font-semibold">5043080 – September 10, 2024—KB5043080 (OS Build 26100.1742) - Microsoft Support</h3>
+            </a>
+            <p class="text-sm text-gray-500 mt-1">Published: 2024-09-10T00:00:00</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">OS Builds</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                <li class="text-sm text-gray-600">10.0.26100.1742</li>
+            </ul>
+        </div>
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Key Fixes (28 CVEs)</h4>
+            <button 
+                data-cves='["CVE-2024-38239", "CVE-2024-21416", "CVE-2024-38119", "CVE-2024-38242", "CVE-2024-38253", "CVE-2024-30073", "CVE-2024-43461", "CVE-2024-38240", "CVE-2024-38217", "CVE-2024-38241", "CVE-2024-38237", "CVE-2024-38046", "CVE-2024-38247", "CVE-2024-38238", "CVE-2024-38234", "CVE-2024-38246", "CVE-2024-38248", "CVE-2024-38244", "CVE-2024-38243", "CVE-2024-38252", "CVE-2024-38254", "CVE-2024-38245", "CVE-2024-38249", "CVE-2024-43457", "CVE-2024-38045", "CVE-2024-38235", "CVE-2024-38259", "CVE-2024-38014"]'
+                data-categories='{"denial_of_service": [{"category": "denial_of_service", "cve_source": "direct", "id": "d35216dd-24ad-4832-86b4-bc6684af69cb", "post_id": "CVE-2024-38234", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043067", "kb5043064", "kb5043080", "kb5043076"], "revision": "1.0000000000", "score": {"score_num": 6.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38234"}, {"category": "denial_of_service", "cve_source": "direct", "id": "9615bc2c-19b3-1493-1fc7-12316f962481", "post_id": "CVE-2024-38235", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043064", "kb5043076", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 6.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38235"}], "disclosure": [{"category": "disclosure", "cve_source": "direct", "id": "70e43edf-9fdd-6bbb-15db-0575217be2c2", "post_id": "CVE-2024-38254", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043064", "kb5043076", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 6.2, "score_rating": "medium", "source": "NIST"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38254"}], "feature_bypass": [{"category": "feature_bypass", "cve_source": "direct", "id": "7f729fde-701e-3807-6dd3-b2f20bc98c3b", "post_id": "CVE-2024-30073", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30073"}, {"category": "feature_bypass", "cve_source": "direct", "id": "b6d28b28-8f36-e727-99ba-0c0d4c351fb1", "post_id": "CVE-2024-38217", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043064", "kb5043076", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 5.4, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38217"}], "privilege_elevation": [{"category": "privilege_elevation", "cve_source": "direct", "id": "2561f0fd-c251-a5f6-783a-b302b9f84018", "post_id": "CVE-2024-38239", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.2, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38239"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "470a6f88-89e2-c5d3-6d7e-fe9ae13edbb0", "post_id": "CVE-2024-38242", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043064", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38242"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "5fe5958f-3511-d1e8-30b4-77123053cb26", "post_id": "CVE-2024-38253", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043067", "kb5043076"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38253"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "b5f4a5f8-7303-e319-eceb-d29356389efe", "post_id": "CVE-2024-38240", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 9.8, "score_rating": "critical", "source": "NIST"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38240"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "eb7c4b22-c8a6-6277-9c59-0469d74c4c3e", "post_id": "CVE-2024-38241", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043080", "kb5043064"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38241"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "cbfb7d66-5f99-39be-7c1d-200f54d0db26", "post_id": "CVE-2024-38237", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043080", "kb5043064"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38237"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "046f6a31-bab2-31e0-0d31-9dbc60fceacb", "post_id": "CVE-2024-38046", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043064", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38046"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "a9bb76e3-1dc4-76d7-de58-0a09d113ca57", "post_id": "CVE-2024-38247", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043064", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38247"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "30cf4eb6-ef64-b7b6-bb07-44a1b8a14392", "post_id": "CVE-2024-38238", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043076", "kb5043064", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38238"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "85bea382-adcd-f652-8c3b-00aa96f5fff5", "post_id": "CVE-2024-38246", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043080", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 7.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38246"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "14d3e1f7-b956-9881-519d-787dde9015d8", "post_id": "CVE-2024-38248", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38248"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "b28fcd56-d58c-1e8b-884a-f0d2f8c4acf0", "post_id": "CVE-2024-38244", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38244"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "3e09d4d2-f231-b6ac-de1f-5958b3af4750", "post_id": "CVE-2024-38243", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043067", "kb5043080", "kb5043076"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38243"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "2cca1c4c-278b-83f1-acd9-aa0d7a4e1a8c", "post_id": "CVE-2024-38252", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043067", "kb5043076", "kb5043064", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38252"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "dc2fb4a4-7d40-0c47-9589-3fff45a660a8", "post_id": "CVE-2024-38245", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38245"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "76419a28-f3ce-0482-67de-ed9ec9e5f060", "post_id": "CVE-2024-38249", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043076", "kb5043067", "kb5043064"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38249"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "21f7bf9a-b500-a07e-b44c-f6e3f422b476", "post_id": "CVE-2024-43457", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43457"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "0624f5da-0628-9caf-f71c-de5016cec956", "post_id": "CVE-2024-38014", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043064", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38014"}], "remote_code_execution": [{"category": "remote_code_execution", "cve_source": "direct", "id": "f7755843-c3ab-446c-b4c2-51ee63de8acd", "post_id": "CVE-2024-21416", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 9.8, "score_rating": "critical", "source": "NIST"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-21416"}, {"category": "remote_code_execution", "cve_source": "direct", "id": "ad1140c5-fbf9-ce32-e1ce-09c65972f62a", "post_id": "CVE-2024-38119", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043080", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 7.5, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38119"}, {"category": "remote_code_execution", "cve_source": "direct", "id": "950ee44c-1ce7-2c17-6b16-755d33bf36a3", "post_id": "CVE-2024-38045", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 8.1, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38045"}, {"category": "remote_code_execution", "cve_source": "direct", "id": "0d0aa77a-66a9-ccc1-6bd7-ffb3512673bc", "post_id": "CVE-2024-38259", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 8.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38259"}], "spoofing": [{"category": "spoofing", "cve_source": "direct", "id": "4361a5ee-d8e2-8ded-6196-dfb559774943", "post_id": "CVE-2024-43461", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043067", "kb5043064", "kb5043076"], "revision": "1.0000000000", "score": {"score_num": 8.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43461"}]}'
+                @click="Alpine.store('cveModal').show($el.dataset)"
+                class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all shadow-sm hover:shadow-md"
+            >
+                VIEW AFFECTED CVES
+            </button>
+        </div>
+    </div>
+
+    <div class="space-y-6">
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">New Features</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                
+                <li class="text-sm text-gray-600">Windows Installer - The User Account Control (UAC) now prompts for credentials when repairing an application, affecting automatic Windows Installer repairs and requiring updated automation scripts. Application owners must add the Shield icon, which indicates full administrator access is needed. To disable the UAC prompt, set the HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer\DisableLUAInRepair registry value to 1.</li>
+                
+            </ul>
+        </div>
+        
+
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Bug Fixes</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                
+                <li class="text-sm text-gray-600">Task Manager - Graphs on the Performance page in Task Manager are corrected to display the correct colors when using dark mode.</li>
+                
+            </ul>
+        </div>
+        
+
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Known Issues & Workarounds</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                
+                <li class="text-sm text-gray-600">All users on Arm devices experience an inability to download and play Roblox via the Microsoft Store on Windows, potentially disrupting access to the game; workaround: download Roblox directly from www.Roblox.com.</li>
+                
+                <li class="text-sm text-gray-600"></li>
+                
+                <li class="text-sm text-gray-600"></li>
+                
+            </ul>
+        </div>
+        
+
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Summary</h4>
+            <div class="text-sm text-gray-600 space-y-4">KB5043080 is a security update released on September 10, 2024, for Windows 11 version 24H2 across all editions. This update addresses critical security issues, including enhancements in the User Account Control (UAC) behavior during Windows Installer application repairs, which now requires user credentials. The update also improves Task Manager's graphical display in dark mode. Prerequisites include previous cumulative updates; the update can be acquired via Windows Update, Windows Update for Business, or manually from the Microsoft Update Catalog, with specific configurations for WSUS.</p><p><strong>Technical Breakdown</strong></p><p><strong>Vulnerabilities and Exploits</strong>:
+This update addresses high-impact vulnerabilities related to Windows Installer, specifically the User Account Control prompting mechanism, which has implications for automated processes. Additional details can be found in the September 2024 Security Updates documentation.</p><p><strong>Windows Installer Behavior Changes</strong>:
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li>UAC Prompts: Post-update, UAC will prompt for credentials during application repairs.</li>
+<li>Automation Scripts: Update automation scripts to include the Shield icon, indicating the need for administrator access.</li>
+</ul></div>
+<pre><code class="language-">[Registry Key]
+`HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer\DisableLUAInRepair` = `1`</code></pre></p><p><strong>Task Manager Fixes</strong>:
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li>Dark Mode Color Issues: Correct visual discrepancies in Task Manager's graphs while in dark mode.</p><p><strong>Known Issues and Workarounds</strong>:</li>
+<li>Roblox Download Issue on Arm Devices</li>
+<li>Impact: Players on Arm devices cannot download and play Roblox via the Microsoft Store.</li>
+<li>Workaround: Download Roblox directly from [www.Roblox.com](http://www.Roblox.com).</p><p><strong>Installation Process and Prerequisites</strong>:</li>
+</ul></div>
+<div class="mb-8"><ol class="list-decimal list-inside space-y-2">
+<li>Install the update using one of the following channels:</li>
+</ol></div>
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li><strong>Windows Update</strong>: Automatically downloaded and installed.</li>
+<li><strong>Windows Update for Business</strong>: Follows configured policies.</li>
+<li><strong>Microsoft Update Catalog</strong>: Standalone package available for direct installation.</li>
+<li><strong>WSUS</strong>: Sync the update by configuring the following:</li>
+<li>Product: Windows 11</li>
+<li>Classification: Security Updates  </p><p>2. To uninstall the LCU after installation:</li>
+<li>Use the DISM command to find the package name:</li>
+</ul></div>
+<pre><code class="language-">[Powershell]</code></pre>powershell
+DISM /online /get-packages
+<pre><code class="language-">- Then remove the LCU with:</code></pre>
+[Powershell]
+<pre><code class="language-powershell">DISM /Remove-Package /PackageName:<LCU Package Name></code></pre>
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li>Note: Running `wusa.exe /uninstall` will not work due to the combined nature of the SSU and LCU package.</li>
+</ul></div></div>
+        </div>
+        
+    </div>
+</div>
+            
+                <div class="shadcn-card group mb-8" x-data>
+    <div class="flex justify-between items-start mb-6">
+        <div>
+            <a href="https://support.microsoft.com/help/5043067" target="_blank" rel="noopener noreferrer" class="group-hover:text-blue-600 transition-colors">
+                <h3 class="text-xl font-semibold">5043067 – September 10, 2024—KB5043067 (OS Build 22000.3197) - Microsoft Support</h3>
+            </a>
+            <p class="text-sm text-gray-500 mt-1">Published: 2024-09-10T00:00:00</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">OS Builds</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                <li class="text-sm text-gray-600">10.0.22000.3197</li>
+            </ul>
+        </div>
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Key Fixes (30 CVEs)</h4>
+            <button 
+                data-cves='["CVE-2024-38239", "CVE-2024-21416", "CVE-2024-38119", "CVE-2024-38242", "CVE-2024-38063", "CVE-2024-38253", "CVE-2024-30073", "CVE-2024-43461", "CVE-2024-38240", "CVE-2024-38217", "CVE-2024-38241", "CVE-2024-38250", "CVE-2024-38237", "CVE-2024-38046", "CVE-2024-38247", "CVE-2024-38238", "CVE-2024-38234", "CVE-2024-38246", "CVE-2024-38248", "CVE-2024-38244", "CVE-2024-38243", "CVE-2024-38252", "CVE-2024-38254", "CVE-2024-38245", "CVE-2024-38249", "CVE-2024-38045", "CVE-2024-38235", "CVE-2024-38257", "CVE-2024-38259", "CVE-2024-38014"]'
+                data-categories='{"denial_of_service": [{"category": "denial_of_service", "cve_source": "direct", "id": "d35216dd-24ad-4832-86b4-bc6684af69cb", "post_id": "CVE-2024-38234", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043067", "kb5043064", "kb5043080", "kb5043076"], "revision": "1.0000000000", "score": {"score_num": 6.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38234"}, {"category": "denial_of_service", "cve_source": "direct", "id": "9615bc2c-19b3-1493-1fc7-12316f962481", "post_id": "CVE-2024-38235", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043064", "kb5043076", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 6.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38235"}], "disclosure": [{"category": "disclosure", "cve_source": "direct", "id": "70e43edf-9fdd-6bbb-15db-0575217be2c2", "post_id": "CVE-2024-38254", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043064", "kb5043076", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 6.2, "score_rating": "medium", "source": "NIST"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38254"}, {"category": "disclosure", "cve_source": "direct", "id": "076fc86a-b5aa-acc4-5f96-a71f0e88e7c2", "post_id": "CVE-2024-38257", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 7.5, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38257"}], "feature_bypass": [{"category": "feature_bypass", "cve_source": "direct", "id": "7f729fde-701e-3807-6dd3-b2f20bc98c3b", "post_id": "CVE-2024-30073", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30073"}, {"category": "feature_bypass", "cve_source": "direct", "id": "b6d28b28-8f36-e727-99ba-0c0d4c351fb1", "post_id": "CVE-2024-38217", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043064", "kb5043076", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 5.4, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38217"}], "privilege_elevation": [{"category": "privilege_elevation", "cve_source": "direct", "id": "2561f0fd-c251-a5f6-783a-b302b9f84018", "post_id": "CVE-2024-38239", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.2, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38239"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "470a6f88-89e2-c5d3-6d7e-fe9ae13edbb0", "post_id": "CVE-2024-38242", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043064", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38242"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "5fe5958f-3511-d1e8-30b4-77123053cb26", "post_id": "CVE-2024-38253", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043067", "kb5043076"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38253"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "b5f4a5f8-7303-e319-eceb-d29356389efe", "post_id": "CVE-2024-38240", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 9.8, "score_rating": "critical", "source": "NIST"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38240"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "eb7c4b22-c8a6-6277-9c59-0469d74c4c3e", "post_id": "CVE-2024-38241", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043080", "kb5043064"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38241"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "0983b1c5-edf2-4ce1-8492-094585b2fa96", "post_id": "CVE-2024-38250", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043064"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38250"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "cbfb7d66-5f99-39be-7c1d-200f54d0db26", "post_id": "CVE-2024-38237", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043080", "kb5043064"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38237"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "046f6a31-bab2-31e0-0d31-9dbc60fceacb", "post_id": "CVE-2024-38046", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043064", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38046"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "a9bb76e3-1dc4-76d7-de58-0a09d113ca57", "post_id": "CVE-2024-38247", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043064", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38247"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "30cf4eb6-ef64-b7b6-bb07-44a1b8a14392", "post_id": "CVE-2024-38238", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043076", "kb5043064", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38238"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "85bea382-adcd-f652-8c3b-00aa96f5fff5", "post_id": "CVE-2024-38246", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043080", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 7.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38246"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "14d3e1f7-b956-9881-519d-787dde9015d8", "post_id": "CVE-2024-38248", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38248"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "b28fcd56-d58c-1e8b-884a-f0d2f8c4acf0", "post_id": "CVE-2024-38244", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38244"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "3e09d4d2-f231-b6ac-de1f-5958b3af4750", "post_id": "CVE-2024-38243", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043067", "kb5043080", "kb5043076"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38243"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "2cca1c4c-278b-83f1-acd9-aa0d7a4e1a8c", "post_id": "CVE-2024-38252", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043067", "kb5043076", "kb5043064", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38252"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "dc2fb4a4-7d40-0c47-9589-3fff45a660a8", "post_id": "CVE-2024-38245", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38245"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "76419a28-f3ce-0482-67de-ed9ec9e5f060", "post_id": "CVE-2024-38249", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043076", "kb5043067", "kb5043064"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38249"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "0624f5da-0628-9caf-f71c-de5016cec956", "post_id": "CVE-2024-38014", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043064", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38014"}], "remote_code_execution": [{"category": "remote_code_execution", "cve_source": "direct", "id": "f7755843-c3ab-446c-b4c2-51ee63de8acd", "post_id": "CVE-2024-21416", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 9.8, "score_rating": "critical", "source": "NIST"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-21416"}, {"category": "remote_code_execution", "cve_source": "direct", "id": "ad1140c5-fbf9-ce32-e1ce-09c65972f62a", "post_id": "CVE-2024-38119", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043080", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 7.5, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38119"}, {"category": "remote_code_execution", "cve_source": "kb_reference", "id": "e834caa7-d556-ad81-6cff-fcae13fdb694", "post_id": "CVE-2024-38063", "published": "2024-08-13T00:00:00", "referenced_kbs": ["kb5041592", "kb5043067", "kb5041571", "kb5041585", "kb5041580"], "revision": "1.0000000000", "score": {"score_num": 9.8, "score_rating": "critical", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38063"}, {"category": "remote_code_execution", "cve_source": "direct", "id": "950ee44c-1ce7-2c17-6b16-755d33bf36a3", "post_id": "CVE-2024-38045", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 8.1, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38045"}, {"category": "remote_code_execution", "cve_source": "direct", "id": "0d0aa77a-66a9-ccc1-6bd7-ffb3512673bc", "post_id": "CVE-2024-38259", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 8.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38259"}], "spoofing": [{"category": "spoofing", "cve_source": "direct", "id": "4361a5ee-d8e2-8ded-6196-dfb559774943", "post_id": "CVE-2024-43461", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043067", "kb5043064", "kb5043076"], "revision": "1.0000000000", "score": {"score_num": 8.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43461"}]}'
+                @click="Alpine.store('cveModal').show($el.dataset)"
+                class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all shadow-sm hover:shadow-md"
+            >
+                VIEW AFFECTED CVES
+            </button>
+        </div>
+    </div>
+
+    <div class="space-y-6">
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">New Features</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                
+                <li class="text-sm text-gray-600">Windows Installer - When repairing an application, the User Account Control (UAC) now prompts for credentials, indicating that the process requires full administrator access.</li>
+                
+                <li class="text-sm text-gray-600">Country and Operator Settings Asset (COSA) - This update brings profiles up to date for certain mobile operators.</li>
+                
+            </ul>
+        </div>
+        
+
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Bug Fixes</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                
+                <li class="text-sm text-gray-600">Windows Installer - This update addresses an inconsistency where User Account Control (UAC) did not require credentials when repairing applications, which may affect automation scripts.</li>
+                
+                <li class="text-sm text-gray-600">Transmission Control Protocol (TCP) - The update resolves inconsistent data issues between TCP_INFO_v1 and GetPerTcpConnectionEstats, which affected file synchronization services.</li>
+                
+                <li class="text-sm text-gray-600">Unified Write Filter (UWF) Windows Management Instrumentation (WMI) - Fixed access denied exception for API calls that shut down or restart a system.</li>
+                
+            </ul>
+        </div>
+        
+
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Known Issues & Workarounds</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                
+                <li class="text-sm text-gray-600">All users face an inability to change user account profile picture, potentially causing profile customization restrictions; recommended action: contact Windows support for assistance.</li>
+                
+                <li class="text-sm text-gray-600">All users with dual-boot setup for Windows and Linux may experience failure to boot Linux due to Secure Boot Advanced Targeting (SBAT); workaround available on Windows release health site.</li>
+                
+                <li class="text-sm text-gray-600"></li>
+                
+            </ul>
+        </div>
+        
+
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Summary</h4>
+            <div class="text-sm text-gray-600 space-y-4">KB5043067 is a security update released on September 10, 2024, specifically targeting all editions of Windows 11 version 21H2 (OS Build 22000.3197). The update addresses high-impact vulnerabilities including issues with User Account Control (UAC) behavior during Windows Installer repairs, as well as inconsistencies in TCP connection performance analysis tools. Additionally, the KB details improvements related to Bluetooth connectivity and enhancements to mobile operator profiles. The update requires specific registry modifications for UAC behavior and is available through various update channels including Windows Update, Microsoft Update, and WSUS.</p><p><strong>Technical Breakdown</strong></p><p><strong>Vulnerabilities and Exploits</strong>:
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li>This update addresses high-impact vulnerabilities associated with User Account Control not prompting for credentials during application repairs, which can affect automation scripts and security compliance.</li>
+<li>Inconsistent behavior in TCP performance metrics can lead to inaccuracies in application performance assessments, particularly for file synchronization services.</p><p><strong>Registry Modifications</strong>:</li>
+</ul></div>
+To manage UAC prompts after application repairs, the following registry modification is necessary:
+<pre><code class="language-">[Registry Key]
+`HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer\DisableLUAInRepair` = `1`</code></pre></p><p><strong>Known Issues and Workarounds</strong>:
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li><strong>Profile Picture Change Error (0x80070520)</strong>:</li>
+<li>Impact: Users may be unable to change their profile picture post-update.</li>
+<li>Resolution: Limited impact; contact Windows support for assistance.</li>
+</ul></div>
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li><strong>Dual-Boot Linux Boot Failure</strong>:</li>
+<li>Impact: Devices with dual-boot setups may fail to boot into Linux, displaying the error “Security Policy Violation.”</li>
+<li>Workaround: Refer to the Windows release health site for guidance on resolving this dual-boot detection issue.</p><p><strong>Installation Process and Prerequisites</strong>:</li>
+</ul></div>
+<div class="mb-8"><ol class="list-decimal list-inside space-y-2">
+<li>Ensure that prior updates have been installed as this package will only download and install new components.</li>
+<li>Preferred update channels:</li>
+</ol></div>
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li><strong>Windows Update</strong>: Automatic download and installation.</li>
+<li><strong>Windows Update for Business</strong>: Follows configured policies for deployment.</li>
+<li><strong>Microsoft Update Catalog</strong>: Standalone package available for manual installation.</li>
+<li><strong>WSUS</strong>: Automatically sync by configuring the product to 'Windows 11' and classification as 'Security Updates'.</p><p>To uninstall the LCU after installation:</li>
+</ul></div>
+<pre><code class="language-">[Powershell]</code></pre>powershell
+DISM /online /get-packages
+DISM /Remove-Package /PackageName:<Name of the LCU package>
+``` </p><p>Note: Attempting to use `wusa.exe` with the `/uninstall` switch will not work due to the inclusion of the SSU in the combined package.</div>
+        </div>
+        
+    </div>
+</div>
+            
+                <div class="shadcn-card group mb-8" x-data>
+    <div class="flex justify-between items-start mb-6">
+        <div>
+            <a href="https://support.microsoft.com/help/5040442" target="_blank" rel="noopener noreferrer" class="group-hover:text-blue-600 transition-colors">
+                <h3 class="text-xl font-semibold">5040442 – July 9, 2024—KB5040442 (OS Builds 22621.3880 and 22631.3880) - Microsoft Support</h3>
+            </a>
+            <p class="text-sm text-gray-500 mt-1">Published: 2024-09-10T00:00:00</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">OS Builds</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                <li class="text-sm text-gray-600">10.0.22621.3880</li>
+            </ul>
+        </div>
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Key Fixes (81 CVEs)</h4>
+            <button 
+                data-cves='["CVE-2024-38028", "CVE-2024-38080", "CVE-2024-38068", "CVE-2024-26184", "CVE-2024-30013", "CVE-2024-38112", "CVE-2024-38022", "CVE-2024-38069", "CVE-2024-38043", "CVE-2024-37986", "CVE-2024-30071", "CVE-2024-38052", "CVE-2024-38102", "CVE-2024-38059", "CVE-2024-3596", "CVE-2024-30081", "CVE-2024-37977", "CVE-2024-37970", "CVE-2024-38078", "CVE-2024-38070", "CVE-2024-38010", "CVE-2024-38033", "CVE-2024-43495", "CVE-2024-39684", "CVE-2024-38101", "CVE-2024-30079", "CVE-2024-38034", "CVE-2024-38056", "CVE-2024-37988", "CVE-2024-38079", "CVE-2024-38060", "CVE-2024-38185", "CVE-2024-37987", "CVE-2024-38041", "CVE-2024-38065", "CVE-2024-38011", "CVE-2024-37971", "CVE-2024-38091", "CVE-2024-35270", "CVE-2024-37973", "CVE-2024-37972", "CVE-2024-38161", "CVE-2024-37978", "CVE-2024-28899", "CVE-2024-38058", "CVE-2024-30098", "CVE-2024-38104", "CVE-2024-38017", "CVE-2024-38055", "CVE-2024-38517", "CVE-2024-38061", "CVE-2024-38191", "CVE-2024-37969", "CVE-2024-21417", "CVE-2024-37975", "CVE-2024-38186", "CVE-2024-38050", "CVE-2024-38085", "CVE-2024-37989", "CVE-2024-37981", "CVE-2024-38165", "CVE-2024-38062", "CVE-2024-38030", "CVE-2024-38057", "CVE-2024-38047", "CVE-2024-38054", "CVE-2024-38048", "CVE-2024-38032", "CVE-2024-38187", "CVE-2024-38013", "CVE-2024-38184", "CVE-2024-38064", "CVE-2024-38105", "CVE-2024-38049", "CVE-2024-38027", "CVE-2024-37984", "CVE-2024-38051", "CVE-2024-38019", "CVE-2024-37974", "CVE-2024-38053", "CVE-2024-38025"]'
+                data-categories='{"denial_of_service": [{"category": "denial_of_service", "cve_source": "kb_reference", "id": "2560da5c-e96a-9b58-717b-cfba2a3b817e", "post_id": "CVE-2024-38068", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040448", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.5, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38068"}, {"category": "denial_of_service", "cve_source": "kb_reference", "id": "816fa77b-12d5-9568-427e-2fcf1a762051", "post_id": "CVE-2024-38102", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040431", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 6.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38102"}, {"category": "denial_of_service", "cve_source": "kb_reference", "id": "cfa71a58-f07e-682d-85d4-fee352ac4e32", "post_id": "CVE-2024-38101", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040431", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 6.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38101"}, {"category": "denial_of_service", "cve_source": "kb_reference", "id": "5f26846c-5884-6e96-0182-5620cb418c12", "post_id": "CVE-2024-38091", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040442", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.5, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38091"}, {"category": "denial_of_service", "cve_source": "kb_reference", "id": "79990dc8-7442-e316-e861-52cbc7cd57fc", "post_id": "CVE-2024-35270", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 5.3, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-35270"}, {"category": "denial_of_service", "cve_source": "kb_reference", "id": "61670b52-df6f-3afd-0ac1-849de0df82d3", "post_id": "CVE-2024-38048", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040431", "kb5040427"], "revision": "1.0000000000", "score": {"score_num": 6.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38048"}, {"category": "denial_of_service", "cve_source": "kb_reference", "id": "95655c24-046f-5352-577a-81dddeed0a26", "post_id": "CVE-2024-38105", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 6.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38105"}, {"category": "denial_of_service", "cve_source": "kb_reference", "id": "6f5403e0-d9b1-804a-67db-fa99ba5f7b44", "post_id": "CVE-2024-38027", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040448", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 6.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38027"}], "disclosure": [{"category": "disclosure", "cve_source": "kb_reference", "id": "38791150-3538-028b-7dc2-73cc33723f2a", "post_id": "CVE-2024-30071", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040442", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 4.7, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30071"}, {"category": "disclosure", "cve_source": "kb_reference", "id": "93dfd70f-e167-4b04-8eca-582a0928e8a7", "post_id": "CVE-2024-38056", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 5.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38056"}, {"category": "disclosure", "cve_source": "kb_reference", "id": "af8f921f-f714-e25b-1728-259d08591b5d", "post_id": "CVE-2024-38041", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 5.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38041"}, {"category": "disclosure", "cve_source": "kb_reference", "id": "4afaa25d-19f9-5d91-d3fe-dd110f93ec3a", "post_id": "CVE-2024-38017", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040448", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 5.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38017"}, {"category": "disclosure", "cve_source": "kb_reference", "id": "3901562e-d2f9-d54a-f88e-4a00bb9db792", "post_id": "CVE-2024-38055", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040431", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 5.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38055"}, {"category": "disclosure", "cve_source": "kb_reference", "id": "879367ce-854f-0cc7-d0b3-ab52d1311c8b", "post_id": "CVE-2024-38064", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040431", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 7.5, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38064"}], "feature_bypass": [{"category": "feature_bypass", "cve_source": "kb_reference", "id": "ab69b1d1-5b81-0269-30b6-5cf7d0df5953", "post_id": "CVE-2024-26184", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040431", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 6.8, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-26184"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "64efd1f7-cd5a-be1c-2740-00142f71e347", "post_id": "CVE-2024-38069", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040431", "kb5040427"], "revision": "1.0000000000", "score": {"score_num": 7.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38069"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "791e8de1-e96c-c5ec-f6af-c08c0aa7a77c", "post_id": "CVE-2024-37986", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040431", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 8.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-37986"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "c4b81307-cfef-4855-63ff-e606cf190460", "post_id": "CVE-2024-37977", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 8.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-37977"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "b914d3ac-a770-b8f3-3b2f-b761f9c73cee", "post_id": "CVE-2024-37970", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040442", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 8.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-37970"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "dfcd13da-5b36-bf0f-4639-5e71d31a725b", "post_id": "CVE-2024-38070", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38070"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "bf03f5c6-542d-c622-68ef-9c4a6d3a26c4", "post_id": "CVE-2024-38010", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040431", "kb5040442", "kb5040448"], "revision": "1.0000000000", "score": {"score_num": 8.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38010"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "75d5f97f-a6ea-3bea-3402-9aeed155ea37", "post_id": "CVE-2024-37988", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040448", "kb5040427", "kb5040431", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 8.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-37988"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "0386b050-5434-3425-3628-66245d47faff", "post_id": "CVE-2024-37987", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040442", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 8.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-37987"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "50a28561-6870-092a-1cee-f1e17db794bd", "post_id": "CVE-2024-38065", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040448", "kb5040427", "kb5040431", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 6.8, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38065"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "b8c0ef30-faad-e164-4f3a-32de0ff78f9c", "post_id": "CVE-2024-38011", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040431", "kb5040427", "kb5040442", "kb5040448"], "revision": "1.0000000000", "score": {"score_num": 8.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38011"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "48cac3fe-5d08-27ab-cc8f-daff538f9c63", "post_id": "CVE-2024-37971", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 8.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-37971"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "5aea6317-c5f8-a21c-0eab-e02dda9642bf", "post_id": "CVE-2024-37973", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040442", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 8.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-37973"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "6c7e67ee-a4be-6ed8-d5f7-53f8c03ff6ac", "post_id": "CVE-2024-37972", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040431", "kb5040427"], "revision": "1.0000000000", "score": {"score_num": 8.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-37972"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "1a9f16de-b689-6969-d7d9-d687801ceef9", "post_id": "CVE-2024-37978", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442"], "revision": "1.0000000000", "score": {"score_num": 8.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-37978"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "d54e3cb4-0990-4e28-7faf-05a3db3bdb0e", "post_id": "CVE-2024-28899", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040431", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 8.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-28899"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "1cb75d3d-60b0-014c-f969-93baf4710953", "post_id": "CVE-2024-38058", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040431", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 6.8, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38058"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "a81314cf-0ffe-d312-6314-ccf932878031", "post_id": "CVE-2024-30098", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040442", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.5, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30098"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "b782986e-f356-198e-117b-266844d41024", "post_id": "CVE-2024-37969", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040431", "kb5040427"], "revision": "1.0000000000", "score": {"score_num": 8.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-37969"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "94a1d13d-742d-a065-3676-c8ed4d481ed7", "post_id": "CVE-2024-37975", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040431", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 8.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-37975"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "c9021cbc-5a1b-9a56-d0db-35aba1ae2a67", "post_id": "CVE-2024-37989", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040431", "kb5040442", "kb5040448"], "revision": "1.0000000000", "score": {"score_num": 8.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-37989"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "061a049d-8df3-2bef-2ad4-3439c289972d", "post_id": "CVE-2024-37981", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 8.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-37981"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "eadbab6b-9a37-5b9a-2465-32e4a934be49", "post_id": "CVE-2024-37984", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040448", "kb5040431", "kb5040427", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 8.4, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-37984"}, {"category": "feature_bypass", "cve_source": "kb_reference", "id": "da091a69-81d4-2b65-ba78-f9ff9af1c4d7", "post_id": "CVE-2024-37974", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 8.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-37974"}], "privilege_elevation": [{"category": "privilege_elevation", "cve_source": "kb_reference", "id": "f539d0ab-6a7d-96c5-b6d4-670ef143dcbe", "post_id": "CVE-2024-38080", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38080"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "01ded197-8a28-ceba-5361-5e0112ca5c31", "post_id": "CVE-2024-38022", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040431", "kb5040427"], "revision": "1.0000000000", "score": {"score_num": 7.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38022"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "49918fea-3b91-1ba8-98a0-5e01376374f9", "post_id": "CVE-2024-38043", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040431", "kb5040427"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38043"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "0b1b4559-3f26-b067-48ae-113ed8cb21f9", "post_id": "CVE-2024-38052", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040431", "kb5040427"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38052"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "dde7e06c-6178-eb40-3253-c140019a42ec", "post_id": "CVE-2024-38059", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040431", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38059"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "d071a50a-7bd1-58f6-fea4-15a40c410fc5", "post_id": "CVE-2024-38033", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040448", "kb5040431", "kb5040427"], "revision": "1.0000000000", "score": {"score_num": 7.3, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38033"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "2167c14c-7adf-79f7-4625-a24def679c08", "post_id": "CVE-2024-39684", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-39684"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "6ff59010-2df2-293b-1310-18225e547c86", "post_id": "CVE-2024-30079", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30079"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "548d81ed-da63-8a8c-1922-d28c74605a6f", "post_id": "CVE-2024-38034", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040431", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38034"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "53477d9b-49a4-c0cf-db86-d3677380ffb4", "post_id": "CVE-2024-38079", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38079"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "431e975f-6a70-968b-7e70-b87260f6b103", "post_id": "CVE-2024-38185", "published": "2024-08-13T00:00:00", "referenced_kbs": ["kb5040427", "kb5040442", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38185"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "f92f690d-67b3-45f1-ade0-a186f0a67a85", "post_id": "CVE-2024-38517", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38517"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "4b3b7af2-ddcc-26a2-ba21-d6ee769eb39b", "post_id": "CVE-2024-38061", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040442", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.5, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38061"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "574ec90e-194b-c04b-6acd-92cc5312c975", "post_id": "CVE-2024-38191", "published": "2024-08-13T00:00:00", "referenced_kbs": ["kb5040442", "kb5040431", "kb5040427"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38191"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "63355604-79eb-c539-e9ca-575439af5da0", "post_id": "CVE-2024-21417", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040442", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 8.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-21417"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "6ad7372c-a136-8bb5-70f4-cfb191cdbfc6", "post_id": "CVE-2024-38186", "published": "2024-08-13T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38186"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "72c64e8d-1f07-0c08-a9aa-69a67b66d813", "post_id": "CVE-2024-38050", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040431", "kb5040427"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38050"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "748aff07-9451-e015-37f9-a5d6438bc38c", "post_id": "CVE-2024-38085", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38085"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "b35a7e9f-4986-cb46-bfd2-68327d17274f", "post_id": "CVE-2024-38062", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38062"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "eb9145cb-e8d9-31e5-d138-465c4dd7acd5", "post_id": "CVE-2024-38057", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040431", "kb5040427"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38057"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "4c41fccf-1269-fad4-2889-9dfa916b86f4", "post_id": "CVE-2024-38047", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040431", "kb5040427"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38047"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "a62ddea0-bc50-09e2-30e8-34aeaa7d50cb", "post_id": "CVE-2024-38054", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38054"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "4fa50932-96a1-db14-0d5b-84eca4ca700d", "post_id": "CVE-2024-38187", "published": "2024-08-13T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38187"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "b5aeedf4-1c44-ddba-05ae-bc99e05233ca", "post_id": "CVE-2024-38013", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040442", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 6.7, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38013"}, {"category": "privilege_elevation", "cve_source": "kb_reference", "id": "f07506cd-aada-4246-b15c-e73f03aaac24", "post_id": "CVE-2024-38184", "published": "2024-08-13T00:00:00", "referenced_kbs": ["kb5040431", "kb5040442", "kb5040427"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38184"}], "remote_code_execution": [{"category": "remote_code_execution", "cve_source": "kb_reference", "id": "ae166feb-4741-2a8d-004a-b60529b1edbc", "post_id": "CVE-2024-38028", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.2, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38028"}, {"category": "remote_code_execution", "cve_source": "kb_reference", "id": "201cffc9-f899-8b54-9706-7ed410924953", "post_id": "CVE-2024-30013", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040442", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 8.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30013"}, {"category": "remote_code_execution", "cve_source": "kb_reference", "id": "0f1d8e15-b370-9835-3aef-3daf96e59f06", "post_id": "CVE-2024-38078", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040431", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 7.5, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38078"}, {"category": "remote_code_execution", "cve_source": "direct", "id": "bc24c37c-82c8-af78-baef-8414930e0181", "post_id": "CVE-2024-43495", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5040442"], "revision": "1.0000000000", "score": {"score_num": 7.3, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43495"}, {"category": "remote_code_execution", "cve_source": "kb_reference", "id": "3cfe2796-2416-1def-b0e1-badf771db379", "post_id": "CVE-2024-38060", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040442", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 8.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38060"}, {"category": "remote_code_execution", "cve_source": "kb_reference", "id": "8546cdbb-fe7b-8ea2-e6fe-070ee78f612a", "post_id": "CVE-2024-38161", "published": "2024-08-13T00:00:00", "referenced_kbs": ["kb5040431", "kb5040427", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 6.8, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38161"}, {"category": "remote_code_execution", "cve_source": "kb_reference", "id": "e78a2ce8-1473-b74a-1f29-b0680de2473d", "post_id": "CVE-2024-38104", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040431", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 8.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38104"}, {"category": "remote_code_execution", "cve_source": "kb_reference", "id": "b6428eaf-8702-5fc2-c53a-6ddf1581acb7", "post_id": "CVE-2024-38032", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040431", "kb5040427"], "revision": "1.0000000000", "score": {"score_num": 7.1, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38032"}, {"category": "remote_code_execution", "cve_source": "kb_reference", "id": "d186802f-ea36-fd78-d7a6-c2f4a440497f", "post_id": "CVE-2024-38049", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040431", "kb5040442", "kb5040448"], "revision": "1.0000000000", "score": {"score_num": 8.1, "score_rating": "high", "source": "NIST"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38049"}, {"category": "remote_code_execution", "cve_source": "kb_reference", "id": "efe91176-ca78-2f9c-d07a-9b1341aa3b5e", "post_id": "CVE-2024-38051", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040431", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38051"}, {"category": "remote_code_execution", "cve_source": "kb_reference", "id": "a6aac00c-0d83-d6c0-f5d0-123d44fbb728", "post_id": "CVE-2024-38019", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040427", "kb5040442", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.2, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38019"}, {"category": "remote_code_execution", "cve_source": "kb_reference", "id": "7441df15-cbe8-f3df-7d9e-b66b7676c32d", "post_id": "CVE-2024-38053", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040448", "kb5040427", "kb5040431", "kb5040442"], "revision": "1.0000000000", "score": {"score_num": 8.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38053"}, {"category": "remote_code_execution", "cve_source": "kb_reference", "id": "4f6abaa3-7d50-dcfc-a18f-a15294cc0f39", "post_id": "CVE-2024-38025", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.2, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38025"}], "spoofing": [{"category": "spoofing", "cve_source": "kb_reference", "id": "1968ed1d-98f7-6665-ae72-bba9b5545908", "post_id": "CVE-2024-38112", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040431", "kb5040427"], "revision": "1.0000000000", "score": {"score_num": 7.5, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38112"}, {"category": "spoofing", "cve_source": "kb_reference", "id": "b52c4a24-6c22-633e-9254-9b2879fe414e", "post_id": "CVE-2024-3596", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040431", "kb5040427"], "revision": "1.0000000000", "score": {"score_num": 9.0, "score_rating": "critical", "source": "NIST"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-3596"}, {"category": "spoofing", "cve_source": "kb_reference", "id": "33d28c5f-f6a7-cf0f-88d6-51d52f7e9588", "post_id": "CVE-2024-30081", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040427", "kb5040431"], "revision": "1.0000000000", "score": {"score_num": 7.1, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30081"}, {"category": "spoofing", "cve_source": "kb_reference", "id": "99908fb9-57bf-8615-7bbd-c9ac2f363c63", "post_id": "CVE-2024-38030", "published": "2024-07-09T00:00:00", "referenced_kbs": ["kb5040442", "kb5040431", "kb5040427"], "revision": "1.0000000000", "score": {"score_num": 6.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38030"}], "tampering": [{"category": "tampering", "cve_source": "kb_reference", "id": "ff3d1b49-70a3-7631-a6bc-5d375f4b8561", "post_id": "CVE-2024-38165", "published": "2024-08-13T00:00:00", "referenced_kbs": ["kb5040442"], "revision": "1.0000000000", "score": {"score_num": 6.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38165"}]}'
+                @click="Alpine.store('cveModal').show($el.dataset)"
+                class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all shadow-sm hover:shadow-md"
+            >
+                VIEW AFFECTED CVES
+            </button>
+        </div>
+    </div>
+
+    <div class="space-y-6">
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">New Features</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                
+                <li class="text-sm text-gray-600">No Information Available</li>
+                
+            </ul>
+        </div>
+        
+
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Bug Fixes</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                
+                <li class="text-sm text-gray-600">This update includes an improvement in the Windows Installer where after repairing an application, the User Account Control (UAC) will now prompt for credentials, enhancing security. Users may need to update automation scripts to add the Shield icon, indicating full administrator access is required.</li>
+                
+                <li class="text-sm text-gray-600">An issue affecting the Remote Desktop MultiPoint Server with a race condition causing the service to stop responding has been addressed.</li>
+                
+                <li class="text-sm text-gray-600">An issue related to MD5 collisions in Remote Authentication Dial-In User Service (RADIUS) protocol has been resolved as per documentation in KB5040268.</li>
+                
+            </ul>
+        </div>
+        
+
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Known Issues & Workarounds</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                
+                <li class="text-sm text-gray-600">Enterprise users may experience an &#39;Access denied error (error code 0x80070005)&#39; in the Task Scheduler under the &#39;Last Run Result&#39; following attempts to upgrade from Windows Pro to a valid Windows Enterprise subscription; resolution is being developed for release in upcoming Windows updates.</li>
+                
+                <li class="text-sm text-gray-600"></li>
+                
+                <li class="text-sm text-gray-600"></li>
+                
+            </ul>
+        </div>
+        
+
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Summary</h4>
+            <div class="text-sm text-gray-600 space-y-4">KB5040442 is a security and quality improvement update released on July 9, 2024, for Windows 11 versions 22H2 (OS Builds 22621.3880) and 23H2 (OS Builds 22631.3880). The update addresses high-impact vulnerabilities including issues with Windows Installer and the RADIUS protocol related to MD5 collision exploits while implementing critical user interaction enhancements during application repairs. Administrators must note that end of service for Home and Pro editions of Windows 11 version 22H2 will occur on October 8, 2024, and users are advised to update to the latest version to continue receiving updates. Installation via Windows Update or WSUS is recommended, with prerequisites including the latest servicing stack update.</p><p><strong>Technical Breakdown</strong></p><p><strong>Vulnerabilities and Exploits</strong>:
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li>This update addresses high-impact vulnerabilities, specifically:</li>
+<li>Windows Installer User Account Control (UAC) prompting behavior.</li>
+<li>A race condition in Remote Desktop MultiPoint Server.</li>
+<li>RADIUS protocol vulnerabilities related to MD5 collisions. For more information, see KB5040268.</p><p><strong>Known Issues and Workarounds</strong>:</li>
+<li><strong>Taskbar Interaction Issue</strong>:</li>
+<li>Impact: Devices running Windows N edition may experience issues interacting with the taskbar after updating.</li>
+<li>Workaround: Ensure "Media Features" is enabled in the Control Panel.</li>
+</ul></div>
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li><strong>Enterprise Upgrade Issues</strong>:</li>
+<li>Impact: Users may encounter ‘Access denied error (error code 0x80070005)’ during Windows Pro to Enterprise upgrade.</li>
+<li>Workaround: Resolution is being worked on and will be addressed in a future update.</p><p><strong>Installation Process and Prerequisites</strong>:</li>
+</ul></div>
+<div class="mb-8"><ol class="list-decimal list-inside space-y-2">
+<li><strong>Prerequisites</strong>:</li>
+</ol></div>
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li>Ensure the latest servicing stack update (SSU: KB5039338) is installed.</li>
+<li>For Windows 11 version 23H2, apply KB5027397 prior to this update.</li>
+</ul></div>
+<div class="mb-8"><ol class="list-decimal list-inside space-y-2">
+<li><strong>Update Channels</strong>:</li>
+</ol></div>
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li><strong>Windows Update</strong>: Automatic download and installation.</li>
+<li><strong>Windows Update for Business</strong>: Automatic download based on configured policies.</li>
+<li><strong>Microsoft Update Catalog</strong>: Standalone package available for manual installation.</li>
+<li><strong>WSUS</strong>: Requires classification as "Security Updates" for Windows 11.</p><p>3. <strong>Uninstallation</strong>:</li>
+<li>To remove the LCU, use the following commands:</li>
+</ul></div>
+<pre><code class="language-">[Powershell]</code></pre>powershell
+DISM /online /get-packages
+<pre><code class="language-">- For removal:</code></pre>
+[Powershell]
+<pre><code class="language-powershell">DISM /Remove-Package /PackageName:<PackageName></code></pre>
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li>Note: The combined SSU cannot be uninstalled separately; avoid using `wusa.exe /uninstall` as it will not work for combined packages.</li>
+</ul></div></div>
+        </div>
+        
+    </div>
+</div>
+            
+                <div class="shadcn-card group mb-8" x-data>
+    <div class="flex justify-between items-start mb-6">
+        <div>
+            <a href="https://support.microsoft.com/help/5043076" target="_blank" rel="noopener noreferrer" class="group-hover:text-blue-600 transition-colors">
+                <h3 class="text-xl font-semibold">5043076 – September 10, 2024—KB5043076 (OS Builds 22621.4169 and 22631.4169) - Microsoft Support</h3>
+            </a>
+            <p class="text-sm text-gray-500 mt-1">Published: 2024-09-10T00:00:00</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">OS Builds</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                <li class="text-sm text-gray-600">10.0.22631.4169</li>
+            </ul>
+        </div>
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Key Fixes (29 CVEs)</h4>
+            <button 
+                data-cves='["CVE-2024-38239", "CVE-2024-21416", "CVE-2024-38119", "CVE-2024-38242", "CVE-2024-38253", "CVE-2024-30073", "CVE-2024-38240", "CVE-2024-43461", "CVE-2024-38217", "CVE-2024-38241", "CVE-2024-38250", "CVE-2024-38237", "CVE-2024-38046", "CVE-2024-38247", "CVE-2024-38238", "CVE-2024-38234", "CVE-2024-38246", "CVE-2024-38243", "CVE-2024-38244", "CVE-2024-38248", "CVE-2024-38252", "CVE-2024-38245", "CVE-2024-38254", "CVE-2024-38045", "CVE-2024-38249", "CVE-2024-38235", "CVE-2024-38257", "CVE-2024-38259", "CVE-2024-38014"]'
+                data-categories='{"denial_of_service": [{"category": "denial_of_service", "cve_source": "direct", "id": "d35216dd-24ad-4832-86b4-bc6684af69cb", "post_id": "CVE-2024-38234", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043067", "kb5043064", "kb5043080", "kb5043076"], "revision": "1.0000000000", "score": {"score_num": 6.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38234"}, {"category": "denial_of_service", "cve_source": "direct", "id": "9615bc2c-19b3-1493-1fc7-12316f962481", "post_id": "CVE-2024-38235", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043064", "kb5043076", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 6.5, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38235"}], "disclosure": [{"category": "disclosure", "cve_source": "direct", "id": "70e43edf-9fdd-6bbb-15db-0575217be2c2", "post_id": "CVE-2024-38254", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043064", "kb5043076", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 6.2, "score_rating": "medium", "source": "NIST"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38254"}, {"category": "disclosure", "cve_source": "direct", "id": "076fc86a-b5aa-acc4-5f96-a71f0e88e7c2", "post_id": "CVE-2024-38257", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 7.5, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38257"}], "feature_bypass": [{"category": "feature_bypass", "cve_source": "direct", "id": "7f729fde-701e-3807-6dd3-b2f20bc98c3b", "post_id": "CVE-2024-30073", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30073"}, {"category": "feature_bypass", "cve_source": "direct", "id": "b6d28b28-8f36-e727-99ba-0c0d4c351fb1", "post_id": "CVE-2024-38217", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043064", "kb5043076", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 5.4, "score_rating": "medium", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38217"}], "privilege_elevation": [{"category": "privilege_elevation", "cve_source": "direct", "id": "2561f0fd-c251-a5f6-783a-b302b9f84018", "post_id": "CVE-2024-38239", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.2, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38239"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "470a6f88-89e2-c5d3-6d7e-fe9ae13edbb0", "post_id": "CVE-2024-38242", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043064", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38242"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "5fe5958f-3511-d1e8-30b4-77123053cb26", "post_id": "CVE-2024-38253", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043067", "kb5043076"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38253"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "b5f4a5f8-7303-e319-eceb-d29356389efe", "post_id": "CVE-2024-38240", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 9.8, "score_rating": "critical", "source": "NIST"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38240"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "eb7c4b22-c8a6-6277-9c59-0469d74c4c3e", "post_id": "CVE-2024-38241", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043080", "kb5043064"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38241"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "0983b1c5-edf2-4ce1-8492-094585b2fa96", "post_id": "CVE-2024-38250", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043064"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38250"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "cbfb7d66-5f99-39be-7c1d-200f54d0db26", "post_id": "CVE-2024-38237", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043080", "kb5043064"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38237"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "046f6a31-bab2-31e0-0d31-9dbc60fceacb", "post_id": "CVE-2024-38046", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043064", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38046"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "a9bb76e3-1dc4-76d7-de58-0a09d113ca57", "post_id": "CVE-2024-38247", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043064", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38247"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "30cf4eb6-ef64-b7b6-bb07-44a1b8a14392", "post_id": "CVE-2024-38238", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043076", "kb5043064", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38238"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "85bea382-adcd-f652-8c3b-00aa96f5fff5", "post_id": "CVE-2024-38246", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043080", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 7.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38246"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "3e09d4d2-f231-b6ac-de1f-5958b3af4750", "post_id": "CVE-2024-38243", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043067", "kb5043080", "kb5043076"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38243"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "b28fcd56-d58c-1e8b-884a-f0d2f8c4acf0", "post_id": "CVE-2024-38244", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38244"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "14d3e1f7-b956-9881-519d-787dde9015d8", "post_id": "CVE-2024-38248", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.0, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38248"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "2cca1c4c-278b-83f1-acd9-aa0d7a4e1a8c", "post_id": "CVE-2024-38252", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043067", "kb5043076", "kb5043064", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38252"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "dc2fb4a4-7d40-0c47-9589-3fff45a660a8", "post_id": "CVE-2024-38245", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38245"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "76419a28-f3ce-0482-67de-ed9ec9e5f060", "post_id": "CVE-2024-38249", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043076", "kb5043067", "kb5043064"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38249"}, {"category": "privilege_elevation", "cve_source": "direct", "id": "0624f5da-0628-9caf-f71c-de5016cec956", "post_id": "CVE-2024-38014", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043064", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 7.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38014"}], "remote_code_execution": [{"category": "remote_code_execution", "cve_source": "direct", "id": "f7755843-c3ab-446c-b4c2-51ee63de8acd", "post_id": "CVE-2024-21416", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 9.8, "score_rating": "critical", "source": "NIST"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-21416"}, {"category": "remote_code_execution", "cve_source": "direct", "id": "ad1140c5-fbf9-ce32-e1ce-09c65972f62a", "post_id": "CVE-2024-38119", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043080", "kb5043067"], "revision": "1.0000000000", "score": {"score_num": 7.5, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38119"}, {"category": "remote_code_execution", "cve_source": "direct", "id": "950ee44c-1ce7-2c17-6b16-755d33bf36a3", "post_id": "CVE-2024-38045", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043064", "kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 8.1, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38045"}, {"category": "remote_code_execution", "cve_source": "direct", "id": "0d0aa77a-66a9-ccc1-6bd7-ffb3512673bc", "post_id": "CVE-2024-38259", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043076", "kb5043067", "kb5043080"], "revision": "1.0000000000", "score": {"score_num": 8.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-38259"}], "spoofing": [{"category": "spoofing", "cve_source": "direct", "id": "4361a5ee-d8e2-8ded-6196-dfb559774943", "post_id": "CVE-2024-43461", "published": "2024-09-10T00:00:00", "referenced_kbs": ["kb5043080", "kb5043067", "kb5043064", "kb5043076"], "revision": "1.0000000000", "score": {"score_num": 8.8, "score_rating": "high", "source": "CNA"}, "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43461"}]}'
+                @click="Alpine.store('cveModal').show($el.dataset)"
+                class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all shadow-sm hover:shadow-md"
+            >
+                VIEW AFFECTED CVES
+            </button>
+        </div>
+    </div>
+
+    <div class="space-y-6">
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">New Features</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                
+                <li class="text-sm text-gray-600">No Information Available</li>
+                
+            </ul>
+        </div>
+        
+
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Bug Fixes</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                
+                <li class="text-sm text-gray-600">The update modifies the Windows Installer to prompt for User Account Control credentials when repairing applications, requiring automation scripts and application owners to update accordingly. Disabling this prompt involves setting the registry key HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer\DisableLUAInRepair to 1.</li>
+                
+            </ul>
+        </div>
+        
+
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Known Issues & Workarounds</h4>
+            <ul class="list-disc list-inside space-y-1.5">
+                
+                <li class="text-sm text-gray-600">All users with dual-boot setups between Windows and Linux might encounter boot issues for Linux post-update, as the Secure Boot Advanced Targeting (SBAT) setting might incorrectly apply to dual-boot configurations; users are directed to the Windows release health site for workarounds.</li>
+                
+                <li class="text-sm text-gray-600"></li>
+                
+                <li class="text-sm text-gray-600"></li>
+                
+            </ul>
+        </div>
+        
+
+        
+        <div class="space-y-2">
+            <h4 class="font-medium text-gray-700">Summary</h4>
+            <div class="text-sm text-gray-600 space-y-4">KB5043076 is a security update released on September 10, 2024, affecting Windows 11 version 22H2 and 23H2 (OS Builds 22621.4169 and 22631.4169). This update addresses high-impact vulnerabilities associated with User Account Control (UAC) behavior during application repairs and introduces quality improvements, including improved servicing stack capabilities. Home and Pro editions of Windows 11 version 22H2 will reach end of service on October 8, 2024, and will only receive security updates thereafter. Special installation requirements include prerequisites regarding dual-boot setups and necessary registry modifications to disable the UAC prompt during application repairs.</p><p><strong>Technical Breakdown</strong></p><p><strong>Vulnerabilities and Exploits</strong>:
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li>This update addresses high-impact vulnerabilities in the Windows Installer, specifically concerning the User Account Control (UAC) prompts that may affect automation scripts for application repairs.</p><p><strong>Registry Changes</strong>:</li>
+</ul></div>
+To modify the UAC behavior for Windows Installer, set the following registry key:
+<pre><code class="language-">[Registry Key]
+`HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer\DisableLUAInRepair` = `1`</code></pre></p><p><strong>Known Issues</strong>:
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li>Linux Boot Issues:</li>
+<li>Symptom: Dual-boot setups with Linux may prevent the Linux OS from booting, leading to a “Security Policy Violation” error.</li>
+<li>Workaround: Refer to the workaround detailed in the Microsoft release health site for specific dual-boot configurations.</p><p><strong>Installation Process and Prerequisites</strong>:</li>
+</ul></div>
+<div class="mb-8"><ol class="list-decimal list-inside space-y-2">
+<li>Ensure devices are running the appropriate OS builds (22621.4169 or 22631.4169).</li>
+<li>Update to the latest servicing stack update (SSU) via:</li>
+</ol></div>
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li>Windows Update</li>
+<li>Windows Update for Business</li>
+<li>Microsoft Update Catalog for standalone installation</li>
+<li>WSUS configured for “Windows 11” under the “Security Updates” classification.</li>
+</ul></div>
+<div class="mb-8"><ol class="list-decimal list-inside space-y-2">
+<li>To remove the LCU, use the following command:</li>
+</ol></div>
+<pre><code class="language-">[Powershell]</code></pre>powershell
+DISM /online /get-packages
+DISM /Remove-Package /PackageName:<PACKAGE_NAME>
+```
+<div class="mb-8"><ul class="list-disc list-inside space-y-2">
+<li>Note: The DISM command must specify the exact LCU package name obtained from the previous command. The `wusa.exe` uninstall method will not work for combined packages.</p><p></li>
+</ul></div></div>
+        </div>
+        
+    </div>
+</div>
+            
+        </section>
+    
+
+    
+    
+    
+
+    
+    
+    
+
+    </main>
+
+    <footer class="mt-12 py-6 border-t border-gray-200">
+    <div class="container mx-auto">
+        <p class="text-sm text-gray-600 text-center">
+            Generated by PortalFuse KB Report Generator on 
+        </p>
+    </div>
+</footer>
+
+    <!-- CVE Modal -->
+    <div
+        x-data="{
+            get isOpen() { return Alpine.store('cveModal').isOpen },
+            get categories() { return Alpine.store('cveModal').categories },
+            hide() { Alpine.store('cveModal').hide() }
+        }"
+    >
+        <!-- Backdrop -->
+        <div
+            class="fixed inset-0 bg-black/20 backdrop-blur-[2px] z-50 flex items-center justify-center"
+            x-show="isOpen"
+            @click="hide()"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+        >
+            <!-- Modal -->
+            <div
+                class="relative w-full max-w-[90%] md:max-w-[85%] lg:max-w-5xl bg-white/95 backdrop-blur-xl shadow-2xl rounded-xl overflow-hidden my-8"
+                @click.stop
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 scale-95"
+                x-transition:enter-end="opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="opacity-100 scale-100"
+                x-transition:leave-end="opacity-0 scale-95"
+            >
+                <!-- Header -->
+                <div class="bg-gradient-to-r from-gray-50 to-white px-6 py-4 border-b border-gray-200/50">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-semibold text-gray-900">CVE Details</h3>
+                        <button type="button" @click="hide()" class="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg p-1">
+                            <span class="sr-only">Close</span>
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="px-6 py-4">
+                    <!-- Grid container -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Categories -->
+                        <template x-for="(cveIds, category) in $store.cveModal.categories" :key="category">
+                            <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-lg hover:shadow-xl transition-shadow duration-200">
+                                <!-- Category Header -->
+                                <div class="bg-gradient-to-r from-gray-50 to-white px-4 py-3 border-b border-gray-200/50">
+                                    <div class="flex items-center justify-between">
+                                        <h4 class="text-lg font-medium text-gray-900" x-text="category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())"></h4>
+                                        <span class="px-2.5 py-1 text-sm font-medium text-gray-600 bg-gray-100 rounded-full" x-text="cveIds.length + ' CVEs'"></span>
+                                    </div>
+                                </div>
+                                <!-- CVE List -->
+                                <div class="space-y-1 max-h-[280px] overflow-y-auto px-4 py-2">
+                                    <template x-for="(cveId, index) in cveIds" :key="index">
+                                        <div class="flex items-center justify-between py-2 hover:bg-gray-50/50 rounded-lg px-2 transition-colors duration-150">
+                                            <div class="flex items-center space-x-3">
+                                                <span class="text-sm font-medium text-gray-500" x-text="(index + 1) + '.'"></span>
+                                                <a :href="'https://nvd.nist.gov/vuln/detail/' + cveId" 
+                                                   target="_blank"
+                                                   class="text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline" 
+                                                   x-text="cveId"></a>
+                                            </div>
+                                            <span class="px-2.5 py-1 text-xs font-medium rounded-full shadow-sm" 
+                                                  :class="{
+                                                    'bg-red-100 text-red-800 shadow-red-100/50': $store.cveModal.getCveDetails(cveId).base_score_rating.toLowerCase() === 'critical',
+                                                    'bg-orange-100 text-orange-800 shadow-orange-100/50': $store.cveModal.getCveDetails(cveId).base_score_rating.toLowerCase() === 'high',
+                                                    'bg-yellow-100 text-yellow-800 shadow-yellow-100/50': $store.cveModal.getCveDetails(cveId).base_score_rating.toLowerCase() === 'medium',
+                                                    'bg-gray-100 text-gray-800 shadow-gray-100/50': $store.cveModal.getCveDetails(cveId).base_score_rating === 'Unknown'
+                                                  }"
+                                                  x-text="$store.cveModal.getCveDetails(cveId).base_score_rating"></span>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('cveModal', {
+                isOpen: false,
+                cveDetails: {},
+                categories: {},
+
+                getSeverityRank(rating) {
+                    const ranks = {
+                        'critical': 4,
+                        'high': 3,
+                        'medium': 2,
+                        'low': 1,
+                        'unknown': 0
+                    };
+                    return ranks[rating?.toLowerCase()] || 0;
+                },
+
+                show(dataset) {
+                    if (dataset) {
+                        console.log('Raw data:', dataset);
+                        // Parse the data
+                        const cveList = JSON.parse(dataset.cves || '[]');
+                        const categoryData = JSON.parse(dataset.categories || '{}');
+                        console.log('Parsed CVEs:', cveList);
+                        console.log('Parsed categories:', categoryData);
+                        
+                        // Store the full category data for details lookup
+                        this.cveDetails = categoryData;
+                        
+                        // Process categories and sort by severity
+                        this.categories = Object.entries(categoryData).reduce((acc, [category, items]) => {
+                            // Sort items by severity ranking
+                            const sortedItems = [...items].sort((a, b) => {
+                                const rankA = this.getSeverityRank(a.score?.score_rating);
+                                const rankB = this.getSeverityRank(b.score?.score_rating);
+                                // Sort by rank descending (higher severity first)
+                                if (rankB !== rankA) {
+                                    return rankB - rankA;
+                                }
+                                // If same severity, sort by score_num descending
+                                return (b.score?.score_num || 0) - (a.score?.score_num || 0);
+                            });
+                            
+                            // Store sorted post_ids
+                            acc[category] = sortedItems.map(item => item.post_id);
+                            return acc;
+                        }, {});
+                        
+                        this.isOpen = true;
+                    }
+                },
+
+                hide() {
+                    this.isOpen = false;
+                    this.cveDetails = {};
+                    this.categories = {};
+                },
+
+                getCveDetails(cveId) {
+                    // Search through all categories for the CVE details
+                    for (const [category, items] of Object.entries(this.cveDetails)) {
+                        const item = items.find(i => i.post_id === cveId);
+                        if (item && item.score) {
+                            return {
+                                base_score_rating: item.score.score_rating || 'Unknown'
+                            };
+                        }
+                    }
+                    return { base_score_rating: 'Unknown' };
+                }
+            });
+        });
+    </script>
+</body>
+</html>

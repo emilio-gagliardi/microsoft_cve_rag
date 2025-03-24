@@ -21,6 +21,28 @@ pip install protobuf==4.25.4
 # snowflake/snowflake-arctic-embed-l (1024)
 # BAAI/bge-large-en-v1.5 (1024)
 # nomic-ai/nomic-embed-text-v1.5 (768)
+
+## GPU Support Setup
+To enable GPU support for FastEmbed (via ONNX Runtime), install dependencies in this order:
+```bash
+# 1. Install CUDA Toolkit
+conda install -c nvidia cuda-toolkit=12.8.1
+
+# 2. Install cuDNN
+conda install -c conda-forge cudnn=9.8.0.87
+
+# 3. Install ONNX Runtime GPU
+pip install onnxruntime-gpu==1.21.0
+```
+
+Note: The specific versions above are known to work together. After installation, verify GPU support:
+```python
+import onnxruntime as ort
+ort.get_device()  # Should return 'GPU'
+```
+
+FastEmbed will automatically use GPU acceleration when available through ONNX Runtime.
+
 pip install fastembed-gpu
 
 # Install JupyterLab and Jupyter Notebook
