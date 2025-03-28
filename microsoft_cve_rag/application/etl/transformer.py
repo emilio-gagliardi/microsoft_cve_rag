@@ -34,7 +34,7 @@ from spacy.lang.en.stop_words import STOP_WORDS
 
 marvin.settings.openai.chat.completions.model = "gpt-4o-mini"
 # embedding_service = EmbeddingService.from_provider_name("fastembed")
-logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 # BEGIN PATCH FEATURE ENGINEERING HERLPERS ==================================
 
@@ -344,12 +344,33 @@ def extract_edge_kbs(row: pd.Series) -> List[str]:
     Returns:
         List[str]: List of Edge KB references
     """
+    # logger.info(f"Row types: { {k: type(v).__name__ for k, v in row.items()} }")
+    # Get product_mentions more carefully
+    try:
+        product_mentions = row.get("product_mentions")
+        # pm_type = type(product_mentions).__name__
+        # pm_value = str(product_mentions) if product_mentions is not None else None
+        # logger.info(f"Product mentions type: {pm_type}")
+        # logger.info(f"Product mentions value (as string): {pm_value}")
+    except Exception as e:
+        logger.error(f"Error inspecting product_mentions: {str(e)}")
+        return []
     edge_kbs = []
-    if (row.get("product_mentions") is not None
-            and "edge" in row["product_mentions"]
-            and row.get("build_numbers") is not None):
-        for build_number in row["build_numbers"]:
+
+    if isinstance(product_mentions, (pd.Series, np.ndarray)):
+        product_mentions = product_mentions.tolist()
+    build_numbers = row.get("build_numbers")
+
+    # Debug the actual type and value
+    # logger.info(f"Type of product_mentions: {type(product_mentions)}")
+    # logger.info(f"Product mentions value: {product_mentions}")
+    if (product_mentions is not None
+            and "edge" in product_mentions
+            and build_numbers is not None):
+        logger.info(f"Found Edge product with build_numbers: {build_numbers}")
+        for build_number in build_numbers:
             if build_number:  # Additional check for non-empty build number
+                logger.info(f"Processing build_number: {build_number}")
                 build_str = ".".join(map(str, build_number))
                 edge_kbs.append(f"KB-{build_str}")
     return list(set(edge_kbs))
@@ -768,9 +789,10 @@ async def async_generate_summary(text: str) -> Optional[str]:
 
         General Guidelines
 
-        Provide a brief, sentence-based overview paragraph followed by a detailed technical breakdown with sub sections. Adhere to the structure below. Assume the reader has a strong background in patching and Microsoft device management. Maintain honesty and precision by sticking to the KB article's content, avoiding general or outdated advice unless specified in the article.
+        - Provide an engaging, sentence-based overview paragraph followed by a detailed technical breakdown with sub sections. Adhere to the structure below. Assume the reader has a strong background in patching and Microsoft device management. Maintain honesty and precision by sticking to the KB article's content, avoiding general or outdated advice unless specified in the article.
         - Use the subheadings outlined below to structure the summary, aligning with the KB article's content.
         - Format all commands, error codes, and configurations using triple-backtick Markdown code blocks with appropriate language identifiers.
+        - Do not add a 'closing' or 'in conclusion' section or thoughts or any text following the last section presented below.
 
         Formatting Guidelines
         - **Commands and Scripts**: Use triple-backtick Markdown code blocks with language identifiers. Include only commands from the KB article. Examples:
@@ -799,6 +821,9 @@ async def async_generate_summary(text: str) -> Optional[str]:
         Additional Notes
         - Highlight security risks, elevated-risk exploits, or known issues clearly.
         - Exclude file information (e.g., file lists) from the summary.
+        - Include links to any mentioned CVEs or resources for easier navigation.
+            Example: [CVE-2022-38042](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2022-38042)
+            Example: [NetJoinDomain](https://docs.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netjoindomain)
 
         <summary structure>
         ## Overview
@@ -806,24 +831,38 @@ async def async_generate_summary(text: str) -> Optional[str]:
         - The primary purpose of this KB article (e.g., security update, quality improvement).
         - The specific operating systems and versions affected in a bullet list.
         - Any critical security issues, vulnerabilities, or bugs addressed.
-        - Any prerequisites or special installation requirements.
+        - Search for two sections in the source text: 'Summary' and '*servicing stack update*' (e.g., 'Windows 11 servicing stack update (KB5043938) - 22000.3196') and incorporate the content from those sections into the 'Overview' section.
         - Avoid general advice on patch management.
-        - Limit to 6 sentences maximum.
+        - Limit to 6 full sentences maximum.
+        - Do not add sub sections to the Overview section.
+
         Example: 'KB5040427 is a critical security update released on July 9, 2024, targeting:\n
         - Windows 10 Enterprise LTSC 2021\n
         - IoT Enterprise LTSC 2021\n
         - Windows 10 version 22H2 (builds 19044.4651 and 19045.4651)\n
         The update addresses significant security vulnerabilities in RADIUS protocol (MD5 collisions) and implements enhanced BitLocker Secure Boot validation profiles. This combined SSU/LCU package requires specific prerequisites based on deployment method: KB5014032 for offline imaging or KB5005260 for WSUS deployment. The update includes SSU KB5039336 (builds 19044.4585 and 19045.4585) for improved update servicing capabilities.'
 
+        ## Scope of Impact
+        - Optional. Do not output this section header if it isn't in the source text.
+        - Some KB articles provide a section on scope of impact, if it exists, present the high level points here.
+        - Do not fabricate or add commentary that isn't in the source text.
+
+        ## Available Mitigations
+        - Optional. Do not output this section header if it isn't in the source text.
+        - Some KB articles provide a section on available mitigations, if it exists, present the high level points here.
+        - Do not fabricate or add commentary that isn't in the source text.
+
         ## Technical Breakdown
         - Generate a detailed response at least as long as this prompt (~1200 tokens) for KB articles up to 3000 words, including all improvements, bug fixes, and vulnerabilities from the 'Improvements' section with exhaustive technical details and examples where applicable. For articles exceeding 5000 words, scale down the summary length proportionally to remain concise yet comprehensive.
+        - You may add sub sections here to better align with the source text.
 
         ### Vulnerabilities and Bug Fixes
         - List all improvements, bug fixes, and vulnerabilities from the 'Improvements' section in bullet points with brief descriptions.
         - Prioritize high-impact items (e.g., security vulnerabilities, critical bugs) first.
         - Clearly state whether each vulnerability is high or low impact. Example: 'This update addresses high-impact vulnerabilities in Windows Installer and RADIUS protocol related to MD5 collision exploits. Full details in the July 2024 Security Updates.'
         - Clearly state whether the item is a: ['vulnerability', 'bug fix', 'improvement']
-        - Include actionable details (e.g., affected components, configurations).
+        - Include actionable details (e.g., affected components, configurations, downloads, scripts).
+        - Maximum 10 items.
 
         ### Known Issues and Workarounds
         - Detail any known issues and workarounds from the KB article in bullet lists.
@@ -831,11 +870,13 @@ async def async_generate_summary(text: str) -> Optional[str]:
         - Specify the fix method (e.g., Autopatch, MDM, Group Policy, registry modification, Intune command) if provided, noting WSUS deprecation and preference for Autopatch/Intune where mentioned.
         - Example format:
         - MCC/DHCP Option 235 Discovery Issue
-            - Impact: Enterprise environments only
-            - Resolution: Install KB5040525
+            - Applies to: All Users
+            - Symptoms: After installing this update, you might be unable to change your user account profile picture.
+            - Workaround: If you encounter this issue on your device, please contact Windows support for help.
         - Profile Picture Error
-            - Impact: Limited
-            - Status: Requires support intervention
+            - Applies to: Enterprise users
+            - Symptoms: After installing this update, you might be unable to change your user account profile picture.
+            - Workaround: This issue is addressed in KB5053643.
             - Error Code:
             ```plaintext
             0x80070520
@@ -845,7 +886,6 @@ async def async_generate_summary(text: str) -> Optional[str]:
         - Provide step-by-step prerequisites and installation details from the KB article.
         - Specify preferred update channels (e.g., Autopatch, Windows Update, WSUS, standalone installation).
         - For uninstallation instructions, use triple-backtick code blocks.
-
         </summary structure>
 
         KB Article text below
@@ -854,8 +894,8 @@ async def async_generate_summary(text: str) -> Optional[str]:
         ===
         """
     model_kwargs = {
-        "max_tokens": 2500,
-        "temperature": 0.25,
+        "max_tokens": 2750,
+        "temperature": 0.1,
         "top_p": 1.0,
         "presence_penalty": 0.5,
         "frequency_penalty": 0.3,
@@ -3632,9 +3672,11 @@ def patch_fe_transformer(
     patch_posts_df["product_mentions_keywords"] = None
     patch_posts_df["product_mentions_subject"] = None
     patch_posts_df["product_mentions_text"] = None
+    patch_posts_df["product_mentions"] = None
     patch_posts_df["windows_kbs"] = None
     patch_posts_df["edge_kbs"] = None
-
+    # mask = patch_posts_df["product_mentions"].isna()
+    # patch_posts_df.loc[mask, "product_mentions"] = patch_posts_df.loc[mask, "product_mentions"].apply(lambda x: [])
     non_conversational_idx = patch_posts_df[
         patch_posts_df["post_type"] != "Conversational"
     ].index

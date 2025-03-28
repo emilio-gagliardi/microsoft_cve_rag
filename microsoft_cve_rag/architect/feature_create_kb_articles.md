@@ -1,6 +1,4 @@
-
-The ETL pipeline is not finding all the KB articles when creating `microsoft_kb_articles`.
-The collection `docstore` has records that match as KB articles and we need an aggregation pipeline or python workflow to find these records and create them in the collection `microsoft_kb_articles`.
+The ETL pipeline is not finding all the KB articles when creating `microsoft_kb_articles`. The collection `docstore` has records that match as KB articles and we need an aggregation pipeline or python workflow to find these records and create them in the collection `microsoft_kb_articles`.
 
 The following mongo query can find the records in `docstore` that match as KB articles:
 ```mongodb
@@ -13,7 +11,7 @@ The following mongo query can find the records in `docstore` that match as KB ar
 }
 ```
 
-We then need to create a route in the fastapi etl_router.py to handle this workflow. All routes need pydantic models V2 with swagger docs. The route should also return a pydantic model with standardized response structure as other routes, i.e. `response, status, code` keys. All mongo credentials are loaded from environment variables.
+We then need to create a route in the `etl_routes.py` to handle this workflow. All routes need pydantic models V2 with swagger docs. The route should also return a pydantic model with standardized response structure as other routes, i.e. `response, status, code` keys. All mongo credentials are loaded from environment variables.
 
 Draft for the code below:
 ```python
@@ -25,13 +23,13 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, Field
 
 app = FastAPI(
-    title="Record API",
-    description="API for creating new records in the MongoDB collection.",
+    title="KB Article API",
+    description="API for creating new KB articles in the MongoDB collection.",
     version="1.0.0"
 )
 
 # Pydantic models with swagger docs (using Pydantic v2 style)
-class RecordCreate(BaseModel):
+class KBCreate(BaseModel):
     id: str = Field(..., description="Unique record identifier")
     build_number: Dict[str, Any] = Field(..., description="Build number details")
     kb_id: str = Field(..., description="Knowledge base id")
@@ -49,10 +47,11 @@ class RecordCreate(BaseModel):
     # This field will be forced to null since the value is unknown.
     product_build_id: Optional[str] = Field(default=None, description="Foreign key to product build, set to null if unknown")
 
-# incomplete RecordResponse model
-# bad name, should be KBCreateResponse
-class RecordResponse(BaseModel):
-    _id: str = Field(..., description="MongoDB generated identifier for the new record")
+# Pydantic response model
+class KBCreateResponse(BaseModel):
+    response: str = Field(..., description="Response message")
+    status: str = Field(..., description="Status of the operation")
+    code: int = Field(..., description="HTTP status code")
 
 # Setup MongoDB connection using environment variable placeholders
 MONGO_URI = os.getenv("MONGO_URI", "mongodb://<username>:<password>@<host>:<port>")
@@ -63,10 +62,10 @@ client = AsyncIOMotorClient(MONGO_URI)
 db = client[MONGO_DB_NAME]
 collection = db[MONGO_COLLECTION_NAME]
 
-@app.post("/create-kb-article", response_model=RecordResponse, summary="Create a new record", tags=["Records"])
-async def create_record(record: RecordCreate) -> RecordResponse:
+@app.post("/create-kb-article", response_model=KBCreateResponse, summary="Create a new KB article", tags=["KB Articles"])
+async def create_kb_article(record: KBCreate) -> KBCreateResponse:
     """
-    Create a new record in the MongoDB collection.
+    Create a new KB article in the MongoDB collection.
 
     All required fields are provided in the request body.
     The 'product_build_id' is set to null because the actual UUID is not available.
@@ -79,7 +78,7 @@ async def create_record(record: RecordCreate) -> RecordResponse:
     result = await collection.insert_one(record_data)
     if not result.inserted_id:
         raise HTTPException(status_code=500, detail="Record creation failed")
-    return RecordResponse(_id=str(result.inserted_id))
+    return KBCreateResponse(response="Record created successfully", status="success", code=200)
 ```
 
-create a test file in the test directory that makes a request to the fastapi endpoint with sample data.
+Create a test file in the `tests` directory that makes a request to the FastAPI endpoint with sample data.

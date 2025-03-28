@@ -7,6 +7,7 @@ import asyncio
 import re
 import json
 import pandas as pd
+from pymongo.cursor import CursorType
 from application.etl import extractor
 from application.etl import transformer
 from application.etl import loader
@@ -58,43 +59,56 @@ async def incremental_ingestion_pipeline(
     logging.info(f"response: {response}")
     return response
 
+import pprint
 
-async def run_feature_engineering(pipeline_loader, pipelines_arguments_config, mongo_db_config):
+
+async def execute_single_pipeline(
+    pipeline_loader: MongoPipelineLoader,
+    yaml_file: str,
+    mongo_db_config: Dict[str, Dict[str, Any]],
+    arguments: Dict[str, Any]
+):
+    try:
+        logging.info(f"Loading pipeline from: {yaml_file}")
+        # Load and validate pipeline
+        pipeline = pipeline_loader.get_pipeline(yaml_file, arguments)
+        validate_pipeline(pipeline)
+        # pprint.pprint(pipeline)
+        # Get mongo db and collection details
+        db_details = mongo_db_config.get(yaml_file, {})
+        mongo_collection = db_details.get("mongo_collection")
+        mongo_db = db_details.get("mongo_db")
+
+        if not mongo_db or not mongo_collection:
+            raise ValueError(f"Missing MongoDB configuration for {yaml_file}")
+
+        # Execute pipeline
+        document_service = DocumentService(mongo_db, mongo_collection)
+        result = document_service.aggregate_documents(pipeline)
+
+        if result:
+            logging.info(f"Pipeline {yaml_file} processed {len(result)} documents")
+            for doc in result:
+                logging.debug(f"Processed document: {doc.get('_id', 'No ID')}")
+        return result
+
+    except Exception as e:
+        logging.error(f"Failed to execute pipeline {yaml_file}: {str(e)}")
+        raise
+
+
+async def run_feature_engineering(
+    pipeline_loader: MongoPipelineLoader,
+    pipelines_arguments_config: Dict[str, Dict[str, Any]],
+    mongo_db_config: Dict[str, Dict[str, Any]]
+):
     """Run all feature engineering pipelines concurrently."""
-    async def execute_single_pipeline(yaml_file, arguments):
-        try:
-            logging.info(f"Loading pipeline from: {yaml_file}")
-            # Load and validate pipeline
-            pipeline = pipeline_loader.get_pipeline(yaml_file, arguments)
-            validate_pipeline(pipeline)
-
-            # Get mongo db and collection details
-            db_details = mongo_db_config.get(yaml_file, {})
-            mongo_collection = db_details.get("mongo_collection")
-            mongo_db = db_details.get("mongo_db")
-
-            if not mongo_db or not mongo_collection:
-                raise ValueError(f"Missing MongoDB configuration for {yaml_file}")
-
-            # Execute pipeline
-            document_service = DocumentService(mongo_db, mongo_collection)
-            result = document_service.aggregate_documents(pipeline)
-
-            if result:
-                logging.info(f"Pipeline {yaml_file} processed {len(result)} documents")
-                for doc in result:
-                    logging.debug(f"Processed document: {doc.get('_id', 'No ID')}")
-            return result
-
-        except Exception as e:
-            logging.error(f"Failed to execute pipeline {yaml_file}: {str(e)}")
-            raise
 
     try:
         # Create tasks for each pipeline
         tasks = []
         for yaml_file, arguments in pipelines_arguments_config.items():
-            tasks.append(execute_single_pipeline(yaml_file, arguments))
+            tasks.append(execute_single_pipeline(pipeline_loader, yaml_file, mongo_db_config, arguments))
 
         # Execute all pipelines concurrently and wait for completion
         results = await asyncio.gather(*tasks, return_exceptions=True)
@@ -126,6 +140,46 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     etl_dir = os.path.join(base_dir, "etl")
     pipeline_loader = MongoPipelineLoader(base_directory=etl_dir)
+
+    # Create missing KB Articles.
+    # requires differrent processing than other pipelines because
+    # we need to insert documents into a collection that doesn't have a unique index constraint.
+    yaml_file = "create_missing_kb_articles_no_merge.yaml"
+    kb_articles_arguments_config = {
+        yaml_file: {
+           "start_date": start_date.isoformat(),
+           "end_date": end_date.isoformat() if end_date else datetime.now().isoformat()
+        }
+    }
+    arguments = kb_articles_arguments_config[yaml_file]
+    kb_articles_mongo_db_config = {
+        yaml_file: {
+            "mongo_collection": "docstore",
+            "mongo_db": "report_docstore"
+        }
+    }
+    new_kbs_cursor = await execute_single_pipeline(
+        pipeline_loader,
+        yaml_file,
+        kb_articles_mongo_db_config,
+        arguments
+    )
+    new_kb_docs = list(new_kbs_cursor)
+    if new_kb_docs:
+        mongo_collection = "microsoft_kb_articles"
+        mongo_db = "report_docstore"
+        document_service = DocumentService(mongo_db, mongo_collection)
+        # Convert docs to include id_ field and pass all fields through
+        document_instances = [
+            Document(
+                id_=str(doc.get('_id')),
+                metadata=DocumentMetadata(id=str(doc.get('_id'))),
+                **{k: v for k, v in doc.items() if k not in ['_id']}
+            )
+            for doc in new_kb_docs
+        ]
+        results = document_service.create_documents(document_instances)
+        print(f"Inserted {len(document_instances)} new KB articles into {mongo_collection}.")
 
     # create a dictionary of pipeline configurations
     pipelines_arguments_config = {
@@ -469,12 +523,11 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     batch_size = 1000  # Adjust based on available memory
 
     try:
-        # await build_relationships_in_batches(
-        #     nodes_dict,
-        #     batch_size=batch_size,
-        #     checkpoint_file=checkpoint_file
-        # )
-        pass
+        await build_relationships_in_batches(
+            nodes_dict,
+            batch_size=batch_size,
+            checkpoint_file=checkpoint_file
+        )
     except Exception as e:
         logging.error(f"Error building relationships: {str(e)}")
         logging.info("You can resume the process later using the checkpoint file")
@@ -1294,6 +1347,7 @@ async def patch_feature_engineering_pipeline(
         extractor.extract_products,
         None
     )
+
     patch_docs = await asyncio.to_thread(
         extractor.patch_fe_extractor,
         start_date,

@@ -10,46 +10,40 @@ import logging
 import math
 import os
 import time
-
-# from functools import wraps
+import pandas as pd
+from bs4 import BeautifulSoup
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Tuple
-
-import pandas as pd
-
-# from application.app_utils import setup_logger
-from application.etl.type_utils import convert_to_float
 from selenium import webdriver
-
-# from selenium.webdriver.support.ui import WebDriverWait
-# from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 from tqdm import tqdm
+from typing import Any, Dict, List, Optional, Tuple
+
+from microsoft_cve_rag.application.etl.type_utils import convert_to_float
 
 logging.getLogger(__name__)
 
-
 @dataclass
 class ScrapingParams:
-    """Parameters for controlling web scraping speed and behavior.
+    """Parameters for controlling web scraping behavior.
 
-    This class manages the timing parameters used during web scraping operations to
-    ensure reliable data extraction while respecting rate limits.
-
-    Args:
-        implicit_wait (float): Seconds to wait for elements to appear.
-        hover_wait (float): Seconds to wait for tooltips to display.
-        page_load_wait (float): Seconds to wait for page load completion.
-        rate_limit (float): Minimum seconds between requests.
+    Attributes:
+        batch_size (int): Number of records to process in each batch
+        delay_between_batches (float): Delay in seconds between batches
+        hover_wait (float): Wait time in seconds after hover action
+        max_retries (int): Maximum number of retry attempts
+        retry_delay (float): Delay in seconds between retries
     """
 
-    implicit_wait: float
-    hover_wait: float
-    page_load_wait: float
-    rate_limit: float
+    batch_size: int = 100
+    delay_between_batches: float = 5.0
+    hover_wait: float = 1.0
+    max_retries: int = 3
+    retry_delay: float = 2.0
 
     @classmethod
     def from_target_time(
@@ -66,18 +60,20 @@ class ScrapingParams:
         Returns:
             ScrapingParams: Configured scraping parameters.
         """
-        base_implicit_wait = 2.0
-        base_hover_wait = 0.5
-        base_page_load_wait = 1.0
-        base_rate_limit = 1.0
+        base_batch_size = 100
+        base_delay_between_batches = 5.0
+        base_hover_wait = 1.0
+        base_max_retries = 3
+        base_retry_delay = 2.0
 
         scale = math.log2(max(num_cves, 2)) / 4
 
         return cls(
-            implicit_wait=min(base_implicit_wait * scale, 4.0),
-            hover_wait=min(base_hover_wait * scale, 1.0),
-            page_load_wait=min(base_page_load_wait * scale, 2.0),
-            rate_limit=min(base_rate_limit * scale, 3.0),
+            batch_size=min(base_batch_size * scale, 200),
+            delay_between_batches=min(base_delay_between_batches * scale, 10.0),
+            hover_wait=min(base_hover_wait * scale, 2.0),
+            max_retries=min(base_max_retries * scale, 5),
+            retry_delay=min(base_retry_delay * scale, 4.0),
         )
 
     def estimate_time_per_cve(self) -> float:
@@ -87,10 +83,9 @@ class ScrapingParams:
             float: Estimated time in seconds to process one CVE.
         """
         base_time = (
-            self.implicit_wait
+            self.delay_between_batches
             + self.hover_wait
-            + self.page_load_wait
-            + self.rate_limit
+            + self.retry_delay
         )
         selenium_overhead = 1.0
         network_latency = 2.0
@@ -132,20 +127,71 @@ class NVDDataExtractor:
 
     # Element mappings as class constant
     ELEMENT_MAPPINGS = {
-        'nvd_published_date': "//span[@data-testid='vuln-published-on']",
-        'nvd_description': "//p[@data-testid='vuln-description']",
-        'base_score_num': "//a[@data-testid='vuln-cvss3-panel-score']",
-        'base_score_rating': "//a[@data-testid='vuln-cvss3-panel-score']",
-        'vector_element': "//span[@data-testid='vuln-cvssv3-vector']",
-        'cwe_id': "//td[contains(@data-testid, 'vuln-CWEs-link-')]",
-        'cwe_name': (
-            "//td[contains(@data-testid,"
-            " 'vuln-CWEs-link-')]/following-sibling::td[1]"
-        ),
-        'cwe_source': (
-            "//td[contains(@data-testid,"
-            " 'vuln-CWEs-link-')]/following-sibling::td[2]"
-        ),
+        'nvd_published_date': {
+            'xpath': "//span[@data-testid='vuln-published-on']",
+        },
+        'nvd_description': {
+            'xpath': "//div[@data-testid='vuln-description']",
+        },
+        'base_score': {
+            'xpath': "//span[@data-testid='vuln-cvssv3-base-score']",
+        },
+        'base_score_num': {
+            'xpath': "//span[@data-testid='vuln-cvssv3-base-score']",
+        },
+        'base_score_rating': {
+            'xpath': "//span[@data-testid='vuln-cvssv3-base-score-severity']",
+        },
+        'vector_element': {
+            'xpath': "//span[@data-testid='vuln-cvssv3-vector']",
+        },
+        'vector': {
+            'xpath': "//span[@data-testid='vuln-cvssv3-vector']",
+        },
+        'impact_score': {
+            'xpath': "//span[@data-testid='vuln-cvssv3-impact-score']",
+        },
+        'exploitability_score': {
+            'xpath': "//span[@data-testid='vuln-cvssv3-exploitability-score']",
+        },
+        'attack_vector': {
+            'xpath': "//span[@data-testid='vuln-cvssv3-av']",
+        },
+        'attack_complexity': {
+            'xpath': "//span[@data-testid='vuln-cvssv3-ac']",
+        },
+        'privileges_required': {
+            'xpath': "//span[@data-testid='vuln-cvssv3-pr']",
+        },
+        'user_interaction': {
+            'xpath': "//span[@data-testid='vuln-cvssv3-ui']",
+        },
+        'scope': {
+            'xpath': "//span[@data-testid='vuln-cvssv3-s']",
+        },
+        'confidentiality': {
+            'xpath': "//span[@data-testid='vuln-cvssv3-c']",
+        },
+        'integrity': {
+            'xpath': "//span[@data-testid='vuln-cvssv3-i']",
+        },
+        'availability': {
+            'xpath': "//span[@data-testid='vuln-cvssv3-a']",
+        },
+        # CWE mappings
+        'cwe_id': {
+            'xpath': "//td[contains(@data-testid, 'vuln-CWEs-link-')]",
+        },
+        'cwe_name': {
+            'xpath': "//td[contains(@data-testid, 'vuln-CWEs-link-')]/following-sibling::td[1]",
+        },
+        'cwe_source': {
+            'xpath': "//td[contains(@data-testid, 'vuln-CWEs-link-')]/following-sibling::td[2]",
+        },
+        'cwe_url': {
+            'xpath': "//td[contains(@data-testid, 'vuln-CWEs-link-')]/a",
+            'attribute': 'href'
+        }
     }
     VECTOR_SOURCES = {
         'nist': {
@@ -217,6 +263,12 @@ class NVDDataExtractor:
         ),
     }
 
+    HIDDEN_INPUT_IDS = {
+        'cna': 'cnaV3MetricHidden',
+        'nist': 'nistV3MetricHidden',
+        'adp': 'adpV3MetricHidden'
+    }
+
     def __init__(
         self,
         properties_to_extract: Optional[List[str]] = None,
@@ -283,7 +335,7 @@ class NVDDataExtractor:
         )
 
         self.driver = webdriver.Chrome(options=chrome_options)
-        self.driver.implicitly_wait(self.params.implicit_wait)
+        self.driver.implicitly_wait(self.params.hover_wait)
 
     def cleanup(self) -> None:
         """Cleanup the Selenium WebDriver instance."""
@@ -294,6 +346,22 @@ class NVDDataExtractor:
                 logging.debug("Selenium WebDriver cleaned up.")
             except Exception as e:
                 logging.error(f"Error during driver cleanup: {str(e)}")
+
+    def _switch_to_cvss3(self) -> None:
+        """Switch to CVSS 3.x tab if it exists and is not already active."""
+        try:
+            cvss3_button = self.driver.find_element(
+                By.XPATH,
+                "//button[@id='btn-cvss3' and contains(@title, 'CVSS 3.x')]"
+            )
+            if 'btn-active' not in cvss3_button.get_attribute('class'):
+                cvss3_button.click()
+                time.sleep(0.5)  # Wait for tab switch
+                logging.debug("Switched to CVSS 3.x tab")
+        except NoSuchElementException:
+            logging.debug("CVSS 3.x tab not found or already active")
+        except Exception as e:
+            logging.error(f"Error switching to CVSS 3.x tab: {str(e)}")
 
     def _extract_base_score(
         self, score_text: str
@@ -403,121 +471,171 @@ class NVDDataExtractor:
 
         return df
 
-    def extract_property(
-        self, property_name: str, context_element: Optional[Any] = None
-    ) -> Optional[str]:
-        """Extract a single property from the page using predefined mappings.
+    def _extract_from_hidden_input(self, source: str) -> Dict[str, Any]:
+        """Extract metrics from hidden input field for a given source.
 
         Args:
-            property_name (str): Name of the property to extract.
-            context_element (Optional[Any]): Context element for relative XPath.
+            source: The source type ('cna', 'nist', or 'adp')
 
         Returns:
-            Optional[str]: Extracted property value or None if not found.
+            Dict containing the extracted metrics with appropriate prefixes
         """
-        if property_name not in self.ELEMENT_MAPPINGS:
-            print(f"property name: {property_name}")
-            logging.warning(f"No mapping found for property: {property_name}")
-            return 'none'
-
+        prefix = self.VECTOR_SOURCES[source]['prefix']
+        data = {
+            f"{prefix}vector": None,
+            f"{prefix}base_score_num": None,
+            f"{prefix}base_score_rating": None,
+            f"{prefix}impact_score": None,
+            f"{prefix}exploitability_score": None
+        }
+        
         try:
-            element = self.driver.find_element(
-                By.XPATH, self.ELEMENT_MAPPINGS[property_name]
+            input_id = self.HIDDEN_INPUT_IDS[source]
+            hidden_input = self.driver.find_element(By.ID, input_id)
+            raw_html = hidden_input.get_attribute("value")
+            
+            if not raw_html:
+                logging.debug(f"Hidden input for {source} found but empty")
+                return data
+
+            soup = BeautifulSoup(raw_html, "html.parser")
+            
+            # Extract base metrics
+            base_score = soup.find("span", {"data-testid": "vuln-cvssv3-base-score"})
+            if base_score:
+                data[f"{prefix}base_score_num"] = convert_to_float(
+                    base_score.text.strip()
+                )
+            
+            severity = soup.find(
+                "span", {"data-testid": "vuln-cvssv3-base-score-severity"}
             )
-            return element.text.lower().strip()
+            if severity:
+                data[f"{prefix}base_score_rating"] = severity.text.strip().lower()
+            
+            vector = soup.find("span", {"data-testid": "vuln-cvssv3-vector"})
+            if vector:
+                data[f"{prefix}vector"] = vector.text.strip()
+            
+            # Extract scores
+            impact = soup.find("span", {"data-testid": "vuln-cvssv3-impact-score"})
+            if impact:
+                data[f"{prefix}impact_score"] = convert_to_float(
+                    impact.text.strip()
+                )
+            
+            exploit = soup.find(
+                "span", {"data-testid": "vuln-cvssv3-exploitability-score"}
+            )
+            if exploit:
+                data[f"{prefix}exploitability_score"] = convert_to_float(
+                    exploit.text.strip()
+                )
+            
+            logging.debug(f"Successfully parsed {source} metrics from hidden input")
+            
         except NoSuchElementException:
-            logging.debug(f"Element not found for property: {property_name}")
-            return 'none'
+            logging.debug(f"No hidden {source} input found")
         except Exception as e:
-            logging.warning(f"Error extracting {property_name}: {str(e)}")
-            return 'none'
+            logging.error(f"Error extracting {source} metrics from hidden input: {str(e)}")
+        
+        return data
+
+    def _convert_to_float(self, value: str) -> Optional[float]:
+        """Convert string to float, handling None and empty strings.
+
+        Args:
+            value: String value to convert
+
+        Returns:
+            Float value or None if conversion fails
+        """
+        try:
+            return float(value.strip()) if value else None
+        except (ValueError, AttributeError):
+            return None
 
     def extract_vector_metrics(self) -> Dict[str, Any]:
-        """Extract CVSS vector metrics from the page.
+        """Extract vector metrics using hidden input first, then hover method.
+        
+        Returns:
+            Dictionary containing all extracted metrics
+        """
+        # Switch to CVSS 3.x tab if needed
+        self._switch_to_cvss3()
+        
+        data = {}
+        
+        # Get vector string from hidden input
+        vector_element = self.extract_property('vector')
+        if vector_element:
+            # Parse vector string
+            vector_parts = vector_element.split('/')
+            for part in vector_parts:
+                if ':' in part:
+                    metric, value = part.split(':')
+                    if metric in self.ELEMENT_MAPPINGS:
+                        data[metric] = value
+                        
+        # Get base score from hidden input
+        base_score = self.extract_property('base_score')
+        if base_score:
+            data['base_score'] = self._convert_to_float(base_score)
+            
+        # Get impact and exploitability scores
+        impact_score = self.extract_property('impact_score')
+        if impact_score:
+            data['impact_score'] = self._convert_to_float(impact_score)
+            
+        exploitability_score = self.extract_property('exploitability_score')
+        if exploitability_score:
+            data['exploitability_score'] = self._convert_to_float(exploitability_score)
+            
+        return data
+
+    def extract_property(self, property_name: str) -> Optional[str]:
+        """Extract a property from the page using predefined element mappings.
+
+        Args:
+            property_name: Name of the property to extract
 
         Returns:
-            Dict[str, Any]: Dictionary containing extracted vector metrics.
+            Optional[str]: Extracted property value or None if not found
         """
-        data = {}
+        try:
+            if property_name not in self.ELEMENT_MAPPINGS:
+                return None
 
-        for source, selectors in self.VECTOR_SOURCES.items():
-            prefix = selectors['prefix']
-            logging.debug(f"\nProcessing {source} metrics...")
+            mapping = self.ELEMENT_MAPPINGS[property_name]
+            element = self.driver.find_element(
+                By.XPATH, mapping['xpath']
+            )
 
-            # Initialize all fields for this source as None
-            data[f"{prefix}vector"] = None
-            data[f"{prefix}base_score_num"] = None
-            data[f"{prefix}base_score_rating"] = None
-            for metric in self.METRIC_PATTERNS.keys():
-                data[f"{prefix}{metric}"] = None
+            if 'attribute' in mapping:
+                value = element.get_attribute(mapping['attribute'])
+            else:
+                value = element.text
 
-            try:
-                # Find vector element
-                vector_element = self.driver.find_element(
-                    By.XPATH, selectors['vector_element']
-                )
+            if property_name == 'nvd_published_date':
+                try:
+                    # Parse MM/DD/YYYY format
+                    parsed_date = datetime.strptime(value.strip(), '%m/%d/%Y')
+                    # Convert to YYYY-MM-DD HH:MM:SS format
+                    return parsed_date.strftime('%Y-%m-%d %H:%M:%S')
+                except ValueError as e:
+                    logging.warning(
+                        f"Could not parse NVD date: {value} - {str(e)}"
+                    )
+                    return None
 
-                # Get vector string directly from the element
-                vector_text = vector_element.get_attribute(
-                    'textContent'
-                ).strip()
-                data[f"{prefix}vector"] = vector_text
-                logging.debug(f"Found vector: {vector_text}")
+            return value.strip() if value else None
 
-                # Hover to show tooltip
-                ActionChains(self.driver).move_to_element(
-                    vector_element
-                ).perform()
-                time.sleep(self.params.hover_wait)
-
-                # Find tooltip by ID (it will be dynamic)
-                tooltip_id = vector_element.get_attribute('aria-describedby')
-                if not tooltip_id:
-                    logging.debug(f"No tooltip ID found for {source}")
-                    continue
-
-                tooltip = self.driver.find_element(By.ID, tooltip_id)
-
-                # Extract all metrics from tooltip
-                for metric, xpath in self.METRIC_PATTERNS.items():
-                    try:
-                        element = tooltip.find_element(By.XPATH, xpath)
-                        value = element.text.strip()
-
-                        # Special handling for numeric metric values
-                        if metric in [
-                            'base_score',
-                            'impact_score',
-                            'exploitability_score',
-                        ]:
-                            score = convert_to_float(value)
-                            data[f"{prefix}{metric}"] = score
-
-                            # Additional handling for base_score
-                            if metric == 'base_score':
-                                data[f"{prefix}base_score_num"] = score
-                        elif metric == 'base_score_rating':
-                            data[f"{prefix}base_score_rating"] = value.lower()
-                        else:
-                            data[f"{prefix}{metric}"] = value.lower()
-
-                        logging.debug(f"Found {metric}: {value.lower()}")
-                    except NoSuchElementException:
-                        logging.warning(f"No element found for {metric}")
-                        continue
-                    except Exception as e:
-                        logging.error(f"Error extracting {metric}: {str(e)}")
-                        continue
-
-            except NoSuchElementException:
-                logging.debug(f"No vector element found for {source}")
-                continue
-            except Exception as e:
-                logging.error(f"Error processing {source} metrics: {str(e)}")
-                continue
-
-        logging.debug(f"\nExtracted data: {json.dumps(data, indent=2)}")
-        return data
+        except NoSuchElementException:
+            logging.debug(f"Element not found for property: {property_name}")
+            return None
+        except Exception as e:
+            logging.error(f"Error extracting {property_name}: {str(e)}")
+            return None
 
     def extract_cwe_data(self) -> List[Dict[str, Any]]:
         """Extract CWE (Common Weakness Enumeration) data from the page.
@@ -595,12 +713,15 @@ class NVDDataExtractor:
             now = time.time()
             if hasattr(self, '_last_request_time'):
                 elapsed = now - self._last_request_time
-                if elapsed < self.params.rate_limit:
-                    time.sleep(self.params.rate_limit - elapsed)
+                if elapsed < self.params.delay_between_batches:
+                    time.sleep(self.params.delay_between_batches - elapsed)
             self._last_request_time = time.time()
 
             self.driver.get(url)
-            time.sleep(self.params.page_load_wait)
+            time.sleep(self.params.hover_wait)
+
+            # Switch to CVSS 3.x tab if needed
+            self._switch_to_cvss3()
 
             # Extract vector metrics if requested (always include base_score)
             metric_properties = [
@@ -693,8 +814,10 @@ class NVDDataExtractor:
         columns_to_add = set()
 
         # Add source-prefixed columns for each source
-        for source in self.VECTOR_SOURCES.keys():
-            prefix = self.VECTOR_SOURCES[source]['prefix']
+        for source in self.VECTOR_SOURCES.keys():  # nist, cna, adp
+            prefix = self.VECTOR_SOURCES[source]['prefix']  # nist_, cna_, adp_
+
+            # Add base score and vector for each source
             columns_to_add.add(f"{prefix}vector")
             columns_to_add.add(f"{prefix}base_score_num")
             columns_to_add.add(f"{prefix}base_score_rating")
@@ -781,7 +904,7 @@ class NVDDataExtractor:
         columns = []
 
         # Add base properties that are always included
-        base_properties = ['nvd_published_date', 'description']
+        base_properties = ['nvd_published_date', 'nvd_description']
         columns.extend(base_properties)
 
         # Add vector metrics with source prefixes
@@ -789,13 +912,11 @@ class NVDDataExtractor:
             prefix = self.VECTOR_SOURCES[source]['prefix']  # nist_, cna_, adp_
 
             # Add base score and vector for each source
-            columns.append(f"{prefix}base_score")
             columns.append(f"{prefix}vector")
-
-            # Add all requested vector metrics with source prefix
-            for prop in self.properties_to_extract:
-                if prop in self.METRIC_PATTERNS:
-                    columns.append(f"{prefix}{prop}")
+            columns.append(f"{prefix}base_score_num")
+            columns.append(f"{prefix}base_score_rating")
+            for metric in self.METRIC_PATTERNS.keys():
+                columns.append(f"{prefix}{metric}")
 
         return sorted(list(set(columns)))
 
@@ -809,7 +930,7 @@ class NVDDataExtractor:
         columns = []
 
         # Base properties that are always included
-        base_properties = ['nvd_published_date', 'description']
+        base_properties = ['nvd_published_date', 'nvd_description']
         columns.extend(base_properties)
 
         # All possible vector metrics
@@ -853,58 +974,63 @@ class NVDDataExtractor:
 def main() -> None:
     """Main function for testing the NVD Data Extractor.
 
-    Reads input CSV, extracts data from NVD pages, and saves the enriched DataFrame.
-    This function serves as an example of how to use the NVDDataExtractor class.
+    Tests the extraction of CVSS metrics from multiple NVD vulnerability pages,
+    verifying extraction from different sources (CNA, NIST, ADP).
     """
-    input_csv_path = r"C:\Users\emili\Downloads\Master_CVE_Information_Table_July-October_2024.csv"
-    if not os.path.exists(input_csv_path):
-        raise FileNotFoundError(f"Input CSV file not found: {input_csv_path}")
-
-    df = pd.read_csv(input_csv_path)
-
-    # Initialize extractor with all properties you want to extract
+    # Test URLs for different metric sources
+    test_urls = [
+        {
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-21229",
+            "description": "CVE with CNA metrics"
+        },
+        {
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-5475",
+            "description": "CVE with NIST metrics"
+        },
+        {
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-50660",
+            "description": "CVE with ADP metrics"
+        }
+    ]
+    
+    # Initialize extractor with debug logging
     extractor = NVDDataExtractor(
-        properties_to_extract=[
-            'base_score',  # Will become nist_base_score and cna_base_score
-            'impact_score',
-            'exploitability_score',
-            'attack_vector',
-            'attack_complexity',
-            'privileges_required',
-            'user_interaction',
-            'scope',
-            'confidentiality',
-            'integrity',
-            'availability',
-            'nvd_published_date',
-            'description',
-            'vector_element',
-        ],
-        max_records=3,
+        headless=False,  # Set to False to see the browser
+        window_size=(1920, 1080),
+        show_progress=True
     )
-    NVDDataExtractor.get_all_possible_columns()
-    # Process the DataFrame with batch size of 100 (you can adjust this)
-    enriched_df = extractor.augment_dataframe(
-        df=df, url_column='CVE ID', batch_size=100
-    )
-
-    output_csv_path = (
-        r"C:\Users\emili\Downloads\test_enriched_vulnerabilities.csv"
-    )
-    enriched_df.to_csv(output_csv_path, index=False)
-
-    processed_records = (
-        min(len(df), extractor.max_records)
-        if extractor.max_records
-        else len(df)
-    )
-    summary = (
-        f"\nProcessing Summary:\n- Total rows processed: {processed_records}\n"
-    )
-    logging.info(summary)
-
-    extractor.cleanup()
-
+    
+    try:
+        for test_case in test_urls:
+            print(f"\n\nTesting {test_case['description']}:")
+            print(f"URL: {test_case['url']}")
+            print("-" * 80)
+            
+            # Navigate to the test URL
+            extractor.driver.get(test_case['url'])
+            time.sleep(2)  # Wait for page load
+            
+            # Extract vector metrics
+            metrics_data = extractor.extract_vector_metrics()
+            
+            # Print extracted data
+            print("\nExtracted Vector Metrics:")
+            print(json.dumps(metrics_data, indent=2))
+            
+            # Extract CWE data
+            cwe_data = extractor.extract_cwe_data()
+            print("\nExtracted CWE Data:")
+            print(json.dumps(cwe_data, indent=2))
+            
+            # Add a separator between test cases
+            print("\n" + "=" * 80)
+            
+    except Exception as e:
+        print(f"Error during extraction: {str(e)}")
+    finally:
+        # Clean up
+        if hasattr(extractor, 'driver'):
+            extractor.driver.quit()
 
 if __name__ == "__main__":
     main()

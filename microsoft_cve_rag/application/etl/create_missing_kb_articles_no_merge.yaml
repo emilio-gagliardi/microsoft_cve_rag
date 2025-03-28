@@ -1,0 +1,60 @@
+- $match:
+    metadata.title:
+      $regex: "kb\\d{6,7}"
+      $options: "i"
+    metadata.published:
+      $gte: "{{ start_date }}"
+      $lte: "{{ end_date }}"
+
+- $project:
+    doc: "$$ROOT"
+    post_id_lower:
+      $toLower: "$metadata.post_id"
+
+- $sort:
+    doc.metadata.published: 1
+
+- $group:
+    _id: "$post_id_lower"
+    doc:
+      $first: "$doc"
+
+- $replaceRoot:
+    newRoot: "$doc"
+
+- $project:
+    doc: "$$ROOT"
+    kb_id:
+      $replaceOne:
+        input:
+          $toLower: "$metadata.post_id"
+        find: "kb"
+        replacement: ""
+
+- $lookup:
+    from: "microsoft_kb_articles"
+    localField: "kb_id"
+    foreignField: "kb_id"
+    as: "existingKB"
+
+- $match:
+    existingKB:
+      $eq: []
+
+- $project:
+    id:
+      $concat:
+        - "AGG_"
+        -
+          $toString: "$doc._id"
+    build_number: [0, 0, 0, 0]
+    kb_id: "$kb_id"
+    published: "$doc.metadata.published"
+    product_build_id: null
+    product_build_ids: null
+    article_url: "$doc.metadata.source"
+    cve_id: null
+    cve_ids: null
+    summary: null
+    text: "$doc.text"
+    title: "$doc.metadata.title"
