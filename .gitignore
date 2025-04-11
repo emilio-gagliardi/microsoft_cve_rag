@@ -13,7 +13,7 @@ env/
 # Ignore all VSCode workspace and settings files
 .vscode/
 *.code-workspace
-
+conf/
 # Ignore codiumate settings
 .codiumai.toml
 
@@ -38,7 +38,12 @@ microsoft_cve_rag/application/data/vector_index
 microsoft_cve_rag/application/data/vector_index/*
 microsoft_cve_rag/application/data/graph_db_backup
 microsoft_cve_rag/application/data/graph_db_backup/*
-
+microsoft_cve_rag/application/data/reports/weekly_kb_report/html
+microsoft_cve_rag/application/data/reports/weekly_kb_report/markdown
+microsoft_cve_rag/application/data/reports/weekly_kb_report/plots
+microsoft_cve_rag/application/data/reports/weekly_kb_report/thumbnails
+microsoft_cve_rag/application/data/reports/quarterly_deep_dive/html
+microsoft_cve_rag/application/data/reports/quarterly_deep_dive/data
 package docs/
 
 # windsurf rules

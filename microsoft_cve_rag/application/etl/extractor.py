@@ -342,7 +342,7 @@ def extract_kb_articles(
 
     # equals null is for windows kb articles
     query = {
-        "published": {"$gte": start_date, "$lt": end_date},
+        "published": {"$gte": start_date, "$lte": end_date},
         "kb_id": {"$regex": "^[0-9]+$", "$options": "i"}
     }
     projection = {"_id": 0, "cve_id": 0}
@@ -788,7 +788,7 @@ def extract_msrc_posts(
     query = {
         "metadata.collection": "msrc_security_update",
         "metadata.published": {"$gte": start_date, "$lt": end_date},
-        "metadata.product_build_ids": {"$exists": True, "$not": {"$size": 0}},
+        # "metadata.product_build_ids": {"$exists": True, "$not": {"$size": 0}},
     }
     max_records = max_records
     projection = {
@@ -908,117 +908,3 @@ def extract_patch_posts(
     # print out the metadata.id for each document, add some text
 
     return docs
-
-
-# BEGIN report extractors =============================
-def extract_kb_articles_for_report(
-    start_date: datetime,
-    end_date: datetime,
-    kb_service: DocumentService
-) -> List[Dict[str, Any]]:
-    """Extract KB articles within a date range.
-
-    Args:
-        start_date (datetime): Start date for KB article search
-        end_date (datetime): End date for KB article search
-        kb_service (DocumentService): Document service instance for KB articles
-
-    Returns:
-        List[Dict[str, Any]]: List of KB articles
-
-    NOTE. There are duplicate kb records and some of them are missing the field "cve_ids".
-    Ensure that you sort and deduplicate in such a way to ensure you keep the records with cve_ids
-    """
-    query = {
-        "published": {"$gte": start_date, "$lte": end_date},
-        "kb_id": {"$regex": "^[0-9]+$", "$options": "i"}
-    }
-    projection = {
-        "_id": 0,
-        "excluded_llm_metadata_keys": 0
-    }
-    result = kb_service.query_documents(
-        query=query,
-        projection=projection,
-        page=1,
-        page_size=999
-    )
-
-    docs = result.get("results", [])
-
-    return docs
-
-
-def extract_cve_details_for_report(
-    cve_ids: List[str],
-    kb_ids: List[str],
-    docstore_service: DocumentService
-) -> List[Dict[str, Any]]:
-    """Extract CVE details for a list of CVE IDs and KB IDs.
-
-    Args:
-        cve_ids (List[str]): List of CVE IDs from KB articles
-        kb_ids (List[str]): List of KB IDs to find additional CVE references
-        docstore_service (DocumentService): Document service instance for docstore
-
-    Returns:
-        List[Dict[str, Any]]: List of CVE details with associated KB IDs
-    """
-    projection = {
-        "_id": 0,
-        "metadata.id": 1,
-        "metadata.revision": 1,
-        "metadata.published": 1,
-        "metadata.source": 1,
-        "metadata.post_id": 1,
-        "metadata.cve_category": 1,
-        "metadata.adp_base_score_num": 1,
-        "metadata.adp_base_score_rating": 1,
-        "metadata.cna_base_score_num": 1,
-        "metadata.cna_base_score_rating": 1,
-        "metadata.nist_base_score_num": 1,
-        "metadata.nist_base_score_rating": 1,
-        "kb_ids": 1  # Add kb_ids to projection
-    }
-
-    # Query 1: Find CVEs by post_id (direct CVE references)
-    query1 = {"metadata.post_id": {"$in": cve_ids}}
-    result1 = docstore_service.query_documents(
-        query=query1,
-        projection=projection,
-        page=1,
-        page_size=999
-    )
-
-    kb_ids_with_prefix = [f"kb{kb_id}" for kb_id in kb_ids]
-    # Query 2: Find CVEs that reference the KB IDs
-    query2 = {"kb_ids": {"$in": kb_ids_with_prefix}}
-    result2 = docstore_service.query_documents(
-        query=query2,
-        projection=projection,
-        page=1,
-        page_size=999
-    )
-
-    # Combine results and add source information
-    all_results = []
-    seen_post_ids = set()
-
-    for doc in result1.get("results", []):
-        post_id = doc.get("metadata", {}).get("post_id")
-        if post_id and post_id not in seen_post_ids:
-            doc["cve_source"] = "direct"  # CVE was directly referenced in KB
-            all_results.append(doc)
-            seen_post_ids.add(post_id)
-
-    for doc in result2.get("results", []):
-        post_id = doc.get("metadata", {}).get("post_id")
-        if post_id and post_id not in seen_post_ids:
-            doc["cve_source"] = "kb_reference"  # CVE was found via KB reference
-            all_results.append(doc)
-            seen_post_ids.add(post_id)
-
-    return all_results
-
-
-# END report extractors =============================

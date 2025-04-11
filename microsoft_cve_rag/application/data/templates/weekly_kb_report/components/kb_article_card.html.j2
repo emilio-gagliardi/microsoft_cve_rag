@@ -1,72 +1,63 @@
-<div class="shadcn-card group mb-8" x-data>
-    <div class="flex justify-between items-start mb-6">
-        <div>
-            <a href="{{ article.article_url }}" target="_blank" rel="noopener noreferrer" class="group-hover:text-blue-600 transition-colors">
-                <h3 class="text-xl font-semibold">{{ article.kb_id }} – {{ article.title }}</h3>
+<div class="kb-article-card" x-data="{ kbId: '{{ article.kb_id }}' }">
+    {# --- Header Info --- #}
+    <div class="kb-header">
+        <h2 class="kb-title">
+            <a href="{{ article.article_url }}" target="_blank" rel="noopener noreferrer">
+                {{ article.title }}
             </a>
-            <p class="text-sm text-gray-500 mt-1">Published: {{ article.published }}</p>
-        </div>
+        </h2>
+        <p class="kb-published-date">Published: {{ article.published|strftime("%B %d, %Y") }}</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        <div class="space-y-2">
-            <h4 class="font-medium text-gray-700">OS Builds</h4>
-            <ul class="list-disc list-inside space-y-1.5">
-                <li class="text-sm text-gray-600">{{ article.build_number|join('.')|replace(', .', '.') }}</li>
-            </ul>
+    <div class="kb-meta-action-row">
+        {# --- OS Builds Block (Left Side) --- #}
+        {% if article.build_numbers %}
+        <div class="kb-builds-block">
+            <h5>OS Builds</h5>
+            <div class="build-tags">
+                {% for build in article.build_numbers %}
+                <span class="build-tag">{{ build }}</span>
+                {% endfor %}
+            </div>
         </div>
-        <div class="space-y-2">
-            <h4 class="font-medium text-gray-700">Key Fixes ({{ article.cve_details.total_cves }} CVEs)</h4>
-            <button 
-                data-cves='{{ article.cve_ids|tojson|safe }}'
-                data-categories='{{ article.cve_details.categories|tojson|safe }}'
-                @click="Alpine.store('cveModal').show($el.dataset)"
-                class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all shadow-sm hover:shadow-md"
+        {% else %}
+        <div></div> {# Empty div to maintain flex structure if no builds #}
+        {% endif %}
+
+        {# --- CVE Action Block (Right Side) --- #}
+        {# Safely get CVE data, default to 0 count if not found #}
+        {% set cve_data = all_kb_cve_data.get(article.kb_id, {}) %}
+        {% set cve_count = cve_data.get('total_cves', 0) %}
+        {% set has_cves = cve_count > 0 %}
+
+        <div class="kb-cves-action">
+            <button
+                type="button"
+                {# Conditionally add 'view-cves-btn--active' class #}
+                class="view-cves-btn {% if has_cves %}view-cves-btn--active{% endif %}"
+                {# Conditionally add 'disabled' attribute #}
+                {% if not has_cves %}disabled{% endif %}
+                {# Keep AlpineJS click handler - it wont fire if button is disabled #}
+                @click="
+                    const dataToSend = window.pageCveData[kbId] || { categories: {}, total_cves: 0 };
+                    window.dispatchEvent(new CustomEvent('modal-show', { detail: dataToSend }));
+                "
+                {# Add aria-disabled for better accessibility (optional but good) #}
+                :aria-disabled="{{ 'true' if not has_cves else 'false' }}"
             >
-                VIEW AFFECTED CVES
+                VIEW CVES
             </button>
+            <span class="cve-count">{{ cve_count }} CVEs Addressed</span>
         </div>
     </div>
 
-    <div class="space-y-6">
-        {% if article.report_new_features %}
-        <div class="space-y-2">
-            <h4 class="font-medium text-gray-700">New Features</h4>
-            <ul class="list-disc list-inside space-y-1.5">
-                {% for feature in article.report_new_features %}
-                <li class="text-sm text-gray-600">{{ feature }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-
-        {% if article.report_bug_fixes %}
-        <div class="space-y-2">
-            <h4 class="font-medium text-gray-700">Bug Fixes</h4>
-            <ul class="list-disc list-inside space-y-1.5">
-                {% for fix in article.report_bug_fixes %}
-                <li class="text-sm text-gray-600">{{ fix }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-
-        {% if article.report_known_issues_workarounds %}
-        <div class="space-y-2">
-            <h4 class="font-medium text-gray-700">Known Issues & Workarounds</h4>
-            <ul class="list-disc list-inside space-y-1.5">
-                {% for issue in article.report_known_issues_workarounds %}
-                <li class="text-sm text-gray-600">{{ issue }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-
-        {% if article.summary %}
-        <div class="space-y-2">
-            <h4 class="font-medium text-gray-700">Summary</h4>
-            <div class="text-sm text-gray-600 space-y-4">{{ article.summary|parse_markdown|safe }}</div>
-        </div>
-        {% endif %}
+    {% if article.summary_html %}
+    <div class="kb-content">
+        <div class="kb-summary">{{ article.summary_html|safe }}</div>
     </div>
+    {% else %}
+    <div class="kb-content">
+        <div class="kb-summary">No summary available. See article for details.</div>
+    </div>
+    {% endif %}
 </div>

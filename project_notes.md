@@ -356,7 +356,262 @@ This configuration:
 
 After updating settings.json, restart VSCode for changes to take effect.
 
+## Code Block Styling with Pygments
+
+The project uses two separate stylesheets for code block styling:
+
+1. **Container Styling (`stylesheet.css`)**:
+   - Handles the outer container appearance (borders, padding, headers)
+   - Follows the page theme and design system
+   - Defines classes like `.code-block-wrapper`, `.code-block-header`
+
+2. **Syntax Highlighting (`pygments-xcode.css`)**:
+   - Generated using Pygments: `pygmentize -S xcode -f html > pygments-xcode.css`
+   - Provides syntax highlighting styles for code content
+   - Must match the `pygments_style` setting in the markdown configuration:
+     ```python
+     markdown.markdown(
+         text,
+         extension_configs={
+             'codehilite': {
+                 'pygments_style': 'xcode'  # Must match generated CSS
+             }
+         }
+     )
+     ```
+
+For available Pygments themes, see [Pygments Built-in Styles](https://pygments.org/styles/).
+
 # Lessons Learned
+
+## Conda Dependency Management Best Practices
+
+**Issue Date:** April 4, 2025
+
+**Problem:**
+- Inconsistent package versions across environments
+- Confusion about Python-specific vs. generic package versions
+- Uncertainty about when to pin exact versions
+
+**Resolution: Multi-Step Dependency Workflow**
+1. Search conda-forge for available packages and versions
+2. Test installation with dry run:
+   ```bash
+   conda install <package> --dry-run
+   ```
+3. Note the exact version and build hash that conda would install
+4. Update `environment.yml` based on package maturity:
+   - For newer/startup packages: Pin exact versions to ensure stability
+   - For mature packages: Allow conda to resolve latest compatible version unless:
+     * Major version updates are expected
+     * Known deprecations are coming
+     * Specific version is required for compatibility
+
+**Package Version Selection Guidelines**
+- Python-specific versions (e.g., `py311haa95532_0`):
+  * Compiled specifically for that Python version
+  * May have optimizations for that version
+  * Example: `azure-storage-blob-12.19.0-py311haa95532_0`
+
+- Generic versions (e.g., `pyhd8ed1ab_0`):
+  * Pure Python packages that work across versions
+  * More portable across environments
+  * Example: `azure-storage-blob-12.24.1-pyhd8ed1ab_0`
+
+Choose generic versions when available unless specific Python version optimizations are needed.
+
+## Initialization Strategies: `__init__` vs. `@property` (Lazy Initialization)
+
+**Issue Date:** April 5, 2025
+
+**Context:**
+When designing classes, particularly those managing external resources or expensive objects (like database connections or API clients), deciding *when* to initialize these resources is important. Two common patterns are direct initialization in the `__init__` method and lazy initialization using the `@property` decorator.
+
+**Explanation:**
+
+*   **Direct Initialization (`__init__`)**: The resource or object is created immediately when an instance of the class is instantiated.
+    ```python
+    class DirectInitExample:
+        def __init__(self, connection_string):
+            print("Initializing resource in __init__...")
+            self.resource = setup_expensive_resource(connection_string) # Happens immediately
+            print("Resource ready.")
+    ```
+
+*   **Lazy Initialization (`@property`)**: The resource or object creation is deferred until the corresponding attribute is accessed for the *first time*. The `@property` decorator turns a method into a managed attribute (accessed without `()`), and the method's code handles the on-demand creation.
+    ```python
+    class LazyInitExample:
+        def __init__(self, connection_string):
+            self._connection_string = connection_string
+            self._resource = None # Placeholder
+            print("LazyInitExample instance created, resource not yet initialized.")
+
+        @property
+        def resource(self):
+            if self._resource is None:
+                print("First access: Initializing resource via @property...")
+                self._resource = setup_expensive_resource(self._connection_string) # Happens only now
+                print("Resource ready.")
+            return self._resource
+    ```
+
+**Comparison:**
+
+| Feature             | Direct Initialization (`__init__`)                     | Lazy Initialization (`@property`)                       |
+| :------------------ | :----------------------------------------------------- | :------------------------------------------------------ |
+| **Timing**          | Immediately on object creation                         | On first access of the property                         |
+| **Initial Cost**    | Higher (initialization cost paid upfront)              | Lower (initialization cost deferred)                    |
+| **Error Discovery** | Early (errors occur during object creation)            | Late (errors occur on first use)                        |
+| **First Use Speed** | Fast (resource already available)                      | Slower (includes initialization time on first access) |
+| **Resource Usage**  | Resource always created, even if never used            | Resource only created if actually needed                |
+| **Code Complexity** | Simpler `__init__`, simpler getter (if needed)         | More complex getter logic (check, create, store)        |
+| **Thread Safety**   | Generally simpler                                      | Requires explicit locking for thread-safe lazy init     |
+
+**When to Use Which:**
+
+*   **Use `__init__` when:**
+    *   The resource is essential for the object's core functionality and likely always needed.
+    *   Early failure detection (e.g., bad configuration) is critical.
+    *   The initialization cost is acceptable upfront.
+    *   Simpler code is preferred.
+*   **Use `@property` (Lazy Init) when:**
+    *   The resource is expensive to create and might not always be used.
+    *   Deferring startup cost is important.
+    *   The resource is optional or used in specific scenarios only.
+    *   You can tolerate potential errors occurring later, upon first use.
+
+*   **Use `__enter__` (Context Manager) when:**
+    *   Resource management
+
+<!-- brief overview of use of __enter__ and __exit__ in context managers -->
+The SFTPService class is a service abstraction intended for interactions with an SFTP server—specifically for file uploads.
+One of its most notable features is the implementation of context management methods (__enter__ and __exit__), which is increasingly
+considered a modern design strategy when working with resources that must be explicitly managed and cleaned up (e.g., network
+connections, file handles). By requiring the user to employ a with block, the class guarantees that connections are properly
+established and later closed, reducing the likelihood of resource leaks. This design not only enhances code safety but also
+communicates to developers that they must respect the intended usage pattern.
+
+Implementing __enter__ and __exit__ implies that the SFTPService manages a critical resource lifecycle. The __enter__ method
+invokes a private _connect method that sets up both the SSH and SFTP connections. The _connect method is carefully designed:
+it checks for an active SSH connection before attempting to reconnect, thereby avoiding redundant network calls. It also handles
+various exceptions that might occur during connection establishment, from file-not-found issues (if the private key is missing) to
+authentication and network errors. Each exception is logged with context-specific messages, and then re-raised as a ConnectionError.
+This strategy ensures that any failures are explicitly signaled and logged, facilitating debugging and error handling in higher
+layers of the application.
+
+In addition to establishing connections, the SFTPService class encapsulates cleanup logic in its _close method. This method gracefully
+shuts down the SFTP session and SSH connection. Its design is resilient: even if one part of the connection closure fails, it logs
+the error and attempts to close the remaining connection. This robust error handling ensures that the system remains in a predictable
+state even in the face of exceptions, aligning with the principle of graceful degradation.
+
+Beyond connection management, the class adheres to several other critical design principles. It encapsulates its configuration settings
+within a dedicated SFTPSettings object, thereby promoting the separation of configuration from business logic. This makes the class
+more maintainable and testable because changes in the configuration do not directly affect the core logic.
+
+The class also practices defensive programming. For example, before attempting operations like file uploads, it checks whether
+the SFTP client is connected using the is_connected property and the _ensure_connection method. These checks prevent operations on
+an uninitialized or closed connection, ensuring that errors are caught early and reported clearly.
+
+When it comes to uploading files, the SFTPService provides both single file and batch upload methods. The single file upload method
+(upload_file) first validates the existence of the local file and normalizes the remote file path. It then ensures that the remote
+directory structure exists before attempting to transfer the file. If the directory does not exist, it recursively creates it.
+The batch upload method (upload_files) leverages the single file upload function and logs the success or failure of each file upload.
+This modular approach demonstrates sound separation of concerns, as each method is responsible for a distinct part of the overall functionality.
+
+Key design aspects include:
+
+- Context Management Enforcement:
+  - Implements __enter__ and __exit__ to automate resource setup and teardown.
+  - Enforces usage within a with block to ensure connections are properly established and closed.
+
+- Robust Error Handling and Logging:
+  - Detailed logging is integrated throughout the connection, file operations, and exception handling routines.
+  - Catches specific exceptions (e.g., FileNotFoundError, AuthenticationException) and re-raises them as ConnectionError.
+
+- Encapsulation and Modularity:
+  - Separates configuration (SFTPSettings) from connection logic.
+  - Uses private methods (prefixed with _) to encapsulate internal implementation details.
+
+- Defensive Programming:
+  - Validates prerequisites (such as checking if the connection is active and verifying file existence) before proceeding with operations.
+  - Ensures that resources are only used when in a valid state.
+
+- Resource Lifecycle Management:
+  - Manages the SSH and SFTP clients in a way that ensures proper allocation and cleanup.
+  - Uses context management to enforce a strict order of operations.
+
+When considering such design strategies for your own classes, ask:
+- Does my class manage resources that require explicit allocation and cleanup?
+- Is there a risk of resource leaks if cleanup code isn’t invoked?
+- Would explicit initialization and teardown improve clarity and maintainability?
+- How critical is robust error handling and detailed logging for my operations?
+- Do I need to enforce a strict order of operations (e.g., connect before uploading)?
+
+Overall, the SFTPService class provides a robust template for managing network connections, emphasizing clear resource management, modular design, and proactive error handling.
+
+Key Design Principles:
+- **Context Management:**
+  - Implements __enter__ and __exit__ for automatic resource handling.
+  - Enforces proper usage via the with statement.
+
+- **Error Handling:**
+  - Catches and logs specific exceptions.
+  - Re-raises errors with clear context for higher-level management.
+
+- **Encapsulation & Modularity:**
+  - Isolates configuration from business logic.
+  - Uses private methods to hide internal details.
+
+- **Defensive Programming:**
+  - Checks resource states before proceeding.
+  - Prevents operations on invalid or closed connections.
+
+- **Resource Lifecycle Management:**
+  - Ensures proper setup and teardown of SSH and SFTP connections.
+  - Leverages context management to avoid resource leaks.
+
+<!-- brief overview of use __enter__ and __exit__ in context managers -->
+
+### Additional notes
+Ah, that's an excellent point and highlights the difference between channel sources and package build types. Let's break down those azure-storage-blob examples:
+
+Build Types:
+
+py310haa95532_0, py311haa95532_0, etc. (from pkgs/main): These are Python-version-specific builds. They are compiled/packaged specifically for Python 3.10, 3.11, etc. This is often necessary if the package includes compiled C/C++/Fortran extensions that interact directly with the Python C API, which can change between Python versions.
+pyhff2d567_0, pyhd8ed1ab_0 (from conda-forge): These are noarch: python builds. The h in the build string often indicates this. These packages are typically pure Python code (no compiled extensions) and are designed to work on any operating system and any Python version that meets the package's minimum requirements (e.g., Python >= 3.8). They don't need to be rebuilt for every specific Python version.
+Channel Differences & Version Lag:
+
+pkgs/main (Anaconda's default channel) has version 12.19.0, built specifically for different Python versions.
+conda-forge (Community channel) has newer versions (up to 12.25.0) packaged as noarch: python.
+It's very common for conda-forge to have newer versions, especially for packages that can be distributed as noarch. Packaging noarch is often easier for maintainers as they only need one build for many Python versions.
+Which to Prefer? (Sonnet's Advice vs. Reality):
+
+The advice to "prefer generic (noarch) unless specific optimizations exist" is generally sound if the versions were the same. noarch packages are simpler and work broadly.
+However, Conda prioritizes channel order and then the highest version number. Since conda-forge is listed first in your environment.yml channels section, and it has newer versions (12.25.0 > 12.19.0), Conda will almost certainly choose the 12.25.0 pyhd8ed1ab_0 build from conda-forge when you run conda install azure-storage-blob.
+In this case, the newer version from conda-forge is the better choice anyway, and it happens to be a noarch build. You don't need to worry about the older, Python-specific builds on pkgs/main unless conda-forge was unavailable or had issues.
+How to Instruct Conda:
+
+You usually don't need to explicitly instruct it. Because conda-forge is your highest priority channel and has the newest version, running conda install azure-storage-blob will automatically select azure-storage-blob 12.25.0 pyhd8ed1ab_0 from conda-forge.
+If you wanted the older pkgs/main version (not recommended here), you could force it: conda install pkgs/main::azure-storage-blob=12.19.0.
+If you wanted to ensure it came from conda-forge (redundant here, but for illustration), you could use: conda install conda-forge::azure-storage-blob.
+Recommendation:
+
+Stick with the simplest approach. Add - azure-storage-blob to your environment.yml under dependencies, then run conda env update --file environment.yml --prune. Conda will use your channel priority (conda-forge first) and version preference (highest) to install the latest version (12.25.0 noarch build) from conda-forge, which is exactly what you want.
+
+
+That's a great observation about the different builds and channels!
+
+py311... builds (like on pkgs/main) are specific to a Python version, often because they contain compiled code.
+pyh... builds (like the newer ones on conda-forge) are usually noarch: python packages. They are pure Python and work on any compatible Python version. conda-forge often updates these faster.
+Which does Conda choose? It prioritizes:
+
+Channel Order: Your environment.yml lists conda-forge first.
+Highest Version: It looks for the highest version number compatible with your environment (Python 3.11).
+Since conda-forge is listed first and has the newer azure-storage-blob version (12.25.0), Conda will automatically pick that noarch version when you run conda install azure-storage-blob. You don't need to explicitly tell it to prefer noarch or conda-forge in this case; the default behavior works in your favor.
+
+So, the advice to prefer noarch is less relevant here than the fact that the newest version is noarch and available on your preferred channel (conda-forge).
+
+Recommendation: Just add - azure-storage-blob to your environment.yml and run conda env update --file environment.yml --prune. Conda will install the desired 12.25.0 version from conda-forge.
 
 ## MCP Server Installation Issues
 

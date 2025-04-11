@@ -1,0 +1,1101 @@
+
+
+:root {
+    /* Typography */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-family-mono: 'Roboto Mono', "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+    /* Brand Colors ============================================ */
+    --brand-blue: #22A5DD;
+    --brand-blue-dark: #158AB8;
+    --brand-blue-light: #E9F6FD;
+    --brand-blue-text: #145C7C;
+
+    --brand-green: #00A33E;
+    --brand-green-dark: #007A2F;
+    --brand-green-light: #E6F6EE;
+    --brand-green-text: #004D26;
+
+    --brand-teal: #67C2C0;
+    --brand-teal-dark: #4CA7A3;
+    --brand-teal-light: #EFF9F9;
+    --brand-teal-text: #307B78;
+
+    --brand-orange: #EB8B06;
+    --brand-orange-dark: #C57104;
+    --brand-orange-light: #FEF4E6;
+    --brand-orange-text: #8A4F03;
+
+    --brand-pink: #DF0D5F;       /* Bright, saturated pink/magenta */
+    --brand-pink-dark: #A30A46;   /* Darker magenta/wine shade for hover/active */
+    --brand-pink-light: #FCE7F3;  /* Very light, pale pink for backgrounds */
+    --brand-pink-text: #9D174D;   /* Dark pink/magenta text, good contrast on light */
+
+    --brand-red: #E82F27;        /* Bright, slightly orangey-red */
+    --brand-red-dark: #B91C1C;    /* Darker, more standard red for hover/active */
+    --brand-red-light: #FEF2F2;   /* Very light, pale pinkish-red for backgrounds */
+    --brand-red-text: #991B1B;    /* Dark red text, good contrast on light */
+
+    /* Neutrals */
+    --text-color: #1F2937;
+    --secondary-text-color: #4B5563;
+    --muted-text-color: #6B7280;
+    --divider-color: #E5E7EB;
+    --card-background: #ffffff;
+    --content-background: #F8F9FA;
+    --body-background: #F9FAFB;
+
+    /* Dark Footer Specific */
+    --dark-footer-background: #212529;
+    --dark-footer-text: #CED4DA;
+    --dark-footer-link: #90CAF9; /* Or var(--brand-blue) if preferred */
+
+    /* Other Base Styles ============================================ */
+    --border-radius: 6px; /* Slightly less rounded */
+    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.05);
+    --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --button-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --button-shadow-hover: 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 4px 5px 0 rgba(0, 0, 0, 0.1);
+    --background-color: #F9FAFB;
+    --code-background: #e9e6e6;
+    --button-background-muted: #b5b5b5;
+    --button-text-disabled: #f0f0f0;
+    --code-wrapper-bg: #f9fafb;
+    --code-header-bg: #f3f4f6;
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 15px;
+    line-height: 1.3;
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-color);
+}
+
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.3rem; }
+h4 { font-size: 1.1rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: 0.875rem; }
+
+p {
+    margin-bottom: var(--spacing-md);
+    line-height: 1.4;
+}
+
+/* Lists */
+ul, ol {
+    margin: 0 0 var(--spacing-lg) var(--spacing-lg);
+}
+
+ul {
+    list-style: none;
+}
+
+ul li {
+    position: relative;
+    padding-left: var(--spacing-md);
+    margin-bottom: 0.25rem;
+    line-height: 1.2;
+}
+
+ul li::before {
+    content: "•";
+    position: absolute;
+    left: -1rem;
+    color: var(--brand-blue-dark);
+}
+
+ol {
+    counter-reset: item;
+    list-style: none;
+}
+
+ol li {
+    position: relative;
+    padding-left: var(--spacing-md);
+    margin-bottom: 0.25rem;
+    counter-increment: item;
+    line-height: 1.2;
+}
+
+ol li::before {
+    content: counter(item) ".";
+    position: absolute;
+    left: -1.5rem;
+    color: var(--brand-blue-dark);
+    font-weight: 600;
+}
+
+/* Links */
+a:not(.footer-link) {
+    color: var(--brand-pink);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+}
+
+a:not(.footer-link):hover {
+    border-bottom-color: var(--brand-pink);
+}
+
+/* Code blocks */
+pre, code {
+    font-family: var(--font-family-mono, monospace); /* Provide fallback */
+    font-size: 0.9em; /* Baseline size */
+    line-height: 1.5; /* Baseline line height */
+    background: var(--code-background, #f3f4f6); /* Background for inline code/standalone pre */
+    color: var(--code-text-color, #1f2937); /* Default text color for code */
+    border-radius: var(--border-radius, 4px);
+    box-sizing: border-box; /* Ensure padding/border included in element size */
+    overflow-x: auto; /* Allow horizontal scrolling */
+    white-space: pre; /* Preserve whitespace */
+    word-wrap: break-word; /* Allow long words to wrap */
+}
+
+pre {
+    display: block; /* Ensure block behavior */
+    padding: var(--spacing-md, 1em);
+    margin: var(--spacing-md, 1em) 0;
+    overflow-x: auto; /* Allow horizontal scroll */
+    border: 1px solid var(--divider-color, #e5e7eb);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    white-space: pre; /* Preserve whitespace */
+    word-wrap: normal; /* Prevent wrapping */
+    tab-size: 4; /* Consistent tab size */
+}
+
+code {
+    display: inline;
+    padding: 0.2em 0.4em;
+    margin: 0 0.1em;
+    font-size: 0.9em;
+    white-space: nowrap; /* Prevent inline code from wrapping */
+}
+
+/* Code Block Wrapper Styling */
+.code-block-wrapper {
+    display: block; /* Explicit block display */
+    position: relative; /* Allows positioning context if needed later */
+    border: 1px solid var(--divider-color, #e5e7eb);
+    border-radius: var(--border-radius, 4px);
+    margin-top: var(--spacing-md, 1em); /* Space above */
+    margin-bottom: var(--spacing-md, 1em); /* Space below */
+    background-color: var(--code-wrapper-bg, #f9fafb); /* Light background for the wrapper */
+    overflow: hidden; /* Contain header/pre, clip overflow */
+    box-sizing: border-box;
+}
+
+.code-block-header {
+    display: block; /* Explicit block display */
+    font-size: 0.75rem; /* 12px */
+    font-family: var(--font-family-mono, monospace);
+    font-weight: 600; /* Slightly bolder */
+    line-height: 1.4; /* Adjust line height for small font */
+    color: var(--text-muted, #6b7280);
+    padding: 0.3rem 0.75rem; /* Adjusted padding */
+    background-color: var(--code-header-bg, #f3f4f6); /* Slightly darker header */
+    border: none; /* Reset border */
+    border-bottom: 1px solid var(--divider-color, #e5e7eb); /* Only bottom border */
+    text-transform: uppercase;
+    box-sizing: border-box;
+    user-select: none; /* Prevent selecting header text */
+}
+
+/* Specific language headers (ADD ALL YOUR SUPPORTED LANGUAGES) */
+.code-block-powershell .code-block-header { background-color: #eff6ff; color: #1d4ed8; border-color: #dbeafe; }
+.code-block-cmd .code-block-header { background-color: #f0fdf4; color: #166534; border-color: #dcfce7; }
+.code-block-batch .code-block-header { background-color: #fefce8; color: #a16207; border-color: #fef08a; }
+.code-block-python .code-block-header { background-color: #eef2ff; color: #4338ca; border-color: #dbeafe; }
+.code-block-shell .code-block-header { background-color: #f1f5f9; color: #475569; border-color: #e2e8f0; }
+.code-block-javascript .code-block-header { background-color: #fefce8; color: #ca8a04; border-color: #fef08a; }
+.code-block-html .code-block-header { background-color: #fff7ed; color: #c2410c; border-color: #ffedd5; }
+.code-block-css .code-block-header { background-color: #eff6ff; color: #2563eb; border-color: #dbeafe; }
+.code-block-json .code-block-header { background-color: #f0fdf4; color: #16a34a; border-color: #dcfce7; }
+.code-block-yaml .code-block-header { background-color: #fdf2f8; color: #db2777; border-color: #fce7f3; }
+.code-block-sql .code-block-header { background-color: #f0f9ff; color: #0284c7; border-color: #e0f2fe; }
+.code-block-text .code-block-header { background-color: #f8fafc; color: #64748b; border-color: #e2e8f0; }
+/* Add others as needed */
+
+/* Styling for the <pre> tag INSIDE the wrapper */
+.code-block-wrapper pre {
+    display: block; /* Ensure block */
+    margin: 0; /* Remove default pre margin */
+    padding: 1rem; /* Generous padding inside the pre */
+    border: none; /* Remove border from pre itself */
+    border-radius: 0; /* No radius inside the wrapper */
+    background-color: transparent; /* Make pre background transparent, shows wrapper bg */
+    box-shadow: none; /* Remove inner shadow */
+    overflow-x: auto; /* Still allow horizontal scroll */
+    font-size: 0.875em; /* Consistent code size (slightly smaller than base) */
+    line-height: 1.6; /* Slightly taller line height for readability */
+    color: var(--code-block-text-color, #374151); /* Text color for code in blocks */
+    white-space: pre; /* Preserve whitespace */
+    word-wrap: normal; /* Prevent wrapping */
+    tab-size: 4; /* Consistent tab size */
+    box-sizing: border-box;
+}
+
+/* Styling for the <code> tag INSIDE the wrapper's <pre> */
+.code-block-wrapper pre code {
+    display: block; /* Often helps consistency within pre */
+    background: none; /* Remove inner code background */
+    color: inherit; /* Inherit color from pre (Pygments spans will override) */
+    padding: 0; /* Remove inner padding */
+    margin: 0; /* Remove inner margin */
+    border: none; /* Remove inner border */
+    border-radius: 0; /* Remove inner radius */
+    font-size: 1em; /* Inherit size exactly from pre */
+    line-height: inherit; /* Inherit line height from pre */
+    font-family: inherit; /* Inherit font from pre */
+    white-space: inherit; /* Inherit whitespace handling from pre */
+    box-sizing: border-box;
+}
+
+/* --- Table Styles --- */
+
+/* Container for Responsive Scrolling */
+.table-container {
+    overflow-x: auto; /* Enable horizontal scroll on small screens */
+    margin-top: 1rem;  /* Space above the table */
+    margin-bottom: 1.5rem; /* Space below the table */
+    border: 1px solid var(--divider-color, #dee2e6); /* Subtle border around the scroll area */
+    border-radius: var(--border-radius, 6px); /* Match other elements */
+    background-color: var(--card-background, #ffffff); /* Match card background */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04); /* Very subtle shadow for elevation */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+/* Base Table Styling */
+table {
+    width: 100%;
+    min-width: 600px; /* Minimum width before scrollbar appears, adjust as needed */
+    border-collapse: collapse; /* Clean borders */
+    font-size: 0.9rem; /* Slightly compact font size */
+    line-height: 1.5;
+    color: var(--text-color, #1F2937);
+}
+
+/* Table Header Styles */
+thead tr {
+    /* Header row background slightly different from body */
+    background-color: #f8f9fa; /* Very light gray */
+}
+
+th {
+    text-align: left; /* Align header text left (standard) */
+    font-weight: 600; /* Bolder header text */
+    padding: 0.75rem 1rem; /* Padding: 12px top/bottom, 16px left/right */
+    /* Stronger border below header for clear separation */
+    border-bottom: 2px solid #dee2e6; /* Slightly darker divider */
+    color: var(--text-secondary, #4B5563); /* Header text color */
+    text-transform: capitalize; /* Nicer casing for headers */
+    letter-spacing: 0.5px; /* Slight spacing */
+    white-space: nowrap; /* Prevent headers from wrapping */
+    vertical-align: bottom; /* Align to bottom if headers have different heights */
+}
+
+/* Table Body Styles */
+tbody tr {
+    transition: background-color 0.15s ease-in-out; /* Smooth hover transition */
+    border-bottom: 1px solid #e9ecef; /* Lighter border between rows */
+}
+
+tbody tr:last-child {
+    border-bottom: none; /* Remove border from the very last row */
+}
+
+/* Row Hover Effect */
+tbody tr:hover {
+    background-color: #f1f3f5; /* Light gray hover background */
+}
+
+/* Table Data Cell Styles */
+td {
+    text-align: left; /* Align cell text left */
+    padding: 0.65rem 1rem; /* Padding: ~10px top/bottom, 16px left/right */
+    vertical-align: top; /* Align content to the top of the cell */
+    color: var(--text-color, #1F2937); /* Use standard text color for body */
+}
+
+/* Specific alignment example (optional) */
+/* If you want the 'Availability' column centered */
+/* th:nth-child(2), td:nth-child(2) { text-align: center; } */
+
+/* Style links within table cells */
+td a {
+    color: var(--portalfuse-primary-color, #673AB7); /* Use brand color */
+    text-decoration: none;
+    font-weight: 500; /* Slightly bolder links */
+}
+
+td a:hover {
+    text-decoration: underline;
+    color: #4a148c; /* Darker purple on hover */
+}
+
+/* Ensure code blocks inside tables are readable */
+td pre, td code {
+    font-size: 0.85em; /* Make code slightly smaller */
+    white-space: pre-wrap; /* Allow wrapping for code */
+    word-break: break-all; /* Force break long words/lines */
+}
+
+/* Code Block Wrapper Styling */
+td .code-block-wrapper { /* Adjust wrapper if needed */
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* PortalFuse Header ============================================ */
+.portalfuse-header {
+    /* background-color: var(--card-background); */
+    background-image: linear-gradient(109deg, #e82f27 10%, #eb8b06 100%) !important;
+    padding: 1rem 0; /* Adjust padding */
+    margin-bottom: 2rem; /* Space below header */
+    border-bottom: 1px solid var(--divider-color); /* Subtle separator */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03); /* Very subtle shadow */
+}
+
+.portalfuse-header-content {
+    max-width: 1000px; /* Consistent max-width */
+    margin: 0 auto;
+    padding: 0 1.5rem; /* Consistent padding */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Adjust if nav added */
+}
+
+.portalfuse-logo-link {
+    display: inline-block; /* Remove underline from image link */
+}
+
+.portalfuse-logo-img {
+    display: block;
+    height: 54px; /* Adjust height as needed */
+    width: auto;
+}
+
+.portalfuse-logo-label {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* Content Styles ============================================ */
+
+/* --- Report Layout & Containers --- */
+.report-container {
+    max-width: 930px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+.report-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    text-align: center;
+}
+
+.generated-date {
+    text-align: center;
+    color: var(--secondary-text-color);
+    font-size: 0.9rem;
+    margin-bottom: 32px;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+}
+
+/* --- Stat Card --- */
+.stat-card {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid var(--divider-color);
+    box-shadow: none;
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+}
+
+.stat-value {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--brand-blue-dark);
+    line-height: 1.1;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--secondary-text-color);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+/* --- Section Heading --- */
+.section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--brand-red);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+/* KB Article Card */
+.kb-article-card {
+    background: var(--card-background);
+    border-radius: var(--border-radius, 8px);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--card-shadow, 0 1px 3px rgba(0, 0, 0, 0.1));
+    border: 1px solid var(--divider-color, #e5e7eb);
+}
+
+.kb-header {
+    margin-bottom: 1rem;
+}
+
+.kb-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
+.kb-title a {
+    color: inherit; /* Explicitly inherit the text color from the parent (.kb-title) */
+    text-decoration: none; /* Remove the default link underline */
+}
+
+.kb-title a:hover {
+    text-decoration: none;
+}
+.kb-published-date {
+    color: var(--secondary-text-color);
+    font-size: 0.875rem;
+}
+
+.kb-meta-action-row {
+    display: flex;
+    justify-content: space-between; /* Pushes builds left, action right */
+    align-items: flex-start; /* Align tops */
+    gap: 1rem; /* Space between builds and action block */
+    padding-top: 1rem; /* Space above this row */
+    border-top: 1px solid var(--divider-color, #e9ecef); /* Separator line */
+}
+
+.kb-builds-block {
+    flex-grow: 1; /* Allows this block to take available space */
+}
+
+.kb-builds-block h5 { /* Style for "OS Builds" label */
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--secondary-text-color);
+    margin-bottom: 0.5rem; /* Space below label */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.kb-cves-action {
+    display: flex;
+    flex-direction: column; /* Stack button and count */
+    align-items: flex-end; /* Align items right */
+    flex-shrink: 0; /* Prevent this block from shrinking */
+    /* No top border needed here anymore */
+}
+.kb-cves {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.cve-count {
+    color: var(--secondary-text-color);
+    font-size: 0.75rem; /* Smaller font size (12px) */
+    text-align: right; /* Just in case it wraps */
+    line-height: 1.3;
+}
+
+.view-cves-btn {
+    /* Base styles - common to both states */
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    box-shadow: var(--button-shadow);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease; /* Added opacity */
+    white-space: nowrap;
+    cursor: pointer; /* Default cursor */
+    text-align: center; /* Ensure text is centered */
+    display: inline-block; /* Ensure proper layout */
+}
+
+/* State: Active (CVEs exist) */
+.view-cves-btn--active {
+    background-color: var(--brand-pink); /* Default active state is pink */
+}
+
+.view-cves-btn--active:hover {
+    background-color: var(--brand-pink-dark); /* Darker pink on hover */
+    box-shadow: var(--button-shadow-hover);
+}
+
+.view-cves-btn--active:active {
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    transform: translateY(1px);
+    background-color: var(--brand-pink-dark); /* Keep dark on active click */
+}
+
+/* State: Disabled (No CVEs) */
+/* Applied via the [disabled] attribute */
+.view-cves-btn:disabled,
+.view-cves-btn[disabled] { /* Target the disabled attribute */
+    background-color: var(--button-background-muted);
+    color: var(--button-text-disabled); /* Use lighter text color */
+    cursor: not-allowed;
+    box-shadow: none; /* Remove shadow when disabled */
+    opacity: 0.65; /* Visually indicate disabled state */
+    /* Prevent any lingering hover/active effects */
+    transform: none;
+}
+
+/* Ensure hover/active styles don't apply when disabled */
+.view-cves-btn:disabled:hover,
+.view-cves-btn[disabled]:hover {
+    background-color: var(--button-background-muted); /* Keep muted background */
+    box-shadow: none; /* Keep no shadow */
+}
+
+.kb-meta {
+    margin: 0.75rem 0;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--divider-color, #e9ecef);
+    border-bottom: 1px solid var(--divider-color, #e9ecef);
+}
+
+.kb-meta h5 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--secondary-text-color);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.build-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.build-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    background-color: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-family: ui-monospace, monospace;
+    white-space: nowrap;
+    color: #374151;
+}
+
+.kb-content {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--divider-color, #e9ecef);
+}
+
+.kb-summary {
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+
+/* PortalFuse Footer ============================================ */
+.portalfuse-footer {
+    background-color: var(--dark-footer-background); /* Dark Gray */
+    color: var(--dark-footer-text); /* Light Gray Text */
+    padding: 2.5rem 0;
+    margin-top: 3rem;
+    font-size: 0.875rem; /* Slightly larger footer text */
+}
+
+.portalfuse-footer-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    text-align: center;
+}
+
+.portalfuse-footer-logo-link {
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.portalfuse-footer-logo-img {
+    display: block;
+    height: 28px; /* Adjust footer logo size */
+    width: auto;
+    margin: 0 auto; /* Center if display: block */
+}
+
+.portalfuse-footer-logo-label {
+    display: inline-block;
+    margin-bottom: 1rem;
+    font-size: 1.25rem; /* Slightly larger logo text */
+    font-weight: 600;
+    color: var(--dark-footer-text);
+}
+
+.footer-text {
+    color: var(--dark-footer-text);
+    margin-bottom: 1.5rem;
+    max-width: 675px; /* Constrain text width */
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5em;
+}
+
+/* Signup Form in Footer */
+.signup-form {
+    margin: 1.5rem 0;
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.signup-form p {
+    margin-bottom: 0.75rem;
+    color: #E9ECEF; /* Slightly brighter text for form label */
+    font-weight: 500;
+}
+
+.subscribe-form {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
+.subscribe-form input[type="email"] {
+    padding: 0.6rem 0.8rem; /* Adjust padding */
+    border: 1px solid #495057; /* Darker border */
+    border-radius: var(--border-radius);
+    background: #343A40; /* Slightly lighter than footer bg */
+    color: #F8F9FA; /* Light input text */
+    flex-grow: 1;
+    min-width: 200px;
+    font-size: 0.9rem;
+}
+.subscribe-form input[type="email"]::placeholder {
+    color: #adb5bd; /* Muted placeholder */
+}
+
+.subscribe-form button {
+    padding: 0.6rem 1.25rem; /* Adjust padding */
+    background: var(--brand-blue); /* Use brand blue for button */
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    box-shadow: var(--button-shadow);
+}
+.subscribe-form button:hover {
+    background: var(--brand-blue-dark);
+    box-shadow: var(--button-shadow-hover);
+}
+
+/* Footer Links */
+.footer-links {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.footer-link {
+    color: var(--dark-footer-link); /* Light Blue links */
+    text-decoration: none;
+    transition: color 0.2s, text-decoration 0.2s;
+}
+.footer-link:hover {
+    color: #ffffff; /* White on hover */
+    text-decoration: underline;
+}
+
+.footer-copyright {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: #adb5bd; /* Muted copyright */
+}
+
+/* Modal Styles ============================================ */
+.modal-overlay {
+    position: fixed;
+    inset: 0; /* Top, right, bottom, left = 0 */
+    background-color: rgba(30, 30, 40, 0.7); /* Semi-transparent overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    z-index: 1000;
+    /* Opacity/Visibility handled by Alpine x-show */
+}
+
+.modal {
+    background-color: #f8f9fa;
+    border-radius: var(--border-radius);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18), 0 7px 10px rgba(0, 0, 0, 0.15); /* Higher elevation */
+    max-width: 1100px; /* Adjust max-width as needed */
+    width: 100%;
+    max-height: 90vh; /* Max height, prevent full screen height */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Needed for header/content structure */
+    /* Transitions handled by Alpine x-transition */
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem; /* 16px 24px */
+    border-bottom: 1px solid #dee2e6;
+    flex-shrink: 0; /* Prevent header from shrinking */
+    background-color: var(--card-background); /* White header background for contrast */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04); /* Subtle shadow below header */
+}
+
+.modal-title {
+    font-size: 1.2rem; /* Adjusted size */
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--secondary-text-color);
+    cursor: pointer;
+    padding: 4px;
+    opacity: 0.7;
+    transition: opacity 0.2s ease, color 0.2s ease;
+}
+.modal-close-btn:hover {
+    opacity: 1;
+    color: var(--text-color);
+}
+.modal-content {
+    padding: 1.5rem; /* 24px */
+    overflow-y: auto; /* Enable scrolling for modal content if needed */
+    flex-grow: 1; /* Allow content to take remaining space */
+    background-color: #f1f3f5; /* Match body background */
+}
+
+.cve-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.cve-category-card {
+    background-color: var(--card-background); /* White cards */
+    /* Slightly softer border */
+    border: 1px solid #e9ecef;
+    border-radius: 6px; /* Slightly less round */
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    /* More subtle shadow, letting border and background define */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s ease-in-out;
+}
+.cve-category-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Subtle hover */
+}
+.cve-category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem; /* 12px */
+    padding-bottom: 0.75rem; /* 8px */
+    border-bottom: 1px solid #e9ecef;
+}
+.cve-category-header-left {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allow it to take available width */
+}
+.cve-category-title {
+    font-size: 1rem; /* Adjusted size */
+    font-weight: 600;
+    /* Consider using a slightly darker text or brand color */
+    color: #343a40;
+    text-transform: capitalize; /* Nicer category names */
+}
+.cve-category-subtitle {
+    display: block;          /* Puts the subtitle on a new line under the title */
+    font-size: 0.8rem;       /* Slightly smaller font size */
+    color: #6B7280;          /* Muted gray color (similar to Tailwind’s text-gray-500) */
+    margin-top: 0.2rem;      /* Small top margin for separation */
+}
+.cve-count-badge {
+    background-color: #e9ecef; /* Slightly darker badge bg */
+    color: var(--secondary-text-color); /* Darker badge text */
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-align: right;
+    white-space: nowrap;
+    margin-top: 0.6em;
+}
+
+.cve-list-items { /* Container for CVE items */
+    list-style: none; /* Remove default list styling */
+    padding: 0;
+    margin: 0;
+    counter-reset: cve-counter;
+    flex-grow: 1; /* Allow list to fill card space */
+}
+
+.cve-list-scrollable { /* Add this class via :class in Alpine if needed */
+    max-height: 280px; /* Max height before scrolling */
+    overflow-y: auto;
+    margin-right: -8px; /* Offset scrollbar */
+    padding-right: 8px; /* Space for scrollbar */
+    /* Basic scrollbar styling */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #ced4da #f1f3f5; /* Firefox */
+}
+/* For Webkit browsers (Chrome, Safari, Edge) */
+.cve-list-scrollable::-webkit-scrollbar { width: 6px; }
+.cve-list-scrollable::-webkit-scrollbar-track { background: #f1f3f5; margin: 4px 0; border-radius: 3px;}
+.cve-list-scrollable::-webkit-scrollbar-thumb { background-color: #ced4da; border-radius: 3px; border: 1px solid #f1f3f5; }
+.cve-list-scrollable::-webkit-scrollbar-thumb:hover { background-color: #adb5bd; }
+.cve-item {
+    display: flex;
+    align-items: center;
+    padding: 0.6rem 0; /* Padding inside the item */
+    border-bottom: 1px solid #f1f3f5; /* Very subtle divider */
+    gap: 0.75rem; /* Space between link and tag */
+    position: relative;
+    padding-left: 1.75rem;
+    color: var(--text-color);
+}
+.cve-item::before {
+    counter-increment: cve-counter; /* Increment the counter */
+    content: counter(cve-counter) "."; /* Display counter value + dot */
+    position: absolute;
+    left: 0; /* Align to the left of the padding */
+    font-size: 0.85rem; /* Match link size */
+    color: var(--text-muted); /* Muted number color */
+    font-weight: 400;
+    width: 1.5rem; /* Ensure space */
+    text-align: right; /* Align number to the right */
+    font-family: var(--font-family); /* Use main font */
+    line-height: inherit;
+}
+.cve-list-items > li:last-child.cve-item { /* Target last direct child li */
+    border-bottom: none;
+}
+.cve-link {
+    font-size: 0.85rem;
+    color: var(--text-color)!important;
+    text-decoration: none; /* REMOVE default underline */
+    word-break: break-word;
+    font-family: var(--font-family-mono);
+    transition: color 0.2s ease;
+    flex-grow: 1;
+    /* Add a subtle bottom border on hover instead of text-decoration */
+    border-bottom: 1px solid transparent; /* Add transparent border for spacing */
+    padding-bottom: 1px; /* Space for the border */
+}
+.cve-link:hover {
+    color: var(--brand-pink);
+}
+
+/* --- Severity Tags --- */
+.severity-tag {
+    padding: 3px 12px; /* Adjusted padding */
+    border-radius: 12px; /* Pill shape */
+    font-size: 0.75rem; /* Smaller font */
+    font-weight: 600;
+    text-transform: capitalize; /* Consistent casing */
+    white-space: nowrap;
+    border: 1px solid transparent;
+    line-height: 1.4; /* Adjust line height */
+    flex-shrink: 0; /* Prevent tag from shrinking */
+    letter-spacing: 0.5px;
+}
+
+/* Define colors based on severity */
+.severity-critical { background-color: #DC2626; color: #ffffff; /*border-color: #B91C1C;*/ } /* Solid Red */
+.severity-high { background-color: #F97316; color: #ffffff; /*border-color: #DD6B20;*/ } /* Solid Orange */
+.severity-medium { background-color: #FACC15; color: #713F12; /*border-color: #D69E2E;*/ } /* Solid Yellow, dark text */
+.severity-low { background-color: #4ADE80; color: #064E3B; /*border-color: #16A34A;*/ } /* Solid Green, dark text */
+.severity-none, .severity-n\/a { background-color: #6B7280; color: #ffffff; /*border-color: #4B5563;*/ } /* Solid Gray */
+
+/* Media Queries ============================================ */
+@media (min-width: 1024px) {
+    .cve-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .kb-meta-action-row {
+        flex-direction: column; /* Stack builds and action block */
+        align-items: stretch; /* Make children full width */
+        gap: 1rem; /* Space between stacked builds and action */
+        padding-top: 0.75rem;
+    }
+
+    .kb-builds-block {
+        margin-bottom: 0.5rem; /* Add space below builds when stacked */
+    }
+
+    .kb-cves-action {
+        align-items: stretch; /* Make button/count stretch */
+        width: 100%;
+        margin-top: 0.5rem; /* Space above action block when stacked */
+    }
+
+    .view-cves-btn {
+        width: 100%; /* Make button full width */
+        padding-top: 0.5rem; /* Slightly more vertical padding */
+        padding-bottom: 0.5rem;
+        font-size: 0.85rem; /* Slightly larger font on mobile button */
+    }
+
+    .cve-count {
+        text-align: center; /* Center text below full-width button */
+        margin-top: 0.25rem; /* Add margin-top instead of button margin-bottom */
+        font-size: 0.7rem; /* Slightly smaller count on mobile */
+    }
+
+    .kb-content {
+        margin-top: 1rem;
+        padding-top: 1rem;
+    }
+    .table-container {
+        /* Slightly reduce margins on mobile if needed */
+        margin-top: 0.75rem;
+        margin-bottom: 1rem;
+        /* Ensure border/shadow are still visible */
+        border-width: 1px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    table {
+        /* Slightly smaller base font for the table on mobile */
+        font-size: 0.85rem; /* Approx 13.6px */
+        /* Reset min-width or set to a smaller value if desired, */
+        /* but often letting it scroll is better */
+        min-width: 0; /* Allow table to shrink more before scrolling */
+    }
+
+    th, td {
+        /* Reduce padding significantly for compactness */
+        padding: 0.5rem 0.6rem; /* Approx 8px top/bottom, 10px left/right */
+        /* Allow text to wrap more readily if needed, though scrolling handles overflow */
+        white-space: normal;
+    }
+
+    th {
+        /* Ensure header doesn't wrap too aggressively */
+        white-space: nowrap;
+        font-size: 0.8rem; /* Smaller header font */
+    }
+
+    /* Adjust padding for links if necessary */
+    td a {
+        /* Links usually fine, but you could reduce padding if needed */
+    }
+
+    /* Adjust code block padding within cells */
+    td .code-block-wrapper {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+    }
+    td .code-block-wrapper pre {
+        padding: 0.5rem; /* Less padding inside code blocks */
+    }
+    td .code-block-header {
+        padding: 0.15rem 0.5rem;
+        font-size: 0.7rem;
+    }
+    .modal {
+        max-width: calc(100% - 32px); /* Add some margin on sides */
+        max-height: 85vh;
+    }
+    .modal-content { padding: 1rem; } /* Reduce padding */
+    .cve-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 480px) {
+    table {
+        font-size: 0.8rem; /* Even smaller font */
+    }
+    th, td {
+        padding: 0.4rem 0.5rem; /* Slightly less padding */
+    }
+    .modal-title { font-size: 1.1rem; }
+    .modal-close-btn { font-size: 1.6rem; }
+    .cve-grid {
+        grid-template-columns: 1fr; /* Stack cards vertically */
+    }
+}
+/* Alpine.js utilities */
+[x-cloak] { display: none !important; }

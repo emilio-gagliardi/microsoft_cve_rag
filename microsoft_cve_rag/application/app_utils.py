@@ -1,8 +1,7 @@
 import os
-import sys
+from pathlib import Path
 from dotenv import load_dotenv
 import logging
-import colorlog
 import yaml
 from application.core.schemas.environment_schemas import (
     VectorDBCredentialsSchema,
@@ -11,19 +10,60 @@ from application.core.schemas.environment_schemas import (
     SQLDBCredentialsSchema,
 )
 from pydantic import ValidationError
+from typing import Dict
+
+PROJECT_ROOT: Path | None = None
+INNER_PROJECT_DIR: Path | None = None
+APP_DIR: Path | None = None
+DATA_DIR: Path | None = None
+REPORTS_DIR: Path | None = None
+CONF_DIR: Path | None = None
+KEYS_DIR: Path | None = None
+
+# --- Environment Configuration ---
+# Mapping environment names to their corresponding .env file names
+ENV_FILE_MAP: Dict[str, str] = {
+    "local": ".env.local",
+    "dev": ".env.dev",
+    "docker": ".env.docker",
+    "staging": ".env.staging",
+    "prod": ".env.production",
+}
+
+_env_loaded = False
 
 
-def load_app_config():
-    # Get the last entry in sys.path
-    base_dir = sys.path[-1]
-    # Construct the full path to the config file
-    config_path = os.path.join(base_dir, "application", "config.yaml")
+def load_app_config() -> dict:
+    """
+    Loads the application configuration from 'config.yaml' located
+    in the same directory as this script (app_utils.py).
+    """
+    try:
+        # Get the directory containing this script (app_utils.py)
+        current_script_dir = Path(__file__).resolve().parent
+        # Construct the path to config.yaml within the same directory
+        config_path = current_script_dir / "config.yaml"
 
-    # Print the constructed path for debugging purposes
-    # print(f"Loading config from: {config_path}")
+        logging.debug(f"Attempting to load config using resolved path: {config_path}")
 
-    with open(config_path, "r") as file:
-        return yaml.safe_load(file)
+        if not config_path.is_file():
+            raise FileNotFoundError(f"Config file not found at expected path: {config_path}")
+
+        with open(config_path, "r") as file:
+            config_data = yaml.safe_load(file)
+            if not config_data:
+                raise ValueError(f"Config file at {config_path} is empty or invalid YAML.")
+            logging.info(f"Application config loaded successfully from {config_path}")
+            return config_data
+    except FileNotFoundError as e:
+        logging.error(f"FATAL: Application config file error: {e}")
+        raise
+    except yaml.YAMLError as e:
+        logging.error(f"FATAL: Error parsing YAML config file at {config_path}: {e}")
+        raise
+    except Exception as e:
+        logging.error(f"FATAL: Unexpected error loading config file {config_path}: {e}")
+        raise
 
 
 # Configure the logger
@@ -82,46 +122,87 @@ def setup_logger(name=None, level=logging.INFO):
 
     return logger
 
-env_loaded = False
 
+def initialize_environment_and_paths():
+    """
+    Loads application config, sets env vars, determines project root from config,
+    defines key project Paths, and loads the appropriate .env file.
+    """
+    global _env_loaded, PROJECT_ROOT, INNER_PROJECT_DIR, APP_DIR, DATA_DIR, REPORTS_DIR, CONF_DIR, KEYS_DIR
 
-def load_env():
-    global env_loaded
+    if _env_loaded:
+        logging.debug("Environment and paths already initialized.")
+        return
 
-    if env_loaded:
-        return  # Environment variables are already loaded
+    logging.info("Initializing environment and paths...")
 
-    environment = os.getenv("ENVIRONMENT", "local")
-    # environment = "production"
-    # Map environment to the correct .env file
-    env_file_map = {
-        "local": ".env.local",
-        "dev": ".env.dev",
-        "docker": ".env.docker",
-        "staging": ".env.staging",
-        "prod": ".env.production",
-    }
-    dotenv_file = env_file_map.get(environment)
-    if dotenv_file is None:
-        raise ValueError(
-            f"Environment '{environment}' is not recognized. Please set up the environment before using the app."
-        )
+    try:
+        # --- 1. Load Application Config (now using the reliable method) ---
+        app_config = load_app_config()
 
-    project_root = os.path.dirname(
-        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    )
+        # --- 2. Determine Project Root from Config ---
+        project_path_str = app_config.get("PROJECT_PATH")
+        if not project_path_str or not isinstance(project_path_str, str):
+            raise ValueError("PROJECT_PATH not found or is invalid in config.yaml")
 
-    dotenv_path = os.path.join(project_root, dotenv_file)
+        PROJECT_ROOT = Path(project_path_str).resolve()  # e.g., C:\Users\...\microsoft_cve_rag
 
-    if not os.path.exists(dotenv_path):
-        raise FileNotFoundError(f"The .env file at path {dotenv_path} does not exist.")
+        if not PROJECT_ROOT.is_dir():
+            raise FileNotFoundError(f"Project root from config ('{project_path_str}') -> '{PROJECT_ROOT}' does not exist or is not a directory.")
 
-    if load_dotenv(dotenv_path):
-        logging.info(f"Environment variable(s) loaded successfully from {dotenv_file}")
-        env_loaded = True
-    else:
-        logging.warning(f"No {dotenv_file} file found or failed to load")
-        env_loaded = False
+        logging.info(f"Project Root determined from config as: {PROJECT_ROOT}")
+
+        # --- 3. Define Core Paths Relative to PROJECT_ROOT ---
+        INNER_PROJECT_DIR = PROJECT_ROOT / "microsoft_cve_rag"  # The directory containing app, conf etc.
+        APP_DIR = INNER_PROJECT_DIR / "application"
+        DATA_DIR = APP_DIR / "data"
+        REPORTS_DIR = DATA_DIR / "reports"
+        # Where is 'conf'? Assuming it's parallel to 'application'
+        CONF_DIR = INNER_PROJECT_DIR / "conf"
+        KEYS_DIR = CONF_DIR / "local" / "keys"
+
+        # --- Validate crucial directories ---
+        if not INNER_PROJECT_DIR.is_dir(): logging.warning(f"INNER_PROJECT_DIR may not exist: {INNER_PROJECT_DIR}")  # noqa E701
+        if not APP_DIR.is_dir(): logging.warning(f"APP_DIR may not exist: {APP_DIR}")  # noqa E701
+        if not DATA_DIR.is_dir(): logging.warning(f"DATA_DIR may not exist: {DATA_DIR}")  # noqa E701
+        if not CONF_DIR.is_dir(): logging.warning(f"CONF_DIR may not exist: {CONF_DIR}")  # noqa E701
+        # Consider creating REPORTS_DIR if needed:
+        # if not REPORTS_DIR.is_dir(): os.makedirs(REPORTS_DIR, exist_ok=True)
+
+        # --- 4. Load Config Values into Environment Variables ---
+        logging.debug("Loading config values into environment variables...")
+        for key, value in app_config.items():
+            os.environ[key] = str(value)
+            logging.debug(f"Set env var from config: {key}=***")  # Avoid logging sensitive values
+
+        # --- 5. Load .env File (Relative to PROJECT_ROOT) ---
+        environment = os.getenv("ENVIRONMENT", "local").lower()
+        logging.info(f"Running in ENVIRONMENT: {environment}")
+
+        dotenv_filename = ENV_FILE_MAP.get(environment)
+        dotenv_path = PROJECT_ROOT / (dotenv_filename if dotenv_filename else ".env")
+
+        if dotenv_filename and not dotenv_path.exists():
+            logging.warning(f"Specific env file '{dotenv_filename}' not found at '{dotenv_path}'. Trying default '.env'...")
+            dotenv_path = PROJECT_ROOT / ".env"
+
+        if not dotenv_path.exists():
+            logging.warning(f"No .env file found at '{dotenv_path}'. Proceeding without loading .env.")
+        else:
+            if load_dotenv(dotenv_path=dotenv_path, override=True):
+                logging.info(f"Env vars loaded/updated from {dotenv_path}")
+            else:
+                logging.warning(f"dotenv.load_dotenv returned False for path: {dotenv_path}")
+
+        _env_loaded = True
+        logging.info("Environment and paths successfully initialized.")
+
+    except (FileNotFoundError, ValueError, KeyError, TypeError) as e:
+        logging.exception(f"FATAL: Failed to initialize environment or paths: {e}")
+        raise RuntimeError(f"Environment/Path initialization failed: {e}") from e
+    except Exception as e:
+        logging.exception(f"FATAL: Unexpected error during env init: {e}")
+        raise RuntimeError(f"Unexpected initialization error: {e}") from e
 
 
 def get_app_config():
@@ -130,7 +211,7 @@ def get_app_config():
 
 
 def get_openai_api_key():
-    load_env()
+    initialize_environment_and_paths()
     openai_api_key = os.getenv("OPENAI_API_KEY")
     if openai_api_key is None:
         logging.error("OPENAI_API_KEY environment variable is not set")
@@ -139,7 +220,7 @@ def get_openai_api_key():
 
 
 def get_serper_api_key():
-    load_env()
+    initialize_environment_and_paths()
     serper_api_key = os.getenv("SERPER_API_KEY")
     if serper_api_key is None:
         logging.error("SERPER_API_KEY environment variable is not set")
@@ -148,7 +229,7 @@ def get_serper_api_key():
 
 
 def get_groq_api_key():
-    load_env()
+    initialize_environment_and_paths()
     groq_api_key = os.getenv("GROQ_API_KEY")
     if groq_api_key is None:
         logging.error("GROQ_API_KEY environment variable is not set")
@@ -157,7 +238,7 @@ def get_groq_api_key():
 
 
 def get_exa_api_key():
-    load_env()
+    initialize_environment_and_paths()
     exa_api_key = os.getenv("EXA_API_KEY")
     if exa_api_key is None:
         logging.error("EXA_API_KEY environment variable is not set")
@@ -166,7 +247,7 @@ def get_exa_api_key():
 
 
 def get_notion_api_key():
-    load_env()
+    initialize_environment_and_paths()
     notion_api_key = os.getenv("NOTION_API_KEY")
     if notion_api_key is None:
         logging.error("NOTION_API_KEY environment variable is not set")
@@ -175,7 +256,7 @@ def get_notion_api_key():
 
 
 def get_tavily_api_key():
-    load_env()
+    initialize_environment_and_paths()
     tavily_api_key = os.getenv("TAVILY_API_KEY")
     if tavily_api_key is None:
         logging.error("TAVILY_API_KEY environment variable is not set")
@@ -184,7 +265,7 @@ def get_tavily_api_key():
 
 
 def get_langtrace_api_key():
-    load_env()
+    initialize_environment_and_paths()
     langtrace_api_key = os.getenv("LANGTRACE_API_KEY")
     if langtrace_api_key is None:
         logging.error("LANGTRACE_API_KEY environment variable is not set")
@@ -193,7 +274,7 @@ def get_langtrace_api_key():
 
 
 def get_brave_api_key():
-    load_env()
+    initialize_environment_and_paths()
     brave_api_key = os.getenv("BRAVE_API_KEY")
     if brave_api_key is None:
         logging.error("BRAVE_API_KEY environment variable is not set")
@@ -203,7 +284,7 @@ def get_brave_api_key():
 
 def get_fal_api_key():
     # prompt to image service
-    load_env()
+    initialize_environment_and_paths()
     fal_api_key = os.getenv("FAL_API_KEY")
     if fal_api_key is None:
         logging.error("FAL_API_KEY environment variable is not set")
@@ -213,7 +294,7 @@ def get_fal_api_key():
 
 def get_e2b_api_key():
     # prompt to image service
-    load_env()
+    initialize_environment_and_paths()
     e2b_api_key = os.getenv("E2B_API_KEY")
     if e2b_api_key is None:
         logging.error("E2B_API_KEY environment variable is not set")
@@ -222,7 +303,7 @@ def get_e2b_api_key():
 
 
 def get_vector_db_credentials() -> VectorDBCredentialsSchema:
-    load_env()
+    initialize_environment_and_paths()
     try:
         credentials = VectorDBCredentialsSchema()
         return credentials
@@ -235,7 +316,7 @@ def get_vector_db_credentials() -> VectorDBCredentialsSchema:
 
 
 def get_graph_db_credentials() -> GraphDBCredentialsSchema:
-    load_env()
+    initialize_environment_and_paths()
     try:
         credentials = GraphDBCredentialsSchema(
             username=os.getenv("GRAPH_DATABASE_USERNAME"),
@@ -254,7 +335,7 @@ def get_graph_db_credentials() -> GraphDBCredentialsSchema:
 
 
 def get_documents_db_credentials() -> DocumentsDBCredentialsSchema:
-    load_env()
+    initialize_environment_and_paths()
     try:
         credentials = DocumentsDBCredentialsSchema(
             username=os.getenv("DOCUMENTS_DATABASE_USERNAME"),
@@ -271,7 +352,7 @@ def get_documents_db_credentials() -> DocumentsDBCredentialsSchema:
 
 
 def get_sql_db_credentials() -> SQLDBCredentialsSchema:
-    load_env()
+    initialize_environment_and_paths()
     try:
         credentials = SQLDBCredentialsSchema(
             username=os.getenv("SQL_DATABASE_USERNAME"),

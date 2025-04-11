@@ -4,6 +4,15 @@
 # Dependencies: Routes from api/routes
 import os
 import sys
+import asyncio
+if sys.platform == "win32":
+    try:
+        # Set the policy to use ProactorEventLoop for better subprocess support on Windows
+        asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+        print("Set asyncio event loop policy to WindowsProactorEventLoopPolicy for Windows.")
+    except Exception as policy_error:
+        # Log if setting the policy fails, although it usually works
+        print(f"Failed to set asyncio event loop policy: {policy_error}")
 import requests
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
@@ -14,8 +23,14 @@ from qdrant_client.http.models import (
     VectorParams,
 )
 from qdrant_client.async_qdrant_client import AsyncQdrantClient
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
+# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from application.app_utils import (
+    initialize_environment_and_paths,
+    get_app_config,
+    get_graph_db_credentials,
+    get_vector_db_credentials,
+    # get_documents_db_credentials,
+)
 from application.services.vector_db_service import VectorDBService
 from application.services.graph_db_service import (
     ensure_graph_db_constraints_exist,
@@ -36,6 +51,12 @@ from application.services.graph_db_service import (
 from application.api.v1.routes.vector_db import (
     router as v1_vector_router,
 )
+from application.api.v1.routes.sftp_routes import (
+    router as v1_sftp_router,
+)
+from application.api.v1.routes.azure_storage_blob_routes import (
+    router as v1_blob_router,
+)
 # from application.api.v1.routes.document_db import (
 #     router as v1_document_router,
 # )
@@ -55,16 +76,10 @@ from application.api.v1.routes.report_routes import (
 #     router as v1_chat_router,
 # )
 
-from application.app_utils import (
-    # get_openai_api_key,
-    get_app_config,
-    get_graph_db_credentials,
-    get_vector_db_credentials,
-    # get_documents_db_credentials,
-)
 
 # Set variables
 settings = get_app_config()
+initialize_environment_and_paths()
 
 graph_db_credentials = get_graph_db_credentials()
 vector_db_credentials = get_vector_db_credentials()
@@ -225,8 +240,10 @@ app.include_router(v1_etl_router, prefix="/api/v1", tags=["ETL v1"])
 app.include_router(v1_vector_router, prefix="/api/v1", tags=["Vector Service v1"])
 # app.include_router(v1_document_router, prefix="/api/v1", tags=["Document Service v1"])
 # app.include_router(v2_chat_router, prefix="/api/v2", tags=["Chat v2"])
-
+app.include_router(v1_sftp_router, prefix="/api/v1", tags=["SFTP Test v1"])
 app.include_router(v1_report_router, prefix="/api/v1", tags=["Reports v1"])
+app.include_router(v1_blob_router, prefix="/api/v1", tags=["Blob Storage Test v1"])
+
 
 @app.get("/")
 async def root():

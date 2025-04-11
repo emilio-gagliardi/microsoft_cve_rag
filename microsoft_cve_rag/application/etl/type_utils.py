@@ -19,7 +19,6 @@ def convert_to_float(value: str | float | int | None) -> Optional[float]:
         return None
 
     try:
-        score = float(value)
-        return score if score >= 0 else None
-    except (ValueError, TypeError):
+        return float(value.strip()) if value and value.strip() else None
+    except (ValueError, AttributeError, TypeError):
         return None

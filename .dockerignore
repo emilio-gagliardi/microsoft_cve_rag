@@ -36,3 +36,11 @@ docker-compose.yml
 
 # Add the specified folder
 microsoft_cve_rag/application/data/scrapes/kb_articles
+microsoft_cve_rag/application/data/reports/weekly_kb_report/html
+microsoft_cve_rag/application/data/reports/weekly_kb_report/markdown
+microsoft_cve_rag/application/data/reports/weekly_kb_report/plots
+microsoft_cve_rag/application/data/reports/weekly_kb_report/thumbnails
+microsoft_cve_rag/application/data/reports/quarterly_deep_dive/html
+microsoft_cve_rag/application/data/reports/quarterly_deep_dive/data
+# Siteground SSH keys
+conf/local/keys/siteground_ssh_private_key.txt

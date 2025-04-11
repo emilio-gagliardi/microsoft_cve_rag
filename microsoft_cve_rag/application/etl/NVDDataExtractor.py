@@ -8,24 +8,26 @@ metrics, CWE data, and other vulnerability-related information.
 import json
 import logging
 import math
-import os
+# import os
 import time
 import pandas as pd
+import numpy as np
 from bs4 import BeautifulSoup
 from dataclasses import dataclass
 from datetime import datetime
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.action_chains import ActionChains
+# from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.chrome.service import Service
+# from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from tqdm import tqdm
 from typing import Any, Dict, List, Optional, Tuple
 
-from microsoft_cve_rag.application.etl.type_utils import convert_to_float
+# from microsoft_cve_rag.application.etl.type_utils import convert_to_float
 
 logging.getLogger(__name__)
+
 
 @dataclass
 class ScrapingParams:
@@ -131,7 +133,7 @@ class NVDDataExtractor:
             'xpath': "//span[@data-testid='vuln-published-on']",
         },
         'nvd_description': {
-            'xpath': "//div[@data-testid='vuln-description']",
+            'xpath': "//p[@data-testid='vuln-description']",
         },
         'base_score': {
             'xpath': "//span[@data-testid='vuln-cvssv3-base-score']",
@@ -269,12 +271,29 @@ class NVDDataExtractor:
         'adp': 'adpV3MetricHidden'
     }
 
+    HIDDEN_INPUT_METRIC_TEST_IDS = {
+        'base_score_num': 'vuln-cvssv3-base-score',
+        'base_score_rating': 'vuln-cvssv3-base-score-severity',
+        'vector': 'vuln-cvssv3-vector',
+        'impact_score': 'vuln-cvssv3-impact-score',
+        'exploitability_score': 'vuln-cvssv3-exploitability-score',
+        # --- Additions for detailed vector components ---
+        'attack_vector': 'vuln-cvssv3-av',
+        'attack_complexity': 'vuln-cvssv3-ac',
+        'privileges_required': 'vuln-cvssv3-pr',
+        'user_interaction': 'vuln-cvssv3-ui',
+        'scope': 'vuln-cvssv3-s',
+        'confidentiality': 'vuln-cvssv3-c',
+        'integrity': 'vuln-cvssv3-i',
+        'availability': 'vuln-cvssv3-a',
+    }
+
     def __init__(
         self,
         properties_to_extract: Optional[List[str]] = None,
         max_records: Optional[int] = None,
         headless: bool = True,
-        window_size: Optional[Tuple[int, int]] = None,
+        window_size: Optional[Tuple[int, int]] = (1240, 1080),
         scraping_params: Optional[ScrapingParams] = None,
         show_progress: bool = False,
     ) -> None:
@@ -289,32 +308,57 @@ class NVDDataExtractor:
             scraping_params (Optional[ScrapingParams]): Custom scraping parameters.
             show_progress (bool): Whether to display a progress bar.
         """
-        self.valid_properties = (
-            set(self.ELEMENT_MAPPINGS.keys())  # Base properties
-            | set(self.METRIC_PATTERNS.keys())  # Metric properties
-            | {'base_score', 'vector_element'}  # Special properties
-            | {'cwe_id', 'cwe_name', 'cwe_source', 'cwe_url'}  # CWE properties
-        )
-        # Validate and normalize properties to extract
+        # --- CORRECTED DEFINITION of valid_properties ---
+        # Use the static method to get the *actual* list of all possible output columns
+        self.valid_properties = set(NVDDataExtractor.get_all_possible_columns())
+        # --- END CORRECTION ---
+
+        # Validate and normalize properties to extract (This logic can now stay)
         if properties_to_extract:
+            # Check against the now correctly defined self.valid_properties
             invalid_props = set(properties_to_extract) - self.valid_properties
             if invalid_props:
+                # This warning should no longer appear if the passed list is correct
                 logging.warning(
                     f"Ignoring invalid properties: {invalid_props}"
                 )
+            # Keep only the properties that are valid according to get_all_possible_columns
             self.properties_to_extract = [
                 p for p in properties_to_extract if p in self.valid_properties
             ]
+            # Ensure properties_to_extract isn't empty if filtering happened
+            if not self.properties_to_extract and properties_to_extract:
+                logging.error("All requested properties were deemed invalid. Check property names.")
+                # Decide how to handle this - raise error or default to all?
+                # Defaulting to all might be safer if the input list was just wrong.
+                self.properties_to_extract = list(self.valid_properties)
+            elif not self.properties_to_extract and not properties_to_extract:
+                # Case where properties_to_extract was None or empty initially
+                self.properties_to_extract = list(self.valid_properties)
+
         else:
+            # If no specific list is provided, default to extracting all valid properties
             self.properties_to_extract = list(self.valid_properties)
+
+        # Log the final list of properties that will be extracted
+        logging.debug(f"NVD Extractor will target these properties: {self.properties_to_extract}")
+
         self.max_records = max_records
-        self.params = scraping_params or ScrapingParams.from_target_time(100)
+        # Use default ScrapingParams if none provided
+        self.params = scraping_params or ScrapingParams()
         self.headless = headless
         self.window_size = window_size
         self.show_progress = show_progress
         self.driver = None
         self._last_request_time = 0
-        self.setup_driver()
+        # Call setup_driver (ensure it handles potential errors)
+        try:
+            self.setup_driver()
+        except Exception as e:
+            logging.error(f"Failed to setup WebDriver during initialization: {e}", exc_info=True)
+            # Depending on requirements, you might want to raise e here
+            # or allow the instance to exist without a driver (though it would be unusable).
+            self.driver = None
 
     def setup_driver(self) -> None:
         """Setup the Selenium WebDriver instance."""
@@ -472,73 +516,104 @@ class NVDDataExtractor:
         return df
 
     def _extract_from_hidden_input(self, source: str) -> Dict[str, Any]:
-        """Extract metrics from hidden input field for a given source.
+        """Extract metrics from hidden input field for a given source,
+           including detailed vector components and constructing base_score.
+           Includes detailed logging for base score components.
 
         Args:
-            source: The source type ('cna', 'nist', or 'adp')
+            source: The source type ('cna', 'nist', or 'adp').
 
         Returns:
-            Dict containing the extracted metrics with appropriate prefixes
+            Dict containing the extracted metrics with appropriate prefixes.
         """
         prefix = self.VECTOR_SOURCES[source]['prefix']
-        data = {
-            f"{prefix}vector": None,
-            f"{prefix}base_score_num": None,
-            f"{prefix}base_score_rating": None,
-            f"{prefix}impact_score": None,
-            f"{prefix}exploitability_score": None
-        }
-        
+        data = {f"{prefix}{key}": None for key in self.HIDDEN_INPUT_METRIC_TEST_IDS.keys()}
+        data[f"{prefix}base_score"] = None
+
         try:
-            input_id = self.HIDDEN_INPUT_IDS[source]
+            input_id = self.HIDDEN_INPUT_IDS.get(source)
+            if not input_id:
+                logging.warning(f"No hidden input ID configured for source: {source}")
+                return data
+
             hidden_input = self.driver.find_element(By.ID, input_id)
             raw_html = hidden_input.get_attribute("value")
-            
+
             if not raw_html:
-                logging.debug(f"Hidden input for {source} found but empty")
+                logging.debug(f"Hidden input for {source} (ID: {input_id}) found but is empty.")
                 return data
 
             soup = BeautifulSoup(raw_html, "html.parser")
-            
-            # Extract base metrics
-            base_score = soup.find("span", {"data-testid": "vuln-cvssv3-base-score"})
-            if base_score:
-                data[f"{prefix}base_score_num"] = convert_to_float(
-                    base_score.text.strip()
-                )
-            
-            severity = soup.find(
-                "span", {"data-testid": "vuln-cvssv3-base-score-severity"}
-            )
-            if severity:
-                data[f"{prefix}base_score_rating"] = severity.text.strip().lower()
-            
-            vector = soup.find("span", {"data-testid": "vuln-cvssv3-vector"})
-            if vector:
-                data[f"{prefix}vector"] = vector.text.strip()
-            
-            # Extract scores
-            impact = soup.find("span", {"data-testid": "vuln-cvssv3-impact-score"})
-            if impact:
-                data[f"{prefix}impact_score"] = convert_to_float(
-                    impact.text.strip()
-                )
-            
-            exploit = soup.find(
-                "span", {"data-testid": "vuln-cvssv3-exploitability-score"}
-            )
-            if exploit:
-                data[f"{prefix}exploitability_score"] = convert_to_float(
-                    exploit.text.strip()
-                )
-            
-            logging.debug(f"Successfully parsed {source} metrics from hidden input")
-            
+            logging.debug(f"Processing hidden input for {source}...")
+
+            score_num_val = None
+            score_rating_val = None
+
+            for key, test_id in self.HIDDEN_INPUT_METRIC_TEST_IDS.items():
+                element = soup.find("span", {"data-testid": test_id})
+                value = None
+                value_text = "ELEMENT_NOT_FOUND"
+
+                # --- TARGETED LOGGING ---
+                is_base_score_component = key in ['base_score_num', 'base_score_rating']
+                if is_base_score_component:
+                    logging.debug(f"[{source}-{key}] Searching for test_id: '{test_id}'...")
+                # --- END TARGETED LOGGING ---
+
+                if element:
+                    value_text = element.text.strip()
+                    prefixed_key = f"{prefix}{key}"
+
+                    # --- TARGETED LOGGING ---
+                    if is_base_score_component:
+                        logging.debug(f"[{source}-{key}] Found element! Raw text: '{value_text}'")
+                    # --- END TARGETED LOGGING ---
+
+                    if key in ['base_score_num', 'impact_score', 'exploitability_score']:
+                        value = self._convert_to_float(value_text)
+                        if key == 'base_score_num':
+                            score_num_val = value
+                            # --- TARGETED LOGGING ---
+                            logging.debug(f"[{source}-{key}] Processed value (float): {value}. Stored in score_num_val.")
+                            # --- END TARGETED LOGGING ---
+                    elif key == 'base_score_rating':
+                        value = value_text.lower() if value_text else None
+                        score_rating_val = value_text
+                        # --- TARGETED LOGGING ---
+                        logging.debug(f"[{source}-{key}] Processed value (lower): {value}. Stored original '{value_text}' in score_rating_val.")
+                        # --- END TARGETED LOGGING ---
+                    else:
+                        # Process other keys as before
+                        value = value_text if value_text else None
+
+                    data[prefixed_key] = value
+                    # --- TARGETED LOGGING ---
+                    # if is_base_score_component:
+                    #      logging.info(f"[{source}-{key}] Assigned value '{value}' to data['{prefixed_key}']")
+                    # --- END TARGETED LOGGING ---
+
+                # --- TARGETED LOGGING ---
+                elif is_base_score_component:  # Log if element was *not* found for base score keys
+                    logging.warning(f"[{source}-{key}] Element with test_id '{test_id}' NOT FOUND in hidden input HTML.")
+                # --- END TARGETED LOGGING ---
+
+            # Construct the combined base_score string (logic remains the same)
+            if score_num_val is not None and score_rating_val is not None:
+                data[f"{prefix}base_score"] = f"{score_num_val} {score_rating_val.upper()}"
+                logging.debug(f"[{source}] Constructed combined base_score: '{data[f'{prefix}base_score']}'")
+            else:
+                logging.warning(f"[{source}] Could not construct combined base_score. Num: {score_num_val}, Rating: {score_rating_val}")
+
         except NoSuchElementException:
-            logging.debug(f"No hidden {source} input found")
+            logging.debug(f"Hidden input field with ID '{self.HIDDEN_INPUT_IDS.get(source)}' not found for source '{source}'.")
         except Exception as e:
-            logging.error(f"Error extracting {source} metrics from hidden input: {str(e)}")
-        
+            logging.error(f"Error parsing hidden input for {source} (ID: {self.HIDDEN_INPUT_IDS.get(source)}): {str(e)}", exc_info=True)
+
+        # Log the state of the specific keys before returning
+        logging.debug(f"[{source}] Returning data. Keys check: "
+                     f"{prefix}base_score_num='{data.get(f'{prefix}base_score_num')}', "
+                     f"{prefix}base_score_rating='{data.get(f'{prefix}base_score_rating')}', "
+                     f"{prefix}base_score='{data.get(f'{prefix}base_score')}'")
         return data
 
     def _convert_to_float(self, value: str) -> Optional[float]:
@@ -551,21 +626,21 @@ class NVDDataExtractor:
             Float value or None if conversion fails
         """
         try:
-            return float(value.strip()) if value else None
-        except (ValueError, AttributeError):
+            return float(value.strip()) if value and value.strip() else None
+        except (ValueError, AttributeError, TypeError):
             return None
 
     def extract_vector_metrics(self) -> Dict[str, Any]:
         """Extract vector metrics using hidden input first, then hover method.
-        
+
         Returns:
             Dictionary containing all extracted metrics
         """
         # Switch to CVSS 3.x tab if needed
         self._switch_to_cvss3()
-        
+
         data = {}
-        
+
         # Get vector string from hidden input
         vector_element = self.extract_property('vector')
         if vector_element:
@@ -576,21 +651,21 @@ class NVDDataExtractor:
                     metric, value = part.split(':')
                     if metric in self.ELEMENT_MAPPINGS:
                         data[metric] = value
-                        
+
         # Get base score from hidden input
         base_score = self.extract_property('base_score')
         if base_score:
             data['base_score'] = self._convert_to_float(base_score)
-            
+
         # Get impact and exploitability scores
         impact_score = self.extract_property('impact_score')
         if impact_score:
             data['impact_score'] = self._convert_to_float(impact_score)
-            
+
         exploitability_score = self.extract_property('exploitability_score')
         if exploitability_score:
             data['exploitability_score'] = self._convert_to_float(exploitability_score)
-            
+
         return data
 
     def extract_property(self, property_name: str) -> Optional[str]:
@@ -699,7 +774,8 @@ class NVDDataExtractor:
         return cwe_data
 
     def extract_data_from_url(self, url: str) -> Dict[str, Any]:
-        """Extract data from the given URL based on the properties specified during initialization.
+        """Extract data from the given URL using hidden inputs for metrics
+           and direct properties for others.
 
         Args:
             url (str): URL to extract data from.
@@ -707,193 +783,268 @@ class NVDDataExtractor:
         Returns:
             Dict[str, Any]: Dictionary containing extracted data.
         """
+        # Initialize data dictionary - crucial for consistent structure
+        # You might want to initialize with all potential keys from get_all_possible_columns()
+        # For minimal change, initialize empty and add as found.
         data = {}
+
         try:
-            # Rate limiting and page load
+            # Rate limiting (Keep your original logic here)
             now = time.time()
-            if hasattr(self, '_last_request_time'):
+            if hasattr(self, '_last_request_time') and self._last_request_time > 0:  # Check > 0
                 elapsed = now - self._last_request_time
-                if elapsed < self.params.delay_between_batches:
-                    time.sleep(self.params.delay_between_batches - elapsed)
-            self._last_request_time = time.time()
+                # Use delay from params if available, else a default
+                required_delay = self.params.delay_between_batches if self.params else 1.0
+                if elapsed < required_delay:
+                    sleep_time = required_delay - elapsed
+                    logging.debug(f"Rate limiting: sleeping for {sleep_time:.2f} seconds.")
+                    time.sleep(sleep_time)
+            self._last_request_time = time.time()  # Update time *after* potential sleep
 
+            logging.debug(f"Requesting URL: {url}")
             self.driver.get(url)
-            time.sleep(self.params.hover_wait)
+            # Use hover_wait from params if available, else a default
+            time.sleep(self.params.hover_wait if self.params else 0.5)
 
-            # Switch to CVSS 3.x tab if needed
-            self._switch_to_cvss3()
+            # --- Attempt to switch to CVSS 3.x tab ---
+            self._switch_to_cvss3()  # Keep this call
 
-            # Extract vector metrics if requested (always include base_score)
-            metric_properties = [
-                p
-                for p in self.properties_to_extract
-                if p in self.METRIC_PATTERNS
-                or p in ['base_score', 'vector_element']
-            ]
-            if metric_properties:
-                vector_data = self.extract_vector_metrics()
-                data.update(vector_data)
+            # --- CORE CHANGE: Extract metrics from hidden inputs ---
+            # Iterate through the configured sources (cna, nist, adp)
+            for source in self.HIDDEN_INPUT_IDS.keys():
+                # Call the method that parses the hidden input
+                source_data = self._extract_from_hidden_input(source)
+                # Update the main data dict with prefixed keys (e.g., cna_base_score_num)
+                data.update(source_data)
+            # --- END CORE CHANGE ---
 
-            # Extract base properties (nvd_published_date, nvd_description)
-            base_properties = [
-                p
-                for p in self.properties_to_extract
-                if p in self.ELEMENT_MAPPINGS
-            ]
-            for prop in base_properties:
-                try:
-                    value = self.extract_property(prop)
-                    if value is not None:
-                        data[prop] = value
-                except Exception as e:
-                    logging.warning(f"Failed to extract {prop}: {str(e)}")
-                    data[prop] = None
+            # --- Extract base properties (non-metrics) using direct XPath ---
+            # Keep using extract_property for these, assuming they still work
+            base_properties_to_extract = ['nvd_published_date', 'nvd_description']
+            for prop in base_properties_to_extract:
+                # Check if this property should be extracted based on initialization list
+                # (Optional check, original code didn't show this check here)
+                # if prop in self.properties_to_extract:
+                value = self.extract_property(prop)
+                if value is not None:
+                    data[prop] = value
+                # else: data[prop] will be missing or None if initialized
 
-            # Extract CWE data if requested
-            if any(
-                prop.startswith('cwe_') for prop in self.properties_to_extract
-            ):
+            # --- Extract CWE data ---
+            # Keep using extract_cwe_data, assuming it works
+            # Check if any CWE property should be extracted
+            if any(p.startswith('cwe_') for p in self.properties_to_extract):
                 cwe_data = self.extract_cwe_data()
                 if cwe_data:
-                    data.update({
-                        'cwe_id': '; '.join(
-                            entry['cwe_id'] for entry in cwe_data
-                        ),
-                        'cwe_name': '; '.join(
-                            entry['cwe_name'] for entry in cwe_data
-                        ),
-                        'cwe_source': '; '.join(
-                            entry['cwe_source'] for entry in cwe_data
-                        ),
-                        'cwe_url': '; '.join(
-                            str(entry['cwe_url'])
-                            for entry in cwe_data
-                            if entry['cwe_url']
-                        ),
-                    })
+                    # Aggregate multi-CWE entries using '; ' separator
+                    # Check individual properties before joining
+                    if 'cwe_id' in self.properties_to_extract:
+                        data['cwe_id'] = '; '.join(filter(None, [entry.get('cwe_id') for entry in cwe_data]))
+                    if 'cwe_name' in self.properties_to_extract:
+                        data['cwe_name'] = '; '.join(filter(None, [entry.get('cwe_name') for entry in cwe_data]))
+                    if 'cwe_source' in self.properties_to_extract:
+                        data['cwe_source'] = '; '.join(filter(None, [entry.get('cwe_source') for entry in cwe_data]))
+                    if 'cwe_url' in self.properties_to_extract:
+                        data['cwe_url'] = '; '.join(filter(None, [str(entry.get('cwe_url')) for entry in cwe_data if entry.get('cwe_url')]))
                 else:
-                    data.update({
-                        'cwe_id': None,
-                        'cwe_name': None,
-                        'cwe_source': None,
-                        'cwe_url': None,
-                    })
+                    # Ensure CWE fields are None if no data found but they were requested
+                    if 'cwe_id' in self.properties_to_extract: data['cwe_id'] = None  # noqa: E701
+                    if 'cwe_name' in self.properties_to_extract: data['cwe_name'] = None  # noqa: E701
+                    if 'cwe_source' in self.properties_to_extract: data['cwe_source'] = None  # noqa: E701
+                    if 'cwe_url' in self.properties_to_extract: data['cwe_url'] = None  # noqa: E701
 
         except Exception as e:
-            logging.error(f"Error processing URL {url}: {str(e)}")
-            for prop in self.properties_to_extract:
-                if prop not in data:
-                    data[prop] = None
+            logging.error(f"Error processing URL {url}: {str(e)}", exc_info=True)  # Add exc_info for traceback
+            # Ensure all *requested* properties exist in the dict, even if None, upon error
+            # for prop in self.properties_to_extract:
+            #    if prop not in data:
+            #        data[prop] = None
+            # Simpler: just return potentially incomplete data, caller handles it.
 
-        return data
+        # Filter data to return only the properties requested during initialization
+        # This respects the original 'properties_to_extract' logic
+        final_data = {}
+        # Explicitly log the list of properties we are expecting to include
+        logging.debug(f"Constructing final_data based on self.properties_to_extract: {self.properties_to_extract}")
+
+        # Iterate through the definitive list of properties that *should* be extracted
+        for prop_key in self.properties_to_extract:
+            # Get the value from the intermediate 'data' dict (which holds all scraped values)
+            # Use .get() to safely handle cases where a key might be missing from 'data' (though less likely now)
+            value = data.get(prop_key)
+            final_data[prop_key] = value
+
+            # Add specific debug logging for the missing keys
+            if prop_key.endswith(('_base_score_num', '_base_score_rating')):
+                logging.debug(f"Final Check: Assigning '{prop_key}' with value '{value}' to final_data.")
+
+        # Log the completed final_data for comparison
+        logging.debug(f"Returning final_data: {final_data}")
+        return final_data
 
     def augment_dataframe(
         self,
         df: pd.DataFrame,
         url_column: str = 'post_id',
-        batch_size: int = 100,
+        batch_size: int = 50,
     ) -> pd.DataFrame:
-        """Augment DataFrame with additional columns based on extracted NVD data.
+        """
+        Augments the input DataFrame with NVD data scraped from URLs.
+        Handles initialization, scraping loop, data assignment, and NaN normalization.
 
         Args:
-            df (pd.DataFrame): Input DataFrame.
-            url_column (str): Column containing NVD URLs.
-            batch_size (int): Number of records to process in each batch.
+            df (pd.DataFrame): Input DataFrame subset needing NVD data.
+            url_column (str): Column name containing the CVE ID.
+            batch_size (int): Controls loop chunking (less relevant now but kept).
 
         Returns:
-            pd.DataFrame: Augmented DataFrame with additional NVD data columns.
+            pd.DataFrame: DataFrame with NVD columns populated (or None if errors).
+                         NaN values are normalized to Python None.
         """
+        if self.driver is None:
+            logging.error("WebDriver is not initialized. Cannot augment DataFrame.")
+            # Return a copy of the input df structure but empty, or the original?
+            # Returning original might be misleading. Let's return an empty copy with NVD cols.
+            df_copy = df.copy()
+            # Add NVD columns if they don't exist
+            all_nvd_columns = self.get_all_possible_columns()
+            for col in all_nvd_columns:
+                if col not in df_copy.columns:
+                    df_copy[col] = None
+            return df_copy
+
+        # Work on a copy of the input DataFrame (which should be the subset)
         df_copy = df.copy()
-        total_rows = (
-            min(len(df_copy), self.max_records)
-            if self.max_records
-            else len(df_copy)
-        )
+        total_rows = len(df_copy)  # Process all rows passed to this function
+        logging.debug(f"Augmenting NVD data for {total_rows} rows.")
 
-        # Initialize all possible columns
-        columns_to_add = set()
-
-        # Add source-prefixed columns for each source
-        for source in self.VECTOR_SOURCES.keys():  # nist, cna, adp
-            prefix = self.VECTOR_SOURCES[source]['prefix']  # nist_, cna_, adp_
-
-            # Add base score and vector for each source
-            columns_to_add.add(f"{prefix}vector")
-            columns_to_add.add(f"{prefix}base_score_num")
-            columns_to_add.add(f"{prefix}base_score_rating")
-            for metric in self.METRIC_PATTERNS.keys():
-                columns_to_add.add(f"{prefix}{metric}")
-
-        # Add base columns
-        columns_to_add.update(['nvd_published_date', 'nvd_description'])
-
-        # Add CWE columns
-        columns_to_add.update(['cwe_id', 'cwe_name', 'cwe_source', 'cwe_url'])
-
-        # Initialize new columns with None
-        for col in columns_to_add:
+        # 1. Initialize all potential NVD output columns if they don't exist
+        all_nvd_columns = self.get_all_possible_columns()
+        initialized_cols_count = 0
+        for col in all_nvd_columns:
             if col not in df_copy.columns:
+                # Initialize with None - allows mixed types initially
                 df_copy[col] = None
+                initialized_cols_count += 1
+        if initialized_cols_count > 0:
+            logging.debug(f"Initialized {initialized_cols_count} missing NVD columns with None.")
 
-        # Process rows
+        # Determine rows to process (in this context, all rows passed in df_copy)
+        rows_to_process_indices = df_copy.index
+
+        # Progress bar setup
         progress_bar = (
-            tqdm(total=total_rows, desc="Processing CVEs")
+            tqdm(total=total_rows, desc="Scraping NVD Data")
             if self.show_progress
             else None
         )
 
+        # 2. Process rows needing NVD data
         try:
-            for start_idx in range(0, total_rows, batch_size):
-                end_idx = min(start_idx + batch_size, total_rows)
-                batch = df_copy.iloc[start_idx:end_idx]
+            # Loop through the indices of the subset DataFrame passed in
+            for current_iter, idx in enumerate(rows_to_process_indices):
+                row = df_copy.loc[idx]
+                post_id = row.get(url_column)
 
-                for idx, row in batch.iterrows():
-                    # Skip if NVD data has already been extracted
-                    if isinstance(row.get('metadata', {}), dict):
-                        etl_status = row['metadata'].get(
-                            'etl_processing_status', {}
-                        )
-                        if isinstance(etl_status, dict) and etl_status.get(
-                            'nvd_extracted', False
-                        ):
-                            if progress_bar:
-                                progress_bar.update(1)
-                            logging.info(
-                                "Skipping NVD extraction for"
-                                f" {row[url_column]} - already extracted"
-                            )
-                            continue
+                # --- Input Validation ---
+                if pd.isna(post_id) or not str(post_id).strip():
+                    logging.warning(f"Skipping row index {idx} due to missing/invalid CVE ID.")
+                    if progress_bar: progress_bar.update(1)  # noqa: E701
+                    continue
+                post_id_str = str(post_id).strip().upper()
+                if not post_id_str.startswith("CVE-"):
+                    logging.warning(f"Row index {idx}: Value '{post_id}' in '{url_column}' is not a valid CVE ID. Skipping.")
+                    if progress_bar: progress_bar.update(1)  # noqa: E701
+                    continue
+                # --- End Input Validation ---
 
-                    post_id = row[url_column]
-                    if pd.isna(post_id):
-                        if progress_bar:
-                            progress_bar.update(1)
-                        continue
+                url = f"https://nvd.nist.gov/vuln/detail/{post_id_str}"
+                extracted_data = {}  # Initialize for this row
 
-                    url = f"https://nvd.nist.gov/vuln/detail/{post_id}"
+                try:
+                    # --- Call the scraping function ---
                     extracted_data = self.extract_data_from_url(url)
 
-                    # Update DataFrame with extracted data
-                    for key, value in extracted_data.items():
-                        if key in df_copy.columns:
-                            df_copy.at[idx, key] = value
-                        else:
-                            logging.debug(
-                                f"Skipping column {key} - not in initialized"
-                                " columns"
-                            )
+                    # --- *** CRITICAL DEBUGGING STEP *** ---
+                    if current_iter < 5:  # Log the first few results
+                        logging.debug(f"Extracted data for {post_id_str} (Index {idx}): {extracted_data}")
+                    # --- *** END DEBUGGING STEP *** ---
 
+                    # --- Assign scraped data to the DataFrame copy ---
+                    if extracted_data:  # Check if *anything* was returned
+                        assigned_count = 0
+                        for key, value in extracted_data.items():
+                            if key in df_copy.columns:
+                                # Use .loc for assignment to avoid SettingWithCopyWarning
+                                df_copy.loc[idx, key] = value
+                                assigned_count += 1
+                            else:
+                                logging.warning(f"Skipping assignment for key '{key}' - column not found in DataFrame copy.")
+                        if assigned_count == 0 and extracted_data:
+                            logging.warning(f"Extracted data for {post_id_str} but assigned 0 values (check column names).")
+                    else:
+                        logging.warning(f"No data extracted for {post_id_str} (Index {idx}). Row will have None values.")
+                        # Ensure NVD columns are None for this row if extraction failed completely
+                        for col in all_nvd_columns:
+                            if col in df_copy.columns:
+                                df_copy.loc[idx, col] = None
+
+                except Exception as e:
+                    logging.error(f"Failed during scraping or assignment for index {idx} (CVE: {post_id_str}): {e}", exc_info=True)
+                    # Ensure NVD columns are None for this row on error
+                    for col in all_nvd_columns:
+                        if col in df_copy.columns:
+                            df_copy.loc[idx, col] = None
+
+                finally:
                     if progress_bar:
                         progress_bar.update(1)
-
-                if self.max_records and end_idx >= self.max_records:
-                    break
 
         finally:
             if progress_bar:
                 progress_bar.close()
 
-        return self._set_column_types(df_copy)
+        # 3. --- Normalize NaN to None ---
+        # Before setting final types, replace pandas NaN with Python None for consistency
+        logging.debug("Normalizing NaN values to None before setting final types.")
+        # Create a copy to avoid SettingWithCopyWarning during replace
+        df_copy_normalized = df_copy.copy()
+        nvd_cols_in_df = [col for col in all_nvd_columns if col in df_copy_normalized.columns]
+        for col in nvd_cols_in_df:
+            # Replace pd.NA and np.nan if they exist. astype(object) helps if column is numeric.
+            try:
+                # Convert potential pd.NA (nullable int/float) to np.nan first, then replace np.nan with None
+                if pd.api.types.is_numeric_dtype(df_copy_normalized[col]):
+                    # Use fillna(np.nan) then replace might be safer for specific numeric types
+                    df_copy_normalized[col] = df_copy_normalized[col].replace({pd.NA: None})  # Replace pandas NA first if nullable type
+                    df_copy_normalized[col] = df_copy_normalized[col].replace({np.nan: None})  # Replace numpy NaN
+                else:
+                    # For object/string types, replace np.nan just in case
+                    df_copy_normalized[col] = df_copy_normalized[col].replace({np.nan: None})
+
+                # Explicitly replace string 'None'/'nan' if they accidentally crept in (less likely now)
+                if pd.api.types.is_string_dtype(df_copy_normalized[col]) or df_copy_normalized[col].dtype == 'object':
+                    df_copy_normalized[col] = df_copy_normalized[col].replace({'None': None, 'nan': None, 'NaN': None})
+
+            except Exception as e:
+                logging.warning(f"Could not normalize NaN/None in column '{col}': {e}")
+
+        # 4. Apply final column types (optional here, could be done later)
+        # If you keep it here, ensure _set_column_types handles None correctly
+        logging.debug("Applying final column types.")
+        try:
+            df_final = self._set_column_types(df_copy_normalized)
+            # One final check/replace after type setting if _set_column_types reintroduces NaN
+            # for col in nvd_cols_in_df:
+            #     if pd.api.types.is_numeric_dtype(df_final[col]):
+            #          df_final[col] = df_final[col].replace({np.nan: None})
+
+        except Exception as e:
+            logging.error(f"Error applying column types: {e}. Returning DataFrame with normalized None values but possibly incorrect dtypes.", exc_info=True)
+            df_final = df_copy_normalized  # Return the normalized but untyped DF
+
+        logging.debug(f"Finished augmenting NVD data. Returning {len(df_final)} rows.")
+        return df_final
 
     def get_output_columns(self) -> List[str]:
         """Get list of all column names that will be added by this extractor.
@@ -922,41 +1073,38 @@ class NVDDataExtractor:
 
     @staticmethod
     def get_all_possible_columns() -> List[str]:
-        """Get list of all possible column names that could be added by this extractor.
+        """Get list of ALL possible column names that could be added or populated."""
+        columns = set()
 
-        Returns:
-            List[str]: Complete list of all possible column names.
-        """
-        columns = []
-
-        # Base properties that are always included
+        # Base properties
         base_properties = ['nvd_published_date', 'nvd_description']
-        columns.extend(base_properties)
+        columns.update(base_properties)
 
-        # All possible vector metrics
-        all_metrics = [
-            'base_score',
-            'vector',
-            'impact_score',
-            'exploitability_score',
-            'attack_vector',
-            'attack_complexity',
-            'privileges_required',
-            'user_interaction',
-            'scope',
-            'confidentiality',
-            'integrity',
-            'availability',
-        ]
+        # CWE properties
         cwe_columns = ['cwe_id', 'cwe_name', 'cwe_source', 'cwe_url']
-        columns.extend(cwe_columns)
-        # Add metrics for each source prefix (nist, cna, adp)
-        source_prefixes = ['nist_', 'cna_', 'adp_']
-        for prefix in source_prefixes:
-            for metric in all_metrics:
-                columns.append(f"{prefix}{metric}")
+        columns.update(cwe_columns)
 
-        return sorted(columns)
+        # Metrics from hidden inputs (prefixed)
+        # Explicitly define the patterns for base score components
+        base_score_keys = ['base_score', 'base_score_num', 'base_score_rating']
+        # Get other metric keys directly from the dictionary keys
+        other_metric_keys = [
+            k for k in NVDDataExtractor.HIDDEN_INPUT_METRIC_TEST_IDS.keys()
+            if k not in base_score_keys  # Avoid duplicating base score keys
+        ]
+
+        source_prefixes = [info['prefix'] for info in NVDDataExtractor.VECTOR_SOURCES.values()]  # ['nist_', 'cna_', 'adp_']
+
+        for prefix in source_prefixes:
+            # Add base score keys explicitly
+            for key in base_score_keys:
+                columns.add(f"{prefix}{key}")
+            # Add other metric keys derived from the test ID dictionary
+            for key in other_metric_keys:
+                columns.add(f"{prefix}{key}")
+
+        logging.debug(f"Generated all possible columns: {sorted(list(columns))}")
+        return sorted(list(columns))
 
     def debug_tooltip_content(self, tooltip_element) -> None:
         """Debug helper to print the tooltip's HTML content.
@@ -992,45 +1140,46 @@ def main() -> None:
             "description": "CVE with ADP metrics"
         }
     ]
-    
+
     # Initialize extractor with debug logging
     extractor = NVDDataExtractor(
         headless=False,  # Set to False to see the browser
         window_size=(1920, 1080),
         show_progress=True
     )
-    
+
     try:
         for test_case in test_urls:
             print(f"\n\nTesting {test_case['description']}:")
             print(f"URL: {test_case['url']}")
             print("-" * 80)
-            
+
             # Navigate to the test URL
             extractor.driver.get(test_case['url'])
             time.sleep(2)  # Wait for page load
-            
+
             # Extract vector metrics
             metrics_data = extractor.extract_vector_metrics()
-            
+
             # Print extracted data
             print("\nExtracted Vector Metrics:")
             print(json.dumps(metrics_data, indent=2))
-            
+
             # Extract CWE data
             cwe_data = extractor.extract_cwe_data()
             print("\nExtracted CWE Data:")
             print(json.dumps(cwe_data, indent=2))
-            
+
             # Add a separator between test cases
             print("\n" + "=" * 80)
-            
+
     except Exception as e:
         print(f"Error during extraction: {str(e)}")
     finally:
         # Clean up
         if hasattr(extractor, 'driver'):
             extractor.driver.quit()
+
 
 if __name__ == "__main__":
     main()

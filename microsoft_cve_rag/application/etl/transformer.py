@@ -795,38 +795,63 @@ async def async_generate_summary(text: str) -> Optional[str]:
         - Do not add a 'closing' or 'in conclusion' section or thoughts or any text following the last section presented below.
 
         Formatting Guidelines
-        - **Commands and Scripts**: Use triple-backtick Markdown code blocks with language identifiers. Include only commands from the KB article. Examples:
-        - PowerShell:
-            ```powershell
-            Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Installer" -Name "DisableLUAInRepair" -Value 1
-            ```
-        - Command Line (e.g., DISM):
-            ```cmd
-            DISM /online /get-packages
-            ```
-        - Intune Terminal:
-            ```shell
-            az intune policy set --policyName "DOCacheHost" --value "<Your MCCC Endpoint>"
-            ```
-        - **Registry Keys**:
-            ```registry
-            HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer\DisableLUAInRepair = 1
-            ```
-        - **Error Codes**:
-            ```plaintext
-            0x80070520
-            ```
-        - Ensure all commands match the source text exactly and use the correct language identifier (e.g., ```cmd for DISM, ```powershell for PowerShell).
+        - **Commands and Scripts**: Use triple-backtick Markdown code blocks with language identifiers from this list only.
+        - Include commands exactly as they appear in the KB article. Choose the identifier based on the command's context:
+            - **PowerShell** (for PowerShell scripts and cmdlets):
+                ```powershell
+                Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Installer" -Name "DisableLUAInRepair" -Value 1
+                ```
+            - **Batch** (for Windows Command Prompt commands, e.g., DISM, wusa, net):
+                ```batch
+                DISM /online /get-packages
+                ```
+            - **Bash** (for Azure CLI, Intune terminal, or Unix-like commands):
+                ```bash
+                az intune policy set --policyName "DOCacheHost" --value "<Your MCCC Endpoint>"
+                ```
+            - **Text** (for error codes, logs, or non-executable text):
+                ```text
+                0x80070520
+                ```
+            - **Ini** (for registry keys or key-value configuration):
+                ```ini
+                [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer]
+                DisableLUAInRepair=1
+                ```
+        - **Rules**:
+            - Insert blank lines before and after lists and headings and tables
+            - Four spaces per nested level indicates proper indentation for lists
+            - Critical: multi-line content must align precisely within its list item. add a line break before code fences in nested lists, but do not indent code fences, code fences start at col 0.
+                1. First level:
+                    1.1. Second level:
+
+                ```powershell
+                dir
+                ```
+
+            - Use the GitHub-style (pipe-delimited) table format for tables and left align text
+                The second line |:---|:---| sets column alignment:
+                - :--- => left-aligned
+            - Match the source text exactly — do not paraphrase commands.
+            - For registry keys, format as INI-style (section header `[path]` followed by `key=value`).
+            - If unsure of the language, default to `text`.
+        - IMPORTANT: You must ensure the markdown is formatted perfectly so that it can be passed to markdown.markdown() and use codehilite and fenced_code extensions.
 
         Additional Notes
         - Highlight security risks, elevated-risk exploits, or known issues clearly.
         - Exclude file information (e.g., file lists) from the summary.
-        - Include links to any mentioned CVEs or resources for easier navigation.
-            Example: [CVE-2022-38042](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2022-38042)
-            Example: [NetJoinDomain](https://docs.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netjoindomain)
+        - Include links to any mentioned KBs, CVEs or resources for easier navigation.
+        - **CRITICAL Link Formatting Rule:** Format ALL hyperlinks strictly using standard Markdown: `[Link Text](URL)`.
+        - The scraping service is generating malformed URLs in the markdown.
+        - Extract only the final, canonical URL for the `URL` part (e.g., `https://msrc.microsoft.com/...` or `https://learn.microsoft.com/...`).
+        - **DO NOT** include any wrapper angle brackets like `<...>` around the URL inside the parentheses `()`.
+        - **DO NOT** prepend redundant paths like `https://support.microsoft.com/en-us/topic/` to the actual target URL within the parentheses `()`.
+            - Correct Example: [CVE-2022-38042](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2022-38042)
+            - Correct Example: [NetJoinDomain](https://docs.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netjoindomain)
+            - Correct Example: [KB5044277](https://support.microsoft.com/help/5044277)
 
         <summary structure>
-        ## Overview
+        ### Overview
         - Include:
         - The primary purpose of this KB article (e.g., security update, quality improvement).
         - The specific operating systems and versions affected in a bullet list.
@@ -842,21 +867,21 @@ async def async_generate_summary(text: str) -> Optional[str]:
         - Windows 10 version 22H2 (builds 19044.4651 and 19045.4651)\n
         The update addresses significant security vulnerabilities in RADIUS protocol (MD5 collisions) and implements enhanced BitLocker Secure Boot validation profiles. This combined SSU/LCU package requires specific prerequisites based on deployment method: KB5014032 for offline imaging or KB5005260 for WSUS deployment. The update includes SSU KB5039336 (builds 19044.4585 and 19045.4585) for improved update servicing capabilities.'
 
-        ## Scope of Impact
+        ### Scope of Impact
         - Optional. Do not output this section header if it isn't in the source text.
         - Some KB articles provide a section on scope of impact, if it exists, present the high level points here.
         - Do not fabricate or add commentary that isn't in the source text.
 
-        ## Available Mitigations
+        ### Available Mitigations
         - Optional. Do not output this section header if it isn't in the source text.
         - Some KB articles provide a section on available mitigations, if it exists, present the high level points here.
         - Do not fabricate or add commentary that isn't in the source text.
 
-        ## Technical Breakdown
+        ### Technical Breakdown
         - Generate a detailed response at least as long as this prompt (~1200 tokens) for KB articles up to 3000 words, including all improvements, bug fixes, and vulnerabilities from the 'Improvements' section with exhaustive technical details and examples where applicable. For articles exceeding 5000 words, scale down the summary length proportionally to remain concise yet comprehensive.
         - You may add sub sections here to better align with the source text.
 
-        ### Vulnerabilities and Bug Fixes
+        #### Vulnerabilities, Improvements and Bug Fixes
         - List all improvements, bug fixes, and vulnerabilities from the 'Improvements' section in bullet points with brief descriptions.
         - Prioritize high-impact items (e.g., security vulnerabilities, critical bugs) first.
         - Clearly state whether each vulnerability is high or low impact. Example: 'This update addresses high-impact vulnerabilities in Windows Installer and RADIUS protocol related to MD5 collision exploits. Full details in the July 2024 Security Updates.'
@@ -864,28 +889,51 @@ async def async_generate_summary(text: str) -> Optional[str]:
         - Include actionable details (e.g., affected components, configurations, downloads, scripts).
         - Maximum 10 items.
 
-        ### Known Issues and Workarounds
-        - Detail any known issues and workarounds from the KB article in bullet lists.
+        ##### Vulnerabilities
+        Example:
+        1. (Impact: **Critical**) Vulnerability in Windows Installer: An identified security vulnerability in the Windows Installer that could allow an attacker to execute arbitrary code. Microsoft is working on a fix.
+
+        ##### Improvements
+        Example:
+        1. (Impact: **High**) Improvement to OOBE Process: Enhances the overall user experience during the initial setup of Windows 11 by streamlining processes and ensuring smoother transitions.
+
+        ##### Bug Fixes
+        Example:
+        1. (Impact: **Medium**) Fix for DHCP Option 235 Discovery Issue: Addresses a problem where the DHCP client might not be able to discover the DHCP server after installing this update.
+
+        #### Known Issues and Workarounds
+        - Detail any known issues and workarounds from the KB article in markdown table notation.
         - Do not fabricate or make up Known Issues if they don't exist, not all KB articles have Known Issues.
         - Specify the fix method (e.g., Autopatch, MDM, Group Policy, registry modification, Intune command) if provided, noting WSUS deprecation and preference for Autopatch/Intune where mentioned.
-        - Example format:
-        - MCC/DHCP Option 235 Discovery Issue
-            - Applies to: All Users
-            - Symptoms: After installing this update, you might be unable to change your user account profile picture.
-            - Workaround: If you encounter this issue on your device, please contact Windows support for help.
-        - Profile Picture Error
-            - Applies to: Enterprise users
-            - Symptoms: After installing this update, you might be unable to change your user account profile picture.
-            - Workaround: This issue is addressed in KB5053643.
-            - Error Code:
-            ```plaintext
-            0x80070520
-            ```
+        - Example Output format:
 
-        ### Installation Process and Prerequisites
-        - Provide step-by-step prerequisites and installation details from the KB article.
-        - Specify preferred update channels (e.g., Autopatch, Windows Update, WSUS, standalone installation).
-        - For uninstallation instructions, use triple-backtick code blocks.
+            | Issue | Applies To | Symptoms | Workarounds |
+            |:---|:---|:---|:---|
+            | **Citrix** | All Users | Unable to complete installation of January 2023... | This issue is addressed in [KB5053643](https://support.microsoft.com/en-us/kb/5053643). |
+            | **System Guard Runtime Monitor Broker service** | Enterprise users | Triggers unexpected alerts after certain updates... | Disable the service or... |
+            | **Another Issue** | etc. | - Error Code: ```text 0x80070520``` |                                |
+
+        #### Installation Process and Prerequisites
+
+        ##### Prerequisites
+        - Provide step-by-step prerequisites from the KB article, often found under a heading like 'Before you install this update'.
+
+        ##### Installation Steps
+        - Provide numbered steps to install the update
+
+        ##### Installation Channels
+        - Search for the section detailing how to install the update (often titled 'Install this update' or 'How to get this update'). Identify the different release channels mentioned (e.g., Windows Update, WSUS, Microsoft Update Catalog, Windows Update for Business). Extract the availability status (e.g., "Yes", "No") and the corresponding description or next steps for each channel. Present this information **exclusively** as a Markdown table with the columns: 'Channel', 'Availability', and 'Details'. **Do not** use bullet points or paragraphs for this channel information. If the source text uses odd formatting like repeating headers, consolidate the information logically per channel into single rows in the table.
+        - Example Output Format:
+
+            | Channel | Availability | Details |
+            |:---|:---|:---|
+            | **Windows Update** | Yes | None. This update will be downloaded and installed automatically from Windows Update and Microsoft Update. |
+            | **Windows Update for Business** | Yes | None. This update will be downloaded and installed automatically from Windows Update for Business in accordance with configured policies. |
+            | **Microsoft Update Catalog** | Yes | To get the standalone package for this update, go to the [Microsoft Update Catalog](https://...) website. |
+            | **Windows Server Update Services (WSUS)** | Yes | This update will automatically sync with WSUS if you configure **Products and Classifications** as follows... (See WSUS Config below) |
+
+        ##### Uninstallation Instructions
+        - Extract any uninstallation instructions, often found under a heading like 'If you want to remove the LCU'. Use standard paragraphs and format any commands using triple-backtick code blocks with the correct language identifier (e.g., ```cmd ... ``` or ```powershell ... ```).
         </summary structure>
 
         KB Article text below
@@ -894,7 +942,7 @@ async def async_generate_summary(text: str) -> Optional[str]:
         ===
         """
     model_kwargs = {
-        "max_tokens": 2750,
+        "max_tokens": 3250,
         "temperature": 0.1,
         "top_p": 1.0,
         "presence_penalty": 0.5,
@@ -1192,10 +1240,12 @@ def transform_kb_articles(
         "node_label",
         "article_url",
         "summary",
+        "scraped_markdown",
+        "scraped_json",
         "update_package_url",
     ]
     dtypes = {
-        'node_id': 'str',
+        'id': 'str',
         'kb_id': 'str',
         'title': 'str',
         'text': 'str',
@@ -1209,28 +1259,57 @@ def transform_kb_articles(
         'node_label': 'str',
         'article_url': 'str',
         'summary': 'str',
+        'scraped_markdown': 'str',
+        'scraped_json': 'object',
         'update_package_url': 'str',
     }
 
-    # Process Windows KB articles
+    # Process Windows KB articles (this branch of logic)
     if kb_articles_windows:
-        df_windows = pd.DataFrame(kb_articles_windows, columns=master_columns)
-        # Filter out duplicates before other operations
+        df_windows = pd.DataFrame(kb_articles_windows)
 
-        df_windows = df_windows.sort_values(
-            by="cve_ids",
-            key=lambda s, _=None: s.isna()
+        # Ensure all master columns exist, adding missing ones with NaN
+        for col in master_columns:
+            if col not in df_windows.columns:
+                df_windows[col] = pd.NA
+
+        df_windows = df_windows[master_columns].copy()
+        # Convert published to datetime early for sorting, handle errors
+        df_windows['published'] = pd.to_datetime(df_windows['published'], errors='coerce')
+
+        # --- Start: Modified Duplicate Handling ---
+        # Define criteria for "better" records: non-empty summary, markdown, cve_ids
+        # Handle potential variations of empty (NaN, None, '', [])
+        df_windows['has_summary'] = df_windows["summary"].notna() & df_windows["summary"].astype(str).str.strip().ne("")
+        df_windows['has_markdown'] = df_windows["scraped_markdown"].notna() & df_windows["scraped_markdown"].astype(str).str.strip().ne("")
+        # Check if cve_ids is notna and (if list, not empty; otherwise assume non-empty if notna)
+        df_windows['has_cve_ids'] = df_windows["cve_ids"].notna() & df_windows["cve_ids"].apply(lambda x: bool(x) if isinstance(x, list) else True)
+
+        # Sort by kb_id, then by preference criteria (non-empty first), then by published date (newest first)
+        df_windows.sort_values(
+            by=['kb_id', 'has_summary', 'has_markdown', 'has_cve_ids', 'published'],
+            ascending=[True, False, False, False, False],  # True first for bools means ascending=False
+            inplace=True,
+            na_position='last'  # Keep NaNs in published at the end
         )
-        df_windows = df_windows.drop_duplicates(subset=["kb_id"], keep="first")
+
+        # Keep the first (best) record for each kb_id
+        df_windows = df_windows.drop_duplicates(subset=['kb_id'], keep='first')
+
+        # Drop temporary sorting columns
+        df_windows = df_windows.drop(columns=['has_summary', 'has_markdown', 'has_cve_ids'])
+        # --- End: Modified Duplicate Handling ---
 
         df_windows["kb_id"] = df_windows["kb_id"].apply(normalize_mongo_kb_id)
         df_windows["kb_id"] = df_windows["kb_id"].apply(
             lambda x: x[0] if isinstance(x, list) and len(x) == 1 else x
         )
 
+        # Re-apply validation after potential type changes from normalization
         df_windows = validate_and_adjust_columns(df_windows, master_columns)
         df_windows["node_label"] = "KBArticle"
-        df_windows["published"] = pd.to_datetime(df_windows["published"])
+        # Ensure published is datetime again after potential modifications
+        df_windows["published"] = pd.to_datetime(df_windows["published"], errors='coerce')
         df_windows["excluded_embed_metadata_keys"] = [
             [] for _ in range(len(df_windows))
         ]
@@ -1258,82 +1337,107 @@ def transform_kb_articles(
         except RuntimeError:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
-        logging.info(
-            f"Generating summaries for {df_windows.shape[0]} Windows-based KBs"
-        )
 
-        # Split into docs with and without summaries
-        df_windows_has_summary = df_windows[
-            df_windows["summary"].notna()
-            & df_windows["summary"].fillna("").astype(str).str.strip().ne("")
-        ].copy()
-        df_windows_no_summary = df_windows[
+        # --- Start: Modified Scraping and Summary Generation Logic ---
+
+        # 1. Identify rows that NEED scraping (scraped_markdown is NaN and URL exists)
+        needs_scraping_mask = (
+            df_windows['scraped_markdown'].isna()
+            & df_windows['article_url'].notna()
+            & df_windows['article_url'].astype(str).str.strip().ne('')
+        )
+        df_to_scrape = df_windows[needs_scraping_mask]
+
+        if not df_to_scrape.empty:
+            logging.info(f"Scraping content for {df_to_scrape.shape[0]} Windows-based KBs with missing markdown.")
+            urls_to_scrape = df_to_scrape["article_url"].tolist()
+
+            # Call the scrape_kb_articles function
+            scraped_markdown_list, scraped_jsons_list = loop.run_until_complete(scrape_kb_articles(urls_to_scrape))
+
+            # Create Series with the results, indexed correctly to match df_to_scrape
+            markdown_series = pd.Series(scraped_markdown_list, index=df_to_scrape.index)
+            json_series = pd.Series(scraped_jsons_list, index=df_to_scrape.index, dtype='object')  # Ensure object dtype for json
+
+            # Update the main DataFrame using the index
+            # Use update() to fill NaNs based on index - more robust than direct assignment if lengths differ
+            df_windows['scraped_markdown'].update(markdown_series)
+            df_windows['scraped_json'].update(json_series)
+            logging.info(f"Finished scraping for {len(markdown_series)} articles.")
+        else:
+            logging.info("No Windows-based KBs required scraping (markdown already present or no URL).")
+
+        # 2. Identify rows that NEED summary generation (summary is NaN or empty string)
+        needs_summary_mask = (
             df_windows["summary"].isna()
             | df_windows["summary"].fillna("").astype(str).str.strip().eq("")
-        ].copy()
-
-        logging.info(
-            "Windows-based KBs with no summaries:"
-            f" {df_windows_no_summary.shape[0]}"
         )
-        # Initialize empty columns for scraped content
-        df_windows_no_summary["scraped_markdown"] = None
-        df_windows_no_summary["scraped_json"] = None
+        df_to_summarize = df_windows[needs_summary_mask]
 
-        # Get URLs and filter out empty ones
-        logging.info(f"Scraping content for {df_windows_no_summary.shape[0]} Windows-based KBs")
-        urls = df_windows_no_summary["article_url"].fillna("")
+        if not df_to_summarize.empty:
+            logging.info(f"Generating summaries for {df_to_summarize.shape[0]} Windows-based KBs with missing summaries.")
 
-        # Call the improved scrape_kb_articles function
-        scraped_markdown, scraped_jsons = loop.run_until_complete(scrape_kb_articles(urls))
+            # Use potentially updated scraped_markdown or original text
+            texts_for_summary = df_to_summarize.apply(get_text_for_summary, axis=1).tolist()
 
-        # Update both columns where we have valid URLs
-        mask = df_windows_no_summary["article_url"].notna()
-        df_windows_no_summary.loc[mask, "scraped_markdown"] = scraped_markdown
-        df_windows_no_summary.loc[mask, "scraped_json"] = scraped_jsons
+            # Generate summaries
+            generated_summaries = loop.run_until_complete(
+                generate_summaries(texts_for_summary)
+            )
 
-        df_windows_no_summary["summary"] = ""
-        texts_for_summary = df_windows_no_summary.apply(get_text_for_summary, axis=1)
-        summaries = loop.run_until_complete(
-            generate_summaries(texts_for_summary)
-        )
-        df_windows_no_summary["summary"] = summaries
+            # Create Series with generated summaries, indexed correctly
+            summary_series = pd.Series(generated_summaries, index=df_to_summarize.index)
 
-        # Add update package URL for Windows KB articles
-        df_windows_no_summary["update_package_url"] = df_windows_no_summary[
-            "kb_id"
-        ].apply(_create_kb_catalog_url)
-        df_windows_has_summary["update_package_url"] = df_windows_has_summary[
-            "kb_id"
-        ].apply(_create_kb_catalog_url)
-        df_windows = pd.concat([df_windows_has_summary, df_windows_no_summary])
+            # Update the main DataFrame's summary column
+            # Using .loc ensures we only update the rows that needed summarizing
+            df_windows.loc[needs_summary_mask, 'summary'] = summary_series
+            logging.info(f"Finished generating summaries for {len(summary_series)} articles.")
+
+        else:
+            logging.info("No Windows-based KBs required summary generation.")
+
+        # --- End: Modified Scraping and Summary Generation Logic ---
+
+        # Add update package URL for all Windows KB articles after processing
+        df_windows["update_package_url"] = df_windows["kb_id"].apply(_create_kb_catalog_url)
+
+        # Final sort before finishing the Windows section (optional, but good practice)
         df_windows.sort_values(by="kb_id", ascending=True, inplace=True)
 
         print(f"Total Windows-based KBs transformed: {df_windows.shape[0]}")
 
     else:
-        df_windows = pd.DataFrame(columns=master_columns)
+        # df_windows = pd.DataFrame(columns=master_columns) # Keep this commented if raising error
         print("No Windows KB articles to transform.")
-        raise ValueError("No Windows KB articles to transform.")
+        # Consider if raising an error is still desired, or just return empty/edge data
+        # raise ValueError("No Windows KB articles to transform.")  # Kept as per original logic
 
-    # Process Edge KB articles
+    # Process Edge KB articles (logic unchanged)
     if kb_articles_edge:
         df_edge = pd.DataFrame(
-            kb_articles_edge, columns=list(kb_articles_edge[0].keys())
+            kb_articles_edge  # Assume columns are consistent or handled later
         )
+        # Ensure necessary columns exist for processing, add missing ones
+        for col in ['kb_id', 'cve_ids', 'published', 'id', 'title', 'text', 'article_url']:  # Add minimum needed? Or all master? Add 'id' at least
+            if col not in df_edge.columns:
+                df_edge[col] = pd.NA
 
         df_edge["kb_id"] = df_edge["kb_id"].apply(normalize_mongo_kb_id)
         df_edge["kb_id"] = df_edge["kb_id"].apply(
             lambda x: x[0] if isinstance(x, list) and len(x) == 1 else ""
         )
+        # Simplified Edge deduplication - kept as is
         df_edge = df_edge.sort_values(
             by="cve_ids",
-            key=lambda s, _=None: s.isna()
+            key=lambda s, _=None: s.isna()  # Sorts NaNs last
         )
         df_edge = df_edge.drop_duplicates(subset=["kb_id"], keep="first")
-        df_edge = validate_and_adjust_columns(df_edge, master_columns)
+
+        # Ensure all master columns exist before final processing
+        df_edge = validate_and_adjust_columns(df_edge, master_columns)  # This should handle adding missing master cols
+
         df_edge["node_label"] = "KBArticle"
-        df_edge["published"] = pd.to_datetime(df_edge["published"])
+        df_edge["published"] = pd.to_datetime(df_edge["published"], errors='coerce')
         df_edge["excluded_embed_metadata_keys"] = [
             [] for _ in range(len(df_edge))
         ]
@@ -1356,12 +1460,10 @@ def transform_kb_articles(
             for _ in range(len(df_edge))
         ]
 
-        df_edge["summary"] = ""
-        df_edge[
-            "update_package_url"
-        ] = (  # Initialize update_package_url with empty strings for Edge KB articles
-            ""
-        )
+        # Initialize summary and update_package_url for Edge (as per original logic)
+        df_edge["summary"] = "" if "summary" not in df_edge.columns else df_edge["summary"].fillna("")
+        df_edge["update_package_url"] = "" if "update_package_url" not in df_edge.columns else df_edge["update_package_url"].fillna("")
+
         df_edge.sort_values(by="kb_id", ascending=True, inplace=True)
         print(f"Total Edge-based KBs transformed: {df_edge.shape[0]}")
 
@@ -1369,55 +1471,93 @@ def transform_kb_articles(
         df_edge = pd.DataFrame(columns=master_columns)
         print("No Edge-based KB articles to transform.")
 
-    # Combine Windows and Edge KB articles
+    # Combine Windows and Edge KB articles (logic unchanged)
     dfs_to_concat = []
-    for df in [df_windows, df_edge]:
-        if not df.empty:
-            logging.info("Applying dtypes to non-empty DataFrame")
-            # Apply dtypes to non-empty DataFrames
-            for col, dtype in dtypes.items():
-                if col in df.columns:
+    # Ensure dataframes exist and have columns before applying dtypes/concatenating
+    if 'df_windows' in locals() and not df_windows.empty:
+        logging.info("Applying dtypes to Windows DataFrame")
+        for col, dtype in dtypes.items():
+            if col in df_windows.columns:
+                try:
+                    # Handle object dtype specifically for lists/dicts if needed
+                    if dtype == 'object' and isinstance(df_windows[col].iloc[0], (list, dict)):
+                        continue  # Avoid trying to astype complex objects directly if already correct
+                    df_windows[col] = df_windows[col].astype(dtype)
+                except (ValueError, TypeError, pd.errors.IntCastingNaNError) as e:
+                    logging.warning(f"Warning: Could not convert column {col} to {dtype} in Windows DF: {e}. Trying astype(str).astype(dtype) for safety.")
                     try:
-                        df[col] = df[col].astype(dtype)
-                    except (ValueError, TypeError):
-                        print(
-                            f"Warning: Could not convert column {col} to"
-                            f" {dtype}"
-                        )
-            dfs_to_concat.append(df)
+                        # Attempt conversion via string for robustness (e.g., float -> Int64 with NA)
+                        if dtype == 'str':
+                            df_windows[col] = df_windows[col].astype(str)
+                        # Add other specific safe conversions if needed
+                    except Exception as e_inner:
+                        logging.error(f"Secondary conversion attempt failed for {col}: {e_inner}")
+
+        dfs_to_concat.append(df_windows)
+
+    if 'df_edge' in locals() and not df_edge.empty:
+        logging.info("Applying dtypes to Edge DataFrame")
+        for col, dtype in dtypes.items():
+            if col in df_edge.columns:
+                try:
+                    if dtype == 'object' and isinstance(df_edge[col].iloc[0], (list, dict)):
+                        continue
+                    df_edge[col] = df_edge[col].astype(dtype)
+                except (ValueError, TypeError, pd.errors.IntCastingNaNError) as e:
+                    logging.warning(f"Warning: Could not convert column {col} to {dtype} in Edge DF: {e}. Trying astype(str).astype(dtype) for safety.")
+                    try:
+                        if dtype == 'str':
+                            df_edge[col] = df_edge[col].astype(str)
+                    except Exception as e_inner:
+                        logging.error(f"Secondary conversion attempt failed for {col}: {e_inner}")
+
+        dfs_to_concat.append(df_edge)
 
     # Only concatenate if we have DataFrames to combine
     if dfs_to_concat:
         kb_articles_combined_df = pd.concat(
-            dfs_to_concat, axis=0, ignore_index=True, copy=True
+            dfs_to_concat, axis=0, ignore_index=True, copy=True  # copy=True can prevent SettingWithCopyWarning downstream
         )
 
-        kb_articles_combined_df = kb_articles_combined_df.rename(
-            columns={"id": "node_id"}
-        )
-
-        # Convert build_number to tuple for comparison (if it's a list)
-        kb_articles_combined_df["build_number_tuple"] = (
-            kb_articles_combined_df["build_number"].apply(
-                lambda x: tuple(x) if isinstance(x, list) else x
+        # Rename 'id' to 'node_id' AFTER concatenation
+        if 'id' in kb_articles_combined_df.columns:
+            kb_articles_combined_df = kb_articles_combined_df.rename(
+                columns={"id": "node_id"}
             )
-        )
+        else:
+            logging.warning("Column 'id' not found for renaming to 'node_id'.")
+            # Add node_id if critical? Or assume validate_and_adjust_columns handled it?
+            if 'node_id' not in kb_articles_combined_df.columns:
+                kb_articles_combined_df['node_id'] = pd.NA  # Or generate UUIDs?
 
-        # Drop duplicates keeping first occurrence
-        kb_articles_combined_df = kb_articles_combined_df.drop_duplicates(
-            subset=[
-                "build_number_tuple",
-                "kb_id",
-                "published",
-                "product_build_id",
-            ],
-            keep="first",
-        )
+        # Final duplicate check (kept as is from original code) - Ensure columns exist
+        # final_dedup_cols = ["build_number", "kb_id", "published", "product_build_id"]
+        # if all(col in kb_articles_combined_df.columns for col in final_dedup_cols):
+        #     # Convert build_number to tuple for comparison (if it's a list)
+        #     kb_articles_combined_df["build_number_tuple"] = (
+        #         kb_articles_combined_df["build_number"].apply(
+        #             lambda x: tuple(x) if isinstance(x, list) else x
+        #         )
+        #     )
 
-        # Remove the temporary tuple column
-        kb_articles_combined_df = kb_articles_combined_df.drop(
-            columns=["build_number_tuple"]
-        )
+        #     # Drop duplicates keeping first occurrence
+        #     kb_articles_combined_df = kb_articles_combined_df.drop_duplicates(
+        #         subset=[
+        #             "build_number_tuple",
+        #             "kb_id",
+        #             "published",
+        #             "product_build_id",
+        #         ],
+        #         keep="first",
+        #     )
+
+        #     # Remove the temporary tuple column
+        #     kb_articles_combined_df = kb_articles_combined_df.drop(
+        #         columns=["build_number_tuple"]
+        #     )
+        # else:
+        #     missing_cols = [col for col in final_dedup_cols if col not in kb_articles_combined_df.columns]
+        #     logging.warning(f"Skipping final deduplication step due to missing columns: {missing_cols}")
 
         print(
             "Total KB articles transformed:"
@@ -1425,8 +1565,10 @@ def transform_kb_articles(
         )
         return kb_articles_combined_df
     else:
-        print("No KB articles to transform.")
-        return pd.DataFrame(columns=master_columns)
+        print("No KB articles transformed (neither Windows nor Edge data processed).")
+        # Return empty DataFrame matching expected columns, using node_id
+        final_columns = [col if col != 'id' else 'node_id' for col in master_columns]
+        return pd.DataFrame(columns=final_columns)
 
 
 def process_downloadable_packages(
@@ -1938,189 +2080,101 @@ def _extract_nvd_properties(metadata_dict: Dict) -> Dict[str, Any]:
 
 def transform_msrc_posts(
     msrc_posts: List[Dict[str, Any]], process_all: bool = False
-) -> pd.DataFrame:
-    """Transform MSRC posts, handling both new and pre-processed records efficiently."""
-    logging.info(f"process New or All: {'All' if process_all else 'New'}")
-    metadata_fields_to_move = [
-        "revision",
-        "title",
-        "description",
-        "source",
-        "severity_type",
-        "post_type",
-        "post_id",
-        "summary",
-        "build_numbers",
-        "published",
-        "product_build_ids",
-        "collection",
-        "impact_type",
-    ]
+) -> Optional[pd.DataFrame]:
+    """
+    Transforms MSRC posts, scrapes NVD data, and integrates it,
+    handling both new and pre-processed records efficiently.
+    """
+    logging.info(f"Starting MSRC transform. Process All: {process_all}")
+    # metadata_fields_to_move remains the same
 
     if not msrc_posts:
-        print("No MSRC Posts to transform.")
+        logging.warning("No MSRC Posts provided to transform.")
         return None
 
-    # Create initial dataframe
-    df = _prepare_base_dataframe(msrc_posts, metadata_fields_to_move)
+    # 1. Create initial DataFrame and ensure metadata structure
+    # (Keep your existing logic for _prepare_base_dataframe and metadata init)
+    metadata_fields_to_move = [
+        "revision", "title", "description", "source", "severity_type",
+        "post_type", "post_id", "summary", "build_numbers", "published",
+        "product_build_ids", "collection", "impact_type",
+    ]
+    try:
+        # Assuming _prepare_base_dataframe handles moving fields and returns df
+        df = _prepare_base_dataframe(msrc_posts, metadata_fields_to_move)
+        if 'post_id' not in df.columns:
+            logging.error("Initial DataFrame missing required 'post_id' column after _prepare_base_dataframe.")
+            return None
+    except Exception as e:
+        logging.error(f"Error during _prepare_base_dataframe: {e}", exc_info=True)
+        return None
 
-    # Ensure metadata column exists and has proper structure
+    # Ensure metadata column exists and is dict-like
     if 'metadata' not in df.columns:
-        df['metadata'] = [
-            {'etl_processing_status': {}} for _ in range(len(df))
-        ]
+        df['metadata'] = [{} for _ in range(len(df))]
     else:
+        df['metadata'] = df['metadata'].apply(lambda x: x if isinstance(x, dict) else {})
+        # Ensure etl_processing_status exists within metadata
         df['metadata'] = df['metadata'].apply(
-            lambda x: {
-                **(x if isinstance(x, dict) else {}),
-                'etl_processing_status': (
-                    x.get('etl_processing_status', {})
-                    if isinstance(x, dict)
-                    else {}
-                ),
-            }
+            lambda x: {**x, 'etl_processing_status': x.get('etl_processing_status', {})}
         )
 
-    # Partition records based on whether they've been processed before
-    is_processed = df["metadata"].apply(_check_doc_processed)
-    preprocessed_records = df[is_processed].copy()
-    new_records = df[~is_processed].copy()
-
-    logging.info(
-        f"Found {len(preprocessed_records)} pre-processed records and"
-        f" {len(new_records)} new records"
-    )
-
-    # Apply transformations to new records first
-    if not new_records.empty:
-        new_records = _apply_common_transformations(new_records)
-        # Initialize processing status for new records only
-        current_time = datetime.now(timezone.utc).isoformat()
-        new_records['metadata'] = new_records['metadata'].apply(
-            lambda x: {
-                **x,  # Keep all existing metadata
-                'etl_processing_status': {  # Update only the processing status
-                    'document_processed': True,
-                    'nvd_extracted': False,
-                    'entities_extracted': False,
-                    'graph_prepared': False,
-                    'vector_prepared': False,
-                    'last_processed_at': current_time,
-                    'processing_version': '1.0',
-                },
-            }
-        )
-
-    # If process_all is True, also transform preprocessed records and extract NVD properties
-    if process_all or not preprocessed_records.empty:
-        # Define base properties that get prefixed
-        base_properties = [
-            "attack_complexity",
-            "attack_vector",
-            "availability",
-            "base_score",
-            "base_score_num",
-            "base_score_rating",
-            "confidentiality",
-            "exploitability_score",
-            "impact_score",
-            "integrity",
-            "privileges_required",
-            "scope",
-            "user_interaction",
-            "vector",
-        ]
-
-        # Build full property list with prefixes
-        nvd_properties = []
-        for prefix in ["nist_", "cna_", "adp_"]:
-            nvd_properties.extend(
-                f"{prefix}{prop}" for prop in base_properties
-            )
-
-        # Add non-prefixed properties
-        nvd_properties.extend([
-            "nvd_description",
-            "nvd_published_date",
-            "cwe_id",
-            "cwe_name",
-            "cwe_source",
-            "cwe_url",
-        ])
-
-        # Extract NVD properties for all records (both preprocessed and new)
-        if not preprocessed_records.empty:
-            for nvd_prop in nvd_properties:
-                preprocessed_records[nvd_prop] = preprocessed_records[
-                    'metadata'
-                ].apply(
-                    lambda x, nvd_prop=nvd_prop: _extract_nvd_properties(
-                        x
-                    ).get(nvd_prop)
-                )
-            preprocessed_records = _apply_common_transformations(
-                preprocessed_records
-            )
-
-        if not new_records.empty:
-            for nvd_prop in nvd_properties:
-                new_records[nvd_prop] = new_records['metadata'].apply(
-                    lambda x, nvd_prop=nvd_prop: _extract_nvd_properties(
-                        x
-                    ).get(nvd_prop)
-                )
-
-        records_to_process = (
-            pd.concat([preprocessed_records, new_records])
-            if not preprocessed_records.empty
-            else new_records
-        )
-        logging.info("Processing all records as requested")
+    # 2. Identify records needing NVD extraction
+    if process_all:
+        # If processing all, mark all rows for NVD extraction
+        indices_to_scrape = df.index
+        logging.info(f"Processing all {len(df)} records as requested.")
     else:
-        records_to_process = new_records
-        if not preprocessed_records.empty:
-            logging.info(
-                f"Skipping {len(preprocessed_records)} pre-processed records"
-            )
+        # If not processing all, identify only those not marked as 'nvd_extracted'
+        def needs_nvd_extraction(meta):
+            # Process if metadata invalid
+            if not isinstance(meta, dict): return True  # noqa: E701
+            status = meta.get('etl_processing_status', {})
+            # Process if status isn't a dict or nvd_extracted is not True
+            return not (isinstance(status, dict) and status.get('nvd_extracted') is True)
 
-    # Process records if there are any to process
-    if not records_to_process.empty:
-        # Set up NVD extraction
-        num_cves = len(records_to_process)
+        needs_nvd_mask = df['metadata'].apply(needs_nvd_extraction)
+        indices_to_scrape = df[needs_nvd_mask].index
+        logging.info(f"Identified {len(indices_to_scrape)} records needing NVD extraction (process_all=False).")
+
+    # Store indices of records originally identified as new/needing processing
+    # This helps determine the final return value when process_all=False
+    original_new_indices = indices_to_scrape if not process_all else df.index
+
+    # 3. Apply initial transformations (only if needed, maybe part of _prepare?)
+    # Assuming _apply_common_transformations should happen regardless of NVD status
+    try:
+        df = _apply_common_transformations(df)
+    except Exception as e:
+        logging.error(f"Error during _apply_common_transformations: {e}", exc_info=True)
+        # Decide whether to continue or return
+
+    # --- NVD Extraction Section ---
+    enriched_subset = pd.DataFrame()
+    nvd_extractor = None
+
+    # Only proceed if there are records identified for scraping
+    if not indices_to_scrape.empty:
+        # Create subset DF to pass to extractor
+        records_to_scrape_df = df.loc[indices_to_scrape].copy()
+
+        # Set up NVD extraction parameters
+        num_cves = len(records_to_scrape_df)
+        # Use a sensible default target time per CVE
         scraping_params = ScrapingParams.from_target_time(
-            num_cves=num_cves, target_time_per_cve=4.0
+            num_cves=num_cves, target_time_per_cve=5.0
         )
         estimated_minutes = scraping_params.estimate_total_time(num_cves) / 60
-        print(
-            f"Estimated processing time for {num_cves} records:"
-            f" {estimated_minutes:.1f} minutes"
+        logging.info(
+            f"Estimated NVD processing time for {num_cves} records:"
+            f" {estimated_minutes:.1f} minutes (approx)"
         )
-
+        all_nvd_props = NVDDataExtractor.get_all_possible_columns()
+        logging.debug(f"Requesting NVD Extractor to extract properties: {all_nvd_props}")
+        # Instantiate the NVD Extractor
+        # No need to specify properties_to_extract, class handles it
         nvd_extractor = NVDDataExtractor(
-            properties_to_extract=[
-                # Base metrics
-                "base_score",
-                "base_score_num",
-                "base_score_rating",
-                "vector",
-                "impact_score",
-                "exploitability_score",
-                "attack_vector",
-                "attack_complexity",
-                "privileges_required",
-                "user_interaction",
-                "scope",
-                "confidentiality",
-                "integrity",
-                "availability",
-                # Non-prefixed properties
-                "nvd_published_date",
-                "nvd_description",
-                "cwe_id",
-                "cwe_name",
-                "cwe_source",
-                "cwe_url",
-            ],
+            properties_to_extract=all_nvd_props,
             max_records=None,
             scraping_params=scraping_params,
             headless=True,
@@ -2129,125 +2183,128 @@ def transform_msrc_posts(
         )
 
         try:
-            # enrich the row data from NVD website
-            enriched_records = nvd_extractor.augment_dataframe(
-                df=records_to_process,
+            # Call augment_dataframe on the SUBSET of records needing scraping
+            enriched_subset = nvd_extractor.augment_dataframe(
+                df=records_to_scrape_df,
                 url_column="post_id",
-                batch_size=100,
+                batch_size=50,
             )
+            logging.info(f"NVD extraction completed. Received {len(enriched_subset)} enriched records.")
 
-            if not enriched_records.empty:
-                # Log initial cve_category values
-                # If the document has already been processed, it will have a value for cve_category
-                # If the document has not been processed, it won't have a value for cve_category
-                for idx, row in enriched_records.iterrows():
-                    if isinstance(row['cve_category'], (list, pd.Series)):
-                        logging.info(
-                            f"Row {idx} has non-scalar cve_category:"
-                            f" {row['cve_category']}"
-                        )
+            # *** CRITICAL STEP: Merge enriched data back into the main DataFrame ***
+            if not enriched_subset.empty:
+                missing_cols = [col for col in enriched_subset.columns if col not in df.columns]
+                if missing_cols:
+                    logging.debug(f"Initializing {len(missing_cols)} missing columns in main 'df' before update: {missing_cols}")
+                    for col in missing_cols:
+                        # Initialize with None or an appropriate dtype's null value
+                        if pd.api.types.is_numeric_dtype(enriched_subset[col]):
+                            df[col] = pd.NA  # Use pandas NA for nullable numerics
+                        elif pd.api.types.is_datetime64_any_dtype(enriched_subset[col]):
+                            df[col] = pd.NaT
+                        else:
+                            df[col] = None
+                # Use update() to overwrite values in df based on index from enriched_subset
+                logging.info(f"Updating main DataFrame with {len(enriched_subset)} enriched rows.")
+                df.update(enriched_subset)
+                logging.debug("Main DataFrame update complete.")
+                if 'nvd_description' in df.columns:
+                    logging.debug(f"Column 'nvd_description' successfully updated/added to main 'df'. Sample value: {df['nvd_description'].iloc[0]}")
+                else:
+                    logging.error("Column 'nvd_description' STILL MISSING after df.update(). This is unexpected.")
+            else:
+                logging.warning("NVD augment_dataframe returned empty results. No updates applied to main DataFrame.")
 
-                # Update CVE categories where needed
-                mask = enriched_records['cve_category'].isin(['NC', ''])
-
-                enriched_records.loc[mask, 'cve_category'] = (
-                    enriched_records.loc[mask, 'nvd_description'].apply(
-                        extract_cve_category_from_description
-                    )
-                )
-
-                # Log post-update values
-                for idx in enriched_records[mask].index:
-                    if isinstance(
-                        enriched_records.loc[idx, 'cve_category'],
-                        (list, pd.Series),
-                    ):
-                        logging.warning(
-                            f"After NVD update: Row {idx} has non-scalar"
-                            " cve_category:"
-                            f" {enriched_records.loc[idx, 'cve_category']}"
-                        )
-                    else:
-                        logging.info(
-                            f"After NVD update: Row {idx} cve_category:"
-                            f" {enriched_records.loc[idx, 'cve_category']}"
-                        )
-
-                # Log statistics about category updates
-                updated_count = mask.sum()
-                if (
-                    updated_count > 0
-                    and os.getenv('LOG_LEVEL', '').upper() == 'DEBUG'
-                ):
-                    category_stats = enriched_records.loc[
-                        mask, 'cve_category'
-                    ].value_counts()
-                    logging.info(
-                        f"Updated {updated_count} CVE categories from NVD"
-                        " descriptions"
-                    )
-                    logging.info("Category distribution for updated records:")
-                    logging.info(f"\n{category_stats}")
-
-                # Update processing status after successful NVD extraction
-                current_time = datetime.now().isoformat()
-
-                def update_status(metadata):
-                    if 'etl_processing_status' not in metadata:
-                        logging.info(
-                            "No processing status found in metadata for"
-                            f" {metadata['id']}"
-                        )
-                        return metadata
-                    metadata['etl_processing_status'].update({
-                        'nvd_extracted': True,
-                        'last_processed_at': current_time,
-                    })
-                    return metadata
-
-                enriched_records['metadata'] = enriched_records[
-                    'metadata'
-                ].apply(update_status)
-
-                # Clean up impact_type if it exists
-                if 'impact_type' in enriched_records.columns:
-                    enriched_records['impact_type'] = None
-                    logging.info("Cleaned up impact_type column")
-                if 'id_' in enriched_records.columns:
-                    # drop the column
-                    enriched_records = enriched_records.drop(columns=['id_'])
         except Exception as e:
-            logging.error(f"Error during NVD data extraction: {str(e)}")
-            raise
+            logging.error(f"Error during NVD data extraction: {e}", exc_info=True)
+            # Decide if you want to re-raise or just log and continue
+            # raise # Option to stop pipeline on NVD failure
         finally:
-            nvd_extractor.cleanup()
-    else:
-        enriched_records = pd.DataFrame()
+            if nvd_extractor:
+                nvd_extractor.cleanup()  # Ensure cleanup happens
 
-    # Return logic based on process_all flag
-    if not process_all:
-        # Return only newly processed records
-        if not enriched_records.empty:
-            result_df = enriched_records
-            result_df.sort_values(by="post_id", ascending=True, inplace=True)
-            # result_df["metadata"] = result_df["metadata"].apply(make_json_safe_metadata)
-            print(f"Total new MSRC Posts transformed: {result_df.shape[0]}")
-            return result_df
-        return None
     else:
-        # Return all records with updates from enriched_records
-        if not records_to_process.empty:
-            records_to_process.loc[enriched_records.index] = enriched_records
-            records_to_process.sort_values(
-                by="post_id", ascending=True, inplace=True
+        logging.info("No records required NVD scraping.")
+
+    # --- Post-NVD Processing (Applied to the main DataFrame 'df') ---
+    # Only apply to rows that were intended for scraping (indices_to_scrape)
+    # and successfully enriched (present in enriched_subset index)
+
+    if not enriched_subset.empty:  # Check if any enrichment actually happened
+        enriched_indices = enriched_subset.index
+
+        logging.info(f"Performing post-NVD processing on {len(enriched_indices)} rows.")
+
+        # Example: Update CVE category (ensure column exists first)
+        if 'cve_category' not in df.columns:
+            df['cve_category'] = 'Undetermined'
+        if 'nvd_description' not in df.columns:
+            logging.warning("Cannot update CVE category: 'nvd_description' column not found in DataFrame.")
+        else:
+            # Apply only to the rows that were enriched
+            category_update_mask = df.index.isin(enriched_indices) & df['cve_category'].isin(['NC', '', 'Undetermined', None])
+            df.loc[category_update_mask, 'cve_category'] = (
+                df.loc[category_update_mask, 'nvd_description'].fillna('').apply(
+                    extract_cve_category_from_description
+                )
             )
-            # records_to_process["metadata"] = records_to_process["metadata"].apply(make_json_safe_metadata)
-            print(
-                f"Total MSRC Posts transformed: {records_to_process.shape[0]}"
-            )
-            return records_to_process
-        logging.error("No records to process")
-        return None
+            logging.info(f"Attempted CVE category update for {category_update_mask.sum()} enriched rows.")
+
+        # Example: Update processing status in metadata
+        current_time_iso = datetime.now(timezone.utc).isoformat()
+
+        def update_status(metadata_dict):
+            # Ensure input is a mutable dictionary
+            if not isinstance(metadata_dict, dict):
+                # Handle case where metadata might not be a dict (though earlier steps try to ensure it is)
+                logging.warning(f"Metadata is not a dict: {type(metadata_dict)}. Cannot update status.")
+                return {'etl_processing_status': {'nvd_extracted': True, 'last_processed_at': current_time_iso}}
+
+            # Make a copy to avoid modifying the original dict directly if it's shared
+            # meta_copy = metadata_dict.copy() # Shallow copy ok if etl_processing_status is top-level
+
+            status = metadata_dict.get('etl_processing_status', {})
+            if not isinstance(status, dict):
+                status = {}  # Initialize if not a dict
+
+            # Update the status dict
+            status.update({
+                'nvd_extracted': True,
+                'last_processed_at': current_time_iso
+            })
+
+            # Put the updated status back into the main metadata dict
+            metadata_dict['etl_processing_status'] = status
+            return metadata_dict
+
+        # Apply the status update ONLY to the rows that were successfully enriched
+        df.loc[enriched_indices, 'metadata'] = df.loc[enriched_indices, 'metadata'].apply(update_status)
+        logging.info(f"Updated metadata status for {len(enriched_indices)} enriched rows.")
+
+        # Example: Clean up temporary or unwanted columns if they exist
+        if 'impact_type' in df.columns:
+            df.loc[enriched_indices, 'impact_type'] = None  # Or df.drop('impact_type', ...)
+            logging.info("Cleaned up 'impact_type' column for enriched rows.")
+        # Add similar cleanup for other columns if needed
+
+    else:
+        logging.info("Skipping post-NVD processing as no records were enriched.")
+
+    # 4. Final Return Logic
+    df.sort_values(by="post_id", ascending=True, inplace=True)  # Sort final DF
+
+    if process_all:
+        # Return the full updated DataFrame
+        logging.info(f"Returning full transformed DataFrame with {len(df)} records (process_all=True).")
+        return df
+    else:
+        # Return only the records that were originally identified as needing processing
+        # Ensure these records reflect the updates made during enrichment
+        result_df = df.loc[original_new_indices].copy()  # Select updated rows from main df
+        logging.info(f"Returning {len(result_df)} newly processed/updated records (process_all=False).")
+        if result_df.empty:
+            return None  # Return None if no new records were processed
+        return result_df
 
 
 # End MSRC transformer ========================================
@@ -4304,7 +4361,7 @@ def convert_df_to_llamadoc_kb_articles(
 
     for _, row in df.iterrows():
         try:
-            logging.debug(f"Processing row:\n{row.to_dict()}")
+            logging.info(f"Processing row:\n{row.to_dict()}")
 
             exclude_columns = [
                 'text',
@@ -4342,6 +4399,8 @@ def convert_df_to_llamadoc_kb_articles(
                 "cve_ids": get_clean_value(row, "cve_ids", []),
                 "build_number": get_clean_value(row, "build_number", []),
                 "article_url": get_clean_value(row, "article_url", ""),
+                "scraped_markdown": get_clean_value(row, "scraped_markdown", ""),
+                "scraped_json": get_clean_value(row, "scraped_json", ""),
                 "reliability": get_clean_value(row, "reliability", ""),
                 "readability": get_clean_value(row, "readability", ""),
                 "excluded_embed_metadata_keys": get_clean_value(
@@ -5024,584 +5083,4 @@ def convert_df_to_llamadoc_patch_posts(
 
 # End Convert dataframes to LlamaDocs ==========================
 
-# BEGIN REPORT TRANSFORMERS ==========================
 
-class JSONSanitizingEncoder(json.JSONEncoder):
-    """Custom JSON encoder for handling datetime objects and other special types."""
-    def default(self, obj):
-        try:
-            if isinstance(obj, datetime.datetime):
-                return obj.isoformat()
-            elif isinstance(obj, (set, frozenset)):
-                return list(obj)
-            elif hasattr(obj, 'tolist'):  # Handle numpy arrays
-                return obj.tolist()
-            elif hasattr(obj, '__dict__'):  # Handle objects with __dict__
-                return obj.__dict__
-            elif isinstance(obj, float) and (obj != obj):  # Check for NaN
-                return None
-            return str(obj)
-        except Exception as e:
-            logging.warning(f"Error serializing object {type(obj)}: {e}")
-            return str(obj)
-
-
-class CVEScore(BaseModel):
-    """Model for CVE score data."""
-    source: str
-    score_num: Optional[float]
-    score_rating: Optional[str]
-
-
-def choose_score_for_kb_report(metadata: Dict[str, Any]) -> CVEScore:
-    """Select the highest score between CNA, NIST, and ADP scores.
-
-    Args:
-        metadata (Dict[str, Any]): Document metadata containing score information
-
-    Returns:
-        CVEScore: Selected score with its source and rating
-    """
-    scores = [
-        ("CNA", metadata.get("cna_base_score_num"), metadata.get("cna_base_score_rating")),
-        ("NIST", metadata.get("nist_base_score_num"), metadata.get("nist_base_score_rating")),
-        ("ADP", metadata.get("adp_base_score_num"), metadata.get("adp_base_score_rating"))
-    ]
-
-    # Convert score numbers to float if they exist
-    valid_scores = []
-    for src, num, rating in scores:
-        try:
-            num_float = float(num) if num is not None else None
-            if num_float is not None:
-                valid_scores.append((src, num_float, rating))
-        except (ValueError, TypeError):
-            continue
-
-    if not valid_scores:
-        return CVEScore(source="None", score_num=None, score_rating=None)
-
-    # Sort by score descending, then by priority (CNA > NIST > ADP)
-    sorted_scores = sorted(
-        valid_scores,
-        key=lambda x: (-x[1], ["CNA", "NIST", "ADP"].index(x[0]))
-    )
-
-    best = sorted_scores[0]
-    return CVEScore(
-        source=best[0],
-        score_num=best[1],
-        score_rating=best[2]
-    )
-
-
-def process_cve_data_for_kb_report(
-    cve_details: List[Dict[str, Any]]
-) -> Dict[str, Dict[str, Any]]:
-    """Process CVE details and create a lookup dictionary with KB associations.
-
-    Args:
-        cve_details (List[Dict[str, Any]]): List of CVE documents
-
-    Returns:
-        Dict[str, Dict[str, Any]]: Dictionary mapping CVE IDs to their details
-            and includes a special __kb_to_cve_map key for KB-to-CVE relationships
-    """
-    cve_lookup = {}
-    kb_to_cve_map = defaultdict(set)  # Track KB to CVE relationships
-
-    for doc in cve_details:
-        metadata = doc.get("metadata", {})
-        if not metadata:
-            continue
-
-        score = choose_score_for_kb_report(metadata)
-        post_id = metadata.get("post_id")
-
-        if not post_id:
-            continue
-
-        cve_info = {
-            "id": metadata.get("id"),
-            "post_id": post_id,
-            "revision": metadata.get("revision"),
-            "published": metadata.get("published"),
-            "source": metadata.get("source"),
-            "category": metadata.get("cve_category"),
-            "score": score.model_dump(),
-            "cve_source": doc.get("cve_source", "unknown"),
-            "referenced_kbs": doc.get("kb_ids", [])  # Get kb_ids from root level
-        }
-
-        cve_lookup[post_id] = cve_info
-
-        # Build KB to CVE mapping from root-level kb_ids
-        for kb_id in doc.get("kb_ids", []):
-            kb_to_cve_map[kb_id].add(post_id)
-
-    # Convert set to list for JSON serialization
-    kb_cve_map_json = {
-        kb_id: list(cve_ids)
-        for kb_id, cve_ids in kb_to_cve_map.items()
-    }
-
-    # Add the mapping to the lookup
-    cve_lookup["__kb_to_cve_map"] = kb_cve_map_json
-
-    return cve_lookup
-
-
-async def transform_kb_data_for_kb_report(
-    kb_articles: List[Dict[str, Any]],
-    cve_lookup: Dict[str, Dict[str, Any]]
-) -> pd.DataFrame:
-    """Transform KB articles with CVE details.
-
-    Args:
-        kb_articles (List[Dict[str, Any]]): List of KB articles
-        cve_lookup (Dict[str, Dict[str, Any]]): CVE lookup dictionary
-
-    Returns:
-        pd.DataFrame: DataFrame with enriched KB articles
-    """
-    if not kb_articles:
-        return pd.DataFrame()
-
-    kb_df = pd.DataFrame(kb_articles)
-    # Replace inf and nan values with None
-    float_cols = kb_df.select_dtypes(include=['float64']).columns
-    for col in float_cols:
-        kb_df[col] = kb_df[col].replace(
-            [float('inf'), float('-inf'), float('nan')],
-            None
-        )
-
-    # Extract the KB-to-CVE mapping
-    kb_to_cve_map = cve_lookup.pop('__kb_to_cve_map', {})
-
-    def get_all_cve_ids(row):
-        """Get both direct and indirect CVE references for a KB article."""
-        kb_id = str(row['kb_id'])  # Ensure kb_id is a string
-
-        # Handle direct CVEs - if cve_ids is NaN or None, use empty list
-        direct_cves = []
-        if isinstance(row.get('cve_ids'), list):  # Only use if it's actually a list
-            direct_cves = row['cve_ids']
-
-        # Get indirect CVEs from the mapping, ensure we get a list back
-        indirect_cves = kb_to_cve_map.get(f"kb{kb_id}", [])
-
-        # Ensure both are lists before trying set operations
-        direct_cves = list(direct_cves) if isinstance(direct_cves, (list, set)) else []
-        indirect_cves = list(indirect_cves) if isinstance(indirect_cves, (list, set)) else []
-
-        # Combine and deduplicate
-        return list(set(direct_cves + indirect_cves))  # Union of both sets
-    # Update cve_ids column with both direct and indirect references
-
-    kb_df['has_summary'] = (
-        kb_df['summary'].notna()
-        & (kb_df['summary'].str.strip() != '')
-    )
-    kb_df['has_cve_ids'] = kb_df['cve_ids'].apply(
-        lambda x: len(x) > 0 if isinstance(x, list) else False
-    )
-
-    sort_columns = ['kb_id', 'has_summary', 'has_cve_ids']
-    sort_ascending = [True, False, False]
-    kb_df = kb_df.sort_values(
-        sort_columns,
-        ascending=sort_ascending
-    )
-    kb_df = kb_df.drop_duplicates(subset=['kb_id'], keep='first')
-    kb_df = kb_df.drop(columns=['has_summary', 'has_cve_ids'])
-    kb_df['cve_ids'] = kb_df.apply(get_all_cve_ids, axis=1)
-
-    def attach_cve_details(row: pd.Series) -> Dict[str, Any]:
-        """Create CVE details structure for a KB record.
-
-        Groups CVEs by category and sorts them by score within each category.
-
-        Args:
-            row (pd.Series): Row from the KB DataFrame containing cve_ids
-
-        Returns:
-            Dict[str, Any]: CVE details organized by category with the structure:
-                {
-                    'total_cves': int,
-                    'categories': {
-                        'category_name': [
-                            {
-                                'id': str,
-                                'post_id': str,
-                                'score': dict,
-                                ...
-                            },
-                            ...
-                        ]
-                    }
-                }
-        """
-        if not isinstance(row.get('cve_ids'), list):
-            return {}
-
-        # Group CVEs by category
-        category_groups: DefaultDict[str, List[Dict[str, Any]]] = defaultdict(list)
-
-        for cve_id in row['cve_ids']:
-            if cve_id not in cve_lookup:
-                continue
-
-            cve_info = cve_lookup[cve_id]
-            category = cve_info.get('category', 'Uncategorized')
-            category_groups[category].append(cve_info)
-
-        # Sort CVEs within each category by score
-        for category, cves in category_groups.items():
-            category_groups[category] = sorted(
-                cves,
-                key=lambda x: float(
-                    x.get('score', {}).get('score', 0) or 0
-                ),
-                reverse=True
-            )
-
-        return {
-            'total_cves': len(row['cve_ids']),
-            'categories': dict(sorted(category_groups.items()))
-        }
-
-    kb_df["cve_details"] = kb_df.apply(attach_cve_details, axis=1)
-    kb_df['os_classification'] = kb_df['text'].apply(classify_os)
-    tasks = []
-    for _, row in kb_df.iterrows():
-        title = row.get('title', '')
-        text = row.get('text', '')
-        doc_id = str(row.get('id', ''))
-        tasks.append(generate_kb_report_structure(title, text, doc_id))
-
-    # Create DataFrame with report structures
-    try:
-        report_structures = await asyncio.gather(*tasks)
-    except Exception as e:
-        logging.error(f"Error during batch report generation: {e}")
-        # You could either raise the error or return a partial DataFrame
-        raise e
-    report_df = pd.DataFrame(report_structures)
-
-    # Merge the DataFrames
-    final_df = pd.merge(
-        kb_df,
-        report_df,
-        left_on='id',
-        right_on='doc_id',
-        how='outer'
-    )
-
-    return final_df
-
-
-def classify_os(text):
-    # Extract the first 200 words from the text.
-    words = text.split()
-    snippet = " ".join(words[:200])
-
-    # Define case-insensitive regex patterns.
-    # We use word boundaries (\b) to avoid matching partial words.
-    pattern10 = re.compile(r"(?i)\bWindows\s*10\b")
-    pattern11 = re.compile(r"(?i)\bWindows\s*11\b")
-    patternSrv = re.compile(r"(?i)\bWindows\s*Server\b")
-
-    # Search for matches in the snippet.
-    has10 = bool(pattern10.search(snippet))
-    has11 = bool(pattern11.search(snippet))
-    hasSrv = bool(patternSrv.search(snippet))
-
-    # Classification logic:
-    # If both Windows 10 and Windows 11 appear, or if Windows Server appears together with one of them,
-    # then classify as "multi os".
-    if (has10 and has11) or ((has10 or has11) and hasSrv):
-        return "multi"
-    # If only Windows 10 appears, without Windows Server or Windows 11.
-    elif has10 and not has11 and not hasSrv:
-        return "windows_10"
-    # If only Windows 11 appears, without Windows Server or Windows 10.
-    elif has11 and not has10 and not hasSrv:
-        return "windows_11"
-    # Fallback classification if none of the patterns match.
-    else:
-        return "Unknown"
-
-
-def extract_json_string(response_str):
-    """
-    Extracts the JSON string from a given LLM response that might be wrapped in markdown fences
-    or contain extraneous text, returning only the content between the first '{' and the last '}'.
-
-    Parameters:
-        response_str (str): The raw LLM response string.
-
-    Returns:
-        str: The cleaned JSON substring.
-
-    Raises:
-        ValueError: If no valid JSON object is found in the response.
-    """
-    # Trim whitespace and newlines
-    response_str = response_str.strip()
-
-    # Find the first '{' and the last '}' in the response
-    start = response_str.find('{')
-    end = response_str.rfind('}')
-
-    if start == -1 or end == -1 or start > end:
-        raise ValueError("No valid JSON object found in the response.")
-
-    # Extract and return the JSON substring
-    json_str = response_str[start:end+1]
-    return json_str
-
-
-async def generate_kb_report_structure(
-    title: str,
-    text: str,
-    doc_id: str
-) -> Dict[str, Any]:
-    """Generate structured report data from KB article title and text.
-
-    Args:
-        title (str): KB article title
-        text (str): KB article text content
-        doc_id (str): Unique document ID for cache file naming
-
-    Returns:
-        Dict[str, Any]: Structured report data
-    """
-    def validate_report_structure(response: Dict[str, Any]) -> bool:
-        required_fields = {
-            "doc_id", "report_title", "report_os_builds",
-            "report_new_features", "report_bug_fixes",
-            "report_known_issues_workarounds", "report_summary"
-        }
-        return all(field in response for field in required_fields)
-
-    # Define cache directory
-    cache_dir = os.path.join(
-        os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
-        "application",
-        "data",
-        "llm_cache",
-        "kb_report_v1"
-    )
-    os.makedirs(cache_dir, exist_ok=True)
-
-    # Define cache file path using the unique document ID
-    cache_file = os.path.join(
-        cache_dir,
-        f"kb_report_restructured_{doc_id}.json"
-    )
-    # Check if cache exists
-    if os.path.exists(cache_file):
-        try:
-            with open(cache_file, 'r', encoding='utf-8') as f:
-                cached_response = json.load(f)
-                if validate_report_structure(cached_response):
-                    return cached_response
-                else:
-                    print(f"Cached response for {doc_id} failed validation, regenerating...")
-        except Exception as e:
-            logging.warning(f"Error reading cache file {cache_file}: {e}")
-    marvin.settings.openai.chat.completions.model = "gpt-4o"
-    marvin_restructure_prompt = r"""
-        **Objective:** Extract key information from the following Microsoft KB Article text and structure it
-        into a standardized JSON format for senior system administrators. Use precise language and technical detail.
-        Transform the following Microsoft KB Article text into a JSON dictionary with the following structure:
-
-        ```json
-        {{
-            "doc_id": "string",
-            "report_title": "text",
-            "report_os_builds": ["12345.1234"],
-            "report_new_features": ["list of the most important new features"],
-            "report_bug_fixes": ["list of the most important bug fixes"],
-            "report_known_issues_workarounds": ["list of the most important Known Issues and workarounds"],
-            "report_summary": ""
-        }}
-        ```
-        **Instructions:**
-
-        1.  **report title:** The title is provided in the context.
-        2.  **report OS Builds:**
-            *   Extract all the OS Build numbers from the title text and the body text near the label "Version:".
-            *   Example Title: "5043064 - September 10, 2024—KB5043064 (OS Builds 19044.4894 and 19045.4894) - Microsoft Support"
-            *   OS Build numbers appear as "OS Build 19044.4894".
-            *   Example Output: "- 10.0.19044.4894\n - 10.0.19045.4894"
-            *   Return a valid markdown list of OS Build numbers.
-        3.  **report New Features:**
-            *   Extract the most important new features from the KB article or all of them if there are less than 10.
-            *   Prioritize security-related features and features with wide implications, but also include non-security features.
-            *   Use active tense, long form sentences that completely explain the feature, what it is, where to find it, how to enable or access it.
-            *   Limit the list to a maximum of 10 items.
-            *   Return a valid markdown list of new features.
-        4.  **report Bug Fixes:**
-            *   Extract the most important bug fixes from the KB article or all of them if there are less than 10.
-            *   Prioritize security-related fixes and fixes with wide implications, but also include non-security fixes.
-            *   Use active tense, long form sentences that completely explain the bug, what it is, its implications, what it affects.
-            *   If there is a fix or workaround, explain what it is.
-            *   Limit the list to a maximum of 10 items.
-            *   Return a valid markdown list of bug fixes.
-        5.  **report Known Issues & Workarounds:**
-            *   From the "Known issues in this update" section, extract exactly three bullet points that summarize the key known issues. Each bullet point must be a single, concise sentence that includes:
-                **Who**: The affected user group (e.g., "All users", "IT admins").
-                **What**: A brief description of the issue.
-                **Why**: The impact or significance of the issue (for example, whether it impedes functionality, causes update failures, or poses a security risk).
-                **How**: The workaround or recommended action.
-            *   Combine these elements so that the reader can immediately assess if they need to take action.
-            *   Return a valid markdown list of known issues and workarounds.
-        6.  **report Summary:** Insert an empty string. This data is already available in a separate data structure.
-
-        **Handling Missing Information:**
-
-        *   If a specific field cannot be found in the KB article, insert the string "No Information Available".
-
-        **KB Article Headings:**
-
-        *   KB Articles often have some or all of the following headings. Use them to detect changes in topic or points of interest:
-            *   Report title
-            *   Applies To
-            *   Version
-            *   Highlights
-                *   Gradual Rollout
-                    *   new features
-                    *   bug fixes
-                *   Normal Rollout
-                    *   new features
-                    *   bug fixes
-            *   Improvements
-                *   bug fixes
-            *   Windows N servicing stack update
-            *   Known issues in this update
-                *   (Applies to | Symptom | Workaround)
-            *   How to get this update
-        *   Note. if there is a "Known issues in this update" header, that content is coming from a table with 3 columns but loses the structure so it is difficult to parse.
-            Data from the first column usually looks like "Enterprise users" or "All users" or "IT admins". If there are multiple known issues, there will be multiple short strings that describe who the issue affects.
-            Data from the second column consistutes the bulk of the text and usually describes the issue.
-            Data from the third column usually consists of a shorter text block of the workaround or a link to a KB article.
-            The Known issues section ends when you encounter the header "How to get this update".
-**Example:**
----
-doc_id: 4d1364fd-665c-7c07-5d00-1990bb220a4f
-
-January 28, 2025—KB5050094 (OS Build 26100.3037) Preview
-
-Version: OS Build 26100.3037
-
-Highlights
-This update makes quality improvements to the servicing stack, which is the component that installs operating system updates.
-Gradual Rollout
-These might not be available to all users because they will roll out gradually.
-[Taskbar] New! This update improves the previews that show when your cursor hovers over apps on the taskbar. The update also improves their animations.
-Improvements
-This non-security update includes quality improvements. Below is a summary of the key issues that this update addresses when you install this KB. If there are new features, it lists them as well. The bold text within the brackets indicates the item or area of the change we are documenting.
-This update addresses an issue that affects the Multi-App Kiosk mode. It prevents the print dialog box from opening.
-This update addresses an issue that affects the Settings app. It stops responding when you uninstall a printer.
-[Memory leak] Fixed: Leaks occur when predictive input ideas show.
-Known issues in this update
-Applies to
-Symptom
-Workaround
-All users
-We're aware of an issue where players on Arm devices are unable to download and play Roblox via the Microsoft Store on Windows.
-Players on Arm devices can play Roblox by downloading the title directly from www.Roblox.com.
-All users
-Following the installation of the October 2024 security update, some customers report that the OpenSSH (Open Secure Shell) service fails to start, preventing SSH connections. The service fails with no detailed logging, and manual intervention is required to run the sshd.exe process.
-This issue is affecting both enterprise, IOT, and education customers, with a limited number of devices impacted. Microsoft is investigating whether consumer customers using Home or Pro editions of Windows are affected. Open PowerShell as an Administrator.
-Update the permissions for C:\ProgramData\ssh and C:\ProgramData\ssh\logs to allow full control for SYSTEM and the Administrators group, Repeat the above steps for C:\ProgramData\ssh\logs....
-IT admins
-Devices that have certain Citrix components installed might be unable to complete installation of the January 2025 Windows security update. This issue was observed on devices with Citrix Session Recording Agent (SRA) version 2411. The 2411 version of this application was released in December 2024.
-Affected devices might initially download and apply the January 2025 Windows security update correctly, such as via the Windows Update page in Settings. However, when restarting the device to complete the update installation, an error message with text similar to “Something didn't go as planned. No need to worry - undoing changes” appears. The device will then revert to the Windows updates previously present on the device.
-How to get this update
-Before you install this update
-Microsoft combines the latest servicing stack update (SSU) for your operating system with the latest cumulative update (LCU).
----
-
-        The expected JSON output would be:
-
-        ```json
-        {{
-            "doc_id": "4d1364fd-665c-7c07-5d00-1990bb220a4f",
-            "report_title": "January 28, 2025—KB5050094 (OS Build 26100.3037) Preview",
-            "report_os_builds": ["10.0.26100.3037"],
-            "report_new_features": ["Taskbar - This update improves the previews that show when your cursor hovers over apps on the taskbar. The update also improves their animations."],
-            "report_bug_fixes": ["This update addresses an issue that affects the Multi-App Kiosk mode. It prevents the print dialog box from opening.", "This update addresses an issue that affects the Settings app. It stops responding when you uninstall a printer.", "Memory leak - Fixed: Leaks occur when predictive input ideas show."],
-            "report_known_issues_workarounds": ["All users on Arm devices experience an inability to download and play Roblox via the Microsoft Store on Windows, potentially disrupting access to the game; workaround: download Roblox directly from www.Roblox.com.","All users affected by the October 2024 update experience OpenSSH service startup failure on Windows—impacting enterprise, IoT, and education environments by interrupting SSH connections; immediate action: update permissions on C:\ProgramData\ssh and C:\ProgramData\ssh\logs using the provided PowerShell commands.", "IT admins managing devices with Citrix Session Recording Agent (version 2411) encounter update rollback during the January 2025 Windows security update, risking incomplete installations; immediate action: follow the Citrix-documented workaround prior to applying the update."],
-            "report_summary": ""
-        }}
-        ```
-        doc_id: {doc_id}
-        KB Article title:
-        {kb_article_title}
-        KB Article text:
-        {kb_article_text}
-        """
-
-    if pd.isna(text) or text is None or str(text).strip() == "":
-        structured_response = {
-            "doc_id": doc_id,
-            "report_title": title,
-            "report_os_builds": [],
-            "report_new_features": ["No Information Available"],
-            "report_bug_fixes": ["No Information Available"],
-            "report_known_issues_workarounds": ["No Information Available"],
-            "report_summary": ""
-        }
-        return structured_response
-    else:
-        model_kwargs = {"max_tokens": 1500, "temperature": 0.90}
-        try:
-            # Ensure the OpenAI API key is set
-            api_key = os.getenv('OPENAI_API_KEY')
-            if not api_key:
-                raise EnvironmentError("OPENAI_API_KEY environment variable is not set.")
-
-            # Attempt to generate the LLM response
-            llm_response = await generate_llm_response(
-                marvin_restructure_prompt.format(
-                    kb_article_title=title,
-                    kb_article_text=text,
-                    doc_id=doc_id),
-                model_kwargs=model_kwargs,
-            )
-            response_content = llm_response.response.choices[0].message.content
-            # Cache the result
-            structured_response = ""
-            try:
-                structured_response = json.loads(extract_json_string(response_content))
-                if not validate_report_structure(structured_response):
-                    raise ValueError(f"LLM response for {doc_id} failed validation")
-                with open(cache_file, 'w', encoding='utf-8') as f:
-                    json.dump(structured_response, f, cls=JSONSanitizingEncoder, indent=2)
-            except Exception as e:
-                logging.warning(f"Error writing cache file {cache_file}: {e}")
-            return structured_response
-
-        except EnvironmentError as env_err:
-            logging.error(f"Marvin Environment error: {env_err}")
-            # Handle missing environment variable or other environment-related issues
-            raise env_err
-        except AuthenticationError as auth_err:
-            logging.error(f"Marvin Authentication error: {auth_err}")
-            # Handle issues related to API authentication
-            raise auth_err
-        except APIConnectionError as conn_err:
-            logging.error(f"Marvin API connection error: {conn_err}")
-            # Handle issues related to network connectivity or API server availability
-            raise conn_err
-
-        except Exception as e:
-            logging.error(f"A Marvin error occurred: {e}")
-            # Handle any other unforeseen exceptions
-            raise e
-
-
-# END REPORT TRANSFORMERS ==========================

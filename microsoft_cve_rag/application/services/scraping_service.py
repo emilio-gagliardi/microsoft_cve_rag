@@ -164,7 +164,7 @@ class BaseScraper:
 
         if run_config is None:
             run_config = CrawlerRunConfig(
-                word_count_threshold=0,
+                word_count_threshold=5,
                 exclude_external_links=True,
                 wait_until="networkidle",
                 extraction_strategy=None,
@@ -628,7 +628,7 @@ class MicrosoftKbScraper(BaseScraper):
                 "Ensure that each field is extracted correctly from the Markdown. Return only the JSON object."
             )
             extraction_strategy = LLMExtractionStrategy(
-                provider="openrouter/google/gemini-2.0-pro-exp-02-05:free",
+                provider="openrouter/google/gemini-2.5-pro-exp-03-25:free",
                 api_token=openrouter_api_key,
                 schema=json_schema,
                 extraction_type="schema",

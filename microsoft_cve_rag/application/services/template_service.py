@@ -14,6 +14,29 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
+def strftime_filter(date_str: str, format_str: str) -> str:
+    """Convert date string to formatted date string.
+
+    Args:
+        date_str: Date string in ISO format
+        format_str: Format string for strftime
+
+    Returns:
+        Formatted date string
+    """
+    try:
+        if isinstance(date_str, str):
+            date = datetime.fromisoformat(date_str.replace('Z', '+00:00'))
+        elif isinstance(date_str, datetime):
+            date = date_str
+        else:
+            return date_str
+        return date.strftime(format_str)
+    except (ValueError, TypeError) as e:
+        logger.error(f"Error formatting date {date_str}: {e}")
+        return date_str
+
+
 class TemplateService:
     """Service for rendering Jinja2 templates."""
 
@@ -59,6 +82,7 @@ class TemplateService:
             # Add custom filters
             self.env.filters['parse_markdown'] = self._parse_markdown
             self.env.filters['to_json'] = self._to_json
+            self.env.filters['strftime'] = strftime_filter
             # Test if we can list templates
             available_templates = self.env.list_templates()
             logger.debug(f"Available templates: {available_templates}")
@@ -244,13 +268,15 @@ class TemplateService:
     def render_kb_report(
         self,
         kb_data: list[Dict[str, Any]],
-        report_date: datetime
+        report_date: datetime,
+        report_title: str
     ) -> str:
         """Render the KB report template with provided data.
 
         Args:
             kb_data: List of KB article data to render
             report_date: Date of report generation
+            report_title: Title of the report
 
         Returns:
             str: Path to the rendered HTML file
@@ -260,84 +286,57 @@ class TemplateService:
             TemplateSyntaxError: If there are syntax errors in the template.
             Exception: For other rendering errors
         """
+        if not kb_data:
+            raise ValueError("KB data is required for report generation.")
+        logger.info(f"Rendering template with {len(kb_data)} articles...")
         try:
             logger.info("Loading report template...")
             template = self.env.get_template("weekly_kb_report/report.html.j2")
 
-            # Create output directory if it doesn't exist
-            report_dir = os.path.join(
-                self.output_dir,
-                "weekly_kb_report",
-                "html"
-            )
-            os.makedirs(report_dir, exist_ok=True)
+            # # Create output directory if it doesn't exist
+            # report_dir = os.path.join(
+            #     self.output_dir,
+            #     "weekly_kb_report",
+            #     "html"
+            # )
+            # os.makedirs(report_dir, exist_ok=True)
 
-            # Generate output filename
-            output_file = os.path.join(
-                report_dir,
-                f"kb_report_{report_date.strftime('%Y%m%d')}.html"
-            )
+            # # Generate output filename
+            # output_file = os.path.join(
+            #     report_dir,
+            #     f"kb_report_{report_date.strftime('%Y%m%d')}.html"
+            # )
+            # report_date_format = '%B %d, %Y'
 
-            logger.debug(f"Rendering template with {len(kb_data)} articles...")
+            # if not report_date or not isinstance(report_date, datetime):
+            #     if isinstance(report_date, str):
+            #         report_date = datetime.strptime(report_date, report_date_format)
+            #     else:
+            #         report_date = datetime.now()
+            #         logger.warning("Report date not provided or invalid, using current date.")
+            # else:
+            #     report_date = report_date.strftime(report_date_format)
 
-            # Debug log each article's structure
-            # for i, article in enumerate(kb_data):
-            #     logger.info(f"Article {i} structure:")
-            #     for key, value in article.items():
-            #         if value is None:
-            #             logger.info(f"  {key}: None")
-            #         else:
-            #             logger.info(f"  {key}: {type(value)}")
-            #             if isinstance(value, dict):
-            #                 logger.info("  Dictionary contents:")
-            #                 for k, v in value.items():
-            #                     if v is None:
-            #                         logger.info(f"    {k}: None")
-            #                     else:
-            #                         logger.info(f"    {k}: {type(v)}")
-            #                         if isinstance(v, dict):
-            #                             logger.info("    Nested dictionary contents:")
-            #                             for nk, nv in v.items():
-            #                                 logger.info(f"      {nk}: {type(nv)}")
-            #             elif isinstance(value, list):
-            #                 logger.info("  List contents:")
-            #                 for item in value:
-            #                     logger.info(f"    {type(item)}")
-
-            # Log template variables
-            template_vars = {
-                'kb_articles': kb_data,
-                'title': "Weekly KB Security Report",
-                'generated_at': report_date.isoformat()
-            }
-            logger.debug("Template variables:")
-            logger.debug(f"  title: {template_vars['title']}")
-            logger.debug(f"  generated_at: {template_vars['generated_at']}")
-            logger.debug("  kb_articles fields used in template:")
-            logger.debug("    - id")
-            logger.debug("    - title")
-            logger.debug("    - published_date (using published)")
-            logger.debug("    - url (using article_url)")
-            logger.debug("    - os_builds (using build_number)")
-            logger.debug("    - cve_details")
-            logger.debug("    - cves (using cve_ids)")
-            logger.debug("    - new_features (using report_new_features)")
-            logger.debug("    - bug_fixes (using report_bug_fixes)")
-            logger.debug("    - known_issues (using report_known_issues_workarounds)")
+            # Build CVE data lookup
+            all_kb_cve_data = {}
+            for article in kb_data:
+                if 'kb_id' in article and 'cve_details' in article:
+                    all_kb_cve_data[article['kb_id']] = article['cve_details']
 
             # Render template with data
             html_content = template.render(
                 kb_articles=kb_data,
-                title="Weekly KB Security Report",
-                generated_at=report_date.isoformat()
+                title=report_title,
+                generated_at=report_date,
+                all_kb_cve_data=all_kb_cve_data
             )
 
-            logger.info(f"Writing output to: {output_file}")
-            # Write to file
-            with open(output_file, "w", encoding="utf-8") as f:
-                f.write(html_content)
+            # logger.info(f"Writing output to: {output_file}")
+            # # Write to file
+            # with open(output_file, "w", encoding="utf-8") as f:
+            #     f.write(html_content)
 
-            return output_file
+            return html_content if html_content else None
 
         except TemplateNotFound as e:
             logger.error(f"Template not found: {str(e)}")
