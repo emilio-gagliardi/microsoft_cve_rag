@@ -1,0 +1,355 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import './company-base.css';
+
+/* ==========================================================================
+Theme Definition (Replaces theme config in tailwind.config.js for v4)
+========================================================================== */
+
+@theme {
+  /* --- Brand Colors --- */
+  --color-brand-pink: #DF0D5F;
+  --color-brand-red: #E82F27;
+  --color-brand-orange: #EB8B06; /* Also used as report-main */
+  --color-brand-yellow: #F5B000;
+  --color-brand-yellow-light: #FFE900;
+  --color-brand-lime: #A0C722;
+  --color-brand-green: #00A33E; /* Also used as report-success */
+  --color-brand-teal: #67C2C0;
+  --color-brand-blue: #22A5DD; /* Also used as report-info */
+  --color-brand-black: #000000;
+
+  /* --- Report Core Palette --- */
+  --color-report-light-bg: #F4F6F3;
+  --color-report-light-accent: #B9A696;
+  --color-report-main: #EB8B06;
+  --color-report-dark-accent: #D84749; /* Also used as report-danger */
+  --color-report-dark-bg: #1B222D;
+
+  /* --- Report Derived Colors & Shades --- */
+  --color-report-text-light: #1B222D;
+  --color-report-text-dark: #FCFCFC;
+  --color-report-text-muted-light: #575f6b;
+  --color-report-text-muted-dark: #a0a7b0;
+
+  --color-report-border-light: #d1cdc7;
+  --color-report-border-dark: #3a4250;
+
+  --color-report-surface-light: #FFFFFF;
+  --color-report-surface-dark: #2a3140;
+
+  /* --- Report Explicit Shades --- */
+  --color-report-ebony-clay: #1f2536;
+  --color-report-alabaster: #FCFCFC;
+  --color-report-valencia-dark: #D64849;
+  --color-report-golden-bell-dark: #EB8C17;
+  --color-report-malta: #B8A998;
+  --color-report-blue-dark: #202536;
+  --color-report-blue-darker: #0E0F15;
+
+  /* --- Report Semantic Colors --- */
+  /* Info */
+  --color-report-info: #22A5DD;
+  --color-report-info-bg-light: #e9f6fd;
+  --color-report-info-text-light: #1a7ea3;
+  --color-report-info-border-light: #a6d9ef;
+  --color-report-info-bg-dark: #1e3a4c;
+  --color-report-info-text-dark: #9ad5f5;
+  --color-report-info-border-dark: #22A5DD; /* Use main color for dark border */
+  /* Success */
+  --color-report-success: #00A33E;
+  --color-report-success-bg-light: #e6f6ed;
+  --color-report-success-text-light: #007a2e;
+  --color-report-success-border-light: #99d6b7;
+  --color-report-success-bg-dark: #1a4d30;
+  --color-report-success-text-dark: #80c9a0;
+  --color-report-success-border-dark: #00A33E; /* Use main color for dark border */
+  /* Warning */
+  --color-report-warning: #EB8B06; /* Matches report-main */
+  --color-report-warning-bg-light: #fef4e6;
+  --color-report-warning-text-light: #b46f04;
+  --color-report-warning-border-light: #f8d39e;
+  --color-report-warning-bg-dark: #4d3a1a;
+  --color-report-warning-text-dark: #f5c780;
+  --color-report-warning-border-dark: #EB8B06; /* Use main color for dark border */
+  /* Danger */
+  --color-report-danger: #D84749; /* Matches report-dark-accent */
+  --color-report-danger-bg-light: #fbeeed;
+  --color-report-danger-text-light: #a83a3b;
+  --color-report-danger-border-light: #f3c1c1;
+  --color-report-danger-bg-dark: #4a2a2a;
+  --color-report-danger-text-dark: #efa2a3;
+  --color-report-danger-border-dark: #D84749; /* Use main color for dark border */
+
+  /* --- Fonts --- */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  /* --font-family-mono: ... */
+
+  /* --- Other Theme Values (Example) --- */
+  /* --border-radius-md: 6px; */
+  --spacing-0: 0px;
+  --spacing-px: 1px;
+  --spacing-0\.5: 0.125rem; /* 2px */
+  --spacing-1: 0.25rem;   /* 4px */
+  --spacing-1\.5: 0.375rem; /* 6px */
+  --spacing-2: 0.5rem;    /* 8px */
+  --spacing-2\.5: 0.625rem; /* 10px */
+  --spacing-3: 0.75rem;   /* 12px */
+  --spacing-3\.5: 0.875rem; /* 14px */
+  --spacing-4: 1rem;      /* 16px */
+  --spacing-5: 1.25rem;   /* 20px */ /* <<< NEEDED FOR p-5 */
+  --spacing-6: 1.5rem;    /* 24px */
+  --spacing-7: 1.75rem;   /* 28px */
+  --spacing-8: 2rem;      /* 32px */
+  --spacing-9: 2.25rem;   /* 36px */
+  --spacing-10: 2.5rem;   /* 40px */
+  --spacing-11: 2.75rem;  /* 44px */
+  --spacing-12: 3rem;     /* 48px */
+  --spacing-14: 3.5rem;   /* 56px */
+  --spacing-16: 4rem;     /* 64px */
+  --spacing-24: 6rem;     /* 96px */
+  }
+
+
+  /* ==========================================================================
+  Base Styles
+  ========================================================================== */
+  html {
+    scroll-behavior: smooth;
+  }
+  html.dark {
+    scroll-behavior: smooth;
+  }
+  /* Base styles applied to the body */
+  body {
+    @apply bg-report-light-bg text-report-text-light font-sans antialiased;
+  }
+
+  /* Dark mode styles using prefers-color-scheme */
+  @media (prefers-color-scheme: dark) {
+    /* Add color-scheme hint for browser UI */
+    html {
+      color-scheme: dark;
+    }
+
+    body {
+      @apply bg-report-dark-bg text-report-text-dark;
+    }
+  }
+
+/* 2. Tailwind Directives */
+@tailwind base;
+@tailwind theme;
+@tailwind components;
+
+/* Report specific Components */
+
+@layer components {
+
+  /* --- Stat Card --- */
+  .stat-card {
+    @apply text-center p-4 md:p-5 border rounded-lg shadow-sm bg-report-surface-light border-report-border-light;
+    /* Dark mode for stat-card */
+    @media (prefers-color-scheme: dark) {
+      /* html.dark & { */ /* Uncomment if using class-based dark mode */
+      & { /* The '&' refers to .stat-card */
+        @apply bg-report-surface-dark border-report-border-dark;
+      }
+    }
+  }
+  .stat-card-value {
+    @apply block text-3xl md:text-4xl font-bold text-report-main leading-tight mb-1;
+    /* No specific dark mode change needed unless text color differs */
+  }
+  .stat-card-label {
+    @apply block text-xs text-report-text-muted-light uppercase tracking-wider font-medium;
+    /* Dark mode for stat-card-label */
+      @media (prefers-color-scheme: dark) {
+      /* html.dark & { */
+      & {
+        @apply text-report-text-muted-dark;
+      }
+    }
+  }
+
+  /* --- Callouts --- */
+  .callout {
+    @apply p-4 md:p-5 rounded-md border-l-4 mb-6 shadow-sm text-sm leading-relaxed;
+    /* Base dark mode text color (if not inherited properly) */
+      @media (prefers-color-scheme: dark) {
+      /* html.dark & { */
+      & {
+        /* @apply text-report-text-dark; */ /* Usually inherits from body */
+      }
+    }
+  }
+  /* Info Callout */
+  .callout-info {
+    @apply bg-report-info-bg-light border-report-info text-report-info-text-light;
+    @media (prefers-color-scheme: dark) {
+      /* html.dark & { */
+      & {
+        @apply bg-report-info-bg-dark border-report-info-border-dark text-report-info-text-dark;
+      }
+    }
+  }
+  /* Warning Callout */
+  .callout-warning {
+    @apply bg-report-warning-bg-light border-report-warning text-report-warning-text-light;
+      @media (prefers-color-scheme: dark) {
+      /* html.dark & { */
+      & {
+          @apply bg-report-warning-bg-dark border-report-warning-border-dark text-report-warning-text-dark;
+      }
+    }
+  }
+  /* Danger Callout */
+  .callout-danger {
+    @apply bg-report-danger-bg-light border-report-danger text-report-danger-text-light;
+      @media (prefers-color-scheme: dark) {
+      /* html.dark & { */
+      & {
+          @apply bg-report-danger-bg-dark border-report-danger-border-dark text-report-danger-text-dark;
+      }
+    }
+  }
+  /* Success Callout */
+  .callout-success {
+    @apply bg-report-success-bg-light border-report-success text-report-success-text-light;
+      @media (prefers-color-scheme: dark) {
+      /* html.dark & { */
+      & {
+          @apply bg-report-success-bg-dark border-report-success-border-dark text-report-success-text-dark;
+      }
+    }
+  }
+  /* Quote Callout */
+  .callout-quote {
+    /* Uses standard Tailwind colors - should work if Tailwind generates them */
+    @apply bg-gray-100 border-gray-400 text-gray-700 italic;
+      @media (prefers-color-scheme: dark) {
+      /* html.dark & { */
+      & {
+        @apply bg-gray-700 border-gray-500 text-gray-300;
+      }
+    }
+  }
+  /* Takeaway Callout */
+  .callout-takeaway {
+    @apply bg-report-light-accent/10 border-report-light-accent text-report-text-light;
+      @media (prefers-color-scheme: dark) {
+      /* html.dark & { */
+      & {
+          @apply bg-report-light-accent/20 border-report-light-accent/50 text-report-text-dark;
+      }
+    }
+  }
+
+  /* --- Data Table --- */
+  .data-table-container {
+    @apply overflow-x-auto border rounded-lg shadow-sm bg-report-surface-light border-report-border-light;
+      @media (prefers-color-scheme: dark) {
+      /* html.dark & { */
+      & {
+        @apply bg-report-surface-dark border-report-border-dark;
+      }
+    }
+  }
+  .data-table {
+    @apply w-full text-left text-sm;
+      @media (prefers-color-scheme: dark) {
+      /* html.dark & { */
+      & {
+        @apply text-report-text-dark; /* Base text for dark table */
+      }
+    }
+  }
+  .data-table thead {
+    @apply bg-gray-100 border-b border-report-border-light;
+      @media (prefers-color-scheme: dark) {
+      /* html.dark & { */
+      & {
+          /* Use opacity modifier */
+          @apply bg-report-surface-dark/50 border-report-border-dark;
+      }
+    }
+  }
+  .data-table th {
+    @apply px-4 py-3 font-medium text-report-text-muted-light uppercase tracking-wider;
+      @media (prefers-color-scheme: dark) {
+      /* html.dark & { */
+      & {
+          @apply text-report-text-muted-dark;
+      }
+    }
+  }
+  .data-table tbody tr {
+    @apply border-b border-report-border-light;
+      @media (prefers-color-scheme: dark) {
+      /* html.dark & { */
+      & {
+          @apply border-report-border-dark;
+      }
+    }
+  }
+  .data-table tbody tr:last-child {
+    @apply border-b-0;
+  }
+  .data-table tbody tr:nth-child(even) {
+    @apply bg-report-light-bg/50;
+      @media (prefers-color-scheme: dark) {
+      /* html.dark & { */
+      & {
+        @apply bg-report-dark-bg/20;
+      }
+    }
+  }
+  .data-table td {
+    @apply px-4 py-3 align-top;
+  }
+  .data-table .table-actions {
+      @apply flex space-x-1;
+  }
+  .data-table .table-action-btn {
+      @apply p-1 rounded text-white text-xs; /* Assuming white icon/text */
+  }
+  /* Action button colors (no dark mode variants needed as bg changes) */
+  .table-action-btn.edit { @apply bg-report-info; }
+  .table-action-btn.delete { @apply bg-report-danger; }
+  .table-action-btn.view { @apply bg-report-success; }
+
+  /* --- Section Title --- */
+  .section-title {
+    @apply text-2xl font-semibold border-b pb-2 mb-6 text-report-text-light border-report-border-light;
+      @media (prefers-color-scheme: dark) {
+      /* html.dark & { */
+      & {
+        @apply text-report-text-dark border-report-border-dark;
+      }
+    }
+  }
+
+  /* --- Chart Figure --- */
+  .chart-figure {
+    @apply bg-report-surface-light p-4 rounded-lg shadow border border-report-border-light mb-8;
+      @media (prefers-color-scheme: dark) {
+      /* html.dark & { */
+      & {
+          @apply bg-report-surface-dark border-report-border-dark;
+      }
+    }
+  }
+  .chart-figure figcaption {
+    @apply text-sm text-center text-report-text-muted-light mt-3 italic;
+      @media (prefers-color-scheme: dark) {
+      /* html.dark & { */
+      & {
+        @apply text-report-text-muted-dark;
+      }
+    }
+  }
+  .plotly-chart-container {
+      /* Ensure Plotly respects container size */
+      @apply w-full h-full min-h-[400px];
+  }
+}
+@tailwind utilities;

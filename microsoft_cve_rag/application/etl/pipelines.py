@@ -286,14 +286,14 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
     #     if product_builds_df is not None and not product_builds_df.empty:
     #         logging.info(f"num product build df rows: {product_builds_df.shape[0]}")
     kb_articles_combined_df = None
-    # if extracted_docs.get("kb_articles") and len(extracted_docs["kb_articles"]) >= 2:
-    #     kb_articles_combined_df = await asyncio.to_thread(
-    #         transformer.transform_kb_articles,
-    #         extracted_docs["kb_articles"][0],
-    #         extracted_docs["kb_articles"][1]
-    #     )
-    #     if kb_articles_combined_df is not None and not kb_articles_combined_df.empty:
-    #         logging.info(f"num kb articles df rows: {kb_articles_combined_df.shape[0]}")
+    if extracted_docs.get("kb_articles") and len(extracted_docs["kb_articles"]) >= 2:
+        kb_articles_combined_df = await asyncio.to_thread(
+            transformer.transform_kb_articles,
+            extracted_docs["kb_articles"][0],
+            extracted_docs["kb_articles"][1]
+        )
+        if kb_articles_combined_df is not None and not kb_articles_combined_df.empty:
+            logging.info(f"num kb articles df rows: {kb_articles_combined_df.shape[0]}")
     update_packages_df = None
     # if extracted_docs.get("update_packages"):
     #     update_packages_df = await asyncio.to_thread(
@@ -307,7 +307,6 @@ async def full_ingestion_pipeline(start_date: datetime, end_date: datetime = Non
         msrc_posts_df = await asyncio.to_thread(
             transformer.transform_msrc_posts,
             extracted_docs["msrc_posts"],
-            process_all=True
         )
         if msrc_posts_df is not None and not msrc_posts_df.empty:
             logging.info(f"num msrc_posts_df rows: {msrc_posts_df.shape[0]}")

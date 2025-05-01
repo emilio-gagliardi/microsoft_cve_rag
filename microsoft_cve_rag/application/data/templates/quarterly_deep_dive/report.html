@@ -1,0 +1,241 @@
+{% extends "quarterly_deep_dive/_base.html" %}
+
+{# Import Macros - ASSUMPTION: These macros correctly handle dark: variants internally or expect wrappers #}
+{% from "quarterly_deep_dive/_components/chart_container.html" import render_chart %}
+{% from "quarterly_deep_dive/_components/callout.html" import render_callout %}
+{% from "quarterly_deep_dive/_components/stat_card.html" import render_stat_card %}
+{% from "quarterly_deep_dive/_partials/section_marker.html" import render_section_marker %}
+{% from "quarterly_deep_dive/_components/data_table.html" import render_data_table %}
+{% from "quarterly_deep_dive/_components/key_insight_box.html" import render_key_insight_box %}
+
+{% block title %}{{ report_title }} | Analysis{% endblock %}
+
+{# ====================================================== #}
+{# START: Override the ENTIRE content block               #}
+{# ====================================================== #}
+{% block content %}
+
+    {# --- Title Section (Hero Style) --- #}
+    {# Background gradient uses accent colors. Text needs high contrast. #}
+    <section class="bg-gradient-to-r from-report-accent via-report-accent to-report-accent text-report-text-contrast py-20 md:py-28 px-4">
+        <div class="max-w-5xl mx-auto">
+             {# Use text-contrast or a slightly dimmed version for better readability on accent bg #}
+            <p class="text-sm font-semibold uppercase tracking-wider text-report-text-contrast/80 dark:text-report-text-contrast/80 mb-2">Microsoft CVE Analysis</p>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 leading-tight">{{ report_title }}</h1>
+            {# Use text-contrast for main paragraph text on accent bg #}
+            <p class="text-lg md:text-xl text-report-text-contrast mb-6 max-w-3xl">
+                A comprehensive analysis of Microsoft Common Vulnerabilities and Exposures (CVEs), including severity ratings, attack vectors, and impact assessments.
+            </p>
+            {# Use dimmed contrast text for metadata #}
+            <p class="text-sm text-report-text-contrast/70 dark:text-report-text-contrast/70">Published: {{ end_date.strftime('%B, %Y') }}  •  Generated: {{ generation_date }}</p>
+        </div>
+    </section>
+
+    {# --- Table of Contents (Use styled partial) --- #}
+    {# ASSUMPTION: toc_fullpage.html contains necessary light/dark styling #}
+    {% include "quarterly_deep_dive/_partials/toc_fullpage.html" %}
+
+    {# --- Main Content Wrapper --- #}
+    {# Added base dark text color here, though body tag should handle it #}
+    <div class="main-report-content max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 dark:text-report-text-dark">
+
+        {# --- Executive Summary --- #}
+        {% set exec_id = 'executive_summary' %}
+        {% set exec_config = report_structure.explicit_sections[exec_id] %}
+        <section id="{{ exec_id }}" class="mb-16 md:mb-24 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-report-text dark:text-report-text-dark mb-6">{{ exec_config.heading }}</h2>
+            {# Prose block with correct background/border/text classes for light/dark #}
+            <div class="prose dark:prose-invert max-w-none text-lg text-report-text dark:text-report-text-dark bg-report-surface dark:bg-report-surface-dark p-6 rounded-lg shadow border border-report-border dark:border-report-border-dark">
+                {{ llm_insights.get('executive_summary_narrative') | default('Executive summary content pending.') | safe }}
+            </div>
+        </section>
+
+        {# --- Key Metrics Overview Section --- #}
+        <section id="key-metrics" class="mb-12 md:mb-16">
+            <h2 class="text-2xl font-bold text-center text-report-text dark:text-report-text-dark mb-8">Key Metrics Overview</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                {# ASSUMPTION: render_stat_card macro applies dark mode classes internally #}
+                {{ render_stat_card(stats.get('total_cves', 'N/A'), 'Total Vulnerabilities', '+12%', True) }}
+                {{ render_stat_card(stats.get('critical_cves_count', 0) + stats.get('important_cves_count', 0), 'High/Critical Vulnerabilities', '+8%', True) }}
+                {{ render_stat_card(stats.get('avg_cvss_score', 'N/A'), 'Average CVSS Score', '+0.3%', True) }}
+                {{ render_stat_card(stats.get('rce_cves_count', 'N/A'), 'Remote Code Execution', '+15%', True) }}
+            </div>
+        </section>
+    </div>
+        {# --- Looped Analytical Sections --- #}
+        {% for section_id, section_config in report_structure.looped_sections.items() %}
+
+            {# Full Height Section Marker - ASSUMPTION: Macro handles dark mode styling #}
+            {{ render_section_marker(
+                title=section_config.heading,
+                subtitle="Section Analysis",
+                text=llm_insights.get(section_id + '_summary', '') | striptags | truncate(150)
+            ) }}
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+            {# Section Content #}
+            <section id="{{ section_id }}" class="mb-16 md:mb-24 scroll-mt-20 py-10">
+                 <h2 class="text-3xl font-bold text-report-text dark:text-report-text-dark mb-4">{{ section_config.heading }}</h2>
+
+                {# Narrative #}
+                {% set narrative_key = section_id + '_narrative' %}
+                {% if llm_insights.get(narrative_key) %}
+                    {# Correct prose block styling #}
+                    <div class="prose dark:prose-invert max-w-none text-lg text-report-text dark:text-report-text-dark mb-8 bg-report-surface dark:bg-report-surface-dark p-6 rounded-lg shadow border border-report-border dark:border-report-border-dark">
+                        {{ llm_insights[narrative_key] | safe }}
+                    </div>
+                {% endif %}
+
+                 {# Section Specific Layouts #}
+                 <div class="space-y-10 md:space-y-12">
+
+                    {# Side-by-Side Example for Section 3 #}
+                    {% if section_id == 'section_3_vol_sev' %}
+                        {% set chart1_key = 'new_vs_updated' %}
+                        {% set chart1_html_id = 'chart-' + chart1_key.replace('_','-') %}
+                        {% set chart1_context = charts.get(chart1_key) %}
+                        {% set chart1_insight_key = section_id + '_chart_insight_' + chart1_key %}
+
+                        {% if chart1_context %}
+                            {# Wrapper with light/dark styles #}
+                            <div class="bg-report-surface dark:bg-report-surface-dark p-6 rounded-lg shadow border border-report-border dark:border-report-border-dark md:flex md:gap-8 items-start">
+                                <div class="md:flex-1 lg:md:w-2/3 mb-6 md:mb-0">
+                                    {{ render_chart(chart1_html_id, chart1_context.caption) }} {# Macro renders chart div #}
+                                </div>
+                                <div class="md:w-auto lg:w-1/3 flex-shrink-0">
+                                     {# ASSUMPTION: Macro handles dark mode box styling #}
+                                     {{ render_key_insight_box(title='Key Insight', content=llm_insights.get(chart1_insight_key, 'Insight not available.')) }}
+                                     {# Simple text below box - ensure dark text color #}
+                                      {% set callout_1_key = section_id + '_callout_1' %}
+                                      {% if llm_insights.get(callout_1_key) %}<div class="mt-4 text-sm text-report-text-muted dark:text-report-text-muted-dark">{{ llm_insights[callout_1_key]|safe}}</div>{% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {# Second chart - Full width card #}
+                        {% set chart2_key = 'volume_severity' %}
+                        {% set chart2_html_id = 'chart-' + chart2_key.replace('_','-') %}
+                        {% set chart2_context = charts.get(chart2_key) %}
+                        {% if chart2_context %}
+                             {# Wrapper with light/dark styles #}
+                             <div class="bg-report-surface dark:bg-report-surface-dark p-6 rounded-lg shadow border border-report-border dark:border-report-border-dark">
+                                 {{ render_chart(chart2_html_id, chart2_context.caption) }}
+                                 {% set chart2_insight_key = section_id + '_chart_insight_' + chart2_key %}
+                                 {% if llm_insights.get(chart2_insight_key) %}
+                                    {# Insight box below chart - styled directly #}
+                                    <div class="mt-4 p-4 bg-report-light-accent dark:bg-report-light-accent/30 rounded">
+                                        <p class="text-sm text-report-text-muted dark:text-report-text-muted-dark">{{ llm_insights[chart2_insight_key] | safe }}</p>
+                                    </div>
+                                 {% endif %}
+                             </div>
+                        {% endif %}
+
+                    {# Add ELIF blocks for other sections needing side-by-side #}
+
+                    {# Default: Charts Full Width in Cards #}
+                    {% else %}
+                         {% for chart_def in section_config.get('charts', []) %}
+                             {% set chart_py_key = chart_def.id %}
+                             {% set chart_html_id = "chart-" + chart_py_key.replace('_', '-') %}
+                             {% set chart_context = charts.get(chart_py_key) %}
+                             {% if chart_context %}
+                                 {# Wrapper with light/dark styles #}
+                                 <div class="bg-report-surface dark:bg-report-surface-dark p-6 rounded-lg shadow border border-report-border dark:border-report-border-dark">
+                                     {{ render_chart(chart_html_id, chart_context.caption) }}
+                                     {% set chart_insight_key = section_id + '_chart_insight_' + chart_py_key %}
+                                     {% if llm_insights.get(chart_insight_key) %}
+                                        {# Insight box below chart - styled directly #}
+                                        <div class="mt-4 p-4 bg-report-light-accent dark:bg-report-light-accent/30 rounded">
+                                            <p class="text-sm text-report-text-muted dark:text-report-text-muted-dark">{{ llm_insights[chart_insight_key] | safe }}</p>
+                                        </div>
+                                     {% endif %}
+                                 </div>
+                             {% endif %}
+                         {% endfor %}
+                    {% endif %} {# End section-specific layouting #}
+
+                    {# Tables - Add Card Styling Wrapper #}
+                    {% for table_def in section_config.get('tables', []) %}
+                        {# Wrapper with light/dark styles #}
+                        <div class="bg-report-surface dark:bg-report-surface-dark p-6 rounded-lg shadow border border-report-border dark:border-report-border-dark">
+                             <h3 class="text-xl font-semibold text-report-text dark:text-report-text-dark mb-4">{{ table_def.caption }}</h3>
+                             {# Container for potential horizontal scroll #}
+                             <div class="table-container overflow-x-auto">
+                                 {# ASSUMPTION: The HTML string in `appendix_tables` contains the correct table classes (like `data-table`) and dark: variants. #}
+                                 {{ appendix_tables.get(table_def.id) | safe }}
+                                 {# OR If using a macro: #}
+                                 {# {{ render_data_table(appendix_tables.get(table_def.id)) }} #}
+                             </div>
+                        </div>
+                    {% endfor %}
+
+                    {# Section Summary - Add Card Styling #}
+                    {% set summary_key = section_id + '_summary' %}
+                    {% if llm_insights.get(summary_key) %}
+                         {# Wrapper styled directly #}
+                         <div class="mt-10 p-6 bg-report-light-accent dark:bg-report-light-accent/30 border border-report-border dark:border-report-border-dark rounded-lg shadow">
+                             <h4 class="text-xl font-semibold mb-3 text-report-text dark:text-report-text-dark">Section Summary</h4>
+                             {# Use prose for summary text #}
+                             <div class="prose prose-sm dark:prose-invert max-w-none text-report-text dark:text-report-text-dark">
+                                 {{ llm_insights[summary_key] | safe }}
+                             </div>
+                         </div>
+                    {% endif %}
+
+                 </div> {# End space-y wrapper #}
+            </section>
+        </div>
+        {% endfor %} {# End Looped Sections #}
+
+        {# --- Conclusion & Appendix --- #}
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+            {% set concl_id = 'report_conclusion' %}
+            {% set concl_config = report_structure.explicit_sections[concl_id] %}
+            <section id="{{ concl_id }}" class="mb-16 md:mb-24 scroll-mt-20">
+                <h2 class="text-3xl font-bold text-report-text dark:text-report-text-dark mb-6">{{ concl_config.heading }}</h2>
+                {# Prose block with correct styling #}
+                <div class="prose dark:prose-invert max-w-none text-lg text-report-text dark:text-report-text-dark bg-report-surface dark:bg-report-surface-dark p-6 rounded-lg shadow border border-report-border dark:border-report-border-dark">
+                    {{ llm_insights.get('report_conclusion_narrative') | default('Conclusion content pending.') | safe }}
+                </div>
+            </section>
+
+            {% set appendix_id = 'appendix' %}
+            {% set appendix_config = report_structure.explicit_sections[appendix_id] %}
+            <section id="{{ appendix_id }}" class="mb-16 md:mb-24 scroll-mt-20">
+                <h2 class="text-3xl font-bold text-report-text dark:text-report-text-dark mb-6">{{ appendix_config.heading }}</h2>
+                <div class="space-y-12">
+                    {% if appendix_tables %}
+                        {% for table_id, table_html in appendix_tables.items() %}
+                            {% set table_caption = "Data Table" %} {# Default caption #}
+                            {# Attempt to find specific caption from structure #}
+                            {% for table_def in appendix_config.get('tables', []) %}{% if table_def.id == table_id %}{% set table_caption = table_def.caption %}{% endif %}{% endfor %}
+                            {# Wrapper with light/dark styles #}
+                            <div class="bg-report-surface dark:bg-report-surface-dark p-6 rounded-lg shadow border border-report-border dark:border-report-border-dark">
+                                <h3 class="text-xl font-semibold text-report-text dark:text-report-text-dark mb-4">{{ table_caption }}</h3>
+                                <div class="table-container overflow-x-auto">
+                                    {# ASSUMPTION: `table_html` contains correct classes including dark: variants #}
+                                    {{ table_html | safe }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-report-text-muted dark:text-report-text-muted-dark">Appendix tables not available.</p>
+                    {% endif %}
+
+                    {# Static appendix content styled similarly #}
+                    <div class="pt-8 border-t border-report-border dark:border-report-border-dark bg-report-surface dark:bg-report-surface-dark p-6 rounded-lg shadow">
+                        <h3 class="text-xl font-semibold text-report-text dark:text-report-text-dark mb-4">A. CVSS Scoring System</h3>
+                        {# Use prose or simple text classes #}
+                        <p class="text-report-text dark:text-report-text-dark mb-4">Details about the CVSS scoring system...</p>
+                        <p class="text-report-text-muted dark:text-report-text-muted-dark">Further explanation...</p>
+                    </div>
+                    <div class="pt-8 border-t border-report-border dark:border-report-border-dark bg-report-surface dark:bg-report-surface-dark p-6 rounded-lg shadow">
+                        <h3 class="text-xl font-semibold text-report-text dark:text-report-text-dark mb-4">B. Research Methodology</h3>
+                        <p class="text-report-text dark:text-report-text-dark">Description of methodology...</p>
+                        {# Add methodology table/text here, ensuring dark: variants are used #}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div> {# End Main Content Wrapper #}
+
+{% endblock %} {# End content block #}

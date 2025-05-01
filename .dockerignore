@@ -1,18 +1,36 @@
-# Python
-*.pyc
-__pycache__/
-*.py[cod]
-.pytest_cache/
-
-# Logs and databases
-*.log
-*.sql
-*.sqlite
-
-# Environment files
-.env*
+# --- Python ---
+# Virtual Environments
 venv/
+.venv/
 env/
+ENV/
+env.bak/
+venv.bak/
+
+# Cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging (usually not needed in context)
+build/
+dist/
+*.egg-info/
+
+# Testing artifacts (not needed for production image)
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# Jupyter
+.ipynb_checkpoints
+
+# mypy
+.mypy_cache/
 
 # IDE files
 .vscode/
@@ -32,15 +50,20 @@ docker-compose.yml
 *.bak
 .codiumai.toml
 
+ --- Node.js / Tailwind ---
+# Exclude node_modules from the build context; install inside the container
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.eslintcache
+
 /mongo_playground/
 
 # Add the specified folder
 microsoft_cve_rag/application/data/scrapes/kb_articles
-microsoft_cve_rag/application/data/reports/weekly_kb_report/html
-microsoft_cve_rag/application/data/reports/weekly_kb_report/markdown
-microsoft_cve_rag/application/data/reports/weekly_kb_report/plots
-microsoft_cve_rag/application/data/reports/weekly_kb_report/thumbnails
-microsoft_cve_rag/application/data/reports/quarterly_deep_dive/html
-microsoft_cve_rag/application/data/reports/quarterly_deep_dive/data
+microsoft_cve_rag/application/data/reports/*
+
 # Siteground SSH keys
 conf/local/keys/siteground_ssh_private_key.txt

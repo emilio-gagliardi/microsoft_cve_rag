@@ -1,0 +1,31 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the brief summary of Section 4 #}
+{% set output_format_description = "a single, concise sentence (maximum 2 sentences) summarizing the main conclusion about CVSS score distributions from this section" %}
+
+{% block task_instructions %}
+Read the generated narrative, chart insights, and callouts provided below for "{{ section_title }}".
+Distill this information down to the single most important takeaway message about the CVSS score landscape analyzed in this section. What is the essential point an administrator should remember about typical vulnerability scores?
+Your output must be extremely concise: just one sentence, or two at the absolute maximum.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Section Key: {{ data_context_payload.section_key | default('section_4_cvss_dist') }}
+
+Generated Narrative for this Section:
+{{ data_context_payload.generated_narrative | default("Narrative not available.") }}
+
+Chart Insights Generated for this Section:
+{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
+- Insight ({{ chart_id }}): {{ insight }}
+{% else %}
+- No specific chart insights provided.
+{% endfor %}
+
+Callouts Generated for this Section:
+{% for callout_key, callout_text in data_context_payload.callouts_in_section.items() %}
+- {{ callout_key | replace("_", " ") | title }}: {{ callout_text }}
+{% else %}
+- No callouts generated for this section.
+{% endfor %}
+{% endblock data_context %}

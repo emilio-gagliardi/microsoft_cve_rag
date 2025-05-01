@@ -1,0 +1,17 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+{# Specific context for the 'volume_severity' chart insight #}
+{% set output_format_description = "a concise text block (2-3 sentences) interpreting the key trend or observation from the provided chart data related to severity" %}
+
+{% block task_instructions %}
+Analyze the accompanying chart image AND the data summary provided below for the chart titled '{{ data_context_payload.chart_caption | default('Volume by Severity') }}'. This data shows the monthly count of CVEs broken down by assessed severity (e.g., Critical, Important, Moderate, Low).
+Identify the primary trend or the most significant observation regarding severity distribution over the period. For example, which severity level was most common overall? Did the volume of Critical or Important vulnerabilities show any particular trend (increase, decrease, spike)?
+Describe this key finding clearly in 2-3 sentences.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Chart ID: {{ data_context_payload.chart_id | default('volume_severity') }}
+Chart Caption: {{ data_context_payload.chart_caption | default('Figure 2. Monthly CVE Volume by Assessed Severity.') }}
+
+Data Summary (Monthly Counts by Severity):
+{{ data_context_payload.chart_data_summary | default("Data not available.") }}
+{% endblock data_context %}

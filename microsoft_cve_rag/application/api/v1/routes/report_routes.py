@@ -1,15 +1,23 @@
 """Handle report generation operations via API."""
 import asyncio
+import os
 from datetime import datetime
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 import logging
 import json
 import base64
 import io
+from functools import lru_cache, partial
 from PIL import Image, UnidentifiedImageError  # Import Pillow components
 from fastapi import APIRouter, HTTPException, Depends
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import math
+import pandas as pd
+from jinja2 import (
+    Environment as JinjaEnvironment,
+    FileSystemLoader,
+    select_autoescape
+)
 from application.services.document_service import DocumentService
 from application.services.template_service import TemplateService
 from application.reports.kb_report_generator import (
@@ -19,6 +27,12 @@ from application.reports.kb_report_generator import (
 from application.reports.kb_report_generator import (
     process_cve_data_for_kb_report,
     transform_kb_data_for_kb_report
+)
+from application.reports.quarterly_deep_dive_generator import (
+    ReportConfig as DeepDiveReportConfig,
+    GeneratedReportAssets as DeepDiveAssets,
+    QuarterlyDeepDiveReportGenerator,
+    generate_synthetic_cve_data,
 )
 from application.services.azure_storage_blob_service import (
     AzureStorageSettings,
@@ -30,9 +44,23 @@ from application.services.sftp_service import (
     get_sftp_settings,
     SFTPService
 )
-from application.app_utils import REPORTS_DIR
+from application.services.chat_service import LLMClient
+from application.app_utils import (
+    initialize_environment_and_paths,
+    APP_DIR,
+    DATA_DIR,
+    REPORTS_DIR
+)
 from crawl4ai import AsyncWebCrawler, CrawlResult
 from crawl4ai.async_configs import BrowserConfig, CrawlerRunConfig
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+# FastAPI Request Models ---------------------------------------
 
 
 class KBReportRequest(BaseModel):
@@ -41,7 +69,16 @@ class KBReportRequest(BaseModel):
     end_date: datetime
 
 
-router = APIRouter()
+class QuarterlyReportRequest(BaseModel):
+    """Request model for Quarterly report generation."""
+    start_date: datetime
+    end_date: datetime
+    config_override: Optional[DeepDiveReportConfig] = Field(None, description="Optional overrides for default report configuration.")
+
+
+QuarterlyReportRequest.model_rebuild()
+
+# Utility Functions ---------------------------------------------
 
 
 def _sanitize_for_json(obj):
@@ -59,6 +96,140 @@ def _sanitize_for_json(obj):
     elif isinstance(obj, list):
         return [_sanitize_for_json(item) for item in obj]
     return obj
+
+
+# --- Document Service Dependency ---
+async def get_document_service() -> DocumentService:
+    """Provides an instance of the DocumentService."""
+    # Consider using settings/env vars for db_name/collection_name
+    try:
+        service = DocumentService(
+            db_name="report_docstore",  # Use config/env var preferably
+            collection_name="docstore"  # Use config/env var preferably
+        )
+        return service
+    except ImportError:
+        logger.error("ERROR: Failed to import DocumentService.")
+        raise HTTPException(status_code=500, detail="DocumentService configuration error.")
+    except Exception as e:
+        logger.error(f"ERROR: Failed to instantiate DocumentService: {e}")
+        raise HTTPException(status_code=500, detail=f"DocumentService instantiation error: {e}")
+
+
+# --- LLM Client Dependency ---
+@lru_cache
+def get_llm_client() -> LLMClient:
+    """Provides an instance of the LLMClient."""
+    logger.debug("Executing get_llm_client dependency function.")
+    try:
+        # Reading env var is synchronous
+        mock_mode_str = os.getenv("LLM_MOCK_MODE", "False") # Get as string
+        mock_mode = mock_mode_str.lower() in ('true', '1', 't', 'yes') # Robust boolean conversion
+        logger.info(f"LLM Mock Mode: {mock_mode}")
+
+        # Assuming LLMClient.__init__ is synchronous
+        client_instance = LLMClient(mock_mode=mock_mode)
+        logger.info(f"LLMClient instantiated: Type={type(client_instance)}")
+
+        # Directly return the instance, not a coroutine
+        return client_instance
+    except Exception as e:
+        logger.exception(f"Failed to instantiate LLMClient: {e}") # Use logger.exception for traceback
+        raise HTTPException(status_code=500, detail="LLM Client configuration error")
+
+
+# --- Jinja Environment Dependency ---
+async def get_jinja_environment() -> JinjaEnvironment:
+    """Provides a configured Jinja2 Environment instance."""
+    template_dir = DATA_DIR / "templates"
+    if not template_dir.is_dir():
+        logging.error(f"Jinja templates directory not found: {template_dir}")
+        raise HTTPException(status_code=500, detail="Server configuration error: Templates directory missing.")
+
+    logging.debug(f"Initializing Jinja2 environment with loader path: {template_dir}")
+    try:
+        env = JinjaEnvironment(
+            # Use FileSystemLoader pointing to the base 'templates' directory
+            loader=FileSystemLoader(str(template_dir)),
+            # Enable autoescaping for security, include .j2 for prompt templates
+            autoescape=select_autoescape(['html', 'xml', 'j2'])
+        )
+        # Optional: Add global functions or filters if needed later
+        # env.globals['now'] = datetime.utcnow
+        # env.filters['format_date'] = lambda d: d.strftime('%Y-%m-%d')
+        return env
+    except Exception as e:
+        logger.error(f"Failed to initialize Jinja2 environment: {e}")
+        raise HTTPException(status_code=500, detail="Server configuration error: Jinja initialization failed.")
+
+
+# --- Generator Dependency ---
+def get_report_generator(
+    llm_client=Depends(get_llm_client),
+    jinja_env: JinjaEnvironment = Depends(get_jinja_environment)
+) -> QuarterlyDeepDiveReportGenerator:
+
+    """
+    Dependency that initializes the environment (if needed) and then
+    creates and returns a fully configured QuarterlyDeepDiveReportGenerator.
+    """
+    try:
+        # 1. Ensure environment and paths are initialized *first*
+        # This function should ideally be idempotent (safe to call multiple times)
+        initialize_environment_and_paths()
+
+        # 2. Check if required paths were actually set (they should be now)
+        if REPORTS_DIR is None or not REPORTS_DIR.is_dir():
+            logging.error(f"REPORTS_DIR is not initialized or not a directory after env init: {REPORTS_DIR}")
+            raise HTTPException(status_code=500, detail="Server configuration error: Reports directory not available.")
+        if DATA_DIR is None or not DATA_DIR.is_dir():
+            logging.error(f"DATA_DIR is not initialized or not a directory after env init: {DATA_DIR}")
+            raise HTTPException(status_code=500, detail="Server configuration error: Data directory not available.")
+        if APP_DIR is None or not APP_DIR.is_dir():
+            logging.error(f"APP_DIR is not initialized or not a directory after env init: {APP_DIR}")
+            raise HTTPException(status_code=500, detail="Server configuration error: App directory not available.")
+
+        # 3. Define the base templates directory using the now-available DATA_DIR
+        # Make sure this path is correct according to your structure
+        templates_base_dir = DATA_DIR / "templates"
+        if not templates_base_dir.is_dir():
+            logging.error(f"Templates base directory not found at expected location: {templates_base_dir}")
+            raise HTTPException(status_code=500, detail="Server configuration error: Templates directory not found.")
+
+        # --- Debugging: Verify the type of jinja_env received ---
+        logger.info(f"Type of jinja_env received in get_report_generator: {type(jinja_env)}")
+        if not isinstance(jinja_env, JinjaEnvironment):
+            logger.error(f"Incorrect type received for jinja_env dependency: {type(jinja_env)}. Expected JinjaEnvironment.")
+            # This indicates a deeper issue in FastAPI setup or the dependency function itself
+            raise HTTPException(status_code=500, detail="Internal server error: Invalid Jinja configuration.")
+        # --- End Debugging ---
+
+        # 4. Instantiate the generator, passing the *required* absolute paths
+        generator = QuarterlyDeepDiveReportGenerator(
+            jinja_env=jinja_env,
+            llm_client=llm_client,
+            global_reports_dir=REPORTS_DIR,       # Pass the actual Path object
+            global_templates_dir=templates_base_dir  # Pass the actual Path object
+            # source_static_dir is handled within the generator's __init__ using APP_DIR
+        )
+        return generator
+
+    except RuntimeError as e:
+        # Catch errors specifically from initialize_environment_and_paths
+        logging.exception("Fatal error during environment initialization within dependency.")
+        raise HTTPException(status_code=500, detail=f"Server initialization failed: {e}")
+    except Exception as e:
+        logging.exception("Error creating report generator dependency.")
+        raise HTTPException(status_code=500, detail=f"Could not create report generator: {e}")
+
+# End Utility Functions -----------------------------------------
+
+# Begin FastAPI Router ------------------------------------------
+
+
+router = APIRouter()
+
+# Begin Report Generation Routes --------------------------------
 
 
 @router.post("/reports/kb")
@@ -282,12 +453,12 @@ async def generate_kb_report(
                     img = Image.open(image_stream)
 
                     # --- Get the detected format ---
-                    detected_format = img.format  # e.g., 'PNG', 'JPEG'
-                    print(f"Detected image format: {detected_format}")
+                    # detected_format = img.format  # e.g., 'PNG', 'JPEG'
+                    # print(f"Detected image format: {detected_format}")
 
                     # Get the original size
                     original_width, original_height = img.size
-                    print(f"Original image size: {original_width}x{original_height}")
+                    # print(f"Original image size: {original_width}x{original_height}")
                     # --- Calculate Crop Dimensions ---
                     # 1. Determine Crop Width: Use content width, but don't exceed original
                     crop_width = min(CONTENT_WIDTH, original_width)
@@ -307,7 +478,7 @@ async def generate_kb_report(
                     # Adjust right slightly if rounding caused it to exceed original width
                     right = min(right, original_width)
                     # Recalculate actual crop_width based on integer coords if needed (usually minor)
-                    actual_crop_width = right - left
+                    # actual_crop_width = right - left
 
                     # 4. Calculate Vertical Position (upper, lower) - Start from top
                     upper = 0
@@ -315,8 +486,8 @@ async def generate_kb_report(
 
                     # --- Assemble the Crop Box ---
                     crop_box = (left, upper, right, lower)
-                    print(f"Calculated crop box (L, U, R, L): {crop_box}")
-                    print(f"Effective crop dimensions: {actual_crop_width}x{crop_height}")
+                    # print(f"Calculated crop box (L, U, R, L): {crop_box}")
+                    # print(f"Effective crop dimensions: {actual_crop_width}x{crop_height}")
 
                     # --- Perform the Crop ---
                     cropped_img = img.crop(crop_box)
@@ -348,11 +519,11 @@ async def generate_kb_report(
                     cropped_img.close()
 
                 except UnidentifiedImageError:
-                    print("Error: Pillow could not identify the image format from the decoded data.")
+                    logger.error("Error: Pillow could not identify the image format from the decoded data.")
                 except FileNotFoundError:  # From Image.open if stream is invalid? Unlikely but possible
-                    print("Error: Could not process image stream.")
+                    logger.error("Error: Could not process image stream.")
                 except Exception as e:
-                    print(f"An error occurred processing the image: {e}")
+                    logger.error(f"An error occurred processing the image: {e}")
             with sftp_service:
                 sftp_service.upload_file(
                     local_path=screenshot_local_path,
@@ -389,3 +560,128 @@ async def generate_kb_report(
             status_code=500,
             detail=f"Failed to generate KB report: {str(e)}"
         )
+
+
+@router.post("/reports/quarterly-deep-dive/generate", tags=["Reports"])
+async def generate_quarterly_report_prod(
+    request: QuarterlyReportRequest,
+    doc_service: DocumentService = Depends(get_document_service),
+    generator: QuarterlyDeepDiveReportGenerator = Depends(get_report_generator)
+    # Inject upload services here if needed for step 4
+    # sftp_service = Depends(get_sftp_service),
+    # azure_service = Depends(get_azure_service),
+) -> Dict[str, Any]:
+    """
+    Generates the Quarterly Deep Dive report using REAL data for the specified date range.
+    """
+    logger.info(f"Received request for production report: {request.start_date} to {request.end_date}")
+    import traceback
+    # --- 1. Fetch Real Data ---
+    try:
+        query = {"metadata.published": {"$gte": request.start_date, "$lte": request.end_date}}
+        projection = {
+            "_id": 0, "embedding": 0, "excluded_embed_metadata_keys": 0, "excluded_llm_metadata_keys": 0,
+            "relationships": 0, "hash": 0, "start_char_idx": 0, "end_char_idx": 0, "text_template": 0,
+            "metadata_template": 0, "metadata_seperator": 0, "class_name": 0,
+        }
+        bound_func = partial(doc_service.query_documents, query=query, projection=projection)
+        loop = asyncio.get_running_loop()
+        report_data_list = await loop.run_in_executor(None, bound_func)
+        if not report_data_list:
+            logger.warning("Warning: No documents found in MongoDB for the specified date range.")
+            unflattened_df = pd.DataFrame()
+        else:
+            unflattened_df = pd.DataFrame(report_data_list)
+            logger.info(f"Fetched {len(unflattened_df)} records from DocumentService.")
+    except Exception as e:
+        logger.error(f"Error fetching data from DocumentService: {e}")
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Database fetch error: {str(e)}")
+
+    # --- 2. Determine Report Configuration ---
+    final_config = DeepDiveReportConfig()  # Start with defaults
+    if request.config_override:
+        update_data = request.config_override.model_dump(exclude_unset=True)
+        final_config = final_config.model_copy(update=update_data)
+
+    # --- 3. Generate Report Assets ---
+    try:
+        # Run synchronously. Add BackgroundTasks if generation is long.
+        generated_assets: DeepDiveAssets = generator.generate_report(
+            report_data=unflattened_df,
+            config=final_config,
+            start_date=request.start_date,
+            end_date=request.end_date
+        )
+        logger.info(f"Report generation complete. Assets in: {generated_assets.base_directory}")
+    except Exception as e:
+        logger.error(f"Error during report generation: {e}")
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Report generation failed: {str(e)}")
+
+    # --- 4. OPTIONAL: Trigger Uploads ---
+    # ... (Your logic here, using generated_assets object and injected upload services) ...
+
+    # --- 5. Return Success Response ---
+    return {
+        "message": "Report generation successful.",
+        "report_period_start": request.start_date.isoformat(),
+        "report_period_end": request.end_date.isoformat(),
+        "output_base_directory": str(generated_assets.base_directory),
+        "generated_files": [str(f) for f in generated_assets.get_all_files() if f]
+    }
+
+
+# --- Development Route using SYNTHETIC Data ---
+@router.post("/reports/quarterly-deep-dive/generate-dev-synthetic", tags=["Reports Development"])
+async def generate_quarterly_report_dev_synthetic(
+    request: QuarterlyReportRequest,
+    generator: QuarterlyDeepDiveReportGenerator = Depends(get_report_generator)
+) -> Dict[str, Any]:
+    """
+    Generates the Quarterly Deep Dive report using SYNTHETIC data
+    for template/styling development. Runs synchronously.
+    """
+    logger.info(f"Received request for SYNTHETIC report: {request.start_date} to {request.end_date}")
+    import traceback
+
+    # --- 1. Generate Synthetic Data ---
+    try:
+        # Can add num_records to request body if desired
+        loop = asyncio.get_running_loop()
+        synthetic_df = await loop.run_in_executor(None, generate_synthetic_cve_data, request.start_date, request.end_date, 200)
+    except Exception as e:
+        logger.error(f"Error generating synthetic data: {e}")
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Synthetic data generation failed: {str(e)}")
+
+    # --- 2. Determine Report Configuration ---
+    final_config = DeepDiveReportConfig()  # Start with defaults
+    if request.config_override:
+        update_data = request.config_override.model_dump(exclude_unset=True)
+        final_config = final_config.model_copy(update=update_data)
+
+    # --- 3. Generate Report Assets ---
+    try:
+        generated_assets: DeepDiveAssets = await generator.generate_report(
+            report_data=synthetic_df,  # Pass synthetic data
+            config=final_config,
+            start_date=request.start_date,
+            end_date=request.end_date
+        )
+        logger.info(f"Synthetic report generation complete. Assets in: {generated_assets.base_directory}")
+    except Exception as e:
+        logger.error(f"Error during synthetic report generation: {e}")
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Synthetic report generation failed: {str(e)}")
+
+    # --- 4. Return Success Response (No Uploads for Dev) ---
+    return {
+        "message": "SYNTHETIC report generation successful.",
+        "report_period_start": request.start_date.isoformat(),
+        "report_period_end": request.end_date.isoformat(),
+        "output_base_directory": str(generated_assets.base_directory),
+        "generated_files": [str(f) for f in generated_assets.get_all_files() if f]
+    }
+
+# End Report Generation Routes ------------------------------------

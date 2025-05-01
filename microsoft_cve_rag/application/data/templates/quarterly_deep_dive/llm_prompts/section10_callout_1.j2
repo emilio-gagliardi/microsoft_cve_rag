@@ -1,0 +1,30 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the first callout in Section 10 (Patch Timeliness) #}
+{% set output_format_description = "a brief callout (1-2 sentences) highlighting the most critical risk identified regarding patch delays, suitable for a distinct callout box" %}
+
+{% block task_instructions %}
+Review the data summary and chart insight provided below for "{{ section_title }}". This section examines the relationship between patch/disclosure delay (using NVD publication as a proxy) and vulnerability severity (CVSS score).
+Identify the *single most significant risk factor* revealed by this analysis. Focus particularly on vulnerabilities that represent a high risk due to a combination of severity and delay (e.g., high CVSS scores coupled with notable delays).
+Craft a concise callout (1-2 sentences maximum) stating this key risk clearly, emphasizing the potential window of exposure.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Section Key: {{ data_context_payload.section_key | default('section_10_patch_cdf_deep_dive') }}
+
+Insights Generated for Charts in this Section:
+{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
+- Insight for {{ chart_id }}: {{ insight }}
+{% else %}
+- No specific chart insights provided for this section.
+{% endfor %}
+
+Data Summaries for Charts in this Section:
+{% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
+--- Data Summary: {{ chart_id }} ---
+{{ summary }}
+--- End Summary ---
+{% else %}
+- No chart data summaries provided.
+{% endfor %}
+{% endblock data_context %}

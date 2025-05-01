@@ -1,0 +1,13 @@
+{% extends "llm_prompts/base_prompt.j2" %}
+
+{# Specific context for this prompt #}
+{% set section_title = "Section 8" %}
+{% set output_format_description = "a brief callout (1-2 sentences) highlighting a key insight from the Section 8 data, suitable for a callout box" %}
+
+{% block task_instructions %}
+Identify a standout insight from the "{{ section_title }}" data. Craft a concise callout (1-2 sentences) that highlights this insight clearly and engages the reader.
+{% endblock task_instructions %}
+
+{% block data_context %}
+{{ formatted_data | default("Data not available.") }}
+{% endblock data_context %}

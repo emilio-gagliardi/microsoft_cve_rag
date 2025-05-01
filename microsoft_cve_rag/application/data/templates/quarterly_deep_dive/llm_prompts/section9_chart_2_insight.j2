@@ -1,0 +1,18 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the 'overall_attack_complexity_dist' chart insight #}
+{% set output_format_description = "a concise text block (2-3 sentences) interpreting the overall distribution of attack complexities" %}
+
+{% block task_instructions %}
+Analyze the chart image and data provided below for the chart titled '{{ data_context_payload.chart_caption | default('Overall Attack Complexity Distribution') }}'. This data shows the percentage breakdown of all analyzed CVEs based on their attack complexity (Low vs. High).
+Identify the primary observation. Was Low or High attack complexity more common overall? Is the split relatively even or heavily skewed? What does this suggest about the typical difficulty an attacker might face when attempting to exploit these vulnerabilities?
+Describe the key findings regarding the overall attack complexity distribution in 2-3 sentences.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Chart ID: {{ data_context_payload.chart_id | default('overall_attack_complexity_dist') }}
+Chart Caption: {{ data_context_payload.chart_caption | default('Figure 11. Overall Distribution of Attack Complexities for All Analyzed CVEs.') }}
+
+Data Summary (Percentage Distribution of Attack Complexities):
+{{ data_context_payload.data_summary | default("Data summary not available.") }}
+{% endblock data_context %}

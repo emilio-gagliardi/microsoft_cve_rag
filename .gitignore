@@ -1,19 +1,129 @@
-# Ignore Python bytecode
-*.pyc
-__pycache__/
-*.py[cod]
-.pytest_cache/
-*.swp
+# --- General ---
 *.log
-*.bak
-.env*
-*.env
+*~
+*.swp
+*.swo
+
+# --- Python ---
+# Virtual Environments
 venv/
+.venv/
 env/
-# Ignore all VSCode workspace and settings files
+ENV/
+env.bak/
+venv.bak/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.[oa] # C extensions
+*.so  # C extensions
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+# Usually unwanted files
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# mypy
+.mypy_cache/
+
+# --- Node.js / Tailwind ---
+# Dependencies
+node_modules/
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Frontend build output - IMPORTANT
+# Prevent committing the generated CSS file
+application/static/css/output.css
+
+# --- OS generated files ---
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# --- IDE / Editor directories ---
+.idea/
 .vscode/
+*.sublime-project
+*.sublime-workspace
 *.code-workspace
 conf/
+# --- Secrets / Environment variables ---
+# Ignore .env files containing secrets.
+# It's good practice to commit an example file.
+.env
+.env.*
+!.env.example
+
+# --- Docker ---
+# Don't ignore Dockerfile or .dockerignore itself here,
+# they should be in the repo.
+
+# --- Add any other project-specific temp or generated files ---
+# e.g., temp_data/
+# Ignore all VSCode workspace and settings files
+
+
 # Ignore codiumate settings
 .codiumai.toml
 
@@ -38,12 +148,7 @@ microsoft_cve_rag/application/data/vector_index
 microsoft_cve_rag/application/data/vector_index/*
 microsoft_cve_rag/application/data/graph_db_backup
 microsoft_cve_rag/application/data/graph_db_backup/*
-microsoft_cve_rag/application/data/reports/weekly_kb_report/html
-microsoft_cve_rag/application/data/reports/weekly_kb_report/markdown
-microsoft_cve_rag/application/data/reports/weekly_kb_report/plots
-microsoft_cve_rag/application/data/reports/weekly_kb_report/thumbnails
-microsoft_cve_rag/application/data/reports/quarterly_deep_dive/html
-microsoft_cve_rag/application/data/reports/quarterly_deep_dive/data
+microsoft_cve_rag/application/data/reports/*
 package docs/
 
 # windsurf rules
@@ -61,3 +166,6 @@ notion_documentation_pages.md
 
 # Add the specified folder
 microsoft_cve_rag/application/data/scrapes/kb_articles
+
+# Ignore node_modules
+node_modules/

@@ -1,0 +1,18 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the 'cvss_distribution' chart insight #}
+{% set output_format_description = "a concise text block (2-3 sentences) interpreting the key findings from the CVSS score distribution data" %}
+
+{% block task_instructions %}
+Analyze the chart image and data provided below for the chart titled '{{ data_context_payload.chart_caption | default('CVSS Distribution by Category') }}'. This data typically shows the distribution (e.g., using violin plots or box plots) of CVSS base scores across different vulnerability categories (like RCE, EoP, etc.).
+Identify the primary observations. For instance, which category tends to have the highest median or average CVSS scores? Are scores tightly clustered or widely spread for certain categories? Are there notable outliers?
+Describe the most significant findings regarding the CVSS score distributions in 2-3 sentences.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Chart ID: {{ data_context_payload.chart_id | default('cvss_distribution') }}
+Chart Caption: {{ data_context_payload.chart_caption | default('Figure 3. CVSS Base Score Distribution by Vulnerability Category.') }}
+
+Data Summary (CVSS Scores by Category - may be raw data points or aggregated stats):
+{{ data_context_payload.data_summary | default("Data summary not available.") }}
+{% endblock data_context %}

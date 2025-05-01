@@ -1,0 +1,30 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the first callout in Section 5 (RCE Deep Dive) #}
+{% set output_format_description = "a brief callout (1-2 sentences) highlighting a single, impactful insight about RCE vulnerabilities from the Section 5 data/insights, suitable for a distinct callout box" %}
+
+{% block task_instructions %}
+Review the data summaries and chart insights provided below for "{{ section_title }}". This section is a deep dive into Remote Code Execution (RCE) vulnerabilities, looking at their proportion over time and their typical CVSS scores.
+Identify the *single most critical finding* about RCEs from this information that warrants immediate attention from administrators. This could relate to their frequency, their consistently high severity, or a specific trend observed.
+Craft a concise callout (1-2 sentences maximum) stating this key finding clearly and emphasizing its importance.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Section Key: {{ data_context_payload.section_key | default('section_5_rce_deep_dive') }}
+
+Insights Generated for Charts in this Section:
+{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
+- Insight for {{ chart_id }}: {{ insight }}
+{% else %}
+- No specific chart insights provided for this section.
+{% endfor %}
+
+Data Summaries for Charts in this Section:
+{% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
+--- Data Summary: {{ chart_id }} ---
+{{ summary }}
+--- End Summary ---
+{% else %}
+- No chart data summaries provided.
+{% endfor %}
+{% endblock data_context %}

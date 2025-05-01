@@ -1887,7 +1887,7 @@ def extract_cve_category_from_description(description: str) -> str:
 
     # Define keywords with variations for each category
     category_patterns = {
-        "rce": [
+        "remote_code_execution": [
             "remote code execution",
             "remote execution",
             "arbitrary code execution",
@@ -1900,7 +1900,7 @@ def extract_cve_category_from_description(description: str) -> str:
             "escalation of privilege",
             "privilege escalation",
         ],
-        "dos": [
+        "denial_of_service": [
             "denial of service",
             "denial-of-service",
             "service denial",
@@ -1937,10 +1937,10 @@ def extract_cve_category_from_description(description: str) -> str:
 
     # Priority order for categories (most severe/specific first)
     priority_order = [
-        "rce",
+        "remote_code_execution",
         "privilege_elevation",
         "disclosure",
-        "dos",
+        "denial_of_service",
         "tampering",
         "spoofing",
         "feature_bypass",

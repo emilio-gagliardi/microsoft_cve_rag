@@ -1,0 +1,30 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the first callout in Section 3 #}
+{% set output_format_description = "a brief callout (1-2 sentences) highlighting a single, impactful insight from the Section 3 data/insights provided, suitable for a distinct callout box" %}
+
+{% block task_instructions %}
+Review the data summaries and chart insights provided below for "{{ section_title }}". This section focuses on overall CVE volume, new vs. updated status, and severity trends.
+Identify the *single most significant or surprising finding* from this information that a system administrator or security manager should pay attention to. This could be a sharp increase, a dominant category, or an unexpected pattern.
+Craft a concise callout (1-2 sentences maximum) stating this key finding clearly. Avoid jargon where possible.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Section Key: {{ data_context_payload.section_key | default('section_3_vol_sev') }}
+
+Insights Generated for Charts in this Section:
+{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
+- Insight for {{ chart_id }}: {{ insight }}
+{% else %}
+- No specific chart insights provided for this section.
+{% endfor %}
+
+Data Summaries for Charts in this Section:
+{% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
+--- Data Summary: {{ chart_id }} ---
+{{ summary }}
+--- End Summary ---
+{% else %}
+- No chart data summaries provided.
+{% endfor %}
+{% endblock data_context %}

@@ -424,6 +424,24 @@ async def load_update_packages_graph_db(update_packages: pd.DataFrame):
     return response
 
 
+def lower_selected_suffix_columns(df: pd.DataFrame, suffixes: list[str]) -> pd.DataFrame:
+    """
+    Lowercase string values in columns whose names end with any of the given suffixes.
+
+    Args:
+        df: The pandas DataFrame to process.
+        suffixes: List of suffix strings to match column names.
+
+    Returns:
+        pd.DataFrame with string values in matched columns lowercased.
+    """
+    for suffix in suffixes:
+        matching_cols = [col for col in df.columns if col.endswith(suffix)]
+        for col in matching_cols:
+            df[col] = df[col].apply(lambda x: x.lower() if isinstance(x, str) else x)
+    return df
+
+
 # load msrc posts into graph db
 async def load_msrc_posts_graph_db(msrc_posts: pd.DataFrame):
     """
@@ -450,10 +468,21 @@ async def load_msrc_posts_graph_db(msrc_posts: pd.DataFrame):
     # Check if the DataFrame is valid and not empty
     if isinstance(msrc_posts, pd.DataFrame) and not msrc_posts.empty:
         # rename column source to source_url
+        suffixes = [
+            "_attack_complexity",
+            "_attack_vector",
+            "_availability",
+            "_base_score_rating",
+            "_confidentiality",
+            "_integrity",
+            "_privileges_required",
+            "_scope",
+            "_user_interaction",
+        ]
         msrc_posts = msrc_posts.rename(columns={"source": "source_url"})
         # Set the Neo4j database URL
         NeomodelConfig.DATABASE_URL = get_graph_db_uri()
-
+        msrc_posts = lower_selected_suffix_columns(msrc_posts, suffixes)
         # Convert DataFrame to records and handle datetime serialization
         records = msrc_posts.to_dict(orient="records")
         for record in records:

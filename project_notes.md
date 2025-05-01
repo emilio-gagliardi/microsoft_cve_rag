@@ -356,6 +356,115 @@ This configuration:
 
 After updating settings.json, restart VSCode for changes to take effect.
 
+## Tailwind CSS Setup and Configuration
+
+### Installation and Setup (Latest Version: 4.1.4)
+
+1. Initialize a new npm project (if not already done):
+   ```bash
+   npm init -y
+   ```
+
+2. Install TailwindCSS and its dependencies:
+   ```bash
+   npm install -D tailwindcss@latest postcss autoprefixer @tailwindcss/typography
+   ```
+
+3. Generate configuration files:
+   ```bash
+   npx tailwindcss init -p
+   ```
+
+4. Configure your `tailwind.config.js`:
+   ```javascript
+   module.exports = {
+     content: [
+       './application/data/templates/**/*.html',
+       './application/static/js/**/*.js'
+     ],
+     darkMode: 'class',
+     theme: {
+       extend: {
+         // Your theme extensions here
+       }
+     },
+     plugins: [
+       require('@tailwindcss/typography')
+     ]
+   }
+   ```
+
+5. Create your CSS entry point (e.g., `src/input.css`):
+   ```css
+   @tailwind base;
+   @tailwind components;
+   @tailwind utilities;
+   ```
+
+6. Add build scripts to `package.json`:
+   ```json
+   {
+     "scripts": {
+       "build:css": "tailwindcss -i src/input.css -o ./application/static/css/QuarterlyReportStylesheet.css",
+       "watch:css": "tailwindcss -i src/input.css -o ./application/static/css/QuarterlyReportStylesheet.css --watch",
+       "build:prod": "tailwindcss -i src/input.css -o ./application/static/css/QuarterlyReportStylesheet.css --minify"
+     }
+   }
+   ```
+
+### Building CSS
+
+- Development build: `npm run build:css`
+- Watch mode: `npm run watch:css`
+- Production build: `npm run build:prod`
+
+### Documentation Links
+
+- [TailwindCSS Documentation](https://tailwindcss.com/docs)
+- [Upgrade Guide](https://tailwindcss.com/docs/upgrade-guide)
+- [@tailwindcss/typography Plugin](https://tailwindcss.com/docs/typography-plugin)
+
+### Important Notes
+
+1. Always use the local installation of TailwindCSS (via npm scripts or npx) rather than global installation
+2. The project uses TailwindCSS v4.1.4, which includes:
+   - Improved performance
+   - Enhanced JIT engine
+   - Better dark mode support
+   - Updated typography plugin compatibility
+
+3. Common Issues and Solutions:
+   - If the CLI isn't recognized, ensure you're using npm scripts or npx
+   - If styles aren't applying, check the content paths in tailwind.config.js
+   - For optimal performance, use the --minify flag in production builds
+
+## Tailwind CSS Implementation Notes (v4+)
+
+1. **No tailwind.config.js**
+   - Since upgrading to Tailwind CSS v4+, the project no longer uses a `tailwind.config.js` file. All configuration is handled via conventions and direct imports.
+
+2. **Brand Styles in :root**
+   - Company brand styles (color palette, typography, spacing) are defined in a `:root` selector in `company-base.css` to keep brand tokens modular and separate from utility/component styles.
+   - `company-base.css` is imported at the top of `input.css`.
+
+3. **Component Styles in report-styles.css**
+   - `report-styles.css` contains only component definitions, all wrapped in `@layer components { ... }` for proper Tailwind layering and maintainability.
+
+4. **input.css Structure**
+   - The main entrypoint, `input.css`, imports in this order:
+     1. `company-base.css` (brand tokens)
+     2. `@theme { ... }` for theme variables if needed
+     3. `@import 'tailwindcss' layer(base, components, utilities) variants(responsive);`
+     4. Base styles
+     5. `report-styles.css` (component styles)
+
+5. **Future UI Tweaks**
+   - To adjust the UI, update `report-styles.css` for component-level changes and `input.css` for global or layer ordering changes.
+
+---
+
+**Note:** This approach is tailored for Tailwind v4+ where config files are optional and most customization is handled via CSS layers and imports. For more details, see Tailwind v4+ documentation.
+
 ## Code Block Styling with Pygments
 
 The project uses two separate stylesheets for code block styling:
@@ -382,7 +491,7 @@ The project uses two separate stylesheets for code block styling:
 
 For available Pygments themes, see [Pygments Built-in Styles](https://pygments.org/styles/).
 
-# Lessons Learned
+## Lessons Learned
 
 ## Conda Dependency Management Best Practices
 
@@ -726,3 +835,93 @@ Recommendation: Just add - azure-storage-blob to your environment.yml and run co
 - Docker Container Logs
 - WSL2 Integration
 - ETL Pipeline
+
+## LiteLLM Completion Methods [2025-04-21]
+
+LiteLLM provides a unified interface to interact with various Large Language Models (LLMs). It offers both synchronous (`completion`) and asynchronous (`acompletion`) methods for generating chat completions.
+
+### Core Methods
+
+1.  **`litellm.completion(...)` (Synchronous)**
+    *   Blocks execution until the LLM response is received.
+    *   Suitable for simple scripts or applications where concurrency isn't critical.
+    *   Example: Used in `chat_service.py` for direct responses.
+
+2.  **`litellm.acompletion(...)` (Asynchronous)**
+    *   Uses `async`/`await` syntax for non-blocking execution.
+    *   Ideal for web servers (like FastAPI/Uvicorn) or applications needing to handle multiple requests concurrently without waiting for each LLM call to finish.
+    *   Requires an `asyncio` event loop to run.
+
+Both methods accept similar parameters to control the generation process.
+
+### Key Parameters Explained
+
+*   **`model`** (str, required):
+    *   Specifies the LLM to use (e.g., `"gpt-3.5-turbo"`, `"claude-3-opus-20240229"`, `"azure/your-deployment-name"`).
+    *   LiteLLM routes the request based on the model name and configured API keys/bases.
+
+*   **`messages`** (List[Dict], required):
+    *   A list representing the conversation history, where each dictionary has `"role"` (`"system"`, `"user"`, `"assistant"`) and `"content"`.
+    *   Example: `[{"role": "user", "content": "Explain quantum physics simply."}]`
+
+*   **`temperature`** (float, optional, 0.0-2.0, default varies):
+    *   Controls the randomness of the output. Lower values (e.g., 0.2) make the output more deterministic and focused, while higher values (e.g., 0.8) make it more creative and diverse.
+    *   Example: Use `0.2` for factual summaries, `0.7` for creative writing.
+
+*   **`max_tokens`** (int, optional):
+    *   Limits the maximum number of tokens (words/subwords) the model can generate in its response.
+    *   Example: Set to `100` for a brief summary, or `1000` for a detailed explanation.
+
+*   **`top_p`** (float, optional, 0.0-1.0):
+    *   Nucleus sampling: Considers only the most probable tokens whose cumulative probability exceeds `top_p`. It's an alternative to `temperature`.
+    *   Example: `top_p=0.9` means the model considers the smallest set of tokens that make up 90% of the probability mass, leading to less random but still diverse outputs compared to very low temperatures. Don't use with `temperature` typically.
+
+*   **`stream`** (bool, optional, default=False):
+    *   If `True`, the response is returned as a stream of chunks (tokens) as they are generated, rather than waiting for the full response.
+    *   Example: Use `True` in a chatbot UI to display the response word-by-word for a better user experience.
+
+*   **`stop`** (str or List[str], optional):
+    *   Specifies sequences where the API should stop generating further tokens.
+    *   Example: `stop=["\n", " Human:"]` tells the model to stop if it generates a newline or the start of a human turn.
+
+*   **`presence_penalty`** (float, optional, -2.0 to 2.0):
+    *   Penalizes new tokens based on whether they have already appeared in the text, encouraging the model to talk about new topics. Higher values increase this effect.
+    *   Example: Use a positive value (e.g., `0.5`) to reduce repetition in longer generated texts.
+
+*   **`frequency_penalty`** (float, optional, -2.0 to 2.0):
+    *   Penalizes new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. Higher values increase this effect.
+    *   Example: Use a positive value (e.g., `0.3`) to make the model use less common words or phrases.
+
+*   **`response_format`** (dict, optional):
+    *   Forces the output to be in a specific format, currently supporting JSON mode.
+    *   Example: `response_format={"type": "json_object"}` requires the model to output valid JSON. You *must* also instruct the model via the prompt (e.g., "Provide your answer in JSON format.").
+
+*   **`seed`** (int, optional):
+    *   If specified, the model provider will attempt to make the output deterministic (same input + seed = same output). Not guaranteed across all models/providers.
+    *   Example: Use `seed=42` during testing to get reproducible results for the same prompt and parameters.
+
+*   **`tools`** and **`tool_choice`** (List/str, optional):
+    *   Used for function calling/tool use, allowing the model to request external tools be called.
+    *   Example: Provide a list of available functions (like `get_current_weather`) in `tools`, and use `tool_choice="auto"` to let the model decide if/when to call one.
+
+*   **`logprobs`** (bool, optional, default=False):
+    *   If `True`, the response includes the log probabilities (logarithm of the probability) for each output token. This tells you how confident the model was about choosing each specific token in the sequence.
+    *   Example: Setting `logprobs=True` might show that the model assigned a high probability (low negative logprob) to "Paris" when asked "Capital of France?", but lower probabilities to alternatives like "London". Useful for analyzing model confidence or implementing advanced techniques like beam search.
+
+*   **`top_logprobs`** (int, optional, 0-5):
+    *   Requires `logprobs=True`. Returns the log probabilities for the specified number of most likely tokens at each position.
+    *   Example: `logprobs=True, top_logprobs=3` would show the top 3 token choices and their log probabilities for each step in the generation. This helps understand *why* the model chose a specific token and what alternatives it considered.
+
+*   **`api_key`**, **`api_base`**, **`api_version`**, **`deployment_id`** (str, optional):
+    *   Allow overriding environment variables or global settings for specific calls, useful for multi-provider setups or Azure deployments.
+    *   Example: `litellm.completion(model="azure/my-gpt4", api_key="...", api_base="...", api_version="...")`
+
+*   **`timeout`** (int/float, optional, default=600):
+    *   Sets the maximum time (in seconds) to wait for a response from the LLM API.
+    *   Example: Set `timeout=30` for quick user interactions where a long wait is unacceptable.
+
+*   **`metadata`** (dict, optional):
+    *   A dictionary of custom key-value pairs passed through to logging and callback functions. Does not affect the LLM call itself.
+    *   Example: `metadata={"user_id": "123", "session_id": "abc"}` to track request origins in logs.
+
+Understanding these parameters allows for fine-tuning LLM behavior for specific tasks, balancing creativity vs. determinism, controlling response length, enforcing structure, and analyzing model outputs.

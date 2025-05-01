@@ -1,0 +1,77 @@
+<section id="table-of-contents" class="py-16 md:py-24 bg-report-surface dark:bg-report-surface-dark">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center mb-10">
+             <svg class="h-8 w-8 mr-3 text-report-accent" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /> </svg>
+             <h2 class="text-3xl font-bold text-report-text dark:text-report-text-dark">Table of Contents</h2>
+        </div>
+
+        {# Grid layout for ToC items - Adjust grid-cols as needed #}
+        <ol class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+            {% set section_counter = namespace(value=1) %}
+
+            {# 1. Executive Summary #}
+            {% set exec_id = 'executive_summary' %}
+            {% set exec_config = report_structure.explicit_sections[exec_id] %}
+            {% if exec_config.heading %}
+                <li class="flex items-start space-x-4 group">
+                    <span class="flex-shrink-0 h-10 w-10 flex items-center justify-center border-2 border-report-border dark:border-report-border-dark rounded-full text-lg font-semibold text-report-text-muted dark:text-report-text-muted-dark group-hover:border-report-accent group-hover:text-report-accent transition-colors">
+                        {{ section_counter.value }}
+                    </span>
+                    <div class="pt-1">
+                        <a href="#{{ exec_id }}" class="text-xl font-semibold text-report-text dark:text-report-text-dark group-hover:text-report-accent dark:group-hover:text-report-accent-dark transition-colors">{{ exec_config.heading }}</a>
+                        <p class="text-sm text-report-text-muted dark:text-report-text-muted-dark">Section {{ section_counter.value }}</p>
+                    </div>
+                </li>
+                {% set section_counter.value = section_counter.value + 1 %}
+            {% endif %}
+
+            {# 2. Looped Sections #}
+            {% for section_id, section_config in report_structure.looped_sections.items() %}
+                {% if section_config.heading %}
+                    <li class="flex items-start space-x-4 group">
+                        <span class="flex-shrink-0 h-10 w-10 flex items-center justify-center border-2 border-report-border dark:border-report-border-dark rounded-full text-lg font-semibold text-report-text-muted dark:text-report-text-muted-dark group-hover:border-report-accent group-hover:text-report-accent transition-colors">
+                            {{ section_counter.value }}
+                        </span>
+                        <div class="pt-1">
+                            <a href="#{{ section_id }}" class="text-xl font-semibold text-report-text dark:text-report-text-dark group-hover:text-report-accent dark:group-hover:text-report-accent-dark transition-colors">{{ section_config.heading }}</a>
+                            <p class="text-sm text-report-text-muted dark:text-report-text-muted-dark">Section {{ section_counter.value }}</p>
+                        </div>
+                    </li>
+                    {% set section_counter.value = section_counter.value + 1 %}
+                {% endif %}
+            {% endfor %}
+
+            {# 3. Report Conclusion #}
+            {% set concl_id = 'report_conclusion' %}
+            {% set concl_config = report_structure.explicit_sections[concl_id] %}
+            {% if concl_config.heading %}
+                 <li class="flex items-start space-x-4 group">
+                     <span class="flex-shrink-0 h-10 w-10 flex items-center justify-center border-2 border-report-border dark:border-report-border-dark rounded-full text-lg font-semibold text-report-text-muted dark:text-report-text-muted-dark group-hover:border-report-accent group-hover:text-report-accent transition-colors">
+                         {{ section_counter.value }}
+                     </span>
+                     <div class="pt-1">
+                          <a href="#{{ concl_id }}" class="text-xl font-semibold text-report-text dark:text-report-text-dark group-hover:text-report-accent dark:group-hover:text-report-accent-dark transition-colors">{{ concl_config.heading }}</a>
+                          <p class="text-sm text-report-text-muted dark:text-report-text-muted-dark">Section {{ section_counter.value }}</p>
+                     </div>
+                 </li>
+                {% set section_counter.value = section_counter.value + 1 %}
+            {% endif %}
+
+             {# 4. Appendix #}
+            {% set appendix_id = 'appendix' %}
+            {% set appendix_config = report_structure.explicit_sections[appendix_id] %}
+            {% if appendix_config.heading %}
+                  <li class="flex items-start space-x-4 group">
+                      <span class="flex-shrink-0 h-10 w-10 flex items-center justify-center border-2 border-report-border dark:border-report-border-dark rounded-full text-lg font-semibold text-report-text-muted dark:text-report-text-muted-dark group-hover:border-report-accent group-hover:text-report-accent transition-colors">
+                          {{ section_counter.value }}
+                      </span>
+                      <div class="pt-1">
+                           <a href="#{{ appendix_id }}" class="text-xl font-semibold text-report-text dark:text-report-text-dark group-hover:text-report-accent dark:group-hover:text-report-accent-dark transition-colors">{{ appendix_config.heading }}</a>
+                           <p class="text-sm text-report-text-muted dark:text-report-text-muted-dark">Section {{ section_counter.value }}</p>
+                      </div>
+                  </li>
+                 {% set section_counter.value = section_counter.value + 1 %}
+             {% endif %}
+        </ol>
+    </div>
+</section>

@@ -1,0 +1,18 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+{# Specific context for a potential second chart insight in Section 4 #}
+{% set output_format_description = "a concise text block (2-3 sentences) interpreting key findings from the provided data, IF available" %}
+
+{% block task_instructions %}
+Analyze the chart image and data provided below, IF ANY, which might relate to a secondary aspect of CVSS score analysis within "{{ section_title }}". This could be a different visualization or a specific subset of data not covered by the primary distribution chart.
+If data is provided, identify the key trend or observation.
+If no specific data is provided for a second chart/analysis, please state that no distinct secondary insight could be generated based on the available context.
+Describe any findings clearly in 2-3 sentences, or state that no analysis is possible.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Chart ID: {{ data_context_payload.chart_id | default('Not Applicable - Second Insight Slot') }}
+Chart Caption: {{ data_context_payload.chart_caption | default('N/A') }}
+
+Data Summary (Potentially for a second CVSS analysis):
+{{ data_context_payload.chart_data_summary | default("No specific data provided for a second chart insight in this section.") }}
+{% endblock data_context %}

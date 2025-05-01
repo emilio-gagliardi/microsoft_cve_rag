@@ -1,0 +1,28 @@
+{% extends "quarterly_deep_dive/_base.html" %}
+
+{% block content %} {# Override the main content block from _base.html #}
+<div class="report-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    <div class="lg:grid lg:grid-cols-12 lg:gap-12 xl:gap-16">
+
+        {# --- Main Content Column --- #}
+        <main class="lg:col-span-8 xl:col-span-8 space-y-12 md:space-y-16">
+            {# Define the placeholder for pages extending this layout #}
+            {% block main_content %}
+                <p class="text-red-500 font-bold">Error: main_content block not overridden in child template!</p>
+            {% endblock %}
+        </main>
+
+        {# --- Sidebar Column --- #}
+        <aside class="lg:col-span-4 xl:col-span-4 mt-12 lg:mt-0">
+            {# Wrapper div - NOT sticky #}
+            <div class="space-y-6">
+                 {# Define the placeholder for pages extending this layout #}
+                {% block sidebar_content %}
+                     <p class="text-red-500 font-bold">Error: sidebar_content block not overridden in child template!</p>
+                {% endblock %}
+            </div>
+        </aside>
+
+    </div> {# End Grid #}
+</div> {# End Report Container #}
+{% endblock %}

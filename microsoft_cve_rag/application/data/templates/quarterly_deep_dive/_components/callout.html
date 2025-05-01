@@ -1,0 +1,38 @@
+{% macro render_callout(content, position='right', style='info') %}
+{#
+    Renders a callout box.
+    - content: HTML or plain text content.
+    - position: 'left', 'right', or 'none' (for full width).
+    - style: 'info', 'warning', 'danger', 'success', 'quote', 'takeaway'.
+#}
+{# Base class defined in CSS #}
+{% set base_classes = 'callout' %}
+
+{# Position classes for callout alignment #}
+{% set position_classes = {
+    'left': 'md:float-left md:mr-6 md:w-full md:max-w-sm',
+    'right': 'md:float-right md:ml-6 md:w-full md:max-w-sm',
+    'none': 'w-full clear-both'
+} %}
+
+{% set style_classes = {
+    'info': 'status-info',
+    'success': 'status-success',
+    'warning': 'status-warning',
+    'danger': 'status-danger',
+    'quote': 'status-quote',
+    'takeaway': 'status-takeaway'
+} %}
+
+<aside class="{{ base_classes }} {{ style_classes.get(style, 'status-info') }} {{ position_classes.get(position, 'none') }}">
+    <div class="callout-content">
+        {{ content | safe }}
+    </div>
+</aside>
+{% endmacro %}
+
+{# Usage reminder: Wrap floated callouts and main text in a container with `flow-root` #}
+{# <div class="flow-root">
+       {{ render_callout(..., position='right') }}
+       <div class="prose dark:prose-invert max-w-none"> ... text ... </div>
+   </div> #}

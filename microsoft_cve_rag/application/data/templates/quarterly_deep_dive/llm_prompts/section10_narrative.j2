@@ -1,0 +1,40 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the main narrative of Section 10 (Patch Timeliness) #}
+{% set output_format_description = "a coherent narrative paragraph (or potentially two short paragraphs) summarizing the analysis of patching/disclosure timeliness relative to risk, suitable for the main body text. Use Markdown for clarity (e.g., simple bolding) if helpful." %}
+
+{% block task_instructions %}
+Synthesize the provided chart insight, callouts, and data summary for "{{ section_title }}" into a flowing narrative text focused on the relationship between patch/disclosure delay and CVSS score.
+Your narrative should cover:
+1. The general pattern (or lack thereof) observed between vulnerability severity (CVSS) and the time taken until NVD publication (patch delay proxy).
+2. Discussion of any significant clusters or outliers, particularly high-risk vulnerabilities experiencing delays.
+3. The implications of these findings for organizational risk and patch management strategies.
+Integrate the key points highlighted in the callouts. Aim for 3-6 sentences. You may use simple Markdown (like **bold**) for emphasis if appropriate.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Section Key: {{ data_context_payload.section_key | default('section_10_patch_cdf_deep_dive') }}
+
+Chart Insights Generated for this Section:
+{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
+- Insight ({{ chart_id }}): {{ insight }}
+{% else %}
+- No specific chart insights provided.
+{% endfor %}
+
+Callouts Generated for this Section:
+{% for callout_key, callout_text in data_context_payload.callouts_in_section.items() %}
+- {{ callout_key | replace("_", " ") | title }}: {{ callout_text }}
+{% else %}
+- No callouts generated for this section.
+{% endfor %}
+
+Data Summaries for Charts in this Section:
+{% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
+--- Data Summary: {{ chart_id }} ---
+{{ summary }}
+--- End Summary ---
+{% else %}
+- No chart data summaries provided.
+{% endfor %}
+{% endblock data_context %}

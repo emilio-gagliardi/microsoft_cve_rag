@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Get exclusive access to PortalFuse's Microsoft Vulnerability Quarterly Review - in-depth technical analysis of security threats, patches, and mitigation strategies.">
+    <title>Microsoft Vulnerability Quarterly Review | PortalFuse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f6f3;
+        }
+        .preview-modal {
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+        .preview-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .report-card:hover .report-overlay {
+            opacity: 1;
+        }
+        .testimonial-card {
+            transition: transform 0.3s ease;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+        .floating-toc {
+            position: sticky;
+            top: 20px;
+        }
+        .pricing-card {
+            transition: all 0.3s ease;
+        }
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .pricing-card.popular {
+            border: 2px solid #eb8b06;
+        }
+        .faq-item {
+            transition: all 0.3s ease;
+        }
+        .faq-item:hover {
+            background-color: rgba(235, 139, 6, 0.05);
+        }
+    </style>
+</head>
+<body class="text-[#1b222d]">
+    <!-- Navigation -->
+    <nav class="bg-[#1b222d] text-white py-4 px-6 shadow-md">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="material-icons text-[#eb8b06] text-3xl">security</span>
+                <span class="text-xl font-bold">Portal<span class="text-[#eb8b06]">Fuse</span></span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#" class="hover:text-[#eb8b06]">Solutions</a>
+                <a href="#" class="hover:text-[#eb8b06]">Research</a>
+                <a href="#" class="hover:text-[#eb8b06]">About</a>
+                <a href="#" class="hover:text-[#eb8b06]">Contact</a>
+            </div>
+            <button class="md:hidden">
+                <span class="material-icons">menu</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-r from-[#1b222d] to-[#2c3648] text-white py-20 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="bg-[#eb8b06] text-[#1b222d] px-3 py-1 rounded-full text-sm font-medium">New Report</span>
+                <h1 class="text-4xl md:text-5xl font-bold mt-4 leading-tight">Microsoft Vulnerability<br>Quarterly Review</h1>
+                <p class="text-lg mt-6 text-gray-300">In-depth technical analysis of security threats, patches, and mitigation strategies from our team of cybersecurity experts.</p>
+                <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                    <button class="bg-[#eb8b06] hover:bg-[#d47a05] text-[#1b222d] font-bold py-3 px-8 rounded-lg flex items-center justify-center transition">
+                        <span class="mr-2">Get the Report</span>
+                        <span class="material-icons">arrow_forward</span>
+                    </button>
+                    <button id="preview-btn" class="border border-white hover:bg-white hover:text-[#1b222d] text-white font-medium py-3 px-8 rounded-lg flex items-center justify-center transition">
+                        <span class="mr-2">Preview Sample</span>
+                        <span class="material-icons">visibility</span>
+                    </button>
+                </div>
+                <div class="mt-8 flex items-center">
+                    <div class="flex -space-x-2">
+                        <img class="w-10 h-10 rounded-full border-2 border-[#1b222d]" src="https://randomuser.me/api/portraits/women/42.jpg" alt="">
+                        <img class="w-10 h-10 rounded-full border-2 border-[#1b222d]" src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+                        <img class="w-10 h-10 rounded-full border-2 border-[#1b222d]" src="https://randomuser.me/api/portraits/women/63.jpg" alt="">
+                    </div>
+                    <span class="ml-4 text-gray-300">Trusted by 850+ security teams</span>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="bg-white p-1 rounded-lg shadow-2xl transform rotate-2">
+                    <div class="border-2 border-gray-200 rounded-lg overflow-hidden">
+                        <div class="bg-[#f4f6f3] p-4 flex items-center">
+                            <div class="flex space-x-2">
+                                <div class="w-3 h-3 rounded-full bg-[#d84749]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#eb8b06]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#b9a696]"></div>
+                            </div>
+                            <div class="ml-4 text-sm text-gray-500">Microsoft_Vulnerability_Q2_2023.pdf</div>
+                        </div>
+                        <div class="p-6 bg-white">
+                            <div class="h-64 bg-gradient-to-br from-[#f4f6f3] to-[#e0e4df] rounded-lg flex items-center justify-center">
+                                <div class="text-center">
+                                    <span class="material-icons text-5xl text-[#1b222d]">insert_chart</span>
+                                    <p class="mt-2 font-medium text-[#1b222d]">Interactive Data Visualizations</p>
+                                </div>
+                            </div>
+                            <div class="mt-6 grid grid-cols-3 gap-2">
+                                <div class="h-2 bg-[#eb8b06] rounded"></div>
+                                <div class="h-2 bg-[#b9a696] rounded"></div>
+                                <div class="h-2 bg-[#d84749] rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute -bottom-6 -left-6 bg-[#eb8b06] w-24 h-24 rounded-full opacity-20"></div>
+                <div class="absolute -top-6 -right-6 bg-[#d84749] w-20 h-20 rounded-full opacity-20"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="preview-modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto">
+            <div class="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
+                <h3 class="text-xl font-bold">Report Preview</h3>
+                <button id="close-preview" class="text-gray-500 hover:text-gray-700">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="mb-8">
+                    <h4 class="text-2xl font-bold mb-4 text-[#1b222d]">Executive Summary</h4>
+                    <p class="text-gray-700 mb-4">This quarter's analysis reveals a 14% increase in critical vulnerabilities across Microsoft's product suite compared to last quarter, with Azure services accounting for 38% of all reported issues.</p>
+                    <div class="bg-[#f4f6f3] p-4 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <span class="material-icons text-[#eb8b06] mr-2">warning</span>
+                            <span class="font-medium">Key Finding:</span>
+                        </div>
+                        <p>Windows Server 2022 shows a concerning pattern of privilege escalation vulnerabilities, with 6 new CVEs rated 9.0+ on the CVSS scale.</p>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-2xl font-bold mb-4 text-[#1b222d]">Data Visualization Preview</h4>
+                    <div class="bg-gradient-to-br from-[#f4f6f3] to-[#e0e4df] h-64 rounded-lg flex items-center justify-center">
+                        <div class="text-center">
+                            <span class="material-icons text-5xl text-[#1b222d]">bar_chart</span>
+                            <p class="mt-2 font-medium text-[#1b222d]">Interactive Chart: Vulnerability Trend Analysis</p>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-sm text-gray-500">Full report includes 12 interactive charts with drill-down capabilities.</p>
+                </div>
+
+                <div class="bg-[#1b222d] text-white p-6 rounded-lg">
+                    <h4 class="text-xl font-bold mb-4">Get the Full Report</h4>
+                    <p class="mb-6">Access all 48 pages of detailed analysis, including mitigation strategies and patch timelines.</p>
+                    <button class="bg-[#eb8b06] hover:bg-[#d47a05] text-[#1b222d] font-bold py-3 px-8 rounded-lg w-full transition">
+                        Download Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trust Indicators -->
+    <section class="py-12 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl font-bold text-[#1b222d]">850+</div>
+                    <div class="text-gray-500 mt-2">Security Teams</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-[#1b222d]">94%</div>
+                    <div class="text-gray-500 mt-2">Retention Rate</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-[#1b222d]">Q1-Q4</div>
+                    <div class="text-gray-500 mt-2">Annual Coverage</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-[#1b222d]">48</div>
+                    <div class="text-gray-500 mt-2">Pages of Analysis</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Report Highlights -->
+    <section class="py-16 px-6 bg-[#f4f6f3]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-[#1b222d]">What's Inside the Report</h2>
+                <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">Our comprehensive analysis provides actionable insights for security professionals managing Microsoft environments.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-[#eb8b06] bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-icons text-[#eb8b06]">trending_up</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Vulnerability Trends</h3>
+                    <p class="text-gray-600">Quarter-over-quarter analysis of vulnerability patterns across Microsoft products with severity scoring.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-[#d84749] bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-icons text-[#d84749]">security</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Patch Analysis</h3>
+                    <p class="text-gray-600">Detailed breakdown of Patch Tuesday releases with impact assessments and deployment recommendations.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-[#1b222d] bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-icons text-[#1b222d]">insights</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Mitigation Strategies</h3>
+                    <p class="text-gray-600">Proven workarounds and configuration changes for vulnerabilities awaiting patches.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-[#b9a696] bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-icons text-[#b9a696]">timeline</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Exploit Timelines</h3>
+                    <p class="text-gray-600">Analysis of vulnerability disclosure to exploit development timeframes.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-[#eb8b06] bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-icons text-[#eb8b06]">cloud</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Cloud-Specific Risks</h3>
+                    <p class="text-gray-600">Deep dive into Azure and Microsoft 365 vulnerabilities with IAM and configuration guidance.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-[#d84749] bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-icons text-[#d84749]">compare</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Industry Benchmarks</h3>
+                    <p class="text-gray-600">How your organization's patch cadence compares to industry peers and security best practices.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <button class="bg-[#1b222d] hover:bg-[#2c3648] text-white font-bold py-3 px-8 rounded-lg inline-flex items-center transition">
+                    <span class="mr-2">See Full Table of Contents</span>
+                    <span class="material-icons">arrow_downward</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-[#1b222d]">Trusted by Security Leaders</h2>
+                <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">Here's what security professionals say about our vulnerability reports</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="testimonial-card bg-[#f4f6f3] p-8 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <img class="w-12 h-12 rounded-full mr-4" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson">
+                        <div>
+                            <h4 class="font-bold">Sarah Johnson</h4>
+                            <p class="text-sm text-gray-500">CISO, FinTech Corp</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"The quarterly vulnerability reports have become an essential part of our patch management process. The executive summaries alone save us dozens of hours each quarter."</p>
+                    <div class="flex text-[#eb8b06]">
+                        <span class="material-icons">star</span>
+                        <span class="material-icons">star</span>
+                        <span class="material-icons">star</span>
+                        <span class="material-icons">star</span>
+                        <span class="material-icons">star</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card bg-[#f4f6f3] p-8 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <img class="w-12 h-12 rounded-full mr-4" src="https://randomuser.me/api/portraits/men/75.jpg" alt="Michael Chen">
+                        <div>
+                            <h4 class="font-bold">Michael Chen</h4>
+                            <p class="text-sm text-gray-500">Security Architect, HealthSys</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"The mitigation strategies section has helped us reduce our critical vulnerability exposure by 40% year-over-year. The technical depth is exactly what my team needs."</p>
+                    <div class="flex text-[#eb8b06]">
+                        <span class="material-icons">star</span>
+                        <span class="material-icons">star</span>
+                        <span class="material-icons">star</span>
+                        <span class="material-icons">star</span>
+                        <span class="material-icons">star</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card bg-[#f4f6f3] p-8 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <img class="w-12 h-12 rounded-full mr-4" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya Patel">
+                        <div>
+                            <h4 class="font-bold">Priya Patel</h4>
+                            <p class="text-sm text-gray-500">Director of IT Security, EduGlobal</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"We've tried other vulnerability reports, but PortalFuse's analysis stands out for its clear prioritization and actionable recommendations tailored to different organization sizes."</p>
+                    <div class="flex text-[#eb8b06]">
+                        <span class="material-icons">star</span>
+                        <span class="material-icons">star</span>
+                        <span class="material-icons">star</span>
+                        <span class="material-icons">star</span>
+                        <span class="material-icons">star_half</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="py-16 px-6 bg-[#1b222d] text-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold">Flexible Subscription Options</h2>
+                <p class="text-lg text-gray-300 mt-4 max-w-3xl mx-auto">Choose the plan that fits your organization's needs</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="pricing-card bg-[#2c3648] p-8 rounded-xl">
+                    <h3 class="text-xl font-bold mb-2">Quarterly</h3>
+                    <p class="text-gray-300 mb-6">Single report purchase</p>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold">$299</span>
+                        <span class="text-gray-300">/report</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <span class="material-icons text-[#eb8b06] mr-2 text-sm">check_circle</span>
+                            <span>One quarterly report</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="material-icons text-[#eb8b06] mr-2 text-sm">check_circle</span>
+                            <span>PDF + Excel data</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="material-icons text-[#eb8b06] mr-2 text-sm">check_circle</span>
+                            <span>Executive summary</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-white hover:bg-gray-200 text-[#1b222d] font-bold py-3 px-4 rounded-lg transition">
+                        Purchase Single Report
+                    </button>
+                </div>
+
+                <div class="pricing-card popular bg-[#2c3648] p-8 rounded-xl relative">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#eb8b06] text-[#1b222d] px-3 py-1 rounded-full text-xs font-bold">
+                        MOST POPULAR
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Annual</h3>
+                    <p class="text-gray-300 mb-6">Four quarterly reports</p>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold">$999</span>
+                        <span class="text-gray-300">/year</span>
+                        <div class="text-sm text-[#eb8b06] mt-1">Save 17%</div>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <span class="material-icons text-[#eb8b06] mr-2 text-sm">check_circle</span>
+                            <span>Four quarterly reports</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="material-icons text-[#eb8b06] mr-2 text-sm">check_circle</span>
+                            <span>PDF + Excel data</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="material-icons text-[#eb8b06] mr-2 text-sm">check_circle</span>
+                            <span>Executive summaries</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="material-icons text-[#eb8b06] mr-2 text-sm">check_circle</span>
+                            <span>Mid-quarter updates</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="material-icons text-[#eb8b06] mr-2 text-sm">check_circle</span>
+                            <span>Priority support</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-[#eb8b06] hover:bg-[#d47a05] text-[#1b222d] font-bold py-3 px-4 rounded-lg transition">
+                        Get Annual Subscription
+                    </button>
+                </div>
+
+                <div class="pricing-card bg-[#2c3648] p-8 rounded-xl">
+                    <h3 class="text-xl font-bold mb-2">Enterprise</h3>
+                    <p class="text-gray-300 mb-6">Custom solutions</p>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold">Custom</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <span class="material-icons text-[#eb8b06] mr-2 text-sm">check_circle</span>
+                            <span>Unlimited reports</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="material-icons text-[#eb8b06] mr-2 text-sm">check_circle</span>
+                            <span>API access</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="material-icons text-[#eb8b06] mr-2 text-sm">check_circle</span>
+                            <span>Custom analysis</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="material-icons text-[#eb8b06] mr-2 text-sm">check_circle</span>
+                            <span>Dedicated analyst</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="material-icons text-[#eb8b06] mr-2 text-sm">check_circle</span>
+                            <span>24/7 support</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-white hover:bg-gray-200 text-[#1b222d] font-bold py-3 px-4 rounded-lg transition">
+                        Contact Sales
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center text-gray-400 text-sm">
+                <p>All plans come with a 30-day money-back guarantee. Volume discounts available for teams of 5+.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-16 px-6 bg-[#f4f6f3]">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-[#1b222d]">Frequently Asked Questions</h2>
+                <p class="text-lg text-gray-600 mt-4">Everything you need to know about our vulnerability reports</p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="faq-item bg-white p-6 rounded-lg cursor-pointer">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold">What's the difference between your free advisories and these reports?</h3>
+                        <span class="material-icons text-[#eb8b06]">expand_more</span>
+                    </div>
+                    <div class="mt-3 text-gray-600 hidden">
+                        <p>Our free advisories provide immediate alerts about critical vulnerabilities with basic mitigation guidance. The quarterly reports offer comprehensive analysis, including vulnerability trends, patch effectiveness metrics, exploit development timelines, and detailed configuration recommendations that aren't available in our free content.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white p-6 rounded-lg cursor-pointer">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold">How current is the data in each report?</h3>
+                        <span class="material-icons text-[#eb8b06]">expand_more</span>
+                    </div>
+                    <div class="mt-3 text-gray-600 hidden">
+                        <p>Each quarterly report analyzes all Microsoft vulnerabilities disclosed during that quarter, with data updated through the final Patch Tuesday of the quarter. We include analysis of patch effectiveness and any newly discovered exploits up to 5 business days before report publication.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white p-6 rounded-lg cursor-pointer">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold">Can I share the report with my team?</h3>
+                        <span class="material-icons text-[#eb8b06]">expand_more</span>
+                    </div>
+                    <div class="mt-3 text-gray-600 hidden">
+                        <p>Yes! All subscriptions include unlimited sharing within your organization. The annual and enterprise plans allow you to share with contractors and MSSPs working on your behalf. We only ask that you don't publicly redistribute the reports.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white p-6 rounded-lg cursor-pointer">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold">Do you cover zero-day vulnerabilities?</h3>
+                        <span class="material-icons text-[#eb8b06]">expand_more</span>
+                    </div>
+                    <div class="mt-3 text-gray-600 hidden">
+                        <p>Absolutely. Each report includes a dedicated section analyzing any zero-day vulnerabilities disclosed during the quarter, including their exploitation patterns, industry impact, and long-term mitigation strategies beyond the initial patch.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white p-6 rounded-lg cursor-pointer">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold">What if I need help implementing your recommendations?</h3>
+                        <span class="material-icons text-[#eb8b06]">expand_more</span>
+                    </div>
+                    <div class="mt-3 text-gray-600 hidden">
+                        <p>Annual and enterprise subscribers receive priority support from our security analysts. We offer optional consulting services to help implement complex mitigation strategies, with discounts available for subscribers.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <button class="text-[#1b222d] font-medium hover:text-[#eb8b06] inline-flex items-center transition">
+                    <span class="mr-2">See all FAQs</span>
+                    <span class="material-icons">arrow_forward</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 px-6 bg-gradient-to-r from-[#1b222d] to-[#2c3648] text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Get Ahead of Microsoft Vulnerabilities</h2>
+            <p class="text-xl text-gray-300 mb-8">Join 850+ security teams who rely on our quarterly reports to prioritize their patch management and reduce risk.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-[#eb8b06] hover:bg-[#d47a05] text-[#1b222d] font-bold py-3 px-8 rounded-lg flex items-center justify-center transition">
+                    <span class="mr-2">Get the Report</span>
+                    <span class="material-icons">arrow_forward</span>
+                </button>
+                <button class="border border-white hover:bg-white hover:text-[#1b222d] text-white font-medium py-3 px-8 rounded-lg flex items-center justify-center transition">
+                    <span class="mr-2">Contact Sales</span>
+                    <span class="material-icons">chat</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#1b222d] text-white py-12 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-12">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="material-icons text-[#eb8b06] text-3xl">security</span>
+                        <span class="text-xl font-bold">Portal<span class="text-[#eb8b06]">Fuse</span></span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Advanced vulnerability intelligence for security teams.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <span class="material-icons">twitter</span>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <span class="material-icons">linkedin</span>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <span class="material-icons">rss_feed</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Research Papers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Vulnerability Database</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Webinars</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Events</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Press</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Partners</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Cookie Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">GDPR</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">CCPA</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2023 PortalFuse. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-white text-sm">Security</a>
+                    <a href="#" class="text-gray-500 hover:text-white text-sm">Sitemap</a>
+                    <a href="#" class="text-gray-500 hover:text-white text-sm">Status</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Preview modal functionality
+        const previewBtn = document.getElementById('preview-btn');
+        const closePreview = document.getElementById('close-preview');
+        const previewModal = document.getElementById('preview-modal');
+
+        previewBtn.addEventListener('click', () => {
+            previewModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closePreview.addEventListener('click', () => {
+            previewModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // FAQ accordion functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const header = item.querySelector('h3');
+            const content = item.querySelector('div:not(.flex)');
+            const icon = item.querySelector('.material-icons');
+
+            header.addEventListener('click', () => {
+                const isOpen = content.classList.contains('hidden');
+
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.querySelector('div:not(.flex)').classList.add('hidden');
+                        otherItem.querySelector('.material-icons').textContent = 'expand_more';
+                    }
+                });
+
+                // Toggle current item
+                if (isOpen) {
+                    content.classList.remove('hidden');
+                    icon.textContent = 'expand_less';
+                } else {
+                    content.classList.add('hidden');
+                    icon.textContent = 'expand_more';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PortalFuse - Weekly KB Security Report</title>
+    <style>
+        /* --- Reset & Base Styles --- */
+        :root {
+            /* PortalFuse Branding */
+            --portalfuse-primary-color: #673AB7; /* Deep Purple */
+            --portalfuse-secondary-color: #EDE7F6; /* Light Purple */
+            --portalfuse-text-on-primary: #ffffff;
+
+            /* Report Content Palette (Material Inspired) */
+            --report-primary-color: #3f51b5; /* Indigo */
+            --report-primary-dark: #303f9f;
+            --report-accent-color: #ff4081; /* Pink accent */
+            --text-color: #212121;
+            --secondary-text-color: #757575;
+            --divider-color: #e0e0e0;
+            --background-color: #f4f6f8; /* Slightly cooler background */
+            --card-background: #ffffff;
+            --code-background: #f1f1f1;
+            --tag-background: #e8eaf6; /* Light Indigo */
+            --tag-text: var(--report-primary-dark);
+
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            --font-family-monospace: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+
+            --border-radius: 8px;
+            --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+            --card-shadow-raised: 0 3px 6px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.15);
+            --button-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            --button-shadow-hover: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* --- PortalFuse Branding Containers --- */
+        .portalfuse-header {
+            background-color: var(--portalfuse-primary-color);
+            color: var(--portalfuse-text-on-primary);
+            padding: 24px 0;
+            margin-bottom: 32px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .portalfuse-header-content {
+            max-width: 1000px; /* Slightly wider for header */
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Adjust as needed */
+        }
+        .portalfuse-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            /* Replace with actual img tag if you have a logo */
+        }
+
+        .portalfuse-footer {
+            background-color: #37474F; /* Dark Grey Blue */
+            color: #CFD8DC; /* Light Grey Blue */
+            padding: 32px 0;
+            margin-top: 48px;
+            font-size: 0.9rem;
+        }
+        .portalfuse-footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+            text-align: center;
+        }
+        .portalfuse-footer-logo {
+             font-weight: bold;
+             color: #ECEFF1; /* Even Lighter Grey Blue */
+             margin-bottom: 8px;
+             display: block; /* Make it a block */
+             /* Replace with actual img tag */
+        }
+        .portalfuse-footer a {
+             color: #90CAF9; /* Light Blue */
+             text-decoration: none;
+        }
+         .portalfuse-footer a:hover {
+             text-decoration: underline;
+         }
+
+
+        /* --- Report Layout & Containers --- */
+        .report-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px; /* Add padding for content spacing */
+        }
+
+        .report-title {
+             font-size: 2.5rem;
+             font-weight: 600;
+             margin-bottom: 8px;
+             color: var(--text-color);
+             text-align: center;
+        }
+
+        .generated-date {
+            text-align: center;
+            color: var(--secondary-text-color);
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 48px; /* Increased spacing */
+        }
+
+        /* --- Card Component --- */
+        .card {
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            overflow: hidden; /* Contain children */
+            transition: box-shadow 0.2s ease-in-out;
+        }
+        .card:hover {
+             /* box-shadow: var(--card-shadow-raised); */ /* Optional: subtle raise on hover */
+        }
+
+        /* --- Stat Card --- */
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid var(--divider-color); /* Subtle border */
+            box-shadow: none; /* Remove default shadow for flatter look */
+        }
+        .stat-value {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--report-primary-color);
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            display: block;
+            font-size: 0.8rem; /* Smaller label */
+            color: var(--secondary-text-color);
+            text-transform: uppercase;
+            letter-spacing: 0.8px; /* Wider spacing */
+        }
+
+        /* --- Section Heading --- */
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 500;
+            margin-top: 48px; /* Space above sections */
+            margin-bottom: 24px;
+            padding-bottom: 12px; /* Underline padding */
+            border-bottom: 2px solid var(--portalfuse-primary-color); /* Use brand color for section divides */
+            color: var(--portalfuse-primary-color);
+        }
+
+        /* --- KB Article Card Specific Styles --- */
+        .kb-article-card {
+            margin-bottom: 32px; /* More space between cards */
+            padding: 0; /* Remove default card padding, handle internally */
+        }
+
+        .kb-header {
+            padding: 20px 24px;
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px; /* Space between title block and CVE block */
+            border-bottom: 1px solid var(--divider-color);
+        }
+        .kb-title-block {
+            flex-grow: 1; /* Allow title to take available space */
+        }
+        .kb-title {
+            font-size: 1.3rem;
+            color: var(--text-color);
+            font-weight: 600;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+        .kb-published-date {
+             font-size: 0.85rem;
+             color: var(--secondary-text-color);
+        }
+
+        /* NEW CVE Info Block */
+        .kb-cve-block {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+        .cve-count {
+            font-size: 0.9rem;
+            color: var(--secondary-text-color);
+            white-space: nowrap; /* Prevent count text wrapping */
+        }
+        .view-cves-btn {
+            background-color: var(--report-primary-color);
+            color: white;
+            border: none;
+            padding: 6px 12px; /* Slightly smaller padding */
+            border-radius: 6px; /* Slightly less rounded */
+            font-size: 0.85rem; /* Smaller font */
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: var(--button-shadow);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .view-cves-btn:hover {
+            background-color: var(--report-primary-dark);
+            box-shadow: var(--button-shadow-hover);
+        }
+        .view-cves-btn:active {
+             box-shadow: inset 0 1px 3px rgba(0,0,0,0.2); /* Inset shadow on click */
+             transform: translateY(1px); /* Subtle press effect */
+        }
+
+        /* Meta Info (OS Builds) */
+        .kb-meta {
+             padding: 16px 24px;
+             border-bottom: 1px solid var(--divider-color);
+        }
+        .kb-meta h4 { /* Style for "OS Builds" heading */
+            font-size: 0.9rem;
+            color: var(--secondary-text-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        .build-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .build-tag {
+            background-color: var(--tag-background);
+            color: var(--tag-text);
+            padding: 4px 10px;
+            border-radius: 12px; /* Pill shape */
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .kb-details {
+            padding: 20px 24px; /* Add padding back for the main content */
+        }
+
+        .kb-section {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--divider-color);
+        }
+        .kb-section:last-child {
+             margin-bottom: 0;
+             padding-bottom: 0;
+             border-bottom: none;
+        }
+        .kb-section h5 { /* Sub-section titles */
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--report-primary-dark);
+        }
+        .kb-section h6 { /* Sub-sub-section titles */
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-color);
+            margin-top: 12px;
+        }
+
+
+        .no-information {
+            color: var(--secondary-text-color);
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        /* --- Code & Lists --- */
+         code {
+            font-family: var(--font-family-monospace);
+            background-color: var(--code-background);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #333;
+            word-break: break-all; /* Prevent long code lines breaking layout */
+        }
+        pre {
+            background-color: var(--code-background);
+            padding: 16px;
+            border-radius: var(--border-radius);
+            overflow-x: auto;
+            margin: 12px 0; /* Adjusted margin */
+            border: 1px solid var(--divider-color);
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+            font-size: 0.9em;
+            line-height: 1.5;
+            word-break: normal;
+            white-space: pre; /* Preserve whitespace in pre blocks */
+        }
+        ul, ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+        li { margin-bottom: 8px; }
+
+        .verification-methods li strong {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        /* --- Footer Signup Form --- */
+        .signup-form {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #455A64; /* Darker divider */
+            max-width: 500px; /* Constrain form width */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .signup-form h4 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            color: #ECEFF1;
+            font-weight: 500;
+        }
+        .signup-form-fields {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap; /* Wrap on smaller screens */
+        }
+        .signup-form input[type="email"] {
+            flex-grow: 1;
+            padding: 10px 14px;
+            border: 1px solid #546E7A;
+            border-radius: var(--border-radius);
+            background-color: #37474F;
+            color: var(--portalfuse-text-on-primary);
+            font-size: 1rem;
+            min-width: 200px; /* Ensure it doesn't get too small */
+        }
+        .signup-form input[type="email"]::placeholder {
+            color: #90A4AE;
+        }
+        .signup-form button {
+            background-color: var(--portalfuse-primary-color);
+            color: var(--portalfuse-text-on-primary);
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: var(--button-shadow);
+        }
+        .signup-form button:hover {
+             background-color: #7E57C2; /* Lighter Purple */
+             box-shadow: var(--button-shadow-hover);
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            body { padding: 0; } /* Remove body padding, handle in containers */
+            .portalfuse-header-content,
+            .report-container,
+            .portalfuse-footer-content { padding: 0 16px; } /* Consistent padding */
+
+            .report-title { font-size: 2rem; }
+            .section-title { font-size: 1.5rem; margin-top: 32px; margin-bottom: 20px; }
+            .stats-container { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-bottom: 32px; }
+            .stat-value { font-size: 2rem; }
+
+            .kb-header { flex-direction: column; align-items: flex-start; } /* Stack title and CVE info */
+            .kb-title { font-size: 1.15rem; }
+
+            .kb-meta, .kb-details { padding: 16px; } /* Reduce padding inside cards */
+
+            .modal {
+                max-width: calc(100% - 32px); /* Add some margin on sides */
+                max-height: 85vh;
+            }
+            .modal-content { padding: 16px; }
+            .cve-grid { gap: 16px; }
+            .cve-category-card { padding: 12px; }
+        }
+
+        @media (max-width: 480px) {
+            .stats-container { grid-template-columns: 1fr 1fr; } /* Force 2 columns */
+            .stat-value { font-size: 1.8rem; }
+            .stat-label { font-size: 0.75rem; }
+            .build-tag { font-size: 0.8rem; padding: 3px 8px; }
+            .modal-title { font-size: 1.1rem; }
+     .modal-close-btn { font-size: 1.6rem; }
+     .cve-grid {
+         grid-template-columns: 1fr; /* Stack cards vertically */
+     }
+            .signup-form-fields { flex-direction: column; }
+            .signup-form button { width: 100%; }
+        }
+
+    </style>
+</head>
+<body>
+    <header class="portalfuse-header">
+        <div class="portalfuse-header-content">
+            <div class="portalfuse-logo">PortalFuse</div>
+            <!-- Add Navigation or other header elements if needed -->
+        </div>
+    </header>
+
+    <div class="report-container">
+        <header class="report-header">
+            <h1 class="report-title">Weekly KB Security Report</h1>
+            <p class="generated-date">Generated on 2025-03-30T10:06:55.731123</p>
+
+            <div class="stats-container">
+                <div class="card stat-card">
+                    <span class="stat-value">13</span>
+                    <span class="stat-label">Total Articles</span>
+                </div>
+                <div class="card stat-card">
+                    <span class="stat-value">94</span>
+                    <span class="stat-label">Total CVEs</span>
+                </div>
+                <div class="card stat-card">
+                    <span class="stat-value">6</span>
+                    <span class="stat-label">Critical CVEs</span>
+                </div>
+                <div class="card stat-card">
+                    <span class="stat-value">72</span>
+                    <span class="stat-label">High CVEs</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="report-content">
+            <section id="windows-11">
+                <h2 class="section-title">Windows 11 Updates</h2>
+
+                <!-- KB Article 1: 5043355 -->
+                <article class="card kb-article-card">
+                    <div class="kb-header">
+                        <div class="kb-title-block">
+                            <h3 class="kb-title">5043355 - KB5043355: Safe OS Dynamic Update for Windows 11, version 24H2</h3>
+                            <span class="kb-published-date">Published: 2024-09-10T00:00:00</span>
+                        </div>
+                        <div class="kb-cve-block">
+                             <span class="cve-count">0 CVEs Addressed</span>
+                             <button class="view-cves-btn">View CVEs</button> <!-- Shortened Button Text -->
+                        </div>
+                    </div>
+
+                    <div class="kb-meta">
+                         <h4>OS Builds</h4>
+                         <div class="build-tags">
+                            <span class="build-tag">10.0.26100.998</span>
+                            <span class="build-tag">10.0.26100.1583</span>
+                            <span class="build-tag">10.0.26100.1287</span>
+                            <span class="build-tag">10.0.26100.712</span>
+                            <span class="build-tag">10.0.26100.560</span>
+                            <span class="build-tag">10.0.26100.1710</span>
+                        </div>
+                    </div>
+
+                    <div class="kb-details">
+                        <section class="kb-section">
+                            <h5>New Features</h5>
+                            <p>This update makes improvements to the Windows recovery environment in Windows 11, version 24H2.</p>
+                        </section>
+
+                        <section class="kb-section">
+                            <h5>Bug Fixes</h5>
+                            <p class="no-information">No Information Available</p>
+                        </section>
+
+                        <section class="kb-section">
+                            <h5>Known Issues & Workarounds</h5>
+                            <p class="no-information">No Information Available</p>
+                        </section>
+
+                        <section class="kb-section">
+                            <h5>Overview</h5>
+                            <p>KB5043355 is a Safe OS Dynamic Update released on September 10, 2024, aimed at enhancing the Windows recovery environment for various editions of Windows 11, version 24H2. The affected operating systems include:</p>
+                            <ul>
+                                <li>Windows 11 SE, version 24H2</li>
+                                <li>Windows 11 Enterprise and Education, version 24H2</li>
+                                <li>Windows 11 Enterprise Multi-Session, version 24H2</li>
+                                <li>Windows 11 Home and Pro, version 24H2</li>
+                                <li>Windows 11 IoT Enterprise, version 24H2</li>
+                            </ul>
+                            <p>This update specifically improves the functionality and reliability of the Windows Recovery Environment (WinRE). It replaces the previous update KB5041980 and does not require any prerequisites or device restarts after installation.</p>
+                        </section>
+
+                        <section class="kb-section">
+                            <h5>Technical Breakdown</h5>
+                            <h6>Installation Process and Prerequisites</h6>
+                            <p>To install this update, administrators can utilize one of the following channels:</p>
+                            <ul>
+                                <li><strong>Windows Update:</strong> Automatically downloaded and installed.</li>
+                                <li><strong>Update Catalog:</strong> Standalone package available for manual download. Refer to Microsoft Update Catalog.</li>
+                                <li><strong>Server Update Services (WSUS):</strong> This update will sync automatically if configured with:</li>
+                                <li><strong>Product:</strong> Windows 11</li>
+                                <li><strong>Classification:</strong> Security Updates</li>
+                            </ul>
+                            <p>There are no prerequisites for applying this update. Additionally, it cannot be removed once applied to a Windows image.</p>
+
+                            <h6>Methods to Verify WinRE Version Installed</h6>
+                            <p>To verify the installed version of WinRE post-update, several methods can be employed:</p>
+                            <ol class="verification-methods">
+                                <li><strong>PowerShell Script:</strong> Use the provided GetWinREVersion.ps1 script with Administrator credentials to retrieve the WinRE version. (powershell # PowerShell script content omitted for brevity; see full script in KB article).</li>
+                                <li><strong>DISM Command:</strong> Run the following command in an elevated command prompt to get WinRE information:
+                                    <pre><code>cmd dism /Get-ImageInfo /ImageFile:\\?\GLOBALROOT\device\harddisk0\partition$\Recovery\WindowsRE\winre.wim /index:1</code></pre>
+                                </li>
+                                <li><strong>Event Viewer:</strong> Check for servicing events related to WinREAgent by navigating through:</li>
+                                <li>Open Event Viewer > Expand Windows Logs > Click System > Search for "WinREAgent".</li>
+                                <li>Look for Event ID: 4501 indicating servicing success.</li>
+                            </ol>
+
+                            <h6>Vulnerabilities and Bug Fixes</h6>
+                            <p>The update primarily focuses on improvements rather than addressing specific vulnerabilities or bugs. However, it enhances overall system recovery capabilities within the affected versions of Windows.</p>
+
+                            <h6>Verification of Installation</h6>
+                             <p>After installation, confirm that the installed WinRE version is <code>10.0.26100.1710</code>. This can be done using any of the verification methods outlined above.</p>
+
+                            <h6>Removal Information</h6>
+                             <p>As stated earlier, this update cannot be removed once applied to a Windows image.</p>
+
+                            <h6>Additional References</h6>
+                            <p>For further details on standard terminology used in Microsoft software updates, refer to Description of standard terminology.</p>
+                        </section>
+                    </div>
+                </article>
+
+                <!-- KB Article 2: 5043939 -->
+                <article class="card kb-article-card">
+                     <div class="kb-header">
+                         <div class="kb-title-block">
+                            <h3 class="kb-title">5043939 - KB5043939: Out of Box Experience update for Windows 11, version 24H2</h3>
+                            <span class="kb-published-date">Published: 2024-09-10T00:00:00</span>
+                         </div>
+                         <div class="kb-cve-block">
+                             <span class="cve-count">0 CVEs Addressed</span>
+                             <button class="view-cves-btn">View CVEs</button>
+                         </div>
+                    </div>
+
+                     <div class="kb-meta">
+                        <h4>OS Builds</h4>
+                        <div class="build-tags">
+                            <span class="build-tag">10.0.1052.0</span>
+                            <span class="build-tag">10.0.26100.1588</span>
+                        </div>
+                    </div>
+
+                     <div class="kb-details">
+                        <section class="kb-section">
+                            <h5>New Features</h5>
+                            <p>This update improves the Windows 11, version 24H2 out-of-box experience (OOBE).</p>
+                        </section>
+
+                         <section class="kb-section">
+                            <h5>Bug Fixes</h5>
+                            <p class="no-information">No Information Available</p>
+                        </section>
+
+                         <section class="kb-section">
+                            <h5>Known Issues & Workarounds</h5>
+                            <p class="no-information">No Information Available</p>
+                        </section>
+
+                         <section class="kb-section">
+                            <h5>Overview</h5>
+                            <p>KB5043939 is an update released on September 10, 2024, aimed at enhancing the Out-of-Box Experience (OOBE) for Windows 11, version 24H2. This update specifically targets the OOBE process and is applicable only when OOBE updates are installed. The affected operating systems include:</p>
+                             <ul>
+                                 <li>Windows 11 SE, version 24H2</li>
+                                 <li>Windows 11 Enterprise and Education, version 24H2</li>
+                                 <li>Windows 11 Enterprise Multi-Session, version 24H2</li>
+                                 <li>Windows 11 Home and Pro, version 24H2</li>
+                                 <li>Windows 11 IoT Enterprise, version 24H2</li>
+                            </ul>
+                            <p>The update does not replace any previously released updates and requires a device restart post-installation. There are no prerequisites for this update.</p>
+                         </section>
+
+                         <section class="kb-section">
+                             <h5>Technical Breakdown</h5>
+                             <h6>Vulnerabilities and Bug Fixes</h6>
+                             <p>This section outlines the improvements made in KB5043939:</p>
+                             <ul>
+                                <li><strong>Improvement to OOBE Process:</strong> Enhances the overall user experience during the initial setup of Windows 11 by streamlining processes and ensuring smoother transitions.</li>
+                                <li><strong>Type:</strong> Improvement</li>
+                                <li><strong>Affected Component:</strong> Out-of-Box Experience (OOBE)</li>
+                             </ul>
+
+                            <h6>Installation Process and Prerequisites</h6>
+                            <p>To install this update:</p>
+                            <ol>
+                                <li>Ensure that your device is connected to the internet during the OOBE process.</li>
+                                <li>The update will be automatically applied if OOBE updates are enabled.</li>
+                                <li>After installation, a system restart is required to complete the update process.</li>
+                            </ol>
+                            <p>Preferred channels for receiving this update include:</p>
+                             <ul>
+                                <li><strong>Windows Update:</strong> Automatic installation during OOBE.</li>
+                                <li><strong>Autopatch:</strong> For organizations utilizing Microsoft Intune for device management.</li>
+                            </ul>
+                            <p>There are no uninstallation instructions provided as this update is integral to the OOBE process.</p>
+                         </section>
+                     </div>
+                </article>
+
+                <!-- Add more Windows 11 KB articles here -->
+
+            </section>
+
+            <section id="windows-10">
+                <h2 class="section-title">Windows 10 Updates</h2>
+                <!-- Add Windows 10 KB Article Cards here -->
+                 <p class="no-information">No Windows 10 updates in this report period.</p>
+            </section>
+
+            <section id="multi-os">
+                <h2 class="section-title">Multi-OS Updates</h2>
+                <!-- Add Multi-OS KB Article Cards here -->
+                 <p class="no-information">No Multi-OS updates in this report period.</p>
+            </section>
+
+        </main>
+
+    </div> <!-- End .report-container -->
+<!-- CVE Details Modal -->
+<div class="modal-overlay" id="cveModalOverlay"> <!-- Hidden by default -->
+    <div class="modal" id="cveModal">
+        <div class="modal-header">
+            <h4 class="modal-title">CVE Details</h4>
+            <button class="modal-close-btn" aria-label="Close modal">×</button>
+        </div>
+        <div class="modal-content">
+            <div class="cve-grid">
+
+                <!-- Denial Of Service Example -->
+                <div class="card cve-category-card">
+                    <div class="cve-category-header">
+                        <span class="cve-category-title">Denial Of Service</span>
+                        <span class="cve-count-badge">2 CVEs</span>
+                    </div>
+                    <ol class="cve-list">
+                        <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-38235</a>
+                            <span class="severity-tag severity-medium">medium</span>
+                        </li>
+                        <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-38234</a>
+                            <span class="severity-tag severity-medium">medium</span>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Disclosure Example -->
+                <div class="card cve-category-card">
+                     <div class="cve-category-header">
+                        <span class="cve-category-title">Disclosure</span>
+                        <span class="cve-count-badge">3 CVEs</span>
+                    </div>
+                     <ol class="cve-list">
+                        <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-38257</a>
+                            <span class="severity-tag severity-high">high</span>
+                        </li>
+                        <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-38254</a>
+                            <span class="severity-tag severity-medium">medium</span>
+                        </li>
+                         <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-38256</a>
+                            <span class="severity-tag severity-medium">medium</span>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Feature Bypass Example -->
+                 <div class="card cve-category-card">
+                     <div class="cve-category-header">
+                        <span class="cve-category-title">Feature Bypass</span>
+                        <span class="cve-count-badge">3 CVEs</span>
+                    </div>
+                     <ol class="cve-list">
+                        <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-30073</a>
+                            <span class="severity-tag severity-high">high</span>
+                        </li>
+                        <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-43487</a>
+                            <span class="severity-tag severity-medium">medium</span>
+                        </li>
+                         <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-38217</a>
+                            <span class="severity-tag severity-medium">medium</span>
+                        </li>
+                    </ol>
+                </div>
+
+                 <!-- Privilege Elevation Example (with scroll) -->
+                <div class="card cve-category-card">
+                     <div class="cve-category-header">
+                        <span class="cve-category-title">Privilege Elevation</span>
+                        <span class="cve-count-badge">17 CVEs</span>
+                    </div>
+                     <ol class="cve-list cve-list-scrollable"> <!-- Add class for scrolling -->
+                        <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-38240</a>
+                            <span class="severity-tag severity-critical">critical</span>
+                        </li>
+                        <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-38241</a>
+                            <span class="severity-tag severity-high">high</span>
+                        </li>
+                         <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-38247</a>
+                            <span class="severity-tag severity-high">high</span>
+                        </li>
+                         <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-38252</a>
+                            <span class="severity-tag severity-high">high</span>
+                        </li>
+                         <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-38237</a>
+                            <span class="severity-tag severity-high">high</span>
+                        </li>
+                         <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-38243</a>
+                            <span class="severity-tag severity-high">high</span>
+                        </li>
+                         <!-- Add more items to trigger scroll -->
+                         <li class="cve-item"><a href="#" target="_blank" class="cve-link">CVE-2024-XXXXX</a><span class="severity-tag severity-high">high</span></li>
+                         <li class="cve-item"><a href="#" target="_blank" class="cve-link">CVE-2024-XXXXX</a><span class="severity-tag severity-high">high</span></li>
+                         <li class="cve-item"><a href="#" target="_blank" class="cve-link">CVE-2024-XXXXX</a><span class="severity-tag severity-high">high</span></li>
+                         <li class="cve-item"><a href="#" target="_blank" class="cve-link">CVE-2024-XXXXX</a><span class="severity-tag severity-medium">medium</span></li>
+                         <li class="cve-item"><a href="#" target="_blank" class="cve-link">CVE-2024-XXXXX</a><span class="severity-tag severity-medium">medium</span></li>
+                         <li class="cve-item"><a href="#" target="_blank" class="cve-link">CVE-2024-XXXXX</a><span class="severity-tag severity-medium">medium</span></li>
+                         <li class="cve-item"><a href="#" target="_blank" class="cve-link">CVE-2024-XXXXX</a><span class="severity-tag severity-low">low</span></li>
+                         <li class="cve-item"><a href="#" target="_blank" class="cve-link">CVE-2024-XXXXX</a><span class="severity-tag severity-low">low</span></li>
+                         <li class="cve-item"><a href="#" target="_blank" class="cve-link">CVE-2024-XXXXX</a><span class="severity-tag severity-low">low</span></li>
+                         <li class="cve-item"><a href="#" target="_blank" class="cve-link">CVE-2024-XXXXX</a><span class="severity-tag severity-low">low</span></li>
+                         <li class="cve-item"><a href="#" target="_blank" class="cve-link">CVE-2024-XXXXX</a><span class="severity-tag severity-low">low</span></li>
+
+                    </ol>
+                </div>
+
+                 <!-- Remote Code Execution Example -->
+                 <div class="card cve-category-card">
+                     <div class="cve-category-header">
+                        <span class="cve-category-title">Remote Code Execution</span>
+                        <span class="cve-count-badge">3 CVEs</span>
+                    </div>
+                     <ol class="cve-list">
+                        <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-21416</a>
+                            <span class="severity-tag severity-critical">critical</span>
+                        </li>
+                        <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-38045</a>
+                            <span class="severity-tag severity-high">high</span>
+                        </li>
+                         <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-38119</a>
+                            <span class="severity-tag severity-high">high</span>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Spoofing Example -->
+                <div class="card cve-category-card">
+                     <div class="cve-category-header">
+                        <span class="cve-category-title">Spoofing</span>
+                        <span class="cve-count-badge">1 CVEs</span>
+                    </div>
+                     <ol class="cve-list">
+                        <li class="cve-item">
+                            <a href="#" target="_blank" class="cve-link">CVE-2024-43461</a>
+                            <span class="severity-tag severity-high">high</span>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Add other category cards as needed -->
+
+            </div> <!-- /.cve-grid -->
+        </div> <!-- /.modal-content -->
+    </div> <!-- /.modal -->
+</div> <!-- /.modal-overlay -->
+    <footer class="portalfuse-footer">
+        <div class="portalfuse-footer-content">
+             <span class="portalfuse-footer-logo">PortalFuse</span>
+             <div class="signup-form">
+                <h4>Stay Updated</h4>
+                <form action="#" method="post"> <!-- Add your form endpoint -->
+                     <div class="signup-form-fields">
+                        <input type="email" name="email" placeholder="Enter your email address" required>
+                        <button type="submit">Subscribe</button>
+                    </div>
+                </form>
+             </div>
+            <p>&copy; <script>document.write(new Date().getFullYear())</script> PortalFuse. All rights reserved.</p>
+            <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>

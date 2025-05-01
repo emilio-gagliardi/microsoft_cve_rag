@@ -1,0 +1,19 @@
+{% macro render_section_marker(
+    title,
+    subtitle='',
+    text='',
+    bg_class='bg-gradient-to-br from-report-accent to-report-accent',
+    text_class='text-report-text-contrast'
+) %}
+<section class="section-marker w-full min-h-screen flex flex-col items-center justify-center {{ bg_class }} {{ text_class }} py-20 md:py-28 px-4 text-center">
+    <div class="max-w-4xl mx-auto">
+        {% if subtitle %}
+        <p class="text-lg md:text-xl font-medium opacity-90 mb-2 uppercase tracking-wide">{{ subtitle }}</p>
+        {% endif %}
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">{{ title }}</h2>
+        {% if text %}
+        <p class="text-base md:text-lg opacity-80 max-w-3xl mx-auto">{{ text | safe }}</p>
+        {% endif %}
+    </div>
+</section>
+{% endmacro %}

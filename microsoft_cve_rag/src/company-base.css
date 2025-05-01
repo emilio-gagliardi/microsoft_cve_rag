@@ -1,0 +1,82 @@
+:root {
+  /* Typography */
+  --font-sans: 'Inter', "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif";
+  --font-mono: 'Roboto Mono', "SFMono-Regular", "Consolas", "Liberation Mono", "Menlo", "monospace";
+
+  /* === Brand Colors === */
+  --color-brand-pink:   #DF0D5F;
+  --color-brand-red:    #E82F27;
+  --color-brand-orange: #EB8B06;
+  --color-brand-yellow: #F5B000;
+  --color-brand-lime:   #A0C722;
+  --color-brand-green:  #00A33E;
+  --color-brand-teal:   #67C2C0;
+  --color-brand-blue:   #22A5DD;
+  --color-brand-black:  #000000;
+
+  /* === Report UI Palette === */
+  --color-report-background:        #F9FAFB; /* Tailwind gray-50 */
+  --color-report-background-dark:   #1B222D; /* Custom dark */
+  --color-report-surface:           #FFFFFF;
+  --color-report-surface-dark:      #2a3140; /* Custom dark surface */
+  --color-report-border:            #E5E7EB; /* Tailwind gray-200 */
+  --color-report-border-dark:       #3a4250; /* Custom dark border */
+  --color-report-text:              #1F2937; /* Tailwind gray-800 */
+  --color-report-text-dark:         #F3F4F6; /* Tailwind gray-100 */
+  --color-report-text-contrast:     #FFFFFF; /* Added: Text for on-accent */
+  --color-report-text-muted:        #6B7280; /* Tailwind gray-500 */
+  --color-report-text-muted-dark:   #9CA3AF; /* Tailwind gray-400 */
+  --color-report-accent:            var(--color-brand-orange);
+  --color-report-accent-dark:       var(--color-brand-red);
+  --color-report-light-accent:      #FEF4E6; /* Added: Light orange bg (like status-warning-bg) */
+  --color-report-alabaster:         #FCFCFC; /* Added: Very light grey/off-white */
+
+
+  /* === Semantic Status Colors === */
+  --color-status-info:        var(--color-brand-blue);
+  --color-status-success:     var(--color-brand-green);
+  --color-status-warning:     var(--color-brand-orange);
+  --color-status-danger:      var(--color-brand-red);
+
+  /* Backgrounds */
+  --color-status-info-bg:     #E9F6FD; /* Light blue */
+  --color-status-info-bg-dark: #1e3a4c; /* Dark blue */
+  --color-status-success-bg:  #E6F6EE; /* Light green */
+  --color-status-success-bg-dark: #1a4d30; /* Dark green */
+  --color-status-warning-bg:  #FEF4E6; /* Light orange */
+  --color-status-warning-bg-dark: #4d3a1a; /* Dark orange */
+  --color-status-danger-bg:   #FEF2F2; /* Light red */
+  --color-status-danger-bg-dark: #4a2a2a; /* Dark red */
+
+  /* Text */
+  --color-status-info-text:     #145C7C; /* Darker blue */
+  --color-status-info-text-dark:  #9ad5f5; /* Lighter blue */
+  --color-status-success-text:  #007A2F; /* Darker green */
+  --color-status-success-text-dark: #80c9a0; /* Lighter green */
+  --color-status-warning-text:  #8A4F03; /* Darker orange */
+  --color-status-warning-text-dark: #f5c780; /* Lighter orange */
+  --color-status-danger-text:   #991B1B; /* Darker red */
+  --color-status-danger-text-dark:  #efa2a3; /* Lighter red */
+
+  /* Borders */
+  --color-status-info-border:     var(--color-status-info);
+  --color-status-info-border-dark: var(--color-status-info); /* Often same as base for dark */
+  --color-status-success-border:  var(--color-status-success);
+  --color-status-success-border-dark: var(--color-status-success);
+  --color-status-warning-border:  var(--color-status-warning);
+  --color-status-warning-border-dark: var(--color-status-warning);
+  --color-status-danger-border:   var(--color-status-danger);
+  --color-status-danger-border-dark: var(--color-status-danger);
+
+  /* === Misc UI Colors === */
+  --color-footer-background: #212529; /* Dark footer bg */
+  --color-footer-text:       #CED4DA; /* Light text for dark footer */
+  --color-footer-link:       #90CAF9; /* Light blue link for dark footer */
+
+  /* Spacing (Optional but can be useful) */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+}

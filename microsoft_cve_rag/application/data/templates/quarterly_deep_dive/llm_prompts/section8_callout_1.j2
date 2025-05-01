@@ -1,0 +1,30 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the single callout in Section 8 (User Interaction) #}
+{% set output_format_description = "a brief callout (1-2 sentences) highlighting the most impactful insight about user interaction requirements from the Section 8 data/insight, suitable for a distinct callout box" %}
+
+{% block task_instructions %}
+Review the data summary and chart insight provided below for "{{ section_title }}". This section focuses on the proportion of vulnerabilities requiring user interaction versus those directly exploitable.
+Identify the *single most significant finding* for administrators regarding this trend. This could relate to the prevalence of social engineering tactics implied by user interaction, or conversely, the risk from directly exploitable flaws.
+Craft a concise callout (1-2 sentences maximum) stating this key finding clearly and its potential implication for security posture (e.g., user training, patching urgency).
+{% endblock task_instructions %}
+
+{% block data_context %}
+Section Key: {{ data_context_payload.section_key | default('section_8_user_interaction_deep_dive') }}
+
+Insights Generated for Charts in this Section:
+{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
+- Insight for {{ chart_id }}: {{ insight }}
+{% else %}
+- No specific chart insights provided for this section.
+{% endfor %}
+
+Data Summaries for Charts in this Section:
+{% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
+--- Data Summary: {{ chart_id }} ---
+{{ summary }}
+--- End Summary ---
+{% else %}
+- No chart data summaries provided.
+{% endfor %}
+{% endblock data_context %}

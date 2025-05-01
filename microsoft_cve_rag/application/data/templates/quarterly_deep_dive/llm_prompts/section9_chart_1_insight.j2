@@ -1,0 +1,18 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the 'overall_attack_vector_dist' chart insight #}
+{% set output_format_description = "a concise text block (2-3 sentences) interpreting the overall distribution of attack vectors" %}
+
+{% block task_instructions %}
+Analyze the chart image and data provided below for the chart titled '{{ data_context_payload.chart_caption | default('Overall Attack Vector Distribution') }}'. This data shows the percentage breakdown of all analyzed CVEs across different attack vectors (Network, Adjacent, Local, Physical).
+Identify the primary observation. Which attack vector was most prevalent overall during this period? Were any vectors notably rare? What does this distribution suggest about the most common initial access methods required for the vulnerabilities analyzed?
+Describe the key findings regarding the overall attack vector distribution in 2-3 sentences.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Chart ID: {{ data_context_payload.chart_id | default('overall_attack_vector_dist') }}
+Chart Caption: {{ data_context_payload.chart_caption | default('Figure 10. Overall Distribution of Attack Vectors for All Analyzed CVEs.') }}
+
+Data Summary (Percentage Distribution of Attack Vectors):
+{{ data_context_payload.data_summary | default("Data summary not available.") }}
+{% endblock data_context %}

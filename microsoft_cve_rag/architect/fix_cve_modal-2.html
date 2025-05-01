@@ -1,0 +1,83 @@
+<body x-data="{ modalIsOpen: false, modalCveData: { categories: {} } }">
+
+    <!-- ... your header, main content, other sections ... -->
+
+    <!-- Modal Structure -->
+    <div
+        x-show="modalIsOpen"  <!-- Use the variable from body's x-data -->
+        x-on:modal-show.window="
+            modalIsOpen = true;
+            modalCveData = $event.detail;
+            console.log('Modal received data:', modalCveData);
+        "
+        x-on:keydown.escape.window="modalIsOpen = false"
+        x-cloak
+        class="modal-overlay"
+        @click="modalIsOpen = false" <!-- Close on overlay click -->
+    >
+        <div
+            class="modal"
+            @click.stop <!-- Prevent closing when clicking inside modal -->
+            x-show="modalIsOpen" <!-- Use the variable from body's x-data -->
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform scale-95"
+            x-transition:enter-end="opacity-100 transform scale-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 transform scale-100"
+            x-transition:leave-end="opacity-0 transform scale-95"
+        >
+            <div class="modal-header">
+                <h3 class="modal-title">CVE Details</h3>
+                <button
+                    type="button"
+                    class="modal-close-btn"
+                    @click="modalIsOpen = false" <!-- Use the variable from body's x-data -->
+                    aria-label="Close modal"
+                >&times;</button>
+            </div>
+            <div class="modal-content">
+                <!-- Check if there are any categories -->
+                <template x-if="Object.keys(modalCveData.categories || {}).length === 0">
+                    <p class="text-center text-gray-500 italic">No CVEs associated with this update.</p>
+                </template>
+
+                <div class="cve-grid">
+                     <!-- Use modalCveData here -->
+                    <template x-for="(cves, categoryName) in modalCveData.categories" :key="categoryName">
+                       <!-- ... rest of your modal content using modalCveData ... -->
+                        <div class="card cve-category-card">
+                            <div class="cve-category-header">
+                                <span class="cve-category-title" x-text="categoryName.replace(/_/g, ' ')"></span>
+                                <span class="cve-count-badge" x-text="cves.length + ' CVEs'"></span>
+                            </div>
+                            <template x-if="cves && cves.length > 0">
+                                <ol class="cve-list-items" :class="{ 'cve-list-scrollable': cves.length > 6 }">
+                                    <template x-for="cve in cves" :key="cve.id">
+                                        <li class="cve-item">
+                                            <a :href="'https://nvd.nist.gov/vuln/detail/' + cve.id"
+                                               class="cve-link"
+                                               target="_blank"
+                                               rel="noopener noreferrer"
+                                               x-text="cve.id">
+                                            </a>
+                                            <span class="severity-tag"
+                                                  :class="'severity-' + (cve.score?.score_rating?.toLowerCase() || 'none')"
+                                                  x-text="cve.score?.score_rating?.toLowerCase() || 'N/A'">
+                                            </span>
+                                        </li>
+                                    </template>
+                                </ol>
+                            </template>
+                             <template x-else>
+                                <p class="text-sm text-gray-500 italic">No CVEs in this category.</p>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Structure -->
+
+    <!-- ... your footer ... -->
+</body>

@@ -1,0 +1,30 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the first callout in Section 4 #}
+{% set output_format_description = "a brief callout (1-2 sentences) highlighting a single, impactful insight regarding CVSS scores from the Section 4 data/insights provided, suitable for a distinct callout box" %}
+
+{% block task_instructions %}
+Review the data summaries and chart insights provided below for "{{ section_title }}". This section focuses on the distribution of CVSS base scores across different vulnerability types.
+Identify the *single most significant finding* about CVSS scores that a system administrator should be aware of. This could be the consistently high risk of a specific category, a wide variance suggesting unpredictable impact, or a concentration of scores in a particular range.
+Craft a concise callout (1-2 sentences maximum) stating this key finding clearly.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Section Key: {{ data_context_payload.section_key | default('section_4_cvss_dist') }}
+
+Insights Generated for Charts in this Section:
+{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
+- Insight for {{ chart_id }}: {{ insight }}
+{% else %}
+- No specific chart insights provided for this section.
+{% endfor %}
+
+Data Summaries for Charts in this Section:
+{% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
+--- Data Summary: {{ chart_id }} ---
+{{ summary }}
+--- End Summary ---
+{% else %}
+- No chart data summaries provided.
+{% endfor %}
+{% endblock data_context %}

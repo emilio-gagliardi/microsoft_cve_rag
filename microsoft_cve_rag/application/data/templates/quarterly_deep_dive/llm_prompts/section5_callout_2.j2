@@ -1,0 +1,30 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the second callout in Section 5 (RCE Deep Dive) #}
+{% set output_format_description = "a brief callout (1-2 sentences) highlighting a second, distinct insight about RCE vulnerabilities from the Section 5 data/insights, suitable for a distinct callout box" %}
+
+{% block task_instructions %}
+Review the data summaries and chart insights provided below for "{{ section_title }}". This section focuses on RCE vulnerabilities.
+Following the general instructions, identify a *second, distinct* significant finding related to RCEs (different from Callout 1). Perhaps focus on the relationship between their frequency (proportion chart) and severity (CVSS distribution chart), or highlight the range of impact even within RCEs.
+Craft a concise callout (1-2 sentences maximum) stating this key finding clearly.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Section Key: {{ data_context_payload.section_key | default('section_5_rce_deep_dive') }}
+
+Insights Generated for Charts in this Section:
+{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
+- Insight for {{ chart_id }}: {{ insight }}
+{% else %}
+- No specific chart insights provided for this section.
+{% endfor %}
+
+Data Summaries for Charts in this Section:
+{% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
+--- Data Summary: {{ chart_id }} ---
+{{ summary }}
+--- End Summary ---
+{% else %}
+- No chart data summaries provided.
+{% endfor %}
+{% endblock data_context %}

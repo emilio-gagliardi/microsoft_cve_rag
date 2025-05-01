@@ -1,0 +1,8 @@
+{% macro render_key_insight_box(title, content, border_color='border-report-border') %}
+<div class="p-6 bg-report-surface dark:bg-report-surface-dark border-l-4 {{ border_color }} rounded-r-lg shadow-md">
+    <h4 class="text-lg font-semibold mb-3 text-report-text dark:text-report-text-dark">{{ title }}</h4>
+    <div class="prose prose-sm dark:prose-invert max-w-none text-report-text-muted dark:text-report-text-muted-dark">
+        {{ content | safe }}
+    </div>
+</div>
+{% endmacro %}

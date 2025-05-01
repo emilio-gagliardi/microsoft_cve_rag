@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Section title pages */
+        .section-title {
+            height: 100vh;
+            scroll-snap-align: start;
+        }
+
+        /* Content pages */
+        .content-page {
+            min-height: 100vh;
+            scroll-snap-align: start;
+        }
+
+        /* Floating TOC */
+        .toc-floating {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 20px;
+            z-index: 100;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y proximity;
+        }
+
+        /* Plotly chart container */
+        .plotly-chart {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+        }
+
+        /* Data table styling */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .data-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans antialiased text-gray-800">
+    <!-- Full-width Table of Contents (Top) -->
+    <div id="toc-full" class="bg-white shadow-md py-6 px-8 mb-8 sticky top-0 z-50">
+        <div class="container mx-auto">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4">Table of Contents</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-2">Main Sections</h3>
+                    <ul class="space-y-1">
+                        <li><a href="#section1" class="text-indigo-600 hover:text-indigo-800 transition">1. Introduction</a></li>
+                        <li><a href="#section2" class="text-indigo-600 hover:text-indigo-800 transition">2. Methodology</a></li>
+                        <li><a href="#section3" class="text-indigo-600 hover:text-indigo-800 transition">3. Data Analysis</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-2">Findings</h3>
+                    <ul class="space-y-1">
+                        <li><a href="#section4" class="text-indigo-600 hover:text-indigo-800 transition">4. Key Findings</a></li>
+                        <li><a href="#section5" class="text-indigo-600 hover:text-indigo-800 transition">5. Visualizations</a></li>
+                        <li><a href="#section6" class="text-indigo-600 hover:text-indigo-800 transition">6. Conclusions</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-2">Appendix</h3>
+                    <ul class="space-y-1">
+                        <li><a href="#appendix" class="text-indigo-600 hover:text-indigo-800 transition">Data Tables</a></li>
+                        <li><a href="#references" class="text-indigo-600 hover:text-indigo-800 transition">References</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Table of Contents (Sidebar) - Hidden initially -->
+    <div id="toc-floating" class="toc-floating hidden md:block bg-white p-4 rounded-lg shadow-lg">
+        <h3 class="font-semibold text-gray-700 mb-2">Contents</h3>
+        <ul class="space-y-1">
+            <li><a href="#section1" class="text-indigo-600 hover:text-indigo-800 transition text-sm">1. Intro</a></li>
+            <li><a href="#section2" class="text-indigo-600 hover:text-indigo-800 transition text-sm">2. Methods</a></li>
+            <li><a href="#section3" class="text-indigo-600 hover:text-indigo-800 transition text-sm">3. Analysis</a></li>
+            <li><a href="#section4" class="text-indigo-600 hover:text-indigo-800 transition text-sm">4. Findings</a></li>
+            <li><a href="#section5" class="text-indigo-600 hover:text-indigo-800 transition text-sm">5. Visuals</a></li>
+            <li><a href="#section6" class="text-indigo-600 hover:text-indigo-800 transition text-sm">6. Conclusions</a></li>
+            <li><a href="#appendix" class="text-indigo-600 hover:text-indigo-800 transition text-sm">Appendix</a></li>
+        </ul>
+    </div>
+
+    <!-- Section 1 Title Page -->
+    <div id="section1" class="section-title bg-gradient-to-br from-indigo-900 to-blue-800 flex items-center justify-center">
+        <div class="text-center px-8 max-w-4xl">
+            <h1 class="text-5xl font-bold text-white mb-6">Introduction</h1>
+            <p class="text-xl text-blue-200 mb-8">Understanding the problem space and research objectives</p>
+            <div class="animate-bounce mt-12">
+                <a href="#section1-content" class="text-white text-2xl">
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 1 Content -->
+    <div id="section1-content" class="content-page py-16 px-4 md:px-8">
+        <div class="container mx-auto max-w-6xl">
+            <!-- Full width text layout -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-indigo-800 mb-6">Research Background</h2>
+                <div class="prose max-w-none">
+                    <p class="text-lg text-gray-700 mb-4">
+                        This report presents a comprehensive analysis of the current market trends and consumer behaviors in the technology sector. Our research spans a period of five years, from 2018 to 2023, capturing significant shifts in consumer preferences and technological advancements.
+                    </p>
+                    <p class="text-lg text-gray-700">
+                        The primary objective of this study is to identify key patterns in technology adoption and to forecast future trends based on historical data. We employ advanced statistical models and machine learning techniques to derive meaningful insights from complex datasets.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Two column layout (text + chart) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <div class="prose">
+                    <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Market Growth Overview</h3>
+                    <p class="text-gray-700 mb-4">
+                        The technology sector has experienced exponential growth over the past decade, with particular acceleration in cloud computing and artificial intelligence solutions. Our preliminary analysis shows a compound annual growth rate (CAGR) of 12.4% across all segments.
+                    </p>
+                    <p class="text-gray-700">
+                        The visualization to the right illustrates the year-over-year growth across different technology categories. Notable is the rapid adoption of edge computing solutions beginning in 2020, coinciding with increased demand for distributed systems.
+                    </p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <div id="chart1" class="plotly-chart"></div>
+                </div>
+            </div>
+
+            <!-- Another full width text layout -->
+            <div class="bg-indigo-50 p-8 rounded-xl">
+                <h2 class="text-2xl font-bold text-indigo-800 mb-4">Research Questions</h2>
+                <ul class="space-y-3 text-gray-700">
+                    <li class="flex items-start">
+                        <span class="text-indigo-600 mr-2 mt-1"><i class="fas fa-question-circle"></i></span>
+                        <span>How have consumer preferences evolved in relation to emerging technologies?</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-indigo-600 mr-2 mt-1"><i class="fas fa-question-circle"></i></span>
+                        <span>What factors most significantly influence technology adoption rates?</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-indigo-600 mr-2 mt-1"><i class="fas fa-question-circle"></i></span>
+                        <span>Can we identify patterns that predict future market trends with statistical significance?</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 2 Title Page -->
+    <div id="section2" class="section-title bg-gradient-to-br from-blue-600 to-teal-500 flex items-center justify-center">
+        <div class="text-center px-8 max-w-4xl">
+            <h1 class="text-5xl font-bold text-white mb-6">Methodology</h1>
+            <p class="text-xl text-blue-100 mb-8">Data collection, processing, and analytical approaches</p>
+            <div class="animate-bounce mt-12">
+                <a href="#section2-content" class="text-white text-2xl">
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 2 Content -->
+    <div id="section2-content" class="content-page py-16 px-4 md:px-8">
+        <div class="container mx-auto max-w-6xl">
+            <!-- Two column layout (chart + text) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <div id="chart2" class="plotly-chart"></div>
+                </div>
+                <div class="prose">
+                    <h3 class="text-2xl font-semibold text-blue-700 mb-4">Data Collection Framework</h3>
+                    <p class="text-gray-700 mb-4">
+                        Our data collection process involved multiple sources including API integrations with major technology platforms, web scraping of relevant forums and review sites, and partnerships with industry leaders for proprietary datasets.
+                    </p>
+                    <p class="text-gray-700">
+                        The visualization to the left shows the distribution of our data sources by type and volume. We maintained strict data quality standards throughout the collection process, with automated validation checks and manual sampling verification.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Full width text layout -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-blue-800 mb-6">Analytical Techniques</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
+                        <h4 class="font-semibold text-lg text-blue-700 mb-2">Statistical Analysis</h4>
+                        <p class="text-gray-600">
+                            Descriptive statistics, hypothesis testing, and regression analysis to identify significant relationships.
+                        </p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-teal-500">
+                        <h4 class="font-semibold text-lg text-teal-700 mb-2">Machine Learning</h4>
+                        <p class="text-gray-600">
+                            Random forests, gradient boosting, and neural networks for predictive modeling and pattern recognition.
+                        </p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-indigo-500">
+                        <h4 class="font-semibold text-lg text-indigo-700 mb-2">Time Series</h4>
+                        <p class="text-gray-600">
+                            ARIMA models and Fourier analysis for trend decomposition and forecasting.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 3 Title Page -->
+    <div id="section3" class="section-title bg-gradient-to-br from-purple-700 to-pink-600 flex items-center justify-center">
+        <div class="text-center px-8 max-w-4xl">
+            <h1 class="text-5xl font-bold text-white mb-6">Data Analysis</h1>
+            <p class="text-xl text-purple-200 mb-8">Key insights and patterns from the collected data</p>
+            <div class="animate-bounce mt-12">
+                <a href="#section3-content" class="text-white text-2xl">
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 3 Content -->
+    <div id="section3-content" class="content-page py-16 px-4 md:px-8">
+        <div class="container mx-auto max-w-6xl">
+            <!-- Full width chart -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-purple-800 mb-6">Technology Adoption Trends</h2>
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <div id="chart3" class="plotly-chart"></div>
+                </div>
+                <div class="prose mt-6">
+                    <p class="text-gray-700">
+                        The above visualization demonstrates the adoption rates of various technologies over time. Notable is the rapid ascent of AI/ML technologies beginning in 2020, surpassing even cloud computing in growth rate by Q3 2022.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Two column layout (text + chart) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <div class="prose">
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">Demographic Breakdown</h3>
+                    <p class="text-gray-700 mb-4">
+                        Our analysis revealed significant variations in technology adoption across different demographic groups. Younger consumers (18-35) showed faster adoption rates but lower brand loyalty compared to older demographics.
+                    </p>
+                    <p class="text-gray-700">
+                        The visualization to the right highlights these differences, with particular attention to the 45-60 age group which demonstrated unexpected engagement with emerging technologies.
+                    </p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <div id="chart4" class="plotly-chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Continue with Sections 4-6 in similar fashion... -->
+
+    <!-- Appendix Section -->
+    <div id="appendix" class="py-16 px-4 md:px-8 bg-gray-100">
+        <div class="container mx-auto max-w-6xl">
+            <h1 class="text-4xl font-bold text-gray-800 mb-8">Appendix: Data Tables</h1>
+
+            <div class="mb-12">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Raw Data - Technology Adoption</h2>
+                <div class="overflow-x-auto bg-white rounded-lg shadow-md">
+                    <table class="data-table w-full">
+                        <thead>
+                            <tr class="bg-gray-200">
+                                <th class="p-3">Year</th>
+                                <th class="p-3">Cloud Computing</th>
+                                <th class="p-3">AI/ML</th>
+                                <th class="p-3">IoT</th>
+                                <th class="p-3">Edge Computing</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="p-3">2018</td>
+                                <td class="p-3">32.4%</td>
+                                <td class="p-3">12.1%</td>
+                                <td class="p-3">18.7%</td>
+                                <td class="p-3">5.2%</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">2019</td>
+                                <td class="p-3">38.6%</td>
+                                <td class="p-3">16.3%</td>
+                                <td class="p-3">22.4%</td>
+                                <td class="p-3">7.8%</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">2020</td>
+                                <td class="p-3">45.2%</td>
+                                <td class="p-3">24.7%</td>
+                                <td class="p-3">27.1%</td>
+                                <td class="p-3">14.3%</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">2021</td>
+                                <td class="p-3">52.8%</td>
+                                <td class="p-3">36.5%</td>
+                                <td class="p-3">31.9%</td>
+                                <td class="p-3">22.6%</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">2022</td>
+                                <td class="p-3">58.3%</td>
+                                <td class="p-3">47.2%</td>
+                                <td class="p-3">35.4%</td>
+                                <td class="p-3">29.8%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Additional tables would go here -->
+        </div>
+    </div>
+
+    <!-- References Section -->
+    <div id="references" class="py-16 px-4 md:px-8 bg-white">
+        <div class="container mx-auto max-w-6xl">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8">References</h1>
+            <div class="prose">
+                <ul class="space-y-2">
+                    <li>Smith, J. (2021). "Emerging Trends in Technology Adoption". Journal of Tech Research, 15(3), 45-67.</li>
+                    <li>Johnson, A., & Lee, B. (2022). "Demographic Shifts in Digital Consumption". Data Science Quarterly, 8(2), 112-130.</li>
+                    <li>Global Technology Consortium. (2023). Annual Report on Market Trends.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to top button -->
+    <div class="fixed bottom-6 right-6">
+        <a href="#" class="bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 transition">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+
+    <script>
+        // Initialize Plotly charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Chart 1: Market Growth
+            const chart1Data = [{
+                x: ['2018', '2019', '2020', '2021', '2022'],
+                y: [32.4, 38.6, 45.2, 52.8, 58.3],
+                name: 'Cloud Computing',
+                type: 'line',
+                line: {color: '#4F46E5', width: 3}
+            }, {
+                x: ['2018', '2019', '2020', '2021', '2022'],
+                y: [12.1, 16.3, 24.7, 36.5, 47.2],
+                name: 'AI/ML',
+                type: 'line',
+                line: {color: '#10B981', width: 3}
+            }, {
+                x: ['2018', '2019', '2020', '2021', '2022'],
+                y: [5.2, 7.8, 14.3, 22.6, 29.8],
+                name: 'Edge Computing',
+                type: 'line',
+                line: {color: '#EC4899', width: 3}
+            }];
+
+            const chart1Layout = {
+                title: 'Technology Adoption Rates (2018-2022)',
+                xaxis: {title: 'Year'},
+                yaxis: {title: 'Adoption Rate (%)'},
+                hovermode: 'closest',
+                margin: {t: 40, r: 30, b: 50, l: 50},
+                legend: {orientation: 'h', y: -0.2},
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)'
+            };
+
+            Plotly.newPlot('chart1', chart1Data, chart1Layout);
+
+            // Chart 2: Data Sources
+            const chart2Data = [{
+                values: [35, 25, 20, 15, 5],
+                labels: ['API Integrations', 'Web Scraping', 'Partner Data', 'Surveys', 'Public Datasets'],
+                type: 'pie',
+                marker: {
+                    colors: ['#4F46E5', '#10B981', '#EC4899', '#F59E0B', '#6366F1']
+                },
+                textinfo: 'percent+label',
+                insidetextorientation: 'radial'
+            }];
+
+            const chart2Layout = {
+                title: 'Data Source Distribution',
+                margin: {t: 40, r: 30, b: 30, l: 30},
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)'
+            };
+
+            Plotly.newPlot('chart2', chart2Data, chart2Layout);
+
+            // Chart 3: Technology Trends
+            const chart3Data = [{
+                z: [[32.4, 38.6, 45.2, 52.8, 58.3],
+                    [12.1, 16.3, 24.7, 36.5, 47.2],
+                    [18.7, 22.4, 27.1, 31.9, 35.4],
+                    [5.2, 7.8, 14.3, 22.6, 29.8]],
+                x: ['2018', '2019', '2020', '2021', '2022'],
+                y: ['Cloud', 'AI/ML', 'IoT', 'Edge'],
+                type: 'heatmap',
+                colorscale: 'Viridis'
+            }];
+
+            const chart3Layout = {
+                title: 'Technology Adoption Heatmap',
+                xaxis: {title: 'Year'},
+                yaxis: {title: 'Technology'},
+                margin: {t: 40, r: 30, b: 50, l: 50},
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)'
+            };
+
+            Plotly.newPlot('chart3', chart3Data, chart3Layout);
+
+            // Chart 4: Demographic Breakdown
+            const chart4Data = [{
+                x: ['18-25', '26-35', '36-45', '46-60', '60+'],
+                y: [78, 72, 58, 42, 28],
+                name: 'Adoption Rate',
+                type: 'bar',
+                marker: {
+                    color: '#4F46E5'
+                }
+            }, {
+                x: ['18-25', '26-35', '36-45', '46-60', '60+'],
+                y: [45, 52, 68, 74, 82],
+                name: 'Brand Loyalty',
+                type: 'bar',
+                marker: {
+                    color: '#10B981'
+                }
+            }];
+
+            const chart4Layout = {
+                title: 'Technology Adoption by Age Group',
+                barmode: 'group',
+                xaxis: {title: 'Age Group'},
+                yaxis: {title: 'Percentage (%)'},
+                margin: {t: 40, r: 30, b: 50, l: 50},
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)'
+            };
+
+            Plotly.newPlot('chart4', chart4Data, chart4Layout);
+
+            // Toggle floating TOC based on scroll position
+            window.addEventListener('scroll', function() {
+                const tocFull = document.getElementById('toc-full');
+                const tocFloating = document.getElementById('toc-floating');
+
+                if (window.scrollY > tocFull.offsetHeight) {
+                    tocFloating.classList.remove('hidden');
+                } else {
+                    tocFloating.classList.add('hidden');
+                }
+            });
+
+            // Responsive adjustments
+            function handleResize() {
+                // You can add responsive adjustments here if needed
+            }
+
+            window.addEventListener('resize', handleResize);
+            handleResize();
+        });
+    </script>
+</body>
+</html>

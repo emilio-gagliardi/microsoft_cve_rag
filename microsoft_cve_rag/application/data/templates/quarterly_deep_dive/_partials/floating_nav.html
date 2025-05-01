@@ -1,0 +1,18 @@
+<nav id="floating-nav" class="fixed top-1/2 right-8 transform -translate-y-1/2 z-50 hidden lg:block bg-report-surface-light p-4 rounded-lg shadow-md border border-report-border-light dark:bg-report-surface-dark dark:border-report-border-dark max-h-[80vh] overflow-y-auto">
+    <h3 class="text-sm font-semibold text-report-text-muted-light dark:text-report-text-muted-dark uppercase tracking-wider mb-3">Sections</h3>
+    <ul class="space-y-1.5">
+         {# Links using section_id for href #}
+         {% set exec_id = 'executive_summary' %}
+         <li><a href="#{{ exec_id }}" class="block text-sm text-brand-blue hover:text-brand-blue-dark hover:underline">{{ report_structure.explicit_sections[exec_id].heading }}</a></li>
+
+         {% for section_id, section_config in report_structure.looped_sections.items() %}
+            <li><a href="#{{ section_id }}" class="block text-sm text-brand-blue hover:text-brand-blue-dark hover:underline">{{ section_config.heading }}</a></li>
+         {% endfor %}
+
+         {% set concl_id = 'report_conclusion' %}
+         <li><a href="#{{ concl_id }}" class="block text-sm text-brand-blue hover:text-brand-blue-dark hover:underline">{{ report_structure.explicit_sections[concl_id].heading }}</a></li>
+
+         {% set appendix_id = 'appendix' %}
+          <li><a href="#{{ appendix_id }}" class="block text-sm text-brand-blue hover:text-brand-blue-dark hover:underline">{{ report_structure.explicit_sections[appendix_id].heading }}</a></li>
+    </ul>
+</nav>

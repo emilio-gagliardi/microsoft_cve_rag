@@ -1,0 +1,47 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the Executive Summary #}
+{% set output_format_description = "a comprehensive yet concise summary (typically 3-5 paragraphs) highlighting the most critical findings and overall trends from the entire report, suitable for an executive audience. Use Markdown for structure (paragraphs, potentially **bolding** key terms or stats) but avoid overly complex formatting." %}
+
+{% block task_instructions %}
+You are generating the **Executive Summary** for the "{{ report_title }}" covering the period {{ start_date.strftime('%B %Y') }} to {{ end_date.strftime('%B %Y') }}.
+Review the Overall Report Statistics and the key findings (insights, callouts, narratives, summaries) generated for each analytical section provided below.
+Synthesize this information into a high-level overview focusing on:
+
+1.  **Overall Volume & Severity:** Briefly state the total number of CVEs analyzed and the general severity distribution (e.g., proportion of Critical/Important). Mention any significant trends compared to previous periods if discernible or stated in section summaries.
+2.  **Key Vulnerability Types:** Highlight the main observations concerning critical vulnerability types like Remote Code Execution (RCE) and Elevation of Privilege (EOP) based on the relevant section summaries (e.g., their prevalence, typical severity).
+3.  **Attack Landscape:** Briefly summarize key findings regarding attack vectors, complexity, or user interaction requirements based on the relevant section summaries.
+4.  **Patching/Timeliness:** Include the main takeaway regarding patch delays or timeliness if Section 10 provided a significant finding.
+5.  **Overarching Conclusion:** Conclude with a sentence summarizing the overall security posture or key risk area suggested by the data for this period.
+
+Maintain a strategic, executive-level perspective. Focus on the "so what?" for management. Ensure the summary flows logically and accurately reflects the critical points detailed in the section content.
+{% endblock task_instructions %}
+
+{% block data_context %}
+**Overall Report Statistics:**
+- Total CVEs Analyzed: {{ data_context_payload.overall_report_stats.total_cves | default('N/A') }}
+- Critical CVEs: {{ data_context_payload.overall_report_stats.critical_cves_count | default('N/A') }}
+- Important CVEs: {{ data_context_payload.overall_report_stats.important_cves_count | default('N/A') }}
+- Moderate CVEs: {{ data_context_payload.overall_report_stats.moderate_cves_count | default('N/A') }}
+- Low CVEs: {{ data_context_payload.overall_report_stats.low_cves_count | default('N/A') }}
+{# Add other key overall stats from overall_report_stats as needed, e.g.: #}
+- RCE Count: {{ data_context_payload.overall_report_stats.rce_cves_count | default('N/A') }}
+- EOP Count: {{ data_context_payload.overall_report_stats.eop_cves_count | default('N/A') }}
+{# Consider adding average CVSS or other high-level stats if calculated #}
+---
+
+**Generated Content from Report Sections:**
+
+{% for section_key, section_data in data_context_payload.all_section_content.items() %}
+{% if section_key != "executive_summary" and section_key != "report_conclusion" %} {# Avoid showing itself or the final conclusion #}
+**Section: {{ section_key | replace("_", " ") | title }}**
+{% for prompt_type, text in section_data.items() %}
+  - {{ prompt_type | title }}: {{ text | truncate(300) }} {# Truncate for brevity in context #}
+{% endfor %}
+---
+{% endif %}
+{% else %}
+No detailed section content provided. Base summary on overall statistics.
+{% endfor %}
+
+{% endblock data_context %}

@@ -1,0 +1,13 @@
+{% extends "quarterly_deep_dive/_base.html" %}
+
+{% block content %}
+{# Example: Full height section with gradient background #}
+<section class="min-h-[calc(100vh-var(--header-height,100px))] flex items-center justify-center bg-gradient-to-br from-brand-blue to-brand-teal text-white p-8">
+    {# Adjust header height variable if needed, or remove calc #}
+     <div class="text-center max-w-3xl">
+        {% block intro_content %}
+            {# Content specific to the intro page layout #}
+        {% endblock %}
+    </div>
+</section>
+{% endblock %}

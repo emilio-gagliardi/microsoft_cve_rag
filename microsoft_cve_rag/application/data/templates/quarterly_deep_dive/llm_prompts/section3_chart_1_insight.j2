@@ -1,0 +1,18 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the 'new_vs_updated' chart insight #}
+{% set output_format_description = "a concise text block (2-3 sentences) interpreting the key trend or observation from the provided chart data" %}
+
+{% block task_instructions %}
+Analyze the accompanying chart image AND the data summary provided below for the chart titled'{{ data_context_payload.chart_caption | default('New vs. Updated CVEs') }}'. This data shows the monthly counts of 'New' versus 'Updated' CVEs.
+Identify the primary trend or the most significant observation. For example, were there consistently more new or updated CVEs each month? Was there a notable spike or change in the pattern during the period?
+Describe this key finding clearly in 2-3 sentences.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Chart ID: {{ data_context_payload.chart_id | default('new_vs_updated') }}
+Chart Caption: {{ data_context_payload.chart_caption | default('Figure 1. Total number of New vs. Updated Windows-based CVEs Published Monthly.') }}
+
+Data Summary (Monthly Counts - New vs Updated):
+{{ data_context_payload.chart_data_summary | default("Data not available.") }}
+{% endblock data_context %}

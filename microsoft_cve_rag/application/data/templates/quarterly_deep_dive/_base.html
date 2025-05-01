@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Microsoft CVE Analysis{% endblock %}</title>
+    <link rel="stylesheet" href="../css/QuarterlyReportStylesheet.css">
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+
+    <script>
+      // Apply theme on initial load based ONLY on localStorage, default to light
+      function applyInitialTheme() {
+        if (localStorage.theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          // Default to light: remove dark if it exists for any reason
+          document.documentElement.classList.remove('dark');
+        }
+      }
+
+      // Apply theme immediately
+      applyInitialTheme();
+
+      // Theme toggle function called by header button
+      function toggleTheme() {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.theme = isDark ? 'dark' : 'light';
+
+        // Optional: Add explicit JS logic here to show/hide sun/moon icons
+        // if pure CSS (:dark selectors) isn't sufficient for the button state.
+        // Example:
+        // const sunIcon = document.querySelector('button[onclick="toggleTheme()"] svg.sun-icon'); // Use specific classes
+        // const moonIcon = document.querySelector('button[onclick="toggleTheme()"] svg.moon-icon');
+        // if(sunIcon && moonIcon) {
+        //    sunIcon.style.display = isDark ? 'none' : 'inline-block';
+        //    moonIcon.style.display = isDark ? 'inline-block' : 'none';
+        // }
+      }
+    </script>
+    {% block head_extra %}{% endblock %}
+</head>
+<body class="bg-report-background text-report-text dark:bg-report-background-dark dark:text-report-text-dark font-sans antialiased">
+
+    {% include "quarterly_deep_dive/_partials/header.html" %}
+
+    {% block content %}
+        <p class="text-red-500 p-10">Error: Content block not filled by child template.</p>
+    {% endblock %}
+
+    {% include "quarterly_deep_dive/_partials/footer.html" %}
+
+    <script defer src="../js/QuarterlyReport.js"></script>
+</body>
+</html>

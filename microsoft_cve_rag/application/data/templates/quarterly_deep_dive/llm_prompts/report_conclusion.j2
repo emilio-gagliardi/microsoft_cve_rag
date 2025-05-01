@@ -1,0 +1,46 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the Report Conclusion #}
+{% set output_format_description = "a concluding paragraph (potentially two) summarizing the report's main message and reinforcing key takeaways, suitable for the end of the report. Use Markdown for structure (paragraphs, **bolding**) if helpful." %}
+
+{% block task_instructions %}
+You are generating the **Conclusion** for the "{{ report_title }}" covering the period {{ start_date.strftime('%B %Y') }} to {{ end_date.strftime('%B %Y') }}.
+Review the Overall Report Statistics, the generated Executive Summary, and the detailed findings from all analytical sections provided below.
+
+Your task is to write a concluding statement that:
+1.  Briefly reiterates the most critical overall trend or risk identified during the period (referencing the Executive Summary and key section findings like RCE/EOP prevalence or patching delays).
+2.  Reinforces the primary security posture implications suggested by the data analysis (e.g., continued focus on patching criticals, awareness of local attack vectors, user training needs).
+3.  Provides a final, concise takeaway message based *strictly* on the patterns observed in the analyzed data for this reporting period. Do **not** introduce new predictions or recommendations not directly supported by the provided context.
+
+Aim for a concise and impactful closing statement.
+{% endblock task_instructions %}
+
+{% block data_context %}
+**Overall Report Statistics:**
+- Total CVEs Analyzed: {{ data_context_payload.overall_report_stats.total_cves | default('N/A') }}
+- Critical CVEs: {{ data_context_payload.overall_report_stats.critical_cves_count | default('N/A') }}
+- Important CVEs: {{ data_context_payload.overall_report_stats.important_cves_count | default('N/A') }}
+{# Add other key overall stats if helpful for conclusion #}
+- RCE Count: {{ data_context_payload.overall_report_stats.rce_cves_count | default('N/A') }}
+- EOP Count: {{ data_context_payload.overall_report_stats.eop_cves_count | default('N/A') }}
+---
+
+**Generated Executive Summary:**
+{{ data_context_payload.all_section_content.executive_summary.narrative | default("Executive Summary not available.") }}
+---
+
+**Generated Content from Report Sections:**
+
+{% for section_key, section_data in data_context_payload.all_section_content.items() %}
+{% if section_key != "executive_summary" and section_key != "report_conclusion" %} {# Avoid showing itself #}
+**Section: {{ section_key | replace("_", " ") | title }}**
+{% for prompt_type, text in section_data.items() %}
+  - {{ prompt_type | title }}: {{ text | truncate(200) }} {# Truncate even shorter for conclusion context #}
+{% endfor %}
+---
+{% endif %}
+{% else %}
+No detailed section content provided. Base conclusion on overall statistics and Executive Summary.
+{% endfor %}
+
+{% endblock data_context %}

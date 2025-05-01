@@ -1,0 +1,40 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the main narrative of Section 4 #}
+{% set output_format_description = "a coherent narrative paragraph (or potentially two short paragraphs) summarizing the analysis of CVSS score distributions, suitable for the main body text. Use Markdown for clarity (e.g., simple bolding) if helpful." %}
+
+{% block task_instructions %}
+Synthesize the provided chart insights, callouts, and data summaries for "{{ section_title }}" into a flowing narrative text.
+Your narrative should describe the key characteristics of the CVSS base score distribution observed during the reporting period. Focus on:
+1. Overall distribution trends (e.g., where do most scores fall?).
+2. Significant differences in score distributions between major vulnerability categories (e.g., which categories pose inherently higher risks based on typical CVSS scores?).
+3. Any notable clustering, spread, or outliers identified in the data.
+Integrate the key points highlighted in the callouts. Aim for 3-6 sentences. You may use simple Markdown (like **bold**) for emphasis if appropriate.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Section Key: {{ data_context_payload.section_key | default('section_4_cvss_dist') }}
+
+Chart Insights Generated for this Section:
+{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
+- Insight ({{ chart_id }}): {{ insight }}
+{% else %}
+- No specific chart insights provided.
+{% endfor %}
+
+Callouts Generated for this Section:
+{% for callout_key, callout_text in data_context_payload.callouts_in_section.items() %}
+- {{ callout_key | replace("_", " ") | title }}: {{ callout_text }}
+{% else %}
+- No callouts generated for this section.
+{% endfor %}
+
+Data Summaries for Charts in this Section:
+{% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
+--- Data Summary: {{ chart_id }} ---
+{{ summary }}
+--- End Summary ---
+{% else %}
+- No chart data summaries provided.
+{% endfor %}
+{% endblock data_context %}

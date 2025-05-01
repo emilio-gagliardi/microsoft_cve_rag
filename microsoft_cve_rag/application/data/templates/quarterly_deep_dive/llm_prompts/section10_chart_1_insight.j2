@@ -1,0 +1,18 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the 'patch_delay_risk_scatter' chart insight #}
+{% set output_format_description = "a concise text block (2-3 sentences) interpreting the relationship shown in the scatter plot between patch delay and CVSS score" %}
+
+{% block task_instructions %}
+Analyze the chart image and data provided below for the chart titled '{{ data_context_payload.chart_caption | default('Patch Delay vs. CVSS Score') }}'. This data displays a scatter plot where each point represents a CVE, positioned based on its CVSS base score (risk) and the number of days between its initial publication and its NVD publication (proxy for patch availability/public disclosure delay).
+Identify the primary observations or patterns. Is there a clear correlation (positive, negative, none) between CVSS score and the delay? Are high-CVSS vulnerabilities generally published/patched faster or slower than low-CVSS ones? Are there noticeable clusters of vulnerabilities with long delays regardless of score, or high scores with short delays?
+Describe the key findings regarding the relationship between vulnerability risk (CVSS) and patching/disclosure timeliness in 2-3 sentences.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Chart ID: {{ data_context_payload.chart_id | default('patch_delay_risk_scatter') }}
+Chart Caption: {{ data_context_payload.chart_caption | default('Figure 12. Patch Delay vs. CVSS Score, Highlighting High-Risk Exposure.') }}
+
+Data Summary (Scatter Plot Data - likely raw points or summary stats):
+{{ data_context_payload.chart_data_summary | default('Data summary not available.') }}
+{% endblock data_context %}

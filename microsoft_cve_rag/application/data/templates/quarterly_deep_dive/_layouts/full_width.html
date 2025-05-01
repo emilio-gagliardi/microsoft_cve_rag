@@ -1,0 +1,10 @@
+{% extends "quarterly_deep_dive/_base.html" %}
+
+{% block content %}
+{# Use a slightly narrower container for text-heavy full-width pages #}
+<main class="report-container max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 bg-report-surface-light text-report-text-light dark:bg-report-surface-dark dark:text-report-text-dark rounded-lg shadow">
+    {% block main_content %}
+        {# Content for full width layout #}
+    {% endblock %}
+</main>
+{% endblock %}

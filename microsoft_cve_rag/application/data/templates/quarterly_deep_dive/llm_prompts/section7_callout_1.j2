@@ -1,0 +1,30 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the single callout in Section 7 (DoS/InfoDisc) #}
+{% set output_format_description = "a brief callout (1-2 sentences) highlighting the most impactful insight about DoS or Info Disclosure vulnerabilities from the Section 7 data/insights, suitable for a distinct callout box" %}
+
+{% block task_instructions %}
+Review the data summary and chart insight provided below for "{{ section_title }}". This section focuses on Denial of Service (DoS) and Information Disclosure vulnerabilities.
+Identify the *single most significant finding* about these types of vulnerabilities from this information. This could relate to their overall volume, a specific trend, or their potential cumulative impact.
+Craft a concise callout (1-2 sentences maximum) stating this key finding clearly.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Section Key: {{ data_context_payload.section_key | default('section_7_dos_infodisc_deep_dive') }}
+
+Insights Generated for Charts in this Section:
+{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
+- Insight for {{ chart_id }}: {{ insight }}
+{% else %}
+- No specific chart insights provided for this section.
+{% endfor %}
+
+Data Summaries for Charts in this Section:
+{% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
+--- Data Summary: {{ chart_id }} ---
+{{ summary }}
+--- End Summary ---
+{% else %}
+- No chart data summaries provided.
+{% endfor %}
+{% endblock data_context %}

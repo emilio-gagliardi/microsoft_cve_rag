@@ -1,0 +1,133 @@
+/* ==========================================================================
+Component Styles
+========================================================================== */
+
+@layer components {
+
+  /* --- Stat Card --- */
+  .stat-card {
+    /* Base (light mode) styles */
+    @apply text-center p-4 md:p-5 border rounded-lg shadow-sm bg-report-surface border-report-border;
+    /* Apply dark mode styles in HTML using dark:bg-report-surface-dark dark:border-report-border-dark */
+  }
+  .stat-card-value {
+    /* Base (light mode) styles */
+    @apply block text-3xl md:text-4xl font-bold text-report-accent leading-tight mb-1;
+     /* Dark mode text color for value handled by `dark:text-...` if needed, accent usually stays */
+  }
+  .stat-card-label {
+    /* Base (light mode) styles */
+    @apply block text-xs text-report-text-muted uppercase tracking-wider font-medium;
+    /* Apply dark mode styles in HTML using dark:text-report-text-muted-dark */
+  }
+
+  /* --- Callouts --- */
+  .callout {
+    /* Base styles for all callouts */
+    @apply p-4 md:p-5 rounded-md border-l-4 mb-6 shadow-sm text-sm leading-relaxed;
+     /* Base text color usually inherited from body */
+     /* Apply dark mode text color in HTML if needed: dark:text-report-text-dark */
+  }
+  /* Specific callout type base (light mode) styles */
+  /* Apply dark mode variants in HTML: e.g., class="callout callout-info dark:bg-status-info-bg-dark ..." */
+  .callout-info {
+    @apply bg-status-info-bg border-status-info text-status-info-text;
+  }
+  .callout-warning {
+    @apply bg-status-warning-bg border-status-warning text-status-warning-text;
+  }
+  .callout-danger {
+    @apply bg-status-danger-bg border-status-danger text-status-danger-text;
+  }
+  .callout-success {
+    @apply bg-status-success-bg border-status-success text-status-success-text;
+  }
+  .callout-quote {
+    @apply bg-report-surface border-report-border text-report-text-muted italic;
+  }
+  .callout-takeaway {
+     /* Using text-report-text-contrast for light mode on accent bg */
+    @apply bg-report-accent border-report-accent text-report-text-contrast;
+     /* Dark mode in HTML: dark:bg-report-accent-dark dark:border-report-accent-dark dark:text-report-text-dark */
+  }
+
+  /* --- Data Table --- */
+  .data-table-container {
+    /* Base (light mode) styles */
+    @apply overflow-x-auto border rounded-lg shadow-sm bg-report-surface border-report-border;
+    /* Dark mode in HTML: dark:bg-report-surface-dark dark:border-report-border-dark */
+  }
+  .data-table {
+    /* Base (light mode) styles */
+    @apply w-full text-left text-sm;
+    /* Dark mode text in HTML: dark:text-report-text-dark */
+  }
+  .data-table thead {
+    /* Base (light mode) styles */
+    @apply bg-report-surface border-b border-report-border;
+    /* Dark mode in HTML: dark:bg-report-surface-dark dark:border-report-border-dark */
+  }
+  .data-table th {
+    /* Base (light mode) styles */
+    @apply px-4 py-3 font-medium text-report-text-muted uppercase tracking-wider;
+    /* Dark mode text in HTML: dark:text-report-text-muted-dark */
+  }
+  .data-table tbody tr {
+    /* Base (light mode) styles */
+    @apply border-b border-report-border;
+    /* Dark mode border in HTML: dark:border-report-border-dark */
+  }
+  .data-table tbody tr:last-child {
+    @apply border-b-0;
+  }
+  /* Light mode striping - remove if not desired */
+  /* .data-table tbody tr:nth-child(even) {
+    @apply bg-gray-50; /* Example light stripe */
+  /* } */
+  /* Dark mode striping in HTML: dark:odd:bg-report-surface-dark dark:even:bg-[rgba(42,49,64,0.5)] or similar */
+
+  .data-table td {
+    @apply px-4 py-3 align-top;
+  }
+  .data-table .table-actions {
+      @apply flex space-x-1;
+  }
+  .data-table .table-action-btn {
+      /* Base styles - using white text as example */
+      @apply p-1 rounded text-white text-xs;
+  }
+  /* Action button colors (no dark mode variants needed as bg changes) */
+  .table-action-btn.edit { @apply bg-status-info; }
+  .table-action-btn.delete { @apply bg-status-danger; }
+  .table-action-btn.view { @apply bg-status-success; }
+
+  /* --- Section Title --- */
+  .section-title {
+    /* Base (light mode) styles */
+    @apply text-2xl font-semibold border-b pb-2 mb-6 text-report-text border-report-border;
+    /* Dark mode in HTML: dark:text-report-text-dark dark:border-report-border-dark */
+  }
+
+  /* --- Chart Figure --- */
+  .chart-figure {
+    /* Base (light mode) styles */
+    @apply bg-report-surface p-4 rounded-lg shadow border border-report-border mb-8;
+    /* Dark mode in HTML: dark:bg-report-surface-dark dark:border-report-border-dark */
+  }
+  .chart-figure figcaption {
+    /* Base (light mode) styles */
+    @apply text-sm text-center text-report-text-muted mt-3 italic;
+    /* Dark mode text in HTML: dark:text-report-text-muted-dark */
+  }
+  .plotly-chart-container {
+      /* Ensure Plotly respects container size */
+      @apply w-full h-full min-h-[400px];
+  }
+
+} /* End @layer components */
+
+/* ==========================================================================
+Utility Styles (Generally avoid, prefer config/plugins)
+========================================================================== */
+
+/* @layer utilities { ... } */

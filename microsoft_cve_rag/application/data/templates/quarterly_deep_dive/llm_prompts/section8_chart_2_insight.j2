@@ -1,0 +1,13 @@
+{% extends "llm_prompts/base_prompt.j2" %}
+
+{# Specific context for this prompt #}
+{% set section_title = "Section 8" %}
+{% set output_format_description = "a concise insight (2-3 sentences) highlighting the main trend or anomaly from chart 2 of the Section 8 section" %}
+
+{% block task_instructions %}
+Analyze the provided "{{ section_title }}" chart 2 data. Identify the key trend, pattern, or anomaly, and articulate a concise insight in 2-3 sentences.
+{% endblock task_instructions %}
+
+{% block data_context %}
+{{ formatted_data | default("Data not available.") }}
+{% endblock data_context %}

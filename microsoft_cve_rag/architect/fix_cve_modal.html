@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly KB Security Report - PortalFuse Weekly KB Report</title>
+    <!-- Keep Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <style>
+        /* --- Reset & Base Styles --- */
+        :root {
+            /* Typography */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-family-mono: 'Roboto Mono', "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+            /* Colors */
+            --portalfuse-primary-color: #673AB7; /* Deep Purple */
+            --portalfuse-secondary-color: #EDE7F6; /* Light Purple */
+            --portalfuse-text-on-primary: #ffffff;
+
+            /* Report Content Palette (Material Inspired) */
+            --report-primary-color: #3f51b5; /* Indigo */
+            --report-primary-dark: #303f9f;
+            --report-accent-color: #ff4081; /* Pink accent */
+            --text-color: #1F2937; /* Dark Gray */
+            --secondary-text-color: #6B7280; /* Medium Gray */
+            --divider-color: #E5E7EB; /* Light Gray */
+            --background-color: #F9FAFB; /* Very Light Gray */
+            --card-background: #ffffff;
+            --code-background: #f3f4f6; /* Slightly different code bg */
+            --tag-background: #E0E7FF; /* Light Indigo for Build Tags */
+            --tag-text: var(--report-primary-dark);
+
+            /* Other */
+            --border-radius: 8px;
+            --card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            --card-shadow-raised: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --button-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --button-shadow-hover: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+        }
+
+        /* ... (keep existing base styles, typography, links, code blocks etc.) ... */
+
+        /* --- PortalFuse Branding Containers --- */
+        /* ... (keep existing header styles) ... */
+
+        /* --- Report Layout & Containers --- */
+        /* ... (keep existing report container, title, date styles) ... */
+
+        /* --- Stat Card --- */
+        /* ... (keep existing stat card styles) ... */
+
+        /* --- Section Heading --- */
+        .section-title {
+            font-size: 1.75rem; /* Slightly smaller */
+            font-weight: 600;
+            color: var(--portalfuse-primary-color); /* Use brand color */
+            margin-top: 2.5rem; /* More space above sections */
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--portalfuse-secondary-color); /* Lighter brand color underline */
+        }
+
+        /* --- KB Article Card --- */
+        .kb-article-card {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            /* padding: 24px; */ /* Remove padding here, handle internally */
+            margin-bottom: 2rem; /* More space */
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--divider-color); /* Subtle border */
+            overflow: hidden; /* Contain internal padding/borders */
+        }
+
+        .kb-header-section { /* New wrapper for header content */
+            padding: 1rem 1.5rem; /* 16px 24px */
+            border-bottom: 1px solid var(--divider-color);
+        }
+
+        .kb-title {
+            font-size: 1.25rem; /* Adjusted size */
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .kb-published-date {
+            color: var(--secondary-text-color);
+            font-size: 0.875rem; /* 14px */
+            margin-bottom: 1rem; /* Space below date */
+        }
+
+        .kb-cves-action { /* Renamed for clarity */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.5rem; /* Add some space above */
+        }
+
+        .cve-count {
+            color: var(--secondary-text-color);
+            font-size: 0.875rem; /* 14px */
+            font-weight: 500;
+        }
+
+        .view-cves-btn {
+            background: var(--report-primary-color); /* Use report color */
+            color: var(--portalfuse-text-on-primary);
+            border: none;
+            padding: 6px 12px; /* Smaller button */
+            border-radius: 6px; /* Less round */
+            font-weight: 500;
+            font-size: 0.8rem; /* Smaller text */
+            cursor: pointer;
+            box-shadow: var(--button-shadow);
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .view-cves-btn:hover {
+            background-color: var(--report-primary-dark);
+            box-shadow: var(--button-shadow-hover);
+        }
+         .view-cves-btn:active {
+             box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+             transform: translateY(1px);
+         }
+
+        .kb-meta {
+            padding: 1rem 1.5rem; /* Add padding */
+            border-bottom: 1px solid var(--divider-color);
+        }
+
+        .kb-meta h5 {
+            font-size: 0.8rem; /* Smaller heading */
+            font-weight: 600;
+            color: var(--secondary-text-color); /* Muted color */
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .build-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .build-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            background: var(--tag-background); /* Use specific tag bg */
+            color: var(--tag-text); /* Use specific tag text color */
+            border-radius: 9999px; /* Pill shape */
+            font-size: 0.8rem; /* Smaller font */
+            line-height: 1.25rem;
+            font-family: var(--font-family-mono);
+            white-space: nowrap;
+            border: 1px solid #C7D2FE; /* Slightly darker border for tag */
+        }
+
+        .kb-content {
+            padding: 1rem 1.5rem; /* Add padding */
+        }
+         /* Style headings, p, lists inside kb-content if needed */
+        .kb-content h2 { font-size: 1.1rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--report-primary-dark); }
+        .kb-content h3 { font-size: 1rem; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; color: var(--text-color); }
+        .kb-content ul, .kb-content ol { margin-left: 1rem; margin-bottom: 1rem; }
+        .kb-content li { margin-bottom: 0.5rem; }
+        .kb-content p { margin-bottom: 1rem; color: var(--text-color); font-size: 0.95rem; line-height: 1.6; }
+        .kb-content pre { margin: 1rem 0; }
+
+
+        /* --- Footer --- */
+        /* ... (keep existing footer styles) ... */
+
+        /* --- Modal Styles --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0; /* Top, right, bottom, left = 0 */
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            z-index: 1000;
+            /* Opacity/Visibility handled by Alpine x-show */
+        }
+
+        .modal {
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 6px 10px rgba(0, 0, 0, 0.1); /* Higher elevation */
+            max-width: 900px; /* Max width of modal - adjusted */
+            width: 100%;
+            max-height: 90vh; /* Max height, prevent full screen height */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* Needed for header/content structure */
+            border: 1px solid var(--divider-color);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem; /* 16px 24px */
+            border-bottom: 1px solid var(--divider-color);
+            flex-shrink: 0; /* Prevent header from shrinking */
+            background-color: #f9fafb; /* Slight header background */
+        }
+
+        .modal-title {
+            font-size: 1.15rem; /* Adjusted size */
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        .modal-close-btn { /* Changed class name for consistency */
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            font-weight: 300;
+            line-height: 1;
+            color: var(--secondary-text-color);
+            cursor: pointer;
+            padding: 4px;
+            opacity: 0.7;
+            transition: opacity 0.2s ease, color 0.2s ease;
+        }
+        .modal-close-btn:hover {
+            opacity: 1;
+            color: var(--text-color);
+        }
+
+        .modal-content {
+            padding: 1.5rem; /* 24px */
+            overflow-y: auto; /* Enable scrolling for modal content if needed */
+            flex-grow: 1; /* Allow content to take remaining space */
+        }
+
+        /* --- CVE Grid & Cards within Modal --- */
+        .cve-grid { /* Use the grid layout from previous good example */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+            gap: 1.25rem; /* 20px */
+        }
+
+        .cve-category-card { /* Style the inner card */
+            background-color: #f9fafb; /* Light bg for category card */
+            border: 1px solid var(--divider-color);
+            border-radius: var(--border-radius);
+            padding: 1rem; /* 16px */
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* Subtle inner shadow */
+        }
+
+        .cve-category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem; /* 12px */
+            padding-bottom: 0.5rem; /* 8px */
+            border-bottom: 1px solid var(--divider-color);
+        }
+
+        .cve-category-title {
+            font-size: 0.9rem; /* Adjusted size */
+            font-weight: 600;
+            color: var(--report-primary-dark); /* Use report color */
+            text-transform: capitalize; /* Nicer category names */
+        }
+
+        .cve-count-badge {
+            background-color: #e5e7eb; /* Neutral background */
+            color: var(--secondary-text-color);
+            padding: 3px 8px;
+            border-radius: 10px; /* Pill shape */
+            font-size: 0.75rem; /* Smaller */
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .cve-list-items { /* Renamed container for CVE items */
+            list-style: none; /* Remove default list styling */
+            padding: 0;
+            margin: 0;
+            flex-grow: 1; /* Allow list to fill card space */
+        }
+        .cve-list-scrollable { /* Add this class if needed */
+            max-height: 250px; /* Max height before scrolling */
+            overflow-y: auto;
+            padding-right: 8px; /* Space for scrollbar */
+            /* Optional: Basic scrollbar styling */
+            scrollbar-width: thin;
+            scrollbar-color: var(--divider-color) transparent;
+        }
+        /* For Webkit browsers (Chrome, Safari) */
+        .cve-list-scrollable::-webkit-scrollbar { width: 6px; }
+        .cve-list-scrollable::-webkit-scrollbar-track { background: transparent; }
+        .cve-list-scrollable::-webkit-scrollbar-thumb { background-color: var(--divider-color); border-radius: 3px; }
+
+        .cve-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 4px; /* Adjusted padding */
+            border-bottom: 1px solid #f0f0f0; /* Very subtle divider */
+            gap: 12px; /* Space between link and tag */
+        }
+        .cve-item:last-child {
+            border-bottom: none;
+        }
+
+        .cve-link {
+            font-size: 0.85rem; /* Slightly smaller */
+            color: var(--report-primary-color);
+            text-decoration: none;
+            word-break: break-word; /* Break long CVE numbers if needed */
+            font-family: var(--font-family-mono); /* Use mono for CVE IDs */
+        }
+        .cve-link:hover {
+            text-decoration: underline;
+            color: var(--report-primary-dark);
+        }
+
+        /* --- Severity Tags --- */
+        .severity-tag {
+            padding: 2px 8px; /* Smaller padding */
+            border-radius: 12px; /* Pill shape */
+            font-size: 0.75rem; /* Smaller font */
+            font-weight: 500;
+            text-transform: capitalize;
+            white-space: nowrap;
+            border: 1px solid transparent;
+            line-height: 1.4; /* Adjust line height */
+        }
+        /* Use colors from previous good example */
+        .severity-critical { background-color: #FDECEA; color: #B71C1C; border-color: #F5C6CB; }
+        .severity-high { background-color: #FFF3E0; color: #E65100; border-color: #FFD8A8; }
+        .severity-medium { background-color: #FFFDE7; color: #F57F17; border-color: #FFF59D; }
+        .severity-low { background-color: #E8F5E9; color: #1B5E20; border-color: #C8E6C9; }
+        .severity-none { background-color: #ECEFF1; color: #37474F; border-color: #CFD8DC; } /* For None score */
+
+
+        /* Alpine.js utilities */
+        [x-cloak] { display: none !important; }
+
+        /* Responsive Adjustments */
+        /* ... (keep or adjust existing media queries) ... */
+        @media (max-width: 768px) {
+            .modal { max-width: calc(100% - 32px); }
+            .modal-content { padding: 1rem; }
+            .cve-grid { gap: 1rem; }
+        }
+        @media (max-width: 480px) {
+            .modal-title { font-size: 1rem; }
+            .cve-grid { grid-template-columns: 1fr; } /* Stack cards */
+        }
+
+    </style>
+</head>
+<body x-data> <!-- Add x-data to body or a container if needed for global Alpine access -->
+    <header class="portalfuse-header">
+        <!-- ... header content ... -->
+    </header>
+
+    <div class="report-container">
+        <h1 class="report-title">Weekly KB Security Report</h1>
+        <p class="generated-date">Generated on 2025-03-30T13:33:57.963662</p>
+
+        <div class="stats-container">
+           <!-- ... stat cards ... -->
+        </div>
+
+        <main>
+            <section class="os-section win11-section">
+                <h2 class="section-title">Windows 11 Updates</h2>
+                <div class="article-grid">
+                    <!-- KB Article Card Example (Button Usage Correct) -->
+                    <div class="kb-article-card">
+                        <div class="kb-header-section">
+                            <h3 class="kb-title">5043064 - September 10, 2024—KB5043064 (OS Builds 19044.4894 and 19045.4894)</h3>
+                            <p class="kb-published-date">Published: September 10, 2024</p>
+                             <div class="kb-cves-action">
+                                <span class="cve-count">29 CVEs Addressed</span>
+                                <button
+                                    type="button"
+                                    class="view-cves-btn"
+                                    @click="(() => {
+                                        const data = {'categories': {'denial_of_service': [{'id': 'CVE-2024-38235', 'post_id': 'CVE-2024-38235', 'score': {'score_num': 6.5, 'score_rating': 'medium'}}, {'id': 'CVE-2024-38234', 'post_id': 'CVE-2024-38234', 'score': {'score_num': 6.5, 'score_rating': 'medium'}}], 'disclosure': [{'id': 'CVE-2024-38257', 'post_id': 'CVE-2024-38257', 'score': {'score_num': 7.5, 'score_rating': 'high'}}, {'id': 'CVE-2024-38254', 'post_id': 'CVE-2024-38254', 'score': {'score_num': 6.2, 'score_rating': 'medium'}}, {'id': 'CVE-2024-38256', 'post_id': 'CVE-2024-38256', 'score': {'score_num': 5.5, 'score_rating': 'medium'}}], 'feature_bypass': [{'id': 'CVE-2024-30073', 'post_id': 'CVE-2024-30073', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-43487', 'post_id': 'CVE-2024-43487', 'score': {'score_num': 6.5, 'score_rating': 'medium'}}, {'id': 'CVE-2024-38217', 'post_id': 'CVE-2024-38217', 'score': {'score_num': 5.4, 'score_rating': 'medium'}}], 'privilege_elevation': [{'id': 'CVE-2024-38240', 'post_id': 'CVE-2024-38240', 'score': {'score_num': 9.8, 'score_rating': 'critical'}}, {'id': 'CVE-2024-38242', 'post_id': 'CVE-2024-38242', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38237', 'post_id': 'CVE-2024-38237', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38249', 'post_id': 'CVE-2024-38249', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38250', 'post_id': 'CVE-2024-38250', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38243', 'post_id': 'CVE-2024-38243', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38244', 'post_id': 'CVE-2024-38244', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38241', 'post_id': 'CVE-2024-38241', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38238', 'post_id': 'CVE-2024-38238', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38014', 'post_id': 'CVE-2024-38014', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38046', 'post_id': 'CVE-2024-38046', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38252', 'post_id': 'CVE-2024-38252', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38245', 'post_id': 'CVE-2024-38245', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38247', 'post_id': 'CVE-2024-38247', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38239', 'post_id': 'CVE-2024-38239', 'score': {'score_num': 7.2, 'score_rating': 'high'}}, {'id': 'CVE-2024-38248', 'post_id': 'CVE-2024-38248', 'score': {'score_num': 7.0, 'score_rating': 'high'}}, {'id': 'CVE-2024-38246', 'post_id': 'CVE-2024-38246', 'score': {'score_num': 7.0, 'score_rating': 'high'}}], 'remote_code_execution': [{'id': 'CVE-2024-21416', 'post_id': 'CVE-2024-21416', 'score': {'score_num': 9.8, 'score_rating': 'critical'}}, {'id': 'CVE-2024-38045', 'post_id': 'CVE-2024-38045', 'score': {'score_num': 8.1, 'score_rating': 'high'}}, {'id': 'CVE-2024-38119', 'post_id': 'CVE-2024-38119', 'score': {'score_num': 7.5, 'score_rating': 'high'}}], 'spoofing': [{'id': 'CVE-2024-43461', 'post_id': 'CVE-2024-43461', 'score': {'score_num': 8.8, 'score_rating': 'high'}}]}, 'product_impact': {'Windows 10': {'categories': {'denial_of_service': [{'id': 'CVE-2024-38235', 'post_id': 'CVE-2024-38235', 'score': {'score_num': 6.5, 'score_rating': 'medium'}}, {'id': 'CVE-2024-38234', 'post_id': 'CVE-2024-38234', 'score': {'score_num': 6.5, 'score_rating': 'medium'}}], 'disclosure': [{'id': 'CVE-2024-38257', 'post_id': 'CVE-2024-38257', 'score': {'score_num': 7.5, 'score_rating': 'high'}}, {'id': 'CVE-2024-38254', 'post_id': 'CVE-2024-38254', 'score': {'score_num': 6.2, 'score_rating': 'medium'}}, {'id': 'CVE-2024-38256', 'post_id': 'CVE-2024-38256', 'score': {'score_num': 5.5, 'score_rating': 'medium'}}], 'feature_bypass': [{'id': 'CVE-2024-30073', 'post_id': 'CVE-2024-30073', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-43487', 'post_id': 'CVE-2024-43487', 'score': {'score_num': 6.5, 'score_rating': 'medium'}}, {'id': 'CVE-2024-38217', 'post_id': 'CVE-2024-38217', 'score': {'score_num': 5.4, 'score_rating': 'medium'}}], 'privilege_elevation': [{'id': 'CVE-2024-38240', 'post_id': 'CVE-2024-38240', 'score': {'score_num': 9.8, 'score_rating': 'critical'}}, {'id': 'CVE-2024-38242', 'post_id': 'CVE-2024-38242', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38237', 'post_id': 'CVE-2024-38237', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38249', 'post_id': 'CVE-2024-38249', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38250', 'post_id': 'CVE-2024-38250', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38243', 'post_id': 'CVE-2024-38243', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38244', 'post_id': 'CVE-2024-38244', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38241', 'post_id': 'CVE-2024-38241', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38238', 'post_id': 'CVE-2024-38238', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38014', 'post_id': 'CVE-2024-38014', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38046', 'post_id': 'CVE-2024-38046', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38252', 'post_id': 'CVE-2024-38252', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38245', 'post_id': 'CVE-2024-38245', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38247', 'post_id': 'CVE-2024-38247', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38239', 'post_id': 'CVE-2024-38239', 'score': {'score_num': 7.2, 'score_rating': 'high'}}, {'id': 'CVE-2024-38248', 'post_id': 'CVE-2024-38248', 'score': {'score_num': 7.0, 'score_rating': 'high'}}, {'id': 'CVE-2024-38246', 'post_id': 'CVE-2024-38246', 'score': {'score_num': 7.0, 'score_rating': 'high'}}], 'remote_code_execution': [{'id': 'CVE-2024-21416', 'post_id': 'CVE-2024-21416', 'score': {'score_num': 9.8, 'score_rating': 'critical'}}, {'id': 'CVE-2024-38045', 'post_id': 'CVE-2024-38045', 'score': {'score_num': 8.1, 'score_rating': 'high'}}, {'id': 'CVE-2024-38119', 'post_id': 'CVE-2024-38119', 'score': {'score_num': 7.5, 'score_rating': 'high'}}], 'spoofing': [{'id': 'CVE-2024-43461', 'post_id': 'CVE-2024-43461', 'score': {'score_num': 8.8, 'score_rating': 'high'}}]}, 'max_score': 9.8, 'total_cves': 29}, 'Windows Server': {'categories': {'denial_of_service': [{'id': 'CVE-2024-38235', 'post_id': 'CVE-2024-38235', 'score': {'score_num': 6.5, 'score_rating': 'medium'}}, {'id': 'CVE-2024-38234', 'post_id': 'CVE-2024-38234', 'score': {'score_num': 6.5, 'score_rating': 'medium'}}], 'disclosure': [{'id': 'CVE-2024-38257', 'post_id': 'CVE-2024-38257', 'score': {'score_num': 7.5, 'score_rating': 'high'}}, {'id': 'CVE-2024-38254', 'post_id': 'CVE-2024-38254', 'score': {'score_num': 6.2, 'score_rating': 'medium'}}, {'id': 'CVE-2024-38256', 'post_id': 'CVE-2024-38256', 'score': {'score_num': 5.5, 'score_rating': 'medium'}}], 'feature_bypass': [{'id': 'CVE-2024-30073', 'post_id': 'CVE-2024-30073', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-43487', 'post_id': 'CVE-2024-43487', 'score': {'score_num': 6.5, 'score_rating': 'medium'}}, {'id': 'CVE-2024-38217', 'post_id': 'CVE-2024-38217', 'score': {'score_num': 5.4, 'score_rating': 'medium'}}], 'privilege_elevation': [{'id': 'CVE-2024-38240', 'post_id': 'CVE-2024-38240', 'score': {'score_num': 9.8, 'score_rating': 'critical'}}, {'id': 'CVE-2024-38242', 'post_id': 'CVE-2024-38242', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38237', 'post_id': 'CVE-2024-38237', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38249', 'post_id': 'CVE-2024-38249', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38250', 'post_id': 'CVE-2024-38250', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38243', 'post_id': 'CVE-2024-38243', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38244', 'post_id': 'CVE-2024-38244', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38241', 'post_id': 'CVE-2024-38241', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38238', 'post_id': 'CVE-2024-38238', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38014', 'post_id': 'CVE-2024-38014', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38046', 'post_id': 'CVE-2024-38046', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38252', 'post_id': 'CVE-2024-38252', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38245', 'post_id': 'CVE-2024-38245', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38247', 'post_id': 'CVE-2024-38247', 'score': {'score_num': 7.8, 'score_rating': 'high'}}, {'id': 'CVE-2024-38239', 'post_id': 'CVE-2024-38239', 'score': {'score_num': 7.2, 'score_rating': 'high'}}, {'id': 'CVE-2024-38248', 'post_id': 'CVE-2024-38248', 'score': {'score_num': 7.0, 'score_rating': 'high'}}, {'id': 'CVE-2024-38246', 'post_id': 'CVE-2024-38246', 'score': {'score_num': 7.0, 'score_rating': 'high'}}], 'remote_code_execution': [{'id': 'CVE-2024-21416', 'post_id': 'CVE-2024-21416', 'score': {'score_num': 9.8, 'score_rating': 'critical'}}, {'id': 'CVE-2024-38045', 'post_id': 'CVE-2024-38045', 'score': {'score_num': 8.1, 'score_rating': 'high'}}, {'id': 'CVE-2024-38119', 'post_id': 'CVE-2024-38119', 'score': {'score_num': 7.5, 'score_rating': 'high'}}], 'spoofing': [{'id': 'CVE-2024-43461', 'post_id': 'CVE-2024-43461', 'score': {'score_num': 8.8, 'score_rating': 'high'}}]}, 'max_score': 9.8, 'total_cves': 29}}, 'total_cves': 29};
+                                        window.dispatchEvent(new CustomEvent('modal-show', { detail: data }));
+                                    })()"
+                                >
+                                    VIEW CVES
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="kb-meta">
+                           <!-- ... os builds ... -->
+                        </div>
+
+                        <div class="kb-content">
+                           <!-- ... summary html ... -->
+                        </div>
+                    </div>
+                    <!-- Add more KB article cards -->
+                </div>
+            </section>
+
+            <!-- Other Sections (Windows 10, Multi-OS) -->
+            <!-- ... -->
+
+        </main>
+    </div> <!-- End .report-container -->
+
+    <!-- Modal Structure -->
+    <div
+        x-data="{
+            isOpen: false,
+            cveData: { categories: {} } // Initialize with empty categories
+        }"
+        x-show="isOpen"
+        x-on:modal-show.window="
+            isOpen = true;
+            cveData = $event.detail; // Assign the whole detail object
+            console.log('Modal received data:', cveData); // Debugging
+        "
+        x-on:keydown.escape.window="isOpen = false"
+        x-cloak
+        class="modal-overlay"
+        @click="isOpen = false"
+    >
+        <div
+            class="modal"
+            @click.stop
+            x-show="isOpen"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform scale-95"
+            x-transition:enter-end="opacity-100 transform scale-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 transform scale-100"
+            x-transition:leave-end="opacity-0 transform scale-95"
+        >
+            <div class="modal-header">
+                <h3 class="modal-title">CVE Details</h3>
+                <button
+                    type="button"
+                    class="modal-close-btn"
+                    @click="isOpen = false"
+                    aria-label="Close modal"
+                >&times;</button>
+            </div>
+            <div class="modal-content">
+                <!-- Check if there are any categories -->
+                <template x-if="Object.keys(cveData.categories || {}).length === 0">
+                    <p class="text-center text-gray-500 italic">No CVEs associated with this update.</p>
+                </template>
+
+                <div class="cve-grid">
+                    <!-- Iterate over categories object -->
+                    <template x-for="(cves, categoryName) in cveData.categories" :key="categoryName">
+                        <div class="card cve-category-card">
+                            <div class="cve-category-header">
+                                <span class="cve-category-title" x-text="categoryName.replace(/_/g, ' ')"></span>
+                                <span class="cve-count-badge" x-text="cves.length + ' CVEs'"></span>
+                            </div>
+                            <!-- Check if category has CVEs -->
+                            <template x-if="cves && cves.length > 0">
+                                <ol class="cve-list-items" :class="{ 'cve-list-scrollable': cves.length > 6 }"> <!-- Add scroll if more than 6 items -->
+                                    <template x-for="cve in cves" :key="cve.id">
+                                        <li class="cve-item">
+                                            <a :href="'https://nvd.nist.gov/vuln/detail/' + cve.id" <!-- Link to NVD -->
+                                               class="cve-link"
+                                               target="_blank"
+                                               rel="noopener noreferrer"
+                                               x-text="cve.id">
+                                            </a>
+                                            <span class="severity-tag"
+                                                  :class="'severity-' + (cve.score?.score_rating?.toLowerCase() || 'none')"
+                                                  x-text="cve.score?.score_rating?.toLowerCase() || 'N/A'">
+                                            </span>
+                                        </li>
+                                    </template>
+                                </ol>
+                            </template>
+                            <template x-else>
+                                <p class="text-sm text-gray-500 italic">No CVEs in this category.</p>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Structure -->
+
+
+    <!-- REMOVE THIS SCRIPT BLOCK - It's not used -->
+    <!--
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('cveModal', {
+                show(data) {
+                    console.log('Opening modal with:', data);
+                    window.dispatchEvent(new CustomEvent('modal-show', {
+                        detail: data
+                    }));
+                },
+                hide() {
+                    console.log('Closing modal');
+                    window.dispatchEvent(new CustomEvent('modal-hide'));
+                }
+            });
+        });
+    </script>
+    -->
+
+    <footer class="portalfuse-footer">
+       <!-- ... footer content ... -->
+    </footer>
+</body>
+</html>

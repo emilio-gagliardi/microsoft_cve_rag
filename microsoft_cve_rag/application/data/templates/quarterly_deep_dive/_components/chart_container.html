@@ -1,0 +1,14 @@
+{% macro render_chart(chart_id, caption) %}
+<figure class="chart-figure"> {# Use component class #}
+    <div id="{{ chart_id }}" class="plotly-chart-container">
+         <div class="flex items-center justify-center h-full min-h-[400px]"> {# Centered Loading #}
+             <span class="text-report-text-muted dark:text-report-text-muted-dark">Loading chart...</span>
+         </div>
+    </div>
+    {% if caption %}
+    <figcaption> {# Styling handled by .chart-figure figcaption in CSS #}
+        {{ caption }}
+    </figcaption>
+    {% endif %}
+</figure>
+{% endmacro %}

@@ -1,0 +1,30 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{# Specific context for the first callout in Section 9 (Attack Vectors/Complexity) #}
+{% set output_format_description = "a brief callout (1-2 sentences) highlighting a single, impactful insight about attack vectors or complexity from the Section 9 data/insights, suitable for a distinct callout box" %}
+
+{% block task_instructions %}
+Review the data summaries and chart insights provided below for "{{ section_title }}". This section focuses on the overall distribution of attack vectors and attack complexities across all analyzed CVEs.
+Identify the *single most significant finding* from this combined information for administrators. This might be the dominance of a specific attack vector, the prevalence of low-complexity attacks, or a combination of these factors.
+Craft a concise callout (1-2 sentences maximum) stating this key finding clearly and its primary implication for defenders.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Section Key: {{ data_context_payload.section_key | default('section_9_attack_vector_deep_dive') }}
+
+Insights Generated for Charts in this Section:
+{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
+- Insight for {{ chart_id }}: {{ insight }}
+{% else %}
+- No specific chart insights provided for this section.
+{% endfor %}
+
+Data Summaries for Charts in this Section:
+{% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
+--- Data Summary: {{ chart_id }} ---
+{{ summary }}
+--- End Summary ---
+{% else %}
+- No chart data summaries provided.
+{% endfor %}
+{% endblock data_context %}
