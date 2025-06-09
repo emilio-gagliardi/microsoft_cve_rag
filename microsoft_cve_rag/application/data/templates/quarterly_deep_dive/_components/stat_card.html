@@ -1,19 +1,177 @@
-{% macro render_stat_card(value, label, change=None, change_positive=True) %}
-{# Uses the .stat-card classes defined in report-styles.css #}
-<div class="stat-card">
-    <span class="stat-card-value">
-        {{ value | default('N/A') }}
-    </span>
-    <span class="stat-card-label">
-        {{ label | default('Metric') }}
-    </span>
-    {% if change is not none %}
-        <span class="block text-xs mt-1 {{ 'text-status-success dark:text-status-success-dark' if change_positive else 'text-status-danger dark:text-status-danger-dark' }}">
-            <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-3 w-3 mr-0.5 {{ 'transform rotate-180' if not change_positive else '' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-            {{ change }}
-        </span>
-    {% endif %}
+{% macro render_stat_card(data) %}
+  {#
+    data expected: {
+      id, value, unit, label, subtitle, icon_svg,
+      trend_value, trend_direction,
+      card_layout_style, <- For dispatching to complex card structures
+      styles: {           <- Dictionary of CSS classes for elements
+        container, label, icon, value, unit, subtitle,
+        trend_base, trend_up, trend_down, trend_neutral,
+        title (for complex), item_name_text (for complex), etc.
+      }
+    }
+  #}
+
+  {% set layout = data.get('card_layout_style', 'default_standard') %}
+  {% set s = data.get('styles', {}) %} {# s is shorthand for styles dictionary #}
+
+  {# --- Branch for COMPLEX card layouts that have fundamentally different HTML structures --- #}
+  {% if layout == 'category_comparison_bar_style' %}
+  <div class="stat-card rounded-lg p-2 md:p-6 shadow-sm {{ s.get('container', 'bg-report-surface-light dark:bg-report-surface-dark border border-report-border-light dark:border-report-border-dark') }}">
+    <h3 class="{{ s.get('title', 'text-md font-semibold text-report-text-light dark:text-report-text-dark mb-3') }}">
+        {{ data.get('label', 'Category Comparison') }}
+    </h3>
+    <div class="space-y-1.5"> {# Reduced from space-y-2 or space-y-3 #}
+        {% for category_item in data.get('value', []) %}
+        <div class="category-item-block">
+            {# Line 1: Category Name (left) and Percentage (right) - SAME FONT SIZE #}
+            <div class="flex justify-between items-center {{ s.get('item_name_text', 'text-xs font-medium') }} mb-0.5">
+                <span class="truncate {{ s.get('item_category_label_color', 'text-report-text-light dark:text-report-text-dark') }}" title="{{ category_item.name }}">
+                    {{ category_item.name }}
+                </span>
+                <span class="font-semibold {{ s.get('item_percentage_color', 'text-report-text-light dark:text-report-text-dark') }}">
+                    {{ category_item.percentage | round(1) }}%
+                </span>
+            </div>
+            {# Line 3: Progress Bar #}
+            <div class="w-full rounded-full {{ s.get('item_bar_height', 'h-2') }} {{ s.get('item_bar_background', 'bg-gray-200 dark:bg-gray-700') }}">
+                <div class="{{ category_item.get('color_class', 'bg-blue-600') }} {{ s.get('item_bar_height', 'h-2') }} rounded-full"
+                     style="width: {{ category_item.percentage }}%;"
+                     title="{{ category_item.name }}: {{ category_item.percentage | round(1) }}%">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
+
+{% elif layout == 'cvss_iqr_by_category_style' %}
+    {# ... HTML structure for CVSS IQR card, using s.get('key') for classes ... #}
+    <div class="stat-card rounded-lg p-2 md:p-6 shadow-sm {{ s.get('container') }}">
+        <h3 class="{{ s.get('title') }}">
+            {{ data.get('label') }}
+        </h3>
+        {# Use CSS Grid for two columns, adjust gap as needed #}
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 mt-2"> {# Responsive: 1 col on small, 2 on sm+ #}
+            {% for category_item in data.get('value', []) %}
+            <div class="category-iqr-item py-0"> {# Each item will flow into the grid, added small py-1 for vertical rhythm #}
+                {# Category Name - ensure it can take decent width & allow wrapping if needed, or truncate #}
+                <span class="block mb-0.5 {{ s.get('item_name_text') }} truncate" title="{{ category_item.name.replace('_', ' ').title() if category_item.name else 'Unknown Category' }}">
+                    {{ category_item.name.replace('_', ' ').title() if category_item.name else 'Unknown Category' }}
+                </span>
+                {# Bar container #}
+                <div class="relative w-full rounded {{ s.get('item_bar_height') }} {{ s.get('item_bar_background') }}">
+                    {# IQR Bar #}
+                    <div class="absolute h-full {{ category_item.get('color_class') }} rounded"
+                         style="left: {{ (category_item.q1 / 10.0) * 100 }}%; width: {{ (category_item.iqr / 10.0) * 100 }}%;"
+                         title="Q1: {{category_item.q1}}, Median: {{category_item.median}}, Q3: {{category_item.q3}}, IQR: {{category_item.iqr}}">
+                    </div>
+                    {# Median Marker #}
+                    <div class="absolute h-full w-0.5 top-0 {{ s.get('item_median_marker') }}"
+                         style="left: {{ (category_item.median / 10.0) * 100 }}%;"
+                         title="Median: {{category_item.median}}">
+                    </div>
+                </div>
+                {# Q1, Median, Q3 values below the bar #}
+                <div class="flex justify-between mt-0.5 {{ s.get('item_q_value_text') }}">
+                    <span>{{ category_item.q1 | round(1) }}</span>
+                    <span>{{ category_item.median | round(1) }}</span>
+                    <span>{{ category_item.q3 | round(1) }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% elif layout == 'spotlight_cwe_default_style' %}
+    <div class="stat-card {{ s.get('container', 'bg-report-surface dark:bg-report-surface-dark border border-report-border dark:border-report-border-dark rounded-lg p-4 shadow-sm text-center flex flex-col justify-between min-h-[150px]') }}">
+        {# Top part: Label (can be multi-line) and optional Icon #}
+        <div class="flex items-start justify-between w-full"> {# items-start to align icon with first line of text #}
+            {# Label - takes most space, styled by s.label #}
+            <h3 class="{{ s.get('label', 'text-sm font-semibold text-report-accent dark:text-report-accent-dark text-left break-words h-12 leading-tight overflow-hidden') }}">
+                {{ data.get('label', 'CWE Spotlight') }}
+            </h3>
+            {# Icon - optional, to the right #}
+            {% if data.get('icon_svg') %}
+                <div class="{{ s.get('icon_container', 'ml-2 flex-shrink-0') }}"> {# flex-shrink-0 so icon doesn't shrink #}
+                    <span class="inline-block {{ s.get('icon', 'w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75') }}">
+                        {{ data.get('icon_svg') | safe }}
+                    </span>
+                </div>
+            {% endif %}
+        </div>
+
+        {# Middle part: Main Value and associated sub-texts (predominant_category, avg_cvss) #}
+        {# This block will be centered due to justify-between on the main flex container and it being the middle element #}
+        <div class="{{ s.get('value_container', 'my-auto text-center') }}"> {# my-auto for vertical centering, text-center for its content #}
+            <span class="{{ s.get('value', 'block text-3xl md:text-4xl font-bold text-report-text dark:text-report-text-dark leading-tight') }}">{{ data.get('value', 'N/A') }}</span>
+            {% if data.get('predominant_category') %}
+                <p class="{{ s.get('predominant_category_text', 'text-xs text-report-text-muted dark:text-report-text-muted-dark mt-1') }}">
+                    {{ data.predominant_category }}
+                </p>
+            {% endif %}
+            {% if data.get('avg_cvss') and data.get('avg_cvss') != "N/A" %}
+                 <p class="{{ s.get('avg_cvss_text', 'text-xs text-report-text-muted dark:text-report-text-muted-dark mt-0.5') }}">Avg. CVSS: {{ data.avg_cvss }}</p>
+            {% endif %}
+        </div>
+
+        {# Bottom part: Subtitle (if any) - pushed to the bottom by justify-between #}
+        <div class="mt-auto pt-1">
+            {% if data.get('subtitle') %}
+                <p class="{{ s.get('subtitle', 'text-xxs text-report-text-muted dark:text-report-text-muted-dark leading-[1.1]') }}">{{ data.subtitle }}</p>
+            {% else %}
+                {# Placeholder paragraph with the same styling as a real subtitle to occupy similar space #}
+                <p class="{{ s.get('subtitle', 'text-xxs leading-[1.1]') }}"> </p> {#   ensures the line height is applied #}
+            {% endif %}
+        </div>
+    </div>
+{# --- ELSE: Standard/Default Card Layout (used by most simple cards) --- #}
+{% else %}
+<div class="stat-card {{ s.get('container') }} w-[185px] h-[155px]">
+
+    {# Part 1: Title Bar - Spans full width. Gets its OWN background and PADDING from Python styles. #}
+    <div class="stat-card-title-bar flex justify-between items-center w-full
+                {{ s.get('title_bar_bg') }}
+                {{ s.get('title_bar_padding') }}"> {# Minimal padding like px-1 or px-2 #}
+        <span class="{{ s.get('label_text_style') }} {{ s.get('label_text_color') }}">
+            {{ data.get('label', 'Metric') }}
+        </span>
+        {% if data.get('icon_svg') %}
+            <span class="inline-block {{ s.get('icon_style') }} {{ s.get('icon_color') }}">
+                {{ data.get('icon_svg') | safe }}
+            </span>
+        {% endif %}
+    </div>
+
+    {# Part 2: Main Content Area (Value, Unit, Trend) - Gets its OWN background and PADDING #}
+    <div class="flex-grow flex flex-row justify-center items-baseline text-center
+                {{ s.get('content_area_bg') }}
+                {{ s.get('content_area_padding') }}"> {# Padding for the content area #}
+        <div class="flex justify-center items-baseline">
+            <span class="{{ s.get('value') }}">{{ data.get('value', 'N/A') }}</span>
+            {% if data.get('unit') %}
+                <span class="{{ s.get('unit') }}">{{ data.get('unit') }}</span>
+            {% endif %}
+        </div>
+        {% if data.get('trend_value_display') is not none and data.get('trend_direction') is not none %}
+            {% set trend_color_class = s.get('trend_neutral', 'text-report-text-muted dark:text-report-text-muted-dark') %}
+            {% if data.trend_direction == 'up' %}{% set trend_color_class = s.get('trend_up', 'text-status-danger dark:text-status-danger-text-dark') %}{% endif %}
+            {% if data.trend_direction == 'down' %}{% set trend_color_class = s.get('trend_down', 'text-status-success dark:text-status-success-text-dark') %}{% endif %}
+            <span class="{{ s.get('trend_base', 'text-xs font-medium mt-1') }} {{ trend_color_class }} flex items-center">
+                {% if data.trend_direction == 'up' %}<svg class="inline-block w-3 h-3 mr-0.5" fill="currentColor" viewBox="0 0 384 512"><path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2l105.4 105.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></svg>
+                {% elif data.trend_direction == 'down' %}<svg class="inline-block w-3 h-3 mr-0.5" fill="currentColor" viewBox="0 0 384 512"><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5-12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8V64c0-17.7-14.3-32-32-32s-32 14.3-32 32v306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                {% else %}<span class="inline-block w-3 h-3 text-center mr-0.5">~</span>{% endif %}
+                <span>{{ data.trend_value_display }}</span>
+            </span>
+        {% endif %}
+    </div>
+
+    {# Part 3: Subtitle Bar - At the bottom, full width. Gets PADDING from Python styles. NO separate background. #}
+    <div class="stat-card-subtitle-bar w-full text-center mt-auto
+                {{ s.get('subtitle_bar_padding') }}">
+        <p class="{{ s.get('subtitle') }}">
+            {% if data.get('subtitle') %}{{ data.subtitle }}{% else %} {% endif %}
+        </p>
+    </div>
+</div>
+  {% endif %}
 {% endmacro %}

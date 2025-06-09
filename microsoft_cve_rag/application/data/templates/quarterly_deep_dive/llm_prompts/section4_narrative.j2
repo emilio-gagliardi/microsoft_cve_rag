@@ -1,40 +1,99 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 
-{# Specific context for the main narrative of Section 4 #}
-{% set output_format_description = "a coherent narrative paragraph (or potentially two short paragraphs) summarizing the analysis of CVSS score distributions, suitable for the main body text. Use Markdown for clarity (e.g., simple bolding) if helpful." %}
+{% set output_format_description -%}
+A comprehensive and analytical narrative for the "{{ section_title }}" section, written in **Markdown format**.
+The narrative should be substantial, approximately **8-10 verbose paragraphs**, deeply exploring the topic.
+It must seamlessly integrate the provided introductory boilerplate text and then elaborate on the specific data-driven findings for the quarter.
+Utilize Markdown effectively:
+- Paragraphs (separated by a blank line).
+- Emphasis: *italic* or _italic_, **bold** or __bold__.
+- Unordered lists (using - or *) for enumerating related points if natural.
+- Ordered lists (using 1., 2., etc.) for sequential information if natural.
+- Inline `code` for technical terms (e.g., `CVE-2024-XXXXX`, specific attack vector names).
+- (Optional, if needed for sub-points): ### Deeper Dive or #### Specific Aspect.
+The goal is a readable, informative, and well-structured section analysis.
+{%- endset %}
 
 {% block task_instructions %}
-Synthesize the provided chart insights, callouts, and data summaries for "{{ section_title }}" into a flowing narrative text.
-Your narrative should describe the key characteristics of the CVSS base score distribution observed during the reporting period. Focus on:
-1. Overall distribution trends (e.g., where do most scores fall?).
-2. Significant differences in score distributions between major vulnerability categories (e.g., which categories pose inherently higher risks based on typical CVSS scores?).
-3. Any notable clustering, spread, or outliers identified in the data.
-Integrate the key points highlighted in the callouts. Aim for 3-6 sentences. You may use simple Markdown (like **bold**) for emphasis if appropriate.
+You are an expert security analyst and technical writer contributing to the "{{ report_title }}".
+Your current task is to generate the full narrative for the section titled: **"{{ section_title }}"**.
+
+**Instructions:**
+1.  **Start with the Provided Introduction:** The following paragraphs (between "--- BEGIN SECTION INTRODUCTION ---" and "--- END SECTION INTRODUCTION ---") form the essential introduction and foundational context for this section. **You MUST incorporate this text as the beginning of your narrative, verbatim or with very minor editorial adjustments for flow if absolutely necessary.**
+2.  **Elaborate Based on Data:** Following the introductory text, expand the narrative by discussing the specific findings for this quarter, using the "Structural Guidance for Data-Driven Elaboration" below as your outline. Integrate information from the 'Chart Insights', 'Callouts', and 'Data Context'.
+3.  **Explain Charts:** When referencing a chart's findings, briefly explain what the chart represents and why it's relevant to the point being made. For example, "Figure X, which illustrates the distribution of attack vectors, reveals that..."
+4.  **Maintain Tone and Style:** Ensure your generated additions maintain the objective, precise, and analytical tone established in the introduction. Use active voice and present tense primarily. Vary sentence structure.
+5.  **Adhere to Markdown:** Follow the Markdown guidelines specified in the "Output Format Guidance".
+6.  **Length:** The combined narrative (provided introduction + your data-driven elaboration) should aim for the target length specified in the "Output Format Guidance" (8-10 verbose paragraphs).
+
+--- BEGIN SECTION INTRODUCTION (Use this as the start of your narrative) ---
+
+The "{{ section_title }}" section delves into the practical aspects of how vulnerabilities discovered this quarter might be exploited by malicious actors. Understanding the "attack surface" involves analyzing the pathways available to attackers and the conditions that make exploitation easier or more difficult. For system administrators and security teams, this information is paramount for effective risk assessment and prioritizing defensive measures. An exploit requiring network access, no user interaction, and no special privileges presents a far more immediate and widespread threat than one requiring local access, user interaction, and administrative rights.
+
+In this analysis, we will examine several key dimensions of exploitability:
+-   **Attack Vectors:** The pathways through which vulnerabilities can be attacked (e.g., Network, Local, Adjacent Network, Physical). Network-based vectors are typically of highest concern due to their potential for remote exploitation.
+-   **Privileges Required:** The level of system access an attacker needs *before* they can exploit the vulnerability (None, Low, or High). Vulnerabilities requiring 'None' are particularly dangerous.
+-   **User Interaction:** Whether a legitimate user must take some action (e.g., click a link, open a file) for the exploit to succeed ('Required') or if the vulnerability can be exploited directly by the attacker ('None').
+-   **Attack Complexity:** The conditions beyond the attacker's control that must exist for an exploit to succeed ('Low' or 'High'). 'Low' complexity means fewer hurdles for the attacker.
+
+By dissecting these factors, we aim to paint a clearer picture of the predominant exploit characteristics for this quarter's CVEs, enabling more informed security posture management. The following data and visualizations will provide specific insights into these areas.
+
+--- END SECTION INTRODUCTION ---
+
+**Structural Guidance for Data-Driven Elaboration (Continue from the introduction above):**
+
+1.  **Overall Attack Vector Landscape:** Begin your data-driven analysis by discussing the overall distribution of attack vectors observed this quarter.
+    *   Reference specific data points from statistics like `network_vector_pct`, `local_vector_pct`, etc.
+    *   Incorporate insights from the chart 'Distribution of Attack Vectors' (if you have one, or the data for `overall_attack_vector_dist`). Explain what the dominant vectors imply for defensive strategies.
+
+2.  **Privileges in Context of Attack Vectors:** Transition to how privileges required layer onto these attack vectors.
+    *   Discuss findings from the 'Attack Vectors by Privileges Required' chart. For instance, highlight if a significant portion of Network vulnerabilities required 'None' or 'Low' privileges.
+    *   Use stats like `no_privs_required_pct`.
+
+3.  **The Role of User Interaction:** Next, analyze the impact of user interaction.
+    *   Discuss the proportion of vulnerabilities requiring user interaction versus those exploitable directly (referencing `no_user_action_pct`, `user_action_req_pct`).
+    *   If you have the 'User Interaction vs. Attack Complexity' chart, integrate its key findings here, explaining how these two factors combine.
+
+4.  **Attack Complexity Profile:** Detail the distribution of 'Low' vs. 'High' attack complexity.
+    *   How does this affect the overall risk? Reference `low_attack_comp_pct`.
+
+5.  **Synthesizing "Ease of Exploit" - The "Worst-Case" Scenario:** Discuss the `worst_case_cves` statistic. Explain the criteria (Network, No UI, No Privs, Low Complexity, High CVSS) and what the count of such CVEs signifies for the quarter.
+
+6.  **Known Exploited Vulnerabilities (If Applicable):** If CISA KEV data (`exploited_pct_kev`) is available and shows notable figures, integrate these findings. How do these known exploited vulnerabilities align with the general exploitability characteristics observed?
+
+7.  **Concluding Analysis for the Section:** Summarize the most critical aspects of this quarter's attack surface. Are there particular combinations of exploitability factors that present the most significant concerns for administrators? This should lead into the section summary (which is generated separately).
+
 {% endblock task_instructions %}
 
 {% block data_context %}
-Section Key: {{ data_context_payload.section_key | default('section_4_cvss_dist') }}
+Section Title: {{ section_title }}
+Report Period: {{ start_date.strftime('%B %d, %Y') }} to {{ end_date.strftime('%B %d, %Y') }}
 
-Chart Insights Generated for this Section:
+Key Statistics for this Section (Attack Surface Focus):
+Below is a dump of all available statistics for this section. Please use these to inform your narrative.
+- If a value is 'None', not present, or not applicable, please represent it as 'N/A' or omit it gracefully in your narrative.
+- For values representing percentage changes (often suffixed with '_qoq_delta_pct'), if the value is a number, round it to one decimal place and present it as a percentage (e.g., "a 12.3% increase").
+- For values representing absolute changes (often suffixed with '_qoq_delta_abs'), if the value is a number, round it to one decimal place.
+- For other numerical values that require rounding for presentation, use one decimal place unless context suggests otherwise.
+
+{{ data_context_payload.section_specific_stats | tojson(indent=2) }}
+
+Chart Insights for '{{ section_title }}':
 {% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
-- Insight ({{ chart_id }}): {{ insight }}
-{% else %}
-- No specific chart insights provided.
-{% endfor %}
+- Insight for {{ chart_id }}: {{ insight | trim }}
+{% else %}- No chart insights. {% endfor %}
 
-Callouts Generated for this Section:
+Callouts for '{{ section_title }}':
 {% for callout_key, callout_text in data_context_payload.callouts_in_section.items() %}
-- {{ callout_key | replace("_", " ") | title }}: {{ callout_text }}
-{% else %}
-- No callouts generated for this section.
-{% endfor %}
+- {{ callout_key | replace("_", " ") | title }}: {{ callout_text | trim }}
+{% else %}- No callouts. {% endfor %}
 
-Data Summaries for Charts in this Section:
+Data Summaries for Charts in '{{ section_title }}':
 {% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
 --- Data Summary: {{ chart_id }} ---
 {{ summary }}
---- End Summary ---
 {% else %}
 - No chart data summaries provided.
 {% endfor %}
+Note: If percentages do not sum to 100%, this may be due to some CVEs lacking an assigned value (i.e., missing or NaN values were excluded from the calculation). If a significant portion of data was excluded, mention this in your narrative.
 {% endblock data_context %}

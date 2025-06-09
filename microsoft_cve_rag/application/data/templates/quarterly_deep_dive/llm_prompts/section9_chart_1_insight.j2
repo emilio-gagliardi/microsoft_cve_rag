@@ -14,5 +14,5 @@ Chart ID: {{ data_context_payload.chart_id | default('overall_attack_vector_dist
 Chart Caption: {{ data_context_payload.chart_caption | default('Figure 10. Overall Distribution of Attack Vectors for All Analyzed CVEs.') }}
 
 Data Summary (Percentage Distribution of Attack Vectors):
-{{ data_context_payload.data_summary | default("Data summary not available.") }}
+{{ data_context_payload.chart_data_summary | default("Data summary not available.") }}
 {% endblock data_context %}

@@ -1,0 +1,35 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+{# Specific context for the second callout in Section 3 #}
+{% set output_format_description = "a strategic, forward-looking statement (2-3 sentences) derived from a *distinct* and impactful finding within the Section 3 data/insights. This interpretation should offer a unique 'so what?' perspective relevant to a CTO, suitable for a visual callout box." %}
+
+{% block task_instructions %}
+Review the data summaries and chart insights provided below for "{{ section_title }}". This section focuses on overall CVE volume, new vs. updated status, and severity trends.
+Following the general instructions, identify a *distinct* or significant finding from this information. Your primary goal is to then provide a **higher-level strategic insight or implication** stemming from this specific data point, ensuring it offers a unique perspective relevant to a CTO and not covered by other callouts. What does this statistic *mean* for the municipality's IT strategy, resource allocation, or risk posture?
+Craft a concise statement (2-3 sentences maximum) that delivers this distinct, strategic insight. **CRITICAL: Do NOT simply repeat or rephrase statistics or facts already detailed in the 'Chart Insights' or raw data summaries.** Assume the reader has access to those details. Your value is in providing a *unique strategic interpretation* and the 'so what?'.
+Example of desired focus:
+    *   **Less Helpful (Avoid):** 'Updated CVEs constituted X% of the total.'
+    *   **More Helpful (Aim for this style, CTO Persona):** 'The significant portion of CVEs (X%) being updates to existing vulnerabilities highlights the ongoing cat-and-mouse game; our IT team's agility in reassessing and reprioritizing patching is paramount to municipal service continuity.'
+Important. You can be creative and innovative in your statement so long as it is based on the data provided and the domain of CVEs.
+Focus on the 'why' or 'so what' from your distinct finding. What are the potential strategic implications for the municipality's technology roadmap, budget, or the IT department's preparedness and skill sets?
+Persona: As the **Chief Technology Officer (CTO) for a medium-sized municipality**, you are responsible for the overall technology strategy, IT infrastructure resilience, cybersecurity preparedness, and ensuring technology effectively supports public services with limited resources. Your callout should reflect this strategic, high-level perspective. From your chosen *distinct* statistic/finding, extract an insight that directly addresses **strategic IT planning, resource allocation for cybersecurity, risk to public services, or the IT department's capacity to handle evolving threats.** What is the most critical message for city leadership or your IT directors based on this data point?
+When composing your statement, use valid markdown to bold, italicize, or add inline code formatting to key terms, statistics, or phrases if it helps the reader focus on what matters. Your response will be rendered as HTML, so markdown formatting will be preserved for emphasis.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Section Key: {{ data_context_payload.section_key | default('section_3_vol_sev') }}
+
+Insights Generated for Charts in this Section:
+{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
+- Insight for {{ chart_id }}: {{ insight }}
+{% else %}
+- No specific chart insights provided for this section.
+{% endfor %}
+
+Data Summaries for Charts in this Section:
+{% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
+--- Data Summary: {{ chart_id }} ---
+{{ summary }}
+{% else %}
+- No chart data summaries provided.
+{% endfor %}
+{% endblock data_context %}

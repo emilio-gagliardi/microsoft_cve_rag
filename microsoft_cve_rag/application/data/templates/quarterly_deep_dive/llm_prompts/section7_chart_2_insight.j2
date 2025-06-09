@@ -1,13 +1,24 @@
-{% extends "llm_prompts/base_prompt.j2" %}
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 
 {# Specific context for this prompt #}
 {% set section_title = "Section 7" %}
-{% set output_format_description = "a concise insight (2-3 sentences) highlighting the main trend or anomaly from chart 2 of the Section 7 section" %}
+{% set output_format_description = "a brief, objective observation (2-3 sentences) focused solely on the primary trend or key finding from the 't-SNE CVE Profile Clusters' chart data. No interpretation or recommendations." %}
 
 {% block task_instructions %}
-Analyze the provided "{{ section_title }}" chart 2 data. Identify the key trend, pattern, or anomaly, and articulate a concise insight in 2-3 sentences.
+The chart titled '{{ data_context_payload.chart_caption | default('t-SNE CVE Profile Clusters') }}' (a scatter plot) displays a t-SNE (t-distributed Stochastic Neighbor Embedding) visualization of CVEs, where CVEs with similar profiles (based on various features like CVSS vectors, CWEs, product, etc.) are expected to cluster together.
+Examine the provided data summary or the visual representation of this chart.
+Identify and describe the most significant observation. For example:
+- Are there distinct clusters of CVEs visible in the t-SNE plot?
+- If clusters are identifiable and labeled (e.g., by primary CVE category or a dominant characteristic), does any cluster stand out in terms of size or density?
+- Does the plot suggest any relationships or groupings of CVEs that were not apparent from other analyses?
+Focus only on what the data or visual plot directly indicates about the clustering or distribution of CVE profiles.
 {% endblock task_instructions %}
 
 {% block data_context %}
 {{ formatted_data | default("Data not available.") }}
+Chart ID: {{ data_context_payload.chart_id | default('tsne_cve_profile_chart') }}
+Chart Caption: {{ data_context_payload.chart_caption | default('Figure 15. t-SNE CVE Profile Clusters.') }}
+
+Data Summary (Information about t-SNE plot coordinates, cluster labels if available, or key features defining clusters):
+{{ data_context_payload.chart_data_summary | default("Data not available.") }}
 {% endblock data_context %}

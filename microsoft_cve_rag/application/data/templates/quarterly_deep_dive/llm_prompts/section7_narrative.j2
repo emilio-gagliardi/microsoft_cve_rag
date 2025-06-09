@@ -1,38 +1,83 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 
-{# Specific context for the main narrative of Section 7 (DoS/InfoDisc) #}
-{# NOTE: Correcting the likely error in REPORT_STRUCTURE which might have listed section3_narrative.j2 #}
-{% set output_format_description = "a coherent narrative paragraph summarizing the analysis of DoS and Information Disclosure vulnerabilities, suitable for the main body text. Use Markdown for clarity (e.g., simple bolding) if helpful." %}
+{% set output_format_description -%}
+An introductory narrative for the "{{ section_title }}" section, written in **Markdown format**.
+The narrative should be approximately **3-5 paragraphs**.
+It must seamlessly integrate the provided introductory boilerplate text, explain the criteria for selecting the spotlighted CVEs, and set the stage for presenting details on these specific high-risk vulnerabilities.
+Utilize Markdown effectively:
+- Paragraphs (separated by a blank line).
+- Emphasis: *italic* or _italic_, **bold** or __bold__ for key terms or concepts.
+- Inline `code` for terms like `CVSS >= 9.0`.
+Focus on clearly communicating the purpose and methodology of this spotlight section.
+{%- endset %}
 
 {% block task_instructions %}
-Synthesize the provided chart insight, callout, and data summary for "{{ section_title }}" into a flowing narrative text focused specifically on Denial of Service (DoS) and Information Disclosure vulnerabilities.
-Your narrative should cover the main trends observed during the reporting period regarding the volume and frequency of these two vulnerability types.
-Integrate the key point highlighted in the callout. Aim for 3-5 sentences. You may use simple Markdown (like **bold**) for emphasis if appropriate.
+You are an expert security analyst and technical writer contributing to the "{{ report_title }}".
+Your current task is to generate the introductory narrative for the section titled: **"{{ section_title }}"**.
+
+**Instructions:**
+1.  **Start with the Provided Introduction:** The following paragraphs (between "--- BEGIN SECTION INTRODUCTION ---" and "--- END SECTION INTRODUCTION ---") form the essential introduction and context for this section. **You MUST incorporate this text as the beginning of your narrative, verbatim or with very minor editorial adjustments for flow if absolutely necessary.**
+2.  **Elaborate on Selection Criteria & Presentation:** Following the introductory text, expand the narrative by:
+    *   Briefly explaining the criteria used to select the "spotlighted" CVEs (e.g., CVSS score threshold, known exploitation, key attack characteristics). Reference the overall `worst_case_cves` count or `exploited_count_kev` if these stats informed the selection.
+    *   Describing what kind of information will be presented for each spotlighted CVE (e.g., "For each of these vulnerabilities, we will provide its CVSS score, key exploitability metrics, affected products, and a brief summary of its potential impact."). This sets reader expectations for the content that follows (which might be a table or individual CVE summaries).
+3.  **Explain Charts/Visuals (if any introduce this section):** If there's a summary chart for the spotlighted CVEs (like the 'CVSS Scores of Spotlighted Vulnerabilities' bar chart), briefly introduce it and what it shows.
+4.  **Maintain Tone and Style:** Ensure your generated additions maintain an objective, precise, and analytical tone.
+5.  Use active voice. Vary sentence length and complexity. AVOID repetitive linguistic patterns.
+6.  **Adhere to Markdown:** Follow the Markdown guidelines.
+7.  **Length:** The combined narrative should aim for the target length specified in the "Output Format Guidance" (3-5 paragraphs).
+
+--- BEGIN SECTION INTRODUCTION (Use this as the start of your narrative) ---
+
+The "{{ section_title }}" section provides a focused examination of a curated list of the most critical and potentially impactful Microsoft vulnerabilities disclosed during this reporting period. While previous sections have analyzed broad trends and distributions, this spotlight aims to draw specific attention to individual CVEs that warrant heightened awareness due to their inherent severity, ease of exploitation, or observed activity in the threat landscape.
+
+The goal here is not to be exhaustive, but rather to highlight exemplars of high-risk vulnerabilities. By dissecting these specific cases, organizations can gain a more concrete understanding of the types of threats that demand immediate prioritization and can use these examples to test their own detection and response capabilities. This targeted analysis serves as a practical supplement to the broader statistical picture painted earlier in the report.
+
+--- END SECTION INTRODUCTION ---
+
+**Structural Guidance for Data-Driven Elaboration (Continue from the introduction above):**
+
+1.  **Selection Methodology:**
+    *   Clearly state the criteria for selecting the spotlighted CVEs. For example: "The vulnerabilities highlighted in this section were selected based on a combination of factors, primarily a CVSS base score of `9.0` or higher, evidence of known exploitation (where available), and characteristics indicative of widespread potential impact, such as network-based attack vectors requiring no user interaction or privileges."
+    *   You can reference the overall count of `Worst Case CVEs` or `Known Exploited CVEs (KEV)` from the provided statistics to give context to how many such vulnerabilities existed in total.
+
+2.  **Overview of Information to be Presented:**
+    *   Explain to the reader what details will be provided for each spotlighted CVE. For instance: "For each selected CVE, this section will present its official identifier (e.g., `CVE-2024-XXXXX`), its assigned CVSS v3.1 base score and vector string, a summary of its key exploitability metrics (Attack Vector, Attack Complexity, Privileges Required, User Interaction), a list of primary affected product families, and a concise summary of its potential impact and the nature of the vulnerability."
+    *   If there's a summary chart (like "CVSS Scores of Spotlighted Vulnerabilities"), introduce it here: "To provide an initial overview, Figure X presents the CVSS scores of these selected critical vulnerabilities..."
+
+3.  **Transition to CVE Details:**
+    *   Conclude this introductory narrative with a sentence that smoothly transitions to the presentation of the individual spotlighted CVEs (which will follow this narrative, likely as a table or a series of sub-sections). For example: "The following entries provide a detailed look at these high-priority vulnerabilities."
+
 {% endblock task_instructions %}
 
 {% block data_context %}
-Section Key: {{ data_context_payload.section_key | default('section_7_dos_infodisc_deep_dive') }}
+Section Title: {{ section_title }}
+Report Period: {{ start_date.strftime('%B %d, %Y') }} to {{ end_date.strftime('%B %d, %Y') }}
 
-Chart Insights Generated for this Section:
+Key Statistics for this Section (Critical/Exploited CVEs Focus):
+Below is a dump of all available statistics for this section. Please use these to inform your narrative.
+- If a value is 'None', not present, or not applicable, please represent it as 'N/A' or omit it gracefully in your narrative.
+- For values representing percentage changes (often suffixed with '_qoq_delta_pct'), if the value is a number, round it to one decimal place and present it as a percentage (e.g., "a 12.3% increase").
+- For values representing absolute changes (often suffixed with '_qoq_delta_abs'), if the value is a number, round it to one decimal place.
+- For other numerical values that require rounding for presentation, use one decimal place unless context suggests otherwise.
+
+{{ data_context_payload.section_specific_stats | tojson(indent=2) }}
+
+Chart Insights for '{{ section_title }}':
 {% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
-- Insight ({{ chart_id }}): {{ insight }}
-{% else %}
-- No specific chart insights provided.
-{% endfor %}
+- Insight for {{ chart_id }}: {{ insight | trim }}
+{% else %}- No chart insights. {% endfor %}
 
-Callouts Generated for this Section:
+Callouts for '{{ section_title }}':
 {% for callout_key, callout_text in data_context_payload.callouts_in_section.items() %}
-- {{ callout_key | replace("_", " ") | title }}: {{ callout_text }}
-{% else %}
-- No callouts generated for this section.
-{% endfor %}
+- {{ callout_key | replace("_", " ") | title }}: {{ callout_text | trim }}
+{% else %}- No callouts. {% endfor %}
 
-Data Summaries for Charts in this Section:
+Data Summaries for Charts in '{{ section_title }}':
 {% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
 --- Data Summary: {{ chart_id }} ---
 {{ summary }}
---- End Summary ---
 {% else %}
 - No chart data summaries provided.
 {% endfor %}
+Note: If percentages do not sum to 100%, this may be due to some CVEs lacking an assigned value (i.e., missing or NaN values were excluded from the calculation). If a significant portion of data was excluded, mention this in your narrative.
 {% endblock data_context %}

@@ -1,11 +1,18 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 {# Specific context for the second callout in Section 3 #}
-{% set output_format_description = "a brief callout (1-2 sentences) highlighting a second, distinct, impactful insight from the Section 3 data/insights provided, suitable for a distinct callout box" %}
+{% set output_format_description = "a brief, higher-level interpretation (2-3 sentences) derived from a *distinct* and impactful finding within the Section 3 data/insights. This interpretation should offer a unique 'so what?' perspective, suitable for a visual callout box." %}
 
 {% block task_instructions %}
 Review the data summaries and chart insights provided below for "{{ section_title }}". This section focuses on overall CVE volume, new vs. updated status, and severity trends.
-Following the general instructions, identify a *second, distinct* significant finding from this information (different from any insight already highlighted in Callout 1). Perhaps focus on a different aspect (e.g., if Callout 1 was about volume, focus on severity, or vice-versa) or a specific month's data.
-Craft a concise callout (1-2 sentences maximum) stating this key finding clearly.
+Following the general instructions, identify a *distinct* significant finding from this information. Your primary goal is to then provide a **higher-level insight or implication** stemming from this specific data point, ensuring it offers a unique perspective not covered by other callouts. What does this statistic *mean* for the organization, especially considering your persona?
+Craft a concise statement (2-3 sentences maximum) that delivers this distinct, higher-level insight. **CRITICAL: Do NOT simply repeat or rephrase statistics or facts already detailed in the 'Chart Insights' or raw data summaries.** Assume the reader has access to those details. Your value is in providing a *unique interpretation* and the 'so what?'.
+Example of desired focus:
+    *   **Less Helpful (Avoid):** 'The data shows X% of CVEs were high severity.'
+    *   **More Helpful (Aim for this style, Intune Admin Persona):** 'The consistent X% of high-severity CVEs this quarter directly impacts our mobile fleet; patching cycles for in-field devices must be prioritized to mitigate this ongoing risk.'
+Important. You can be creative and innovative in your statement so long as it is based on the data provided and the domain of CVEs.
+Focus on the 'why' or 'so what' from your distinct finding. What are the potential consequences or operational adjustments needed based on this specific piece of information, particularly for device management?
+Persona: As an **Intune Administrator for a large Oil & Gas company**, you are responsible for a diverse fleet of devices, including many in-field units critical to operations. Your callout should reflect this. From your chosen *distinct* statistic/finding, extract an insight that directly addresses **device security, patching challenges, operational continuity, or compliance concerns for your managed endpoints.** What is the most pressing message for your IT operations team or security leadership regarding the device landscape based on this data point?
+When composing your statement, use valid markdown to bold, italicize, or add inline code formatting to key terms, statistics, or phrases if it helps the reader focus on what matters. Your response will be rendered as HTML, so markdown formatting will be preserved for emphasis.
 {% endblock task_instructions %}
 
 {% block data_context %}
@@ -22,7 +29,6 @@ Data Summaries for Charts in this Section:
 {% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
 --- Data Summary: {{ chart_id }} ---
 {{ summary }}
---- End Summary ---
 {% else %}
 - No chart data summaries provided.
 {% endfor %}

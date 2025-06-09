@@ -1,12 +1,43 @@
 {% macro render_chart(chart_id, caption) %}
-<figure class="chart-figure"> {# Use component class #}
-    <div id="{{ chart_id }}" class="plotly-chart-container">
-         <div class="flex items-center justify-center h-full min-h-[400px]"> {# Centered Loading #}
+{#
+    Renders a container for a Plotly chart.
+    The actual chart is initialized via JavaScript targeting the `id="{{ chart_id }}"`.
+
+    Custom Classes & Modifications:
+    - Figure Element: `.chart-figure` (base class)
+        - Applied to the <figure> element.
+        - Controls overall margin (`my-6 md:my-8`).
+    - Chart Div Container: `#{{ chart_id }}`.plotly-chart-container`
+        - Applied to the direct <div> holding the chart.
+        - `bg-report-surface dark:bg-report-surface-dark`: Standard surface colors.
+        - `rounded-lg shadow-sm`: Basic container styling.
+        - `border`: Base border.
+        - `dark:border-brand-teal dark:shadow-[0_0_25px_-5px_rgba(var(--color-brand-teal),0.4)]`:
+          In dark mode, adds a vibrant teal border and a teal "glow" effect using box-shadow.
+          Ensure `--color-brand-teal` is defined (it is: #67C2C0). We use this hex directly with rgba for the shadow.
+          The shadow uses the direct hex of brand-teal.
+        - `p-2 md:p-4`: Padding.
+        - To change the glow color, update `dark:border-brand-teal` and the color in `rgba()` for the shadow.
+          Example: `dark:border-brand-blue dark:shadow-[0_0_25px_-5px_rgba(var(--rgb-brand-blue),0.4)]`
+    - Loading State Div:
+        - Controls styling for the "Loading chart..." message.
+        - `min-h-[300px] md:min-h-[400px]`: Ensures space while loading.
+        - `text-report-text-muted dark:text-report-text-muted-dark`: Text color.
+    - Figcaption:
+        - `text-sm text-center text-report-text-muted dark:text-report-text-muted-dark mt-2 italic`: Standard caption styling.
+#}
+<figure class="chart-figure dark:bg-report-surface-dark dark:border-brand-teal/70 {# Dark mode overrides from CSS #}
+                 dark:shadow-[0_0_25px_-8px_rgba(103,194,192,0.4)] {# Teal glow #}
+                 transition-all duration-300 hover:dark:shadow-[0_0_35px_-5px_rgba(103,194,192,0.5)]">
+    {# The div below is mainly for Plotly to target, less for heavy styling if figure handles it #}
+    <div id="{{ chart_id }}"
+         class="plotly-chart-container"> {# Minimal classes, rely on .chart-figure and Plotly's own sizing #}
+         <div class="flex items-center justify-center h-full min-h-[300px] md:min-h-[400px]"> {# Adjusted min-h for better default #}
              <span class="text-report-text-muted dark:text-report-text-muted-dark">Loading chart...</span>
          </div>
     </div>
     {% if caption %}
-    <figcaption> {# Styling handled by .chart-figure figcaption in CSS #}
+    <figcaption> {# Uses .chart-figure figcaption from report-styles.css #}
         {{ caption }}
     </figcaption>
     {% endif %}

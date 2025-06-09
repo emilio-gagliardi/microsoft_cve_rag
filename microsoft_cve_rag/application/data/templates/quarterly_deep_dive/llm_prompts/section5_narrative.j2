@@ -1,40 +1,99 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 
-{# Specific context for the main narrative of Section 5 (RCE Deep Dive) #}
-{# NOTE: The original REPORT_STRUCTURE incorrectly had section3_narrative.j2 here. This should be section5_narrative.j2 #}
-{% set output_format_description = "a coherent narrative paragraph (or potentially two short paragraphs) summarizing the analysis of RCE vulnerabilities, suitable for the main body text. Use Markdown for clarity (e.g., simple bolding) if helpful." %}
+{% set output_format_description -%}
+A detailed analytical narrative for the "{{ section_title }}" section, written in **Markdown format**.
+The narrative should be substantial, approximately **8-10 verbose paragraphs**, thoroughly exploring CVSS score distributions, interquartile ranges, and the impact of common weaknesses (CWEs).
+It must seamlessly integrate the provided introductory boilerplate text and then elaborate on the specific data-driven findings according to the structural guidance.
+Utilize Markdown effectively:
+- Paragraphs (separated by a blank line).
+- Emphasis: *italic* or _italic_, **bold** or __bold__ for key statistics or terms.
+- Unordered lists (using - or *) for discussing multiple CWEs or related findings.
+- Inline `code` for specific CVSS scores, CWE IDs (e.g., `CWE-79`).
+- (Optional, if needed for sub-points): ### Deeper Dive into a Specific Category or #### Analysis of a Key CWE.
+Focus on insightful analysis that helps prioritize vulnerabilities based on their intrinsic severity and underlying weaknesses.
+{%- endset %}
 
 {% block task_instructions %}
-Synthesize the provided chart insights, callouts, and data summaries for "{{ section_title }}" into a flowing narrative text focused specifically on Remote Code Execution (RCE) vulnerabilities.
-Your narrative should cover:
-1. The trend in the proportion of RCE vulnerabilities relative to all CVEs during the reporting period.
-2. The typical severity profile of these RCE vulnerabilities based on their CVSS score distribution.
-Integrate the key points highlighted in the callouts regarding the significance of RCEs. Aim for 3-6 sentences. You may use simple Markdown (like **bold**) for emphasis if appropriate.
+You are an expert security analyst and technical writer contributing to the "{{ report_title }}".
+Your current task is to generate the full narrative for the section titled: **"{{ section_title }}"**.
+
+**Instructions:**
+1.  **Start with the Provided Introduction:** The following paragraphs (between "--- BEGIN SECTION INTRODUCTION ---" and "--- END SECTION INTRODUCTION ---") form the essential introduction and foundational context for this section. **You MUST incorporate this text as the beginning of your narrative, verbatim or with very minor editorial adjustments for flow if absolutely necessary.**
+2.  **Elaborate Based on Data:** Following the introductory text, expand the narrative by discussing the specific findings for this quarter, using the "Structural Guidance for Data-Driven Elaboration" below as your outline. Integrate information from the 'Chart Insights', 'Callouts', and 'Data Context'.
+3.  **Explain Charts/Visuals:** When referencing findings from a chart (e.g., Figure X - CVSS Distributions) or a complex stat card (e.g., CVSS IQR by Category data), briefly explain what the visual represents and how its data supports the point you are making. For example, "Figure X, presenting box plots of CVSS scores for each vulnerability category, clearly shows that 'Remote Code Execution' vulnerabilities exhibited the widest score range this quarter..."
+4.  **Maintain Tone and Style:** Ensure your generated additions maintain the objective, precise, and deeply analytical tone established in the introduction. Use active voice and present tense primarily. Vary sentence structure.
+5.  **Adhere to Markdown:** Follow the Markdown guidelines specified in the "Output Format Guidance".
+6.  **Length:** The combined narrative (provided introduction + your data-driven elaboration) should aim for the target length specified in the "Output Format Guidance" (8-10 verbose paragraphs).
+
+--- BEGIN SECTION INTRODUCTION (Use this as the start of your narrative) ---
+
+The "{{ section_title }}" section provides a more granular examination of vulnerability severity, moving beyond overall averages to explore the distribution and spread of Common Vulnerability Scoring System (CVSS) scores. Understanding this distribution is critical because not all vulnerabilities within a given category or with the same nominal severity rating pose an equal risk. Factors like the interquartile range (IQR) – the spread of the middle 50% of scores – can reveal consistency or wide variance in assessed severity within a group.
+
+Furthermore, this section delves into the underlying root causes of vulnerabilities by analyzing associated Common Weakness Enumerations (CWEs). Identifying frequently occurring CWEs, especially those linked to high-impact vulnerabilities, helps in understanding systemic weaknesses and can inform proactive security measures, secure coding practices, and targeted training.
+
+By dissecting CVSS score distributions across different vulnerability categories and spotlighting prevalent CWEs, this deep dive aims to equip technical teams with nuanced insights for more effective risk assessment, prioritization of remediation efforts, and strategic defense planning. The data presented will highlight which types of vulnerabilities and weaknesses demanded the most attention this quarter.
+
+--- END SECTION INTRODUCTION ---
+
+**Structural Guidance for Data-Driven Elaboration (Continue from the introduction above):**
+
+1.  **CVSS Score Distribution Across Categories:**
+    *   Begin by discussing the findings from the 'CVSS Score Distribution by Vulnerability Category' chart (Figure X - Box Plots).
+    *   Which categories exhibited the highest median CVSS scores? Which had the widest IQR, indicating greater variability in severity? Were there notable outliers in any categories?
+    *   Reference the `cvss_iqr_by_category` complex stat card data to provide specific Q1, Median, Q3, and IQR values for key categories as you discuss them. For example, "For 'Remote Code Execution' vulnerabilities, the median CVSS was X, with an IQR of Y (Q1: A, Q3: B), suggesting..."
+
+2.  **Overall CVSS Percentiles and Spread:**
+    *   Discuss overall high-percentile scores like the `P90 CVSS`. What does this tell us about the top end of severity?
+    *   Mention the overall `Score IQR` for all CVEs. How does this compare to the IQRs of specific categories?
+
+3.  **Analysis of Common Weakness Enumerations (CWEs):**
+    *   Transition to discussing the most prevalent software weaknesses. Identify the `Top CWE ID` for the quarter.
+    *   Discuss the `Top 3 CWE Coverage Pct`. What proportion of vulnerabilities do these few common weaknesses account for?
+    *   If the 'Top CWEs in Critical/High RCE & EOP Vulnerabilities' chart (Figure Y) shows interesting data, integrate its findings here. Are specific CWEs disproportionately represented in high-risk vulnerabilities?
+    *   If the `memory_safety_vs_logic_bugs_pct` ratio is significant, discuss its implications.
+
+4.  **Quarter-over-Quarter CWE Trends (If Data Available):**
+    *   If the `new_cwe_types_this_qtr` is greater than zero, discuss the emergence of new weakness types.
+    *   If QoQ data for `top_cwe_id` or `top_3_cwe_coverage_pct` is available and shows a significant shift, briefly mention it.
+
+5.  **Synthesized Prioritization Insights:**
+    *   Based on the combined analysis of CVSS distributions (particularly the higher-scoring categories and those with wide IQRs indicating unpredictable severity) and the prevalence of certain CWEs (especially those linked to high-risk CVEs), what are the key takeaways for prioritization?
+    *   Which combinations of vulnerability category and underlying weakness appear to pose the most consistent or severe threat this quarter?
+
+6.  **Concluding Analysis for this Section:**
+    *   Summarize the main insights gained from this deep dive into CVSS scores and CWEs. How does this detailed analysis refine the understanding of the quarter's vulnerability landscape?
+
 {% endblock task_instructions %}
 
 {% block data_context %}
-Section Key: {{ data_context_payload.section_key | default('section_5_rce_deep_dive') }}
+Section Title: {{ section_title }}
+Report Period: {{ start_date.strftime('%B %d, %Y') }} to {{ end_date.strftime('%B %d, %Y') }}
 
-Chart Insights Generated for this Section:
+Key Statistics for this Section (CVSS & CWE Focus):
+Below is a dump of all available statistics for this section. Please use these to inform your narrative.
+- If a value is 'None', not present, or not applicable, please represent it as 'N/A' or omit it gracefully in your narrative.
+- For values representing percentage changes (often suffixed with '_qoq_delta_pct'), if the value is a number, round it to one decimal place and present it as a percentage (e.g., "a 12.3% increase").
+- For values representing absolute changes (often suffixed with '_qoq_delta_abs'), if the value is a number, round it to one decimal place.
+- For other numerical values that require rounding for presentation, use one decimal place unless context suggests otherwise.
+
+{{ data_context_payload.section_specific_stats | tojson(indent=2) }}
+
+Chart Insights for '{{ section_title }}':
 {% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
-- Insight ({{ chart_id }}): {{ insight }}
-{% else %}
-- No specific chart insights provided.
-{% endfor %}
+- Insight for {{ chart_id }}: {{ insight | trim }}
+{% else %}- No chart insights. {% endfor %}
 
-Callouts Generated for this Section:
+Callouts for '{{ section_title }}':
 {% for callout_key, callout_text in data_context_payload.callouts_in_section.items() %}
-- {{ callout_key | replace("_", " ") | title }}: {{ callout_text }}
-{% else %}
-- No callouts generated for this section.
-{% endfor %}
+- {{ callout_key | replace("_", " ") | title }}: {{ callout_text | trim }}
+{% else %}- No callouts. {% endfor %}
 
-Data Summaries for Charts in this Section:
+Data Summaries for Charts in '{{ section_title }}':
 {% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
 --- Data Summary: {{ chart_id }} ---
 {{ summary }}
---- End Summary ---
 {% else %}
 - No chart data summaries provided.
 {% endfor %}
+Note: If percentages do not sum to 100%, this may be due to some CVEs lacking an assigned value (i.e., missing or NaN values were excluded from the calculation). If a significant portion of data was excluded, mention this in your narrative.
 {% endblock data_context %}

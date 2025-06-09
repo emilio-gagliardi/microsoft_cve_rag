@@ -9,9 +9,10 @@ Describe this key finding clearly in 2-3 sentences.
 {% endblock task_instructions %}
 
 {% block data_context %}
-Chart ID: {{ data_context_payload.chart_id | default('volume_severity') }}
+Chart ID: {{ data_context_payload.chart_id | default('volume_by_severity_monthly') }}
 Chart Caption: {{ data_context_payload.chart_caption | default('Figure 2. Monthly CVE Volume by Assessed Severity.') }}
 
-Data Summary (Monthly Counts by Severity):
+Data Summary:
 {{ data_context_payload.chart_data_summary | default("Data not available.") }}
+Note: If percentages do not sum to 100%, this may be due to some CVEs lacking an assigned value (i.e., missing or NaN values were excluded from the calculation).
 {% endblock data_context %}

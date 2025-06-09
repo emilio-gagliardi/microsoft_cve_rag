@@ -1,30 +1,38 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 
-{# Specific context for the first callout in Section 6 (EOP Deep Dive) #}
-{% set output_format_description = "a brief callout (1-2 sentences) highlighting a single, impactful insight about EOP vulnerabilities from the Section 6 data/insights, suitable for a distinct callout box" %}
+{% set output_format_description = "a concise, higher-level interpretation (2-3 sentences) derived from a *distinct* key finding related to temporal trends in product impact (e.g., which products are becoming riskier over time) or remediation/disclosure timeliness. This interpretation should offer a unique 'so what?' perspective for a Senior Security Analyst, suitable for a visual callout box." %}
 
 {% block task_instructions %}
-Review the data summaries and chart insights provided below for "{{ section_title }}". This section is a deep dive into Elevation of Privilege (EOP) vulnerabilities, looking at their proportion over time and their common attack vectors.
-Identify the *single most important finding* about EOPs from this information that administrators should note. This could relate to their frequency trend, the dominance of a specific attack vector (e.g., Local), or the potential risk suggested by the data.
-Craft a concise callout (1-2 sentences maximum) stating this key finding clearly.
+Review the chart insights and data summaries provided for the section "{{ section_title }}". This section focuses on identifying which Microsoft products were most impacted by vulnerabilities (especially critical ones) and analyzing the timeliness of the patching and NVD disclosure process.
+
+From this information, select **one *distinct* particularly striking or actionable insight regarding temporal trends** (e.g., a product consistently appearing with severe vulnerabilities over several quarters, a worsening trend in patch-to-NVD disclosure times for critical systems, or a product whose vulnerability profile is rapidly changing), ensuring it's different from other callouts in this section. Then, instead of merely restating it, your primary goal is to provide a **higher-level insight or implication** stemming from this specific trend. What does this trend *mean* for the organization's evolving risk posture, the effectiveness of current defensive strategies, or the security of systems like Entra ID or Defender from a unique angle?
+Craft a concise callout (2-3 sentences maximum) that delivers this distinct, higher-level insight. **CRITICAL: Do NOT simply repeat or rephrase statistics or facts already detailed in the 'Chart Insights' or raw data summaries.** Assume the reader has access to those details. Your value is in providing a *unique interpretation* and the 'so what?'.
+Example of desired focus (Senior Security Analyst Persona - focusing on a *distinct* temporal trend, e.g., a product's worsening vulnerability profile):
+    *   **Less Helpful (Avoid):** 'Product X has shown an increase in critical vulnerabilities over the past three quarters.'
+    *   **More Helpful (Aim for this style):** 'The consistent quarter-over-quarter increase in critical vulnerabilities for Product X, which underpins several services authenticated via Entra ID, points to a growing systemic risk that may require re-evaluating its use or implementing more stringent Defender for Endpoint monitoring on associated assets.'
+Important. You can be creative and innovative in your statement so long as it is based on the data provided and the domain of CVEs.
+Focus on the 'why' or 'so what' from your *distinct* temporal finding. If a product's risk profile is worsening, what are the implications for its integration with Entra ID, the data it processes, or the reliance on Defender to protect it? If disclosure timeliness is degrading, how does that affect incident response planning for identity systems?
+Persona: As a **Senior Security Analyst for a Fortune 500 company**, your responsibilities include Microsoft Entra, Defender, end-user authentication, data protection, and identity protection. Your callout should reflect this. From your chosen *distinct* temporal trend (e.g., a product's evolving risk profile or changing disclosure dynamics), extract an insight that directly addresses **potential impact on these systems, necessary adjustments to long-term security strategy (e.g., product lifecycle management, Defender hardening priorities), or key risks to identity and data protection that are emerging over time, offering a different angle than other callouts.** What is the most pressing strategic message for your CISO or IT leadership based on this specific temporal trend?
+When composing your statement, use valid markdown to bold, italicize, or add inline code formatting to key terms, statistics, or phrases if it helps the reader focus on what matters. Your response will be rendered as HTML, so markdown formatting will be preserved for emphasis.
 {% endblock task_instructions %}
 
 {% block data_context %}
-Section Key: {{ data_context_payload.section_key | default('section_6_eop_deep_dive') }}
+Section Key: {{ data_context_payload.section_key | default('section_6_product_timeliness') }}
 
-Insights Generated for Charts in this Section:
+Chart Insights for '{{ section_title }}':
 {% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
-- Insight for {{ chart_id }}: {{ insight }}
-{% else %}
-- No specific chart insights provided for this section.
-{% endfor %}
+- Insight for {{ chart_id }}: {{ insight | trim }}
+{% else %}- No chart insights. {% endfor %}
 
-Data Summaries for Charts in this Section:
+Data Summaries for Charts in '{{ section_title }}':
 {% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
---- Data Summary: {{ chart_id }} ---
-{{ summary }}
---- End Summary ---
-{% else %}
-- No chart data summaries provided.
-{% endfor %}
+--- Data Summary ({{ chart_id }}): ---
+{{ summary | trim }}
+{% else %}- No chart data summaries. {% endfor %}
+
+Selected Statistics for this Section (if passed, e.g., Median Days to Patch, Top Product):
+{% if data_context_payload.section_specific_stats %}
+{% for stat_name, stat_value in data_context_payload.section_specific_stats.items() %}
+- {{ stat_name | replace("_", " ") | title }}: {{ stat_value }}
+{% endfor %}{% endif %}
 {% endblock data_context %}

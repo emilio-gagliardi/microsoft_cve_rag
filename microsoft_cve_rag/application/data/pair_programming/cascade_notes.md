@@ -111,3 +111,5 @@ Each section uses visual differentiation through color-coding and only appears i
 [2025-02-19] Cascade - Enhanced KB article JSON validation - Added support for both list and dict content types in save_kb_bulk_results with proper schema validation
 [2025-02-19] Cascade - Added rate limiting configuration - Implemented crawl4ai's RateLimitConfig to handle timeouts and rate limits with retries
 [2025-02-19] Cascade - Optimized rate limiter configuration - Removed duplicate rate limiter creation and added proper handling of default max_retries value
+
+[2025-02-20] Cascade - Updated all Quarterly Deep Dive chart insight Jinja templates (Sections 3-7) to align with REPORT_STRUCTURE. Marked Dart task jJ41ge3upKfQ as Done. - feat(report): Align chart insight Jinja templates (Sec 3-7) with report structure

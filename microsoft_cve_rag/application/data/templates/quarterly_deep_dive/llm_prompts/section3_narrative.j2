@@ -1,39 +1,92 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 
-{# Specific context for the main narrative of Section 3 #}
-{% set output_format_description = "a coherent narrative paragraph (or potentially two short paragraphs) summarizing the key findings for this section, suitable for the main body text. Use Markdown for clarity (e.g., simple bolding for emphasis) if helpful, but avoid complex formatting like lists or headers." %}
+{% set output_format_description -%}
+A comprehensive narrative for the "{{ section_title }}" section, written in **Markdown format**.
+The narrative should be substantial, approximately **8-10 verbose paragraphs**, providing a foundational overview of the CVE landscape for the quarter.
+It must seamlessly integrate the provided introductory boilerplate text and then elaborate on the specific data-driven findings according to the structural guidance.
+Utilize Markdown effectively:
+- Paragraphs (separated by a blank line).
+- Emphasis: *italic* or _italic_, **bold** or __bold__ for key statistics or terms.
+- Unordered lists (using - or *) if appropriate for enumerating related sub-points.
+Focus on objective presentation of descriptive statistics.
+{%- endset %}
 
 {% block task_instructions %}
-Synthesize the provided chart insights, callouts, and data summaries for "{{ section_title }}" into a flowing narrative text.
-Your narrative should cover the main trends observed during the reporting period regarding:
-1. Overall CVE volume, including the balance between 'New' and 'Updated' vulnerabilities.
-2. The distribution of CVEs across different severity levels (Critical, Important, etc.) and any notable shifts or concentrations.
-Integrate the key points highlighted in the callouts. Ensure the narrative flows logically and provides a clear overview of the volume and severity landscape for the period. Aim for 3-6 sentences. You may use simple Markdown (like **bold**) for emphasis if appropriate.
+You are an expert security analyst and technical writer contributing to the "{{ report_title }}".
+Your current task is to generate the full narrative for the section titled: **"{{ section_title }}"**.
+
+**Instructions:**
+1.  **Start with the Provided Introduction:** The following paragraphs (between "--- BEGIN SECTION INTRODUCTION ---" and "--- END SECTION INTRODUCTION ---") form the essential introduction and foundational context for this section. **You MUST incorporate this text as the beginning of your narrative, verbatim or with very minor editorial adjustments for flow if absolutely necessary.**
+2.  **Elaborate Based on Data:** Following the introductory text, expand the narrative by discussing the specific findings for this quarter, using the "Structural Guidance for Data-Driven Elaboration" below as your outline. Integrate information from the 'Chart Insights', 'Callouts', and 'Data Context'.
+3.  **Explain Charts:** When referencing a chart's findings (e.g., Figure 1, Figure 2, Figure 3), briefly explain what the chart depicts and how its data supports the point you are making. For example, "As illustrated in Figure 1, which tracks new versus updated CVEs monthly, a clear pattern of..."
+4.  **Maintain Tone and Style:** Ensure your generated additions maintain the objective, precise, and analytical tone established in the introduction. Use active voice and present tense primarily. Vary sentence structure.
+5.  **Adhere to Markdown:** Follow the Markdown formatting guidelines specified in the "Output Format Guidance".
+6.  **Length:** The combined narrative (provided introduction + your data-driven elaboration) should aim for the target length specified in the "Output Format Guidance" (8-10 verbose paragraphs).
+
+--- BEGIN SECTION INTRODUCTION (Use this as the start of your narrative) ---
+
+The "{{ section_title }}" section serves as the cornerstone for understanding the Microsoft vulnerability landscape during this reporting period. Its primary objective is to provide a comprehensive, high-level statistical overview of all Common Vulnerabilities and Exposures (CVEs) analyzed. This includes an examination of the total volume of disclosures, their status as new or updated, the distribution across various severity levels, and an initial look at the types of vulnerabilities encountered.
+
+For system administrators, security managers, and technical leadership, this section offers crucial baseline data. It helps quantify the scale of vulnerability management efforts required and identifies broad trends that inform resource allocation and strategic focus. By establishing these foundational metrics - such as the total number of CVEs, the proportion of high-severity issues, and the most common vulnerability categories - we create a clear context for the more detailed analyses presented in subsequent sections of this report. This data-driven snapshot is essential for grasping the overall scope and nature of the security challenges addressed by Microsoft this quarter.
+
+The following analysis will present these descriptive statistics, supported by visualizations of monthly trends and category breakdowns, to paint a clear picture of the CVE landscape.
+
+--- END SECTION INTRODUCTION ---
+
+**Structural Guidance for Data-Driven Elaboration (Continue from the introduction above):**
+
+1.  **Overall CVE Volume and Disclosure Status:**
+    *   Begin by stating the `Total CVEs` analyzed this quarter.
+    *   Discuss the monthly trends in CVE disclosures, integrating findings from the 'Monthly New vs. Updated CVEs' chart (Figure 1). Were disclosures predominantly 'New' or 'Updated'? Were there any significant spikes or lulls in monthly publication volume? Reference the `Most Volatile Month` if it's particularly noteworthy.
+
+2.  **Severity Profile of Vulnerabilities:**
+    *   Transition to the severity distribution. What percentage of CVEs were `Critical & High Severity` combined? How many were `Critical Count` specifically?
+    *   Incorporate insights from the 'Monthly CVE Volume by Severity' chart (Figure 2). Which severity levels were most common each month? Did any particular severity level show a notable increase or decrease over the quarter?
+    *   Mention the overall `Median CVSS Score` for the quarter as a central tendency measure.
+
+3.  **Predominant Vulnerability Categories:**
+    *   Introduce the main types of vulnerabilities observed. Refer to the 'Overall Vulnerability Category Distribution' chart (Figure 3 – e.g., a treemap or bar chart).
+    *   Highlight the `Top Impact Type` (most frequent category).
+    *   Discuss the percentage shares of a few other significant categories (e.g., RCE, EOP, DoS) based on the data provided for the `cve_category_distribution` complex stat card (or the chart data). For instance, "Remote Code Execution vulnerabilities accounted for X% of the total..."
+
+4.  **Quarter-over-Quarter Context (If Trend Data Available):**
+    *   Briefly incorporate any significant Quarter-over-Quarter (QoQ) trend data for the key metrics discussed above (e.g., Total CVEs, Critical Count, Critical & High %). For example, "The total number of CVEs represents a Y% [increase/decrease] from the previous quarter." (Use `total_cves_qoq_delta_pct` and `total_cves_qoq_trend_direction`).
+    *   Keep this concise, as deeper trend analysis might occur in other sections or be summarized in the Executive Summary.
+
+5.  **Concluding Overview for this Section:**
+    *   Provide a brief concluding sentence or two that summarizes the main characteristics of this quarter's CVE landscape based on the volume, severity, and initial categorization discussed. This should set the stage for more detailed analyses in subsequent sections.
+
 {% endblock task_instructions %}
 
 {% block data_context %}
-Section Key: {{ data_context_payload.section_key | default('section_3_vol_sev') }}
+Section Title: {{ section_title }}
+Report Period: {{ start_date.strftime('%B %d, %Y') }} to {{ end_date.strftime('%B %d, %Y') }}
 
-Chart Insights Generated for this Section:
+Key Statistics for this Section (CVE Landscape Overview):
+Below is a dump of all available statistics for this section. Please use these to inform your narrative.
+- If a value is 'None', not present, or not applicable, please represent it as 'N/A' or omit it gracefully in your narrative.
+- For values representing percentage changes (often suffixed with '_qoq_delta_pct'), if the value is a number, round it to one decimal place and present it as a percentage (e.g., "a 12.3% increase").
+- For values representing absolute changes (often suffixed with '_qoq_delta_abs'), if the value is a number, round it to one decimal place.
+- For other numerical values that require rounding for presentation, use one decimal place unless context suggests otherwise.
+
+{{ data_context_payload.section_specific_stats | tojson(indent=2) }}
+
+Chart Insights for '{{ section_title }}':
 {% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
-- Insight ({{ chart_id }}): {{ insight }}
-{% else %}
-- No specific chart insights provided.
-{% endfor %}
+- Insight for {{ chart_id }}: {{ insight | trim }}
+{% else %}- No chart insights. {% endfor %}
 
-Callouts Generated for this Section:
+Callouts for '{{ section_title }}':
 {% for callout_key, callout_text in data_context_payload.callouts_in_section.items() %}
-- {{ callout_key | replace("_", " ") | title }}: {{ callout_text }}
-{% else %}
-- No callouts generated for this section.
-{% endfor %}
+- {{ callout_key | replace("_", " ") | title }}: {{ callout_text | trim }}
+{% else %}- No callouts. {% endfor %}
 
-Data Summaries for Charts in this Section:
+Data Summaries for Charts in '{{ section_title }}':
 {% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
 --- Data Summary: {{ chart_id }} ---
 {{ summary }}
---- End Summary ---
 {% else %}
 - No chart data summaries provided.
 {% endfor %}
+Note: If percentages do not sum to 100%, this may be due to some CVEs lacking an assigned value (i.e., missing or NaN values were excluded from the calculation). If a significant portion of data was excluded, mention this in your narrative.
 {% endblock data_context %}

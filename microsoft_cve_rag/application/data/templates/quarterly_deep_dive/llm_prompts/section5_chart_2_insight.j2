@@ -1,18 +1,22 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 
-{# Specific context for the 'rce_cvss_distribution' chart insight #}
-{% set output_format_description = "a concise text block (2-3 sentences) interpreting the key findings about the CVSS scores specifically for RCE vulnerabilities" %}
+{% set output_format_description = "a brief, objective observation (2-3 sentences) focused solely on the primary trend or key finding from the 'Top CWEs in High & Critical CVEs' chart data. No interpretation or recommendations." %}
 
 {% block task_instructions %}
-Analyze the chart image and data provided below for the chart titled '{{ data_context_payload.chart_caption | default('RCE CVSS Distribution') }}'. This data shows the distribution (e.g., using violin or box plots) of CVSS base scores specifically for Remote Code Execution (RCE) vulnerabilities.
-Identify the primary observations about the typical severity of RCEs. For example, what is the median or average CVSS score for RCEs? Are the scores tightly clustered in the high/critical range, or is there significant variation? Are there notable outliers?
-Describe the most significant findings regarding the CVSS scores of RCE vulnerabilities in 2-3 sentences.
+The chart titled '{{ data_context_payload.chart_caption | default('Top CWEs in High & Critical CVEs') }}' (typically a bar chart) displays the most frequent Common Weakness Enumerations (CWEs) found in CVEs rated as High or Critical severity.
+Examine the provided data summary for this chart.
+Identify and describe the most significant observation. For example:
+- Which CWE is most prevalent among high and critical CVEs?
+- Are there a few CWEs that dominate, or is the distribution more even?
+- How does the frequency of the top CWE compare to others in the list?
+Focus only on what the data directly indicates about the frequency of top CWEs in high-risk vulnerabilities.
 {% endblock task_instructions %}
 
 {% block data_context %}
-Chart ID: {{ data_context_payload.chart_id | default('rce_cvss_distribution') }}
-Chart Caption: {{ data_context_payload.chart_caption | default('Figure 5. CVSS Base Score Distribution for RCE Vulnerabilities.') }}
+Chart ID: {{ data_context_payload.chart_id | default('top_cwe_in_high_risk_cves_chart') }}
+Chart Caption: {{ data_context_payload.chart_caption | default('Figure 10. Top CWEs in High & Critical CVEs.') }}
 
-Data Summary (CVSS Score Distribution for RCEs):
+Data Summary:
 {{ data_context_payload.chart_data_summary | default("Data not available.") }}
+Note: If percentages do not sum to 100%, this may be due to some CVEs lacking an assigned value (i.e., missing or NaN values were excluded from the calculation).
 {% endblock data_context %}

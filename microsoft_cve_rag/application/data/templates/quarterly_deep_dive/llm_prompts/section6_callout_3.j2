@@ -1,0 +1,38 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{% set output_format_description = "a concise, higher-level interpretation (2-3 sentences) derived from a *distinct* key finding related to temporal trends in product impact (e.g., which products are becoming riskier over time, or changes in vulnerability types) or remediation/disclosure timeliness. This interpretation should offer a unique 'so what?' perspective for a Senior Security Analyst, suitable for a visual callout box." %}
+
+{% block task_instructions %}
+Review the chart insights and data summaries provided for the section "{{ section_title }}". This section focuses on identifying which Microsoft products were most impacted by vulnerabilities (especially critical ones) and analyzing the timeliness of the patching and NVD disclosure process.
+
+From this information, select **one *distinct* particularly striking or actionable insight regarding temporal trends** (e.g., a product consistently appearing with severe vulnerabilities, a worsening trend in patch-to-NVD disclosure times, or a shift in the *types* of vulnerabilities affecting a critical product category), ensuring it's different from other callouts in this section (e.g., if Callout 1 focused on a product's overall risk profile trend and Callout 2 on disclosure timeliness, this one might focus on a trend in the *types* of vulnerabilities for a specific product category). Then, instead of merely restating it, your primary goal is to provide a **higher-level insight or implication** stemming from this specific trend. What does this trend *mean* for the organization's evolving risk posture, the effectiveness of current defensive strategies, or the security of systems like Entra ID or Defender from a unique angle?
+Craft a concise callout (2-3 sentences maximum) that delivers this distinct, higher-level insight. **CRITICAL: Do NOT simply repeat or rephrase statistics or facts already detailed in the 'Chart Insights' or raw data summaries.** Assume the reader has access to those details. Your value is in providing a *unique interpretation* and the 'so what?'.
+Example of desired focus (Senior Security Analyst Persona):
+    *   **Less Helpful (Avoid):** 'Data Protection Suite X showed more RCE vulnerabilities this quarter.'
+    *   **More Helpful (Aim for this style):** 'The emerging trend of increased Remote Code Execution vulnerabilities within Data Protection Suite X, which safeguards critical corporate assets, signals a potential shift in attacker focus that necessitates an urgent review of Defender for Endpoint's behavioral detection rules and Entra ID-linked application access policies for this suite.'
+Important. You can be creative and innovative in your statement so long as it is based on the data provided and the domain of CVEs.
+Focus on the 'why' or 'so what' from your *distinct* temporal finding. If the types of vulnerabilities for a critical product are becoming more severe (e.g., more RCEs), what are the implications for Defender hardening strategies or the data protection controls managed via Entra ID Conditional Access?
+Persona: As a **Senior Security Analyst for a Fortune 500 company**, your responsibilities include Microsoft Entra, Defender, end-user authentication, data protection, and identity protection. Your callout should reflect this. From your chosen *distinct* temporal trend (e.g., a shift in vulnerability types for a product category, or a product consistently lagging in patch deployment), extract an insight that directly addresses **potential impact on these systems, the need to adapt Defender detection capabilities, or strategic considerations for Entra ID integrations and data protection policies, offering a different angle than other callouts.** What is the most pressing strategic message for your CISO or IT leadership based on this specific temporal trend?
+When composing your statement, use valid markdown to bold, italicize, or add inline code formatting to key terms, statistics, or phrases if it helps the reader focus on what matters. Your response will be rendered as HTML, so markdown formatting will be preserved for emphasis.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Section Key: {{ data_context_payload.section_key | default('section_6_product_timeliness') }}
+
+Chart Insights for '{{ section_title }}':
+{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
+- Insight for {{ chart_id }}: {{ insight | trim }}
+{% else %}- No chart insights. {% endfor %}
+
+Data Summaries for Charts in '{{ section_title }}':
+{% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
+--- Data Summary ({{ chart_id }}): ---
+{{ summary | trim }}
+{% else %}- No chart data summaries. {% endfor %}
+
+Selected Statistics for this Section (if passed, e.g., Median Days to Patch, Top Product):
+{% if data_context_payload.section_specific_stats %}
+{% for stat_name, stat_value in data_context_payload.section_specific_stats.items() %}
+- {{ stat_name | replace("_", " ") | title }}: {{ stat_value }}
+{% endfor %}{% endif %}
+{% endblock data_context %}

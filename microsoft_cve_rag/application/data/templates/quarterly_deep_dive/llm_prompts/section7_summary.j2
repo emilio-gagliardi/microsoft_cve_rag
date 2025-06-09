@@ -1,31 +1,52 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 
-{# Specific context for the brief summary of Section 7 (DoS/InfoDisc) #}
-{% set output_format_description = "a single, concise sentence (maximum 2 sentences) summarizing the main conclusion about DoS and Info Disclosure vulnerabilities from this section" %}
+{% set output_format_description -%}
+A concise concluding summary (1-2 paragraphs) for the "{{ section_title }}" section.
+It should reiterate the importance of focusing on such high-impact vulnerabilities and summarize the types of risks these examples represent.
+The final sentence should reinforce the need for vigilance regarding top-tier threats. Use Markdown.
+{%- endset %}
 
 {% block task_instructions %}
-Read the generated narrative, chart insight, and callout provided below for "{{ section_title }}", which focuses on DoS and Information Disclosure vulnerabilities.
-Distill this information down to the single most important takeaway message about these vulnerability types during this period.
-Your output must be extremely concise: just one sentence, or two at the absolute maximum.
+Write a **concluding summary** for the section "{{ section_title }}".
+This section provided a detailed look at a select group of the most critical vulnerabilities from the quarter, outlining their severity and key characteristics.
+
+Your summary should:
+1.  Briefly reiterate the purpose of spotlighting these severe vulnerabilities (e.g., to highlight the nature of top-tier threats and guide immediate attention).
+2.  Summarize the general characteristics or common themes observed among the spotlighted CVEs, if any were discussed in the narrative or are apparent from the overall context (e.g., "These examples often involved network-exploitable flaws with high CVSS scores...").
+3.  Emphasize the importance of prioritizing the remediation of such critical vulnerabilities.
+4.  Conclude by reinforcing the message that while these are examples, they represent the upper echelon of risk that organizations must be prepared to address promptly.
+5.  **Crucially, conclude with phrasing that provides a natural transition.** This means the final sentence(s) should give a sense of completeness to the current discussion and gently guide the reader, creating an expectation that new, related, or contrasting topics will follow, without explicitly mentioning what those topics are. Examples of transitional phrasing could involve looking forward, suggesting broader implications, or noting the closure of this specific analytical lens.
+6.  Be written in a professional, objective, and analytical tone.
+7.  Use active voice where appropriate and vary sentence structure for readability. Do not use repetitive phrasing.
+8.  Adhere to the Markdown formatting guidelines (paragraphs, emphasis).
+9.  Aim for a length of approximately 2-3 paragraphs.
+
+**AVOID:**
+- Introducing new data or analyses not present in the provided context.
+- Simply repeating sentences verbatim from the input materials.
+- Abruptly ending the summary without a transitional feel.
+- Speculating on topics outside the scope of the current section.
+
+Draw from the provided introductory narrative for this section and any high-level statistics about these critical vulnerabilities.
+Avoid re-listing the specific CVE details here; that's for the main content of the section.
 {% endblock task_instructions %}
 
 {% block data_context %}
-Section Key: {{ data_context_payload.section_key | default('section_7_dos_infodisc_deep_dive') }}
+Section Title: {{ section_title }}
+Report Period: {{ start_date.strftime('%B %d, %Y') }} to {{ end_date.strftime('%B %d, %Y') }}
 
-Generated Narrative for this Section:
-{{ data_context_payload.generated_narrative | default("Narrative not available.") }}
+Generated Introductory Narrative for this Section:
+{{ data_context_payload.generated_narrative | default("Narrative introducing the spotlighted CVEs not available.") | trim }}
 
-Chart Insights Generated for this Section:
-{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
-- Insight ({{ chart_id }}): {{ insight }}
-{% else %}
-- No specific chart insights provided.
-{% endfor %}
-
-Callouts Generated for this Section:
+Callouts for '{{ section_title }}':
+{% if data_context_payload.callouts_in_section %}
 {% for callout_key, callout_text in data_context_payload.callouts_in_section.items() %}
-- {{ callout_key | replace("_", " ") | title }}: {{ callout_text }}
-{% else %}
-- No callouts generated for this section.
+- {{ callout_key | replace("_", " ") | title }}: {{ callout_text | trim }}
 {% endfor %}
+{% endif %}
+
+{% if data_context_payload.section_specific_stats %}
+Section Specific Statistics:
+{{ data_context_payload.section_specific_stats | tojson(indent=2) }}
+{% endif %}
 {% endblock data_context %}

@@ -8,6 +8,7 @@ from application.core.schemas.environment_schemas import (
     GraphDBCredentialsSchema,
     DocumentsDBCredentialsSchema,
     SQLDBCredentialsSchema,
+    MetricsCredentialsSchema,
 )
 from pydantic import ValidationError
 from typing import Dict
@@ -366,3 +367,30 @@ def get_sql_db_credentials() -> SQLDBCredentialsSchema:
         logging.error("SQL database environment credentials are not set")
         logging.error(e)
         raise ValueError("SQL_DATABASE_ environment variables are not set")
+
+
+def get_metrics_credentials() -> MetricsCredentialsSchema:
+    """
+    Retrieves the credentials/configuration required for the DuckDB metrics service.
+    Primarily fetches the database path from the METRICS_DATABASE_PATH environment variable.
+
+    Raises:
+        ValueError: If the required METRICS_DATABASE_PATH environment variable is not set.
+    """
+    initialize_environment_and_paths()  # Ensure environment variables are loaded
+    try:
+        # Instantiate the schema; Pydantic handles reading from the environment
+        credentials = MetricsCredentialsSchema()
+        logging.info(f"Metrics database path loaded: {credentials.db_path}")
+        return credentials
+    except ValidationError as e:
+        # This error occurs if METRICS_DATABASE_PATH is missing
+        logging.error(f"Metrics database configuration error: {e}")
+        # Provide a clear error message indicating the missing variable
+        raise ValueError(
+            "Required environment variable METRICS_DATABASE_PATH is not set."
+        )
+    except Exception as e:
+        # Catch any other unexpected errors during instantiation
+        logging.exception(f"Unexpected error retrieving metrics credentials: {e}")
+        raise

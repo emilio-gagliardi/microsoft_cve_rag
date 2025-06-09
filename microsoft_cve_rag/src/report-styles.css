@@ -7,7 +7,7 @@ Component Styles
   /* --- Stat Card --- */
   .stat-card {
     /* Base (light mode) styles */
-    @apply text-center p-4 md:p-5 border rounded-lg shadow-sm bg-report-surface border-report-border;
+    @apply text-center flex flex-col p-0 md:p-1 border rounded-md bg-report-surface border-report-border min-h-[150px] overflow-hidden;
     /* Apply dark mode styles in HTML using dark:bg-report-surface-dark dark:border-report-border-dark */
   }
   .stat-card-value {
@@ -24,31 +24,76 @@ Component Styles
   /* --- Callouts --- */
   .callout {
     /* Base styles for all callouts */
-    @apply p-4 md:p-5 rounded-md border-l-4 mb-6 shadow-sm text-sm leading-relaxed;
+    @apply p-4 my-6 border-l-4 rounded-r-md clear-both;
      /* Base text color usually inherited from body */
      /* Apply dark mode text color in HTML if needed: dark:text-report-text-dark */
   }
+  .callout.md\:float-left { @apply md:mr-6 md:mb-4; }
+  .callout.md\:float-right { @apply md:ml-6 md:mb-4; }
+  .callout-title {
+    @apply font-semibold text-lg mb-2 text-inherit;
+  }
+  .callout-content {
+    @apply prose prose-sm dark:prose-invert max-w-none text-inherit;
+  }
+  .callout .callout-content p,
+  .callout .callout-content strong,
+  .callout .callout-content li,
+  .callout .callout-content ul,
+  .callout .callout-content ol,
+  .callout .callout-content a {
+    @apply text-inherit;
+  }
+  .callout .callout-content a {
+    @apply font-semibold hover:underline opacity-90 hover:opacity-100;
+  }
   /* Specific callout type base (light mode) styles */
   /* Apply dark mode variants in HTML: e.g., class="callout callout-info dark:bg-status-info-bg-dark ..." */
-  .callout-info {
-    @apply bg-status-info-bg border-status-info text-status-info-text;
+  .callout.status-info {
+    /*
+      Light Mode:
+      - Left border color: uses --color-brand-blue CSS variable.
+      - Background: uses a very light, almost transparent version of --color-brand-blue.
+      - Text: uses standard report text color.
+    */
+    @apply border-l-[var(--color-brand-blue)] /* <<< CORRECTED BORDER COLOR */
+           bg-[rgba(var(--rgb-brand-blue),0.05)] /* <<< Subtle background tint */
+           text-report-text;
+
+    /*
+      Dark Mode:
+      - Left border color: uses --color-brand-blue-dark (which is --color-status-info-bg-dark / #1E40AF)
+      - Background: uses a slightly more opaque, dark version of brand-blue-dark.
+      - Text: uses standard dark mode report text color.
+    */
+    @apply dark:border-l-[var(--color-status-info-bg-dark)] /* <<< CORRECTED DARK BORDER COLOR */
+           dark:bg-[rgba(var(--rgb-brand-blue-dark),0.1)] /* <<< Subtle dark background tint */
+           dark:text-report-text-dark;
   }
-  .callout-warning {
-    @apply bg-status-warning-bg border-status-warning text-status-warning-text;
+  .callout.status-warning {
+    @apply bg-status-warning-bg border-status-warning-border text-status-warning-text
+           dark:bg-status-warning-bg-dark dark:border-status-warning-border-dark dark:text-status-warning-text-dark
+           dark:shadow-[0_0_15px_-5px_rgba(var(--color-brand-orange),0.5)]; /* Subtle orange glow */
   }
-  .callout-danger {
-    @apply bg-status-danger-bg border-status-danger text-status-danger-text;
+  .callout.status-danger {
+    @apply bg-status-danger-bg border-status-danger-border text-status-danger-text
+           dark:bg-status-danger-bg-dark dark:border-status-danger-border-dark dark:text-status-danger-text-dark
+           dark:shadow-[0_0_15px_-5px_rgba(var(--color-brand-red),0.5)]; /* Subtle red glow */
   }
-  .callout-success {
-    @apply bg-status-success-bg border-status-success text-status-success-text;
+  .callout.status-success {
+    @apply bg-status-success-bg border-status-success-border text-status-success-text
+           dark:bg-status-success-bg-dark dark:border-status-success-border-dark dark:text-status-success-text-dark
+           dark:shadow-[0_0_15px_-5px_rgba(var(--color-brand-green),0.5)]; /* Subtle green glow */
   }
-  .callout-quote {
-    @apply bg-report-surface border-report-border text-report-text-muted italic;
+  .callout.status-quote {
+    @apply bg-report-light-accent border-report-border text-report-text italic
+           dark:bg-report-light-accent-dark dark:border-report-border-dark dark:text-report-text-dark
+           dark:shadow-[0_0_15px_-5px_rgba(var(--color-report-text-muted-dark),0.3)]; /* Softer glow for quotes */
   }
-  .callout-takeaway {
-     /* Using text-report-text-contrast for light mode on accent bg */
-    @apply bg-report-accent border-report-accent text-report-text-contrast;
-     /* Dark mode in HTML: dark:bg-report-accent-dark dark:border-report-accent-dark dark:text-report-text-dark */
+  .callout.status-takeaway { /* Using brand.blue and brand.pink for a more vibrant "takeaway" */
+    @apply bg-report-light-accent border-report-border text-report-text italic
+           dark:bg-report-light-accent-dark dark:border-report-border-dark dark:text-report-text-dark
+           dark:shadow-[0_0_15px_-5px_rgba(var(--color-report-text-muted-dark),0.3)]; /* Pink glow for takeaway */
   }
 
   /* --- Data Table --- */
@@ -124,6 +169,65 @@ Component Styles
       @apply w-full h-full min-h-[400px];
   }
 
+  /* --- Report Appendix Table --- */
+  .report-appendix-table {
+    @apply w-full border-collapse text-sm mb-8 text-report-text dark:text-report-text-dark;
+  }
+
+  .report-appendix-table caption {
+    @apply text-base font-semibold text-left pb-3 text-brand-blue dark:text-brand-teal;
+    caption-side: top;
+  }
+
+  .report-appendix-table th {
+    @apply font-bold text-left px-3 py-2.5 border-b-2 border-brand-blue dark:border-brand-teal bg-brand-blue text-white dark:bg-brand-teal dark:text-report-background-dark;
+    line-height: 1.35;
+  }
+
+  .report-appendix-table th {
+    @apply px-3 py-2.5 border-b-2 border-report-border dark:border-report-border-dark
+           bg-slate-100 dark:bg-slate-700 text-left text-sm font-semibold
+           text-slate-700 dark:text-slate-200 tracking-wider;
+  }
+
+  .report-appendix-table td {
+    @apply px-3 py-2.5 border-b border-report-border dark:border-report-border-dark align-top;
+  }
+
+  .report-appendix-table tbody tr:nth-child(even) {
+    @apply bg-report-surface dark:bg-report-surface-dark;
+  }
+  .report-appendix-table tbody tr:nth-child(odd) {
+    @apply bg-report-background dark:bg-report-background-dark;
+  }
+
+  .report-appendix-table tbody tr:hover {
+    @apply bg-brand-blue/20 dark:bg-brand-blue-dark/40 transition-colors duration-150;
+  }
+
+  .report-appendix-table td a {
+    @apply text-brand-pink hover:text-brand-red dark:text-brand-orange dark:hover:text-brand-red font-medium hover:underline;
+  }
+
+  .report-appendix-table .col-cve-id {
+    @apply whitespace-nowrap w-[180px] font-mono text-xs;
+  }
+  .report-appendix-table .col-published {
+    @apply whitespace-nowrap w-[120px];
+  }
+  .report-appendix-table .col-title {
+    /* No specific width, allow to take up space */
+  }
+  .report-appendix-table .col-severity {
+      @apply whitespace-nowrap w-[110px];
+  }
+  .report-appendix-table .col-category {
+      @apply w-[180px]; /* Allow wrap */
+  }
+  .report-appendix-table .col-cvss-score {
+    @apply w-[95px] text-center font-semibold;
+  }
+
 } /* End @layer components */
 
 /* ==========================================================================
@@ -131,3 +235,62 @@ Utility Styles (Generally avoid, prefer config/plugins)
 ========================================================================== */
 
 /* @layer utilities { ... } */
+
+/* ==============================================
+   Charting Colors
+   ============================================== */
+
+:root {
+  /* Charting Palette - Derived from Brand, adjusted for viz */
+  /* --- Blue --- */
+  --color-chart-blue-1:        #4BAEEA; /* Slightly lighter than brand blue */
+  --color-chart-blue-2:        #89CFF0; /* Lighter */
+  --color-chart-blue-border:   #1A8BCD; /* Darker for border */
+  --color-chart-blue-1-dark:   #3B82F6; /* Brighter blue for dark */
+  --color-chart-blue-2-dark:   #60A5FA; /* Lighter blue for dark */
+  --color-chart-blue-border-dark: #93C5FD; /* Lighter border for dark */
+
+  /* --- Green --- */
+  --color-chart-green-1:       #25B556; /* Slightly adjusted brand green */
+  --color-chart-green-2:       #5DD584; /* Lighter */
+  --color-chart-green-border:  #008F33; /* Darker */
+  --color-chart-green-1-dark:  #22C55E; /* Brighter green */
+  --color-chart-green-2-dark:  #4ADE80; /* Lighter */
+  --color-chart-green-border-dark: #86EFAC; /* Lighter border */
+
+  /* --- Orange --- */
+  --color-chart-orange-1:      #F0981F; /* Slightly adjusted brand orange */
+  --color-chart-orange-2:      #F5B045; /* Lighter */
+  --color-chart-orange-border: #D17B05; /* Darker */
+  --color-chart-orange-1-dark: #F97316; /* Brighter orange */
+  --color-chart-orange-2-dark: #FB923C; /* Lighter */
+  --color-chart-orange-border-dark: #FDBA74; /* Lighter border */
+
+  /* --- Red --- */
+  --color-chart-red-1:         #EF4444; /* Slightly adjusted brand red */
+  --color-chart-red-2:         #F87171; /* Lighter */
+  --color-chart-red-border:    #D62828; /* Darker */
+  --color-chart-red-1-dark:    #F87171; /* Brighter red */
+  --color-chart-red-2-dark:    #FCA5A5; /* Lighter */
+  --color-chart-red-border-dark: #FECACA; /* Lighter border */
+
+  /* --- Teal --- */
+  --color-chart-teal-1:        #67C2C0; /* Brand teal */
+  --color-chart-teal-2:        #93D5D4; /* Lighter */
+  --color-chart-teal-border:   #4EABA9; /* Darker */
+  --color-chart-teal-1-dark:   #2DD4BF; /* Brighter teal */
+  --color-chart-teal-2-dark:   #5EEAD4; /* Lighter */
+  --color-chart-teal-border-dark:#99F6E4; /* Lighter border */
+
+  /* --- Purple (Example - Add if needed) --- */
+  /* --color-chart-purple-1:      #A855F7; ... etc */
+
+  /* --- Gray/Neutral --- */
+  --color-chart-gray-1:        #9CA3AF; /* Tailwind gray-400 */
+  --color-chart-gray-2:        #D1D5DB; /* Tailwind gray-300 */
+  --color-chart-gray-border:   #6B7280; /* Tailwind gray-500 */
+  --color-chart-gray-1-dark:   #6B7280; /* Tailwind gray-500 */
+  --color-chart-gray-2-dark:   #4B5563; /* Tailwind gray-600 */
+  --color-chart-gray-border-dark: #9CA3AF; /* Tailwind gray-400 */
+
+}

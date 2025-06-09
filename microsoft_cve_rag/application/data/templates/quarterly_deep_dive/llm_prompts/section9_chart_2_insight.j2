@@ -14,5 +14,5 @@ Chart ID: {{ data_context_payload.chart_id | default('overall_attack_complexity_
 Chart Caption: {{ data_context_payload.chart_caption | default('Figure 11. Overall Distribution of Attack Complexities for All Analyzed CVEs.') }}
 
 Data Summary (Percentage Distribution of Attack Complexities):
-{{ data_context_payload.data_summary | default("Data summary not available.") }}
+{{ data_context_payload.chart_data_summary | default("Data summary not available.") }}
 {% endblock data_context %}

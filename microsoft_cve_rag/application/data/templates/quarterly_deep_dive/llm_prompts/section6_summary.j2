@@ -1,31 +1,48 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 
-{# Specific context for the brief summary of Section 6 (EOP Deep Dive) #}
-{% set output_format_description = "a single, concise sentence (maximum 2 sentences) summarizing the main conclusion about EOP vulnerabilities from this section" %}
+{% set output_format_description -%}
+A concise concluding summary (1-2 paragraphs) for the "{{ section_title }}" section.
+It should synthesize the main findings regarding which products were most affected by severe vulnerabilities and the key characteristics of the NVD publication timeliness for the quarter.
+The final sentence should provide a sense of closure for this analysis of product impact and timeliness. Use Markdown.
+{%- endset %}
 
 {% block task_instructions %}
-Read the generated narrative, chart insights, and callouts provided below for "{{ section_title }}", which focuses on EOP vulnerabilities.
-Distill this information down to the single most important takeaway message about EOPs during this period. What is the critical point about their frequency and typical exploitation method (attack vector)?
-Your output must be extremely concise: just one sentence, or two at the absolute maximum.
+Write a **concluding summary** for the section "{{ section_title }}".
+This section analyzed which Microsoft products bore the brunt of vulnerabilities, particularly high-severity ones, and examined trends in the timeliness of NVD publication following vendor patches.
+
+Your summary should:
+1.  Begin by briefly restating the main theme or purpose of the "{{ section_title }}" section.
+2.  Distill and reiterate the 1-3 most critical conclusions or takeaway messages derived from the section's content (narrative, insights, callouts).
+3.  Reflect on the overall significance of these findings for the reporting period.
+4.  **Crucially, conclude with phrasing that provides a natural transition.** This means the final sentence(s) should give a sense of completeness to the current discussion and gently guide the reader, creating an expectation that new, related, or contrasting topics will follow, without explicitly mentioning what those topics are. Examples of transitional phrasing could involve looking forward, suggesting broader implications, or noting the closure of this specific analytical lens.
+5.  Be written in a professional, objective, and analytical tone.
+6.  Use active voice where appropriate and vary sentence structure for readability. Do not use repetitive phrasing.
+7.  Adhere to the Markdown formatting guidelines (paragraphs, emphasis).
+8.  Aim for a length of approximately 2-3 paragraphs.
+
+**AVOID:**
+- Introducing new data or analyses not present in the provided context.
+- Simply repeating sentences verbatim from the input materials.
+- Abruptly ending the summary without a transitional feel.
+- Speculating on topics outside the scope of the current section.
+
+Draw from the provided narrative and other context for this section.
 {% endblock task_instructions %}
 
 {% block data_context %}
-Section Key: {{ data_context_payload.section_key | default('section_6_eop_deep_dive') }}
+Section Title: {{ section_title }}
+Report Period: {{ start_date.strftime('%B %d, %Y') }} to {{ end_date.strftime('%B %d, %Y') }}
 
 Generated Narrative for this Section:
-{{ data_context_payload.generated_narrative | default("Narrative not available.") }}
+{{ data_context_payload.generated_narrative | default("Narrative not available.") | trim }}
 
-Chart Insights Generated for this Section:
-{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
-- Insight ({{ chart_id }}): {{ insight }}
-{% else %}
-- No specific chart insights provided.
-{% endfor %}
-
-Callouts Generated for this Section:
+Callouts for '{{ section_title }}':
 {% for callout_key, callout_text in data_context_payload.callouts_in_section.items() %}
-- {{ callout_key | replace("_", " ") | title }}: {{ callout_text }}
-{% else %}
-- No callouts generated for this section.
-{% endfor %}
+- {{ callout_key | replace("_", " ") | title }}: {{ callout_text | trim }}
+{% else %}- No callouts. {% endfor %}
+
+{% if data_context_payload.section_specific_stats %}
+Section Specific Statistics:
+{{ data_context_payload.section_specific_stats | tojson(indent=2) }}
+{% endif %}
 {% endblock data_context %}

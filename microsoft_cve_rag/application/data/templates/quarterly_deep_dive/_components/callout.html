@@ -1,4 +1,4 @@
-{% macro render_callout(content, position='right', style='info') %}
+{% macro render_callout(content, position='right', style='info', title=None) %}
 {#
     Renders a callout box.
     - content: HTML or plain text content.
@@ -9,22 +9,17 @@
 {% set base_classes = 'callout' %}
 
 {# Position classes for callout alignment #}
-{% set position_classes = {
-    'left': 'md:float-left md:mr-6 md:w-full md:max-w-sm',
-    'right': 'md:float-right md:ml-6 md:w-full md:max-w-sm',
-    'none': 'w-full clear-both'
+{% set position_classes_map = {
+    'left': 'md:float-left md:mr-6 md:mb-4 md:w-full md:max-w-xs lg:max-w-sm',
+    'right': 'md:float-right md:ml-6 md:mb-4 md:w-full md:max-w-xs lg:max-w-sm',
+    'none': 'w-full'
 } %}
-
-{% set style_classes = {
-    'info': 'status-info',
-    'success': 'status-success',
-    'warning': 'status-warning',
-    'danger': 'status-danger',
-    'quote': 'status-quote',
-    'takeaway': 'status-takeaway'
-} %}
-
-<aside class="{{ base_classes }} {{ style_classes.get(style, 'status-info') }} {{ position_classes.get(position, 'none') }}">
+{% set current_position_classes = position_classes_map.get(position, 'left') %}
+{% set style_slug = 'status-' + style %}
+<aside class="{{ base_classes }} {{ style_slug }} {{ current_position_classes }}">
+    {% if title %}
+    <h5 class="callout-title">{{ title }}</h5>
+    {% endif %}
     <div class="callout-content">
         {{ content | safe }}
     </div>

@@ -1,12 +1,12 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 
 {# Specific context for the first callout in Section 10 (Patch Timeliness) #}
-{% set output_format_description = "a brief callout (1-2 sentences) highlighting the most critical risk identified regarding patch delays, suitable for a distinct callout box" %}
+{% set output_format_description = "a brief callout (2-3 sentences) highlighting the most critical risk identified regarding patch delays, suitable for a distinct callout box" %}
 
 {% block task_instructions %}
 Review the data summary and chart insight provided below for "{{ section_title }}". This section examines the relationship between patch/disclosure delay (using NVD publication as a proxy) and vulnerability severity (CVSS score).
 Identify the *single most significant risk factor* revealed by this analysis. Focus particularly on vulnerabilities that represent a high risk due to a combination of severity and delay (e.g., high CVSS scores coupled with notable delays).
-Craft a concise callout (1-2 sentences maximum) stating this key risk clearly, emphasizing the potential window of exposure.
+Craft a concise callout (2-3 sentences maximum) stating this key risk clearly, emphasizing the potential window of exposure.
 {% endblock task_instructions %}
 
 {% block data_context %}

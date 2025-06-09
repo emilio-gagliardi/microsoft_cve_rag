@@ -1,0 +1,38 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{% set output_format_description = "a concise, higher-level interpretation (2-3 sentences) derived from a *distinct* key finding related to CVSS score distributions, significant outliers, or prevalent CWEs that demand attention. This interpretation should offer a unique 'so what?' perspective, suitable for a visual callout box." %}
+
+{% block task_instructions %}
+Review the chart insights and data summaries provided for the section "{{ section_title }}". This section provides a deep dive into CVSS score characteristics (distributions, IQRs, outliers across categories) and an analysis of common underlying weaknesses (CWEs), especially those in high-risk vulnerabilities.
+
+From this detailed information, select **one *distinct* particularly striking or actionable insight** (e.g., concerning CVSS distributions, outliers, or prevalent CWEs), ensuring it's different from other callouts in this section (e.g., if Callout 1 focused on a prevalent CWE and Callout 2 on CVSS distributions, this one might focus on CVSS outliers in a specific product category). Then, instead of merely restating it, your primary goal is to provide a **higher-level insight or implication** stemming from this specific data point. What does this finding *mean* for the organization's risk posture, defensive strategies, or specific systems like Entra ID or Defender from a unique angle?
+Craft a concise callout (2-3 sentences maximum) that delivers this distinct, higher-level insight. **CRITICAL: Do NOT simply repeat or rephrase statistics or facts already detailed in the 'Chart Insights' or raw data summaries.** Assume the reader has access to those details. Your value is in providing a *unique interpretation* and the 'so what?'.
+Example of desired focus (Senior Security Analyst Persona):
+    *   **Less Helpful (Avoid):** 'Product Y had a high number of CVSS 10.0 outliers.'
+    *   **More Helpful (Aim for this style):** 'The concentration of CVSS 10.0 outliers in Product Y, which handles sensitive customer data, demands an immediate deep-dive security review and validation of data protection controls managed by Defender for Cloud to prevent catastrophic data breaches.'
+Important. You can be creative and innovative in your statement so long as it is based on the data provided and the domain of CVEs.
+Focus on the 'why' or 'so what' from your *distinct* finding. If a product category shows a concentration of high-severity outliers, what are the implications for data protection strategies, incident response preparedness for systems managed by Entra ID, or the trustworthiness of that product in critical workflows?
+Persona: As a **Senior Security Analyst for a Fortune 500 company**, your responsibilities include Microsoft Entra, Defender, end-user authentication, data protection, and identity protection. Your callout should reflect this. From your chosen *distinct* finding (e.g., a notable concentration of CVSS outliers in a specific product category), extract an insight that directly addresses **potential impact on data security, the urgency for targeted security assessments, or necessary enhancements to Defender configurations or Entra ID conditional access policies, offering a different angle than other callouts.** What is the most pressing message for your CISO or data governance teams based on this specific CVSS/CWE data point?
+When composing your statement, use valid markdown to bold, italicize, or add inline code formatting to key terms, statistics, or phrases if it helps the reader focus on what matters. Your response will be rendered as HTML, so markdown formatting will be preserved for emphasis.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Section Key: {{ data_context_payload.section_key | default('section_5_cvss_weakness_deep_dive') }}
+
+Chart Insights for '{{ section_title }}':
+{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
+- Insight for {{ chart_id }}: {{ insight | trim }}
+{% else %}- No chart insights. {% endfor %}
+
+Data Summaries for Charts in '{{ section_title }}':
+{% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
+--- Data Summary ({{ chart_id }}): ---
+{{ summary | trim }}
+{% else %}- No chart data summaries. {% endfor %}
+
+Selected Statistics for this Section (if passed, e.g., P90 CVSS, Top CWE ID):
+{% if data_context_payload.section_specific_stats %}
+{% for stat_name, stat_value in data_context_payload.section_specific_stats.items() %}
+- {{ stat_name | replace("_", " ") | title }}: {{ stat_value }}
+{% endfor %}{% endif %}
+{% endblock data_context %}

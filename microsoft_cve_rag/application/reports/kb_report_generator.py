@@ -598,6 +598,76 @@ def get_markdown_snippet(markdown_text: Optional[str], headings_to_stop_at: List
     return ' '.join(snippet_words)
 
 
+def get_applies_to_text_snippet(
+    full_markdown_text: str,
+    stop_phrases_after_applies_to: Optional[List[str]] = None
+) -> Optional[str]:
+    """
+    Attempts to extract the 'Applies to:' text block from KB article markdown,
+    handling cases where there's no newline after 'Applies to:'.
+
+    Args:
+        full_markdown_text: The complete markdown content of the KB article.
+        stop_phrases_after_applies_to: A list of phrases that reliably signal
+                                       the end of the 'Applies to' section.
+
+    Returns:
+        The text of the 'Applies to' section if found, otherwise None.
+    """
+    if not full_markdown_text or not isinstance(full_markdown_text, str):
+        return None
+
+    if stop_phrases_after_applies_to is None:
+        stop_phrases_after_applies_to = [
+            "Release Date:", "Version:", "SUMMARY", "HIGHLIGHTS", # Case for headings
+            "Summary", "Highlights", "Improvements and fixes", "Known issues in this update",
+            "How to get this update", "File information", "More Information",
+            "Issue details", "Prerequisites", "Installation instructions",
+            "Support for Windows 10 will end", # Specific phrase from example
+            "\n\n" # Two newlines often indicate a section break
+        ]
+
+    # Escape phrases for regex and create a pattern.
+    # This pattern looks for (non-capturing group) one of the stop phrases.
+    # It handles cases where stop phrases might start with markdown headings.
+    # It also includes a general "two newlines" as a stop.
+    escaped_stop_patterns = []
+    for phrase in stop_phrases_after_applies_to:
+        if phrase == "\n\n":
+            escaped_stop_patterns.append(r"\n\s*\n") # Match two or more newlines with optional space
+        else:
+            # Allow for optional markdown heading syntax before the phrase
+            escaped_stop_patterns.append(r"(\#{1,4}\s*)?" + re.escape(phrase))
+
+    stop_regex_pattern = "(?:" + "|".join(escaped_stop_patterns) + ")"
+
+    # Main regex:
+    # - "applies to:?" : Matches "Applies to" or "Applies to:"
+    # - "\s*"           : Matches zero or more whitespace characters (handles the no-newline case)
+    # - "(.*?)"         : Non-greedily captures the content of the "Applies to" section.
+    # - "(?=" + stop_regex_pattern + "|$)" : Positive lookahead. Stops capture when
+    #                                       it sees one of the stop_patterns or end of string ($).
+    match = re.search(
+        r"applies to:?\s*(.*?)(?=" + stop_regex_pattern + r"|$)",
+        full_markdown_text,
+        re.IGNORECASE | re.DOTALL # DOTALL makes . match newlines
+    )
+
+    if match:
+        applies_to_content = match.group(1).strip()
+        # Remove any leading/trailing list markers like '-' or '*' if they got included
+        applies_to_content = re.sub(r"^\s*[-\*\u2022]\s*", "", applies_to_content)
+        applies_to_content = re.sub(r"\s*[-\*\u2022]\s*$", "", applies_to_content)
+
+        # A final check: if a stop phrase itself is part of the product name (unlikely but possible)
+        # and the snippet is very short, it might be a false truncation.
+        # However, for now, this direct extraction is cleaner.
+        # Consider a max length if necessary, e.g., max_snippet_len = 1000
+        return applies_to_content #.[:max_snippet_len]
+
+    return None
+
+
 def extract_build_from_text(text: Optional[str]) -> Set[str]:
     """Extract build numbers (like 19045.3803) from text content using regex.
 
@@ -677,61 +747,104 @@ def extract_products_from_text(text: Optional[str]) -> Set[str]:
 def consolidate_product_info(row: pd.Series) -> pd.Series:
     """
     Consolidates product and build information from initial data and text fields.
+    Prioritizes 'Applies to' section for product extraction.
 
     Args:
         row: A Pandas Series representing a KB article document.
 
     Returns:
         A Pandas Series containing consolidated 'extracted_products' and
-        'extracted_build_numbers' (as sets for uniqueness).
+        'extracted_build_numbers' (as lists).
     """
-    # Start with data potentially provided by the extraction function (Group 1 or empty lists)
+    # Start with data potentially provided by the extraction function (e.g., from structured fields)
     initial_products = set(row.get('products', []))
     initial_builds = set(row.get('build_numbers', []))
 
-    # Define text fields to search within
+    # Define text fields from the row
     title = row.get('title', '') or ''  # Ensure empty string if None
-    summary = row.get('summary', '') or ''  # Ensure empty string if None
-    markdown = row.get('scraped_markdown', '') or ''  # Ensure empty string if None
-    # --- Define headings that typically mark the end of introductory/applicability sections ---
-    stop_headings = [
-        "How to get this update",
-        "Improvements",
-        "Known issues",  # Regex handles case like "Known Issues"
-        "Known Issues in this update",
-        "File information",
-        "References",
-        "More Information",
-        "Summary",  # Sometimes used as a heading within the doc
-        "Highlights",  # Common in newer KBs
-        "Issue details"
-        # Add any other common section headers that signal the end of the relevant intro part
+    summary_llm = row.get('summary', '') or ''  # LLM Generated Summary
+    scraped_markdown = row.get('scraped_markdown', '') or ''  # Full markdown content
+
+    # --- New Product Extraction Logic ---
+    # Define stop phrases specifically for delimiting the 'Applies to' section.
+    # These help ensure we only get the relevant part of the 'Applies to' list.
+    stop_phrases_for_applies_to = [
+        "Release Date:", "Version:", "SUMMARY", "HIGHLIGHTS", # Common headings after product list
+        "Summary", "Highlights", "Improvements and fixes", "Known issues in this update",
+        "How to get this update", "File information", "More Information",
+        "Issue details", "Prerequisites", "Installation instructions",
+        "Support for Windows 10 will end", # Specific phrase that might follow
+        "For more information about", # Another common follow-up phrase
+        "The English (United States) version", # Start of file information table
+        "\n\n" # A double newline can also signify the end of a list
     ]
-    max_snippet_words = 150  # Set the desired word limit
+    applies_to_snippet = get_applies_to_text_snippet(
+        scraped_markdown,
+        stop_phrases_after_applies_to=stop_phrases_for_applies_to
+    )
 
-    markdown_snippet = get_markdown_snippet(markdown, stop_headings, max_snippet_words)
-    summary_snippet = ' '.join(summary.split()[0:max_snippet_words])
-    # Combine relevant text fields for searching
-    # Prioritize title and summary, add markdown as fallback
-    search_text = f"{title} {summary_snippet} {markdown_snippet}"  # Combine for comprehensive search
+    products_from_text = set()
+    if applies_to_snippet:
+        # If 'Applies to' section is found, use it as the *sole* text source for product extraction
+        logging.debug(
+            f"KB ID: {row.get('kb_id', 'N/A')} - Using 'Applies to' snippet for product extraction: "
+            f"'{applies_to_snippet[:150].strip()}...'"
+        )
+        products_from_text = extract_products_from_text(applies_to_snippet)
+        if products_from_text:
+            logging.debug(
+                f"KB ID: {row.get('kb_id', 'N/A')} - Products from 'Applies to' (regex): {products_from_text}"
+            )
+        else:
+            logging.debug(
+                 f"KB ID: {row.get('kb_id', 'N/A')} - No products found via regex in 'Applies to' snippet."
+            )
+    else:
+        # If 'Applies to' is not found, products_from_text remains empty.
+        # Deliberately NOT falling back to the broader summary for product extraction
+        # to avoid contamination from incidental OS mentions.
+        logging.debug(
+            f"KB ID: {row.get('kb_id', 'N/A')} - 'Applies to' snippet NOT found. "
+            f"Product extraction from text will rely on initial_products only."
+        )
 
-    # Extract products and builds from the combined text
-    text_products = extract_products_from_text(search_text)
-    text_builds = extract_build_from_text(search_text)
+    consolidated_products = initial_products.union(products_from_text)
+    # --- End New Product Extraction Logic ---
 
-    # Combine initial data with text extractions
-    # Using sets automatically handles deduplication
-    consolidated_products = initial_products.union(text_products)
+    # --- Build Number Extraction (can continue to use broader context) ---
+    # Define headings that typically mark the end of introductory sections for general snippets
+    stop_headings_for_build_search = [
+        "How to get this update", "Improvements", "Known issues",
+        "Known Issues in this update", "File information", "References",
+        "More Information", "Summary", "Highlights", "Issue details"
+    ]
+    max_snippet_words = 150  # Word limit for snippets used in build search
+
+    # Create a general markdown snippet from the full scraped_markdown for build search
+    general_markdown_snippet = get_markdown_snippet(
+        scraped_markdown,
+        stop_headings_for_build_search,
+        max_snippet_words
+    )
+    # Create a summary snippet from the LLM summary for build search
+    summary_llm_snippet = ' '.join(summary_llm.split()[:max_snippet_words])
+
+    # Combine relevant text fields for searching for build numbers
+    search_text_for_builds = f"{title} {summary_llm_snippet} {general_markdown_snippet}"
+
+    text_builds = extract_build_from_text(search_text_for_builds)
     consolidated_builds = initial_builds.union(text_builds)
+    # --- End Build Number Extraction ---
 
-    # Remove potential placeholder values like [0,0,0,0] if they came from initial data
-    consolidated_builds.discard('0.0.0.0')  # Assuming build number format is always string here
-    consolidated_builds = {b for b in consolidated_builds if b}  # Remove empty strings if any
+    # Clean up build numbers
+    consolidated_builds.discard('0.0.0.0') # Remove potential placeholder
+    consolidated_builds = {b for b in consolidated_builds if b and str(b).strip()} # Remove empty/blank strings
 
-    return pd.Series({
-        'extracted_products': list(consolidated_products),  # Convert back to list for consistency
-        'extracted_build_numbers': list(consolidated_builds)  # Convert back to list
+    debug_series_output = pd.Series({
+        'extracted_products': sorted(list(consolidated_products)),  # Convert to sorted list
+        'extracted_build_numbers': sorted(list(consolidated_builds)) # Convert to sorted list
     })
+    return debug_series_output
 
 
 def process_product_info(row: pd.Series) -> Dict[str, Any]:
@@ -1787,10 +1900,13 @@ async def transform_kb_data_for_kb_report(
     # --- 3. Determine OS Classification ---
     logging.debug("Step 3: Determining OS classification...")
     # Use the consolidated products to classify the OS
+    logging.info(kb_df['extracted_products'].to_dict())
     kb_df['os_classification'] = kb_df['extracted_products'].apply(determine_os_classification)
     logging.debug("OS Classification Distribution:")
     logging.debug(kb_df['os_classification'].value_counts().to_dict())
 
+    logging.info(kb_df['os_classification'].to_dict())
+    logging.info(kb_df['article_url'].to_dict())
     # --- 4. Process and Format Build Numbers ---
     logging.debug("Step 4: Formatting build numbers...")
     # Apply the formatting function to the consolidated build numbers

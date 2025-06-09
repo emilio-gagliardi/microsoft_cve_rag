@@ -1,18 +1,22 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 
-{# Specific context for the 'eop_proportion_monthly' chart insight #}
-{% set output_format_description = "a concise text block (2-3 sentences) interpreting the trend in the proportion of EOP vulnerabilities" %}
+{% set output_format_description = "a brief, objective observation (2-3 sentences) focused solely on the primary trend or key finding from the 'Top Products by CVE Criticality' chart data. No interpretation or recommendations." %}
 
 {% block task_instructions %}
-Analyze the chart image and data provided below for the chart titled '{{ data_context_payload.chart_caption | default('EOP Proportion Monthly') }}'. This data shows the percentage of total monthly CVEs that were classified as Elevation of Privilege (EOP or EoP).
-Identify the primary trend or the most significant observation regarding the prevalence of EOPs over the period. For example, did the proportion of EOPs increase, decrease, or remain stable? Were there any months with a particularly high or low percentage of EOPs compared to others?
-Describe this key finding clearly in 2-3 sentences.
+The chart titled '{{ data_context_payload.chart_caption | default('Top Products by CVE Criticality') }}' (e.g., a bar chart) displays products ranked by the number or proportion of critical and high severity CVEs affecting them.
+Examine the provided data summary for this chart.
+Identify and describe the most significant observation. For example:
+- Which product has the highest number of critical CVEs?
+- Are there a few products that stand out with significantly more high-severity CVEs than others?
+- How does the distribution of critical CVEs look across the top-listed products?
+Focus only on what the data directly indicates about product criticality based on CVE counts and severities.
 {% endblock task_instructions %}
 
 {% block data_context %}
-Chart ID: {{ data_context_payload.chart_id | default('eop_proportion_monthly') }}
-Chart Caption: {{ data_context_payload.chart_caption | default('Figure 6. Proportion of EOP Vulnerabilities Published Monthly.') }}
+Chart ID: {{ data_context_payload.chart_id | default('top_products_by_criticality_chart') }}
+Chart Caption: {{ data_context_payload.chart_caption | default('Figure 12. Top Products by CVE Criticality.') }}
 
-Data Summary (Monthly Proportion of EOP CVEs):
+Data Summary:
 {{ data_context_payload.chart_data_summary | default("Data not available.") }}
+Note: If percentages do not sum to 100%, this may be due to some CVEs lacking an assigned value (i.e., missing or NaN values were excluded from the calculation).
 {% endblock data_context %}

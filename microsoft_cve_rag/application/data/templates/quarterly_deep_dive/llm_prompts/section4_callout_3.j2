@@ -1,0 +1,38 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{% set output_format_description = "a concise, higher-level interpretation (2-3 sentences) derived from a *distinct* key statistical observation or risk factor concerning the attack surface (exploitability, access vectors, privileges, or complexity). This interpretation should offer a unique 'so what?' perspective, suitable for a visual callout box." %}
+
+{% block task_instructions %}
+Review the chart insights and data summaries provided for the section "{{ section_title }}". This section focuses on analyzing the attack surface, including how vulnerabilities can be exploited (attack vectors), what privileges are needed, the complexity involved, and whether user interaction is required.
+
+From this information, select **one *distinct* compelling statistic or finding** that best highlights a critical aspect of this quarter's attack surface, ensuring it's different from other callouts in this section (e.g., if Callout 1 focused on exploit complexity and Callout 2 on user interaction, this one might focus on privileges required or a specific attack vector). Then, instead of merely restating it, your primary goal is to provide a **higher-level insight or implication** stemming from this specific data point. What does this statistic *mean* regarding the organization's exposure or defensive priorities from a unique angle?
+Craft a concise callout (2-3 sentences maximum) that delivers this distinct, higher-level insight. **CRITICAL: Do NOT simply repeat or rephrase statistics or facts already detailed in the 'Chart Insights' or raw data summaries.** Assume the reader has access to those details. Your value is in providing a *unique interpretation* and the 'so what?'.
+Example of desired focus (Senior Security Analyst Persona):
+    *   **Less Helpful (Avoid):** 'Z% of critical vulnerabilities required Administrator privileges.'
+    *   **More Helpful (Aim for this style):** 'The fact that Z% of critical vulnerabilities necessitate Administrator privileges underscores the critical need for stringent privileged access management (PAM) controls and regular audits of Entra ID admin roles to minimize our attack surface.'
+Important. You can be creative and innovative in your statement so long as it is based on the data provided and the domain of CVEs.
+Focus on the 'why' or 'so what' from your *distinct* finding. If a particular privilege level is frequently required for exploits, what are the implications for identity and access management strategies or the principle of least privilege?
+Persona: As a **Senior Security Analyst for a Fortune 500 company**, your responsibilities include Microsoft Entra, Defender, end-user authentication, data protection, and identity protection. Your callout should reflect this. From your chosen *distinct* statistic/finding about the attack surface (e.g., privileges required), extract an insight that directly addresses **potential impact on identity systems like Entra ID, necessary adjustments to access control policies, or key defensive measures related to identity and access management that need reinforcement, offering a different angle than other callouts.** What is the most pressing message for your CISO or identity management team based on this specific attack surface data point?
+When composing your statement, use valid markdown to bold, italicize, or add inline code formatting to key terms, statistics, or phrases if it helps the reader focus on what matters. Your response will be rendered as HTML, so markdown formatting will be preserved for emphasis.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Section Key: {{ data_context_payload.section_key | default('section_4_attack_surface') }} {# Should match the new key in REPORT_STRUCTURE #}
+
+Chart Insights for '{{ section_title }}':
+{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
+- Insight for {{ chart_id }}: {{ insight | trim }}
+{% else %}- No chart insights. {% endfor %}
+
+Data Summaries for Charts in '{{ section_title }}':
+{% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
+--- Data Summary ({{ chart_id }}): ---
+{{ summary | trim }}
+{% else %}- No chart data summaries. {% endfor %}
+
+Selected Statistics for this Section (if passed):
+{% if data_context_payload.section_specific_stats %}
+{% for stat_name, stat_value in data_context_payload.section_specific_stats.items() %}
+- {{ stat_name | replace("_", " ") | title }}: {{ stat_value }}
+{% endfor %}{% endif %}
+{% endblock data_context %}

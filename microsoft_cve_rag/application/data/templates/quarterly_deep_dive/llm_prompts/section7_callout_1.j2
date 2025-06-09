@@ -1,30 +1,40 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 
-{# Specific context for the single callout in Section 7 (DoS/InfoDisc) #}
-{% set output_format_description = "a brief callout (1-2 sentences) highlighting the most impactful insight about DoS or Info Disclosure vulnerabilities from the Section 7 data/insights, suitable for a distinct callout box" %}
+{% set output_format_description = "a concise, higher-level interpretation (2-3 sentences) derived from a *distinct* key finding related to exploitability (e.g., high EPSS scores for critical vulnerabilities, presence on CISA KEV list). This interpretation should offer a unique 'so what?' perspective for a Senior Security Analyst, suitable for a visual callout box." %}
 
 {% block task_instructions %}
-Review the data summary and chart insight provided below for "{{ section_title }}". This section focuses on Denial of Service (DoS) and Information Disclosure vulnerabilities.
-Identify the *single most significant finding* about these types of vulnerabilities from this information. This could relate to their overall volume, a specific trend, or their potential cumulative impact.
-Craft a concise callout (1-2 sentences maximum) stating this key finding clearly.
+Review the information provided for the section "{{ section_title }}". This section focuses on a curated list of the quarter's most critical vulnerabilities, detailing their CVSS scores, exploitability, and potential impact. You also have access to overall statistics like the total count of 'Worst Case CVEs' or 'Known Exploited CVEs'.
+
+From this information, select **one *distinct* particularly urgent or significant takeaway related to exploitability** (e.g., a high concentration of vulnerabilities with EPSS scores >90% affecting identity management systems, or a CISA KEV-listed vulnerability impacting a widely deployed application integrated with Entra ID), ensuring it's different from other callouts in this section. Then, instead of merely restating it, your primary goal is to provide a **higher-level insight or implication** stemming from this specific exploitability data point. What does this finding *mean* for the organization's immediate risk exposure, the prioritization of patching, or the configuration of defensive tools like Defender for Endpoint or Entra ID Conditional Access from a unique angle?
+Craft a concise callout (2-3 sentences maximum) that delivers this distinct, higher-level insight. **CRITICAL: Do NOT simply repeat or rephrase statistics or facts already detailed in the 'Chart Insights' or raw data summaries.** Assume the reader has access to those details. Your value is in providing a *unique interpretation* and the 'so what?'.
+Example of desired focus (Senior Security Analyst Persona - focusing on a *distinct* exploitability insight, e.g., high EPSS scores for vulnerabilities in systems managing sensitive data):
+    *   **Less Helpful (Avoid):** 'Many critical vulnerabilities this quarter had high EPSS scores.'
+    *   **More Helpful (Aim for this style):** 'The prevalence of critical vulnerabilities with EPSS scores exceeding 90% in systems managing sensitive customer data underscores an urgent need to verify Defender for Cloud's threat detection efficacy for these assets and ensure Entra ID identities with access are maximally secured with MFA and PIM.'
+Important. You can be creative and innovative in your statement so long as it is based on the data provided and the domain of CVEs.
+Focus on the 'why' or 'so what' from your *distinct* exploitability finding. If several CISA KEV vulnerabilities impact core business applications, what are the immediate implications for business continuity, data integrity, or the security of Entra ID-federated identities accessing these apps? How should Defender policies be adapted?
+Persona: As a **Senior Security Analyst for a Fortune 500 company**, your responsibilities include Microsoft Entra, Defender, end-user authentication, data protection, and identity protection. Your callout should reflect this. From your chosen *distinct* exploitability finding (e.g., a cluster of high-EPSS vulnerabilities in a specific product category, or a newly added CISA KEV item impacting a critical service), extract an insight that directly addresses **the immediate threat to these systems, the urgency for targeted patching or mitigation through Defender, or necessary adjustments to Entra ID access controls or identity protection policies, offering a different angle than other callouts.** What is the most pressing operational or strategic message for your CISO or incident response teams based on this specific exploitability data?
+When composing your statement, use valid markdown to bold, italicize, or add inline code formatting to key terms, statistics, or phrases if it helps the reader focus on what matters. Your response will be rendered as HTML, so markdown formatting will be preserved for emphasis.
 {% endblock task_instructions %}
 
 {% block data_context %}
-Section Key: {{ data_context_payload.section_key | default('section_7_dos_infodisc_deep_dive') }}
+Section Key: {{ data_context_payload.section_key | default('section_7_critical_spotlight') }}
+Context for: {{ section_title }}
 
-Insights Generated for Charts in this Section:
+Chart Insights for '{{ section_title }}':
 {% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
-- Insight for {{ chart_id }}: {{ insight }}
-{% else %}
-- No specific chart insights provided for this section.
-{% endfor %}
+- Insight for {{ chart_id }}: {{ insight | trim }}
+{% else %}- No chart insights. {% endfor %}
 
-Data Summaries for Charts in this Section:
+Data Summaries for Charts in '{{ section_title }}':
 {% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
---- Data Summary: {{ chart_id }} ---
-{{ summary }}
---- End Summary ---
-{% else %}
-- No chart data summaries provided.
+--- Data Summary ({{ chart_id }}): ---
+{{ summary | trim }}
+{% else %}- No chart data summaries. {% endfor %}
+
+Selected Statistics for this Section (if passed):
+{% if data_context_payload.section_specific_stats %}
+{% for stat_name, stat_value in data_context_payload.section_specific_stats.items() %}
+- {{ stat_name | replace("_", " ") | title }}: {{ stat_value }}
 {% endfor %}
+{% else %}- No section-specific statistics. {% endif %}
 {% endblock data_context %}

@@ -108,6 +108,8 @@ Desktop.ini
 *.sublime-workspace
 *.code-workspace
 conf/
+.windsurf/
+anaconda_projects/
 # --- Secrets / Environment variables ---
 # Ignore .env files containing secrets.
 # It's good practice to commit an example file.
@@ -122,8 +124,9 @@ conf/
 # --- Add any other project-specific temp or generated files ---
 # e.g., temp_data/
 # Ignore all VSCode workspace and settings files
-
-
+microsoft_cve_rag/application/data/metrics_db
+microsoft_cve_rag/architect
+microsoft_cve_rag/application/data/pair_programming/cascade_notes.md
 # Ignore codiumate settings
 .codiumai.toml
 

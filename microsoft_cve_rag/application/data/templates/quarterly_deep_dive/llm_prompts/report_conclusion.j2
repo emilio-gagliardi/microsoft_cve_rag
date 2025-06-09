@@ -1,46 +1,51 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 
 {# Specific context for the Report Conclusion #}
-{% set output_format_description = "a concluding paragraph (potentially two) summarizing the report's main message and reinforcing key takeaways, suitable for the end of the report. Use Markdown for structure (paragraphs, **bolding**) if helpful." %}
+{% set output_format_description -%}
+A final **Report Conclusion** (typically 2-4 paragraphs) that synthesizes the entire report's findings and offers forward-looking recommendations or strategic considerations.
+Use **Markdown format** (paragraphs, bolding for emphasis).
+The tone should be conclusive, authoritative, and strategic.
+Avoid introducing new detailed data points; focus on the overarching message derived from the provided statistics and summaries.
+{%- endset %}
 
 {% block task_instructions %}
-You are generating the **Conclusion** for the "{{ report_title }}" covering the period {{ start_date.strftime('%B %Y') }} to {{ end_date.strftime('%B %Y') }}.
-Review the Overall Report Statistics, the generated Executive Summary, and the detailed findings from all analytical sections provided below.
+You are writing the **final Conclusion** for the "{{ report_title }}" covering {{ start_date.strftime('%B %Y') }} to {{ end_date.strftime('%B %Y') }}.
+Review the "Overall Report Statistics", the "Generated Executive Summary Text", and the "Key Takeaways from Report Sections" provided below.
+Synthesize this information to provide a definitive closing statement for the report.
 
-Your task is to write a concluding statement that:
-1.  Briefly reiterates the most critical overall trend or risk identified during the period (referencing the Executive Summary and key section findings like RCE/EOP prevalence or patching delays).
-2.  Reinforces the primary security posture implications suggested by the data analysis (e.g., continued focus on patching criticals, awareness of local attack vectors, user training needs).
-3.  Provides a final, concise takeaway message based *strictly* on the patterns observed in the analyzed data for this reporting period. Do **not** introduce new predictions or recommendations not directly supported by the provided context.
+Your Conclusion should:
+1.  Briefly reiterate the most critical overarching trend or finding identified in the Executive Summary (e.g., "The key theme this quarter was X...").
+2.  Connect the major findings from different analytical sections (summarized below) to reinforce the main message or highlight significant trade-offs/correlations.
+3.  Draw final conclusions about the overall risk posture or vulnerability landscape based on the evidence presented throughout the report (reference key overall stats like **approximately 70%** critical/important, **around 5%** exploited, etc.).
+4.  Offer 1-3 high-level, strategic recommendations or forward-looking considerations for the target audience (e.g., areas needing focus, potential future trends to watch, implications for resource allocation). These should logically follow from the report's findings.
+5.  Provide a clear sense of finality for the report.
 
-Aim for a concise and impactful closing statement.
+Adhere to the Markdown formatting guidelines. Maintain a strategic, executive-level perspective.
 {% endblock task_instructions %}
 
 {% block data_context %}
-**Overall Report Statistics:**
-- Total CVEs Analyzed: {{ data_context_payload.overall_report_stats.total_cves | default('N/A') }}
-- Critical CVEs: {{ data_context_payload.overall_report_stats.critical_cves_count | default('N/A') }}
-- Important CVEs: {{ data_context_payload.overall_report_stats.important_cves_count | default('N/A') }}
-{# Add other key overall stats if helpful for conclusion #}
-- RCE Count: {{ data_context_payload.overall_report_stats.rce_cves_count | default('N/A') }}
-- EOP Count: {{ data_context_payload.overall_report_stats.eop_cves_count | default('N/A') }}
----
-
-**Generated Executive Summary:**
-{{ data_context_payload.all_section_content.executive_summary.narrative | default("Executive Summary not available.") }}
----
-
-**Generated Content from Report Sections:**
-
-{% for section_key, section_data in data_context_payload.all_section_content.items() %}
-{% if section_key != "executive_summary" and section_key != "report_conclusion" %} {# Avoid showing itself #}
-**Section: {{ section_key | replace("_", " ") | title }}**
-{% for prompt_type, text in section_data.items() %}
-  - {{ prompt_type | title }}: {{ text | truncate(200) }} {# Truncate even shorter for conclusion context #}
-{% endfor %}
----
-{% endif %}
+**Overall Report Statistics for LLM (Reference for concluding points):**
+{% if data_context_payload.overall_report_stats_for_llm %}
+  {% for stat_key, stat_value in data_context_payload.overall_report_stats_for_llm.items() %}
+- {{ stat_key | replace("_", " ") | title }}: {{ stat_value if stat_value is not none else 'N/A' }}
+  {% endfor %}
 {% else %}
-No detailed section content provided. Base conclusion on overall statistics and Executive Summary.
-{% endfor %}
+- Key overall statistics were not provided.
+{% endif %}
+---
 
+**Generated Executive Summary Text (Key themes should be reflected here):**
+{{ data_context_payload.executive_summary_text | striptags | truncate(500, True, '...') }} {# Strip HTML tags if exec summary is stored as HTML, truncate #}
+---
+
+**Key Takeaways from Report Sections (Use to support conclusions):**
+{% if data_context_payload.section_summaries %}
+  {% for section_key, summary_text in data_context_payload.section_summaries.items() %}
+**Section: {{ section_key | replace("_", " ") | title }} Summary**
+{{ summary_text | truncate(250, True, '...') }} {# Truncate for brevity #}
+---
+  {% endfor %}
+{% else %}
+No section summaries provided. Base conclusion on overall stats and executive summary.
+{% endif %}
 {% endblock data_context %}

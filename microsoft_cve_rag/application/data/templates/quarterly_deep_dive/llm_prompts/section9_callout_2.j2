@@ -1,12 +1,12 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 
 {# Specific context for the second callout in Section 9 (Attack Vectors/Complexity) #}
-{% set output_format_description = "a brief callout (1-2 sentences) highlighting a second, distinct insight about attack vectors or complexity from the Section 9 data/insights, suitable for a distinct callout box" %}
+{% set output_format_description = "a brief callout (2-3 sentences) highlighting a second, distinct insight about attack vectors or complexity from the Section 9 data/insights, suitable for a distinct callout box" %}
 
 {% block task_instructions %}
 Review the data summaries and chart insights provided below for "{{ section_title }}". This section analyzes overall attack vector and complexity distributions.
 Following the general instructions, identify a *second, distinct* significant finding (different from Callout 1). Perhaps focus on the less common but still present attack vectors/complexities, or consider the relationship between the two distributions (e.g., are Network attacks typically Low complexity?).
-Craft a concise callout (1-2 sentences maximum) stating this key finding clearly.
+Craft a concise callout (2-3 sentences maximum) stating this key finding clearly.
 {% endblock task_instructions %}
 
 {% block data_context %}

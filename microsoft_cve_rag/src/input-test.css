@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .test-apply {
+    @apply rounded-lg bg-red-500 p-4;
+  }
+}

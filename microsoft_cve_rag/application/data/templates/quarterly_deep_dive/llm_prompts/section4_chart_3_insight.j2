@@ -1,0 +1,22 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{% set output_format_description = "a brief, objective observation (2-3 sentences) focused solely on the primary trend or key finding from the 'User Interaction vs. Attack Complexity' chart data. No interpretation or recommendations." %}
+
+{% block task_instructions %}
+The chart titled '{{ data_context_payload.chart_caption | default('User Interaction vs. Attack Complexity') }}' displays CVE counts based on user interaction requirements (None, Required) and attack complexity (Low, High).
+Examine the provided data summary for this chart.
+Identify and describe the most significant observation. For example:
+- Are CVEs with 'No User Interaction' more likely to have 'Low' or 'High' attack complexity?
+- Is there a concentration of CVEs in a particular quadrant (e.g., 'User Interaction Required' and 'High Attack Complexity')?
+- What patterns emerge when comparing user interaction needs against complexity levels?
+Focus only on what the data directly indicates regarding these relationships.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Chart ID: {{ data_context_payload.chart_id | default('interaction_vs_complexity_chart') }}
+Chart Caption: {{ data_context_payload.chart_caption | default('Figure 6. CVE Count by User Interaction and Attack Complexity.') }}
+
+Data Summary:
+{{ data_context_payload.chart_data_summary | default("Data not available.") }}
+Note: If percentages do not sum to 100%, this may be due to some CVEs lacking an assigned value (i.e., missing or NaN values were excluded from the calculation).
+{% endblock data_context %}

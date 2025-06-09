@@ -687,7 +687,7 @@ Ah, that's an excellent point and highlights the difference between channel sour
 Build Types:
 
 py310haa95532_0, py311haa95532_0, etc. (from pkgs/main): These are Python-version-specific builds. They are compiled/packaged specifically for Python 3.10, 3.11, etc. This is often necessary if the package includes compiled C/C++/Fortran extensions that interact directly with the Python C API, which can change between Python versions.
-pyhff2d567_0, pyhd8ed1ab_0 (from conda-forge): These are noarch: python builds. The h in the build string often indicates this. These packages are typically pure Python code (no compiled extensions) and are designed to work on any operating system and any Python version that meets the package's minimum requirements (e.g., Python >= 3.8). They don't need to be rebuilt for every specific Python version.
+pyh... builds (like the newer ones on conda-forge): These are noarch: python builds. The h in the build string often indicates this. These packages are typically pure Python code (no compiled extensions) and are designed to work on any operating system and any Python version that meets the package's minimum requirements (e.g., Python >= 3.8). They don't need to be rebuilt for every specific Python version.
 Channel Differences & Version Lag:
 
 pkgs/main (Anaconda's default channel) has version 12.19.0, built specifically for different Python versions.
@@ -925,3 +925,324 @@ Both methods accept similar parameters to control the generation process.
     *   Example: `metadata={"user_id": "123", "session_id": "abc"}` to track request origins in logs.
 
 Understanding these parameters allows for fine-tuning LLM behavior for specific tasks, balancing creativity vs. determinism, controlling response length, enforcing structure, and analyzing model outputs.
+
+## Metrics Database
+
+A dedicated metrics database has been implemented to store and manage application performance and usage metrics.
+
+**Key Components:**
+
+*   **Database:** Uses DuckDB (`metrics.db`).
+*   **Location:** `C:\Users\emili\PycharmProjects\microsoft_cve_rag\microsoft_cve_rag\application\data\metrics_db\metrics.db`
+*   **Management:** Managed via a separate Docker appliance incorporating Alembic for migrations.
+*   **Data Models:** Defined using SQLModel within a shared package (`microsoft_cve_report_models`).
+*   **Service Layer:** A `metrics_service` class encapsulates all CRUD operations for the metrics data.
+
+**Shared Package Installation:**
+
+The SQLModel definitions are maintained in a separate repository. To use the metrics feature, this package must be installed:
+
+```bash
+pip install git+https://github.com/emilio-gagliardi/microsoft_cve_report_models.git#egg=microsoft_cve_report_models
+```
+
+**Note:** The DuckDB Docker appliance is primarily meant to handle the initial set up of the duckdb database with the correct tables and schema. Then the appliance is used to generate migrations and update the database schema.
+
+## MCP Servers
+
+### MotherDuck MCP Server (`mcp-server-motherduck`)
+
+Configuring the `mcp-server-motherduck` to connect to a local DuckDB file (`metrics.db`) involved several troubleshooting steps. The goal was to enable querying the local database via Cascade (Windsurf client in PyCharm).
+
+**Initial Configuration & Challenges:**
+
+1.  **`uvx` Command:** The initial approach involved using `uvx` (from the `uv` package manager) in `mcp_config.json` to run the `mcp-server-motherduck` package:
+    ```json
+    "mcp-server-motherduck": {
+      "command": "uvx",
+      "args": ["mcp-server-motherduck", "--db-path", "<path_to_db>"],
+      "env": {"HOME": "<project_home>", "PYTHONUNBUFFERED": "1"},
+      "disabled": false
+    }
+    ```
+2.  **Server Termination Issues:** This configuration led to the server process terminating immediately upon launch by the Windsurf client. This manifested as:
+    *   Cascade reporting "server process has ended."
+    *   PyCharm's "Output" tab for the MCP server showing "Got EOF from server."
+    *   Manual attempts to run the server sometimes revealed an `IOException: File is already open`, suggesting a file locking issue or an environment incompatibility when launched via `uvx` by the IDE.
+
+**Troubleshooting Steps & Evolution:**
+
+1.  **Direct Python Module Execution (Attempt 1):**
+    *   To align with the project's Conda-based environment (`cve_support_rag_venv`), `mcp-server-motherduck` was installed directly into the Conda environment using `pip install mcp-server-motherduck`.
+    *   `mcp_config.json` was updated to run the server as a Python module:
+        ```json
+        "command": "C:\\Users\\emili\\anaconda3\\envs\\cve_support_rag_venv\\python.exe",
+        "args": ["-m", "mcp_server_motherduck", "--db-path", "..."],
+        ```
+    *   **Outcome:** This failed with the error: `No module named mcp_server_motherduck.__main__; 'mcp_server_motherduck' is a package and cannot be directly executed.` This indicated the package wasn't designed to be run directly with `python -m`.
+
+2.  **Direct Executable Execution (Successful Approach):**
+    *   **Discovery:** After `pip install mcp-server-motherduck` into the `cve_support_rag_venv` Conda environment, an executable wrapper `mcp-server-motherduck.exe` was found in the environment's `Scripts` directory (`C:\Users\emili\anaconda3\envs\cve_support_rag_venv\Scripts\`).
+    *   **Final `mcp_config.json` Configuration:**
+        ```json
+        "mcp-server-motherduck": {
+          "command": "C:\\Users\\emili\\anaconda3\\envs\\cve_support_rag_venv\\Scripts\\mcp-server-motherduck.exe",
+          "args": [
+            "--db-path",
+            "C:\\Users\\emili\\PycharmProjects\\microsoft_cve_rag\\microsoft_cve_rag\\application\\data\\metrics_db\\metrics.db",
+            "--home-dir", // Explicitly set for clarity and DuckDB's needs
+            "C:\\Users\\emili\\PycharmProjects\\microsoft_cve_rag"
+          ],
+          "env": {
+            "PYTHONUNBUFFERED": "1"
+          },
+          "disabled": false
+        }
+        ```
+    *   **Critical Step:** Restarting PyCharm after any changes to `mcp_config.json` was essential for the Windsurf client to pick up the new configuration.
+    *   **Outcome:** This configuration successfully launched the server, allowing queries like `SHOW TABLES;` to be executed via Cascade.
+
+**Key Learnings:**
+
+*   For MCP servers that are Python packages, if direct `uvx` or `python -m` approaches fail (especially with file access or environment issues within an IDE-launched context), installing the package into the primary project environment (e.g., Conda) and then targeting the `pip`-generated executable script directly in `mcp_config.json` can be a robust solution.
+*   The `HOME` directory can be important for DuckDB; passing it explicitly as `--home-dir` to the server is a good practice.
+*   Always restart the IDE (PyCharm) after modifying `mcp_config.json` for changes to take effect.
+
+## Plotly Layout and Coordinates
+
+### Figure Layout and Margins
+
+Plotly uses a normalized coordinate system (0-1) for positioning elements within a figure. This system is particularly useful for consistent placement of annotations, shapes, and other elements across different figure sizes.
+
+#### Normalized Page Coordinates (Paper Coordinates)
+```
+  y=1   ┌───────────────────────────────────────────────┐
+        │              FIGURE BOUNDING BOX              │
+        │                                               │
+ margin │   y=1-margin.top                              │
+  top   │    ┌───────────────────────────────────┐      │
+        │    │             PLOT AREA             │      │
+        │    │                                   │      │
+        │    │                                   │      │
+ margin │    │              …                    │      │
+  bot   │    │                                   │      │
+        │    └───────────────────────────────────┘      │
+        │ y=margin.bottom                               │
+  y=0   └───────────────────────────────────────────────┘
+        x=0         x=1-margin.right    x=1       (Paper X)
+```
+
+#### Key Points:
+- The entire figure exists in a coordinate space where (0,0) is the bottom-left corner and (1,1) is the top-right corner
+- Margins are specified in normalized coordinates (0-1) relative to the figure size
+- The plot area is automatically calculated based on the specified margins
+- Common margin settings:
+  - `margin=dict(l=50, r=50, t=80, b=50)`  # Left, Right, Top, Bottom in pixels
+  - `margin=dict(autoexpand=True)`  # Let Plotly automatically determine margins
+
+#### Example Usage:
+```python
+import plotly.graph_objects as go
+
+fig = go.Figure()
+
+# Add your traces here
+# fig.add_trace(...)
+
+
+# Set layout with custom margins
+fig.update_layout(
+    margin=dict(l=50, r=50, t=80, b=50),  # Left, Right, Top, Bottom margins
+    paper_bgcolor='white',
+    plot_bgcolor='white',
+    height=600,
+    width=800,
+    # Add legend with paper coordinates
+    legend=dict(
+        x=1,               # X at right‐edge of paper
+        y=0,               # Y at bottom of paper
+        xanchor="right",   # anchor the legend's right side at x
+        yanchor="bottom",  # anchor the legend's bottom at y
+        orientation="h"    # horizontal orientation
+    )
+)
+
+# Add annotations using normalized coordinates
+fig.add_annotation(
+    x=0.5,  # Center of x-axis (0-1)
+    y=1.05,  # Just above the top of the plot area
+    text="Figure Title",
+    showarrow=False,
+    xref="paper",
+    yref="paper",
+    font=dict(size=16)
+)
+
+fig.show()
+```
+
+### Legend Positioning in Paper Coordinates
+
+When positioning a legend using paper coordinates, Plotly follows these steps:
+1. Computes the pixel location of the specified (x, y) coordinates based on the figure's width, height, and margins
+2. Places the legend's anchor point (determined by `xanchor` and `yanchor`) at that exact position
+
+#### Example: Bottom-Right Anchored Legend
+```python
+legend=dict(
+    x=1,               # X at right‐edge of paper
+    y=0,               # Y at bottom of paper
+    xanchor="right",   # anchor the legend's right side at x
+    yanchor="bottom",  # anchor the legend's bottom at y
+    orientation="h"    # horizontal orientation
+)
+```
+
+#### Visual Representation:
+```
+Legend Anchored to Bottom‐Right
+  y=1 ┌───────────────────────────────────────────────────────┐
+      │                                                       │
+      │            [ Plot Area — axes, bars, etc. ]          │
+ margin│                                                     │
+  top  │                                                     │
+      │                                                       │
+      │   ┌───────────────────────────────────────────────┐   │
+      │   │                                               │   │
+      │   │                                               │   │
+ margin│   │             (x=1, y=0) ⬇                     │   │
+  bot  │   │                         ┌───────────────┐     │   │
+      │   │                         │ Legend Box    │     │   │
+      │   │                         │ [A][B][C]      │     │   │
+  y=0 └───└─────────────────────────┴───────────────┴─────┘───┘
+      x=0             x=1-margin.right      x=1
+```
+
+#### Common Anchor Combinations:
+- Top-right: `x=1, y=1, xanchor="right", yanchor="top"`
+- Top-left: `x=0, y=1, xanchor="left", yanchor="top"`
+- Bottom-left: `x=0, y=0, xanchor="left", yanchor="bottom"`
+- Center-right: `x=1, y=0.5, xanchor="right", yanchor="middle"`
+
+#### Additional Legend Options:
+- `bgcolor`: Set the legend background color
+- `bordercolor`: Color of the legend border
+- `borderwidth`: Width of the legend border
+- `font`: Font properties for the legend text
+- `itemsizing`: Size of the legend items ("constant" or "trace")
+- `itemwidth`: Width of the legend item symbols in pixels
+
+### Margins and Title Offsets
+
+This diagram illustrates how Plotly's paper coordinates, margins, and title offsets work together:
+
+```
+Paper Coordinates (0-1 in both x and y)
+y=1 ┌───────────────────────────────────────────────────────────────────┐
+    ┆   ↑ margin.top (pixels)                                           ┆
+    ┆   ┆                                                               ┆
+    │   ┌───────────────────────────────────────────────────────────┐   │
+    ┆   ┆┄┄← margin.left (pixels)                                   ┆   ┆
+    ┆   ┆  ┆                                                        ┆   ┆
+    ┆   ┆  ┆  ↑ title_standoff_y (pixels)                           ┆   ┆
+    ┆   ┆  ┆  ┆  ┌┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┐      ┆   ┆
+    ┆   ┆  ┆  ┆  ┆       Y-axis title ("CVE Count")          ┆      ┆   ┆
+    ┆   ┆  ┆  ┆  ┆  *                                        ┆      ┆   ┆
+    │   │  │  │  │  │  ┌───────────────────────────────┐     │      │   │
+    │   │  │  │  │  │  │  Data Region                  │     │      │   │
+    │   │  │  │  │  │  │  (bars, lines, etc.)          │     │      │   │
+    │   │  │  │  │  │  │                               │     │      │   │
+    │   │  │  │  │  │  │  * * * * * * * * * * * * * * *│*    │      │   │
+    │   │  │  │  │  │  │  * * * * * * * * * * * * * * *│*    │      │   │
+    │   │  │  │  │  │  │  * * * * * * * * * * * * * * *│*    │      │   │
+    │   │  │  │  │  │  └───┬───────────────────────┬───┘     │      │   │
+    ┆   ┆  ┆  ┆  │  │      ┆  X-axis title_standoff┆         ┆      ┆   ┆
+    ┆   ┆  ┆  ┆  └┄┄┄┄┄┄┴┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┘           ┆      ┆   ┆
+    │   │  │  │  └──────────────────────────────────────────┘       │   │
+    │   │  │  └──────────────────────────────────────────────────┘      │
+    │   └──┴───────────────────────────────────────────────────────┘    │
+    ┆   ↑ title_standoff_x (pixels)   <┄─ X-axis title ("Attack Vector") ┆
+    ┆   ┆  *                                                           ┆
+    │   │  ───────────────────────────────────────────────────────┬───┘
+    ┆   ┆      tick labels ("Web", "Local")                  ┆        ┆
+    ┆   ┆                                                      ┆        ┆
+    ┆   ↓ margin.bottom (pixels)                                     ┆
+y=0 └───────────────────────────────────────────────────────────────────┘
+     x=0                                                      x=1
+```
+
+#### Key Components:
+
+1.  **Paper Coordinates**:
+    *   The entire figure is normalized to (0,0) bottom-left to (1,1) top-right
+    *   All margins and positioning are relative to these coordinates
+
+2.  **Margins** (l, r, t, b):
+    *   Specified in pixels
+    *   Create padding around the plot area
+    *   Ensure content doesn't get cut off
+
+3.  **Plot Area**:
+    *   The white space inside the margins
+    *   Contains all data visualizations and axes
+
+4.  **Title Standoffs**:
+    *   `title_standoff_x`: Distance between x-axis and its title
+    *   `title_standoff_y`: Distance between y-axis and its title
+    *   Both are measured in pixels from the axis line
+
+#### Common Adjustments:
+
+```python
+# Increase left margin for y-axis title
+fig.update_layout(
+    margin=dict(l=100),  # Increase left margin
+    yaxis=dict(
+        title="CVE Count",
+        title_standoff=15  # Space between y-axis and its title
+    ),
+    xaxis=dict(
+        title="Attack Vector",
+        title_standoff=15  # Space between x-axis and its title
+    )
+)
+```
+
+#### Troubleshooting:
+
+*   If titles overlap with tick labels:
+    *   Increase the corresponding margin (`margin.l` for y-axis, `margin.b` for x-axis)
+    *   Or increase the `title_standoff` value
+
+*   If the plot looks too small:
+    *   Decrease margins
+    *   Or increase the overall figure size
+
+## Quarterly Report
+
+### Risk score calculation
+
+Risk Score Calculation Methodology
+
+This risk score prioritizes vulnerabilities based on their exploitability characteristics
+rather than just severity. The weights are derived from:
+
+1. Industry analysis of exploit prevalence in the wild
+2. Microsoft's own security response team prioritization guidelines
+3. The relative importance of each factor in automated attacks
+
+Formula:
+risk_score = (
+    (AV_weight * AV_value) +
+    (AC_weight * AC_value) +
+    (PR_weight * PR_value) +
+    (UI_weight * UI_value)
+)
+
+Where:
+- AV_weight = 0.35 (Attack Vector has highest impact on exploitability)
+- AC_weight = 0.25 (Attack Complexity is second most important)
+- PR_weight = 0.20 (Privileges Required)
+- UI_weight = 0.20 (User Interaction)
+
+And values are normalized between 0-1 based on CVSS v3 standards

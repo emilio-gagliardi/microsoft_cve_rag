@@ -1,30 +1,37 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 
-{# Specific context for the first callout in Section 3 #}
-{% set output_format_description = "a brief callout (1-2 sentences) highlighting a single, impactful insight from the Section 3 data/insights provided, suitable for a distinct callout box" %}
+{% set output_format_description = "a concise, higher-level interpretation (2-3 sentences) derived from a key statistical finding or observation about the overall CVE landscape this quarter (volume, severity, or primary category distribution). This interpretation should offer a 'so what?' for the data, suitable for a visual callout box." %}
 
 {% block task_instructions %}
-Review the data summaries and chart insights provided below for "{{ section_title }}". This section focuses on overall CVE volume, new vs. updated status, and severity trends.
-Identify the *single most significant or surprising finding* from this information that a system administrator or security manager should pay attention to. This could be a sharp increase, a dominant category, or an unexpected pattern.
-Craft a concise callout (1-2 sentences maximum) stating this key finding clearly. Avoid jargon where possible.
+Review the chart insights and data summaries provided for the section "{{ section_title }}", which provides a high-level overview of the quarterly CVE landscape (focusing on overall volume, new/updated status, severity distribution, and top-level category distribution).
+From all this information, select **one compelling statistic or finding**. Then, instead of merely restating it, your primary goal is to provide a **higher-level insight or implication** stemming from this specific data point. What does this statistic *mean* in the broader context of the CVE landscape this quarter?
+Craft a concise statement (2-3 sentences maximum) that delivers this higher-level insight. **CRITICAL: Do NOT simply repeat or rephrase statistics or facts already detailed in the 'Chart Insights' or raw data summaries.** Assume the reader has access to those details. Your value is in the interpretation and the 'so what?'.
+Example of desired focus:
+    *   **Less Helpful (Avoid):** 'Total CVE volume was X, and Y% were new.'
+    *   **More Helpful (Aim for this style):** 'The surge in new CVEs to Y% of the total X volume this quarter underscores a rapidly evolving threat landscape, demanding heightened vigilance.' OR 'With critical vulnerabilities comprising Z% of the total, the potential impact of breaches remains alarmingly high, prioritizing immediate patching of these specific CVEs.'
+Important. You can be creative and innovative in your statement so long as it is based on the data provided and the domain of CVEs.
+Focus on the 'why' or 'so what.' If the data shows a trend, what are its potential implications? If a number is high or low, what does that signify for security posture or resource allocation?
+Persona: As a **Senior Security Analyst for a Fortune 500 company**, your responsibilities include Microsoft Entra, Defender, end-user authentication, data protection, and identity protection. Your callout should reflect this. From your chosen statistic/finding, extract an insight that directly addresses **potential impact, risk, or a key takeaway relevant to these responsibilities.** What is the most pressing message for your CISO or security operations team based on this data point?
+When composing your statement, use valid markdown to bold, italicize, or add inline code formatting to key terms, statistics, or phrases if it helps the reader focus on what matters. Your response will be rendered as HTML, so markdown formatting will be preserved for emphasis.
 {% endblock task_instructions %}
 
 {% block data_context %}
-Section Key: {{ data_context_payload.section_key | default('section_3_vol_sev') }}
+Section Key: {{ data_context_payload.section_key | default('section_3_cve_landscape') }} {# Matches new key #}
 
-Insights Generated for Charts in this Section:
+Chart Insights for '{{ section_title }}':
 {% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
-- Insight for {{ chart_id }}: {{ insight }}
-{% else %}
-- No specific chart insights provided for this section.
-{% endfor %}
+- Insight for {{ chart_id }}: {{ insight | trim }}
+{% else %}- No chart insights. {% endfor %}
 
-Data Summaries for Charts in this Section:
+Data Summaries for Charts in '{{ section_title }}':
 {% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
---- Data Summary: {{ chart_id }} ---
-{{ summary }}
---- End Summary ---
-{% else %}
-- No chart data summaries provided.
-{% endfor %}
+--- Data Summary ({{ chart_id }}): ---
+{{ summary | trim }}
+{% else %}- No chart data summaries. {% endfor %}
+
+Selected Overall Statistics (if relevant and passed):
+{% if data_context_payload.selected_overall_stats %}
+{% for stat_name, stat_value in data_context_payload.selected_overall_stats.items() %}
+- {{ stat_name | replace("_", " ") | title }}: {{ stat_value }}
+{% endfor %}{% endif %}
 {% endblock data_context %}

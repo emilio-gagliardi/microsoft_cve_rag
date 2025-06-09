@@ -13,6 +13,32 @@
   --color-brand-teal:   #67C2C0;
   --color-brand-blue:   #22A5DD;
   --color-brand-black:  #000000;
+  --rgb-brand-blue: 34, 165, 221; /* From --color-brand-blue: #22A5DD; */
+  --rgb-brand-blue-dark: 30, 64, 175; /* From --color-status-info-bg-dark: #1E40AF; */
+
+  /* === Brand Color Shades for Tailwind === */
+  /* These variables are referenced in tailwind.config.js to generate specific utility classes */
+  /* like text-brand-red-700 or dark:text-brand-red-500 */
+
+  /* Pink shades (for CVE ID) */
+  --color-brand-pink-600: var(--color-brand-pink);      /* e.g., #DF0D5F - For light mode text */
+  --color-brand-pink-400: #FBCFE8; /* Example: Tailwind Pink-200, adjust to a lighter variant of your brand pink */
+
+  /* Red shades (for Critical severity) */
+  --color-brand-red-700: var(--color-brand-red);        /* e.g., #E82F27 - For light mode text */
+  --color-brand-red-500: var(--color-status-danger-text-dark); /* e.g., #F87171 - For dark mode text */
+
+  /* Orange shades (for Important severity) */
+  --color-brand-orange-600: var(--color-brand-orange);  /* e.g., #EB8B06 - For light mode text */
+  --color-brand-orange-400: var(--color-status-warning-text-dark); /* e.g., #FB923C - For dark mode text */
+
+  /* Green shades (for Low severity) */
+  --color-brand-green-600: var(--color-brand-green);    /* e.g., #00A33E - For light mode text */
+  --color-brand-green-400: var(--color-status-success-text-dark); /* e.g., #4ADE80 - For dark mode text */
+
+  /* Blue shades (for Moderate severity) */
+  --color-brand-blue-600: var(--color-brand-blue);      /* e.g., #22A5DD - For light mode text */
+  --color-brand-blue-400: var(--color-status-info-text-dark); /* e.g., #60A5FA - For dark mode text */
 
   /* === Report UI Palette === */
   --color-report-background:        #F9FAFB; /* Tailwind gray-50 */
@@ -29,6 +55,7 @@
   --color-report-accent:            var(--color-brand-orange);
   --color-report-accent-dark:       var(--color-brand-red);
   --color-report-light-accent:      #FEF4E6; /* Added: Light orange bg (like status-warning-bg) */
+  --color-report-light-accent-dark: #334155;
   --color-report-alabaster:         #FCFCFC; /* Added: Very light grey/off-white */
 
 
@@ -39,24 +66,24 @@
   --color-status-danger:      var(--color-brand-red);
 
   /* Backgrounds */
-  --color-status-info-bg:     #E9F6FD; /* Light blue */
-  --color-status-info-bg-dark: #1e3a4c; /* Dark blue */
-  --color-status-success-bg:  #E6F6EE; /* Light green */
-  --color-status-success-bg-dark: #1a4d30; /* Dark green */
-  --color-status-warning-bg:  #FEF4E6; /* Light orange */
-  --color-status-warning-bg-dark: #4d3a1a; /* Dark orange */
-  --color-status-danger-bg:   #FEF2F2; /* Light red */
-  --color-status-danger-bg-dark: #4a2a2a; /* Dark red */
+  --color-status-info-bg:     var(--color-brand-blue);   /* Direct brand blue */
+  --color-status-info-bg-dark: #1E40AF; /* Darker blue (like tw blue-800) */
+  --color-status-success-bg:  var(--color-brand-green);  /* Direct brand green */
+  --color-status-success-bg-dark: #065F46; /* Darker green (like tw green-800) */
+  --color-status-warning-bg:  var(--color-brand-orange); /* Direct brand orange */
+  --color-status-warning-bg-dark: #9A3412; /* Darker orange (like tw orange-800) */
+  --color-status-danger-bg:   var(--color-brand-red);    /* Direct brand red */
+  --color-status-danger-bg-dark: #991B1B; /* Darker red (like tw red-800) */
 
   /* Text */
-  --color-status-info-text:     #145C7C; /* Darker blue */
-  --color-status-info-text-dark:  #9ad5f5; /* Lighter blue */
-  --color-status-success-text:  #007A2F; /* Darker green */
-  --color-status-success-text-dark: #80c9a0; /* Lighter green */
-  --color-status-warning-text:  #8A4F03; /* Darker orange */
-  --color-status-warning-text-dark: #f5c780; /* Lighter orange */
-  --color-status-danger-text:   #991B1B; /* Darker red */
-  --color-status-danger-text-dark:  #efa2a3; /* Lighter red */
+  --color-status-info-text:     var(--color-report-text-contrast); /* White on brand blue */
+  --color-status-info-text-dark:  #60A5FA; /* Lighter blue (like tw blue-400) */
+  --color-status-success-text:  var(--color-report-text-contrast); /* White on brand green */
+  --color-status-success-text-dark: #4ADE80; /* Lighter green (like tw green-400) */
+  --color-status-warning-text:  var(--color-report-text-contrast); /* White on brand orange */
+  --color-status-warning-text-dark: #FB923C; /* Lighter orange (like tw orange-400) */
+  --color-status-danger-text:   var(--color-report-text-contrast); /* White on brand red */
+  --color-status-danger-text-dark:  #F87171; /* Lighter red (like tw red-400) */
 
   /* Borders */
   --color-status-info-border:     var(--color-status-info);
@@ -67,6 +94,33 @@
   --color-status-warning-border-dark: var(--color-status-warning);
   --color-status-danger-border:   var(--color-status-danger);
   --color-status-danger-border-dark: var(--color-status-danger);
+
+  /* === Stat Card Palette Colors === */
+  /* Define a few distinct color pairs for informational cards */
+
+  /* Teal Palette */
+  --color-stat-card-teal-bg:        #ECFEFF; /* Tailwind cyan-50 */
+  --color-stat-card-teal-bg-dark:   #164E63; /* Tailwind cyan-900 */
+  --color-stat-card-teal-text:      #0E7490; /* Tailwind cyan-700 */
+  --color-stat-card-teal-text-dark: #A5F3FC; /* Tailwind cyan-200 */
+
+  /* Indigo Palette */
+  --color-stat-card-indigo-bg:        #EEF2FF; /* Tailwind indigo-50 */
+  --color-stat-card-indigo-bg-dark:   #312E81; /* Tailwind indigo-900 */
+  --color-stat-card-indigo-text:      #4338CA; /* Tailwind indigo-700 */
+  --color-stat-card-indigo-text-dark: #A5B4FC; /* Tailwind indigo-300 */
+
+  /* Amber/Gold Palette */
+  --color-stat-card-amber-bg:        #FFFBEB; /* Tailwind amber-50 */
+  --color-stat-card-amber-bg-dark:   #78350F; /* Tailwind amber-900 */
+  --color-stat-card-amber-text:      #B45309; /* Tailwind amber-700 */
+  --color-stat-card-amber-text-dark: #FDE68A; /* Tailwind amber-200 */
+
+  /* Neutral/Gray Palette (Optional - can reuse Tailwind grays or define specific) */
+  --color-stat-card-neutral-bg:        #F9FAFB; /* Tailwind gray-50 */
+  --color-stat-card-neutral-bg-dark:   #1F2937; /* Tailwind gray-800 */
+  --color-stat-card-neutral-text:      #374151; /* Tailwind gray-700 */
+  --color-stat-card-neutral-text-dark: #D1D5DB; /* Tailwind gray-300 */
 
   /* === Misc UI Colors === */
   --color-footer-background: #212529; /* Dark footer bg */

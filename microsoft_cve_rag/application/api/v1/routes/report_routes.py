@@ -47,10 +47,12 @@ from application.services.sftp_service import (
 from application.services.chat_service import LLMClient
 from application.app_utils import (
     initialize_environment_and_paths,
+    get_metrics_credentials,
     APP_DIR,
     DATA_DIR,
     REPORTS_DIR
 )
+from application.services.metrics_service import DuckDBMetricsService
 from crawl4ai import AsyncWebCrawler, CrawlResult
 from crawl4ai.async_configs import BrowserConfig, CrawlerRunConfig
 
@@ -221,6 +223,37 @@ def get_report_generator(
     except Exception as e:
         logging.exception("Error creating report generator dependency.")
         raise HTTPException(status_code=500, detail=f"Could not create report generator: {e}")
+
+# Metrics depenendency
+def get_metrics_service() -> DuckDBMetricsService:
+    """
+    FastAPI dependency function to get a cached DuckDBMetricsService instance.
+
+    Uses lru_cache to instantiate the service only once on the first call.
+    NOTE: Does not handle graceful shutdown (calling service.close()).
+    """
+    logger.info("Attempting to create/retrieve cached DuckDBMetricsService instance...")
+    try:
+        metrics_creds = get_metrics_credentials()
+        # Instantiate the service using the path from the credentials object
+        service_instance = DuckDBMetricsService(db_path=metrics_creds.db_path)
+        logger.info("DuckDBMetricsService instance created and cached.")
+        return service_instance
+    except ValueError as e:
+        # Catch error if METRICS_DATABASE_PATH is missing
+        logger.error(f"Failed to get metrics credentials for service instantiation: {e}")
+        raise HTTPException(
+            status_code=503, # Service Unavailable
+            detail=f"Metrics database configuration error: {e}"
+        )
+    except Exception as e:
+        # Catch potential errors during service __init__
+        logger.exception(f"Failed to instantiate DuckDBMetricsService: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to initialize metrics database service."
+        )
+
 
 # End Utility Functions -----------------------------------------
 
@@ -636,7 +669,8 @@ async def generate_quarterly_report_prod(
 @router.post("/reports/quarterly-deep-dive/generate-dev-synthetic", tags=["Reports Development"])
 async def generate_quarterly_report_dev_synthetic(
     request: QuarterlyReportRequest,
-    generator: QuarterlyDeepDiveReportGenerator = Depends(get_report_generator)
+    generator: QuarterlyDeepDiveReportGenerator = Depends(get_report_generator),
+    metrics_service: DuckDBMetricsService = Depends(get_metrics_service)
 ) -> Dict[str, Any]:
     """
     Generates the Quarterly Deep Dive report using SYNTHETIC data
@@ -663,11 +697,17 @@ async def generate_quarterly_report_dev_synthetic(
 
     # --- 3. Generate Report Assets ---
     try:
+        # Ensure start_date and end_date are datetime.date objects
+        # QuarterlyReportRequest likely defines them as such.
+        report_start_date = request.start_date
+        report_end_date = request.end_date
+
         generated_assets: DeepDiveAssets = await generator.generate_report(
             report_data=synthetic_df,  # Pass synthetic data
             config=final_config,
-            start_date=request.start_date,
-            end_date=request.end_date
+            start_date=report_start_date,
+            end_date=report_end_date,
+            metrics_service=metrics_service # Pass the metrics_service instance
         )
         logger.info(f"Synthetic report generation complete. Assets in: {generated_assets.base_directory}")
     except Exception as e:

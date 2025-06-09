@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field, model_validator
 from typing import Optional
 import os
+from pydantic_settings import BaseSettings
 
 
 class VectorDBCredentialsSchema(BaseModel):
@@ -73,3 +74,23 @@ class SQLDBCredentialsSchema(BaseModel):
         if not values.uri:
             values.uri = f"{values.protocol}://{values.username}:{values.password}@{values.host}:{values.port}/"
         return values
+
+
+# --- New MetricsCredentialsSchema ---
+class MetricsCredentialsSchema(BaseSettings):
+    """
+    Schema for DuckDB metrics database connection details.
+    Primarily defines the path to the database file.
+    Reads from the METRICS_DATABASE_PATH environment variable.
+    """
+    # Define the field to hold the path, reading from an environment variable.
+    # '...' makes the field required. BaseSettings handles the loading.
+    db_path: str = Field(..., alias="METRICS_DATABASE_PATH") # Use alias for env var name with BaseSettings
+
+    # Optional: Add validation if needed (e.g., ensure parent directory exists)
+    # @field_validator('db_path')
+    # def check_db_path_parent_exists(cls, v: str) -> str:
+    #     db_file_path = Path(v)
+    #     if not db_file_path.parent.is_dir():
+    #         raise ValueError(f"Parent directory for METRICS_DATABASE_PATH does not exist: {db_file_path.parent}")
+    #     return v # Return the original string path

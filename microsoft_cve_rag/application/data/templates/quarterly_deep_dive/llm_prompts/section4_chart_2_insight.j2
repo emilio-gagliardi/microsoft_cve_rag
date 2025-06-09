@@ -1,18 +1,22 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
-{# Specific context for a potential second chart insight in Section 4 #}
-{% set output_format_description = "a concise text block (2-3 sentences) interpreting key findings from the provided data, IF available" %}
+
+{% set output_format_description = "a brief, objective observation (2-3 sentences) focused solely on the primary trend or key finding from the 'Attack Vectors by Privileges Required' chart data. No interpretation or recommendations." %}
 
 {% block task_instructions %}
-Analyze the chart image and data provided below, IF ANY, which might relate to a secondary aspect of CVSS score analysis within "{{ section_title }}". This could be a different visualization or a specific subset of data not covered by the primary distribution chart.
-If data is provided, identify the key trend or observation.
-If no specific data is provided for a second chart/analysis, please state that no distinct secondary insight could be generated based on the available context.
-Describe any findings clearly in 2-3 sentences, or state that no analysis is possible.
+The chart titled '{{ data_context_payload.chart_caption | default('Attack Vectors by Privileges Required') }}' displays the distribution of privileges required (None, Low, High) for each primary attack vector (Network, Local, etc.).
+Examine the provided data summary for this chart.
+Identify and describe the most significant observation. For example:
+- Which attack vector has the highest proportion of 'None' privileges required?
+- Is there a notable difference in privilege requirements between 'Network' and 'Local' attack vectors?
+- What's the overall pattern of privilege escalation opportunities suggested by the data?
+Focus only on what the data directly indicates regarding the relationship between attack vectors and privilege levels.
 {% endblock task_instructions %}
 
 {% block data_context %}
-Chart ID: {{ data_context_payload.chart_id | default('Not Applicable - Second Insight Slot') }}
-Chart Caption: {{ data_context_payload.chart_caption | default('N/A') }}
+Chart ID: {{ data_context_payload.chart_id | default('attack_vectors_by_privileges_chart') }}
+Chart Caption: {{ data_context_payload.chart_caption | default('Figure 5. Breakdown of Attack Vectors by Privileges Required.') }}
 
-Data Summary (Potentially for a second CVSS analysis):
-{{ data_context_payload.chart_data_summary | default("No specific data provided for a second chart insight in this section.") }}
+Data Summary:
+{{ data_context_payload.chart_data_summary | default("Data not available.") }}
+Note: If percentages do not sum to 100%, this may be due to some CVEs lacking an assigned value (i.e., missing or NaN values were excluded from the calculation).
 {% endblock data_context %}

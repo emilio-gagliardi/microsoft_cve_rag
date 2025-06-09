@@ -1,30 +1,38 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 
-{# Specific context for the second callout in Section 5 (RCE Deep Dive) #}
-{% set output_format_description = "a brief callout (1-2 sentences) highlighting a second, distinct insight about RCE vulnerabilities from the Section 5 data/insights, suitable for a distinct callout box" %}
+{% set output_format_description = "a concise, higher-level interpretation (2-3 sentences) derived from a *distinct* key finding related to CVSS score distributions, significant outliers, or prevalent CWEs that demand attention. This interpretation should offer a unique 'so what?' perspective, suitable for a visual callout box." %}
 
 {% block task_instructions %}
-Review the data summaries and chart insights provided below for "{{ section_title }}". This section focuses on RCE vulnerabilities.
-Following the general instructions, identify a *second, distinct* significant finding related to RCEs (different from Callout 1). Perhaps focus on the relationship between their frequency (proportion chart) and severity (CVSS distribution chart), or highlight the range of impact even within RCEs.
-Craft a concise callout (1-2 sentences maximum) stating this key finding clearly.
+Review the chart insights and data summaries provided for the section "{{ section_title }}". This section provides a deep dive into CVSS score characteristics (distributions, IQRs, outliers across categories) and an analysis of common underlying weaknesses (CWEs), especially those in high-risk vulnerabilities.
+
+From this detailed information, select **one *distinct* particularly striking or actionable insight** (e.g., concerning CVSS distributions, outliers, or prevalent CWEs), ensuring it's different from other callouts in this section (e.g., if Callout 1 focused on a prevalent CWE, this one might focus on a CVSS score distribution for a product category). Then, instead of merely restating it, your primary goal is to provide a **higher-level insight or implication** stemming from this specific data point. What does this finding *mean* for the organization's risk posture, defensive strategies, or specific systems like Entra ID or Defender from a unique angle?
+Craft a concise callout (2-3 sentences maximum) that delivers this distinct, higher-level insight. **CRITICAL: Do NOT simply repeat or rephrase statistics or facts already detailed in the 'Chart Insights' or raw data summaries.** Assume the reader has access to those details. Your value is in providing a *unique interpretation* and the 'so what?'.
+Example of desired focus (Senior Security Analyst Persona):
+    *   **Less Helpful (Avoid):** 'The median CVSS score for Product X vulnerabilities was 8.5.'
+    *   **More Helpful (Aim for this style):** 'The consistently high median CVSS score of 8.5 for Product X vulnerabilities, coupled with a wide IQR, suggests inherent and unpredictable risks that necessitate a prioritized review of its security configurations and its integration with critical systems like Entra ID to prevent potential compromise.'
+Important. You can be creative and innovative in your statement so long as it is based on the data provided and the domain of CVEs.
+Focus on the 'why' or 'so what' from your *distinct* finding. If CVSS scores for a particular product category are consistently high or show wide variance, what are the implications for risk management, patching prioritization, or the security of connected systems like Entra ID or data repositories protected by Defender?
+Persona: As a **Senior Security Analyst for a Fortune 500 company**, your responsibilities include Microsoft Entra, Defender, end-user authentication, data protection, and identity protection. Your callout should reflect this. From your chosen *distinct* finding (e.g., a concerning CVSS score distribution for a product category or a notable outlier trend), extract an insight that directly addresses **potential impact on these systems, necessary adjustments to risk assessment processes, or key defensive measures that need reinforcement, offering a different angle than other callouts.** What is the most pressing message for your CISO or security operations team based on this specific CVSS/CWE data point?
+When composing your statement, use valid markdown to bold, italicize, or add inline code formatting to key terms, statistics, or phrases if it helps the reader focus on what matters. Your response will be rendered as HTML, so markdown formatting will be preserved for emphasis.
 {% endblock task_instructions %}
 
 {% block data_context %}
-Section Key: {{ data_context_payload.section_key | default('section_5_rce_deep_dive') }}
+Section Key: {{ data_context_payload.section_key | default('section_5_cvss_weakness_deep_dive') }}
 
-Insights Generated for Charts in this Section:
+Chart Insights for '{{ section_title }}':
 {% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
-- Insight for {{ chart_id }}: {{ insight }}
-{% else %}
-- No specific chart insights provided for this section.
-{% endfor %}
+- Insight for {{ chart_id }}: {{ insight | trim }}
+{% else %}- No chart insights. {% endfor %}
 
-Data Summaries for Charts in this Section:
+Data Summaries for Charts in '{{ section_title }}':
 {% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
---- Data Summary: {{ chart_id }} ---
-{{ summary }}
---- End Summary ---
-{% else %}
-- No chart data summaries provided.
-{% endfor %}
+--- Data Summary ({{ chart_id }}): ---
+{{ summary | trim }}
+{% else %}- No chart data summaries. {% endfor %}
+
+Selected Statistics for this Section (if passed, e.g., P90 CVSS, Top CWE ID):
+{% if data_context_payload.section_specific_stats %}
+{% for stat_name, stat_value in data_context_payload.section_specific_stats.items() %}
+- {{ stat_name | replace("_", " ") | title }}: {{ stat_value }}
+{% endfor %}{% endif %}
 {% endblock data_context %}

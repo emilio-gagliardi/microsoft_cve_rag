@@ -1,0 +1,40 @@
+{% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
+
+{% set output_format_description = "a concise, higher-level interpretation (2-3 sentences) derived from a *distinct* key finding related to exploitability (e.g., high EPSS scores, CISA KEV list, or common characteristics among highly exploitable vulnerabilities). This interpretation should offer a unique 'so what?' perspective for a Senior Security Analyst, suitable for a visual callout box." %}
+
+{% block task_instructions %}
+Review the information provided for the section "{{ section_title }}". This section focuses on a curated list of the quarter's most critical vulnerabilities, detailing their CVSS scores, exploitability, and potential impact. You also have access to overall statistics like the total count of 'Worst Case CVEs' or 'Known Exploited CVEs'.
+
+From this information, select **one *distinct* particularly urgent or significant takeaway related to exploitability** (e.g., a high concentration of vulnerabilities with EPSS scores >90%, a CISA KEV-listed vulnerability, or a common characteristic/weakness type among highly exploitable vulnerabilities affecting systems critical to identity or data protection), ensuring it's different from other callouts in this section (e.g., if Callout 1 focused on EPSS scores and Callout 2 on CISA KEV, this one might focus on a common weakness type like authentication bypasses among exploitable vulnerabilities impacting Entra ID). Then, instead of merely restating it, your primary goal is to provide a **higher-level insight or implication** stemming from this specific exploitability data point. What does this finding *mean* for the organization's immediate risk exposure, the prioritization of patching, or the configuration of defensive tools like Defender for Endpoint or Entra ID Conditional Access from a unique angle?
+Craft a concise callout (2-3 sentences maximum) that delivers this distinct, higher-level insight. **CRITICAL: Do NOT simply repeat or rephrase statistics or facts already detailed in the 'Chart Insights' or raw data summaries.** Assume the reader has access to those details. Your value is in providing a *unique interpretation* and the 'so what?'.
+Example of desired focus (Senior Security Analyst Persona):
+    *   **Less Helpful (Avoid):** 'Many exploitable vulnerabilities involved authentication issues.'
+    *   **More Helpful (Aim for this style):** 'The recurrence of authentication bypass vulnerabilities among this quarter's CISA KEV and high-EPSS items highlights a critical attack vector that could directly compromise Entra ID; this warrants an immediate review of our multi-factor authentication enforcement and Defender for Identity's detection capabilities for such bypass techniques.'
+Important. You can be creative and innovative in your statement so long as it is based on the data provided and the domain of CVEs.
+Focus on the 'why' or 'so what' from your *distinct* exploitability finding. If a common weakness type (e.g., insecure default configurations) is prevalent among highly exploitable vulnerabilities, what are the implications for hardening standards for systems integrated with Entra ID or monitored by Defender?
+Persona: As a **Senior Security Analyst for a Fortune 500 company**, your responsibilities include Microsoft Entra, Defender, end-user authentication, data protection, and identity protection. Your callout should reflect this. From your chosen *distinct* exploitability finding (e.g., a common characteristic among high-EPSS/KEV vulnerabilities, or a specific type of exploitable weakness), extract an insight that directly addresses **the immediate threat to these systems, the urgency for targeted hardening or policy review for Entra ID, or necessary enhancements to Defender's detection logic, offering a different angle than other callouts.** What is the most pressing operational or strategic message for your CISO or security operations teams based on this specific exploitability data?
+When composing your statement, use valid markdown to bold, italicize, or add inline code formatting to key terms, statistics, or phrases if it helps the reader focus on what matters. Your response will be rendered as HTML, so markdown formatting will be preserved for emphasis.
+{% endblock task_instructions %}
+
+{% block data_context %}
+Section Key: {{ data_context_payload.section_key | default('section_7_critical_spotlight') }}
+Context for: {{ section_title }}
+
+Chart Insights for '{{ section_title }}':
+{% for chart_id, insight in data_context_payload.chart_insights_in_section.items() %}
+- Insight for {{ chart_id }}: {{ insight | trim }}
+{% else %}- No chart insights. {% endfor %}
+
+Data Summaries for Charts in '{{ section_title }}':
+{% for chart_id, summary in data_context_payload.charts_data_summaries_in_section.items() %}
+--- Data Summary ({{ chart_id }}): ---
+{{ summary | trim }}
+{% else %}- No chart data summaries. {% endfor %}
+
+Selected Statistics for this Section (if passed):
+{% if data_context_payload.section_specific_stats %}
+{% for stat_name, stat_value in data_context_payload.section_specific_stats.items() %}
+- {{ stat_name | replace("_", " ") | title }}: {{ stat_value }}
+{% endfor %}
+{% else %}- No section-specific statistics. {% endif %}
+{% endblock data_context %}
