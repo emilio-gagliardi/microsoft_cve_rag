@@ -1,13 +1,18 @@
 """Handle Jinja2 template rendering operations."""
 
-import os
-import re
 import json
 import logging
+import os
+import re
 from datetime import datetime
 from typing import Any, Dict, Optional
 
-from jinja2 import Environment, FileSystemLoader, TemplateNotFound, TemplateSyntaxError
+from jinja2 import (
+    Environment,
+    FileSystemLoader,
+    TemplateNotFound,
+    TemplateSyntaxError,
+)
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
@@ -43,7 +48,7 @@ class TemplateService:
     def __init__(
         self,
         template_dir: Optional[str] = None,
-        output_dir: Optional[str] = None
+        output_dir: Optional[str] = None,
     ) -> None:
         """Initialize the template service.
 
@@ -67,17 +72,19 @@ class TemplateService:
         logger.info(f"Output directory: {self.output_dir}")
 
         if not os.path.exists(self.template_dir):
-            raise ValueError(f"Template directory not found: {self.template_dir}")
+            raise ValueError(
+                f"Template directory not found: {self.template_dir}"
+            )
 
         try:
             self.env = Environment(
                 loader=FileSystemLoader([
                     self.template_dir,
-                    os.path.join(self.template_dir, "weekly_kb_report")
+                    os.path.join(self.template_dir, "weekly_kb_report"),
                 ]),
                 autoescape=True,
                 trim_blocks=True,
-                lstrip_blocks=True
+                lstrip_blocks=True,
             )
             # Add custom filters
             self.env.filters['parse_markdown'] = self._parse_markdown
@@ -114,7 +121,9 @@ class TemplateService:
             lang = match.group(1) if match.group(1) else ''
             return f'<pre><code class="language-{lang}">{code}</code></pre>'
 
-        text = re.sub(r'```(\w+)?\n(.*?)```', replace_code_blocks, text, flags=re.DOTALL)
+        text = re.sub(
+            r'```(\w+)?\n(.*?)```', replace_code_blocks, text, flags=re.DOTALL
+        )
 
         # First process headers and split content into sections
         sections = []
@@ -160,8 +169,16 @@ class TemplateService:
                     if not stripped or stripped == ':':
                         if in_list and current_list:
                             # End the current list
-                            list_class = 'list-disc' if list_type == 'ul' else 'list-decimal'
-                            result.append(f'<div class="mb-8"><{list_type} class="{list_class} list-inside space-y-2">')
+                            list_class = (
+                                'list-disc'
+                                if list_type == 'ul'
+                                else 'list-decimal'
+                            )
+                            result.append(
+                                '<div'
+                                f' class="mb-8"><{list_type} class="{list_class} list-inside'
+                                ' space-y-2">'
+                            )
                             result.extend(current_list)
                             result.append(f'</{list_type}></div>')
                             current_list = []
@@ -175,8 +192,16 @@ class TemplateService:
                             if not in_list or list_type != 'ul':
                                 if in_list and current_list:
                                     # End previous list if it exists
-                                    list_class = 'list-disc' if list_type == 'ul' else 'list-decimal'
-                                    result.append(f'<div class="mb-8"><{list_type} class="{list_class} list-inside space-y-2">')
+                                    list_class = (
+                                        'list-disc'
+                                        if list_type == 'ul'
+                                        else 'list-decimal'
+                                    )
+                                    result.append(
+                                        '<div'
+                                        f' class="mb-8"><{list_type} class="{list_class} list-inside'
+                                        ' space-y-2">'
+                                    )
                                     result.extend(current_list)
                                     result.append(f'</{list_type}></div>')
                                     current_list = []
@@ -193,8 +218,16 @@ class TemplateService:
                             if not in_list or list_type != 'ol':
                                 if in_list and current_list:
                                     # End previous list if it exists
-                                    list_class = 'list-disc' if list_type == 'ul' else 'list-decimal'
-                                    result.append(f'<div class="mb-8"><{list_type} class="{list_class} list-inside space-y-2">')
+                                    list_class = (
+                                        'list-disc'
+                                        if list_type == 'ul'
+                                        else 'list-decimal'
+                                    )
+                                    result.append(
+                                        '<div'
+                                        f' class="mb-8"><{list_type} class="{list_class} list-inside'
+                                        ' space-y-2">'
+                                    )
                                     result.extend(current_list)
                                     result.append(f'</{list_type}></div>')
                                     current_list = []
@@ -206,8 +239,16 @@ class TemplateService:
                     # Not a list item
                     if in_list and current_list:
                         # End the current list
-                        list_class = 'list-disc' if list_type == 'ul' else 'list-decimal'
-                        result.append(f'<div class="mb-8"><{list_type} class="{list_class} list-inside space-y-2">')
+                        list_class = (
+                            'list-disc'
+                            if list_type == 'ul'
+                            else 'list-decimal'
+                        )
+                        result.append(
+                            '<div'
+                            f' class="mb-8"><{list_type} class="{list_class} list-inside'
+                            ' space-y-2">'
+                        )
                         result.extend(current_list)
                         result.append(f'</{list_type}></div>')
                         current_list = []
@@ -218,8 +259,14 @@ class TemplateService:
 
                 # Handle any remaining list
                 if in_list and current_list:
-                    list_class = 'list-disc' if list_type == 'ul' else 'list-decimal'
-                    result.append(f'<div class="mb-8"><{list_type} class="{list_class} list-inside space-y-2">')
+                    list_class = (
+                        'list-disc' if list_type == 'ul' else 'list-decimal'
+                    )
+                    result.append(
+                        '<div'
+                        f' class="mb-8"><{list_type} class="{list_class} list-inside'
+                        ' space-y-2">'
+                    )
                     result.extend(current_list)
                     result.append(f'</{list_type}></div>')
 
@@ -229,7 +276,9 @@ class TemplateService:
             content = convert_lists(content)
 
             # Handle any remaining bold text (non-headers)
-            content = re.sub(r'\*\*([^*]+?)\*\*', r'<strong>\1</strong>', content)
+            content = re.sub(
+                r'\*\*([^*]+?)\*\*', r'<strong>\1</strong>', content
+            )
 
             return content.strip()
 
@@ -237,7 +286,10 @@ class TemplateService:
         html_parts = []
         for section_type, section_content in sections:
             if section_type == 'header':
-                html_parts.append(f'<h4 class="text-lg font-medium mb-6">{section_content}</h4>')
+                html_parts.append(
+                    '<h4 class="text-lg font-medium'
+                    f' mb-6">{section_content}</h4>'
+                )
             else:
                 processed = process_content(section_content)
                 if processed:
@@ -269,7 +321,7 @@ class TemplateService:
         self,
         kb_data: list[Dict[str, Any]],
         report_date: datetime,
-        report_title: str
+        report_title: str,
     ) -> str:
         """Render the KB report template with provided data.
 
@@ -328,7 +380,7 @@ class TemplateService:
                 kb_articles=kb_data,
                 title=report_title,
                 generated_at=report_date,
-                all_kb_cve_data=all_kb_cve_data
+                all_kb_cve_data=all_kb_cve_data,
             )
 
             # logger.info(f"Writing output to: {output_file}")
@@ -347,5 +399,7 @@ class TemplateService:
             raise
         except Exception as e:
             logger.error(f"Error rendering template: {str(e)}")
-            logger.error(f"Template dir contents: {os.listdir(self.template_dir)}")
+            logger.error(
+                f"Template dir contents: {os.listdir(self.template_dir)}"
+            )
             raise

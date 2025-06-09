@@ -1,9 +1,9 @@
 {% extends "quarterly_deep_dive/llm_prompts/base_prompt.j2" %}
 
 {% set output_format_description = "a concise insight (2-3 sentences) highlighting the main trend or anomaly from chart 2 of the Section 7 section" %}
+ {% set output_format_description = "a concise insight (2-3 sentences) highlighting the main trend or anomaly from chart 3 of the Section 7 section" %}
 
-{% block task_instructions %}
-Analyze the provided "{{section_title }}" chart 2 data. Identify the key trend, pattern, or anomaly, and articulate a concise insight in 2-3 sentences.
+ Analyze the provided "{{section_title }}" chart 3 data. Identify the key trend, pattern, or anomaly, and articulate a concise insight in 2-3 sentences.
 {% endblock task_instructions %}
 
 {% block data_context %}

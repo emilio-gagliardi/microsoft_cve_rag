@@ -1,6 +1,7 @@
-from pydantic import BaseModel, Field, model_validator
-from typing import Optional
 import os
+from typing import Optional
+
+from pydantic import BaseModel, Field, model_validator
 from pydantic_settings import BaseSettings
 
 
@@ -24,7 +25,8 @@ class VectorDBCredentialsSchema(BaseModel):
         if environment.lower() == "production":
             if not values.username or not values.password:
                 raise ValueError(
-                    "Username and password are required in production environment"
+                    "Username and password are required in production"
+                    " environment"
                 )
         return values
 
@@ -83,9 +85,12 @@ class MetricsCredentialsSchema(BaseSettings):
     Primarily defines the path to the database file.
     Reads from the METRICS_DATABASE_PATH environment variable.
     """
+
     # Define the field to hold the path, reading from an environment variable.
     # '...' makes the field required. BaseSettings handles the loading.
-    db_path: str = Field(..., alias="METRICS_DATABASE_PATH") # Use alias for env var name with BaseSettings
+    db_path: str = Field(
+        ..., alias="METRICS_DATABASE_PATH"
+    )  # Use alias for env var name with BaseSettings
 
     # Optional: Add validation if needed (e.g., ensure parent directory exists)
     # @field_validator('db_path')

@@ -1,17 +1,18 @@
+import logging
 import os
 from pathlib import Path
-from dotenv import load_dotenv
-import logging
+from typing import Dict
+
 import yaml
 from application.core.schemas.environment_schemas import (
-    VectorDBCredentialsSchema,
-    GraphDBCredentialsSchema,
     DocumentsDBCredentialsSchema,
-    SQLDBCredentialsSchema,
+    GraphDBCredentialsSchema,
     MetricsCredentialsSchema,
+    SQLDBCredentialsSchema,
+    VectorDBCredentialsSchema,
 )
+from dotenv import load_dotenv
 from pydantic import ValidationError
-from typing import Dict
 
 PROJECT_ROOT: Path | None = None
 INNER_PROJECT_DIR: Path | None = None
@@ -45,25 +46,37 @@ def load_app_config() -> dict:
         # Construct the path to config.yaml within the same directory
         config_path = current_script_dir / "config.yaml"
 
-        logging.debug(f"Attempting to load config using resolved path: {config_path}")
+        logging.debug(
+            f"Attempting to load config using resolved path: {config_path}"
+        )
 
         if not config_path.is_file():
-            raise FileNotFoundError(f"Config file not found at expected path: {config_path}")
+            raise FileNotFoundError(
+                f"Config file not found at expected path: {config_path}"
+            )
 
         with open(config_path, "r") as file:
             config_data = yaml.safe_load(file)
             if not config_data:
-                raise ValueError(f"Config file at {config_path} is empty or invalid YAML.")
-            logging.info(f"Application config loaded successfully from {config_path}")
+                raise ValueError(
+                    f"Config file at {config_path} is empty or invalid YAML."
+                )
+            logging.info(
+                f"Application config loaded successfully from {config_path}"
+            )
             return config_data
     except FileNotFoundError as e:
         logging.error(f"FATAL: Application config file error: {e}")
         raise
     except yaml.YAMLError as e:
-        logging.error(f"FATAL: Error parsing YAML config file at {config_path}: {e}")
+        logging.error(
+            f"FATAL: Error parsing YAML config file at {config_path}: {e}"
+        )
         raise
     except Exception as e:
-        logging.error(f"FATAL: Unexpected error loading config file {config_path}: {e}")
+        logging.error(
+            f"FATAL: Unexpected error loading config file {config_path}: {e}"
+        )
         raise
 
 
@@ -144,17 +157,26 @@ def initialize_environment_and_paths():
         # --- 2. Determine Project Root from Config ---
         project_path_str = app_config.get("PROJECT_PATH")
         if not project_path_str or not isinstance(project_path_str, str):
-            raise ValueError("PROJECT_PATH not found or is invalid in config.yaml")
+            raise ValueError(
+                "PROJECT_PATH not found or is invalid in config.yaml"
+            )
 
-        PROJECT_ROOT = Path(project_path_str).resolve()  # e.g., C:\Users\...\microsoft_cve_rag
+        PROJECT_ROOT = Path(
+            project_path_str
+        ).resolve()  # e.g., C:\Users\...\microsoft_cve_rag
 
         if not PROJECT_ROOT.is_dir():
-            raise FileNotFoundError(f"Project root from config ('{project_path_str}') -> '{PROJECT_ROOT}' does not exist or is not a directory.")
+            raise FileNotFoundError(
+                f"Project root from config ('{project_path_str}') ->"
+                f" '{PROJECT_ROOT}' does not exist or is not a directory."
+            )
 
         logging.info(f"Project Root determined from config as: {PROJECT_ROOT}")
 
         # --- 3. Define Core Paths Relative to PROJECT_ROOT ---
-        INNER_PROJECT_DIR = PROJECT_ROOT / "microsoft_cve_rag"  # The directory containing app, conf etc.
+        INNER_PROJECT_DIR = (
+            PROJECT_ROOT / "microsoft_cve_rag"
+        )  # The directory containing app, conf etc.
         APP_DIR = INNER_PROJECT_DIR / "application"
         DATA_DIR = APP_DIR / "data"
         REPORTS_DIR = DATA_DIR / "reports"
@@ -163,10 +185,16 @@ def initialize_environment_and_paths():
         KEYS_DIR = CONF_DIR / "local" / "keys"
 
         # --- Validate crucial directories ---
-        if not INNER_PROJECT_DIR.is_dir(): logging.warning(f"INNER_PROJECT_DIR may not exist: {INNER_PROJECT_DIR}")  # noqa E701
-        if not APP_DIR.is_dir(): logging.warning(f"APP_DIR may not exist: {APP_DIR}")  # noqa E701
-        if not DATA_DIR.is_dir(): logging.warning(f"DATA_DIR may not exist: {DATA_DIR}")  # noqa E701
-        if not CONF_DIR.is_dir(): logging.warning(f"CONF_DIR may not exist: {CONF_DIR}")  # noqa E701
+        if not INNER_PROJECT_DIR.is_dir():
+            logging.warning(
+                f"INNER_PROJECT_DIR may not exist: {INNER_PROJECT_DIR}"
+            )  # noqa E701
+        if not APP_DIR.is_dir():
+            logging.warning(f"APP_DIR may not exist: {APP_DIR}")  # noqa E701
+        if not DATA_DIR.is_dir():
+            logging.warning(f"DATA_DIR may not exist: {DATA_DIR}")  # noqa E701
+        if not CONF_DIR.is_dir():
+            logging.warning(f"CONF_DIR may not exist: {CONF_DIR}")  # noqa E701
         # Consider creating REPORTS_DIR if needed:
         # if not REPORTS_DIR.is_dir(): os.makedirs(REPORTS_DIR, exist_ok=True)
 
@@ -174,33 +202,50 @@ def initialize_environment_and_paths():
         logging.debug("Loading config values into environment variables...")
         for key, value in app_config.items():
             os.environ[key] = str(value)
-            logging.debug(f"Set env var from config: {key}=***")  # Avoid logging sensitive values
+            logging.debug(
+                f"Set env var from config: {key}=***"
+            )  # Avoid logging sensitive values
 
         # --- 5. Load .env File (Relative to PROJECT_ROOT) ---
         environment = os.getenv("ENVIRONMENT", "local").lower()
         logging.info(f"Running in ENVIRONMENT: {environment}")
 
         dotenv_filename = ENV_FILE_MAP.get(environment)
-        dotenv_path = PROJECT_ROOT / (dotenv_filename if dotenv_filename else ".env")
+        dotenv_path = PROJECT_ROOT / (
+            dotenv_filename if dotenv_filename else ".env"
+        )
 
         if dotenv_filename and not dotenv_path.exists():
-            logging.warning(f"Specific env file '{dotenv_filename}' not found at '{dotenv_path}'. Trying default '.env'...")
+            logging.warning(
+                f"Specific env file '{dotenv_filename}' not found at"
+                f" '{dotenv_path}'. Trying default '.env'..."
+            )
             dotenv_path = PROJECT_ROOT / ".env"
 
         if not dotenv_path.exists():
-            logging.warning(f"No .env file found at '{dotenv_path}'. Proceeding without loading .env.")
+            logging.warning(
+                f"No .env file found at '{dotenv_path}'. Proceeding without"
+                " loading .env."
+            )
         else:
             if load_dotenv(dotenv_path=dotenv_path, override=True):
                 logging.info(f"Env vars loaded/updated from {dotenv_path}")
             else:
-                logging.warning(f"dotenv.load_dotenv returned False for path: {dotenv_path}")
+                logging.warning(
+                    "dotenv.load_dotenv returned False for path:"
+                    f" {dotenv_path}"
+                )
 
         _env_loaded = True
         logging.info("Environment and paths successfully initialized.")
 
     except (FileNotFoundError, ValueError, KeyError, TypeError) as e:
-        logging.exception(f"FATAL: Failed to initialize environment or paths: {e}")
-        raise RuntimeError(f"Environment/Path initialization failed: {e}") from e
+        logging.exception(
+            f"FATAL: Failed to initialize environment or paths: {e}"
+        )
+        raise RuntimeError(
+            f"Environment/Path initialization failed: {e}"
+        ) from e
     except Exception as e:
         logging.exception(f"FATAL: Unexpected error during env init: {e}")
         raise RuntimeError(f"Unexpected initialization error: {e}") from e
@@ -312,7 +357,8 @@ def get_vector_db_credentials() -> VectorDBCredentialsSchema:
         logging.error("Vector database environment credentials are not set")
         logging.error(e)
         raise ValueError(
-            "VECTOR_DATABASE_USERNAME or VECTOR_DATABASE_PASSWORD environment variable is not set"
+            "VECTOR_DATABASE_USERNAME or VECTOR_DATABASE_PASSWORD environment"
+            " variable is not set"
         )
 
 
@@ -331,7 +377,8 @@ def get_graph_db_credentials() -> GraphDBCredentialsSchema:
         logging.error("Graph database environment credentials are not set")
         logging.error(e)
         raise ValueError(
-            "GRAPH_DATABASE_USERNAME or GRAPH_DATABASE_PASSWORD environment variable is not set"
+            "GRAPH_DATABASE_USERNAME or GRAPH_DATABASE_PASSWORD environment"
+            " variable is not set"
         )
 
 
@@ -349,7 +396,9 @@ def get_documents_db_credentials() -> DocumentsDBCredentialsSchema:
     except ValidationError as e:
         logging.error("Documents database environment credentials are not set")
         logging.error(e)
-        raise ValueError("DOCUMENTS_DATABASE_ environment variables are not set")
+        raise ValueError(
+            "DOCUMENTS_DATABASE_ environment variables are not set"
+        )
 
 
 def get_sql_db_credentials() -> SQLDBCredentialsSchema:
@@ -392,5 +441,7 @@ def get_metrics_credentials() -> MetricsCredentialsSchema:
         )
     except Exception as e:
         # Catch any other unexpected errors during instantiation
-        logging.exception(f"Unexpected error retrieving metrics credentials: {e}")
+        logging.exception(
+            f"Unexpected error retrieving metrics credentials: {e}"
+        )
         raise

@@ -237,7 +237,8 @@ dependencies:
   - sortedcontainers=2.4.0=pyhd8ed1ab_0
   - soupsieve=2.5=pyhd8ed1ab_1
   - sqlalchemy=2.0.31=py311he736701_0
-  - tabulate  - sqlean.py=3.45.1=py311he736701_1
+  - tabulate
+  - sqlean.py=3.45.1=py311he736701_1
   - sqlite=3.45.3=h2bbff1b_0
   - stack_data=0.6.2=pyhd8ed1ab_0
   - starlette=0.37.2=pyhd8ed1ab_0

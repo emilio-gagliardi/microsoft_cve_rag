@@ -12,11 +12,11 @@
 {% endmacro %}
 
 {# --- Python side consideration --- #}
-# When generating the table HTML in Python (e.g., using pandas.to_html):
-# Ensure you DON'T add extra classes within the pandas call itself unless necessary.
-# Let the Jinja macro wrap it.
-# You might need to add specific classes for action buttons *within* the pandas dataframe
-# before converting to HTML if you want styled buttons like edit/delete.
-# Example:
-# df['Actions'] = df.apply(lambda row: f'<div class="table-actions"><button class="table-action-btn view">...</button></div>', axis=1)
-# html_table = df.to_html(escape=False, index=False, border=0) # escape=False is crucial for rendering HTML buttons
+{# When generating the table HTML in Python (e.g., using pandas.to_html):
+Ensure you DON'T add extra classes within the pandas call itself unless necessary.
+Let the Jinja macro wrap it.
+You might need to add specific classes for action buttons *within* the pandas dataframe
+before converting to HTML if you want styled buttons like edit/delete.
+Example:
+df['Actions'] = df.apply(lambda row: f'<div class="table-actions"><button class="table-action-btn view">...</button></div>', axis=1)
+html_table = df.to_html(escape=False, index=False, border=0) # escape=False is crucial for rendering HTML buttons #}

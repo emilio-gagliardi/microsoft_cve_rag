@@ -1,9 +1,10 @@
-import spacy
-from pydantic import BaseModel
-import marvin
 import asyncio
 from enum import Enum
+
+import marvin
+import spacy
 from application.app_utils import get_openai_api_key
+from pydantic import BaseModel
 
 # Load spaCy model
 nlp = spacy.load("en_core_web_lg")

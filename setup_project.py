@@ -174,7 +174,9 @@ class LinkDocumentToGraph:
         graph_node = self.graph_repository.find_by_id(graph_node_id)
         self.graph_repository.link(document, graph_node)
 """,
-                    "__init__.py": "# Make the document_management package importable\n",
+                    "__init__.py": (
+                        "# Make the document_management package importable\n"
+                    ),
                 },
                 "embedding_generation": {
                     "generate_embedding.py": """# generate_embedding.py
@@ -195,7 +197,9 @@ class GenerateEmbedding:
         values = self.embedding_service.generate(text)
         return Embedding(values=values)
 """,
-                    "__init__.py": "# Make the embedding_generation package importable\n",
+                    "__init__.py": (
+                        "# Make the embedding_generation package importable\n"
+                    ),
                 },
                 "chat_management": {
                     "chat_completion.py": """# chat_completion.py
@@ -234,7 +238,9 @@ class TextCompletion:
         response = self.chat_service.send_message(message)
         return ChatMessage(content=response)
 """,
-                    "__init__.py": "# Make the chat_management package importable\n",
+                    "__init__.py": (
+                        "# Make the chat_management package importable\n"
+                    ),
                 },
                 "__init__.py": "# Make the use_cases package importable\n",
             },
@@ -298,7 +304,9 @@ class GraphRepository(ABC):
     def link(self, document, graph_node):
         pass
 """,
-                    "__init__.py": "# Make the repositories package importable\n",
+                    "__init__.py": (
+                        "# Make the repositories package importable\n"
+                    ),
                 },
                 "services": {
                     "embedding_service.py": """# embedding_service.py
@@ -665,7 +673,9 @@ async def text_completion(message: str):
     use_case = TextCompletion()
     return use_case.execute(message)
 """,
-                        "__init__.py": "# Make the routes package importable\n",
+                        "__init__.py": (
+                            "# Make the routes package importable\n"
+                        ),
                     },
                     "schemas": {
                         "document_schemas.py": """# document_schemas.py
@@ -721,7 +731,9 @@ class ChatMessageSchema(BaseModel):
     content: str
     timestamp: datetime = None
 """,
-                        "__init__.py": "# Make the schemas package importable\n",
+                        "__init__.py": (
+                            "# Make the schemas package importable\n"
+                        ),
                     },
                     "__init__.py": "# Make the v1 package importable\n",
                 },
@@ -791,7 +803,9 @@ def chat_interface(chat_service: ChatService):
         response = chat_service.send_message(user_input)
         st.write("Response:", response)
 """,
-                    "__init__.py": "# Make the components package importable\n",
+                    "__init__.py": (
+                        "# Make the components package importable\n"
+                    ),
                 },
                 "app.py": """# app.py
 # Purpose: This script serves as the main entry point for the Streamlit application.
@@ -860,9 +874,15 @@ def setup_logging():
             "integration": {
                 "api": {},
                 "database": {},
-                "__init__.py": "# Make the integration tests package importable\n",
+                "__init__.py": (
+                    "# Make the integration tests package importable\n"
+                ),
             },
-            "e2e": {"__init__.py": "# Make the end-to-end tests package importable\n"},
+            "e2e": {
+                "__init__.py": (
+                    "# Make the end-to-end tests package importable\n"
+                )
+            },
             "__init__.py": "# Make the tests package importable\n",
         },
         "main.py": """# main.py

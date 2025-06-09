@@ -6,7 +6,17 @@ input_path = r"C:\Users\emili\PycharmProjects\microsoft_cve_support_report\data\
 output_path = r"C:\Users\emili\PycharmProjects\microsoft_cve_support_report\data\08_reporting\periodic_report_CVE_WEEKLY_v1\md\periodic_report_CVE_WEEKLY_v1_2025_02_11.md"
 
 # Keys to extract from each dict
-keys_to_extract = ["id", "post_id", "published", "revision", "post_type", "title", "description", "summary", "kb_article_pairs"]
+keys_to_extract = [
+    "id",
+    "post_id",
+    "published",
+    "revision",
+    "post_type",
+    "title",
+    "description",
+    "summary",
+    "kb_article_pairs",
+]
 
 # Load the JSON file
 with open(input_path, 'r') as file:
@@ -17,7 +27,10 @@ section_1_data = data.get("section_1_data", [])
 
 # Create Markdown content
 markdown_content = "# PortalFuse Weekly Security Update Report\n\n"
-markdown_content += f"**Report Dates:** {data.get('report_start_date')} - {data.get('report_end_date')}\n\n"
+markdown_content += (
+    f"**Report Dates:** {data.get('report_start_date')} -"
+    f" {data.get('report_end_date')}\n\n"
+)
 markdown_content += f"**Title:** {data.get('title')}\n\n"
 markdown_content += "**Description:**\n\n"
 markdown_content += f"{data.get('description')}\n\n"
@@ -40,7 +53,9 @@ for cve in section_1_data:
     if kb_article_pairs:
         markdown_content += "- **KB Article Pairs:**\n"
         for kb in kb_article_pairs:
-            markdown_content += f"  - [{kb}](https://support.microsoft.com/help/{kb})\n"
+            markdown_content += (
+                f"  - [{kb}](https://support.microsoft.com/help/{kb})\n"
+            )
     markdown_content += "\n"
 
 # Write Markdown content to output file

@@ -1,14 +1,19 @@
-from pydantic import BaseModel, DirectoryPath, Field
 from datetime import datetime
-from typing import Dict, Any, Optional
+from typing import Any, Dict, Optional
+
+from pydantic import BaseModel, DirectoryPath, Field
 
 
 class ReportConfig(BaseModel):
     start_date: datetime
     end_date: datetime
-    output_dir: DirectoryPath = Field(default_factory=lambda: "reports/quarterly_deep_dive/html")
+    output_dir: DirectoryPath = Field(
+        default_factory=lambda: "reports/quarterly_deep_dive/html"
+    )
     data_subdir: str = "data"
-    template_dir: str = "quarterly_deep_dive"  # Relative path within main template folder
+    template_dir: str = (
+        "quarterly_deep_dive"  # Relative path within main template folder
+    )
     report_filename: str = "index.html"
     use_synthetic_data: bool = False
     # Add other config like LLM model details if needed
@@ -28,5 +33,7 @@ class ReportContext(BaseModel):
     charts: Dict[str, ChartExport] = Field(default_factory=dict)
     stats: Dict[str, Any] = Field(default_factory=dict)
     llm_insights: Dict[str, str] = Field(default_factory=dict)
-    appendix_tables: Dict[str, str] = Field(default_factory=dict)  # HTML strings
+    appendix_tables: Dict[str, str] = Field(
+        default_factory=dict
+    )  # HTML strings
     # Add any other top-level context needed

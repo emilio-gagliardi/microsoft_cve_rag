@@ -3,14 +3,13 @@ from typing import Dict, List, Union
 
 
 def build_file_mappings(
-    local_paths: List[str],
-    remote_base_path: str
+    local_paths: List[str], remote_base_path: str
 ) -> Dict[str, str]:
     """Build mappings between local files and their remote SFTP destinations.
 
     This function creates a mapping dictionary that defines how local report files
     should be organized when uploaded to the remote SFTP server. It's designed to:
-    
+
     1. Maintain a consistent directory structure for report assets
     2. Ensure proper organization of different file types (HTML, plots, thumbnails)
     3. Handle path normalization across different operating systems
@@ -48,9 +47,15 @@ def build_file_mappings(
         # Normalize and extract parts
         path_parts = os.path.normpath(local_path).split(os.sep)
         file_name = path_parts[-1]
-        sub_folder = path_parts[-2]  # Assuming the subfolder is right before the file name in the path
+        sub_folder = path_parts[
+            -2
+        ]  # Assuming the subfolder is right before the file name in the path
 
-        if sub_folder.lower() in ['html', 'plots', 'thumbnails']:  # Expected subfolders
+        if sub_folder.lower() in [
+            'html',
+            'plots',
+            'thumbnails',
+        ]:  # Expected subfolders
             remote_path = os.path.join(remote_base_path, sub_folder, file_name)
         else:
             # Default to putting it directly under base if unexpected directory

@@ -5,17 +5,18 @@ import os
 
 def main() -> None:
     """Create llm_prompts directory and stub Jinja templates for sections 1-10."""
-    base_dir = os.path.join(
-        os.path.dirname(__file__), 'llm_prompts'
-    )
+    base_dir = os.path.join(os.path.dirname(__file__), 'llm_prompts')
     os.makedirs(base_dir, exist_ok=True)
 
     templates = ['base_prompt.j2']
     for sec in range(1, 11):
         for name in [
-            'chart_1_insight', 'chart_2_insight',
-            'callout_1', 'callout_2',
-            'narrative', 'summary'
+            'chart_1_insight',
+            'chart_2_insight',
+            'callout_1',
+            'callout_2',
+            'narrative',
+            'summary',
         ]:
             templates.append(f'section{sec}_{name}.j2')
 

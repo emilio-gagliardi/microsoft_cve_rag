@@ -1,4 +1,5 @@
 """Utility functions for type conversions and validation."""
+
 from typing import Optional
 
 

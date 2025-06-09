@@ -2,61 +2,50 @@
 # Inputs: None
 # Outputs: FastAPI application instance
 # Dependencies: Routes from api/routes
+import asyncio
 import os
 import sys
-import asyncio
+
 if sys.platform == "win32":
     try:
         # Set the policy to use ProactorEventLoop for better subprocess support on Windows
         asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
-        print("Set asyncio event loop policy to WindowsProactorEventLoopPolicy for Windows.")
+        print(
+            "Set asyncio event loop policy to WindowsProactorEventLoopPolicy"
+            " for Windows."
+        )
     except Exception as policy_error:
         # Log if setting the policy fails, although it usually works
         print(f"Failed to set asyncio event loop policy: {policy_error}")
-import requests
-from contextlib import asynccontextmanager
-from fastapi import FastAPI
 import logging
-from colorama import Fore, Style, init as colorama_init
-from qdrant_client.http.models import (
-    Distance,
-    VectorParams,
-)
-from qdrant_client.async_qdrant_client import AsyncQdrantClient
-# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from application.app_utils import (
-    initialize_environment_and_paths,
-    get_app_config,
-    get_graph_db_credentials,
-    get_vector_db_credentials,
-    # get_documents_db_credentials,
-)
-from application.services.vector_db_service import VectorDBService
-from application.services.graph_db_service import (
-    ensure_graph_db_constraints_exist,
-    # GraphDatabase,
-    # ProductService,
-    # ProductBuildService,
-    # KBArticleService,
-    # MSRCPostService,
-    # UpdatePackageService,
-    # SymptomService,
-    # FixService,
-    # ToolService,
-    # CauseService,
-    # PatchManagementPostService,
-    # inflate_nodes,
-)
+from contextlib import asynccontextmanager
 
-from application.api.v1.routes.vector_db import (
-    router as v1_vector_router,
-)
-from application.api.v1.routes.sftp_routes import (
-    router as v1_sftp_router,
-)
+import requests
 from application.api.v1.routes.azure_storage_blob_routes import (
     router as v1_blob_router,
 )
+from application.api.v1.routes.etl_routes import router as v1_etl_router
+from application.api.v1.routes.report_routes import router as v1_report_router
+from application.api.v1.routes.sftp_routes import router as v1_sftp_router
+from application.api.v1.routes.vector_db import router as v1_vector_router
+
+# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from application.app_utils import (  # get_documents_db_credentials,
+    get_app_config,
+    get_graph_db_credentials,
+    get_vector_db_credentials,
+    initialize_environment_and_paths,
+)
+from application.services.graph_db_service import (  # GraphDatabase,; ProductService,; ProductBuildService,; KBArticleService,; MSRCPostService,; UpdatePackageService,; SymptomService,; FixService,; ToolService,; CauseService,; PatchManagementPostService,; inflate_nodes,
+    ensure_graph_db_constraints_exist,
+)
+from application.services.vector_db_service import VectorDBService
+from colorama import Fore, Style
+from colorama import init as colorama_init
+from fastapi import FastAPI
+from qdrant_client.async_qdrant_client import AsyncQdrantClient
+from qdrant_client.http.models import Distance, VectorParams
+
 # from application.api.v1.routes.document_db import (
 #     router as v1_document_router,
 # )
@@ -65,13 +54,8 @@ from application.api.v1.routes.azure_storage_blob_routes import (
 #     router as v1_graph_router,
 # )
 
-from application.api.v1.routes.etl_routes import (
-    router as v1_etl_router,
-)
 
-from application.api.v1.routes.report_routes import (
-    router as v1_report_router,
-)
+
 # from application.api.v1.routes.chat_routes import (
 #     router as v1_chat_router,
 # )
@@ -102,11 +86,15 @@ class ColoredFormatter(logging.Formatter):
     def format(self, record):
         # Check if the message is from uvicorn/FastAPI
         if not record.name.startswith(('uvicorn', 'fastapi')):
-            module_name = f"{self.COLORS['MODULE']}{record.name}{Style.RESET_ALL}"
+            module_name = (
+                f"{self.COLORS['MODULE']}{record.name}{Style.RESET_ALL}"
+            )
             record.name = module_name
             # Add color to levelname for our application logs
             levelname_color = self.COLORS.get(record.levelname, Fore.WHITE)
-            record.levelname = f"{levelname_color}{record.levelname}{Style.RESET_ALL}"
+            record.levelname = (
+                f"{levelname_color}{record.levelname}{Style.RESET_ALL}"
+            )
 
             # Format the message
             formatted = super().format(record)
@@ -169,7 +157,9 @@ def setup_logging(level=logging.INFO):
     app_logger.setLevel(level)
 
 
-log_level = getattr(logging, os.getenv("LOG_LEVEL", "INFO").upper(), logging.INFO)
+log_level = getattr(
+    logging, os.getenv("LOG_LEVEL", "INFO").upper(), logging.INFO
+)
 setup_logging(log_level)
 logger = logging.getLogger(__name__)
 
@@ -188,7 +178,10 @@ async def lifespan(app: FastAPI):
     logger.info("Validating Graph DB setup...")
     graph_db_credentials = get_graph_db_credentials()
     graph_db_uri = f"{graph_db_credentials.protocol}://{graph_db_credentials.host}:{graph_db_credentials.port}"
-    graph_db_auth = (graph_db_credentials.username, graph_db_credentials.password)
+    graph_db_auth = (
+        graph_db_credentials.username,
+        graph_db_credentials.password,
+    )
     db_status = ensure_graph_db_constraints_exist(
         graph_db_uri, graph_db_auth, graphdb_config
     )
@@ -237,12 +230,16 @@ app = FastAPI(lifespan=lifespan)
 # app.include_router(v1_chat_router, prefix="/api/v1", tags=["Chat v1"])
 app.include_router(v1_etl_router, prefix="/api/v1", tags=["ETL v1"])
 # app.include_router(v1_graph_router, prefix="/api/v1", tags=["Graph Service v1"])
-app.include_router(v1_vector_router, prefix="/api/v1", tags=["Vector Service v1"])
+app.include_router(
+    v1_vector_router, prefix="/api/v1", tags=["Vector Service v1"]
+)
 # app.include_router(v1_document_router, prefix="/api/v1", tags=["Document Service v1"])
 # app.include_router(v2_chat_router, prefix="/api/v2", tags=["Chat v2"])
 app.include_router(v1_sftp_router, prefix="/api/v1", tags=["SFTP Test v1"])
 app.include_router(v1_report_router, prefix="/api/v1", tags=["Reports v1"])
-app.include_router(v1_blob_router, prefix="/api/v1", tags=["Blob Storage Test v1"])
+app.include_router(
+    v1_blob_router, prefix="/api/v1", tags=["Blob Storage Test v1"]
+)
 
 
 @app.get("/")
@@ -253,7 +250,9 @@ async def root():
 
 @app.get("/system_test")
 async def system_test():
-    base_url = "http://localhost:7501"  # Adjust if your server is running on a different address
+    base_url = (  # Adjust if your server is running on a different address
+        "http://localhost:7501"
+    )
     test_results = {}
 
     # Test document route

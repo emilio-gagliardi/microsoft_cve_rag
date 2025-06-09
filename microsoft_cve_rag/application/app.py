@@ -4,15 +4,17 @@
 # Dependencies: Streamlit pages and components
 
 import streamlit as st
-from application.frontend.streamlit.pages import home, chat, data_explorer
 from application.frontend.streamlit.components import sidebar
+from application.frontend.streamlit.pages import chat, data_explorer, home
 
 
 def main():
     st.set_page_config(page_title="AI Knowledge Graph", layout="wide")
     sidebar.render()
 
-    page = st.sidebar.selectbox("Select a page", ["Home", "Chat", "Data Explorer"])
+    page = st.sidebar.selectbox(
+        "Select a page", ["Home", "Chat", "Data Explorer"]
+    )
 
     if page == "Home":
         home.render()

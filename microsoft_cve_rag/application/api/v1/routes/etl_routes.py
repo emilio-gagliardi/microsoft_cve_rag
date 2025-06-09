@@ -3,26 +3,29 @@
 # Outputs: Job status
 # Dependencies: ETL components
 
-from fastapi import APIRouter, HTTPException, BackgroundTasks
+from datetime import datetime
+from uuid import uuid4
+
 from application.core.schemas.etl_schemas import (
     ETLJobConfig,
     ETLJobStatus,
     FullETLRequest,
 )
 from application.etl.pipelines import (
-    incremental_ingestion_pipeline,
     full_ingestion_pipeline,
-    patch_feature_engineering_pipeline,
+    incremental_ingestion_pipeline,
     migrate_neo4j_v1_pipeline,
+    patch_feature_engineering_pipeline,
 )
-from uuid import uuid4
-from datetime import datetime
+from fastapi import APIRouter, BackgroundTasks, HTTPException
 
 router = APIRouter()
 
 
 @router.post("/etl/start", response_model=ETLJobStatus)
-async def start_etl_job(config: ETLJobConfig, background_tasks: BackgroundTasks):
+async def start_etl_job(
+    config: ETLJobConfig, background_tasks: BackgroundTasks
+):
     try:
         job_id = "job_" + str(uuid4())  # Generate a unique job ID
         background_tasks.add_task(
@@ -55,7 +58,8 @@ async def start_full_etl_pipeline(request: FullETLRequest):
     start_date = request.start_date
     end_date = request.end_date or datetime.now()
     print(
-        f"request data: {type(start_date)} - {type(end_date)}\n{start_date} - {end_date}"
+        f"request data: {type(start_date)} - {type(end_date)}\n{start_date} -"
+        f" {end_date}"
     )
     response = await full_ingestion_pipeline(start_date, end_date)
     if response["code"] == 200:
@@ -85,7 +89,8 @@ async def start_patch_feature_pipeline(request: FullETLRequest):
     start_date = request.start_date
     end_date = request.end_date or datetime.now()
     print(
-        f"request data: {type(start_date)} - {type(end_date)}\n{start_date} - {end_date}"
+        f"request data: {type(start_date)} - {type(end_date)}\n{start_date} -"
+        f" {end_date}"
     )
     response = await patch_feature_engineering_pipeline(start_date, end_date)
     if response["code"] == 200:
@@ -113,7 +118,8 @@ async def start_migrate_neo4j_v1_pipeline(request: FullETLRequest):
     start_date = request.start_date
     end_date = request.end_date or datetime.now()
     print(
-        f"request data: {type(start_date)} - {type(end_date)}\n{start_date} - {end_date}"
+        f"request data: {type(start_date)} - {type(end_date)}\n{start_date} -"
+        f" {end_date}"
     )
     response = await migrate_neo4j_v1_pipeline(start_date, end_date)
     if response["code"] == 200:

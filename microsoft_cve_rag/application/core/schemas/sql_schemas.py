@@ -1,10 +1,13 @@
-from pydantic import BaseModel, Field, field_validator
-from typing import Optional, List, Dict
 from datetime import datetime, timezone
+from typing import Dict, List, Optional
+
+from pydantic import BaseModel, Field, field_validator
 
 
 class SQLRecordBase(BaseModel):
-    id: Optional[str] = Field(None, description="Unique identifier of the record")
+    id: Optional[str] = Field(
+        None, description="Unique identifier of the record"
+    )
     created_at: Optional[datetime] = Field(
         None, description="Timestamp when the record was created"
     )
@@ -37,11 +40,15 @@ class SQLRecordDelete(BaseModel):
 class SQLRecordQuery(BaseModel):
     query: Dict[str, str] = Field(..., description="Query parameters")
     page: Optional[int] = Field(1, description="Page number for pagination")
-    page_size: Optional[int] = Field(10, description="Number of records per page")
+    page_size: Optional[int] = Field(
+        10, description="Number of records per page"
+    )
 
 
 class SQLRecordResponse(BaseModel):
-    id: Optional[str] = Field(None, description="Unique identifier of the record")
+    id: Optional[str] = Field(
+        None, description="Unique identifier of the record"
+    )
     message: str = Field(..., description="Response message")
     created_at: Optional[datetime] = Field(
         None, description="Timestamp when the record was created"

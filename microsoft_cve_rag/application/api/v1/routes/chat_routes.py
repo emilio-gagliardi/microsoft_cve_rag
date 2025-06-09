@@ -3,17 +3,17 @@
 # Outputs: AI responses
 # Dependencies: ChatService
 
-from fastapi import APIRouter, Depends
-from application.services.chat_service import ChatService
-from pydantic import BaseModel
 from application.core.schemas.chat_schemas import (
     ChatQueryRequest,
     ChatQueryResponse,
-    GenerateCompletionRequest,
-    GenerateCompletionResponse,
     EmbeddingRequest,
     EmbeddingResponse,
+    GenerateCompletionRequest,
+    GenerateCompletionResponse,
 )
+from application.services.chat_service import ChatService
+from fastapi import APIRouter, Depends
+from pydantic import BaseModel
 from services.embedding_service import EmbeddingService
 
 router = APIRouter()

@@ -1,22 +1,28 @@
+import ast
 import asyncio
 import json
 import logging
 import os
 import re
-import ast
-from datetime import datetime
 import sys
-from typing import Optional, List, Dict, Any, Union
+from datetime import datetime
+from typing import Any, Dict, List, Optional, Union
 from urllib.parse import urlparse
+
 # Configure Windows event loop for subprocess support
 if sys.platform == 'win32':
     asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 
-from crawl4ai import AsyncWebCrawler, CacheMode, MarkdownGenerationResult, CrawlResult
+from crawl4ai import (
+    AsyncWebCrawler,
+    CacheMode,
+    CrawlResult,
+    MarkdownGenerationResult,
+)
 from crawl4ai.async_configs import BrowserConfig, CrawlerRunConfig
 from crawl4ai.extraction_strategy import (
-    LLMExtractionStrategy,
     JsonCssExtractionStrategy,
+    LLMExtractionStrategy,
 )
 from pydantic import BaseModel, Field
 
@@ -25,7 +31,7 @@ from pydantic import BaseModel, Field
 # Configure logging
 logging.basicConfig(
     level=logging.DEBUG,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
 )
 
 logger = logging.getLogger(__name__)
@@ -38,84 +44,94 @@ class KBArticle(BaseModel):
     url: str
     applies_to: List[str] = Field(
         default_factory=list,
-        description="List of product families the KB article applies to."
+        description="List of product families the KB article applies to.",
     )
     os_builds: str = Field(
         default_factory=str,
-        description="OS build(s) the KB article applies to, eg., '17763.5936'"
+        description="OS build(s) the KB article applies to, eg., '17763.5936'",
     )
     page_introduction: str = Field(
         default_factory=str,
-        description="Text that appears before the first section header."
+        description="Text that appears before the first section header.",
     )
     highlights: List[str] = Field(
         default_factory=list,
-        description="List of highlights, typically bullet points."
+        description="List of highlights, typically bullet points.",
     )
     improvements: Dict[str, ImprovementsValue] = Field(
         default_factory=dict,
         description=(
-            "Dictionary of improvements, keyed by subheading or topic. "
-            "Each value can be a list of bullet points or a single string of free text."
-        )
+            "Dictionary of improvements, keyed by subheading or topic. Each"
+            " value can be a list of bullet points or a single string of free"
+            " text."
+        ),
     )
     servicing_stack_update: Dict[str, str] = Field(
         default_factory=dict,
-        description="Dictionary of servicing stack updates, keyed by product family."
+        description=(
+            "Dictionary of servicing stack updates, keyed by product family."
+        ),
     )
     known_issues_and_workaround: List[Dict[str, Any]] = Field(
         default_factory=list,
-        description="List of known issues and workarounds, each stored as a dictionary."
+        description=(
+            "List of known issues and workarounds, each stored as a"
+            " dictionary."
+        ),
     )
     # Flattened fields from HowToGetUpdate
     how_to_get_update_before_installation: Optional[str] = Field(
         default=None,
-        description="Text that appears under 'Before you install this update' (if any)."
+        description=(
+            "Text that appears under 'Before you install this update' (if"
+            " any)."
+        ),
     )
     how_to_get_update_prerequisites: Optional[str] = Field(
         default=None,
-        description="Text listing any required SSUs, LCUs, or other prerequisites."
+        description=(
+            "Text listing any required SSUs, LCUs, or other prerequisites."
+        ),
     )
     how_to_get_update_install_instructions: Optional[str] = Field(
         default=None,
-        description="General instructions for installing the update."
+        description="General instructions for installing the update.",
     )
     how_to_get_update_channels: Optional[List[Dict[str, str]]] = Field(
         default=None,
         description=(
-            "A list of dictionaries, each describing a channel from the update table. "
-            "Each dictionary MUST contain exactly three keys:\n\n"
-            "  1) channel_name: Must be one of [Windows Update, Business, Catalog, Server Update Services, Microsoft Download Center]\n"
-            "  2) availability: Typically 'Yes' or 'No', or a short string describing availability\n"
-            "  3) next_step: A short explanation or link on how to get the update\n\n"
-            "For example:\n\n"
-            "  [\n"
-            "    {\n"
-            "      \"channel_name\": \"Windows Update\",\n"
-            "      \"availability\": \"Yes\",\n"
-            "      \"next_step\": \"Install automatically via Windows Update\"\n"
-            "    },\n"
-            "    {\n"
-            "      \"channel_name\": \"Catalog/Update Catalog\",\n"
-            "      \"availability\": \"Yes\",\n"
-            "      \"next_step\": \"Download manually from the Microsoft Update Catalog\"\n"
-            "    }\n"
-            "  ]\n\n"
-            "Do not use any alternative keys (like 'Available' or 'Next Step'); "
-            "stick to 'channel_name', 'availability', and 'next_step' exactly."
-        )
+            "A list of dictionaries, each describing a channel from the update"
+            " table. Each dictionary MUST contain exactly three keys:\n\n  1)"
+            " channel_name: Must be one of [Windows Update, Business, Catalog,"
+            " Server Update Services, Microsoft Download Center]\n  2)"
+            " availability: Typically 'Yes' or 'No', or a short string"
+            " describing availability\n  3) next_step: A short explanation or"
+            " link on how to get the update\n\nFor example:\n\n  [\n    {\n   "
+            "   \"channel_name\": \"Windows Update\",\n      \"availability\":"
+            " \"Yes\",\n      \"next_step\": \"Install automatically via"
+            " Windows Update\"\n    },\n    {\n      \"channel_name\":"
+            " \"Catalog/Update Catalog\",\n      \"availability\": \"Yes\",\n "
+            "     \"next_step\": \"Download manually from the Microsoft Update"
+            " Catalog\"\n    }\n  ]\n\nDo not use any alternative keys (like"
+            " 'Available' or 'Next Step'); stick to 'channel_name',"
+            " 'availability', and 'next_step' exactly."
+        ),
     )
     how_to_get_update_remove_lcu_instructions: Optional[str] = Field(
         default=None,
-        description="Steps for removing the LCU if needed, typically referencing DISM or wusa.exe."
+        description=(
+            "Steps for removing the LCU if needed, typically referencing DISM"
+            " or wusa.exe."
+        ),
     )
     # Flattened fields from FileInformationBlock and FileInformationTable
     file_information: Optional[List[Dict[str, Any]]] = Field(
         default_factory=list,
         description=(
-            "List of file information blocks. Each block is a dictionary with 'text' (optional string) "
-            "and 'tables' (optional list of dictionaries, each with 'product_family' and 'rows')."
-        )
+            "List of file information blocks. Each block is a dictionary with"
+            " 'text' (optional string) and 'tables' (optional list of"
+            " dictionaries, each with 'product_family' and 'rows')."
+        ),
     )
 
 
@@ -133,7 +149,7 @@ class BaseScraper:
     def __init__(
         self,
         browser_config: Optional[BrowserConfig] = None,
-        run_config: Optional[CrawlerRunConfig] = None
+        run_config: Optional[CrawlerRunConfig] = None,
     ) -> None:
         """Initializes the base scraper with crawler configuration, an optional
         extraction strategy, and configurable browser and crawler settings.
@@ -152,13 +168,15 @@ class BaseScraper:
         self.urls: List[str] = []
         if browser_config is None:
             browser_config = BrowserConfig(
-                browser_type="chromium",      # Recommended: use Chromium for reliable rendering.
-                headless=True,               # Enable headless mode for performance.
-                viewport_width=1920,         # Standard desktop width.
-                viewport_height=1080,        # Standard desktop height.
-                verbose=True                 # Detailed logging enabled.
+                browser_type="chromium",  # Recommended: use Chromium for reliable rendering.
+                headless=True,  # Enable headless mode for performance.
+                viewport_width=1920,  # Standard desktop width.
+                viewport_height=1080,  # Standard desktop height.
+                verbose=True,  # Detailed logging enabled.
             )
-            logger.info("No BrowserConfig provided, using default configuration.")
+            logger.info(
+                "No BrowserConfig provided, using default configuration."
+            )
         self.browser_config = browser_config
         logger.info(f"BrowserConfig: {self.browser_config}")
 
@@ -168,16 +186,17 @@ class BaseScraper:
                 exclude_external_links=True,
                 wait_until="networkidle",
                 extraction_strategy=None,
-                display_mode="DETAILED"
+                display_mode="DETAILED",
             )
-            logger.info("No CrawlerRunConfig provided, using default configuration.")
+            logger.info(
+                "No CrawlerRunConfig provided, using default configuration."
+            )
         self.run_config = run_config
         logger.info(f"CrawlerRunConfig: {self.run_config}")
 
         try:
             self.crawler = AsyncWebCrawler(
-                config=self.browser_config,
-                run_config=self.run_config
+                config=self.browser_config, run_config=self.run_config
             )
             logger.info("AsyncWebCrawler initialized successfully.")
         except Exception as e:
@@ -206,7 +225,9 @@ class BaseScraper:
             return getattr(self.crawl_result, "cleaned_html", "")
         if html_type == "raw":
             return getattr(self.crawl_result, "html", "")
-        logger.warning(f"Invalid HTML type '{html_type}'. Must be 'cleaned' or 'raw'.")
+        logger.warning(
+            f"Invalid HTML type '{html_type}'. Must be 'cleaned' or 'raw'."
+        )
         return ""
 
     def get_success(self) -> bool:
@@ -301,7 +322,9 @@ class BaseScraper:
                 'scrape_YYYYMMDD_HHMMSS' if no URLs.
         """
         if not filename:
-            logger.warning("No filename provided, returning 'no_url_provided'.")
+            logger.warning(
+                "No filename provided, returning 'no_url_provided'."
+            )
             return "no_url_provided"
 
         # If it looks like a URL, extract the meaningful portion
@@ -329,7 +352,7 @@ class BaseScraper:
         extracted_content: bool = True,
         pdf: bool = False,
         screenshot: bool = False,
-        filename_prefix: Optional[str] = None
+        filename_prefix: Optional[str] = None,
     ) -> None:
         """Save KB article crawl result to disk in multiple formats.
 
@@ -384,18 +407,32 @@ class BaseScraper:
 
         # Save raw HTML if available
         if raw_html and hasattr(result, 'html'):
-            await self.async_save_text_content(output_dir, f"{base_filename}_raw.html", result.html)
+            await self.async_save_text_content(
+                output_dir, f"{base_filename}_raw.html", result.html
+            )
 
         # Save cleaned HTML if available
-        if cleaned_html and hasattr(result, 'cleaned_html') and result.cleaned_html:
-            await self.async_save_text_content(output_dir, f"{base_filename}_cleaned.html", result.cleaned_html)
+        if (
+            cleaned_html
+            and hasattr(result, 'cleaned_html')
+            and result.cleaned_html
+        ):
+            await self.async_save_text_content(
+                output_dir,
+                f"{base_filename}_cleaned.html",
+                result.cleaned_html,
+            )
 
         # Handle markdown content with version check
         if markdown and hasattr(result, 'markdown'):
             if isinstance(result.markdown, str):
-                await self.async_save_text_content(output_dir, f"{base_filename}.md", result.markdown)
+                await self.async_save_text_content(
+                    output_dir, f"{base_filename}.md", result.markdown
+                )
             else:
-                logger.warning("Unexpected markdown type: %s", type(result.markdown))
+                logger.warning(
+                    "Unexpected markdown type: %s", type(result.markdown)
+                )
 
             # if hasattr(result, 'fit_markdown'):
             #     await self.async_save_text_content(output_dir, f"{base_filename}_fit_markdown.md", result.fit_markdown)
@@ -406,18 +443,26 @@ class BaseScraper:
 
         # Save extracted content
         if extracted_content and hasattr(result, 'extracted_content'):
-            content = await self.async_parse_json_content(result.extracted_content)
+            content = await self.async_parse_json_content(
+                result.extracted_content
+            )
             if content:
-                await self.async_save_json_content(output_dir, f"{base_filename}_extracted.json", content)
+                await self.async_save_json_content(
+                    output_dir, f"{base_filename}_extracted.json", content
+                )
             else:
                 logger.warning("Failed to parse extracted content")
         # Save PDF if available
         if pdf and hasattr(result, 'pdf') and result.pdf:
-            await self.async_save_binary_content(output_dir, f"{base_filename}.pdf", result.pdf)
+            await self.async_save_binary_content(
+                output_dir, f"{base_filename}.pdf", result.pdf
+            )
 
         # Save screenshot if available
         if screenshot and hasattr(result, 'screenshot') and result.screenshot:
-            await self.async_save_binary_content(output_dir, f"{base_filename}.png", result.screenshot)
+            await self.async_save_binary_content(
+                output_dir, f"{base_filename}.png", result.screenshot
+            )
 
         logger.info(f"Successfully saved KB article content to {output_dir}")
 
@@ -466,14 +511,26 @@ class BaseScraper:
         with open(path, "w", encoding="utf-8") as f:
             f.write(content)
 
-    async def async_save_text_content(self, directory: str, filename: str, content: str) -> None:
-        await asyncio.to_thread(self._save_text_content, directory, filename, content)
+    async def async_save_text_content(
+        self, directory: str, filename: str, content: str
+    ) -> None:
+        await asyncio.to_thread(
+            self._save_text_content, directory, filename, content
+        )
 
-    async def async_save_binary_content(self, directory: str, filename: str, content: bytes) -> None:
-        await asyncio.to_thread(self._save_binary_content, directory, filename, content)
+    async def async_save_binary_content(
+        self, directory: str, filename: str, content: bytes
+    ) -> None:
+        await asyncio.to_thread(
+            self._save_binary_content, directory, filename, content
+        )
 
-    async def async_save_json_content(self, directory: str, filename: str, content: Dict[str, Any]) -> None:
-        await asyncio.to_thread(self._save_json_content, directory, filename, content)
+    async def async_save_json_content(
+        self, directory: str, filename: str, content: Dict[str, Any]
+    ) -> None:
+        await asyncio.to_thread(
+            self._save_json_content, directory, filename, content
+        )
 
     def _save_binary_content(
         self, directory: str, filename: str, content: bytes
@@ -521,10 +578,15 @@ class BaseScraper:
                 # First try ast.literal_eval for Python string representations
                 parsed = ast.literal_eval(content)
                 if isinstance(parsed, list):
-                    valid_dicts = [item for item in parsed if isinstance(item, dict)]
+                    valid_dicts = [
+                        item for item in parsed if isinstance(item, dict)
+                    ]
                     if valid_dicts:
                         if len(valid_dicts) > 1:
-                            logging.info(f"Found {len(valid_dicts)} LLM attempts, using final attempt")
+                            logging.info(
+                                f"Found {len(valid_dicts)} LLM attempts, using"
+                                " final attempt"
+                            )
                         return valid_dicts[-1]
                     logging.warning("List contained no valid JSON objects")
                 return parsed if isinstance(parsed, dict) else {"raw": content}
@@ -533,15 +595,26 @@ class BaseScraper:
                     # Try JSON parsing as fallback
                     parsed = json.loads(content)
                     if isinstance(parsed, list):
-                        valid_dicts = [item for item in parsed if isinstance(item, dict)]
+                        valid_dicts = [
+                            item for item in parsed if isinstance(item, dict)
+                        ]
                         if valid_dicts:
                             if len(valid_dicts) > 1:
-                                logging.info(f"Found {len(valid_dicts)} LLM attempts in JSON, using final attempt")
+                                logging.info(
+                                    f"Found {len(valid_dicts)} LLM attempts in"
+                                    " JSON, using final attempt"
+                                )
                             return valid_dicts[-1]
                         logging.warning("JSON list contained no valid objects")
-                    return parsed if isinstance(parsed, dict) else {"raw": content}
+                    return (
+                        parsed
+                        if isinstance(parsed, dict)
+                        else {"raw": content}
+                    )
                 except json.JSONDecodeError:
-                    logging.warning("Content could not be parsed as Python literal or JSON")
+                    logging.warning(
+                        "Content could not be parsed as Python literal or JSON"
+                    )
                     return {"raw": content}
         return content if isinstance(content, dict) else {"raw": str(content)}
 
@@ -568,7 +641,7 @@ class MicrosoftKbScraper(BaseScraper):
         self,
         output_dir: Optional[str] = None,
         extraction_method: str = "llm",
-        json_schema: Optional[Dict[str, Any]] = None
+        json_schema: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Initializes the KB article scraper with custom Browser and Crawler configs,
         and sets up the extraction strategy according to the specified method using
@@ -590,7 +663,11 @@ class MicrosoftKbScraper(BaseScraper):
             viewport_width=1920,
             viewport_height=1080,
             headers={
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+                "User-Agent": (
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+                    " AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0"
+                    " Safari/537.36"
+                ),
                 "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
                 "Accept-Language": "en-US,en;q=0.9",
                 "Accept-Encoding": "gzip, deflate, br",
@@ -603,9 +680,9 @@ class MicrosoftKbScraper(BaseScraper):
                 "Sec-Fetch-User": "?1",
                 "Sec-CH-UA": '"Chromium";v="122", "Not(A:Brand";v="24"',
                 "Sec-CH-UA-Mobile": "?0",
-                "Sec-CH-UA-Platform": '"Windows"'
+                "Sec-CH-UA-Platform": '"Windows"',
             },
-            verbose=True
+            verbose=True,
         )
         logger.info(f"Custom BrowserConfig for KB: {kb_browser_config}")
 
@@ -618,14 +695,19 @@ class MicrosoftKbScraper(BaseScraper):
             logger.info("Using LLM extraction strategy.")
             openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
             if not openrouter_api_key:
-                logger.error("OpenRouter API key not found in environment variables for LLM extraction.")
+                logger.error(
+                    "OpenRouter API key not found in environment variables for"
+                    " LLM extraction."
+                )
 
             # Build the instruction prompt using the JSON schema.
             prompt = (
-                "Extract a structured JSON object from the following Markdown that represents a Microsoft KB report. "
-                "The JSON object must conform to the following schema:\n\n"
-                f"{json.dumps(json_schema, indent=4)}\n\n"
-                "Ensure that each field is extracted correctly from the Markdown. Return only the JSON object."
+                "Extract a structured JSON object from the following Markdown"
+                " that represents a Microsoft KB report. The JSON object must"
+                " conform to the following"
+                f" schema:\n\n{json.dumps(json_schema, indent=4)}\n\nEnsure"
+                " that each field is extracted correctly from the Markdown."
+                " Return only the JSON object."
             )
             extraction_strategy = LLMExtractionStrategy(
                 provider="openrouter/google/gemini-2.5-pro-exp-03-25:free",
@@ -637,7 +719,7 @@ class MicrosoftKbScraper(BaseScraper):
                 overlap_rate=0.02,
                 apply_chunking=True,
                 input_format="markdown",
-                verbose=True
+                verbose=True,
             )
 
         elif extraction_method.lower() == "css":
@@ -645,13 +727,18 @@ class MicrosoftKbScraper(BaseScraper):
             css_schema = {
                 "name": "KBArticleContent",
                 "baseSelector": "main#supArticleContent",
-                "fields": [
-                    {"name": "body_content", "selector": ":scope > *", "type": "html"}
-                ]
+                "fields": [{
+                    "name": "body_content",
+                    "selector": ":scope > *",
+                    "type": "html",
+                }],
             }
             extraction_strategy = JsonCssExtractionStrategy(css_schema)
         else:
-            logger.error(f"Unknown extraction_method: {extraction_method}. Defaulting to LLM extraction.")
+            logger.error(
+                f"Unknown extraction_method: {extraction_method}. Defaulting"
+                " to LLM extraction."
+            )
             raise ValueError(f"Unknown extraction_method: {extraction_method}")
         # Create custom CrawlerRunConfig for KB articles.
         # teachingCalloutHidden.teachingCalloutPopover, popoverMessageWrapper, col-1-5, f-multi-column.f-multi-column-6, c-uhfh-actions, c-uhfh-gcontainer-st
@@ -664,19 +751,21 @@ class MicrosoftKbScraper(BaseScraper):
             wait_until="networkidle",
             css_selector="main#supArticleContent",
             excluded_tags=["nav", "footer"],
-            excluded_selector=(".col-1-5, .supLeftNavMobileView, .supLeftNavMobileViewContent.grd, "
-                               ".teachingCalloutHidden.teachingCalloutPopover, .popoverMessageWrapper, "
-                               ".f-multi-column.f-multi-column-6, .c-uhfh-actions, .c-uhfh-gcontainer-st, "
-                               ".ocArticleFooterElementContainer, .col-1-5.ucsRailContainer, "
-                               ".ocArticleFooterShareLinksWrapper"
-                               ),
+            excluded_selector=(
+                ".col-1-5, .supLeftNavMobileView,"
+                " .supLeftNavMobileViewContent.grd,"
+                " .teachingCalloutHidden.teachingCalloutPopover,"
+                " .popoverMessageWrapper, .f-multi-column.f-multi-column-6,"
+                " .c-uhfh-actions, .c-uhfh-gcontainer-st,"
+                " .ocArticleFooterElementContainer, .col-1-5.ucsRailContainer,"
+                " .ocArticleFooterShareLinksWrapper"
+            ),
             verbose=True,
         )
         logger.info(f"Custom CrawlerRunConfig for KB: {kb_run_config}")
         # Call the BaseScraper constructor with chosen extraction strategy and configurations.
         super().__init__(
-            browser_config=kb_browser_config,
-            run_config=kb_run_config
+            browser_config=kb_browser_config, run_config=kb_run_config
         )
 
         self.output_dir: str = output_dir or os.path.join(
@@ -684,7 +773,7 @@ class MicrosoftKbScraper(BaseScraper):
             "application",
             "data",
             "scrapes",
-            "kb_articles"
+            "kb_articles",
         )
         os.makedirs(self.output_dir, exist_ok=True)
         logger.info(f"Output directory set to: {self.output_dir}")
@@ -762,17 +851,32 @@ class MicrosoftKbScraper(BaseScraper):
                 self.urls.append(url)
                 result = await crawler.arun(url=url, config=self.run_config)
                 self.crawl_result = result
-                logger.info(f"CrawlResult populated with {len(self.get_html())} characters of HTML")
-                logger.info("CrawlResult structure:\n%s", json.dumps({
-                    'html': bool(self.crawl_result.html),
-                    'cleaned_html': bool(self.crawl_result.cleaned_html),
-                    'structured_data': bool(self.crawl_result.extracted_content),
-                    'screenshot': bool(self.crawl_result.screenshot)
-                }, indent=4))
+                logger.info(
+                    "CrawlResult populated with"
+                    f" {len(self.get_html())} characters of HTML"
+                )
+                logger.info(
+                    "CrawlResult structure:\n%s",
+                    json.dumps(
+                        {
+                            'html': bool(self.crawl_result.html),
+                            'cleaned_html': bool(
+                                self.crawl_result.cleaned_html
+                            ),
+                            'structured_data': bool(
+                                self.crawl_result.extracted_content
+                            ),
+                            'screenshot': bool(self.crawl_result.screenshot),
+                        },
+                        indent=4,
+                    ),
+                )
                 if not self.get_success():
                     logger.error(f"No valid content retrieved from {url}")
                     if self.get_error_message():
-                        logger.error(f"Error message: {self.get_error_message()}")
+                        logger.error(
+                            f"Error message: {self.get_error_message()}"
+                        )
 
                 logger.info(f"Status code: {self.get_status_code()}")
                 logger.info("KB article scraped and processed successfully.")
@@ -797,9 +901,7 @@ class MicrosoftKbScraper(BaseScraper):
             return None
 
     async def save_kb_bulk_results(
-        self,
-        results: List[CrawlResult],
-        output_dir: Optional[str] = None
+        self, results: List[CrawlResult], output_dir: Optional[str] = None
     ) -> Optional[str]:
         """Save bulk crawl results to disk using base class infrastructure.
 
@@ -830,13 +932,20 @@ class MicrosoftKbScraper(BaseScraper):
             try:
                 # Validate extracted content if present
                 if hasattr(result, 'extracted_content'):
-                    content = self._parse_json_content(result.extracted_content)
+                    content = self._parse_json_content(
+                        result.extracted_content
+                    )
                     if isinstance(content, list):
                         valid_items = []
                         for item in content:
-                            if isinstance(item, dict) and item.get('url') is not None:
+                            if (
+                                isinstance(item, dict)
+                                and item.get('url') is not None
+                            ):
                                 valid_items.append(item)
-                        result.extracted_content = valid_items if valid_items else None
+                        result.extracted_content = (
+                            valid_items if valid_items else None
+                        )
                     elif isinstance(content, dict):
                         if content.get('url') is None:
                             # Likely blocked or invalid content
@@ -848,7 +957,7 @@ class MicrosoftKbScraper(BaseScraper):
                     output_dir=self.output_dir,
                     raw_html=False,
                     cleaned_html=False,
-                    filename_prefix="kb_article_"
+                    filename_prefix="kb_article_",
                 )
                 successful_saves += 1
 
@@ -876,7 +985,10 @@ async def main() -> None:
     """
     kb_url = "https://support.microsoft.com/en-us/topic/january-9-2024-kb5034123-os-builds-22621-3007-and-22631-3007-3f7e169f-56e8-4e6e-b6b8-41f4aa4b9b88"  # Replace with a real URL for testing.
 
-    logging.info("Creating instance of MicrosoftKbScraper using LLM extraction strategy.")
+    logging.info(
+        "Creating instance of MicrosoftKbScraper using LLM extraction"
+        " strategy."
+    )
     # You can change extraction_method to "json" if desired.
     kb_scraper = MicrosoftKbScraper(extraction_method="llm")
 
@@ -893,10 +1005,16 @@ async def main() -> None:
             logging.error("Extracted content is None!")
             logging.info("Checking raw extraction data...")
             # Try to access any other properties that might contain the extracted data
-            logging.info(f"Available CrawlResult attributes: {dir(kb_scraper.crawl_result)}")
+            logging.info(
+                "Available CrawlResult attributes:"
+                f" {dir(kb_scraper.crawl_result)}"
+            )
         else:
             logging.info(f"Extracted content type: {type(extracted_content)}")
-            logging.info(f"Extracted content structure: {json.dumps(extracted_content, indent=2)}")
+            logging.info(
+                "Extracted content structure:"
+                f" {json.dumps(extracted_content, indent=2)}"
+            )
 
         # Check markdown content
         markdown_text = kb_scraper.get_markdown()
@@ -907,7 +1025,11 @@ async def main() -> None:
             logging.info("First 500 characters of markdown:")
             logging.info(markdown_text[:500])
             logging.info("Last 500 characters of markdown:")
-            logging.info(markdown_text[-500:] if len(markdown_text) > 500 else markdown_text)
+            logging.info(
+                markdown_text[-500:]
+                if len(markdown_text) > 500
+                else markdown_text
+            )
 
         # Show LLM usage statistics
         logging.info("LLM Usage Statistics:")
@@ -915,13 +1037,21 @@ async def main() -> None:
 
         # Print the final output
         print("\nStructured JSON:")
-        print(json.dumps(extracted_content, indent=4) if extracted_content else "No structured data extracted")
+        print(
+            json.dumps(extracted_content, indent=4)
+            if extracted_content
+            else "No structured data extracted"
+        )
 
         print("\nMarkdown Output:")
-        print(markdown_text if markdown_text else "No markdown content extracted")
+        print(
+            markdown_text if markdown_text else "No markdown content extracted"
+        )
     else:
         print("Failed to extract content for the KB article.")
-        logging.error(f"Crawl failed with status code: {kb_scraper.get_status_code()}")
+        logging.error(
+            f"Crawl failed with status code: {kb_scraper.get_status_code()}"
+        )
         logging.error(f"Error message: {kb_scraper.get_error_message()}")
 
     kb_scraper.save_crawl_result(
@@ -931,10 +1061,11 @@ async def main() -> None:
         json_output=True,
         pdf=False,
         thumbnail=False,
-        filename_prefix="kb_article_"
+        filename_prefix="kb_article_",
     )
     logging.info("Closing MicrosoftKbScraper crawler session.")
     await kb_scraper.close()
+
 
 if __name__ == "__main__":
     asyncio.run(main())

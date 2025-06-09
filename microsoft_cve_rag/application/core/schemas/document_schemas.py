@@ -6,12 +6,12 @@
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
 # print(sys.path)
 
-from pydantic import BaseModel, Field, field_validator
-from typing import Optional, List, Dict, Any
-
 # from hashlib import sha256
 from datetime import datetime
+from typing import Any, Dict, List, Optional
+
 from application.app_utils import get_app_config
+from pydantic import BaseModel, Field, field_validator
 
 settings = get_app_config()
 
@@ -21,14 +21,19 @@ class BaseMetadata(BaseModel):
     Base metadata model for documents. Includes common metadata fields.
     """
 
-    revision: Optional[str] = Field(None, description="The version of msrc post types.")
+    revision: Optional[str] = Field(
+        None, description="The version of msrc post types."
+    )
     id: str = Field(..., description="UUID string")
     post_id: Optional[str] = Field(
         None, description="Specific CVE identification ID. eg. CVE-2023-36435"
     )
     published: Optional[datetime] = Field(
         None,
-        description="Publication date of the version. Multiple versions have multiple dates.",
+        description=(
+            "Publication date of the version. Multiple versions have multiple"
+            " dates."
+        ),
     )
 
     @field_validator("published")
@@ -38,7 +43,9 @@ class BaseMetadata(BaseModel):
         return value
 
     title: Optional[str] = Field(None, description="Title of the document")
-    description: Optional[str] = Field(None, description="Description of the document")
+    description: Optional[str] = Field(
+        None, description="Description of the document"
+    )
     build_numbers: Optional[List[List[int]]] = Field(
         None,
         description="All CVEs are associated to specific OS build numbers.",
@@ -48,73 +55,156 @@ class BaseMetadata(BaseModel):
     )
     product_build_ids: Optional[List[str]] = Field(
         None,
-        description="Identifier that associates products, kb articles, update packages",
+        description=(
+            "Identifier that associates products, kb articles, update packages"
+        ),
     )
     products: Optional[List[str]] = Field(
         None,
         description="The name of the product(s) affected by the CVE",
     )
-    severity_type: Optional[str] = Field(None, description="Severity type of the CVE")
+    severity_type: Optional[str] = Field(
+        None, description="Severity type of the CVE"
+    )
     summary: Optional[str] = Field(None, description="Summary of the document")
     collection: Optional[str] = Field(
         None, description="document collection. Currently there are 10."
     )
-    source: Optional[str] = Field(None, description="The URL of the ingested document")
+    source: Optional[str] = Field(
+        None, description="The URL of the ingested document"
+    )
     hash: Optional[str] = Field(None, description="Hash of the document")
     # Add NVD base fields
-    nvd_published_date: Optional[datetime] = Field(None, description="NVD publication date")
+    nvd_published_date: Optional[datetime] = Field(
+        None, description="NVD publication date"
+    )
     nvd_description: Optional[str] = Field(None, description="NVD description")
-    
+
     # Add CWE fields
-    cwe_id: Optional[str] = Field(None, description="Common Weakness Enumeration ID")
+    cwe_id: Optional[str] = Field(
+        None, description="Common Weakness Enumeration ID"
+    )
     cwe_name: Optional[str] = Field(None, description="Name of the CWE")
     cwe_source: Optional[str] = Field(None, description="Source of the CWE")
     cwe_url: Optional[str] = Field(None, description="URL to CWE details")
-    
+
     # Add NIST CVSS fields
-    nist_vector: Optional[str] = Field(None, description="NIST CVSS vector string")
-    nist_base_score_num: Optional[float] = Field(None, description="NIST base score number")
-    nist_base_score_rating: Optional[str] = Field(None, description="NIST base score rating")
-    nist_impact_score: Optional[float] = Field(None, description="NIST impact score")
-    nist_exploitability_score: Optional[float] = Field(None, description="NIST exploitability score")
-    nist_attack_vector: Optional[str] = Field(None, description="NIST attack vector")
-    nist_attack_complexity: Optional[str] = Field(None, description="NIST attack complexity")
-    nist_privileges_required: Optional[str] = Field(None, description="NIST privileges required")
-    nist_user_interaction: Optional[str] = Field(None, description="NIST user interaction")
+    nist_vector: Optional[str] = Field(
+        None, description="NIST CVSS vector string"
+    )
+    nist_base_score_num: Optional[float] = Field(
+        None, description="NIST base score number"
+    )
+    nist_base_score_rating: Optional[str] = Field(
+        None, description="NIST base score rating"
+    )
+    nist_impact_score: Optional[float] = Field(
+        None, description="NIST impact score"
+    )
+    nist_exploitability_score: Optional[float] = Field(
+        None, description="NIST exploitability score"
+    )
+    nist_attack_vector: Optional[str] = Field(
+        None, description="NIST attack vector"
+    )
+    nist_attack_complexity: Optional[str] = Field(
+        None, description="NIST attack complexity"
+    )
+    nist_privileges_required: Optional[str] = Field(
+        None, description="NIST privileges required"
+    )
+    nist_user_interaction: Optional[str] = Field(
+        None, description="NIST user interaction"
+    )
     nist_scope: Optional[str] = Field(None, description="NIST scope")
-    nist_confidentiality: Optional[str] = Field(None, description="NIST confidentiality impact")
-    nist_integrity: Optional[str] = Field(None, description="NIST integrity impact")
-    nist_availability: Optional[str] = Field(None, description="NIST availability impact")
-    
+    nist_confidentiality: Optional[str] = Field(
+        None, description="NIST confidentiality impact"
+    )
+    nist_integrity: Optional[str] = Field(
+        None, description="NIST integrity impact"
+    )
+    nist_availability: Optional[str] = Field(
+        None, description="NIST availability impact"
+    )
+
     # Add CNA CVSS fields
-    cna_vector: Optional[str] = Field(None, description="CNA CVSS vector string")
-    cna_base_score_num: Optional[float] = Field(None, description="CNA base score number")
-    cna_base_score_rating: Optional[str] = Field(None, description="CNA base score rating")
-    cna_impact_score: Optional[float] = Field(None, description="CNA impact score")
-    cna_exploitability_score: Optional[float] = Field(None, description="CNA exploitability score")
-    cna_attack_vector: Optional[str] = Field(None, description="CNA attack vector")
-    cna_attack_complexity: Optional[str] = Field(None, description="CNA attack complexity")
-    cna_privileges_required: Optional[str] = Field(None, description="CNA privileges required")
-    cna_user_interaction: Optional[str] = Field(None, description="CNA user interaction")
+    cna_vector: Optional[str] = Field(
+        None, description="CNA CVSS vector string"
+    )
+    cna_base_score_num: Optional[float] = Field(
+        None, description="CNA base score number"
+    )
+    cna_base_score_rating: Optional[str] = Field(
+        None, description="CNA base score rating"
+    )
+    cna_impact_score: Optional[float] = Field(
+        None, description="CNA impact score"
+    )
+    cna_exploitability_score: Optional[float] = Field(
+        None, description="CNA exploitability score"
+    )
+    cna_attack_vector: Optional[str] = Field(
+        None, description="CNA attack vector"
+    )
+    cna_attack_complexity: Optional[str] = Field(
+        None, description="CNA attack complexity"
+    )
+    cna_privileges_required: Optional[str] = Field(
+        None, description="CNA privileges required"
+    )
+    cna_user_interaction: Optional[str] = Field(
+        None, description="CNA user interaction"
+    )
     cna_scope: Optional[str] = Field(None, description="CNA scope")
-    cna_confidentiality: Optional[str] = Field(None, description="CNA confidentiality impact")
-    cna_integrity: Optional[str] = Field(None, description="CNA integrity impact")
-    cna_availability: Optional[str] = Field(None, description="CNA availability impact")
-    
+    cna_confidentiality: Optional[str] = Field(
+        None, description="CNA confidentiality impact"
+    )
+    cna_integrity: Optional[str] = Field(
+        None, description="CNA integrity impact"
+    )
+    cna_availability: Optional[str] = Field(
+        None, description="CNA availability impact"
+    )
+
     # Add ADP CVSS fields
-    adp_vector: Optional[str] = Field(None, description="ADP CVSS vector string")
-    adp_base_score_num: Optional[float] = Field(None, description="ADP base score number")
-    adp_base_score_rating: Optional[str] = Field(None, description="ADP base score rating")
-    adp_impact_score: Optional[float] = Field(None, description="ADP impact score")
-    adp_exploitability_score: Optional[float] = Field(None, description="ADP exploitability score")
-    adp_attack_vector: Optional[str] = Field(None, description="ADP attack vector")
-    adp_attack_complexity: Optional[str] = Field(None, description="ADP attack complexity")
-    adp_privileges_required: Optional[str] = Field(None, description="ADP privileges required")
-    adp_user_interaction: Optional[str] = Field(None, description="ADP user interaction")
+    adp_vector: Optional[str] = Field(
+        None, description="ADP CVSS vector string"
+    )
+    adp_base_score_num: Optional[float] = Field(
+        None, description="ADP base score number"
+    )
+    adp_base_score_rating: Optional[str] = Field(
+        None, description="ADP base score rating"
+    )
+    adp_impact_score: Optional[float] = Field(
+        None, description="ADP impact score"
+    )
+    adp_exploitability_score: Optional[float] = Field(
+        None, description="ADP exploitability score"
+    )
+    adp_attack_vector: Optional[str] = Field(
+        None, description="ADP attack vector"
+    )
+    adp_attack_complexity: Optional[str] = Field(
+        None, description="ADP attack complexity"
+    )
+    adp_privileges_required: Optional[str] = Field(
+        None, description="ADP privileges required"
+    )
+    adp_user_interaction: Optional[str] = Field(
+        None, description="ADP user interaction"
+    )
     adp_scope: Optional[str] = Field(None, description="ADP scope")
-    adp_confidentiality: Optional[str] = Field(None, description="ADP confidentiality impact")
-    adp_integrity: Optional[str] = Field(None, description="ADP integrity impact")
-    adp_availability: Optional[str] = Field(None, description="ADP availability impact")
+    adp_confidentiality: Optional[str] = Field(
+        None, description="ADP confidentiality impact"
+    )
+    adp_integrity: Optional[str] = Field(
+        None, description="ADP integrity impact"
+    )
+    adp_availability: Optional[str] = Field(
+        None, description="ADP availability impact"
+    )
+
 
 class DocumentMetadata(BaseMetadata):
     """
@@ -127,15 +217,20 @@ class DocumentMetadata(BaseMetadata):
     cve_mentions: Optional[str] = Field(
         None, description="CVE mentions in the document"
     )
-    tags: Optional[str] = Field(None, description="Tags associated with the document")
+    tags: Optional[str] = Field(
+        None, description="Tags associated with the document"
+    )
     added_to_vector_store: Optional[bool] = Field(
-        False, description="Indicates if the document is added to the vector store"
+        False,
+        description="Indicates if the document is added to the vector store",
     )
     added_to_summary_index: Optional[bool] = Field(
-        False, description="Indicates if the document is added to the summary index"
+        False,
+        description="Indicates if the document is added to the summary index",
     )
     added_to_graph_store: Optional[bool] = Field(
-        False, description="Indicates if the document is added to the graph store"
+        False,
+        description="Indicates if the document is added to the graph store",
     )
 
     class Config:
@@ -146,7 +241,11 @@ class DocumentMetadata(BaseMetadata):
                 "post_id": "CVE-2024-post123",
                 "published": "2024-07-15T00:00:00+00:00",
                 "title": "Sample Microsoft Document Title",
-                "description": "In Microsoft documentation, only the CVEs typically contain descriptions that coincide with the version of the document.",
+                "description": (
+                    "In Microsoft documentation, only the CVEs typically"
+                    " contain descriptions that coincide with the version of"
+                    " the document."
+                ),
                 "build_numbers": [[10, 0, 19041], [10, 0, 19042]],
                 "impact_type": "Security",
                 "product_build_ids": ["123e4567-e89b-12d3-a456-426614174001"],
@@ -171,14 +270,20 @@ class DocumentRecordBase(BaseModel):
     Base model for document records. This model includes common fields that are shared across different document record operations.
     """
 
-    id_: Optional[str] = Field(None, description="Unique identifier of the record")
-    embedding: Optional[List[float]] = Field(None, description="Embedding vector")
+    id_: Optional[str] = Field(
+        None, description="Unique identifier of the record"
+    )
+    embedding: Optional[List[float]] = Field(
+        None, description="Embedding vector"
+    )
     metadata: Optional[DocumentMetadata] = Field(
         None, description="Metadata associated with the record"
     )
     excluded_embed_metadata_keys: Optional[List[str]] = Field(
         None,
-        description="Metadata keys to exclude from embedding. LlamaIndex specific.",
+        description=(
+            "Metadata keys to exclude from embedding. LlamaIndex specific."
+        ),
     )
     excluded_llm_metadata_keys: Optional[List[str]] = Field(
         None,
@@ -188,17 +293,28 @@ class DocumentRecordBase(BaseModel):
         None,
         description="Relationships of the record. LlamaIndex specific.",
     )
-    text: Optional[str] = Field(None, description="Text associated with the record")
-    start_char_idx: Optional[int] = Field(None, description="Start character index")
-    end_char_idx: Optional[int] = Field(None, description="End character index")
+    text: Optional[str] = Field(
+        None, description="Text associated with the record"
+    )
+    start_char_idx: Optional[int] = Field(
+        None, description="Start character index"
+    )
+    end_char_idx: Optional[int] = Field(
+        None, description="End character index"
+    )
     text_template: Optional[str] = Field(None, description="Template for text")
-    metadata_template: Optional[str] = Field(None, description="Template for metadata")
+    metadata_template: Optional[str] = Field(
+        None, description="Template for metadata"
+    )
     metadata_separator: Optional[str] = Field(
         None, description="Separator for metadata"
     )
     class_name: Optional[str] = Field(
         "Document",
-        description="Class name used in RAG processing ie., a LlamaIndex Document in this case.",
+        description=(
+            "Class name used in RAG processing ie., a LlamaIndex Document in"
+            " this case."
+        ),
     )
 
     class Config:
@@ -215,7 +331,9 @@ class DocumentRecordBase(BaseModel):
                     "description": "This is a sample document.",
                     "build_numbers": [[10, 0, 19041], [10, 0, 19042]],
                     "impact_type": "Security",
-                    "product_build_ids": ["123e4567-e89b-12d3-a456-426614174001"],
+                    "product_build_ids": [
+                        "123e4567-e89b-12d3-a456-426614174001"
+                    ],
                     "products": ["Windows 10", "Windows 11"],
                     "severity_type": "High",
                     "summary": "Summary of the document.",
@@ -229,8 +347,14 @@ class DocumentRecordBase(BaseModel):
                     "added_to_summary_index": False,
                     "added_to_graph_store": False,
                 },
-                "excluded_embed_metadata_keys": ["hash", "added_to_vector_store"],
-                "excluded_llm_metadata_keys": ["hash", "added_to_vector_store"],
+                "excluded_embed_metadata_keys": [
+                    "hash",
+                    "added_to_vector_store",
+                ],
+                "excluded_llm_metadata_keys": [
+                    "hash",
+                    "added_to_vector_store",
+                ],
                 "text": "Sample document text",
                 "start_char_idx": 0,
                 "end_char_idx": 100,
@@ -266,7 +390,9 @@ class DocumentRecordCreate(DocumentRecordBase):
                     "description": "This is a sample document.",
                     "build_numbers": [[10, 0, 19041], [10, 0, 19042]],
                     "impact_type": "Security",
-                    "product_build_ids": ["123e4567-e89b-12d3-a456-426614174001"],
+                    "product_build_ids": [
+                        "123e4567-e89b-12d3-a456-426614174001"
+                    ],
                     "products": ["Windows 10", "Windows 11"],
                     "severity_type": "High",
                     "summary": "Summary of the document.",
@@ -308,8 +434,12 @@ class DocumentRecordQuery(BaseModel):
     Model for querying document records. Includes query parameters and pagination details.
     """
 
-    query: Dict[str, str] = Field(default_factory=dict, description="Query parameters")
-    page: Optional[int] = Field(1, description="Page number for pagination. Default 0")
+    query: Dict[str, str] = Field(
+        default_factory=dict, description="Query parameters"
+    )
+    page: Optional[int] = Field(
+        1, description="Page number for pagination. Default 0"
+    )
     page_size: Optional[int] = Field(
         10, description="Number of records per page. Default 10."
     )
@@ -320,7 +450,9 @@ class DocumentRecordResponse(BaseModel):
     Response model for document record operations. Includes the unique identifier, message, timestamps of the record, and the document itself.
     """
 
-    id_: Optional[str] = Field(None, description="Unique identifier of the record")
+    id_: Optional[str] = Field(
+        None, description="Unique identifier of the record"
+    )
     message: str = Field(..., description="Response message from database")
     document: Optional[DocumentRecordBase] = Field(
         None, description="The document data"

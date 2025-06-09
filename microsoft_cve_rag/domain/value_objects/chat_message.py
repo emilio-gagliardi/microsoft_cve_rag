@@ -8,6 +8,7 @@
 # from microsoft_cve_rag.domain.value_objects.chat_message import ChatMessage
 
 from datetime import datetime
+
 from pydantic import BaseModel
 
 

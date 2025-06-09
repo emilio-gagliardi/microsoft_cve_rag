@@ -6,11 +6,12 @@
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 # print(sys.path)
 
-from pydantic import BaseModel, Field, field_validator
-from typing import Optional, List, Dict
 from datetime import datetime, timezone
-from bson import ObjectId
+from typing import Dict, List, Optional
+
 import pandas as pd
+from bson import ObjectId
+from pydantic import BaseModel, Field, field_validator
 
 
 class BaseMetadata(BaseModel):
@@ -18,7 +19,7 @@ class BaseMetadata(BaseModel):
     # Only include fields that are truly common across ALL document types
     model_config = {
         "extra": "allow",  # Allow additional fields at runtime
-        "from_attributes": True
+        "from_attributes": True,
     }
 
 
@@ -27,11 +28,12 @@ class DocumentMetadata(BaseMetadata):
     A flexible metadata class that can handle any document type's metadata.
     Only defines the minimal required tracking fields, all other fields are handled dynamically.
     """
+
     model_config = {
-        "extra": "allow",         # Allow any additional fields
+        "extra": "allow",  # Allow any additional fields
         "arbitrary_types_allowed": True,
         "from_attributes": True,
-        "populate_by_name": True  # Allow population by field name
+        "populate_by_name": True,  # Allow population by field name
     }
 
     @field_validator('*')
@@ -51,7 +53,7 @@ class Document(BaseModel):
     model_config = {
         "extra": "allow",  # Allow extra fields
         "arbitrary_types_allowed": True,  # Allow arbitrary types in metadata
-        "from_attributes": True  # Replaces class Config
+        "from_attributes": True,  # Replaces class Config
     }
 
 

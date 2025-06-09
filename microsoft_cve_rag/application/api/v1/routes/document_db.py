@@ -1,30 +1,14 @@
 # import os
 # import sys
 
-# original_dir = os.getcwd()
-# print(sys.path)
-# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../..")))
-# print(sys.path)
-from bson import ObjectId
 import json
-from json import JSONEncoder
+import logging
 from datetime import datetime
-from fastapi import APIRouter, HTTPException
-from application.core.schemas.document_schemas import (
-    DocumentRecordCreate,
-    DocumentRecordUpdate,
-    DocumentRecordResponse,
-    DocumentRecordQuery,
-    DocumentRecordQueryResponse,
-    BulkDocumentRecordCreate,
-    BulkDocumentRecordUpdate,
-    BulkDocumentRecordDelete,
-    DocumentMetadata,
-    DocumentRecordBase,
-    AggregationPipeline,
-)
-from application.core.models.basic_models import Document
-from application.services.document_service import DocumentService
+from json import JSONEncoder
+from typing import Any, Dict, List
+
+import requests
+
 # from application.services.embedding_service import (
 #     EmbeddingService,
 #     QdrantDefaultProvider,
@@ -32,11 +16,30 @@ from application.services.document_service import DocumentService
 #     OllamaProvider,
 # )
 from application.app_utils import get_app_config
-from typing import List, Dict, Any
-import requests
+from application.core.models.basic_models import Document
+from application.core.schemas.document_schemas import (
+    AggregationPipeline,
+    BulkDocumentRecordCreate,
+    BulkDocumentRecordDelete,
+    BulkDocumentRecordUpdate,
+    DocumentMetadata,
+    DocumentRecordBase,
+    DocumentRecordCreate,
+    DocumentRecordQuery,
+    DocumentRecordQueryResponse,
+    DocumentRecordResponse,
+    DocumentRecordUpdate,
+)
+from application.services.document_service import DocumentService
+
+# original_dir = os.getcwd()
+# print(sys.path)
+# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../..")))
+# print(sys.path)
+from bson import ObjectId
+from fastapi import APIRouter, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-import logging
 
 logging.getLogger(__name__)
 settings = get_app_config()
@@ -173,7 +176,10 @@ def create_document(document: DocumentRecordCreate):
         ):
             raise HTTPException(
                 status_code=400,
-                detail="Invalid data types. 'text' must be a string. 'metadata' must be a DocumentMetadata. id_ must be a string.",
+                detail=(
+                    "Invalid data types. 'text' must be a string. 'metadata'"
+                    " must be a DocumentMetadata. id_ must be a string."
+                ),
             )
 
         # Ensure metadata.id is not empty
@@ -296,7 +302,9 @@ def update_document(document_id: str, document: DocumentRecordUpdate):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.delete("/documents/{document_id}", response_model=DocumentRecordResponse)
+@router.delete(
+    "/documents/{document_id}", response_model=DocumentRecordResponse
+)
 def delete_document(document_id: str):
     """
     Delete a document by its ID.
@@ -517,7 +525,9 @@ def update_documents_bulk(documents: BulkDocumentRecordUpdate):
                 str(document.id_), document_record
             )
             if updated_document is None:
-                raise HTTPException(status_code=404, detail="Document not found")
+                raise HTTPException(
+                    status_code=404, detail="Document not found"
+                )
             updated_document = document_db_service.get_document(document.id_)
             responses.append(
                 DocumentRecordResponse(
@@ -565,7 +575,9 @@ def delete_documents_bulk(documents: BulkDocumentRecordDelete):
         for document_id in documents.ids:
             deleted_document = document_db_service.delete_document(document_id)
             if deleted_document is None:
-                raise HTTPException(status_code=404, detail="Document not found")
+                raise HTTPException(
+                    status_code=404, detail="Document not found"
+                )
             deleted_document = document_db_service.get_document(document_id)
             responses.append(
                 DocumentRecordResponse(
@@ -607,7 +619,9 @@ async def aggregate_documents(pipeline: AggregationPipeline):
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"An error occurred: {str(e)}"
+        )
 
 
 if __name__ == "__main__":

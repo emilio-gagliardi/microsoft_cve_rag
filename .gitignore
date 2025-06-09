@@ -127,6 +127,7 @@ anaconda_projects/
 microsoft_cve_rag/application/data/metrics_db
 microsoft_cve_rag/architect
 microsoft_cve_rag/application/data/pair_programming/cascade_notes.md
+.jupyter_ystore.db
 # Ignore codiumate settings
 .codiumai.toml
 

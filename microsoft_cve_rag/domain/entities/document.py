@@ -7,10 +7,11 @@
 # Example Usage:
 # from microsoft_cve_rag.domain.entities.document import Document
 
-from pydantic import BaseModel, Field
-from typing import Optional, List, Dict
+from typing import Dict, List, Optional
 from uuid import UUID, uuid4
+
 from domain.entities.base_metadata import BaseMetadata
+from pydantic import BaseModel, Field
 
 
 class DocumentMetadata(BaseMetadata):

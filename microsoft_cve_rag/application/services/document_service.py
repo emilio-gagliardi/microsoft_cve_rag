@@ -9,20 +9,21 @@
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 # print(sys.path)
 
-from bson import ObjectId
-from application.core.models.basic_models import Document
-from pymongo import MongoClient
-from pymongo.errors import (
-    PyMongoError,
-    ConnectionFailure,
-    OperationFailure,
-    ConfigurationError,
-)
-from application.app_utils import get_documents_db_credentials
 # import json
 import logging
 from datetime import datetime
-from typing import List, Dict, Any, Tuple, Optional
+from typing import Any, Dict, List, Optional, Tuple
+
+from application.app_utils import get_documents_db_credentials
+from application.core.models.basic_models import Document
+from bson import ObjectId
+from pymongo import MongoClient
+from pymongo.errors import (
+    ConfigurationError,
+    ConnectionFailure,
+    OperationFailure,
+    PyMongoError,
+)
 
 logging.getLogger(__name__)
 
@@ -42,6 +43,7 @@ def preprocess_pipeline(pipeline):
     Returns:
         list: The preprocessed aggregation pipeline with datetime objects replacing ISO date strings.
     """
+
     # Helper function to process each value in the pipeline
     def process_value(value):
         if isinstance(value, str):
@@ -66,7 +68,9 @@ def preprocess_pipeline(pipeline):
 
 class DocumentService:
     def __init__(
-        self, db_name: str = "report_docstore", collection_name: str = "docstore"
+        self,
+        db_name: str = "report_docstore",
+        collection_name: str = "docstore",
     ):
         """
         Initialize the DocumentService with database and collection names.
@@ -95,7 +99,9 @@ class DocumentService:
         if "id_" in document_dict:
             document_dict["id_"] = str(document_dict["id_"])
         if "metadata" in document_dict and "id" in document_dict["metadata"]:
-            document_dict["metadata"]["id"] = str(document_dict["metadata"]["id"])
+            document_dict["metadata"]["id"] = str(
+                document_dict["metadata"]["id"]
+            )
 
         try:
             result = self.collection.insert_one(document_dict)
@@ -153,7 +159,9 @@ class DocumentService:
             print(f"Unexpected error: {e}")
             raise
 
-    def update_document(self, document_id: str, document: Document, exclude_unset: bool = True) -> int:
+    def update_document(
+        self, document_id: str, document: Document, exclude_unset: bool = True
+    ) -> int:
         """
         Update a single document in the collection by its ID.
 
@@ -438,7 +446,10 @@ class DocumentService:
         # Perform a simple test update
         test_update = {"$set": {"test_field": "test_value"}}
         result = self.collection.update_one({"id_": document_id}, test_update)
-        logging.info(f"Test update result - matched: {result.matched_count}, modified: {result.modified_count}")
+        logging.info(
+            f"Test update result - matched: {result.matched_count}, modified:"
+            f" {result.modified_count}"
+        )
 
         # Check document after update
         after = self.collection.find_one({"id_": document_id})
@@ -446,7 +457,9 @@ class DocumentService:
 
         return before, after
 
-    def update_etl_status(self, document_id: str, status_updates: Dict[str, Any]) -> int:
+    def update_etl_status(
+        self, document_id: str, status_updates: Dict[str, Any]
+    ) -> int:
         """
         Update the ETL processing status of a document.
 
@@ -471,13 +484,21 @@ class DocumentService:
         }
 
         try:
-            logging.debug(f"Updating ETL status for document {document_id}: {status_updates}")
+            logging.debug(
+                f"Updating ETL status for document {document_id}:"
+                f" {status_updates}"
+            )
             result = self.collection.update_one(query, {"$set": update_dict})
             if result.modified_count == 0:
-                logging.warning(f"No document found or no changes made for ID: {document_id}")
+                logging.warning(
+                    "No document found or no changes made for ID:"
+                    f" {document_id}"
+                )
             return result.modified_count
         except Exception as e:
-            logging.error(f"Error updating ETL status for document {document_id}: {e}")
+            logging.error(
+                f"Error updating ETL status for document {document_id}: {e}"
+            )
             raise
 
     def _describe(self):
@@ -501,7 +522,10 @@ if __name__ == "__main__":
     document_data = {
         "metadata": {
             "title": "Sample Microsoft CVE document",
-            "description": "This is a sample description to mimick a typical microsoft article.",
+            "description": (
+                "This is a sample description to mimick a typical microsoft"
+                " article."
+            ),
             "products": ["Windows 10 99H9", "Windows 10 98H8"],
             "severity_type": "High",
             "published": datetime.now(),

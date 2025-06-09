@@ -1,6 +1,6 @@
-import sys
-import os
 import importlib.util
+import os
+import sys
 
 # Print Python executable path
 print(f"Python executable: {sys.executable}")
@@ -11,6 +11,7 @@ crawl4ai_spec = importlib.util.find_spec("crawl4ai")
 if crawl4ai_spec is not None:
     print(f"crawl4ai is installed at: {crawl4ai_spec.origin}")
     import crawl4ai
+
     print(f"crawl4ai version: {crawl4ai.__version__}")
 else:
     print("crawl4ai is NOT installed in this environment")

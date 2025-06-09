@@ -23,5 +23,7 @@ def render():
         st.chat_message("user").markdown(prompt)
 
         response = chat_service.get_response(prompt)
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        st.session_state.messages.append(
+            {"role": "assistant", "content": response}
+        )
         st.chat_message("assistant").markdown(response)

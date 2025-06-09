@@ -6,17 +6,26 @@ import logging
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
-from sqlmodel import Session, SQLModel, create_engine, select, text
-from sqlalchemy.orm import sessionmaker  # Optional: For more control over session creation
-from sqlalchemy.exc import SQLAlchemyError, OperationalError, IntegrityError
 from sqlalchemy import inspect  # To check if tables exist
+from sqlalchemy.exc import IntegrityError, OperationalError, SQLAlchemyError
+from sqlalchemy.orm import (  # Optional: For more control over session creation
+    sessionmaker,
+)
+from sqlmodel import Session, SQLModel, create_engine, select, text
 
 # Import your shared models
 try:
-    from microsoft_cve_report_models.models import DimMetric, DimTime, FactMetricValue
+    from microsoft_cve_report_models.models import (
+        DimMetric,
+        DimTime,
+        FactMetricValue,
+    )
 except ImportError:
     # Handle case where models might not be installed during certain tests/setups
-    logging.error("Could not import shared models from 'microsoft_cve_report_models'. Ensure it's installed.")
+    logging.error(
+        "Could not import shared models from 'microsoft_cve_report_models'."
+        " Ensure it's installed."
+    )
     # Define dummy classes or raise a configuration error if necessary
     DimMetric = DimTime = FactMetricValue = None
 
@@ -38,7 +47,10 @@ class DuckDBMetricsService:
                      It's recommended to use an absolute path.
         """
         if not DimMetric:  # Check if models loaded
-            raise RuntimeError("Shared models could not be imported. Cannot initialize DuckDBMetricsService.")
+            raise RuntimeError(
+                "Shared models could not be imported. Cannot initialize"
+                " DuckDBMetricsService."
+            )
 
         self.db_path = Path(db_path).resolve()
         logger.info(f"Metrics database path loaded: {self.db_path}")
@@ -50,7 +62,9 @@ class DuckDBMetricsService:
         # Optional: Create a sessionmaker if you want reusable session configurations
         # self._session_local = sessionmaker(autocommit=False, autoflush=False, bind=self._engine)
 
-        logger.info(f"DuckDBMetricsService initialized for database: {self.db_path}")
+        logger.info(
+            f"DuckDBMetricsService initialized for database: {self.db_path}"
+        )
         # Verify connection and table existence on init (optional but good)
         # asyncio.run(self.verify_connection_and_tables())  # Careful with asyncio.run in module level
 
@@ -59,10 +73,15 @@ class DuckDBMetricsService:
         try:
             # connect_args can be used for DuckDB specific settings if needed
             # e.g., connect_args={'read_only': 'false', 'threads': '4'}
-            self._engine = create_engine(self.database_url, echo=False)  # Set echo=True for debugging SQL
+            self._engine = create_engine(
+                self.database_url, echo=False
+            )  # Set echo=True for debugging SQL
             logger.info("SQLAlchemy engine for DuckDB created successfully.")
         except Exception as e:
-            logger.exception(f"Failed to create SQLAlchemy engine for {self.database_url}: {e}")
+            logger.exception(
+                "Failed to create SQLAlchemy engine for"
+                f" {self.database_url}: {e}"
+            )
             raise
 
     # --- Synchronous Helper Methods (Run in Thread Pool) ---
@@ -93,7 +112,10 @@ class DuckDBMetricsService:
                 missing_tables = required_tables - existing_tables
 
                 if missing_tables:
-                    logger.warning(f"Missing required tables in database {self.db_path}: {missing_tables}. Run migrations.")
+                    logger.warning(
+                        f"Missing required tables in database {self.db_path}:"
+                        f" {missing_tables}. Run migrations."
+                    )
                     # Depending on policy, you could raise an error here
                     # raise RuntimeError(f"Missing required tables: {missing_tables}")
                 else:
@@ -104,11 +126,20 @@ class DuckDBMetricsService:
             logger.error(f"Database operation failed for {self.db_path}: {e}")
             # Check if it's a file not found error specifically
             if "Cannot open file" in str(e):
-                logger.error(f"Database file not found at {self.db_path}. Ensure the path is correct and the file exists.")
-            raise ConnectionError(f"Failed to connect or verify database {self.db_path}") from e
+                logger.error(
+                    f"Database file not found at {self.db_path}. Ensure the"
+                    " path is correct and the file exists."
+                )
+            raise ConnectionError(
+                f"Failed to connect or verify database {self.db_path}"
+            ) from e
         except Exception as e:
-            logger.exception(f"An unexpected error occurred during DB verification: {e}")
-            raise ConnectionError("Failed to verify database connection or tables.") from e
+            logger.exception(
+                f"An unexpected error occurred during DB verification: {e}"
+            )
+            raise ConnectionError(
+                "Failed to verify database connection or tables."
+            ) from e
 
     def _ensure_dimensions_sync(
         self,
@@ -128,25 +159,46 @@ class DuckDBMetricsService:
         dim_time = session.get(DimTime, period_key)
         if not dim_time:
             if not time_data:
-                raise ValueError(f"DimTime with key '{period_key}' not found and no data provided to create it.")
+                raise ValueError(
+                    f"DimTime with key '{period_key}' not found and no data"
+                    " provided to create it."
+                )
             try:
-                logger.info(f"Attempting to create DimTime for key: {period_key}")
+                logger.info(
+                    f"Attempting to create DimTime for key: {period_key}"
+                )
                 new_dim_time = DimTime(period_key=period_key, **time_data)
                 session.add(new_dim_time)
                 session.flush()  # Try to insert it
                 dim_time = new_dim_time  # It's now managed and "gotten"
-                logger.info(f"DimTime for key '{period_key}' created and flushed.")
-            except IntegrityError:  # Specific error for duplicate key / constraint violation
+                logger.info(
+                    f"DimTime for key '{period_key}' created and flushed."
+                )
+            except (
+                IntegrityError
+            ):  # Specific error for duplicate key / constraint violation
                 session.rollback()  # Rollback the failed flush attempt for this new object
-                logger.warning(f"IntegrityError creating DimTime for '{period_key}', likely already exists. Re-fetching.")
-                dim_time = session.get(DimTime, period_key)  # Re-fetch, it MUST exist now
-                if not dim_time:  # Should not happen if IntegrityError was due to duplicate
-                    msg = f"FATAL: DimTime '{period_key}' not found after IntegrityError rollback and re-fetch."
+                logger.warning(
+                    f"IntegrityError creating DimTime for '{period_key}',"
+                    " likely already exists. Re-fetching."
+                )
+                dim_time = session.get(
+                    DimTime, period_key
+                )  # Re-fetch, it MUST exist now
+                if (
+                    not dim_time
+                ):  # Should not happen if IntegrityError was due to duplicate
+                    msg = (
+                        f"FATAL: DimTime '{period_key}' not found after"
+                        " IntegrityError rollback and re-fetch."
+                    )
                     logger.error(msg)
                     raise RuntimeError(msg)
             except Exception as e:
                 session.rollback()
-                msg = f"Unexpected error creating DimTime for {period_key}: {e}"
+                msg = (
+                    f"Unexpected error creating DimTime for {period_key}: {e}"
+                )
                 logger.exception(msg)
                 raise
 
@@ -154,26 +206,44 @@ class DuckDBMetricsService:
         dim_metric = session.get(DimMetric, metric_key)
         if not dim_metric:
             if not metric_data:
-                raise ValueError(f"DimMetric with key '{metric_key}' not found and no data provided to create it.")
+                raise ValueError(
+                    f"DimMetric with key '{metric_key}' not found and no data"
+                    " provided to create it."
+                )
             try:
-                logger.info(f"Attempting to create DimMetric for key: {metric_key}")
-                new_dim_metric = DimMetric(metric_key=metric_key, **metric_data)
+                logger.info(
+                    f"Attempting to create DimMetric for key: {metric_key}"
+                )
+                new_dim_metric = DimMetric(
+                    metric_key=metric_key, **metric_data
+                )
                 session.add(new_dim_metric)
                 session.flush()
                 dim_metric = new_dim_metric
-                logger.info(f"DimMetric for key '{metric_key}' created and flushed.")
+                logger.info(
+                    f"DimMetric for key '{metric_key}' created and flushed."
+                )
             except IntegrityError:
                 session.rollback()
-                msg = f"IntegrityError creating DimMetric for '{metric_key}', likely already exists. Re-fetching."
+                msg = (
+                    f"IntegrityError creating DimMetric for '{metric_key}',"
+                    " likely already exists. Re-fetching."
+                )
                 logger.warning(msg)
                 dim_metric = session.get(DimMetric, metric_key)
                 if not dim_metric:
-                    msg = f"FATAL: DimMetric '{metric_key}' not found after IntegrityError rollback and re-fetch."
+                    msg = (
+                        f"FATAL: DimMetric '{metric_key}' not found after"
+                        " IntegrityError rollback and re-fetch."
+                    )
                     logger.error(msg)
                     raise RuntimeError(msg)
             except Exception as e:
                 session.rollback()
-                msg = f"Unexpected error creating DimMetric for {metric_key}: {e}"
+                msg = (
+                    "Unexpected error creating DimMetric for"
+                    f" {metric_key}: {e}"
+                )
                 logger.exception(msg)
                 raise
 
@@ -185,8 +255,12 @@ class DuckDBMetricsService:
         metric_key: str,
         numeric_val: Optional[float] = None,
         json_val: Optional[Dict[str, Any]] = None,
-        time_data: Optional[Dict[str, Any]] = None,  # e.g., {'start_date': ..., 'end_date': ..., 'label': ...}
-        metric_data: Optional[Dict[str, Any]] = None,  # e.g., {'description': ..., 'originating_report_name': ...}
+        time_data: Optional[
+            Dict[str, Any]
+        ] = None,  # e.g., {'start_date': ..., 'end_date': ..., 'label': ...}
+        metric_data: Optional[
+            Dict[str, Any]
+        ] = None,  # e.g., {'description': ..., 'originating_report_name': ...}
     ) -> bool:
         """
         Synchronously performs the UPSERT operation for a FactMetricValue.
@@ -195,7 +269,9 @@ class DuckDBMetricsService:
         if not self._engine:
             raise ConnectionError("Database engine not initialized.")
 
-        current_ts = datetime.datetime.now(datetime.timezone.utc)  # Use timezone-aware UTC
+        current_ts = datetime.datetime.now(
+            datetime.timezone.utc
+        )  # Use timezone-aware UTC
 
         # SQL for UPSERT using ON CONFLICT (DuckDB/Postgres style)
         # Use native JSON support if possible
@@ -213,7 +289,9 @@ class DuckDBMetricsService:
             with self._get_sync_session() as session:
                 try:
                     # 1. Ensure Dimensions Exist (within the transaction)
-                    self._ensure_dimensions_sync(session, period_key, metric_key, time_data, metric_data)
+                    self._ensure_dimensions_sync(
+                        session, period_key, metric_key, time_data, metric_data
+                    )
 
                     # 2. Perform UPSERT using raw SQL for atomicity
                     session.exec(
@@ -226,20 +304,30 @@ class DuckDBMetricsService:
                         )
                     )
                     session.commit()
-                    logger.debug(f"Upsert successful for {metric_key} in {period_key}")
+                    logger.debug(
+                        f"Upsert successful for {metric_key} in {period_key}"
+                    )
                     return True
                 except Exception as inner_exc:
-                    logger.exception(f"Error during upsert transaction for {metric_key} in {period_key}. Rolling back.")
+                    logger.exception(
+                        f"Error during upsert transaction for {metric_key} in"
+                        f" {period_key}. Rolling back."
+                    )
                     session.rollback()
                     raise inner_exc  # Re-raise the inner exception
         except SQLAlchemyError as e:
-            logger.exception(f"Database error during upsert for {metric_key} in {period_key}: {e}")
+            logger.exception(
+                f"Database error during upsert for {metric_key} in"
+                f" {period_key}: {e}"
+            )
             return False
         except ValueError as e:  # Catch errors from _ensure_dimensions_sync
             logger.error(f"Data validation error during upsert: {e}")
             return False
 
-    def _get_metric_value_sync(self, period_key: str, metric_key: str) -> Optional[FactMetricValue]:
+    def _get_metric_value_sync(
+        self, period_key: str, metric_key: str
+    ) -> Optional[FactMetricValue]:
         """Synchronously fetches a single metric value."""
         if not self._engine:
             raise ConnectionError("Database engine not initialized.")
@@ -247,31 +335,44 @@ class DuckDBMetricsService:
             with self._get_sync_session() as session:
                 statement = select(FactMetricValue).where(
                     FactMetricValue.period_key == period_key,
-                    FactMetricValue.metric_key == metric_key
+                    FactMetricValue.metric_key == metric_key,
                 )
                 result = session.exec(statement).one_or_none()
                 return result
         except SQLAlchemyError as e:
-            logger.exception(f"Database error fetching metric {metric_key} for {period_key}: {e}")
+            logger.exception(
+                f"Database error fetching metric {metric_key} for"
+                f" {period_key}: {e}"
+            )
             return None  # Or re-raise depending on desired error handling
 
-    def _get_metrics_for_period_sync(self, period_key: str) -> List[FactMetricValue]:
+    def _get_metrics_for_period_sync(
+        self, period_key: str
+    ) -> List[FactMetricValue]:
         """Synchronously fetches all metric values for a given period."""
         if not self._engine:
             raise ConnectionError("Database engine not initialized.")
         try:
             with self._get_sync_session() as session:
-                statement = select(FactMetricValue).where(FactMetricValue.period_key == period_key)
+                statement = select(FactMetricValue).where(
+                    FactMetricValue.period_key == period_key
+                )
                 results = session.exec(statement).all()
                 return list(results)  # Convert Sequence to List
         except SQLAlchemyError as e:
-            logger.exception(f"Database error fetching metrics for period {period_key}: {e}", exc_info=True)
+            logger.exception(
+                "Database error fetching metrics for period"
+                f" {period_key}: {e}",
+                exc_info=True,
+            )
             return []
 
     def _get_latest_period_key_sync(self, session: Session) -> Optional[str]:
         """Synchronously fetches the most recent period_key from DimTime."""
         if not DimTime:  # Models not loaded
-            logger.error("DimTime model not available in _get_latest_period_key_sync.")
+            logger.error(
+                "DimTime model not available in _get_latest_period_key_sync."
+            )
             return None
         try:
             # Assuming DimTime has an 'end_date' field to determine recency
@@ -281,13 +382,18 @@ class DuckDBMetricsService:
             result = session.exec(statement).first()
             return result if result else None
         except SQLAlchemyError as e:
-            logger.error(f"Database error fetching latest period key: {e}", exc_info=True)
-            return None
-        except AttributeError:  # Catch if DimTime or its attributes are missing
             logger.error(
-                "AttributeError in _get_latest_period_key_sync. "
-                "Ensure DimTime is imported and has 'period_key' and 'end_date' attributes.",
-                exc_info=True
+                f"Database error fetching latest period key: {e}",
+                exc_info=True,
+            )
+            return None
+        except (
+            AttributeError
+        ):  # Catch if DimTime or its attributes are missing
+            logger.error(
+                "AttributeError in _get_latest_period_key_sync. Ensure DimTime"
+                " is imported and has 'period_key' and 'end_date' attributes.",
+                exc_info=True,
             )
             return None
 
@@ -295,7 +401,10 @@ class DuckDBMetricsService:
 
     async def verify_connection_and_tables(self) -> None:
         """Asynchronously verifies DB connection and checks for essential tables."""
-        logger.info("Verifying database connection and table structure asynchronously...")
+        logger.info(
+            "Verifying database connection and table structure"
+            " asynchronously..."
+        )
         try:
             await asyncio.to_thread(self._verify_connection_and_tables_sync)
             logger.info("Database verification complete.")
@@ -346,7 +455,9 @@ class DuckDBMetricsService:
             metric_data,
         )
 
-    async def get_metric_value(self, period_key: str, metric_key: str) -> Optional[FactMetricValue]:
+    async def get_metric_value(
+        self, period_key: str, metric_key: str
+    ) -> Optional[FactMetricValue]:
         """
         Asynchronously retrieves a specific metric value for a given period and key.
 
@@ -357,9 +468,13 @@ class DuckDBMetricsService:
         Returns:
             A FactMetricValue object if found, otherwise None.
         """
-        return await asyncio.to_thread(self._get_metric_value_sync, period_key, metric_key)
+        return await asyncio.to_thread(
+            self._get_metric_value_sync, period_key, metric_key
+        )
 
-    async def get_metrics_for_period(self, period_key: str) -> List[FactMetricValue]:
+    async def get_metrics_for_period(
+        self, period_key: str
+    ) -> List[FactMetricValue]:
         """
         Asynchronously retrieves all metric values for a given period.
 
@@ -370,7 +485,9 @@ class DuckDBMetricsService:
             A list of FactMetricValue objects for the period. Returns an empty list
             if the period is not found or on database error.
         """
-        return await asyncio.to_thread(self._get_metrics_for_period_sync, period_key)
+        return await asyncio.to_thread(
+            self._get_metrics_for_period_sync, period_key
+        )
 
     async def get_latest_period_key(self) -> Optional[str]:
         """
@@ -380,14 +497,19 @@ class DuckDBMetricsService:
             The latest period_key string if found, otherwise None.
         """
         if not self._engine:
-            logger.error("Database engine not initialized. Cannot get latest period key.")
+            logger.error(
+                "Database engine not initialized. Cannot get latest period"
+                " key."
+            )
             return None
         try:
             loop = asyncio.get_running_loop()
             # Use a lambda to properly pass the session from _get_sync_session
             period_key = await loop.run_in_executor(
                 None,  # Uses default ThreadPoolExecutor
-                lambda: self._get_latest_period_key_sync(self._get_sync_session())
+                lambda: self._get_latest_period_key_sync(
+                    self._get_sync_session()
+                ),
             )
             return period_key
         except Exception as e:
@@ -400,7 +522,10 @@ class DuckDBMetricsService:
             # For synchronous engines, dispose might not do much for file dbs,
             # but it's good practice if pooling were involved.
             # self._engine.dispose() # Use dispose for pooled connections
-            logger.info("DuckDB Metrics Service engine resources hypothetically released.")
+            logger.info(
+                "DuckDB Metrics Service engine resources hypothetically"
+                " released."
+            )
             # For DuckDB file, there isn't really a pool to dispose in the same way
             # as server-based DBs. Ensuring sessions are closed is key.
             self._engine = None
@@ -451,6 +576,7 @@ class DuckDBMetricsService:
 # --- Test Section ---
 if __name__ == "__main__":
     from dotenv import load_dotenv
+
     # Assuming MetricsDatabasePath is in a module like 'core.config_loader'
     # Adjust the import path as per your project structure.
     try:
@@ -460,11 +586,16 @@ if __name__ == "__main__":
         # This might happen if the script is run from a different context
         # where the relative import isn't resolved. You might need to adjust PYTHONPATH
         # or provide a more robust way to locate MetricsDatabasePath.
-        logger.warning("Could not perform relative import for MetricsDatabasePath. Attempting direct import path or placeholder.")
+        logger.warning(
+            "Could not perform relative import for MetricsDatabasePath."
+            " Attempting direct import path or placeholder."
+        )
         # Placeholder if direct import is complex or for basic testing without full .env setup:
 
         class MetricsDatabasePath:
-            db_path: Optional[str] = "./data/metrics.db"  # Example default, adjust
+            db_path: Optional[str] = (
+                "./data/metrics.db"  # Example default, adjust
+            )
 
     async def main():
         """
@@ -475,7 +606,11 @@ if __name__ == "__main__":
         service: Optional[DuckDBMetricsService] = None
 
         if not db_path_config.db_path:
-            logger.error("Could not retrieve metrics database path. Ensure .env is configured or MetricsDatabasePath provides a default. Exiting.")
+            logger.error(
+                "Could not retrieve metrics database path. Ensure .env is"
+                " configured or MetricsDatabasePath provides a default."
+                " Exiting."
+            )
             return
 
         logger.info(f"Using database path: {db_path_config.db_path}")
@@ -491,38 +626,77 @@ if __name__ == "__main__":
 
             if latest_period_key:
                 logger.info(f"Latest period key found: {latest_period_key}")
-                logger.info(f"Retrieving all metrics for period: {latest_period_key}")
+                logger.info(
+                    f"Retrieving all metrics for period: {latest_period_key}"
+                )
 
-                all_metrics = await service.get_metrics_for_period(latest_period_key)
+                all_metrics = await service.get_metrics_for_period(
+                    latest_period_key
+                )
 
                 if all_metrics:
-                    logger.info(f"Found {len(all_metrics)} metrics for {latest_period_key}:")
+                    logger.info(
+                        f"Found {len(all_metrics)} metrics for"
+                        f" {latest_period_key}:"
+                    )
                     for metric_value_obj in all_metrics:
-                        value_display = metric_value_obj.numeric_val if metric_value_obj.numeric_val is not None else metric_value_obj.json_val
+                        value_display = (
+                            metric_value_obj.numeric_val
+                            if metric_value_obj.numeric_val is not None
+                            else metric_value_obj.json_val
+                        )
 
                         metric_desc_str = ""
                         # Attempt to access related DimMetric for description if relationship exists
-                        if hasattr(metric_value_obj, 'metric') and metric_value_obj.metric and hasattr(metric_value_obj.metric, 'description'):
+                        if (
+                            hasattr(metric_value_obj, 'metric')
+                            and metric_value_obj.metric
+                            and hasattr(metric_value_obj.metric, 'description')
+                        ):
                             metric_desc_str = f" (Desc: {metric_value_obj.metric.description})"  # type: ignore
-                        elif hasattr(metric_value_obj, 'dim_metric') and metric_value_obj.dim_metric and hasattr(metric_value_obj.dim_metric, 'description'):
+                        elif (
+                            hasattr(metric_value_obj, 'dim_metric')
+                            and metric_value_obj.dim_metric
+                            and hasattr(
+                                metric_value_obj.dim_metric, 'description'
+                            )
+                        ):
                             metric_desc_str = f" (Desc: {metric_value_obj.dim_metric.description})"  # type: ignore
 
                         logger.info(
-                            f"  - Metric Key: {metric_value_obj.metric_key}{metric_desc_str}, "
-                            f"Value: {value_display}"
+                            "  - Metric Key:"
+                            f" {metric_value_obj.metric_key}{metric_desc_str},"
+                            f" Value: {value_display}"
                         )
                 else:
-                    logger.info(f"No metrics found for the latest period_key: {latest_period_key}")
+                    logger.info(
+                        "No metrics found for the latest period_key:"
+                        f" {latest_period_key}"
+                    )
             else:
-                logger.info("No period keys found in the DimTime table. Cannot fetch latest metrics.")
+                logger.info(
+                    "No period keys found in the DimTime table. Cannot fetch"
+                    " latest metrics."
+                )
 
         except OperationalError as oe:
-            logger.error(f"Database operational error (e.g., file not found, permissions, malformed DB): {oe}", exc_info=True)
-            logger.error(f"Please ensure the database file exists at {db_path_config.db_path}, is a valid DuckDB file, and is accessible.")
+            logger.error(
+                "Database operational error (e.g., file not found,"
+                f" permissions, malformed DB): {oe}",
+                exc_info=True,
+            )
+            logger.error(
+                "Please ensure the database file exists at"
+                f" {db_path_config.db_path}, is a valid DuckDB file, and is"
+                " accessible."
+            )
         except ConnectionError as ce:
             logger.error(f"Database connection error: {ce}", exc_info=True)
         except Exception as e:
-            logger.exception(f"An unexpected error occurred during the metrics service test: {e}")
+            logger.exception(
+                "An unexpected error occurred during the metrics service"
+                f" test: {e}"
+            )
         finally:
             if service:
                 logger.info("Closing metrics service connection...")
