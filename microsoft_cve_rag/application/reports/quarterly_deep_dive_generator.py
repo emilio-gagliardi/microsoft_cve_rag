@@ -9,7 +9,7 @@ import shutil
 from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 import markdown
 import markdownify
@@ -38,6 +38,7 @@ from application.etl.NVDDataExtractor import NVDDataExtractor
 from application.reports.parameters.card_properties import (
     CARD_STYLES,
     CVE_CATEGORY_COLOR_MAP,
+    GENERIC_METRICS,
     STAT_CARD_LABELS,
     STAT_CARD_SUBTITLES,
 )
@@ -76,7 +77,7 @@ class ReportConfig(BaseModel):
         ),
     )
     report_title: str = Field(
-        default="Quarterly Microsoft CVE Deep Dive",
+        default="PortalFuse Quarterly Security Report",
         description="Display title for the report.",
     )
 
@@ -276,6 +277,12 @@ class ChartExport(BaseModel):
     caption: Optional[str] = None
 
 
+class DataTableExport(BaseModel):
+    table_id: str
+    html: str
+    caption: Optional[str] = None
+
+
 class ReportContext(BaseModel):
     # Data passed directly to the Jinja template
     report_title: str
@@ -284,6 +291,7 @@ class ReportContext(BaseModel):
     end_date: datetime
     config: ReportConfig  # Pass config for potential use in template
     charts: Dict[str, ChartExport] = Field(default_factory=dict)
+    tables: Dict[str, DataTableExport] = Field(default_factory=dict)
     llm_insights: Dict[str, str] = Field(default_factory=dict)
     appendix_tables: Dict[str, Dict[str, str]] = Field(
         default_factory=dict
@@ -295,7 +303,7 @@ class ReportContext(BaseModel):
 class QuarterlyDeepDiveReportGenerator:
 
     REPORT_STRUCTURE = {
-        "report_title": "Quarterly Microsoft CVE Deep Dive",
+        "report_title": "PortalFuse Quarterly Microsoft CVE Deep Dive",
         "explicit_sections": {
             "executive_summary": {
                 "id_html": "executive-summary",
@@ -497,8 +505,24 @@ class QuarterlyDeepDiveReportGenerator:
                         "card_style": "critical_high_pct_card",
                     },
                     {
+                        "metric_id": "median_cvss",
+                        "card_style": "median_cvss_card",
+                        },
+                    {
+                        "metric_id": "highest_cvss",
+                        "card_style": "highest_cvss_card",
+                        },
+                    {
                         "metric_id": "top_impact_type",
                         "card_style": "top_impact_type_card",
+                    },
+                    {
+                        "metric_id": "most_affected_product",
+                        "card_style": "most_affected_product_card",
+                    },
+                    {
+                        "metric_id": "most_volatile_month",
+                        "card_style": "most_volatile_month_card",
                     },
                 ],
             },
@@ -736,6 +760,10 @@ class QuarterlyDeepDiveReportGenerator:
                 ],
                 "stats_definitions": [
                     {
+                        "metric_id": "cwe_category_distribution",
+                        "card_style": "internal_use",
+                    },
+                    {
                         "metric_id": "median_cvss",
                         "card_style": "median_cvss_card",
                     },
@@ -753,8 +781,12 @@ class QuarterlyDeepDiveReportGenerator:
                         "card_style": "top_3_cwe_coverage_pct_card",
                     },
                     {
-                        "metric_id": "memory_safety_vs_logic_bugs_pct",
-                        "card_style": "memory_safety_vs_logic_bugs_pct_card",
+                        "metric_id": "memory_bugs_count",
+                        "card_style": "memory_bugs_count_card",
+                    },
+                    {
+                        "metric_id": "logic_bugs_count",
+                        "card_style": "logic_bugs_count_card",
                     },
                 ],
             },
@@ -912,14 +944,21 @@ class QuarterlyDeepDiveReportGenerator:
                     "data_prep_key": "spotlight_cves_details_table",
                     "table_gen_key": "spotlight_cve_table_html",
                     "caption": (
-                        "Table S1. Details of Spotlighted Critical"
+                        "Table 7.1. Details of Spotlighted Critical"
                         " Vulnerabilities."
                     ),
                     "row_click_config": {
-                        "column_name": "CVE ID",
-                        "url_template": "https://cve.mitre.org/cgi-bin/cvename.cgi?name={CVE_ID}",
+                        "column_name": "cve_id",
+                        "url_template": "https://msrc.microsoft.com/update-guide/vulnerability/{cve_id}",
                         "tooltip": "View CVE Details",
                     },
+                    "columns": [
+                        {"id": "cve_id", "name": "CVE ID", "class_cell": "text-brand-pink-600 dark:text-brand-pink-500 font-semibold whitespace-nowrap", "width_class": "w-36"},
+                        {"id": "published", "name": "Published", "format_spec": "%Y-%m-%d", "class_cell": "whitespace-nowrap", "width_class": "w-28"},
+                        {"id": "cvss_score", "name": "CVSS Score", "format_spec": ".2f", "width_class": "w-20"},
+                        {"id": "title", "name": "Title", "class_cell": "min-w-0 overflow-hidden truncate max-w-sm", "width_class": "w-85", "truncate_content": True},
+                        {"id": "cwe_id", "name": "CWE ID", "class_cell": "whitespace-nowrap", "width_class": "w-24"},
+                    ],
                 }],
                 "callouts_config": [
                     {
@@ -1006,6 +1045,10 @@ class QuarterlyDeepDiveReportGenerator:
         self.reports_base_dir = global_reports_dir
         self.templates_base_dir = global_templates_dir
         self.source_static_dir = global_templates_dir / "static" / "dist"
+        self._MONTH_DISPLAY_NAMES = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December",
+        ]
         self.severity_color_map = {
             'low': '#25B556',  # Lime
             'medium': '#4BAEEA',  # Yellow/Orange
@@ -1118,6 +1161,16 @@ class QuarterlyDeepDiveReportGenerator:
                 'high': '#F0981F',  # Orange
             }
         )
+        self.root_cause_display_map = {
+            'memory_safety': 'Memory Safety',
+            'race_concurrency': 'Race Concurrency',
+            'improper_access_control': 'Improper Access Control',
+            'input_validation_injection': 'Input Validation/Injection',
+            'cryptographic_issues': 'Cryptographic Issues',
+            'configuration_weakness': 'Configuration Weakness',
+            'logic_state_errors': 'Logic State Errors',
+            'none': 'No CWE Assigned',
+        }
         self.spotlight_plot_color = '#EF4444'
         self.cluster_colors_list = px.colors.qualitative.Plotly
         self.cluster_descriptive_names = {
@@ -1186,6 +1239,14 @@ class QuarterlyDeepDiveReportGenerator:
             "exploited_count_kev",
             "exploited_pct_kev",
             "top_3_cwe_coverage_pct",
+            "memory_bugs_count",
+            "logic_bugs_count",
+            "race_concurrency_count",
+            "improper_access_control_count",
+            "input_validation_injection_count",
+            "cryptographic_issues_count",
+            "configuration_weakness_count",
+            "new_cwe_types_this_qtr",
             "median_days_to_patch",
             "patched_le_7d_pct",
             "patched_le_30d_pct",
@@ -1593,7 +1654,9 @@ class QuarterlyDeepDiveReportGenerator:
     # ------------------------------------------------------------------------------
     @staticmethod
     def _extract_metadata_columns(
-        df: pd.DataFrame, metadata_col: str, keys: List[str]
+        df: pd.DataFrame,
+        metadata_col: str,
+        keys: List[str]
     ) -> pd.DataFrame:
         """
         Extracts specified keys from a dictionary column and adds them as new columns.
@@ -1606,6 +1669,7 @@ class QuarterlyDeepDiveReportGenerator:
         Returns:
             DataFrame with new columns for each key.
         """
+        logger.info(f"Available incoming columns: {df.columns}")
         df = df.copy()
         for key in keys:
             df[key] = df[metadata_col].apply(
@@ -1971,7 +2035,7 @@ class QuarterlyDeepDiveReportGenerator:
         for cause, meta in CWE_ROOT_CAUSE.items():
             if cwe_id in meta["ids"]:
                 return cause
-        return "Other / Unmapped"
+        return "none"
 
     @staticmethod
     def _compute_cwe_metrics(
@@ -1995,6 +2059,13 @@ class QuarterlyDeepDiveReportGenerator:
         cwe_metrics_results = {
             "top_cwe_id": "N/A",
             "top_3_cwe_coverage_pct": 0,
+            "memory_bugs_count": 0,
+            "logic_bugs_count": 0,
+            "race_concurrency_count": 0,
+            "improper_access_control_count": 0,
+            "input_validation_injection_count": 0,
+            "cryptographic_issues_count": 0,
+            "configuration_weakness_count": 0,
             "memory_safety_vs_logic_bugs_pct": None,
             "new_cwe_types_this_qtr": (
                 0
@@ -2054,6 +2125,7 @@ class QuarterlyDeepDiveReportGenerator:
 
         # --- Calculate Category-Based Metrics ---
         category_counts = {category: 0 for category in CWE_ROOT_CAUSE.keys()}
+        category_counts["none"] = 0
         unknown_cwe_count = 0
 
         # Iterate through unique primary CWE IDs found in the data
@@ -2073,11 +2145,22 @@ class QuarterlyDeepDiveReportGenerator:
                 " defined categories."
             )
 
-        # --- Memory Safety vs Logic Bugs Ratio ---
+        # --- Root Causes ---
         memory_bugs_count = category_counts.get("memory_safety", 0)
         logic_bugs_count = category_counts.get("logic_state_errors", 0)
+        race_concurrency_count = category_counts.get("race_concurrency", 0)
+        improper_access_control_count = category_counts.get("improper_access_control", 0)
+        input_validation_injection_count = category_counts.get("input_validation_injection", 0)
+        cryptographic_issues_count = category_counts.get("cryptographic_issues", 0)
+        configuration_weakness_count = category_counts.get("configuration_weakness", 0)
         # Consider adding other categories to 'logic' if appropriate, e.g., input validation? For now, just direct logic errors.
-
+        cwe_metrics_results["memory_bugs_count"] = memory_bugs_count
+        cwe_metrics_results["logic_bugs_count"] = logic_bugs_count
+        cwe_metrics_results["race_concurrency_count"] = race_concurrency_count
+        cwe_metrics_results["improper_access_control_count"] = improper_access_control_count
+        cwe_metrics_results["input_validation_injection_count"] = input_validation_injection_count
+        cwe_metrics_results["cryptographic_issues_count"] = cryptographic_issues_count
+        cwe_metrics_results["configuration_weakness_count"] = configuration_weakness_count
         if memory_bugs_count > 0 and logic_bugs_count > 0:
             ratio = round(memory_bugs_count / logic_bugs_count, 2)
             cwe_metrics_results["memory_safety_vs_logic_bugs_pct"] = (
@@ -2101,6 +2184,86 @@ class QuarterlyDeepDiveReportGenerator:
 
         logger.debug(f"Computed CWE metrics: {cwe_metrics_results}")
         return cwe_metrics_results
+
+    def _generate_month_display_labels(
+        self,
+        unique_timestamps: List[pd.Timestamp],
+        context_for_logging: str = "chart processing"
+    ) -> Tuple[Dict[pd.Timestamp, str], List[str]]:
+        """
+        Generates display labels for month-based time series data from Timestamps.
+
+        Args:
+            unique_timestamps: A sorted list of unique pandas Timestamp objects,
+                            each representing the start of a month.
+            context_for_logging: A string identifier for context in logging messages.
+
+        Returns:
+            A tuple containing:
+            - timestamp_to_label_map (Dict[pd.Timestamp, str]): Mapping from Timestamps to labels.
+            - ordered_display_labels (List[str]): Unique string display labels, in chronological order
+                                                suitable for pd.Categorical categories.
+        """
+        timestamp_to_label_map: Dict[pd.Timestamp, str] = {}
+        ordered_display_labels: List[str] = []
+
+        if not unique_timestamps:
+            logger.debug(
+                f"No unique timestamps provided to _generate_month_display_labels for {context_for_logging}."
+            )
+            return {}, []
+
+        use_year_in_label = False
+        num_unique_months = len(unique_timestamps)
+
+        if num_unique_months > 12:
+            use_year_in_label = True
+            logger.info(
+                f"For {context_for_logging}, {num_unique_months} unique periods (>12). Using 'Mon YYYY' format."
+            )
+        elif num_unique_months > 0: # Check years only if there's data and not already decided by count
+            min_year = unique_timestamps[0].year
+            max_year = unique_timestamps[-1].year
+            if min_year != max_year:
+                use_year_in_label = True
+                logger.info(
+                    f"For {context_for_logging}, data spans multiple years ({min_year}-{max_year}) "
+                    f"with {num_unique_months} periods. Using 'Mon YYYY' format."
+                )
+            # else: all data within the same year and <= 12 months. Default is "MonthName".
+
+        # Generate labels based on the determined strategy
+        for ts_val in unique_timestamps:
+            label: str
+            if use_year_in_label:
+                label = ts_val.strftime('%b %Y') # e.g., "Oct 2023"
+            else:
+                # All timestamps are from the same year and total count <= 12
+                try:
+                    # .month is 1-indexed, _MONTH_DISPLAY_NAMES is 0-indexed
+                    label = self._MONTH_DISPLAY_NAMES[ts_val.month - 1]
+                except IndexError: # Should not happen if ts_val.month is valid (1-12)
+                    logger.error(
+                        f"Invalid month number {ts_val.month} for date {ts_val} in {context_for_logging}. "
+                        "Falling back to 'Mon YYYY'."
+                    )
+                    label = ts_val.strftime('%b %Y') # Fallback
+
+            timestamp_to_label_map[ts_val] = label
+            # Appending label directly. The `use_year_in_label` logic ensures that if "January"
+            # from different years could occur, they would be formatted as "Jan YYYY1", "Jan YYYY2",
+            # thus already distinct. If they are same year, they are distinct months.
+            # This list forms the ordered categories.
+            ordered_display_labels.append(label)
+
+        if not timestamp_to_label_map and unique_timestamps: # Should not happen if loop runs
+            logger.error(
+                f"Internal logic error: timestamp_to_label_map is empty for {context_for_logging} "
+                "though unique_timestamps were present. This indicates a bug in label generation loop."
+            )
+            return {}, [] # Return empty to prevent downstream errors
+
+        return timestamp_to_label_map, ordered_display_labels
 
     def _get_exploded_standardized_products(
         self, df: pd.DataFrame, product_column_name: str = 'products'
@@ -2166,7 +2329,8 @@ class QuarterlyDeepDiveReportGenerator:
         return df_exploded
 
     def _prepare_input_dataframe(
-        self, report_data: pd.DataFrame
+        self,
+        report_data: pd.DataFrame
     ) -> pd.DataFrame:
         """Validates and prepares the input DataFrame."""
         logger.debug("Preparing input DataFrame...")
@@ -2237,25 +2401,163 @@ class QuarterlyDeepDiveReportGenerator:
             df['patch_date'] = pd.NaT  # No proxy available
 
         # Handle CVE Category Standardization
-        category_map = {
-            "privilege_elevation": "privilege_elevation",
-            "spoofing": "spoofing",
-            "remote_code_execution": "remote_code_execution",
-            "tampering": "tampering",
-            "disclosure": "disclosure",
-            "feature_bypass": "feature_bypass",
-            "denial_of_service": "denial_of_service",
-            pd.NA: 'none',
-            None: 'none',
-            "": 'none',
+        valid_categories = {
+            "privilege_elevation",
+            "spoofing",
+            "remote_code_execution",
+            "tampering",
+            "disclosure",
+            "feature_bypass",
+            "denial_of_service",
         }
+
+        search_term_map = {
+            "privilege_elevation": "elevation of privilege",
+            "feature_bypass": "security feature bypass",
+            "disclosure": "information disclosure",
+            "spoofing": "spoofing",
+            "remote_code_execution": "remote code execution",
+            "tampering": "tampering",
+            "denial_of_service": "denial of service",
+        }
+
+        def _find_category_in_text(
+            text_to_search: str,
+            current_search_map: dict[str, str],
+            canonical_categories: set[str]
+        ) -> Optional[str]:
+            """
+            Searches for a canonical category in the given text.
+            Normalizes text by lowercasing and replacing hyphens with spaces.
+            """
+            if not text_to_search:
+                return None
+
+            normalized_text = text_to_search.lower().replace('-', ' ')
+
+            for canonical_cat in canonical_categories:
+                search_phrase = current_search_map.get(
+                    canonical_cat, canonical_cat.replace('_', ' ')
+                )
+                if search_phrase in normalized_text:
+                    return canonical_cat
+            return None
+
+        def _extract_category_from_impact_text(
+            text_column_content: str,
+            current_search_term_map: dict[str, str]
+        ) -> Optional[str]:
+            """
+            Extracts category from text like "Impact: [Category Name]".
+            """
+            if not text_column_content:
+                return None
+
+            lower_text = text_column_content.lower()
+            impact_marker = "impact:"
+
+            try:
+                start_index = lower_text.index(impact_marker) + len(impact_marker)
+            except ValueError: # "impact:" not found
+                return None
+
+            substring_after_impact = lower_text[start_index:]
+
+            end_index_newline = substring_after_impact.find('\n')
+            # Also consider "max severity:" as a potential end delimiter for the impact phrase
+            end_index_max_severity = substring_after_impact.find("max severity:")
+
+            end_index = -1
+            potential_ends = []
+            if end_index_newline != -1:
+                potential_ends.append(end_index_newline)
+            if end_index_max_severity != -1:
+                potential_ends.append(end_index_max_severity)
+
+            if potential_ends:
+                end_index = min(potential_ends)
+
+            extracted_phrase = ""
+            if end_index != -1:
+                extracted_phrase = substring_after_impact[:end_index].strip()
+            else:
+                extracted_phrase = substring_after_impact.strip()
+
+            if not extracted_phrase:
+                return None
+
+            for canonical_form, human_readable_phrase in current_search_term_map.items():
+                if extracted_phrase == human_readable_phrase:
+                    return canonical_form
+            return None
+
+        def map_cve_category(row: pd.Series) -> str:
+            """Maps CVE category: original, Edge/Chromium, title, NVD, text col.
+
+            - Preserves already valid categories.
+            - 'NC' for Edge/Chromium CVEs becomes 'chromium-based'.
+            - 'NC' for other CVEs:
+                1. Search title.
+                2. If not found, search NVD description.
+                3. If not found, search 'text' column for "Impact:".
+                4. If not found anywhere, becomes 'none'.
+            - Null-like values (NaN, None, "") become 'none'.
+            - All other unmapped values become 'none'.
+            """
+            category = row.get('cve_category')
+
+            # 1. If category is already valid and not 'NC', return it
+            if category in valid_categories:
+                return category
+
+            # 2. Handle null-like original categories (after checking if it was a valid one)
+            if pd.isna(category) or category in [None, ""]:
+                return 'none'
+
+            # 3. If category is 'NC', proceed with detailed checks
+            if category == 'NC':
+                title_text = str(row.get('title', ''))
+                nvd_description_text = str(row.get('nvd_description', ''))
+                text_column_content = str(row.get('text', ''))
+
+                # 3a. Handle Edge/Chromium specifically
+                if 'microsoft edge' in title_text.lower() or \
+                   'chromium' in title_text.lower():
+                    return 'chromium-based'
+
+                # 3b. For non-Edge/Chromium 'NC' CVEs:
+                # Check title
+                category_from_title = _find_category_in_text(
+                    title_text, search_term_map, valid_categories
+                )
+                if category_from_title:
+                    return category_from_title
+
+                # Check NVD description
+                category_from_nvd = _find_category_in_text(
+                    nvd_description_text, search_term_map, valid_categories
+                )
+                if category_from_nvd:
+                    return category_from_nvd
+
+                # Check 'text' column for "Impact:"
+                category_from_text_col = _extract_category_from_impact_text(
+                    text_column_content, search_term_map
+                )
+                if category_from_text_col:
+                    return category_from_text_col
+
+                return 'none' # Default for 'NC' if not found anywhere
+
+            # 4. If original category was something else not in valid_categories and not NC
+            return 'none'
+
         if 'cve_category' in df.columns:
-            # Apply mapping, fill remaining NaNs/unmapped with 'other'
-            df['cve_category'] = (
-                df['cve_category'].map(category_map).fillna('none')
-            )
+            # Apply the custom mapping function row-by-row.
+            df['cve_category'] = df.apply(map_cve_category, axis=1)
         else:
-            df['cve_category'] = 'none'  # Default if column is missing
+            # If the column doesn't exist, create it and fill with 'none'.
+            df['cve_category'] = 'none'
 
         # --- Derived Columns ---
         if 'published' in df.columns and pd.api.types.is_datetime64_any_dtype(
@@ -2318,9 +2620,85 @@ class QuarterlyDeepDiveReportGenerator:
         df['exploitability_score'] = (
             QuarterlyDeepDiveReportGenerator._extract_exploitability_score(df)
         )
-        df['severity_type'].fillna(
-            QuarterlyDeepDiveReportGenerator._extract_base_score_rating(df)
-        )
+        # Calculate potential new severity ratings using the class method
+        calculated_ratings: pd.Series = QuarterlyDeepDiveReportGenerator._extract_base_score_rating(df)
+
+        # Determine where calculated_ratings are "valid" (i.e., represent a real severity rating)
+        # A rating is considered "valid" if it's not NaN/None and not a common placeholder string (case-insensitive).
+        calculated_ratings_as_str_lower = calculated_ratings.astype(str).str.strip().str.lower()
+        is_calculated_valid_mask = calculated_ratings.notna() & \
+                                   ~calculated_ratings_as_str_lower.isin(['', 'none', 'nst', 'nan'])
+
+        # Identify original 'severity_type' values that are placeholders (NaN/None, 'none', or 'nst', case-insensitive)
+        original_severity_as_str_lower = df['severity_type'].astype(str).str.strip().str.lower()
+        original_is_placeholder_mask = original_severity_as_str_lower.isin(['none', 'nst', 'nan'])
+
+        # Create a new Series for the updated 'severity_type', initialized with current values.
+        # This allows conditional updating based on original and calculated values without intermediate state issues.
+        updated_severity_column = df['severity_type'].copy()
+
+        # Apply logic:
+        # 1. If calculated_rating is valid, use calculated_rating.
+        #    This takes precedence.
+        updated_severity_column.loc[is_calculated_valid_mask] = calculated_ratings[is_calculated_valid_mask]
+
+        # 2. If calculated_rating is NOT valid:
+        #    a. And if the original 'severity_type' was a placeholder, normalize it to 'none'.
+        #    b. And if the original 'severity_type' was NOT a placeholder (e.g., "Critical"), it remains as its original value
+        #       (which is already in updated_severity_column unless overwritten by a valid calculated_rating above).
+        condition_normalize_to_none = ~is_calculated_valid_mask & original_is_placeholder_mask
+        updated_severity_column.loc[condition_normalize_to_none] = 'none'
+
+        # Assign the fully processed column back to the DataFrame
+        df['severity_type'] = updated_severity_column
+
+        def _clean_product_list(products_cell_value) -> list[str]:
+            """
+            Cleans and standardizes the 'products' cell value.
+            Ensures the output is a list of whitespace-stripped strings.
+            """
+            # 1. Handle None directly
+            if products_cell_value is None:
+                return []
+
+            # 2. Handle if it's a string
+            if isinstance(products_cell_value, str):
+                return [products_cell_value.strip()]
+
+            # 3. Handle if it's a list
+            if isinstance(products_cell_value, list):
+                cleaned_list = []
+                for item in products_cell_value:
+                    if isinstance(item, str):
+                        cleaned_list.append(item.strip())
+                    # Optionally, if you want to explicitly skip None/NaN items within a list:
+                    # elif item is None or pd.isna(item):
+                    #     continue
+                    # else:
+                        # Potentially log unexpected item types within a list
+                        # logger.warning(f"Unexpected item type in product list: {type(item)}, value: {item}")
+                return cleaned_list
+
+            # 4. If it's not None, not a string, not a list,
+            #    then check if it's a scalar NaN (e.g., a cell containing just np.nan).
+            #    This check should now only receive scalar values.
+            if pd.isna(products_cell_value):
+                return []
+
+            # 5. For any other unexpected type, return an empty list.
+            #    Optionally, log a warning here.
+            # logger.warning(
+            #     f"Unexpected type in products column: "
+            #     f"{type(products_cell_value)}, value: {products_cell_value}"
+            # )
+            return []
+
+        if 'products' in df.columns:
+            df['products'] = df['products'].apply(_clean_product_list)
+        else:
+            # If 'products' column somehow doesn't exist, create it as empty lists
+            # This is a defensive measure, usually it should exist.
+            df['products'] = [[] for _ in range(len(df))]
         df = df.rename(columns={'post_id': 'cve_id'})
 
         logger.debug("Input DataFrame prepared successfully.")
@@ -2544,11 +2922,9 @@ class QuarterlyDeepDiveReportGenerator:
                 else:
                     calculated_values["most_volatile_month"] = "N/A"
             else:
-                calculated_values["most_volatile_month"] = "N/A"
-        else:
-            calculated_values["most_volatile_month"] = (
-                None  # Indicate column missing
-            )
+                calculated_values["most_volatile_month"] = (
+                    None  # Indicate column missing
+                )
 
         # --- CVSS Stats ---
         cvss_col = 'cvss_score'
@@ -2738,7 +3114,7 @@ class QuarterlyDeepDiveReportGenerator:
             )
 
             calculated_values["top_impact_type"] = (
-                category_counts.idxmax() if not category_counts.empty else "nc"
+                category_counts.idxmax() if not category_counts.empty else "No Data"
             )
 
             # Prepare data for the comparison bar card (list of dicts)
@@ -2890,23 +3266,28 @@ class QuarterlyDeepDiveReportGenerator:
                             (df['risk_score'] >= high_risk_threshold).sum()
                         )
 
-                        # Create a list of high-risk CVE details
-                        high_risk_cves_list = []
+                        # Use a set to store high-risk CVE details to ensure uniqueness
+                        high_risk_cves_set = set()
                         if calculated_values["worst_case_cves"] > 0:
                             high_risk_df = df[
                                 df['risk_score'] >= high_risk_threshold
                             ]
                             for _, row in high_risk_df.iterrows():
-                                high_risk_cves_list.append({
-                                    'cve_id': row.get('post_id', 'Unknown'),
-                                    'cvss': row.get('cvss_score', None),
-                                    'title': row.get('title', 'Unknown'),
-                                })
+                                cve_detail_dict = {
+                                    'cve_id': row.get('cve_id'),
+                                    'cvss': row.get('cvss_score'),
+                                    'title': row.get('title'),
+                                    'source': row.get('source'),
+                                }
+                                # Convert dict to frozenset of items to make it hashable for the set
+                                high_risk_cves_set.add(frozenset(cve_detail_dict.items()))
 
-                        # Store the list of high-risk CVEs
-                        calculated_values["high_risk_cves"] = (
-                            high_risk_cves_list
-                        )
+                        # Convert the set of frozensets back to a list of dictionaries
+                        calculated_values["high_risk_cves"] = [
+                            dict(fs_items) for fs_items in high_risk_cves_set
+                        ]
+                        # Update worst_case_cves to the count of unique high-risk CVEs
+                        calculated_values["worst_case_cves"] = len(calculated_values["high_risk_cves"])
                     else:
                         calculated_values["worst_case_cves"] = 0
                         calculated_values["high_risk_cves"] = []
@@ -3037,12 +3418,36 @@ class QuarterlyDeepDiveReportGenerator:
             try:
                 cwe_metrics = self._compute_cwe_metrics(
                     df
-                )  # Assumes this helper exists
+                )
+                calculated_values["cwe_category_distribution"] = cwe_metrics.get(
+                    "cwe_category_distribution", {}
+                )
                 calculated_values["top_cwe_id"] = cwe_metrics.get(
                     "top_cwe_id", "N/A"
                 )
                 calculated_values["top_3_cwe_coverage_pct"] = cwe_metrics.get(
                     "top_3_cwe_coverage_pct", 0.0
+                )
+                calculated_values["memory_bugs_count"] = cwe_metrics.get(
+                    "memory_bugs_count", 0
+                )
+                calculated_values["logic_bugs_count"] = cwe_metrics.get(
+                    "logic_bugs_count", 0
+                )
+                calculated_values["race_concurrency_count"] = cwe_metrics.get(
+                    "race_concurrency_count", 0
+                )
+                calculated_values["improper_access_control_count"] = cwe_metrics.get(
+                    "improper_access_control_count", 0
+                )
+                calculated_values["input_validation_injection_count"] = cwe_metrics.get(
+                    "input_validation_injection_count", 0
+                )
+                calculated_values["cryptographic_issues_count"] = cwe_metrics.get(
+                    "cryptographic_issues_count", 0
+                )
+                calculated_values["configuration_weakness_count"] = cwe_metrics.get(
+                    "configuration_weakness_count", 0
                 )
                 calculated_values["memory_safety_vs_logic_bugs_pct"] = (
                     cwe_metrics.get("memory_safety_vs_logic_bugs_pct", None)
@@ -3057,11 +3462,25 @@ class QuarterlyDeepDiveReportGenerator:
                 # Set defaults if computation fails
                 calculated_values["top_cwe_id"] = "Error"
                 calculated_values["top_3_cwe_coverage_pct"] = None
+                calculated_values["memory_bugs_count"] = None
+                calculated_values["logic_bugs_count"] = None
+                calculated_values["race_concurrency_count"] = None
+                calculated_values["improper_access_control_count"] = None
+                calculated_values["input_validation_injection_count"] = None
+                calculated_values["cryptographic_issues_count"] = None
+                calculated_values["configuration_weakness_count"] = None
                 calculated_values["memory_safety_vs_logic_bugs_pct"] = None
                 calculated_values["new_cwe_types_this_qtr"] = None
         else:
             calculated_values["top_cwe_id"] = None
             calculated_values["top_3_cwe_coverage_pct"] = None
+            calculated_values["memory_bugs_count"] = None
+            calculated_values["logic_bugs_count"] = None
+            calculated_values["race_concurrency_count"] = None
+            calculated_values["improper_access_control_count"] = None
+            calculated_values["input_validation_injection_count"] = None
+            calculated_values["cryptographic_issues_count"] = None
+            calculated_values["configuration_weakness_count"] = None
             calculated_values["memory_safety_vs_logic_bugs_pct"] = None
             calculated_values["new_cwe_types_this_qtr"] = None
 
@@ -3333,11 +3752,69 @@ class QuarterlyDeepDiveReportGenerator:
             for stat_def in section_config.get("stats_definitions", []):
                 metric_id = stat_def["metric_id"]
                 raw_value = calculated_metrics.get(metric_id)
-                # This 'card_style_from_config' determines WHICH Jinja macro branch to use
+
+                if metric_id in GENERIC_METRICS:
+                    logger.info(f"Processing GENERIC metric: {metric_id} with 'internal_use' style")
+                    card_style_key = "internal_use"
+                    card_style_definition = self.CARD_STYLES.get(card_style_key, {})
+
+                    payload_display_string = "N/A"
+                    if isinstance(raw_value, dict):
+                        payload_display_string = "<br>".join([f"{k}={v}" for k, v in raw_value.items()])
+                    elif isinstance(raw_value, (list, tuple)):
+                        payload_display_string = "<br>".join(map(str, raw_value))
+                    elif raw_value is not None:
+                        payload_display_string = str(raw_value)
+
+                    label = self.STAT_CARD_LABELS.get(metric_id, metric_id.replace("_", " "))
+
+                    card_data = {
+                        "id": metric_id,
+                        "label": label,
+                        "payload": payload_display_string,
+                        "card_layout_style": card_style_key,
+                        "styles": card_style_definition,
+                    }
+                    section_card_data_list.append(card_data)
+                    logger.info(f"Appended generic card data for {metric_id}: {card_data}")
+                    continue
+
+                # Existing logic for non-generic cards starts here
                 card_style_key = stat_def.get("card_style", "default_standard")
                 card_style_definition = self.CARD_STYLES.get(
                     card_style_key,
                     self.CARD_STYLES.get("default_standard", {}),
+                )
+                logger.info(
+                    f"Processing metric: {metric_id} with style_key:"
+                    f" {card_style_key}"
+                )
+                logger.debug(
+                    f"Raw value type: {type(raw_value)} -> {raw_value}"
+                )
+                # Defaults for simple cards
+                formatted_value_simple = "N/A"
+                unit_simple = None
+
+                label_simple = stat_def.get(
+                    "title",
+                    self.STAT_CARD_LABELS.get(
+                        metric_id, metric_id.replace("_", " ").title()
+                    ),
+                )
+                subtitle_simple = self.STAT_CARD_SUBTITLES.get(metric_id, "")
+                icon_name_key = self.STAT_CARD_ICONS.get(metric_id, "default")
+                icon_svg_simple = self.ICON_SVG_STRINGS.get(
+                    icon_name_key,
+                    self.ICON_SVG_STRINGS.get(
+                        "default", "<svg><!-- fallback SVG --></svg>"
+                    ),
+                )
+                trend_value_display = (
+                    None  # For formatted trend string e.g., "+5.2%"
+                )
+                trend_direction_final = (
+                    None  # 'up', 'down', 'neutral', or None
                 )
                 logger.info(
                     f"Processing metric: {metric_id} with style_key:"
@@ -4185,68 +4662,38 @@ class QuarterlyDeepDiveReportGenerator:
         # Sort by the datetime objects to ensure chronological order of periods
         agg_data = agg_data.sort_values('published_month_dt_obj')
 
-        # Get unique, sorted datetime objects. These now only contain valid dates.
-        unique_dates = sorted(agg_data['published_month_dt_obj'].unique())
+        unique_timestamps_list = sorted(list(agg_data['published_month_dt_obj'].unique()))
 
-        date_to_label_map = {}
-        month_display_names = [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-        ]
+        timestamp_to_label_map, ordered_display_labels = self._generate_month_display_labels(
+            unique_timestamps_list,
+            context_for_logging="'new_vs_updated' chart"
+        )
 
-        for i, date_val in enumerate(
-            unique_dates
-        ):  # date_val is a datetime object
-            if i < len(month_display_names):
-                date_to_label_map[date_val] = month_display_names[i]
-            else:
-                # Fallback for more than 12 periods (e.g., "Jan 2025")
-                label = date_val.strftime('%b %Y')
-                date_to_label_map[date_val] = label
-                logger.warning(
-                    f"More than {len(month_display_names)} unique periods for"
-                    f" 'new_vs_updated' chart. Period {i+1} (date:"
-                    f" {date_val.strftime('%Y-%m-%d')}) labeled as '{label}'."
-                )
-
-        if (
-            not date_to_label_map
-        ):  # Should not happen if unique_dates is populated
+        if not timestamp_to_label_map and unique_timestamps_list:
             logger.error(
-                "Internal error: No unique dates found to create display"
-                " labels, though aggregated data was present."
+                "Failed to generate month display labels for 'new_vs_updated' chart "
+                "despite having unique dates."
             )
             return None
 
         agg_data['month_display_label'] = agg_data[
             'published_month_dt_obj'
-        ].map(date_to_label_map)
+        ].map(timestamp_to_label_map)
 
-        # Ensure 'month_display_label' is categorical and ordered correctly for Plotly Express
-        ordered_labels = [
-            date_to_label_map[date]
-            for date in unique_dates
-            if date in date_to_label_map
-        ]
+        if not agg_data.empty and agg_data['month_display_label'].isna().all():
+            logger.warning(
+                 "All 'month_display_label' values are NaN after mapping for 'new_vs_updated' chart."
+            )
+
         agg_data['month_display_label'] = pd.Categorical(
             agg_data['month_display_label'],
-            categories=ordered_labels,
+            categories=ordered_display_labels,
             ordered=True,
         )
 
         return agg_data[
             ['month_display_label', 'status', 'count']
-        ]  # Return only necessary columns
+        ]
 
     def _prepare_data_for_volume_by_severity_monthly(
         self, df: pd.DataFrame
@@ -4254,7 +4701,7 @@ class QuarterlyDeepDiveReportGenerator:
         """
         Prepare DataFrame for 'volume_by_severity_monthly' chart.
         'published_month' (e.g., "2024-01") is converted to datetime.
-        Valid, unique, sorted months are mapped to "January", "February", etc.
+        Valid, unique, sorted months are mapped using the utility function.
         'severity_type' is made categorical based on self.severity_order.
 
         Args:
@@ -4282,7 +4729,6 @@ class QuarterlyDeepDiveReportGenerator:
 
         df_copy = df.copy()
 
-        # Convert 'published_month' string to datetime objects
         df_copy['published_month_dt_obj'] = pd.to_datetime(
             df_copy['published_month'], errors='coerce'
         )
@@ -4295,14 +4741,12 @@ class QuarterlyDeepDiveReportGenerator:
             )
             return None
 
-        # Ensure severity_type is categorical and ordered, handling potential NaNs
         df_copy['severity_type'] = pd.Categorical(
             df_copy['severity_type'].fillna('none'),
-            categories=self.severity_order,  # Relies on self.severity_order
+            categories=self.severity_order,
             ordered=True,
         )
 
-        # Group by the datetime object and ordered severity
         agg_data = (
             df_copy.groupby(
                 ['published_month_dt_obj', 'severity_type'], observed=False
@@ -4318,65 +4762,50 @@ class QuarterlyDeepDiveReportGenerator:
             )
             return None
 
-        # Sort by datetime then by the categorical severity_type
         agg_data = agg_data.sort_values(
             ['published_month_dt_obj', 'severity_type']
         )
 
-        unique_dates = sorted(agg_data['published_month_dt_obj'].unique())
-        date_to_label_map = {}
-        month_display_names = [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-        ]
+        # Get unique, sorted datetime objects from the aggregated data
+        # .unique() on a datetime series returns sorted values in recent pandas versions,
+        # but explicit sort is safest for full compatibility / clarity.
+        unique_timestamps_list = sorted(list(agg_data['published_month_dt_obj'].unique()))
 
-        for i, date_val in enumerate(unique_dates):
-            if i < len(month_display_names):
-                date_to_label_map[date_val] = month_display_names[i]
-            else:
-                label = date_val.strftime('%b %Y')
-                date_to_label_map[date_val] = label
-                logger.warning(
-                    f"More than {len(month_display_names)} unique periods for"
-                    f" 'volume_by_severity_monthly'. Period {i+1} (date:"
-                    f" {date_val.strftime('%Y-%m-%d')}) labeled as '{label}'."
-                )
+        timestamp_to_label_map, ordered_display_labels = self._generate_month_display_labels(
+            unique_timestamps_list,
+            context_for_logging="'volume_by_severity_monthly' chart"
+        )
 
-        if not date_to_label_map:
+        if not timestamp_to_label_map and unique_timestamps_list:
             logger.error(
-                "Internal error: No unique dates found to create display"
-                " labels for 'volume_by_severity_monthly'."
+                "Failed to generate month display labels for 'volume_by_severity_monthly' chart "
+                "despite having unique dates. This indicates an issue in the utility function."
             )
             return None
 
         agg_data['month_display_label'] = agg_data[
             'published_month_dt_obj'
-        ].map(date_to_label_map)
+        ].map(timestamp_to_label_map)
 
-        ordered_labels = [
-            date_to_label_map[date]
-            for date in unique_dates
-            if date in date_to_label_map
-        ]
+        if not agg_data.empty and agg_data['month_display_label'].isna().all():
+            logger.warning(
+                "All 'month_display_label' values are NaN after mapping for 'volume_by_severity_monthly'. "
+                "This could be due to an empty label map or issues with date keys."
+            )
+            # Consider if this is a state where you should return None or an empty df
+
         agg_data['month_display_label'] = pd.Categorical(
             agg_data['month_display_label'],
-            categories=ordered_labels,
+            categories=ordered_display_labels,
             ordered=True,
         )
 
-        # Ensure consistency in returned variable name and columns
-        agg_data = agg_data[['month_display_label', 'severity_type', 'count']]
-        return agg_data
+        # Return only necessary columns
+        final_cols = ['month_display_label', 'severity_type', 'count']
+        # Check if all columns exist before sub-setting, especially if agg_data could be empty
+        # or if 'month_display_label' creation failed and resulted in no such column.
+        # However, it should exist even if all NaNs.
+        return agg_data[final_cols]
 
     def _prepare_data_for_cvss_distribution(
         self, df: pd.DataFrame
@@ -5867,9 +6296,9 @@ class QuarterlyDeepDiveReportGenerator:
         # Optional for sorting
         optional_for_sort = ['cisa_kev']
 
-        all_possible_cols = (
-            required_for_plot + required_for_sort + optional_for_sort
-        )
+        # all_possible_cols = (
+        #     required_for_plot + required_for_sort + optional_for_sort
+        # )
 
         df_copy = df.copy()  # Work on a copy
 
@@ -5960,7 +6389,7 @@ class QuarterlyDeepDiveReportGenerator:
 
         # Select only columns needed for the plot + hover to simplify
         # The full set of display_cols might be for a table elsewhere
-        plot_cols = ['cve_id', 'cvss_score', 'title']  # title for hover
+        plot_cols = ['cve_id', 'cvss_score', 'title', 'cwe_id', 'published']  # title for hover
         final_spotlight_df = spotlight_df[
             plot_cols
         ].copy()  # .copy() to avoid warnings on next step
@@ -8598,7 +9027,7 @@ class QuarterlyDeepDiveReportGenerator:
         )
 
         facet_row_spacing_val = (
-            0.12  # Standardized vertical spacing between facet rows
+            0.18  # Standardized vertical spacing between facet rows
         )
         if num_rows <= 1:
             facet_row_spacing_val = 0.1
@@ -9424,6 +9853,142 @@ class QuarterlyDeepDiveReportGenerator:
                 f" {prompt_template_name}. Details: {str(e)}"
             )
 
+    def _generate_simple_table_html(
+        self,
+        df: pd.DataFrame,
+        columns_config: List[Dict[str, Any]],
+        row_click_config: Optional[Dict[str, str]] = None,
+        table_id: Optional[str] = None,
+    ) -> str:
+        """
+        Generates an HTML table string from a DataFrame with advanced formatting,
+        styled to match appendix tables and address layout issues.
+        """
+        if not isinstance(df, pd.DataFrame) or df.empty:
+            # Using self.logger if logger is an instance variable
+            # logger.info(
+            #     f"Input for table '{table_id or 'N/A'}' is empty or not a DataFrame."
+            # )
+            return "<p class='text-sm text-gray-600 dark:text-gray-400 p-4 text-center'>No data available to display in this table.</p>"
+
+        html_parts = []
+        table_base_classes = (
+            "min-w-full table-fixed divide-y divide-gray-200 dark:divide-gray-700 rounded-none"
+        )
+        html_parts.append(f'<table class="{html.escape(table_base_classes)}">')
+
+        # Table Header
+        html_parts.append('<thead class="bg-gray-50 dark:bg-gray-800"><tr>')
+        # Adjusted classes to match appendix: px-2 py-1.5, text-sm, title-case
+        th_default_base_classes = (
+            "px-2 py-1.5 text-left text-sm font-semibold text-gray-500 "
+            "dark:text-gray-300 title-case tracking-wider" # Changed from text-xs, uppercase, px-3 py-2
+        )
+        for col_conf in columns_config:
+            col_id = col_conf['id']
+            header_name = html.escape(str(col_conf.get('name', col_id)))
+            specific_header_classes = col_conf.get('class_header', '')
+            width_class = col_conf.get('width_class', '')
+
+            # Add col-{id} class for consistency with appendix
+            th_col_class = f"col-{html.escape(col_id)}"
+
+            th_classes = f"{th_col_class} {th_default_base_classes} {specific_header_classes} {width_class}".strip()
+            html_parts.append(f'<th class="{html.escape(th_classes)}">{header_name}</th>')
+        html_parts.append('</tr></thead>')
+
+        # Table Body
+        html_parts.append('<tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">')
+        # Adjusted classes to match appendix: px-2 py-1.5, text-xs
+        td_default_base_classes = "px-2 py-1.5 text-xs align-top" # Changed from text-sm, px-3 py-2
+        clickable_row_base_class = "cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-150"
+
+        for _, row in df.iterrows():
+            tr_attrs_list = []
+            current_tr_classes_list = []
+
+            if row_click_config and row_click_config.get('column_name') in row:
+                try:
+                    key_col_for_url = row_click_config['column_name']
+                    url_value_from_row = row[key_col_for_url]
+                    # Ensure url_value_str is properly stringified before escaping for URL placeholder
+                    url_value_str = str(url_value_from_row if pd.notna(url_value_from_row) else '')
+
+                    url_template = row_click_config.get('url_template', '')
+                    placeholder = f'{{{key_col_for_url}}}'
+
+                    # html.escape is generally for HTML content. For URL parts, urllib.parse.quote might be better
+                    # but if CVE IDs are simple strings, html.escape might be fine (prevents injecting HTML).
+                    # For maximum safety for URL path segments / query params, consider urllib.parse.quote(url_value_str, safe='')
+                    # Sticking to original html.escape for value substitution for now, as CVE IDs are usually benign.
+                    formatted_url = url_template.replace(placeholder, html.escape(url_value_str))
+
+                    tooltip = html.escape(row_click_config.get('tooltip', ''))
+
+                    # Robustly create the onclick JavaScript command
+                    # 1. Escape the URL for JavaScript string literal (single-quoted)
+                    js_escaped_url = formatted_url.replace('\\', '\\\\').replace("'", "\\'")
+                    # 2. Form the JavaScript command
+                    js_command = f"window.open('{js_escaped_url}', '_blank', 'noopener,noreferrer');"
+                    # 3. HTML-escape the entire JavaScript command for the attribute value
+                    onclick_attr_val = html.escape(js_command)
+
+                    tr_attrs_list.append(f'onclick="{onclick_attr_val}"')
+                    if tooltip:
+                        tr_attrs_list.append(f'title="{tooltip}"')
+                    current_tr_classes_list.append(clickable_row_base_class)
+                except KeyError as ke:
+                    logger.error(f"KeyError for row_click_config in table '{table_id or 'N/A'}', column '{key_col_for_url}': {ke}")
+                    pass # Replace with actual logging
+                except Exception as e:
+                    logger.error(f"Error processing row_click_config for table '{table_id or 'N/A'}': {e}")
+                    pass # Replace with actual logging
+
+            tr_class_str = html.escape(" ".join(filter(None, current_tr_classes_list)))
+            tr_attrs_str = " ".join(tr_attrs_list)
+            html_parts.append(f'<tr class="{tr_class_str}" {tr_attrs_str}>')
+
+            for col_conf in columns_config:
+                col_id = col_conf['id']
+                cell_value_raw = row.get(col_id)
+                default_val = col_conf.get('default_value', '')
+
+                cell_display_value = default_val
+                if pd.notna(cell_value_raw):
+                    cell_display_value = cell_value_raw
+
+                format_spec = col_conf.get('format_spec')
+                if format_spec:
+                    if isinstance(cell_display_value, (pd.Timestamp, datetime)):
+                        try:
+                            cell_display_value = cell_display_value.strftime(format_spec)
+                        except ValueError as ve:
+                            logger.warning(f"Date formatting error for table '{table_id or 'N/A'}', col '{col_id}': {ve}. Value: {cell_display_value}")
+                            cell_display_value = str(cell_display_value)
+                    elif isinstance(cell_display_value, (int, float)):
+                        try:
+                            cell_display_value = f"{cell_display_value:{format_spec}}"
+                        except ValueError as ve:
+                            logger.warning(f"Numeric formatting error for table '{table_id or 'N/A'}', col '{col_id}': {ve}. Value: {cell_display_value}")
+                            cell_display_value = str(cell_display_value)
+
+                specific_cell_classes = col_conf.get('class_cell', '')
+
+                # Add col-{id} class for consistency with appendix
+                td_col_class = f"col-{html.escape(col_id)}"
+
+                td_classes = f"{td_col_class} {td_default_base_classes} {specific_cell_classes}".strip()
+                cell_content_escaped = html.escape(str(cell_display_value))
+                if col_conf.get("truncate_content"):
+                    cell_html_content = f'<div class="truncate w-full">{cell_content_escaped}</div>'
+                else:
+                    cell_html_content = cell_content_escaped
+                html_parts.append(f'<td class="{html.escape(td_classes)}">{cell_html_content}</td>')
+            html_parts.append('</tr>')
+        html_parts.append('</tbody>')
+        html_parts.append('</table>')
+        return "".join(html_parts)
+
     def _generate_appendix_tables(
         self,
         df: pd.DataFrame,
@@ -9477,8 +10042,8 @@ class QuarterlyDeepDiveReportGenerator:
                 appendix_tables_html[table_id] = {
                     'title': table_title,
                     'html': (
-                        f"<p class='text-sm text-gray-600 dark:text-gray-400"
-                        f" mt-2'>No data available to generate this table.</p>"
+                        "<p class='text-sm text-gray-600 dark:text-gray-400"
+                        " mt-2'>No data available to generate this table.</p>"
                     ),
                 }
             return appendix_tables_html
@@ -9653,6 +10218,8 @@ class QuarterlyDeepDiveReportGenerator:
                             )
                             if col_key == 'cvss_score':
                                 additional_th_classes = "w-8"
+                            elif col_key == 'cwe_id':
+                                additional_th_classes = "w-8 whitespace-nowrap"
                             elif col_key.lower() == "title":
                                 additional_th_classes = "w-full"
                             else:
@@ -10742,6 +11309,9 @@ class QuarterlyDeepDiveReportGenerator:
         generated_charts_context: Dict[str, ChartExport] = (
             {}
         )  # Holds context for charts successfully generated for final report
+        generated_tables_context: Dict[str, DataTableExport] = (
+            {}
+        )  # Holds context for tables successfully generated for final report
         generated_chart_files: List[Path] = (
             []
         )  # Holds paths to successfully exported chart JSON
@@ -10784,6 +11354,7 @@ class QuarterlyDeepDiveReportGenerator:
             section_callouts: Dict[str, str] = (
                 {}
             )  # Holds LLM callouts generated *for this section*
+            section_tables_context: Dict[str, DataTableExport] = {}
 
             # --- Generate Charts for the Section ---
             for chart_def in section_config.get("charts", []):
@@ -10911,6 +11482,76 @@ class QuarterlyDeepDiveReportGenerator:
                             caption="(Chart JSON export failed)",
                         )
             # --- End of chart loop ---
+
+            # --- Generate Data Tables for the Section ---
+            for table_def in section_config.get("tables", []):
+                table_id = table_def["id"]
+                logger.info(f"--> Processing table: {table_id}")
+
+                # 1. Determine DataFrame for the table
+                df_for_table = None
+                data_key = table_def.get('data_prep_key')
+                if data_key:
+                    data_prep_func = self.CHART_DATA_HANDLERS.get(data_key)
+                    if data_prep_func:
+                        try:
+                            prepared_data = data_prep_func(main_df) # Pass other_cve_df if available and needed
+
+                            if isinstance(prepared_data, pd.DataFrame):
+                                df_for_table = prepared_data
+                            elif isinstance(prepared_data, dict) and 'dataframe' in prepared_data and isinstance(prepared_data['dataframe'], pd.DataFrame):
+                                df_for_table = prepared_data['dataframe']
+                            # Add other checks if handlers return data in different structures
+                            else:
+                                logger.warning(
+                                    f"Data preparation function for key '{data_key}' "
+                                    f"for table '{table_id}' did not return a DataFrame "
+                                    f"or a dict with a 'dataframe' key. Found: {type(prepared_data)}"
+                                )
+                        except Exception as e:
+                            logger.error(
+                                f"Error executing data preparation function '{data_prep_func.__name__}' "
+                                f"for table '{table_id}' with key '{data_key}': {e}"
+                            )
+                    else:
+                        logger.warning(
+                            f"No data preparation function found in CHART_DATA_HANDLERS "
+                            f"for key '{data_key}' associated with table '{table_id}'."
+                        )
+
+                else:
+                    logger.warning(
+                        f"No 'data_prep_key' defined for table '{table_id}'. "
+                        "Cannot load DataFrame for this table definition."
+                    )
+                if df_for_table is None:
+                    df_for_table = pd.DataFrame()
+
+                # 2. Get configurations from table_def
+                columns_config_list = table_def.get("columns", [])
+                row_click_config_dict = table_def.get("row_click_config") # Will be None if not in table_def
+                table_caption_str = table_def.get("caption", f"Data Table: {table_id}")
+
+                # 3. Generate the HTML string using the new function
+                table_html_str = self._generate_simple_table_html(
+                    df=df_for_table,
+                    columns_config=columns_config_list,
+                    row_click_config=row_click_config_dict,
+                    table_id=table_id
+                )
+
+                # 4. Create DataTableExport object and store it
+                table_export = DataTableExport(
+                    table_id=table_id,
+                    html=table_html_str,         # Use the direct HTML string
+                    caption=table_caption_str    # Use caption from table_def
+                )
+                generated_tables_context[table_id] = table_export
+
+                # This line assumes section_tables_context is a dict defined for the current section.
+                # Ensure 'section_tables_context' is correctly scoped and available here.
+                if 'section_tables_context' in locals() and isinstance(section_tables_context, dict):
+                    section_tables_context[table_id] = table_export
 
             # --- Generate Section-Level LLM Content ---
             section_prompts = section_config.get("prompts", {})
@@ -11148,9 +11789,9 @@ class QuarterlyDeepDiveReportGenerator:
                             "median_cvss_overall": calculated_metrics.get(
                                 "median_cvss"
                             ),
-                            "exploited_percentage": calculated_metrics.get(
-                                "exploited_pct_kev"
-                            ),  # Using KEV %
+                            "highest_cvss": calculated_metrics.get(
+                                "highest_cvss"
+                            ),
                             "median_days_to_patch": calculated_metrics.get(
                                 "median_days_to_patch"
                             ),
@@ -11159,6 +11800,12 @@ class QuarterlyDeepDiveReportGenerator:
                             ),
                             "top_impact_type": calculated_metrics.get(
                                 "top_impact_type"
+                            ),
+                            "most_affected_product": calculated_metrics.get(
+                                "most_affected_product"
+                            ),
+                            "top_cwe_id": calculated_metrics.get(
+                                "top_cwe_id"
                             ),
                         }
                         overall_stats_for_llm = {
@@ -11171,7 +11818,7 @@ class QuarterlyDeepDiveReportGenerator:
                         section_texts_for_exec_summary_prompt = {}
 
                         MAX_CHARS_PER_SECTION_CONTEXT = 700
-                        MAX_TOKENS_PER_SECTION_CONTEXT = 500
+                        MAX_TOKENS_PER_SECTION_CONTEXT = 1200
                         for (
                             other_section_key,
                             other_section_data,
@@ -11329,7 +11976,7 @@ class QuarterlyDeepDiveReportGenerator:
                             model_key, self.LLM_TASK_MODELS.get("narrative")
                         )  # Fallback
                         max_tokens = (
-                            1500  # More tokens for exec summary usually
+                            3000  # More tokens for exec summary usually
                         )
 
                     elif section_key == "report_conclusion":
@@ -11337,21 +11984,6 @@ class QuarterlyDeepDiveReportGenerator:
                         overall_stats_for_llm_conclusion = {
                             # Select stats relevant for concluding remarks
                             "total_cves": calculated_metrics.get("total_cves"),
-                            "critical_high_percentage": calculated_metrics.get(
-                                "critical_high_pct"
-                            ),
-                            "median_cvss_overall": calculated_metrics.get(
-                                "median_cvss"
-                            ),
-                            "exploited_percentage": calculated_metrics.get(
-                                "exploited_pct_kev"
-                            ),
-                            "median_days_to_patch": calculated_metrics.get(
-                                "median_days_to_patch"
-                            ),
-                            "worst_case_cves_count": calculated_metrics.get(
-                                "worst_case_cves"
-                            ),
                             "top_impact_type": calculated_metrics.get(
                                 "top_impact_type"
                             ),
@@ -11405,7 +12037,7 @@ class QuarterlyDeepDiveReportGenerator:
                             model_key, self.LLM_TASK_MODELS.get("narrative")
                         )
                         max_tokens = (
-                            1000  # Adjust as needed for conclusion length
+                            3500  # Adjust as needed for conclusion length
                         )
 
                     else:
@@ -11518,6 +12150,7 @@ class QuarterlyDeepDiveReportGenerator:
             end_date=end_date,
             config=config,
             charts=generated_charts_context,
+            tables=generated_tables_context,
             llm_insights=final_llm_insights,
             appendix_tables=appendix_tables_context,
             report_structure=self.REPORT_STRUCTURE,

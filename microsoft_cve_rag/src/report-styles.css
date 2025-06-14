@@ -99,7 +99,7 @@ Component Styles
   /* --- Data Table --- */
   .data-table-container {
     /* Base (light mode) styles */
-    @apply overflow-x-auto border rounded-lg shadow-sm bg-report-surface border-report-border;
+    @apply overflow-x-auto border rounded-none shadow-sm bg-report-surface border-report-border;
     /* Dark mode in HTML: dark:bg-report-surface-dark dark:border-report-border-dark */
   }
   .data-table {
@@ -227,7 +227,11 @@ Component Styles
   .report-appendix-table .col-cvss-score {
     @apply w-[95px] text-center font-semibold;
   }
-
+  .portalfuse-logo-img {
+    display: block;
+    height: 34px;
+    width: auto;
+  }
 } /* End @layer components */
 
 /* ==========================================================================

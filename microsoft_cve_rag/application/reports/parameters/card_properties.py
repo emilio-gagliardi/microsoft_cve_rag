@@ -47,6 +47,8 @@ STAT_CARD_LABELS = {
     # 6. CWE Weaknesses
     "top_cwe_id": "Top Common Weakness",
     "top_3_cwe_coverage_pct": "Top 3 CWEs Coverage",
+    "memory_bugs_count": "Memory Safety Bugs",
+    "logic_bugs_count": "Logic State Errors",
     "memory_safety_vs_logic_bugs_pct": "Memory Safety vs Logic Bugs",
     "new_cwe_types_this_qtr": "Count of newly seen CWEs",
     "spotlight_cwe_CWE-16": "CWE-16 Config Weakness",
@@ -117,13 +119,12 @@ STAT_CARD_SUBTITLES = {
     "critical_count": "Number of 'Critical' rated CVEs",
     "high_to_total_pct": "Percentage of 'High' severity CVEs",
     "most_volatile_month": "Month with most CVEs",
-    "important_count": "Number of 'Important' rated CVEs",
+    "important_count": "Number of 'High' rated CVEs",
     "low_count": "Number of 'Low' rated CVEs",
     "moderate_count": "Number of 'Moderate' rated CVEs",
     # 3. CVSS Distribution
     "p90_cvss": "90th percentile CVSS score",
     "lowest_cvss": "Minimum recorded CVSS score",
-    "highest_cvss": "Maximum recorded CVSS score",
     "score_iqr": "Middle 50% CVSS score range",
     "avg_cvss_score": "Average CVSS score",
     "score_std_dev": "CVSS score standard deviation",
@@ -159,6 +160,8 @@ STAT_CARD_SUBTITLES = {
     # 6. CWE Weaknesses
     "top_cwe_id": "CWE with highest % of total CVEs",
     "top_3_cwe_coverage_pct": "Percent of total CVEs covered by top 3 CWEs",
+    "memory_bugs_count": "Number of memory safety bugs",
+    "logic_bugs_count": "Number of logic state errors",
     "memory_safety_vs_logic_bugs_pct": "Ratio of memory safety vs logic bugs",
     "new_cwe_types_this_qtr": "Count of newly seen CWEs",
     "spotlight_cwe_CWE-16": (
@@ -306,13 +309,20 @@ STAT_CARD_SUBTITLES = {
     "data_freshness": "Timestamp of last data update",
     "rows_analysed": "Total CVE records processed",
     "null_field_pct": "Percentage of missing key data",
+    # Generic/Internal Use Only
+    "cwe_category_distribution": "CWE Category Counts",
 }
+
+# List of metric IDs to be rendered using the generic 'internal_use' card style
+GENERIC_METRICS = [
+    "cwe_category_distribution",
+]
 
 # Define base text sizes, can be overridden in specific styles
 BASE_TEXT_SIZES = {
     "label": "text-sm font-semibold leading-[1.1]",
     "value": "text-3xl md:text-4xl font-bold leading-tight",
-    "unit": "text-base font-medium ml-1 opacity-80 pl-0.5",
+    "unit": "text-base font-medium opacity-80 pl-0.5",
     "subtitle": "text-xxs leading-[1.1] text-center",
     "trend": "text-xs font-medium",
     "cwe_extra_info": "text-xxs",
@@ -439,13 +449,9 @@ CARD_STYLES = {
         ),
         "subtitle_bar_padding": "px-2 pb-2 pt-1",
         "trend_base": f"{BASE_TEXT_SIZES['trend']}",
-        "trend_up": "text-status-success dark:text-status-success-text-dark",
-        "trend_down": (
-            "text-red-500 dark:text-red-400"
-        ),  # Example, if 'down' is bad for critical count
-        "trend_neutral": (
-            "text-report-text-muted dark:text-report-text-muted-dark"
-        ),
+        "trend_up": "text-[#8f0303] dark:text-[#f87171]",
+        "trend_down": "text-status-success dark:text-status-success-text-dark",
+        "trend_neutral": "text-report-text dark:text-report-text-dark",
     },
     "critical_high_pct_card": {
         "container": (  # Neutral card, danger border
@@ -480,13 +486,9 @@ CARD_STYLES = {
         ),
         "subtitle_bar_padding": "px-2 pb-2 pt-1",
         "trend_base": f"{BASE_TEXT_SIZES['trend']}",
-        "trend_up": "text-status-success dark:text-status-success-text-dark",
-        "trend_down": (
-            "text-red-500 dark:text-red-400"
-        ),  # Example, if 'down' is bad for critical count
-        "trend_neutral": (
-            "text-report-text-muted dark:text-report-text-muted-dark"
-        ),
+        "trend_up": "text-[#8f0303] dark:text-[#f87171]",
+        "trend_down": "text-status-success dark:text-status-success-text-dark",
+        "trend_neutral": "text-report-text dark:text-report-text-dark",
     },
     "high_to_total_pct_card": {
         "container": (  # Overall card container
@@ -549,7 +551,7 @@ CARD_STYLES = {
         ),  # Usually same as container for default
         # Value, Unit, Subtitle, Trend styles
         "value": (
-            f"{BASE_TEXT_SIZES['value']} text-report-text"
+            "text-lg font-bold text-report-text"
             " dark:text-report-text-dark"
         ),
         "unit": (
@@ -561,12 +563,10 @@ CARD_STYLES = {
             " dark:text-report-text-muted-dark"
         ),
         "subtitle_bar_padding": "px-2 pb-2 pt-1",
-        "trend_base": f"{BASE_TEXT_SIZES['trend']}",
-        "trend_up": "text-status-danger dark:text-status-danger-text-dark",
-        "trend_down": "text-status-success dark:text-status-success-text-dark",
-        "trend_neutral": (
-            "text-report-text-muted dark:text-report-text-muted-dark"
-        ),
+        "trend_base": "",
+        "trend_up": "",
+        "trend_down": "",
+        "trend_neutral": "",
     },
     "avg_cvss_score_card": {
         "container": (  # Overall card container
@@ -1377,13 +1377,9 @@ CARD_STYLES = {
         ),
         "subtitle_bar_padding": "px-2 pb-2 pt-1",
         "trend_base": f"{BASE_TEXT_SIZES['trend']}",
-        "trend_up": "text-status-success dark:text-status-success-text-dark",
-        "trend_down": (
-            "text-red-500 dark:text-red-400"
-        ),  # Example, if 'down' is bad for critical count
-        "trend_neutral": (
-            "text-report-text-muted dark:text-report-text-muted-dark"
-        ),
+        "trend_up": "text-[#8f0303] dark:text-[#f87171]",
+        "trend_down": "text-brand-teal dark:text-brand-teal",
+        "trend_neutral": "text-report-text dark:text-report-text-dark",
     },
     "epss_score_gt_threshold_pct_card": {
         "container": (  # Overall card container
@@ -2214,6 +2210,86 @@ CARD_STYLES = {
             "text-report-text-muted dark:text-report-text-muted-dark"
         ),
     },
+    "memory_bugs_count_card": {
+        "container": (  # Overall card container
+            "bg-white dark:bg-report-surface-dark border border-report-border"
+            " dark:border-report-border-dark"
+        ),
+        # Title Bar specific styles
+        "title_bar_bg": "",
+        "title_bar_padding": "py-1 px-1",
+        "label_text_style": f"{BASE_TEXT_SIZES['label']}",
+        "label_text_color": "text-report-text dark:text-report-text-dark",
+        "icon_style": "w-4 h-4",
+        "icon_color": (
+            "text-report-text-muted dark:text-report-text-muted-dark"
+            " opacity-90"
+        ),
+        # Content Area specific styles (if different from overall container)
+        "content_area_bg": (
+            "bg-report-surface dark:bg-report-surface-dark"
+        ),  # Usually same as container for default
+        # Value, Unit, Subtitle, Trend styles
+        "value": (
+            f"{BASE_TEXT_SIZES['value']} text-report-text"
+            " dark:text-report-text-dark"
+        ),
+        "unit": (
+            f"{BASE_TEXT_SIZES['unit']} text-report-text-muted"
+            " dark:text-report-text-muted-dark"
+        ),
+        "subtitle": (
+            f"{BASE_TEXT_SIZES['subtitle']} text-report-text-muted"
+            " dark:text-report-text-muted-dark"
+        ),
+        "subtitle_bar_padding": "px-2 pb-2 pt-1",
+        "trend_base": f"{BASE_TEXT_SIZES['trend']}",
+        "trend_up": "text-status-danger dark:text-status-danger-text-dark",
+        "trend_down": "text-status-success dark:text-status-success-text-dark",
+        "trend_neutral": (
+            "text-report-text-muted dark:text-report-text-muted-dark"
+        ),
+    },
+    "logic_bugs_count_card": {
+        "container": (  # Overall card container
+            "bg-white dark:bg-report-surface-dark border border-report-border"
+            " dark:border-report-border-dark"
+        ),
+        # Title Bar specific styles
+        "title_bar_bg": "",
+        "title_bar_padding": "py-1 px-1",
+        "label_text_style": f"{BASE_TEXT_SIZES['label']}",
+        "label_text_color": "text-report-text dark:text-report-text-dark",
+        "icon_style": "w-4 h-4",
+        "icon_color": (
+            "text-report-text-muted dark:text-report-text-muted-dark"
+            " opacity-90"
+        ),
+        # Content Area specific styles (if different from overall container)
+        "content_area_bg": (
+            "bg-report-surface dark:bg-report-surface-dark"
+        ),  # Usually same as container for default
+        # Value, Unit, Subtitle, Trend styles
+        "value": (
+            f"{BASE_TEXT_SIZES['value']} text-report-text"
+            " dark:text-report-text-dark"
+        ),
+        "unit": (
+            f"{BASE_TEXT_SIZES['unit']} text-report-text-muted"
+            " dark:text-report-text-muted-dark"
+        ),
+        "subtitle": (
+            f"{BASE_TEXT_SIZES['subtitle']} text-report-text-muted"
+            " dark:text-report-text-muted-dark"
+        ),
+        "subtitle_bar_padding": "px-2 pb-2 pt-1",
+        "trend_base": f"{BASE_TEXT_SIZES['trend']}",
+        "trend_up": "text-status-danger dark:text-status-danger-text-dark",
+        "trend_down": "text-status-success dark:text-status-success-text-dark",
+        "trend_neutral": (
+            "text-report-text-muted dark:text-report-text-muted-dark"
+        ),
+    },
     "category_comparison_bar_style": {
         "container": (
             "bg-report-surface-light dark:bg-report-surface-dark border"
@@ -2254,7 +2330,7 @@ CARD_STYLES = {
         "label_text_color": "text-report-text dark:text-report-text-dark",
         "icon_style": "w-4 h-4",
         "icon_color": (
-            "text-report-text-muted dark:text-report-text-muted-dark"
+            ""
             " opacity-90"
         ),
         # Content Area specific styles (if different from overall container)
@@ -2348,7 +2424,7 @@ CARD_STYLES = {
             "bg-report-surface dark:bg-report-surface-dark"
         ),  # Usually same as container for default
         # Value, Unit, Subtitle, Trend styles
-        "value": f"text-1xl text-report-text dark:text-report-text-dark",
+        "value": "text-lg text-report-text dark:text-report-text-dark",
         "unit": (
             f"{BASE_TEXT_SIZES['unit']} text-report-text-muted"
             " dark:text-report-text-muted-dark"
@@ -2389,8 +2465,8 @@ CARD_STYLES = {
         "content_area_bg": "",
         # Value, Unit, Subtitle, Trend styles
         "value": (
-            f"text-2xl md:text-2xl font-bold text-report-text"
-            f" dark:text-report-text-dark"
+            "text-2xl md:text-2xl font-bold text-report-text"
+            " dark:text-report-text-dark"
         ),
         "unit": (
             f"{BASE_TEXT_SIZES['unit']} text-report-text-muted"
@@ -2725,18 +2801,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -2762,18 +2838,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -2799,18 +2875,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -2836,18 +2912,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -2873,18 +2949,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -2910,18 +2986,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -2947,18 +3023,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -2984,18 +3060,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3021,18 +3097,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3058,18 +3134,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3095,18 +3171,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3132,18 +3208,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3169,18 +3245,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3206,18 +3282,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3243,18 +3319,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3280,18 +3356,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3317,18 +3393,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3354,18 +3430,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3391,18 +3467,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3428,18 +3504,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3465,18 +3541,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3502,18 +3578,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3539,18 +3615,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3576,18 +3652,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3613,18 +3689,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3650,18 +3726,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3687,18 +3763,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3724,18 +3800,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3761,18 +3837,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3798,18 +3874,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3835,18 +3911,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3872,18 +3948,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3909,18 +3985,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3946,18 +4022,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -3983,18 +4059,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -4020,18 +4096,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -4057,18 +4133,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -4094,18 +4170,18 @@ CARD_STYLES = {
         "container": (
             "bg-report-surface dark:bg-report-surface-dark border"
             " border-report-border dark:border-report-border-dark rounded-md"
-            " p-2 flex flex-col justify-between min-h-[150px]"
+            " p-2 flex  justify-between min-h-[150px]"
         ),
         "label": (  # Added mb-1 for a bit of space below label block
-            f"text-xs text-report-text dark:text-report-text-dark"
-            f" font-semibold text-left break-words leading-[1.1]"
-            f" overflow-hidden mb-1"
+            "text-xs text-report-text dark:text-report-text-dark"
+            " font-semibold text-left break-words leading-[1.1]"
+            " overflow-hidden mb-1"
         ),
         "icon_container": (
             "ml-2 flex-shrink-0"
         ),  # Classes for the div wrapping the icon
         "icon": (  # Classes for the icon span itself
-            f"w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
+            "w-5 h-5 text-brand-blue dark:text-brand-blue-light opacity-75"
         ),
         "value_container": (
             "my-auto text-center"
@@ -4126,6 +4202,41 @@ CARD_STYLES = {
             f"{BASE_TEXT_SIZES.get('subtitle', 'text-xxs')} text-report-text-muted"
             " dark:text-report-text-muted-dark leading-[1.1]"
         ),
+    },
+    "internal_use": {
+        "container": (
+            "bg-report-surface dark:bg-report-surface-dark border"
+            " border-report-border dark:border-report-border-dark"
+        ),
+        "title_bar_bg": "",
+        "title_bar_padding": "py-1 px-1",
+        "label_text_style": (
+            f"{BASE_TEXT_SIZES['label']}"
+        ),
+        "label_text_color": (
+            "text-report-text dark:text-report-text-dark"
+        ),
+        "icon_style": "w-4 h-4",
+        "icon_color": (
+            "text-brand-blue-light dark:text-brand-blue-dark"
+        ),
+        "value_container_style": "text-left", # Align payload left
+        "payload_style": (
+            "text-xxs leading-[1em] p-[2px] overflow-auto max-h-[120px]"
+            " whitespace-pre-wrap break-all block w-full"
+            " text-report-text-muted dark:text-report-text-muted-dark"
+            " bg-gray-50 dark:bg-gray-800 rounded-sm border"
+            " border-gray-200 dark:border-gray-700"
+        ), # Specific style for the generic payload
+        "value_text_style": "", # Not used by generic, but keep key for template
+        "unit_text_style": "",   # Not used by generic
+        "subtitle_text_style": "", # Not used by generic
+        "subtitle_bar_padding": "", # Not used by generic
+        "trend_text_style": "",     # Not used by generic
+        "trend_icon_style": "",     # Not used by generic
+        "trend_text_color_up": "",  # Not used by generic
+        "trend_text_color_down": "",# Not used by generic
+        "trend_text_color_neutral": "" # Not used by generic
     },
 }
 

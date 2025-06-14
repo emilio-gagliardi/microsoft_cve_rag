@@ -7,6 +7,7 @@ module.exports = {
     './microsoft_cve_rag/application/data/templates/quarterly_deep_dive/_partials/**/*.html',
     './microsoft_cve_rag/application/static/js/**/*.js',
     './microsoft_cve_rag/application/reports/**/*.py', // Added to scan Python files for classes
+    './microsoft_cve_rag/application/reports/parameters/**/*.py',
   ],
 
   // Keep safelist if dynamic class generation is a concern

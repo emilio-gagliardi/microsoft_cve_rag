@@ -16,7 +16,7 @@
     <section id="title-page" class="bg-gradient-to-br from-report-accent via-brand-blue to-report-accent-dark text-report-text-contrast py-20 md:py-28 px-4">
         <div class="max-w-5xl mx-auto">
             <p class="text-sm font-semibold uppercase tracking-wider text-report-text-contrast/80 dark:text-report-text-contrast/90 mb-2 [text-shadow:0_0_3px_rgba(0,0,0,0.2)]">Microsoft CVE Analysis</p>
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 leading-tight [text-shadow:0_0_8px_rgba(0,0,0,0.3)]">{{ report_title }}</h1>
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 leading-tight [text-shadow:0_0_8px_rgba(0,0,0,0.3)]">{{ report_title }}</h1>
             {# Hero paragraph text size remains text-lg/text-xl as it's a heading section #}
             <p class="text-lg md:text-xl text-report-text-contrast/90 dark:text-report-text-contrast mb-6 max-w-3xl [text-shadow:0_0_3px_rgba(0,0,0,0.1)]">
                 A comprehensive analysis of Microsoft Common Vulnerabilities and Exposures (CVEs), including severity ratings, attack vectors, and impact assessments.
@@ -54,7 +54,7 @@
         {# --- Looped Analytical Sections --- #}
         {% for section_id, section_config in report_structure.looped_sections.items() %}
             {{ render_section_marker( title=section_config.heading, subtitle="Section " ~ (loop.index0 + 2), text=section_config.section_blurb | striptags | truncate(250) ) }}
-            <div id="{{ section_id }}-wrapper" class="bg-report-surface dark:bg-report-surface-dark p-6 md:p-8 rounded-lg shadow-xl border border-report-border dark:border-report-border-dark mb-12 md:mb-16
+            <div id="{{ section_id }}-wrapper" class="bg-report-surface dark:bg-report-surface-dark p-6 md:p-8 rounded-b-lg shadow-xl border border-report-border dark:border-report-border-dark mb-2 md:mb-4
                                                    dark:shadow-[0_0_20px_-8px_rgba(var(--rgb-brand-blue),0.25)] dark:hover:shadow-[0_0_30px_-8px_rgba(var(--rgb-brand-blue),0.35)] transition-shadow duration-300"> {# Simplified Glow #}
                 <section id="{{ section_id }}" class="scroll-mt-20">
                     <h2 class="text-3xl font-bold text-report-text dark:text-brand-blue-400 mb-6">{{ section_config.heading }}</h2> {# Removed text-shadow #}
@@ -80,20 +80,25 @@
                         {% endif %}
                         {% if iqr_card_data.value %}<div class="my-8 md:my-10 flex justify-center"><div class="w-full md:w-3/4 lg:w-1/2">{{ render_stat_card(iqr_card_data.value) }}</div></div>{% endif %}
                     {% endif %}
-                    <div class="flow-root my-8 md:my-10">
+                    <div class="flow-root mt-8 md:mt-10 mb-2 md:mb-4">
                         {% for chart_def in section_config.get('charts', []) %}{% set chart_py_key = chart_def.id %}{% set chart_html_id = "chart-" + chart_py_key.replace('_', '-') %}{% set chart_context = charts.get(chart_py_key) %}{% if chart_context %}{% set chart_width_class = chart_def.get('width_class', 'w-full') %}{% set chart_float_class = chart_def.get('float_class', '') %}{% set chart_margin_class = 'mb-6 md:mb-8' %}{% if chart_float_class == 'md:float-left' %}{% set chart_margin_class = chart_margin_class + ' md:mr-6 lg:mr-8' %}{% endif %}{% if chart_float_class == 'md:float-right' %}{% set chart_margin_class = chart_margin_class + ' md:ml-6 lg:ml-8' %}{% endif %}{% set effective_chart_classes = chart_width_class + " " + chart_float_class + " " + chart_margin_class %}{% if not chart_float_class and chart_width_class == 'w-full' %}{% set effective_chart_classes = effective_chart_classes + ' clear-both' %}{% endif %}
                                 <div class="{{ effective_chart_classes }}">{{ render_chart(chart_html_id, chart_context.caption) }}
                                     {% set chart_insight_key = section_id + '_chart_insight_' + chart_py_key %}{% if llm_insights.get(chart_insight_key) %}
                                         <div class="mt-3 p-3 rounded border text-sm bg-report-light-accent dark:bg-report-light-accent-dark border-report-border dark:border-report-border-dark/50">
-                                            <h5 class="font-semibold text-report-text dark:text-report-text-dark mb-1 text-xs">Chart Insight</h5>{# Removed teal color/shadow #}
+                                            <h5 class="font-semibold text-report-text dark:text-report-text-dark mb-1 text-xs">Chart Insight</h5>
                                             <p class="text-report-text-muted dark:text-report-text-muted-dark">{{ llm_insights[chart_insight_key] | safe }}</p>
                                         </div>{% endif %}</div>{% endif %}{% endfor %}
                         {% for callout_conf in section_config.get('callouts_config', []) %}{% set callout_key_suffix = callout_conf.key_suffix %}{% set callout_content_key = section_id + '_callout_' + callout_key_suffix %}{% set callout_content = llm_insights.get(callout_content_key) %}{% if callout_content %}
-                                {{ render_callout( content=callout_content | safe, position=callout_conf.get('position', 'left'), title=callout_conf.get('title') ) }}
-                            {% endif %}{% endfor %}</div>
+                            {{ render_callout( content=callout_content | safe, position=callout_conf.get('position', 'left'), title=callout_conf.get('title') ) }}
+                        {% endif %}{% endfor %}
+
+                        {% for table_def in section_config.get('tables', []) %}{% set tbl_id = table_def.id %}{% set tbl_ctx = tables.get(tbl_id) %}{% if tbl_ctx %}
+                            <div class="my-6 clear-both">{{ render_data_table(tbl_ctx.html, caption=tbl_ctx.caption) }}</div>
+                        {% endif %}{% endfor %}
+                    </div>
                     {% set summary_key = section_id + '_summary' %}{% if llm_insights.get(summary_key) %}
-                         <div class="mt-10 md:mt-12 pt-6 border-t border-report-border dark:border-report-border-dark clear-both">
-                             <h4 class="text-2xl font-semibold mb-4 text-report-text dark:text-report-text-dark">Section Summary</h4>
+                         <div class="mt-1 md:mt-2 pt-1 border-report-border dark:border-report-border-dark clear-both">
+                             <h4 class="text-2xl font-semibold mb-4 text-report-text dark:text-report-text-dark">Summary</h4>
                              {# BODY FONT SIZE REDUCED HERE #}
                              <div class="prose dark:prose-invert max-w-none text-base text-report-text dark:text-report-text-dark">
                                  {{ llm_insights[summary_key] | safe }}
@@ -106,9 +111,8 @@
             {% set concl_id = 'report_conclusion' %}
             {% set concl_config = report_structure.explicit_sections[concl_id] %}
             <section id="{{ concl_id }}" class="mb-16 md:mb-24 scroll-mt-20">
-                <h2 class="text-3xl font-bold text-report-text dark:text-report-text-dark mb-6">{{ concl_config.heading }}</h2>
                 <div class="bg-report-surface dark:bg-report-surface-dark p-6 rounded-lg shadow-xl border border-report-border dark:border-report-border-dark">
-                    {# BODY FONT SIZE REDUCED HERE #}
+                    <h2 class="text-3xl font-bold text-report-text dark:text-report-text-dark mb-6">{{ concl_config.heading }}</h2>
                     <div class="prose dark:prose-invert max-w-none text-base text-report-text dark:text-report-text-dark">
                         {{ llm_insights.get('report_conclusion_narrative') | default('Conclusion content pending.') | safe }}
                     </div>
@@ -117,7 +121,7 @@
 
             {% set appendix_id = 'appendix' %}
             {% set appendix_config = report_structure.explicit_sections[appendix_id] %}
-            <section id="{{ appendix_id }}" class="mb-16 md:mb-24 scroll-mt-20">
+            <section id="{{ appendix_id }}" class="mb-4 md:mb-8 scroll-mt-20">
                 <h2 class="text-3xl font-bold text-report-text dark:text-report-text-dark mb-6">{{ appendix_config.heading }}</h2>
                 <div class="space-y-12">
                     {% if appendix_tables %}{% for table_id, table_data_dict in appendix_tables.items() %}
@@ -126,29 +130,23 @@
                             </div>{% endfor %}{% else %}<p class="text-report-text-muted dark:text-report-text-muted-dark">Appendix tables not available.</p>{% endif %}
                     <div class="bg-report-surface dark:bg-report-surface-dark p-6 rounded-lg shadow-xl border border-report-border dark:border-report-border-dark">
                         <h3 class="text-xl font-semibold text-report-text dark:text-report-text-dark mb-4">A. Data Collection Methodology</h3>
-                        {# BODY FONT SIZE REDUCED HERE for paragraphs, prose handles overall #}
                         <div class="prose dark:prose-invert max-w-none text-base text-report-text dark:text-report-text-dark">
                             <p>The data used to generate this report was collected from the National Vulnerability Database (NVD) and the Microsoft Security Response Center (MSRC).</p>
                             <p>The NVD is a repository of information about vulnerabilities in software products. It is a collaborative effort between the U.S. government and the private sector to provide a single source of information about vulnerabilities in software products.</p>
-                            <p class="text-sm"> {# This specific paragraph was already text-sm, keeping it #}
-                                Information regarding Common Weakness Enumeration (CWE) identifiers associated with CVEs is primarily drawn from data provided by the National Vulnerability Database (NVD). For detailed definitions, descriptions, and hierarchical categorizations of these CWEs, this report refers to the official MITRE CWE™ list and classifications available at <a href="https://cwe.mitre.org" target="_blank" class="text-report-accent dark:text-report-accent-dark hover:underline">cwe.mitre.org</a>.
-                            </p>
+                            <p>Information regarding Common Weakness Enumeration (CWE) identifiers associated with CVEs is primarily drawn from data provided by the National Vulnerability Database (NVD). For detailed definitions, descriptions, and hierarchical categorizations of these CWEs, this report refers to the official MITRE CWE™ list and classifications available at <a href="https://cwe.mitre.org" target="_blank" class="text-report-accent dark:text-report-accent-dark hover:underline">cwe.mitre.org</a>.</p>
                         </div>
                     </div>
                     <div class="bg-report-surface dark:bg-report-surface-dark p-6 rounded-lg shadow-xl border border-report-border dark:border-report-border-dark">
                         <h3 class="text-xl font-semibold text-report-text dark:text-report-text-dark mb-4">B. Statistics Notes</h3>
-                        {# WRAP ENTIRE STATISTICS NOTES CONTENT IN PROSE for consistent typography #}
                         <div class="prose dark:prose-invert max-w-none text-base text-report-text dark:text-report-text-dark">
                             <p>Several assumptions were used in order to complete the calculations of various metrics presented in this report.</p>
                             <p>For example, the CVSS score of a CVE is calculated based on the CVSS v3.1 formula, which takes into account the base score, temporal score, and environmental score. The base score is calculated based on the severity of the vulnerability, the attack vector, the attack complexity, the privileges required, the user interaction required, and the scope of the vulnerability. The temporal score is calculated based on the confidentiality, integrity, and availability impact of the vulnerability. The environmental score is calculated based on the confidentiality, integrity, and availability impact of the vulnerability, as well as the attack vector, the attack complexity, the privileges required, the user interaction required, and the scope of the vulnerability.</p>
                             <p>The metric "Worst Case CVEs" was based on a weighted average with the following properties:</p>
-                            {# The <br> here is probably not ideal, prose will handle spacing #}
 
-                            <div> {# Removed text-report-text-muted from this div, prose handles it #}
+                            <div>
                                 <p>This risk score model is designed to prioritize vulnerabilities by emphasizing their exploitability characteristics over sheer severity. The weights assigned to each CVSS metric component in the formula are derived from a qualitative analysis considering the following key factors:</p>
-                                <div class="md:flex md:space-x-6 mt-3 mb-3 not-prose"> {# Add not-prose to allow custom layout here #}
+                                <div class="md:flex md:space-x-6 mt-3 mb-3 not-prose">
                                     <div class="md:w-1/2">
-                                        {# Use h5 or strong for sub-sub-headings within prose if needed, or keep as h4 if appropriate #}
                                         <h5 class="font-semibold text-sm text-report-text dark:text-report-text-dark mb-1">Weight Derivation Factors:</h5>
                                         <ol class="list-decimal list-inside space-y-1 text-sm">
                                             <li>Analysis of exploit prevalence and historical data on vulnerabilities exploited in the wild.</li>
@@ -182,7 +180,6 @@
                                 <p class="text-sm mt-2">This weighted average approach allows for a nuanced assessment of risk, focusing on the practical aspects of how a vulnerability might be leveraged.</p>
                             </div>
 
-                            {# Each sub-section of Statistics Notes now starts with an h4 for better structure within prose #}
                             <div class="mt-6 pt-4 border-t border-gray-300 dark:border-gray-600">
                                 <h4 class="text-lg font-semibold text-report-text dark:text-report-text-dark mb-2">Understanding Boxplots and Outlier Detection</h4>
                                 <p class="mb-2">
@@ -214,8 +211,8 @@
                                 <p class="mb-2">
                                     For consistency and to ensure a conservative (worst-case) perspective in this report, when multiple CVSS scores are present for a single CVE, the <span class="font-semibold">highest available CVSS Base Score</span> is selected for all analyses and metric calculations. The full vector string associated with this highest score is also adopted.
                                 </p>
-                                <p class="font-semibold mb-1">Example:</p> {# Removed text-sm as prose will handle sizing #}
-                                <div class="not-prose bg-gray-100 dark:bg-gray-700 p-3 rounded-md text-sm text-report-text-muted dark:text-report-text-muted-dark"> {# Add not-prose to control this block's styling separately #}
+                                <p class="font-semibold mb-1">Example:</p>
+                                <div class="not-prose bg-gray-100 dark:bg-gray-700 p-3 rounded-md text-sm text-report-text-muted dark:text-report-text-muted-dark">
                                     <p>Consider a hypothetical CVE, <code class="text-xs">CVE-2024-ABCDE</code>, with the following CVSS data provided by different authorities:</p>
                                     <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
                                         <li><span class="font-medium">NVD (NIST) Assessment:</span> CVSS Base Score <code class="text-xs">7.8</code> (Vector: <code class="text-xs">AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H</code>)</li>
@@ -264,11 +261,11 @@
                                     This categorization aids in strategic discussions about mitigation efforts and common pitfalls in software development.
                                 </p>
                             </div>
-                        </div> {# End prose wrapper for Statistics Notes #}
+                        </div> <!-- End prose wrapper for Statistics Notes -->
                     </div>
                 </div>
             </section>
         </div>
-    </div> {# End Main Content Wrapper #}
+    </div> <!-- End Main Content Wrapper -->
 
 {% endblock %}

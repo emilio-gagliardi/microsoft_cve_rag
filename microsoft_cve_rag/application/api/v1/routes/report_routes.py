@@ -185,6 +185,7 @@ async def get_jinja_environment() -> JinjaEnvironment:
         # Optional: Add global functions or filters if needed later
         # env.globals['now'] = datetime.utcnow
         # env.filters['format_date'] = lambda d: d.strftime('%Y-%m-%d')
+        env.add_extension('jinja2.ext.debug')
         return env
     except Exception as e:
         logger.error(f"Failed to initialize Jinja2 environment: {e}")
@@ -306,6 +307,7 @@ def get_report_generator(
 def get_metrics_service() -> DuckDBMetricsService:
     """
     FastAPI dependency function to get a cached DuckDBMetricsService instance.
+
 
     NOTE: Does not handle graceful shutdown (calling service.close()).
     """
@@ -723,6 +725,7 @@ async def generate_quarterly_report_prod(
     generator: QuarterlyDeepDiveReportGenerator = Depends(
         get_report_generator
     ),
+    metrics_service: DuckDBMetricsService = Depends(get_metrics_service),
     # Inject upload services here if needed for step 4
     # sftp_service = Depends(get_sftp_service),
     # azure_service = Depends(get_azure_service),
@@ -742,7 +745,9 @@ async def generate_quarterly_report_prod(
             "metadata.published": {
                 "$gte": request.start_date,
                 "$lte": request.end_date,
-            }
+            },
+            "metadata.collection": "msrc_security_update",
+            "metadata.adp_attack_complexity": { "$exists": True },
         }
         projection = {
             "_id": 0,
@@ -758,6 +763,11 @@ async def generate_quarterly_report_prod(
             "metadata_seperator": 0,
             "class_name": 0,
         }
+        # functools.partial creates a new function (bound_func) by pre-filling some arguments
+        # of an existing function (doc_service.query_documents).
+        # This is useful here because loop.run_in_executor expects a callable
+        # that it can invoke, and partial helps adapt query_documents to that interface
+        # by fixing its 'query' and 'projection' parameters.
         bound_func = partial(
             doc_service.query_documents, query=query, projection=projection
         )
@@ -770,7 +780,7 @@ async def generate_quarterly_report_prod(
             )
             unflattened_df = pd.DataFrame()
         else:
-            unflattened_df = pd.DataFrame(report_data_list)
+            unflattened_df = pd.DataFrame(report_data_list['results'])
             logger.info(
                 f"Fetched {len(unflattened_df)} records from DocumentService."
             )
@@ -789,20 +799,12 @@ async def generate_quarterly_report_prod(
 
     # --- 3. Generate Report Assets ---
     try:
-        # Run synchronously. Add BackgroundTasks if generation is long.
-        generated_assets: DeepDiveAssets = await loop.run_in_executor(
-     None,
-     lambda: generator.generate_report(
-         report_data=unflattened_df,
-         config=final_config,
-         start_date=request.start_date,
-         end_date=request.end_date,
-     ),
- )
+        generated_assets: DeepDiveAssets = await generator.generate_report(
             report_data=unflattened_df,
             config=final_config,
             start_date=request.start_date,
             end_date=request.end_date,
+            metrics_service=metrics_service,
         )
         logger.info(
             "Report generation complete. Assets in:"

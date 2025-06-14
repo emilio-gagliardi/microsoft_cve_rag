@@ -82,7 +82,7 @@
             {% endfor %}
         </div>
     </div>
-    {% elif layout == 'spotlight_cwe_default_style' %}
+{% elif layout == 'spotlight_cwe_default_style' %}
     <div class="stat-card {{ s.get('container', 'bg-report-surface dark:bg-report-surface-dark border border-report-border dark:border-report-border-dark rounded-lg p-4 shadow-sm text-center flex flex-col justify-between min-h-[150px]') }}">
         {# Top part: Label (can be multi-line) and optional Icon #}
         <div class="flex items-start justify-between w-full"> {# items-start to align icon with first line of text #}
@@ -124,54 +124,69 @@
             {% endif %}
         </div>
     </div>
+
+{% elif layout == 'internal_use' %}
+    <div class="stat-card {{ s.get('container') }} w-[185px] min-h-[150px] flex flex-col">
+        <div class="stat-card-title-bar flex justify-between items-center w-full
+                    {{ s.get('title_bar_bg') }}
+                    {{ s.get('title_bar_padding', 'py-1 px-1') }}">
+            <span class="{{ s.get('label_text_style') }} {{ s.get('label_text_color') }}">
+                {{ data.get('label', 'Metric') }}
+            </span>
+        </div>
+        <div class="flex-grow {{ s.get('value_container_style', 'text-left') }} {{ s.get('content_area_padding', 'p-1') }}">
+            <pre class="{{ s.get('payload_style') }}">{{ data.get('payload') | safe }}</pre>
+        </div>
+    </div>
+
 {# --- ELSE: Standard/Default Card Layout (used by most simple cards) --- #}
 {% else %}
-<div class="stat-card {{ s.get('container') }} w-[185px] h-[155px]">
+    <div class="stat-card {{ s.get('container') }} w-[185px] h-[155px]">
 
-    {# Part 1: Title Bar - Spans full width. Gets its OWN background and PADDING from Python styles. #}
-    <div class="stat-card-title-bar flex justify-between items-center w-full
-                {{ s.get('title_bar_bg') }}
-                {{ s.get('title_bar_padding') }}"> {# Minimal padding like px-1 or px-2 #}
-        <span class="{{ s.get('label_text_style') }} {{ s.get('label_text_color') }}">
-            {{ data.get('label', 'Metric') }}
-        </span>
-        {% if data.get('icon_svg') %}
-            <span class="inline-block {{ s.get('icon_style') }} {{ s.get('icon_color') }}">
-                {{ data.get('icon_svg') | safe }}
+        {# Part 1: Title Bar - Spans full width. Gets its OWN background and PADDING from Python styles. #}
+        <div class="stat-card-title-bar flex justify-between items-center w-full
+                    {{ s.get('title_bar_bg') }}
+                    {{ s.get('title_bar_padding') }}"> {# Minimal padding like px-1 or px-2 #}
+            <span class="{{ s.get('label_text_style') }} {{ s.get('label_text_color') }}">
+                {{ data.get('label', 'Metric') }}
             </span>
-        {% endif %}
-    </div>
-
-    {# Part 2: Main Content Area (Value, Unit, Trend) - Gets its OWN background and PADDING #}
-    <div class="flex-grow flex flex-row justify-center items-baseline text-center
-                {{ s.get('content_area_bg') }}
-                {{ s.get('content_area_padding') }}"> {# Padding for the content area #}
-        <div class="flex justify-center items-baseline">
-            <span class="{{ s.get('value') }}">{{ data.get('value', 'N/A') }}</span>
-            {% if data.get('unit') %}
-                <span class="{{ s.get('unit') }}">{{ data.get('unit') }}</span>
+            {% if data.get('icon_svg') %}
+                <span class="inline-block {{ s.get('icon_style') }} {{ s.get('icon_color') }}">
+                    {{ data.get('icon_svg') | safe }}
+                </span>
             {% endif %}
         </div>
-        {% if data.get('trend_value_display') is not none and data.get('trend_direction') is not none %}
-            {% set trend_color_class = s.get('trend_neutral', 'text-report-text-muted dark:text-report-text-muted-dark') %}
-            {% if data.trend_direction == 'up' %}{% set trend_color_class = s.get('trend_up', 'text-status-danger dark:text-status-danger-text-dark') %}{% endif %}
-            {% if data.trend_direction == 'down' %}{% set trend_color_class = s.get('trend_down', 'text-status-success dark:text-status-success-text-dark') %}{% endif %}
-            <span class="{{ s.get('trend_base', 'text-xs font-medium mt-1') }} {{ trend_color_class }} flex items-center">
-                {% if data.trend_direction == 'up' %}<svg class="inline-block w-3 h-3 mr-0.5" fill="currentColor" viewBox="0 0 384 512"><path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2l105.4 105.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></svg>
-                {% elif data.trend_direction == 'down' %}<svg class="inline-block w-3 h-3 mr-0.5" fill="currentColor" viewBox="0 0 384 512"><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5-12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8V64c0-17.7-14.3-32-32-32s-32 14.3-32 32v306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
-                {% else %}<span class="inline-block w-3 h-3 text-center mr-0.5">~</span>{% endif %}
-                <span>{{ data.trend_value_display }}</span>
-            </span>
-        {% endif %}
-    </div>
 
-    {# Part 3: Subtitle Bar - At the bottom, full width. Gets PADDING from Python styles. NO separate background. #}
-    <div class="stat-card-subtitle-bar w-full text-center mt-auto
-                {{ s.get('subtitle_bar_padding') }}">
-        <p class="{{ s.get('subtitle') }}">
-            {% if data.get('subtitle') %}{{ data.subtitle }}{% else %} {% endif %}
-        </p>
+        {# Part 2: Main Content Area (Value, Unit, Trend) - Gets its OWN background and PADDING #}
+        <div class="flex-grow flex justify-center items-center text-center
+                    {{ s.get('content_area_bg') }}
+                    {{ s.get('content_area_padding') }}"> {# Padding for the content area #}
+            <div class="flex justify-center items-center">
+                <span class="{{ s.get('value') }}">{{ data.get('value', 'N/A') }}</span>
+                {% if data.get('unit') %}
+                    <span class="{{ s.get('unit') }}">{{ data.get('unit') }}</span>
+                {% endif %}
+            </div>
+            {% if data.get('trend_value_display') is not none and data.get('trend_direction') is not none %}
+                {% set trend_color_class = s.get('trend_neutral', 'text-report-text-muted dark:text-report-text-muted-dark') %}
+                {% if data.trend_direction == 'up' %}{% set trend_color_class = s.get('trend_up', 'text-status-danger dark:text-status-danger-text-dark') %}{% endif %}
+                {% if data.trend_direction == 'down' %}{% set trend_color_class = s.get('trend_down', 'text-status-success dark:text-status-success-text-dark') %}{% endif %}
+                <span class="{{ s.get('trend_base', 'text-xs font-medium mt-1') }} {{ trend_color_class }} flex items-center">
+                    {% if data.trend_direction == 'up' %}<svg class="inline-block w-3 h-3 ml-0.5" fill="currentColor" viewBox="0 0 384 512"><path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2l105.4 105.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></svg>
+                    {% elif data.trend_direction == 'down' %}<svg class="inline-block w-3 h-3 ml-0.5" fill="currentColor" viewBox="0 0 384 512"><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5-12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8V64c0-17.7-14.3-32-32-32s-32 14.3-32 32v306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    {% endif %}
+                    <span>{{ data.trend_value_display }}</span>
+                </span>
+            {% endif %}
+        </div>
+
+        {# Part 3: Subtitle Bar - At the bottom, full width. Gets PADDING from Python styles. NO separate background. #}
+        <div class="stat-card-subtitle-bar w-full text-center mt-auto
+                    {{ s.get('subtitle_bar_padding') }}">
+            <p class="{{ s.get('subtitle') }}">
+                {% if data.get('subtitle') %}{{ data.subtitle }}{% else %} {% endif %}
+            </p>
+        </div>
     </div>
-</div>
   {% endif %}
 {% endmacro %}
